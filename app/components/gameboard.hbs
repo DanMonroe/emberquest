@@ -1,1 +1,15 @@
-{{yield}}
+<div class="game">
+  <div class="game-container">
+    <div class="header">
+      <h2>EmberQuest</h2>
+      <div class="game-controls">
+      </div>
+    </div>
+    <div class="board"
+      {{did-insert this.setup}}
+      {{will-destroy this.teardown}}
+    >
+      <figure id="gameContainer" />
+    </div>
+  </div>
+</div>

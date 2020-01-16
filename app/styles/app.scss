@@ -1,0 +1,99 @@
+body {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: #22454f url(/images/backgrounds/portal-background.png);
+}
+
+.game {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  color: #efefef;
+  .game-container {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
+  .hexwrapper {
+    height: 100vh;
+    background: rgba(0,0,0,.7);
+    //box-shadow: 0px 0px 25px 25px rgba(0,0,0, 1);
+  }
+  .gameboard {
+    //z-index: 100;
+  }
+}
+
+#gameContainer {
+  margin: 0;
+  padding: 0;
+}
+.header {
+  margin: 20px;
+  height: 28px;
+}
+.board {
+  height: 100vh;
+  width: 100vw;
+}
+
+.game-controls {
+  position: absolute;
+  right: 2.5%;
+  top: 1%;
+  z-index: 2;
+  .btn {
+    width: 40px;
+    height: 40px;
+    background: url(/images/menu_icons.png) no-repeat;
+    position: relative;
+    background-size: cover;
+    -webkit-transition: 0.5s ease;
+    transition: 0.5s ease;
+    -webkit-box-shadow: 2px 2px 4px black;
+    box-shadow: 2px 2px 4px black;
+    border: 0;
+    border-radius: 6px;
+    filter: none;
+    margin-left: 10px;
+
+    &:hover {
+      -webkit-box-shadow: 0 0 6px #bbf;
+      box-shadow: 0 0 6px #bbf;
+    }
+    &:focus {
+      outline: none;
+    }
+    //&:not(:first-child) {
+    //  margin-left: 30px;
+    //}
+
+    &.inventory {
+      background-position: -40px 0px
+    }
+    &.trophy {
+      background-position: -120px 0px;
+    }
+    &.gems {
+      background-position: -240px 0px;
+    }
+    &.settings {
+      background-position: -200px 0px;
+    }
+  }
+  .tooltip {
+    background-color: #000;
+    color: #fff;
+    font-size: 1.1em;
+    z-index: 150;
+    .tooltip-arrow {
+      display: none;
+    }
+  }
+}
