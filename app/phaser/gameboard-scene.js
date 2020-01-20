@@ -1,8 +1,6 @@
 import Phaser from 'phaser';
-import { createBoard, getHexagonGrid } from '../utils/game'
+import { createBoard, getHexagonGrid, createPlayer, playerMoveTo } from '../utils/game'
 import rexBoardPlugin from 'phaser3-rex-plugins/plugins/board-plugin'
-
-
 
 export class GameboardScene extends Phaser.Scene {
 
@@ -12,17 +10,17 @@ export class GameboardScene extends Phaser.Scene {
     })
   }
 
-  DIRECTIONS = {
-    SE: 0,
-    S: 1,
-    SW: 2,
-    NW: 3,
-    N: 4,
-    NE: 5
-  }
+  // DIRECTIONS = {
+  //   SE: 0,
+  //   S: 1,
+  //   SW: 2,
+  //   NW: 3,
+  //   N: 4,
+  //   NE: 5
+  // }
 
-  playerX = 10;
-  playerY = 12;
+  playerX = 7;
+  playerY = 3;
   playerMoveTo = undefined;
 
   // config = {
@@ -70,7 +68,8 @@ export class GameboardScene extends Phaser.Scene {
   // backup_preload() {
     console.log('preload');
 
-    this.load.image('map', '/images/maps/landsea-min.png');
+    this.load.image('map', '/images/maps/testhex1.png');
+    // this.load.image('map', '/images/maps/landsea-min.png');
     this.load.image('player', '/images/agents/pirate.png');
 
     // this.load.setBaseURL('http://labs.phaser.io');
@@ -87,109 +86,77 @@ export class GameboardScene extends Phaser.Scene {
   // }
   // backup_create() {
 
-    console.log('create');
-    this.map = this.add.image(900, 918, 'map');
+    console.log('create gameboard scene');
+    if (false || this.showTheMap) {
 
-    // don't go out of the map
-    this.physics.world.bounds.width = this.map.width;
-    this.physics.world.bounds.height = this.map.height;
+      this.map = this.add.image(0, 0, 'map');
+      this.map.setOrigin(0,0);
 
-    this.player = this.physics.add.sprite(400, 250, 'player');
+      // don't go out of the map
+      this.physics.world.bounds.width = this.map.width;
+      this.physics.world.bounds.height = this.map.height;
 
-    this.player.setCollideWorldBounds(true);
+      this.board = createBoard(this, {
+        grid: getHexagonGrid(this),
+        width: 12,
+        height: 12
+      });
 
-    // set bounds so the camera won't go outside the game world
-    this.cameras.main.setBounds(0, 0, this.map.width, this.map.height);
-    // make the camera follow the player
-    this.cameras.main.startFollow(this.player);
+      this.player = createPlayer(this, this.playerX, this.playerY);
+      // this.player = new Player(this, this.playerX, this.playerY, 'player');
+
+      this.board.addChess(this.player, this.playerX, this.playerY, 0, true);
+
+      // set bounds so the camera won't go outside the game world
+      this.cameras.main.setBounds(0, 0, this.map.width, this.map.height);
+      // make the camera follow the player
+      this.cameras.main.startFollow(this.player);
+    } else {
+      this.board = createBoard(this, {
+        grid: getHexagonGrid(this),
+        width: 12,
+        height: 12
+      });
+
+      this.player = createPlayer(this, this.playerX, this.playerY);
+      // this.player = new Player(this, this.playerX, this.playerY, 'player');
 
 
-    let board = createBoard(this, {
-      // let board = this.createBoard(this, {
-      grid: getHexagonGrid(this),
-      // grid: this.getHexagonGrid(this),
-      // grid: getQuadGrid(this),
-      width: 34,
-      height: 26,
-    })
+      this.board.addChess(this.player, this.playerX, this.playerY, 0, true);
 
-    board.addChess(this.player, this.playerX, this.playerY, 0, true);
+    }
 
-    this.playerMoveTo = this.rexBoard.add.moveTo(this.player, {
-      speed: 200,
-      // rotateToTarget: false,
-      // occupiedTest: false,
-      // blockerTest: false,
-      // sneak: false,
-    })
-    console.log('this.playerMoveTo', this.playerMoveTo);
-
-    // this.mapService = this.mapService;
-
-    console.log(this);
+    // this.board = createBoard(this, {
+    //   grid: getHexagonGrid(this),
+    //   width: 12,
+    //   height: 12,
+    //   player: this.player,
+    //   playerStartX: 7,
+    //   playerStartY: 3,
+    // })
 
     // both the arrow keys and the Q W S A D E keys
     this.cursors = {...this.input.keyboard.createCursorKeys(), ...this.input.keyboard.addKeys('Q,W,S,A,D,E')};
 
+    this.boardExperiments();
   }
+
+  boardExperiments() {
+
+    // click end tileXY
+    this.board.on('tiledown',  (pointer, tileXY) => {
+      console.log('tiledown - pointer', pointer, 'tileXY', tileXY);
+      this.player.moveToTileXY(tileXY);
+    });
+  }
+
+
   update() {
-  //
-  // }
-  // backup_update() {
-    if (!this.playerMoveTo.isRunning) {
 
-      if (this.cursors.D.isDown) {
-        this.playerX += 1;
-        this.playerY += 1;
-        this.playerMoveTo.moveToward(this.DIRECTIONS.SE);
-        // this.playerMoveTo.moveTo(this.playerX, this.playerY);
-      } else if (this.cursors.S.isDown) {
-        this.playerY += 1;
-        this.playerMoveTo.moveToward(this.DIRECTIONS.S);
-      } else if (this.cursors.A.isDown) {
-        this.playerX -= 1;
-        this.playerY += 1;
-        this.playerMoveTo.moveToward(this.DIRECTIONS.SW);
-      } else if (this.cursors.Q.isDown) {
-        this.playerX -= 1;
-        this.playerY -= 1;
-        this.playerMoveTo.moveToward(this.DIRECTIONS.NW);
-      } else if (this.cursors.W.isDown) {
-        this.playerY -= 1;
-        this.playerMoveTo.moveToward(this.DIRECTIONS.N);
-      } else if (this.cursors.E.isDown) {
-        this.playerX += 1;
-        this.playerY -= 1;
-        this.playerMoveTo.moveToward(this.DIRECTIONS.NE);
-      }
-    } // is running
+    this.player.moveTo(this.cursors);
 
-    // const playerSpeed = 300;
-    // const playerSpeed = 120;
+    // playerMoveTo(this.cursors, this.player.playerMoveTo);
 
-    // this.player.setVelocity(0);
-    //
-    // if (this.cursors.left.isDown || this.cursors.A.isDown) {
-    //   // this.mapService.test('West');
-    //   // this.mapService.test('West');
-    //   this.player.setVelocityX(-playerSpeed);
-    //   // debugger;
-    //
-    // } else if (this.cursors.right.isDown || this.cursors.D.isDown) {
-    //
-    //   this.player.setVelocityX(playerSpeed);
-    //
-    // }
-    //
-    // if (this.cursors.up.isDown || this.cursors.W.isDown) {
-    //
-    //   this.player.setVelocityY(-playerSpeed);
-    //
-    // } else if (this.cursors.down.isDown || this.cursors.S.isDown) {
-    //
-    //   this.player.setVelocityY(playerSpeed);
-    //
-    // }
 
   }
 }

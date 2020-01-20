@@ -10,10 +10,8 @@ export default class GameboardComponent extends Component {
   @action
   setup(element) {
     console.log('setup', element, element.clientHeight, element.clientWidth);
-    // debugger;
-    const phaserGame = new PhaserGame();
-    phaserGame.createNewPhaserGame(element.clientHeight - 68, element.clientWidth);
-    // this.phaser.createNewPhaserGame(element.clientHeight - 68, element.clientWidth);
+
+    new PhaserGame(element.clientHeight - 68, element.clientWidth);
   }
 
   @action

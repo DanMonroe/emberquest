@@ -28,6 +28,10 @@ export default class PhaserGame {
 
   game = undefined;
 
+  constructor(height, width) {
+    this.createNewPhaserGame(height, width);
+  }
+
   createNewPhaserGame(height, width) {
 
     this.config.height = height;
