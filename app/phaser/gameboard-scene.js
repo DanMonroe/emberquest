@@ -121,6 +121,12 @@ export class GameboardScene extends Phaser.Scene {
       this.player = createPlayer(this, this.playerX, this.playerY);
       // this.player = new Player(this, this.playerX, this.playerY, 'player');
 
+      new Blocker(this.board, {x:5,y:5});
+      // add some
+      // blockers
+      for (var i = 0; i < 10; i++) {
+        new Blocker(this.board);
+      }
 
       this.board.addChess(this.player, this.playerX, this.playerY, 0, true);
 
@@ -158,5 +164,17 @@ export class GameboardScene extends Phaser.Scene {
     // playerMoveTo(this.cursors, this.player.playerMoveTo);
 
 
+  }
+}
+
+class Blocker extends RexPlugins.Board.Shape {
+  constructor(board, tileXY) {
+    var scene = board.scene;
+    if (tileXY === undefined) {
+      tileXY = board.getRandomEmptyTileXY(0);
+    }
+    // Shape(board, tileX, tileY, tileZ, fillColor, fillAlpha, addToBoard)
+    super(board, tileXY.x, tileXY.y, 0, 0x555555);
+    scene.add.existing(this);
   }
 }
