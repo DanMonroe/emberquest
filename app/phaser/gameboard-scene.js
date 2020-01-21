@@ -130,6 +130,7 @@ export class GameboardScene extends Phaser.Scene {
 
       this.board.addChess(this.player, this.playerX, this.playerY, 0, true);
 
+      this.player.showMoveableArea();
     }
 
     // this.board = createBoard(this, {

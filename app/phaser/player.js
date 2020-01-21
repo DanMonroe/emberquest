@@ -20,6 +20,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       // blockerTest: false,
       // sneak: false,
     });
+    this.moveToObject.on('complete', this.moveToComplete);
 
     // add behaviors
     // this.moveTo = scene.rexBoard.add.moveTo(this);
@@ -30,7 +31,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
     // private members
     // used in showMoveableArea
-    this._movingPoints = 5;   // this is sight/movement Range
+    this._movingPoints = 3;   // this is sight/movement Range
     this._markers = [];       // array of possible movement hexes
 
   }
@@ -39,20 +40,32 @@ export default class Player extends Phaser.GameObjects.Sprite {
   moveTo(cursors) {
 
     if (!this.moveToObject.isRunning) {
+      console.log('cursors', cursors);
       if (cursors.D.isDown) {
         this.moveToObject.moveToward(Constants.DIRECTIONS.SE);
+        // this.showMoveableArea();
       } else if (cursors.S.isDown) {
         this.moveToObject.moveToward(Constants.DIRECTIONS.S);
+        // this.showMoveableArea();
       } else if (cursors.A.isDown) {
         this.moveToObject.moveToward(Constants.DIRECTIONS.SW);
+        // this.showMoveableArea();
       } else if (cursors.Q.isDown) {
         this.moveToObject.moveToward(Constants.DIRECTIONS.NW);
+        // this.showMoveableArea();
       } else if (cursors.W.isDown) {
         this.moveToObject.moveToward(Constants.DIRECTIONS.N);
+        // this.showMoveableArea();
       } else if (cursors.E.isDown) {
         this.moveToObject.moveToward(Constants.DIRECTIONS.NE);
+        // this.showMoveableArea();
       }
     }
+  }
+
+  moveToComplete(moveTo, gameObject){
+    console.log('moveToComplete', moveTo, gameObject);
+    moveTo.showMoveableArea();
   }
 
   moveToTileXY = (endTileXY) => {
@@ -70,6 +83,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
   moveAlongPath = (path) => {
     if (path.length === 0) {
+      this.showMoveableArea();
       return;
     }
 
@@ -101,6 +115,27 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this._markers.length = 0;
     return this;
   }
+
+  showMoveableArea = () => {
+    this.hideMoveableArea();
+    console.log('this._movingPoints', this._movingPoints);
+    var tileXYArray = this.pathFinder.findArea(this._movingPoints);
+    for (var i = 0, cnt = tileXYArray.length; i < cnt; i++) {
+      this._markers.push(
+        new MoveableMarker(this, tileXYArray[i])
+      );
+    }
+    return this;
+  }
+
+  hideMoveableArea = () => {
+    for (var i = 0, cnt = this._markers.length; i < cnt; i++) {
+      this._markers[i].destroy();
+    }
+    this._markers.length = 0;
+    return this;
+  }
+
 
   // pathFinder = this.scene.rexBoard.add.pathFinder(this, {
   //   cacheCost: false,
@@ -258,4 +293,23 @@ export default class Player extends Phaser.GameObjects.Sprite {
   //   return this;
   // }
 
+}
+
+class MoveableMarker extends RexPlugins.Board.Shape {
+  constructor(chess, tileXY) {
+    var board = chess.rexChess.board;
+    var scene = board.scene;
+    // Shape(board, tileX, tileY, tileZ, fillColor, fillAlpha, addToBoard)
+    super(board, tileXY.x, tileXY.y, -1, Constants.COLOR2_DARK);
+    scene.add.existing(this);
+    this.setScale(0.5);
+
+    // on pointer down, move to this tile
+    this.on('board.pointerdown', function () {
+      if (!chess.moveToTileXY(this)) {
+        return;
+      }
+      this.setFillStyle(Constants.COLOR2_LIGHT);
+    }, this);
+  }
 }

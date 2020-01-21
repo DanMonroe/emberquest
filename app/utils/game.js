@@ -98,8 +98,8 @@ export function createPlayer(scene, playerX, playerY) {
 
   // private members  - What do these do?
   // used in showMoveableArea
-  player._movingPoints = 5;   // this is sight/movement Range
-  player._markers = [];       // array of possible movement hexes
+  // player._movingPoints = 5;   // this is sight/movement Range
+  // player._markers = [];       // array of possible movement hexes
 
   // From https://codepen.io/rexrainbow/pen/qvGLPd?editors=0010
   // FOV parameters
