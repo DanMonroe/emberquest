@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import Constants from '../utils/constants';
+import { findFOV } from '../utils/game'
 
  // let player = scene.physics.add.sprite(0, 0, 'player');
 export default class Player extends Phaser.GameObjects.Sprite {
@@ -12,6 +13,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     scene.add.existing(this);
 
     this.scene = scene;
+    this.board = scene.board;
 
     this.moveToObject = scene.rexBoard.add.moveTo(this, {
       speed: 200, // 400 default
@@ -31,16 +33,37 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
     // private members
     // used in showMoveableArea
+    this._sightRange = 3;   // this is sight/movement Range
     this._movingPoints = 3;   // this is sight/movement Range
     this._markers = [];       // array of possible movement hexes
 
+    // FOV parameters
+    this.face = 0;
+    this.coneMode = 'direction';
+    this.cone = 2;  // 2 = 120 degrees... 6 for 360 degrees
+
+    // this.costCallback =  (tileXY, fov) => {
+    //   let board = fov.board;
+    //   return (board.tileXYZToChess(tileXY.x, tileXY.y, 0)) ? fov.BLOCKER : 0;
+    // };
+    //
+    // // this.debug = {
+    // //   graphics: this.add.graphics().setDepth(10)
+    // // }
+
+    // this.fov = scene.rexBoard.add.fieldOfView(this, {
+    //   face: this.face,
+    //   coneMode: this.coneMode,
+    //   cone: this.cone,
+    //   board: this.board
+    // });
   }
 
 
   moveTo(cursors) {
 
     if (!this.moveToObject.isRunning) {
-      console.log('cursors', cursors);
+
       if (cursors.D.isDown) {
         this.moveToObject.moveToward(Constants.DIRECTIONS.SE);
         // this.showMoveableArea();
@@ -63,9 +86,10 @@ export default class Player extends Phaser.GameObjects.Sprite {
     }
   }
 
-  moveToComplete(moveTo, gameObject){
-    console.log('moveToComplete', moveTo, gameObject);
-    moveTo.showMoveableArea();
+  moveToComplete(player, gameObject){
+    // console.log('moveToComplete', moveTo, gameObject);
+    player.showMoveableArea();
+    findFOV(player);
   }
 
   moveToTileXY = (endTileXY) => {
@@ -118,7 +142,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
   showMoveableArea = () => {
     this.hideMoveableArea();
-    console.log('this._movingPoints', this._movingPoints);
+    // console.log('this._movingPoints', this._movingPoints);
     var tileXYArray = this.pathFinder.findArea(this._movingPoints);
     for (var i = 0, cnt = tileXYArray.length; i < cnt; i++) {
       this._markers.push(
@@ -136,6 +160,23 @@ export default class Player extends Phaser.GameObjects.Sprite {
     return this;
   }
 
+  // findFOV = ()  => {
+  //   debugger;
+  //   var board = this.rexChess.board;
+  //   var scene = board.scene;
+  //
+  //   var chessArray = board.tileZToChessArray(-1);
+  //   for (var i = 0, cnt = chessArray.length; i < cnt; i++) {
+  //     chessArray[i].destroy();
+  //   }
+  //
+  //   var tileXYArray = this.fov.clearDebugGraphics().findFOV();
+  //   var tileXY;
+  //   for (var i = 0, cnt = tileXYArray.length; i < cnt; i++) {
+  //     tileXY = tileXYArray[i];
+  //     scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, -1, Constants.COLOR_VISIBLE, 0.3);
+  //   }
+  // }
 
   // pathFinder = this.scene.rexBoard.add.pathFinder(this, {
   //   cacheCost: false,

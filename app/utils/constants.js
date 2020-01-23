@@ -14,6 +14,8 @@ export default {
 
   COLOR2_PRIMARY: 0xd81b60,
   COLOR2_LIGHT: 0xff5c8d,
-  COLOR2_DARK: 0xa00037
+  COLOR2_DARK: 0xa00037,
+
+  COLOR_VISIBLE : 0xc49000
 
 };
