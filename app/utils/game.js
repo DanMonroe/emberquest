@@ -46,6 +46,11 @@ export function createBoard(scene, config) {
       .setOrigin(0.5)
       .setDepth(3);
 
+    // console.log('out', out);
+
+    // add opacity
+    // scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, 0, Constants.COLOR_HIDDEN, 0.5)
+      // .setDepth(2)
   });
 
   // board.addChess(config.player, config.playerStartX, config.playerStartY, 0, true);
@@ -102,7 +107,7 @@ export function createPlayer(scene, config) {
 
 export function findFOV(chessA) {
   var board = chessA.rexChess.board;
-  var scene = board.scene;
+  // var scene = board.scene;
 
   var chessArray = board.tileZToChessArray(-1);
   for (var i = 0, cnt = chessArray.length; i < cnt; i++) {
@@ -113,6 +118,13 @@ export function findFOV(chessA) {
   var tileXY;
   for (var i = 0, cnt = tileXYArray.length; i < cnt; i++) {
     tileXY = tileXYArray[i];
-    scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, -1, COLOR_VISIBLE, 0.3);
+
+    var fovShape = board.tileXYToChessArray(tileXY.x, tileXY.y);
+    console.log('fovShape', fovShape);
+    if (fovShape && fovShape.length > 0) {
+      fovShape[0].fillAlpha = Constants.ALPHA_VISIBLE;
+    }
+
+    // scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, -1, COLOR_VISIBLE, 0.3);
   }
 }

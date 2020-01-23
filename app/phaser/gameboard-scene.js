@@ -10,62 +10,14 @@ export class GameboardScene extends Phaser.Scene {
     })
   }
 
-  // DIRECTIONS = {
-  //   SE: 0,
-  //   S: 1,
-  //   SW: 2,
-  //   NW: 3,
-  //   N: 4,
-  //   NE: 5
-  // }
-
-  playerX = 7;
+  playerX = 8;
   playerY = 3;
   playerMoveTo = undefined;
 
-  // config = {
-  //   type: Phaser.AUTO,
-  //   width: window.innerWidth,
-  //   height: window.innerHeight,
-  //   parent: 'gameContainer',
-  //   physics: {
-  //     default: 'arcade',
-  //     arcade: {
-  //       gravity: { y: 0 },
-  //       debug: false
-  //     }
-  //   },
-  //   scene: {
-  //     preload: this.preload,
-  //     create: this.create,
-  //     update: this.update
-  //   },
-  //   plugins: {
-  //     scene: [{
-  //       key: 'rexBoard',
-  //       plugin: rexBoardPlugin,
-  //       mapping: 'rexBoard'
-  //     }]
-  //   }
-  // };
-
-  // createNewPhaserGame(height, width) {
-  //
-  //   this = this;
-  //
-  //   this.mapService.test('1');
-  //
-  //   this.config.height = height;
-  //   this.config.width = width;
-  //   this.game = new Phaser.Game(this.config);
-  //
-  //   this.mapService.test('2');
-  // }
 
   preload() {
   //   console.log('preload');
   // }
-  // backup_preload() {
     console.log('preload');
 
     this.load.image('map', '/images/maps/testhex1.png');
@@ -122,7 +74,7 @@ export class GameboardScene extends Phaser.Scene {
       },
 
       debug: {
-      //   graphics: this.add.graphics().setDepth(10)
+        graphics: this.add.graphics().setDepth(10),
         log: false
       }
 
@@ -238,7 +190,11 @@ console.log('this.board', this.board);
     // click end tileXY
     this.board.on('tiledown',  (pointer, tileXY) => {
       console.log('tiledown - pointer', pointer, 'tileXY', tileXY);
-      this.player.moveToTileXY(tileXY);
+      // this.player.moveToTileXY(tileXY);
+
+      var clickedShape = this.board.tileXYToChessArray(tileXY.x, tileXY.y);
+      console.log('clickedShape', clickedShape);
+      clickedShape[0].fillAlpha = 0;
     });
   }
 
