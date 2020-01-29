@@ -1,5 +1,5 @@
 import Constants from '../utils/constants';
-
+import Shape from 'phaser3-rex-plugins/plugins/board/shape/Shape'
 import Player from '../phaser/player'
 
 const COLOR_PRIMARY = 0x03a9f4;
@@ -49,9 +49,33 @@ export function createBoard(scene, config) {
     // console.log('out', out);
 
     // add opacity
-    // scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, 0, Constants.COLOR_HIDDEN, 0.5)
-      // .setDepth(2)
+    // const tileGameObject = new Shape(board, tileXY.x, tileXY.y, 0, Constants.COLOR_HIDDEN, 0.5);
+    // tileGameObject.setData('sightFlags', 0);
+    // tileGameObject.setData('travelFlags', 0);
+    // board.scene.add.existing(tileGameObject)
+    //   .setDepth(4);
+
+    // scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, 0)
+    // scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, 0, Constants.COLOR_HIDDEN, Constants.ALPHA_HIDDEN);
+    scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, 0, Constants.COLOR_HIDDEN, Constants.ALPHA_VISIBLE);
+      // .setDepth(40)
   });
+
+  let rowTiles = []
+
+  for (let i = 0; i < 12; i++) {
+    let colTiles = []
+    for (let i = 0; i < 12; i++) {
+      const tile = {'sightFlags': 0};
+      colTiles.push(tile);
+    }
+    rowTiles.push(colTiles);
+  }
+  rowTiles[6][4].sightFlags = 1;
+  rowTiles[6][5].sightFlags = 1;
+  rowTiles[5][5].sightFlags = 1;
+
+  board.scene.data.set('tileAttributes', rowTiles);
 
   // board.addChess(config.player, config.playerStartX, config.playerStartY, 0, true);
 
@@ -115,6 +139,7 @@ export function findFOV(chessA) {
   }
 
   var tileXYArray = chessA.fov.clearDebugGraphics().findFOV();
+  // console.log('findFOV tileXYArray', tileXYArray);
   var tileXY;
   for (var i = 0, cnt = tileXYArray.length; i < cnt; i++) {
     tileXY = tileXYArray[i];
@@ -122,9 +147,26 @@ export function findFOV(chessA) {
     var fovShape = board.tileXYToChessArray(tileXY.x, tileXY.y);
     console.log('fovShape', fovShape);
     if (fovShape && fovShape.length > 0) {
-      fovShape[0].fillAlpha = Constants.ALPHA_VISIBLE;
+      fovShape[0].fillAlpha = Constants.ALPHA_HIDDEN;
+      // fovShape[0].fillAlpha = Constants.ALPHA_VISIBLE;
     }
 
     // scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, -1, COLOR_VISIBLE, 0.3);
   }
+}
+
+export function getTileAttribute(scene, tileXY, attribute) {
+  if (!scene.data || !tileXY) {
+    return null;
+  }
+  let tileAttrs = scene.data.get('tileAttributes');
+  if (tileAttrs.length < tileXY.Y) {  // rows
+    return null;
+  }
+  if (tileAttrs[0].length < tileXY.X) {  // cols
+    return null;
+  }
+  let thisTileAttrs = tileAttrs[tileXY.x][tileXY.y];
+
+  return thisTileAttrs[attribute];
 }

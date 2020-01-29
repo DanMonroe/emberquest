@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { createBoard, getHexagonGrid, createPlayer, playerMoveTo, findFOV } from '../utils/game'
+import { createBoard, getHexagonGrid, createPlayer, getTileAttribute, findFOV } from '../utils/game'
 import rexBoardPlugin from 'phaser3-rex-plugins/plugins/board-plugin'
 
 export class GameboardScene extends Phaser.Scene {
@@ -49,8 +49,9 @@ export class GameboardScene extends Phaser.Scene {
       // cone: 2,
       // board: this.board
       costCallback:  (tileXY, fov) => {
-        let board = fov.board;
-        return (board.tileXYZToChess(tileXY.x, tileXY.y, 0)) ? fov.BLOCKER : 0;
+        const sightFlags = getTileAttribute(this.board.scene, tileXY, 'sightFlags');
+        return sightFlags ? fov.BLOCKER : 0;
+        // return (board.tileXYZToChess(tileXY.x, tileXY.y, 0)) ? fov.BLOCKER : 0;
       },
       preTestCallback: (tileXYArray, visiblePoints, fov) => {
         // debugger;
@@ -62,14 +63,14 @@ export class GameboardScene extends Phaser.Scene {
           return false;
         }
 
-        var board = fov.board;
-        var tileXY;
-        for (var i = 1, cnt = tileXYArray.length; i < cnt; i++) {
-          tileXY = tileXYArray[i];
-          if (board.tileXYZToChess(tileXY.x, tileXY.y, 0)) {
-            return false;
-          }
-        }
+        // var board = fov.board;
+        // var tileXY;
+        // for (var i = 1, cnt = tileXYArray.length; i < cnt; i++) {
+        //   tileXY = tileXYArray[i];
+        //   if (board.tileXYZToChess(tileXY.x, tileXY.y, 0)) {
+        //     return false;
+        //   }
+        // }
         return true;
       },
 
@@ -102,21 +103,17 @@ export class GameboardScene extends Phaser.Scene {
 
       this.player.fov = this.rexBoard.add.fieldOfView(this.player, playerConfig);
 
-      new Blocker(this.board, {x:4,y:4});
-      new Blocker(this.board, {x:4,y:5});
-      new Blocker(this.board, {x:4,y:7});
-      new Blocker(this.board, {x:5,y:3});
-      new Blocker(this.board, {x:5,y:4});
-      new Blocker(this.board, {x:5,y:5});
-      new Blocker(this.board, {x:5,y:6});
-      new Blocker(this.board, {x:6,y:4});
-      new Blocker(this.board, {x:6,y:5});
-      new Blocker(this.board, {x:6,y:6});
-      // add some
-      // blockers
-      // for (var i = 0; i < 10; i++) {
-      //   new Blocker(this.board);
-      // }
+      // new Blocker(this.board, {x:4,y:4});
+      // new Blocker(this.board, {x:4,y:5});
+      // new Blocker(this.board, {x:4,y:7});
+      // new Blocker(this.board, {x:5,y:3});
+      // new Blocker(this.board, {x:5,y:4});
+      // new Blocker(this.board, {x:5,y:5});
+      // new Blocker(this.board, {x:5,y:6});
+      // new Blocker(this.board, {x:6,y:4});
+      // new Blocker(this.board, {x:6,y:5});
+      // new Blocker(this.board, {x:6,y:6});
+
 
       // set bounds so the camera won't go outside the game world
       this.cameras.main.setBounds(0, 0, this.map.width, this.map.height);
