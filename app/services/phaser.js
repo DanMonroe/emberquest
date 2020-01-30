@@ -4,7 +4,6 @@ import Phaser from 'phaser';
 import rexBoardPlugin from 'phaser3-rex-plugins/plugins/board-plugin.js';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
-import {createBoard, getHexagonGrid} from '../utils/game';
 
 import { PhaserGame } from '../phaser/game'
 

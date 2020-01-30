@@ -75,7 +75,7 @@ export class GameboardScene extends Phaser.Scene {
       },
 
       debug: {
-        graphics: this.add.graphics().setDepth(10),
+        // graphics: this.add.graphics().setDepth(10),
         log: false
       }
 

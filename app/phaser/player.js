@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import Constants from '../utils/constants';
-import { findFOV } from '../utils/game'
+import { findFOV, getTileAttribute, playerHasAbilityFlag } from '../utils/game'
 
  // let player = scene.physics.add.sprite(0, 0, 'player');
 export default class Player extends Phaser.GameObjects.Sprite {
@@ -19,16 +19,35 @@ export default class Player extends Phaser.GameObjects.Sprite {
       speed: 200, // 400 default
       // rotateToTarget: false,
       // occupiedTest: false,
-      // blockerTest: false,
+      // blockerTest: true,
       // sneak: false,
     });
     this.moveToObject.on('complete', this.moveToComplete);
+
+    this.moveToObject.moveableTestCallback = (curTile, preTile, pathFinder) => {
+      const travelFlags = getTileAttribute(pathFinder.scene, preTile, 'travelFlags');
+      const canMove = playerHasAbilityFlag(pathFinder.scene.player, Constants.FLAG_TYPE_TRAVEL, travelFlags);
+      // console.log('canMove', canMove);
+      return canMove;
+      // return travelFlags ? false : true;
+    }
 
     // add behaviors
     // this.moveTo = scene.rexBoard.add.moveTo(this);
     this.pathFinder = scene.rexBoard.add.pathFinder(this, {
       occupiedTest: true,
       pathMode: 'A*',
+      blockerTest: true,
+      costCallback:  (curTile, preTile, pathFinder) => {
+        // pathFinder.gameObject is 'this'  i.e., this Player object
+        const travelFlags = getTileAttribute(pathFinder.chessData.board.scene, preTile, 'travelFlags');
+        // console.log('pathFinder costCallback', curTile, preTile, pathFinder, travelFlags);
+
+        return travelFlags ? 100 : 0;
+        // return travelFlags ? fov.BLOCKER : 0;
+        // return (board.tileXYZToChess(tileXY.x, tileXY.y, 0)) ? fov.BLOCKER : 0;
+      },
+
     });
 
     // private members
@@ -57,6 +76,12 @@ export default class Player extends Phaser.GameObjects.Sprite {
     //   cone: this.cone,
     //   board: this.board
     // });
+
+    const attrs = {
+      sightFlags: 1,
+      travelFlags: 1
+    }
+    this.setData('attrs', attrs);
   }
 
 

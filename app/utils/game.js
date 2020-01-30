@@ -66,7 +66,7 @@ export function createBoard(scene, config) {
   for (let i = 0; i < 12; i++) {
     let colTiles = []
     for (let i = 0; i < 12; i++) {
-      const tile = {'sightFlags': 0};
+      const tile = {'sightFlags': 0, 'travelFlags': 1};
       colTiles.push(tile);
     }
     rowTiles.push(colTiles);
@@ -74,6 +74,57 @@ export function createBoard(scene, config) {
   rowTiles[6][4].sightFlags = 1;
   rowTiles[6][5].sightFlags = 1;
   rowTiles[5][5].sightFlags = 1;
+
+  rowTiles[1][5].travelFlags = 2;
+  rowTiles[1][6].travelFlags = 2;
+  rowTiles[1][7].travelFlags = 2;
+  rowTiles[1][8].travelFlags = 2;
+
+  rowTiles[2][3].travelFlags = 2;
+  rowTiles[2][4].travelFlags = 2;
+  rowTiles[2][5].travelFlags = 2;
+  rowTiles[2][9].travelFlags = 2;
+
+  rowTiles[3][2].travelFlags = 2;
+  rowTiles[3][9].travelFlags = 2;
+
+  rowTiles[4][2].travelFlags = 2;
+  rowTiles[4][4].travelFlags = 2;
+  rowTiles[4][5].travelFlags = 2;
+  rowTiles[4][7].travelFlags = 2;
+  rowTiles[4][10].travelFlags = 2;
+
+  rowTiles[5][1].travelFlags = 2;
+  rowTiles[5][3].travelFlags = 2;
+  rowTiles[5][4].travelFlags = 2;
+  rowTiles[5][5].travelFlags = 2;
+  rowTiles[5][6].travelFlags = 2;
+  rowTiles[5][9].travelFlags = 2;
+
+  rowTiles[6][1].travelFlags = 2;
+  rowTiles[6][4].travelFlags = 2;
+  rowTiles[6][5].travelFlags = 2;
+  rowTiles[6][6].travelFlags = 2;
+  rowTiles[6][8].travelFlags = 2;
+  rowTiles[6][9].travelFlags = 2;
+
+  rowTiles[7][1].travelFlags = 2;
+  rowTiles[7][7].travelFlags = 2;
+
+  rowTiles[8][2].travelFlags = 2;
+  rowTiles[8][8].travelFlags = 2;
+
+  rowTiles[9][2].travelFlags = 2;
+  rowTiles[9][3].travelFlags = 2;
+  rowTiles[9][8].travelFlags = 2;
+
+  rowTiles[10][4].travelFlags = 2;
+  rowTiles[10][5].travelFlags = 2;
+  rowTiles[10][6].travelFlags = 2;
+  rowTiles[10][7].travelFlags = 2;
+  rowTiles[10][8].travelFlags = 2;
+
+
 
   board.scene.data.set('tileAttributes', rowTiles);
 
@@ -145,7 +196,7 @@ export function findFOV(chessA) {
     tileXY = tileXYArray[i];
 
     var fovShape = board.tileXYToChessArray(tileXY.x, tileXY.y);
-    console.log('fovShape', fovShape);
+    // console.log('fovShape', fovShape);
     if (fovShape && fovShape.length > 0) {
       fovShape[0].fillAlpha = Constants.ALPHA_HIDDEN;
       // fovShape[0].fillAlpha = Constants.ALPHA_VISIBLE;
@@ -160,13 +211,35 @@ export function getTileAttribute(scene, tileXY, attribute) {
     return null;
   }
   let tileAttrs = scene.data.get('tileAttributes');
-  if (tileAttrs.length < tileXY.Y) {  // rows
+  if (tileAttrs.length < tileXY.y) {  // rows
     return null;
   }
-  if (tileAttrs[0].length < tileXY.X) {  // cols
+  if (tileAttrs[0].length < tileXY.x) {  // cols
     return null;
   }
   let thisTileAttrs = tileAttrs[tileXY.x][tileXY.y];
 
   return thisTileAttrs[attribute];
+}
+
+export function playerHasAbilityFlag(playerObj, type, flag) {
+
+  if (!playerObj.data) {
+    return false;
+  }
+  let attrs = playerObj.data.get('attrs');
+
+  if (flag && flag.value) {
+    flag = flag.value;
+  }
+  if (flag) {
+    switch (type) {
+      case Constants.FLAG_TYPE_TRAVEL:
+        return attrs['travelFlags'] & flag
+      case Constants.FLAG_TYPE_VISIBILITY:
+        return attrs['sightFlags'] & flag
+      default:
+    }
+  }
+  return false;
 }
