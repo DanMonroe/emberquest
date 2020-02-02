@@ -10,7 +10,7 @@ const COLOR_VISIBLE = 0xc49000;
 
 export function getHexagonGrid(scene) {
   let staggeraxis = 'y';
-  let staggerindex = 'odd';
+  let staggerindex = 'even';
   let grid = scene.rexBoard.add.hexagonGrid({
     x: 10,
     y: 36,
@@ -27,6 +27,8 @@ export function createBoard(scene, config) {
 
   let board = scene.rexBoard.add.board(config);
 
+  board.scene.data.set('tileAttributes', config.sceneTiles);
+
   // draw grid
   let graphics = scene.add.graphics({
     lineStyle: {
@@ -36,104 +38,63 @@ export function createBoard(scene, config) {
       // alpha: 0
     }
   });
+  // const scene = board.scene;
+
+  // for (let tileY = 0; tileY < board.height; tileY++) {
+  //   for (let tileX = 0; tileX < board.width; tileX++) {
+  //     const tileXY = {
+  //       x: tileX,
+  //       y: tileY
+  //     }
+  //     console.log('tileXY', tileXY);
+  //     const travelFlags = getTileAttribute(scene, tileXY, 'travelFlags');
+  //
+  //     const points = board.getGridPoints(tileXY.x, tileXY.y, true);
+  //     graphics.strokePoints(points, true);
+  //     const out = board.tileXYToWorldXY(tileXY.x, tileXY.y, true);
+  //     scene.add.text(out.x, out.y, tileXY.x + ',' + tileXY.y + '-' + travelFlags, {color: '#EFB21A'})
+  //       // scene.add.text(out.x, out.y, tileXY.x + ',' + tileXY.y, {color: '#EFB21A'})
+  //       .setOrigin(0.5)
+  //       .setDepth(3);
+  //
+  //
+  //     // scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, 0, Constants.COLOR_HIDDEN, Constants.ALPHA_VISIBLE, true);
+  //     scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, 0, Constants.COLOR_HIDDEN, Constants.ALPHA_VISIBLE);
+  //     // .setDepth(40)
+  //
+  //   }
+  // }
+
   board.forEachTileXY((tileXY, board) => {
-    let points = board.getGridPoints(tileXY.x, tileXY.y, true);
-    // console.log('tileXY', tileXY, 'points', points);
-    graphics.strokePoints(points, true);
-    var scene = board.scene;
-    var out = board.tileXYToWorldXY(tileXY.x, tileXY.y, true);
-    scene.add.text(out.x, out.y, tileXY.x + ',' + tileXY.y, {color: '#EFB21A'})
-      .setOrigin(0.5)
-      .setDepth(3);
+    // const scene = board.scene;
 
-    // console.log('out', out);
+    if(config.showHexInfo) {
+      const travelFlags = getTileAttribute(scene, tileXY, 'travelFlags');
+      // const wesnoth = getTileAttribute(scene, tileXY, 'wesnoth');
 
-    // add opacity
-    // const tileGameObject = new Shape(board, tileXY.x, tileXY.y, 0, Constants.COLOR_HIDDEN, 0.5);
-    // tileGameObject.setData('sightFlags', 0);
-    // tileGameObject.setData('travelFlags', 0);
-    // board.scene.add.existing(tileGameObject)
-    //   .setDepth(4);
+      const points = board.getGridPoints(tileXY.x, tileXY.y, true);
+      graphics.strokePoints(points, true);
+      const out = board.tileXYToWorldXY(tileXY.x, tileXY.y, true);
+      // scene.add.text(out.x, out.y, tileXY.x + ',' + tileXY.y + ' ' + wesnoth + ',' + travelFlags, {color: '#EFB21A'})
+      scene.add.text(out.x, out.y, tileXY.x + ',' + tileXY.y + ' ' + travelFlags, {color: '#EFB21A'})
+        // scene.add.text(out.x, out.y, tileXY.x + ',' + tileXY.y, {color: '#EFB21A'})
+        .setOrigin(0.5)
+        .setDepth(3);
+    }
 
-    // scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, 0)
-    // scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, 0, Constants.COLOR_HIDDEN, Constants.ALPHA_HIDDEN);
+    // scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, 0, Constants.COLOR_HIDDEN, Constants.ALPHA_VISIBLE, true);
     scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, 0, Constants.COLOR_HIDDEN, Constants.ALPHA_VISIBLE);
       // .setDepth(40)
   });
 
-  let rowTiles = []
 
-  for (let i = 0; i < 12; i++) {
-    let colTiles = []
-    for (let i = 0; i < 12; i++) {
-      const tile = {'sightFlags': 0, 'travelFlags': 1};
-      colTiles.push(tile);
-    }
-    rowTiles.push(colTiles);
-  }
-  rowTiles[6][4].sightFlags = 1;
-  rowTiles[6][5].sightFlags = 1;
-  rowTiles[5][5].sightFlags = 1;
-
-  rowTiles[1][5].travelFlags = 2;
-  rowTiles[1][6].travelFlags = 2;
-  rowTiles[1][7].travelFlags = 2;
-  rowTiles[1][8].travelFlags = 2;
-
-  rowTiles[2][3].travelFlags = 2;
-  rowTiles[2][4].travelFlags = 2;
-  rowTiles[2][5].travelFlags = 2;
-  rowTiles[2][9].travelFlags = 2;
-
-  rowTiles[3][2].travelFlags = 2;
-  rowTiles[3][9].travelFlags = 2;
-
-  rowTiles[4][2].travelFlags = 2;
-  rowTiles[4][4].travelFlags = 2;
-  rowTiles[4][5].travelFlags = 2;
-  rowTiles[4][7].travelFlags = 2;
-  rowTiles[4][10].travelFlags = 2;
-
-  rowTiles[5][1].travelFlags = 2;
-  rowTiles[5][3].travelFlags = 2;
-  rowTiles[5][4].travelFlags = 2;
-  rowTiles[5][5].travelFlags = 2;
-  rowTiles[5][6].travelFlags = 2;
-  rowTiles[5][9].travelFlags = 2;
-
-  rowTiles[6][1].travelFlags = 2;
-  rowTiles[6][4].travelFlags = 2;
-  rowTiles[6][5].travelFlags = 2;
-  rowTiles[6][6].travelFlags = 2;
-  rowTiles[6][8].travelFlags = 2;
-  rowTiles[6][9].travelFlags = 2;
-
-  rowTiles[7][1].travelFlags = 2;
-  rowTiles[7][7].travelFlags = 2;
-
-  rowTiles[8][2].travelFlags = 2;
-  rowTiles[8][8].travelFlags = 2;
-
-  rowTiles[9][2].travelFlags = 2;
-  rowTiles[9][3].travelFlags = 2;
-  rowTiles[9][8].travelFlags = 2;
-
-  rowTiles[10][4].travelFlags = 2;
-  rowTiles[10][5].travelFlags = 2;
-  rowTiles[10][6].travelFlags = 2;
-  rowTiles[10][7].travelFlags = 2;
-  rowTiles[10][8].travelFlags = 2;
-
-
-
-  board.scene.data.set('tileAttributes', rowTiles);
 
   // board.addChess(config.player, config.playerStartX, config.playerStartY, 0, true);
 
   // enable touch events
   if (true || this.boardIsInteractive) {
     console.log('board is interactive');
-    board.setInteractive();
+    // board.setInteractive();
   }
 
   console.log('Created Board', board);
@@ -180,30 +141,70 @@ export function createPlayer(scene, config) {
   return player;
 }
 
-export function findFOV(chessA) {
-  var board = chessA.rexChess.board;
+export function findFOV(chessA, lastSeenTiles) {
+  const board = chessA.rexChess.board;
   // var scene = board.scene;
 
-  var chessArray = board.tileZToChessArray(-1);
-  for (var i = 0, cnt = chessArray.length; i < cnt; i++) {
+  const chessArray = board.tileZToChessArray(-1);
+  for (let i = 0, cnt = chessArray.length; i < cnt; i++) {
     chessArray[i].destroy();
   }
 
-  var tileXYArray = chessA.fov.clearDebugGraphics().findFOV();
-  // console.log('findFOV tileXYArray', tileXYArray);
-  var tileXY;
-  for (var i = 0, cnt = tileXYArray.length; i < cnt; i++) {
+  let tileXYArray = chessA.fov.clearDebugGraphics().findFOV();
+  console.log('findFOV tileXYArray', tileXYArray);
+  console.log('lastSeenTiles', board.scene.lastSeenTiles);
+  console.log('player tile', chessA.rexChess.tileXYZ);
+  let tileXY;
+  let visibleTiles = new Set();
+
+  for (let i = 0, cnt = tileXYArray.length; i < cnt; i++) {
     tileXY = tileXYArray[i];
 
-    var fovShape = board.tileXYToChessArray(tileXY.x, tileXY.y);
-    // console.log('fovShape', fovShape);
-    if (fovShape && fovShape.length > 0) {
-      fovShape[0].fillAlpha = Constants.ALPHA_HIDDEN;
-      // fovShape[0].fillAlpha = Constants.ALPHA_VISIBLE;
+    // not the player tile
+    if( ! (tileXY.x === chessA.rexChess.tileXYZ.x && tileXY.y === chessA.rexChess.tileXYZ.y) ){
+
+      // visibleTiles.add(tileXY);
+      visibleTiles.add(`${tileXY.x}_${tileXY.y}`);
+
+      const fovShape = board.tileXYToChessArray(tileXY.x, tileXY.y);
+
+      if (fovShape && fovShape.length > 0) {
+        fovShape[0].fillAlpha = Constants.ALPHA_HIDDEN;
+        // console.log('fovShape', fovShape);
+      }
     }
 
     // scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, -1, COLOR_VISIBLE, 0.3);
   }
+
+  // update tiles visibility that are no longer in FOV
+  let tempTiles = new Set();
+  board.scene.lastSeenTiles.forEach((tileXY) => {
+    // console.log('tile', tileXY, 'visibleTiles.has(tileXY)', visibleTiles.has(tileXY));
+    if ( ! visibleTiles.has(tileXY)) {
+    // if (visibleTiles.has(`${tileXY.x}_${tileXY.y}`)) {
+      tempTiles.add(tileXY);
+    }
+  });
+  console.log('tempTiles', tempTiles);
+
+  tempTiles.forEach((tileXY) => {
+    const splitTileXY = tileXY.split('_');
+    const fovShape = board.tileXYToChessArray(splitTileXY[0], splitTileXY[1]);
+
+    if (fovShape && fovShape.length > 0) {
+      fovShape[0].fillAlpha = Constants.ALPHA_PREVIOUSLY_SEEN;
+    } else {
+      console.log('no shape - TODO find shape on from board', tileXY, fovShape);
+      // const foo = board.tileXYToChessArray(splitTileXY[0], splitTileXY[1]);
+    }
+  });
+
+  // remove player tile if there
+  tempTiles.delete(`${chessA.rexChess.tileXYZ.x}_${chessA.rexChess.tileXYZ.y}`)
+
+  board.scene.lastSeenTiles = visibleTiles;
+// debugger;
 }
 
 export function getTileAttribute(scene, tileXY, attribute) {
@@ -217,9 +218,14 @@ export function getTileAttribute(scene, tileXY, attribute) {
   if (tileAttrs[0].length < tileXY.x) {  // cols
     return null;
   }
-  let thisTileAttrs = tileAttrs[tileXY.x][tileXY.y];
+  try {
 
-  return thisTileAttrs[attribute];
+    let thisTileAttrs = tileAttrs[tileXY.y][tileXY.x]
+
+    return thisTileAttrs[attribute]
+  } catch (e) {
+debugger;
+  }
 }
 
 export function playerHasAbilityFlag(playerObj, type, flag) {

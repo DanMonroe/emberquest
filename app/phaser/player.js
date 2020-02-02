@@ -25,11 +25,21 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.moveToObject.on('complete', this.moveToComplete);
 
     this.moveToObject.moveableTestCallback = (curTile, preTile, pathFinder) => {
+      if (this.moveToObject.isRunning) {
+        return false;
+      }
       const travelFlags = getTileAttribute(pathFinder.scene, preTile, 'travelFlags');
       const canMove = playerHasAbilityFlag(pathFinder.scene.player, Constants.FLAG_TYPE_TRAVEL, travelFlags);
       // console.log('canMove', canMove);
+
+      if (!canMove) {
+        const wesnoth = getTileAttribute(pathFinder.scene, preTile, 'wesnoth');
+        console.log('cant move! preTile', preTile, 'travelFlags', travelFlags, 'wesnoth', wesnoth);
+      }
+
+      // return true;
       return canMove;
-      // return travelFlags ? false : true;
+
     }
 
     // add behaviors
@@ -78,8 +88,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
     // });
 
     const attrs = {
-      sightFlags: 1,
-      travelFlags: 1
+      sightFlags: 0,
+      travelFlags: Constants.FLAGS.TRAVEL.LAND.value
     }
     this.setData('attrs', attrs);
   }
@@ -113,7 +123,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
   moveToComplete(player, gameObject){
     // console.log('moveToComplete', moveTo, gameObject);
-    player.showMoveableArea();
+    // player.showMoveableArea();
     findFOV(player);
   }
 

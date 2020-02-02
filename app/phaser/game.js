@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import rexBoardPlugin from 'phaser3-rex-plugins/plugins/board-plugin'
-import {GameboardScene} from './gameboard-scene';
+import {GameboardScene} from './scenes/gameboard-scene';
 
 export default class PhaserGame {
 
