@@ -51,7 +51,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       costCallback:  (curTile, preTile, pathFinder) => {
         // pathFinder.gameObject is 'this'  i.e., this Player object
         const travelFlags = getTileAttribute(pathFinder.chessData.board.scene, preTile, 'travelFlags');
-        // console.log('pathFinder costCallback', curTile, preTile, pathFinder, travelFlags);
+        console.log('pathFinder costCallback', curTile, preTile, pathFinder, travelFlags);
 
         return travelFlags ? 100 : 0;
         // return travelFlags ? fov.BLOCKER : 0;
@@ -65,6 +65,9 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this._sightRange = 3;   // this is sight/movement Range
     this._movingPoints = 3;   // this is sight/movement Range
     this._markers = [];       // array of possible movement hexes
+
+    this.visiblePoints = 8;   // this is sight/movement Range
+    this.movingPoints = 3;   // this is sight/movement Range
 
     // FOV parameters
     this.face = 0;

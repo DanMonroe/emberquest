@@ -94,7 +94,7 @@ export function createBoard(scene, config) {
   // enable touch events
   if (true || this.boardIsInteractive) {
     console.log('board is interactive');
-    // board.setInteractive();
+    board.setInteractive();
   }
 
   console.log('Created Board', board);
@@ -150,7 +150,7 @@ export function findFOV(chessA, lastSeenTiles) {
     chessArray[i].destroy();
   }
 
-  let tileXYArray = chessA.fov.clearDebugGraphics().findFOV();
+  let tileXYArray = chessA.fov.clearDebugGraphics().findFOV(chessA.visiblePoints);
   console.log('findFOV tileXYArray', tileXYArray);
   console.log('lastSeenTiles', board.scene.lastSeenTiles);
   console.log('player tile', chessA.rexChess.tileXYZ);
@@ -222,7 +222,12 @@ export function getTileAttribute(scene, tileXY, attribute) {
 
     let thisTileAttrs = tileAttrs[tileXY.y][tileXY.x]
 
-    return thisTileAttrs[attribute]
+    if (attribute) {
+      return thisTileAttrs[attribute]
+    } else {
+      // return all attributes
+      return thisTileAttrs;
+    }
   } catch (e) {
 debugger;
   }

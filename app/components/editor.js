@@ -133,7 +133,8 @@ export default {
       terrainRow.forEach((terrainText) => {
         const travelFlags = this.getTravelFlags(terrainText);
         const sightFlags = this.getSightFlags(terrainText);
-        mapSource += `{'row': ${row}, 'col': ${col}, 'sightFlags': ${sightFlags}, 'travelFlags': ${travelFlags}, 'wesnoth': '${terrainText.replace(/\\/g,"\\\\")}'},
+        const sightCost = this.getSightCost(terrainText);
+        mapSource += `{'row': ${row}, 'col': ${col}, 'sightCost': ${sightCost}, 'sightFlags': ${sightFlags}, 'travelFlags': ${travelFlags}, 'wesnoth': '${terrainText.replace(/\\/g,"\\\\")}'},
     `;
         col++;
       });
@@ -185,29 +186,29 @@ export default {
 //     this.finalMap = mapSource;
 //   }
 
-  createHexRows() {
-    this.hexesTextArray = [];
-    this.hexRowsTextArray = [];
-    this.hexRowIdsArray = [];
-    this.mapArray.forEach((terrainRow, row) => {
-      let hexIds = [];
-      terrainRow.forEach((terrainText, col) => {
-        this.hexesTextArray.push(this.createHexLine(col, row, terrainText));
-        hexIds.push(`hex${col}_${row}`);
-      });
-      const hexListText = hexIds.join(',');
-      this.hexRowsTextArray.push(`const hexRow${row} = server.create('hex-row', {hexes: [${hexListText}]});`);
-      this.hexRowIdsArray.push(`hexRow${row}`);
-    });
-  }
-
-  createHexLine(col, row, terrain) {
-    const travelFlags = this.getTravelFlags(terrain);
-    const sightFlags = this.getSightFlags(terrain);
-    const specialFlags = 0;
-    let hextext = `const hex${col}_${row} = server.create('hex', {layout: layout, col: ${col}, row: ${row}, wesnoth: "${terrain.replace(/\\/g,"\\\\")}", sightFlags: ${sightFlags}, travelFlags: ${travelFlags}, specialFlags: ${specialFlags}, tiles: []});`;
-    return hextext;
-  }
+  // createHexRows() {
+  //   this.hexesTextArray = [];
+  //   this.hexRowsTextArray = [];
+  //   this.hexRowIdsArray = [];
+  //   this.mapArray.forEach((terrainRow, row) => {
+  //     let hexIds = [];
+  //     terrainRow.forEach((terrainText, col) => {
+  //       this.hexesTextArray.push(this.createHexLine(col, row, terrainText));
+  //       hexIds.push(`hex${col}_${row}`);
+  //     });
+  //     const hexListText = hexIds.join(',');
+  //     this.hexRowsTextArray.push(`const hexRow${row} = server.create('hex-row', {hexes: [${hexListText}]});`);
+  //     this.hexRowIdsArray.push(`hexRow${row}`);
+  //   });
+  // }
+  //
+  // createHexLine(col, row, terrain) {
+  //   const travelFlags = this.getTravelFlags(terrain);
+  //   const sightFlags = this.getSightFlags(terrain);
+  //   const specialFlags = 0;
+  //   let hextext = `const hex${col}_${row} = server.create('hex', {layout: layout, col: ${col}, row: ${row}, wesnoth: "${terrain.replace(/\\/g,"\\\\")}", sightFlags: ${sightFlags}, travelFlags: ${travelFlags}, specialFlags: ${specialFlags}, tiles: []});`;
+  //   return hextext;
+  // }
 
   createArrayFromTextarea() {
     let lines = this.mapText.trim().split('\n');
@@ -221,14 +222,16 @@ export default {
     });
   }
 
-  shiftAndPopArray(sourceArray) {
-    sourceArray.pop();
-    sourceArray.shift();
-  }
+  // shiftAndPopArray(sourceArray) {
+  //   sourceArray.pop();
+  //   sourceArray.shift();
+  // }
 
   WESNOTH = {
     WATER: 'W',
     BRIDGE: 'B',
+    FOREST: 'F',
+    MOUNTAIN: 'M',
     UNWALKABLE: 'Q',
     IMPASSABLE: 'X'
   }
@@ -269,6 +272,31 @@ export default {
     }
 
     return terrainFlags;
+  }
+
+  getSightCost(terrain) {
+    let sightCost = 1;
+
+    const terrainParts = this.getWesnothTerrainParts(terrain);
+
+    switch (terrainParts.primary) {
+      case this.WESNOTH.MOUNTAIN:
+        // sightCost += 6;
+        break;
+      default:
+    }
+
+    switch (terrainParts.secondary) {
+      case this.WESNOTH.FOREST:
+        sightCost += 4;
+        break;
+      case this.WESNOTH.IMPASSABLE:
+        sightCost += 6;
+        break;
+      default:  // fly
+    }
+
+    return sightCost;
   }
 
   getSightFlags(terrain) {

@@ -43,28 +43,26 @@ export class GameboardScene extends Phaser.Scene {
       // cone: 2,
       // board: this.board
       costCallback:  (tileXY, fov) => {
-        const sightFlags = getTileAttribute(this.board.scene, tileXY, 'sightFlags');
-        return sightFlags ? fov.BLOCKER : 0;
-        // return (board.tileXYZToChess(tileXY.x, tileXY.y, 0)) ? fov.BLOCKER : 0;
+        console.count('costCallback');
+        // const sightFlags = getTileAttribute(this.board.scene, tileXY, 'sightFlags');
+        const sightCost = getTileAttribute(this.board.scene, tileXY, 'sightCost');
+
+        return sightCost;
+        // return sightFlags ? sightFlags * 4 : 1;
+
       },
       preTestCallback: (tileXYArray, visiblePoints, fov) => {
         // debugger;
-        // console.log('preTestCallback', tileXYArray, visiblePoints, fov);
+        console.log('preTestCallback', tileXYArray, visiblePoints, fov);
 
         // Limit sight range tp player's "moving points"
         // array includes player hex so add one
-        if (tileXYArray.length > (this.player._sightRange + 1)) {
-          return false;
-        }
+// if (tileXYArray.length > (this.player.visiblePoints-1)) {
+if (tileXYArray.length > (this.player._sightRange + 1)) {
+  return false;
+}
 
-        // var board = fov.board;
-        // var tileXY;
-        // for (var i = 1, cnt = tileXYArray.length; i < cnt; i++) {
-        //   tileXY = tileXYArray[i];
-        //   if (board.tileXYZToChess(tileXY.x, tileXY.y, 0)) {
-        //     return false;
-        //   }
-        // }
+
         return true;
       },
 
@@ -165,12 +163,14 @@ export class GameboardScene extends Phaser.Scene {
 
     // click end tileXY
     this.board.on('tiledown',  (pointer, tileXY) => {
-      console.log('tiledown - pointer', pointer, 'tileXY', tileXY);
+      const allAttrs = getTileAttribute(this, tileXY);
+
+      console.log('tiledown tileXY', tileXY,'allAttrs',allAttrs);
       // this.player.moveToTileXY(tileXY);
 
       var clickedShape = this.board.tileXYToChessArray(tileXY.x, tileXY.y);
       console.log('clickedShape', clickedShape);
-      clickedShape[0].fillAlpha = 0;
+      // clickedShape[0].fillAlpha = 0;
     });
   }
 
