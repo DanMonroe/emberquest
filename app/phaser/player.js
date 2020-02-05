@@ -29,13 +29,11 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
       const allattrs = getTileAttribute(pathFinder.scene, preTile);
       const canMove = playerHasAbilityFlag(pathFinder.scene.player, Constants.FLAG_TYPE_TRAVEL, allattrs.travelFlags);
-      // console.log('canMove', canMove);
 
       if (!canMove) {
-        // const wesnoth = getTileAttribute(pathFinder.scene, preTile, 'wesnoth');
-        console.log('cant move! preTile', preTile, 'travelFlags', allattrs.travelFlags, 'wesnoth', allattrs.wesnoth);
+        // console.log('cant move! preTile', preTile, 'travelFlags', allattrs.travelFlags, 'wesnoth', allattrs.wesnoth);
       } else {
-        console.log('speed', config.speed * allattrs.speedCost)
+        // console.log('speed', config.speed * allattrs.speedCost)
         this.moveToObject.setSpeed(config.speed * allattrs.speedCost)
       }
 

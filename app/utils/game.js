@@ -120,7 +120,7 @@ export function createPlayer(scene, config) {
   return player;
 }
 
-export function findFOV(chessA, lastSeenTiles) {
+export function findFOV(chessA) {
   const board = chessA.rexChess.board;
   // var scene = board.scene;
 
@@ -130,60 +130,58 @@ export function findFOV(chessA, lastSeenTiles) {
   }
 
   let tileXYArray = chessA.fov.clearDebugGraphics().findFOV(chessA.visiblePoints);
-  console.log('findFOV tileXYArray', tileXYArray);
-  console.log('lastSeenTiles', board.scene.lastSeenTiles);
-  console.log('player tile', chessA.rexChess.tileXYZ);
+  // console.log('findFOV tileXYArray', tileXYArray);
+  // console.log('lastSeenTiles', board.scene.lastSeenTiles);
+  // console.log('player tile', chessA.rexChess.tileXYZ);
   let tileXY;
   let visibleTiles = new Set();
+
+  // add player tile to visibility array
+  tileXYArray.push(chessA.rexChess.tileXYZ);
 
   for (let i = 0, cnt = tileXYArray.length; i < cnt; i++) {
     tileXY = tileXYArray[i];
 
-    // not the player tile
-    if( ! (tileXY.x === chessA.rexChess.tileXYZ.x && tileXY.y === chessA.rexChess.tileXYZ.y) ){
+    visibleTiles.add(`${tileXY.x}_${tileXY.y}`);
 
-      // visibleTiles.add(tileXY);
-      visibleTiles.add(`${tileXY.x}_${tileXY.y}`);
+    const fovShape = getShapeAtTileXY(board, tileXY);
 
-      const fovShape = board.tileXYToChessArray(tileXY.x, tileXY.y);
-
-      if (fovShape && fovShape.length > 0) {
-        fovShape[0].fillAlpha = Constants.ALPHA_HIDDEN;
-        // console.log('fovShape', fovShape);
-      }
+    if (fovShape) {
+      fovShape.fillAlpha = Constants.ALPHA_HIDDEN;
     }
 
-    // scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, -1, COLOR_VISIBLE, 0.3);
   }
 
   // update tiles visibility that are no longer in FOV
   let tempTiles = new Set();
   board.scene.lastSeenTiles.forEach((tileXY) => {
-    // console.log('tile', tileXY, 'visibleTiles.has(tileXY)', visibleTiles.has(tileXY));
     if ( ! visibleTiles.has(tileXY)) {
-    // if (visibleTiles.has(`${tileXY.x}_${tileXY.y}`)) {
       tempTiles.add(tileXY);
     }
   });
-  console.log('tempTiles', tempTiles);
 
   tempTiles.forEach((tileXY) => {
     const splitTileXY = tileXY.split('_');
-    const fovShape = board.tileXYToChessArray(splitTileXY[0], splitTileXY[1]);
+    const fovShape = getShapeAtTileXY(board, splitTileXY);
 
-    if (fovShape && fovShape.length > 0) {
-      fovShape[0].fillAlpha = Constants.ALPHA_PREVIOUSLY_SEEN;
-    } else {
-      console.log('no shape - TODO find shape on from board', tileXY, fovShape);
-      // const foo = board.tileXYToChessArray(splitTileXY[0], splitTileXY[1]);
+    if (fovShape) {
+      fovShape.fillAlpha = Constants.ALPHA_PREVIOUSLY_SEEN;
     }
+
   });
 
   // remove player tile if there
   tempTiles.delete(`${chessA.rexChess.tileXYZ.x}_${chessA.rexChess.tileXYZ.y}`)
 
   board.scene.lastSeenTiles = visibleTiles;
-// debugger;
+}
+
+export function getShapeAtTileXY(board, tileXY) {
+  const fovShapeArray = board.tileXYToChessArray(tileXY.x, tileXY.y);
+  if (fovShapeArray && fovShapeArray.length > 0) {
+    return fovShapeArray.find(object => (object.type && object.type === "Polygon"));
+  }
+  return undefined;
 }
 
 export function getTileAttribute(scene, tileXY, attribute) {

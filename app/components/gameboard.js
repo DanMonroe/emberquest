@@ -5,7 +5,7 @@ import { inject as service } from '@ember/service';
 import PhaserGame from '../phaser/game'
 
 export default class GameboardComponent extends Component {
-  @service phaser
+  @service phaser;
 
   @action
   setup(element) {
