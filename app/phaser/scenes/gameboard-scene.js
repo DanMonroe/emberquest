@@ -1,10 +1,10 @@
 import Phaser from 'phaser';
 import { createBoard, getHexagonGrid, createPlayer, getTileAttribute, findFOV } from '../../utils/game'
-import rexBoardPlugin from 'phaser3-rex-plugins/plugins/board-plugin'
 
 // import MapData from './tiledata/cave1'
 // import MapData from './tiledata/testmap'
 import MapData from './tiledata/landsea'
+import Constants from '../../utils/constants';
 
 export class GameboardScene extends Phaser.Scene {
 
@@ -43,7 +43,6 @@ export class GameboardScene extends Phaser.Scene {
       // cone: 2,
       // board: this.board
       costCallback:  (tileXY, fov) => {
-        console.count('costCallback');
         // const sightFlags = getTileAttribute(this.board.scene, tileXY, 'sightFlags');
         const sightCost = getTileAttribute(this.board.scene, tileXY, 'sightCost');
 
@@ -53,7 +52,7 @@ export class GameboardScene extends Phaser.Scene {
       },
       preTestCallback: (tileXYArray, visiblePoints, fov) => {
         // debugger;
-        console.log('preTestCallback', tileXYArray, visiblePoints, fov);
+        // console.log('preTestCallback', tileXYArray, visiblePoints, fov);
 
         // Limit sight range tp player's "moving points"
         // array includes player hex so add one
@@ -73,7 +72,7 @@ if (tileXYArray.length > (this.player._sightRange + 1)) {
 
     };
 
-    if (true || this.showTheMap) {
+    // if (true || this.showTheMap) {
 
       this.map = this.add.image(0, 0, 'map');
       this.map.setOrigin(0,0);
@@ -98,7 +97,8 @@ if (tileXYArray.length > (this.player._sightRange + 1)) {
       this.player = createPlayer(this, playerConfig);
       // this.player = new Player(this, this.playerX, this.playerY, 'player');
 
-      this.board.addChess(this.player, playerConfig.playerX, playerConfig.playerY, 0);
+      // this will kick out the shape at the player location! ??
+      this.board.addChess(this.player, playerConfig.playerX, playerConfig.playerY, Constants.TILEZ_PLAYER);
       // this.board.addChess(this.player, playerConfig.playerX, playerConfig.playerY, 0, true);
 
       this.player.fov = this.rexBoard.add.fieldOfView(this.player, playerConfig);
@@ -117,46 +117,48 @@ if (tileXYArray.length > (this.player._sightRange + 1)) {
 
       findFOV(this.player);
 
-    } else {
-      this.board = createBoard(this, {
-        grid: getHexagonGrid(this),
-        width: 12,
-        height: 12
-      });
-
-
-// console.log('this.board', this.board);
-
-
-      // this.player = createPlayer(this.board,
-      this.player = createPlayer(this, playerConfig);
-      // this.player = new Player(this, this.playerX, this.playerY, 'player');
-
-      this.board.addChess(this.player, playerConfig.playerX, playerConfig.playerY, 0, true);
-
-      this.player.fov = this.rexBoard.add.fieldOfView(this.player, playerConfig);
-
-      new Blocker(this.board, {x:5,y:5});
-      // add some
-      // blockers
-      for (var i = 0; i < 10; i++) {
-        new Blocker(this.board);
-      }
-
-      // this.player.showMoveableArea();
-
-      this.input.on('pointerdown', (pointer) => {
-        // chessA.fov.face++;
-        findFOV(this.player);
-      });
-
-      findFOV(this.player);
-    }
+//     } else {
+//       this.board = createBoard(this, {
+//         grid: getHexagonGrid(this),
+//         width: 12,
+//         height: 12
+//       });
+//
+//
+// // console.log('this.board', this.board);
+//
+//
+//       // this.player = createPlayer(this.board,
+//       this.player = createPlayer(this, playerConfig);
+//       // this.player = new Player(this, this.playerX, this.playerY, 'player');
+//
+//       this.board.addChess(this.player, playerConfig.playerX, playerConfig.playerY, 0, true);
+//
+//       this.player.fov = this.rexBoard.add.fieldOfView(this.player, playerConfig);
+//
+//       new Blocker(this.board, {x:5,y:5});
+//       // add some
+//       // blockers
+//       for (var i = 0; i < 10; i++) {
+//         new Blocker(this.board);
+//       }
+//
+//       // this.player.showMoveableArea();
+//
+//       this.input.on('pointerdown', (pointer) => {
+//         // chessA.fov.face++;
+//         findFOV(this.player);
+//       });
+//
+//       findFOV(this.player);
+//     }
 
     // both the arrow keys and the Q W S A D E keys
     this.cursors = {...this.input.keyboard.createCursorKeys(), ...this.input.keyboard.addKeys('Q,W,S,A,D,E')};
 
     this.boardExperiments();
+
+    console.log('this gameboard-scene', this)
   }
 
   boardExperiments() {

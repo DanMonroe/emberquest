@@ -82,9 +82,21 @@ export function createBoard(scene, config) {
         .setDepth(3);
     }
 
+    // if (tileXY.x === 0 && tileXY.y === 7) {
+    //   debugger;
+    // }
     // scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, 0, Constants.COLOR_HIDDEN, Constants.ALPHA_VISIBLE, true);
-    scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, 0, Constants.COLOR_HIDDEN, Constants.ALPHA_VISIBLE);
+
+    scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, Constants.TILEZ_FOG, Constants.COLOR_HIDDEN, Constants.ALPHA_VISIBLE);
+
+    // let newShape = scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, 0, Constants.COLOR_HIDDEN, Constants.ALPHA_VISIBLE);
       // .setDepth(40)
+    // if (tileXY.x === 0 && tileXY.y === 7) {
+    //   console.log('shape at player start location', newShape);
+    //   const fovShape = board.tileXYToChessArray(tileXY.x, tileXY.y);
+    //   console.log('fovShape', fovShape)
+    // }
+
   });
 
 
@@ -122,7 +134,7 @@ export function createPlayer(scene, config) {
   let player = new Player(scene, config.playerX, config.playerY, 'player');
   // let player = scene.physics.add.sprite(0, 0, 'player');
   player.setScale(1.25);
-  player.setDepth(10);
+  // player.setDepth(10);
 
   // player.setCollideWorldBounds(true);
 

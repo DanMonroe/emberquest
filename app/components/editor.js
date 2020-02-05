@@ -263,6 +263,15 @@ export default {
             terrainFlags |= Constants.FLAGS.TRAVEL.AIR.value;
         }
         break;
+      case this.WESNOTH.MOUNTAIN:
+        switch (terrainParts.secondary) {
+          case this.WESNOTH.IMPASSABLE: // can use air flags to pass through
+            terrainFlags |= Constants.FLAGS.TRAVEL.IMPASSABLE.value;
+            break;
+          default:
+            terrainFlags |= Constants.FLAGS.TRAVEL.AIR.value;
+        }
+        break;
       case this.WESNOTH.IMPASSABLE:
         terrainFlags |= Constants.FLAGS.TRAVEL.IMPASSABLE.value;
         break;

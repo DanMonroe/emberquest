@@ -28,6 +28,9 @@ export default {
   FLAG_TYPE_TRAVEL: 0,
   FLAG_TYPE_VISIBILITY: 1,
 
+  TILEZ_PLAYER : 1, // "layer" for player
+  TILEZ_FOG : 2,    // "layer" for fog of war
+
   FLAGS: {
     TRAVEL: {
       SEA: {value: 1, description: 'Travel by Sea'},
