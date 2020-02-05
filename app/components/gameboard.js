@@ -5,13 +5,13 @@ import { inject as service } from '@ember/service';
 import PhaserGame from '../phaser/game'
 
 export default class GameboardComponent extends Component {
-  @service phaser;
+  @service game;
 
   @action
   setup(element) {
     console.log('setup', element, element.clientHeight, element.clientWidth);
 
-    new PhaserGame(element.clientHeight - 68, element.clientWidth);
+    new PhaserGame(this.game, element.clientHeight - 68, element.clientWidth);
   }
 
   @action

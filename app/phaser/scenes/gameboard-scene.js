@@ -25,6 +25,7 @@ export class GameboardScene extends Phaser.Scene {
     this.load.image('player', '/images/agents/pirate.png');
     this.load.image('blackhex', '/images/blackhex.png');
 
+    console.log('this.game.emberGameService.currentMapData', this.game.emberGameService.currentMapData);
   }
 
   create() {

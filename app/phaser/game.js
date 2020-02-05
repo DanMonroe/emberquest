@@ -28,15 +28,20 @@ export default class PhaserGame {
 
   game = undefined;
 
-  constructor(height, width) {
-    this.createNewPhaserGame(height, width);
+  emberGameService = undefined;
+
+  constructor(emberGameService, height, width) {
+    this.createNewPhaserGame(emberGameService, height, width);
   }
 
-  createNewPhaserGame(height, width) {
+  createNewPhaserGame(emberGameService, height, width) {
 
     this.config.height = height;
     this.config.width = width;
+
     this.game = new Phaser.Game(this.config);
+
+    this.game.emberGameService = emberGameService;
 
     console.log('this.game',this.game);
   }
