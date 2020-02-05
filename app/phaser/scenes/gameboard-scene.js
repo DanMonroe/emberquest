@@ -23,6 +23,7 @@ export class GameboardScene extends Phaser.Scene {
     this.load.image('map', MapData.mapUrl);
     // this.load.image('map', '/images/maps/landsea-min.png');
     this.load.image('player', '/images/agents/pirate.png');
+    this.load.image('blackhex', '/images/blackhex.png');
 
   }
 
@@ -35,11 +36,21 @@ export class GameboardScene extends Phaser.Scene {
     const playerConfig = {
       playerX: MapData.player.startX,
       playerY: MapData.player.startY,
-      // playerX: this.playerX,
-      // playerY: this.playerY,
+      texture: 'player',
+      scale: 1.25,
       face: 0,
       coneMode: 'direction',
       cone: 6,
+      speed: 200,
+      sightRange: 3,   // this is sight/movement Range
+      movingPoints: 3,   // this is sight/movement Range
+      visiblePoints: 8,   // this is sight/movement Range
+
+      flagAttributes: {
+        sightFlags: 0,
+        travelFlags: Constants.FLAGS.TRAVEL.LAND.value
+      },
+
       // cone: 2,
       // board: this.board
       costCallback:  (tileXY, fov) => {
@@ -56,11 +67,9 @@ export class GameboardScene extends Phaser.Scene {
 
         // Limit sight range tp player's "moving points"
         // array includes player hex so add one
-// if (tileXYArray.length > (this.player.visiblePoints-1)) {
-if (tileXYArray.length > (this.player._sightRange + 1)) {
-  return false;
-}
-
+        if (tileXYArray.length > (this.player.sightRange + 1)) {
+          return false;
+        }
 
         return true;
       },

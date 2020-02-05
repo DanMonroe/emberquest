@@ -7,8 +7,10 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
   scene = undefined;
 
-  constructor(scene, x, y, texture, frame) {
-    super(scene, x, y, texture, frame);
+  // constructor(scene, x, y, texture, frame) {
+  //   super(scene, x, y, texture, frame);
+  constructor(scene, config) {
+    super(scene, config.playerX, config.playerY, config.texture);
 
     scene.add.existing(this);
 
@@ -16,11 +18,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.board = scene.board;
 
     this.moveToObject = scene.rexBoard.add.moveTo(this, {
-      speed: 200, // 400 default
-      // rotateToTarget: false,
-      // occupiedTest: false,
-      // blockerTest: true,
-      // sneak: false,
+      speed: config.speed, // 400 default
     });
     this.moveToObject.on('complete', this.moveToComplete);
 
@@ -28,22 +26,25 @@ export default class Player extends Phaser.GameObjects.Sprite {
       if (this.moveToObject.isRunning) {
         return false;
       }
-      const travelFlags = getTileAttribute(pathFinder.scene, preTile, 'travelFlags');
-      const canMove = playerHasAbilityFlag(pathFinder.scene.player, Constants.FLAG_TYPE_TRAVEL, travelFlags);
+
+      const allattrs = getTileAttribute(pathFinder.scene, preTile);
+      const canMove = playerHasAbilityFlag(pathFinder.scene.player, Constants.FLAG_TYPE_TRAVEL, allattrs.travelFlags);
       // console.log('canMove', canMove);
 
       if (!canMove) {
-        const wesnoth = getTileAttribute(pathFinder.scene, preTile, 'wesnoth');
-        console.log('cant move! preTile', preTile, 'travelFlags', travelFlags, 'wesnoth', wesnoth);
+        // const wesnoth = getTileAttribute(pathFinder.scene, preTile, 'wesnoth');
+        console.log('cant move! preTile', preTile, 'travelFlags', allattrs.travelFlags, 'wesnoth', allattrs.wesnoth);
+      } else {
+        console.log('speed', config.speed * allattrs.speedCost)
+        this.moveToObject.setSpeed(config.speed * allattrs.speedCost)
       }
 
       // return true;
       return canMove;
 
-    }
+    };
 
     // add behaviors
-    // this.moveTo = scene.rexBoard.add.moveTo(this);
     this.pathFinder = scene.rexBoard.add.pathFinder(this, {
       occupiedTest: true,
       pathMode: 'A*',
@@ -60,41 +61,15 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
     });
 
-    // private members
-    // used in showMoveableArea
-    this._sightRange = 3;   // this is sight/movement Range
-    this._movingPoints = 3;   // this is sight/movement Range
-    this._markers = [];       // array of possible movement hexes
+    this.sightRange = config.sightRange;   // this is sight/movement Range
+    this.movingPoints = config.movingPoints;   // this is sight/movement Range
+    this.visiblePoints = config.visiblePoints;   // this is sight/movement Range
 
-    this.visiblePoints = 8;   // this is sight/movement Range
-    this.movingPoints = 3;   // this is sight/movement Range
 
-    // FOV parameters
-    this.face = 0;
-    this.coneMode = 'direction';
-    this.cone = 2;  // 2 = 120 degrees... 6 for 360 degrees
+    this.setData('attrs', config.flagAttributes);
 
-    // this.costCallback =  (tileXY, fov) => {
-    //   let board = fov.board;
-    //   return (board.tileXYZToChess(tileXY.x, tileXY.y, 0)) ? fov.BLOCKER : 0;
-    // };
-    //
-    // // this.debug = {
-    // //   graphics: this.add.graphics().setDepth(10)
-    // // }
+    this.setScale(config.scale);
 
-    // this.fov = scene.rexBoard.add.fieldOfView(this, {
-    //   face: this.face,
-    //   coneMode: this.coneMode,
-    //   cone: this.cone,
-    //   board: this.board
-    // });
-
-    const attrs = {
-      sightFlags: 0,
-      travelFlags: Constants.FLAGS.TRAVEL.LAND.value
-    }
-    this.setData('attrs', attrs);
   }
 
 

@@ -38,32 +38,10 @@ export function createBoard(scene, config) {
       // alpha: 0
     }
   });
-  // const scene = board.scene;
 
-  // for (let tileY = 0; tileY < board.height; tileY++) {
-  //   for (let tileX = 0; tileX < board.width; tileX++) {
-  //     const tileXY = {
-  //       x: tileX,
-  //       y: tileY
-  //     }
-  //     console.log('tileXY', tileXY);
-  //     const travelFlags = getTileAttribute(scene, tileXY, 'travelFlags');
-  //
-  //     const points = board.getGridPoints(tileXY.x, tileXY.y, true);
-  //     graphics.strokePoints(points, true);
-  //     const out = board.tileXYToWorldXY(tileXY.x, tileXY.y, true);
-  //     scene.add.text(out.x, out.y, tileXY.x + ',' + tileXY.y + '-' + travelFlags, {color: '#EFB21A'})
-  //       // scene.add.text(out.x, out.y, tileXY.x + ',' + tileXY.y, {color: '#EFB21A'})
-  //       .setOrigin(0.5)
-  //       .setDepth(3);
-  //
-  //
-  //     // scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, 0, Constants.COLOR_HIDDEN, Constants.ALPHA_VISIBLE, true);
-  //     scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, 0, Constants.COLOR_HIDDEN, Constants.ALPHA_VISIBLE);
-  //     // .setDepth(40)
-  //
-  //   }
-  // }
+  // const blitter = scene.add.blitter(0, 0, 'blackhex');
+  // blitter.setAlpha(Constants.ALPHA_VISIBLE);
+  // console.log('blitter', blitter)
 
   board.forEachTileXY((tileXY, board) => {
     // const scene = board.scene;
@@ -82,20 +60,23 @@ export function createBoard(scene, config) {
         .setDepth(3);
     }
 
-    // if (tileXY.x === 0 && tileXY.y === 7) {
-    //   debugger;
-    // }
-    // scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, 0, Constants.COLOR_HIDDEN, Constants.ALPHA_VISIBLE, true);
 
-    scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, Constants.TILEZ_FOG, Constants.COLOR_HIDDEN, Constants.ALPHA_VISIBLE);
+    // scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, Constants.TILEZ_FOG, Constants.COLOR_HIDDEN, Constants.ALPHA_VISIBLE);
 
-    // let newShape = scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, 0, Constants.COLOR_HIDDEN, Constants.ALPHA_VISIBLE);
-      // .setDepth(40)
-    // if (tileXY.x === 0 && tileXY.y === 7) {
-    //   console.log('shape at player start location', newShape);
-    //   const fovShape = board.tileXYToChessArray(tileXY.x, tileXY.y);
-    //   console.log('fovShape', fovShape)
+
+    // if (tileXY.x === 3 && tileXY.y === 1) {
+      let shape = scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, Constants.TILEZ_FOG, Constants.COLOR_HIDDEN, Constants.ALPHA_VISIBLE);
+    //   console.log('shape', shape)
     // }
+    // if (tileXY.x % 3 === 0 && tileXY.y % 2 === 0) {
+    //   const bob = blitter.create(((tileXY.x + 1) * 36) + 27, ((tileXY.y + 1) * 36) - 2);
+    //   // console.log('bob', bob)
+    //   console.count('bob')
+    //   // bob.setAlpha(0.3)
+    // }
+
+
+
 
   });
 
@@ -115,23 +96,9 @@ export function createBoard(scene, config) {
 
 // export function createPlayer(board, config) {
 export function createPlayer(scene, config) {
-//   var tileX = config.playerX,
-//     tileY = config.playerY;
-//   if (tileX === undefined) {
-//     var tileXY = board.getRandomEmptyTileXY(0, true);
-//     tileX = tileXY.x;
-//     tileY = tileXY.y;
-//   }
-//   var scene = board.scene;
-//   var chessA = scene.rexBoard.add.shape(board, tileX, tileY, 0, Constants.COLOR_LIGHT)
-//     .setDepth(1);
-//   chessA.fov = scene.rexBoard.add.fieldOfView(chessA, config);
-//   return chessA;
 
 
-
-
-  let player = new Player(scene, config.playerX, config.playerY, 'player');
+  let player = new Player(scene, config);
   // let player = scene.physics.add.sprite(0, 0, 'player');
   player.setScale(1.25);
   // player.setDepth(10);
