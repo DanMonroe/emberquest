@@ -2,31 +2,41 @@ import Phaser from 'phaser';
 
 export class GameboardScene extends Phaser.Scene {
 
+  ember = undefined;
+  MapData = undefined;
+  lastSeenTiles = new Set();
+  allSeenTiles = new Set();
+  storedPlayerTile = undefined;
+
   constructor() {
     super({
       key: 'gameboard'
-    })
+    });
   }
 
-  MapData = undefined;
-
-  lastSeenTiles = new Set();
+  init(data){
+    this.storedPlayerTile = data.storedPlayerTile;
+    this.allSeenTiles = data.allSeenTiles || new Set();
+  }
 
   preload() {
-    this.MapData = this.game.emberGame.getMapData();
+    this.ember = this.game.emberGame;
+    this.MapData = this.ember.getMapData();
     this.load.image('map', this.MapData.mapUrl);
-    this.load.image('player', this.game.emberGame.playerImgSrc);
+    this.load.image('player', this.ember.playerImgSrc);
 
   }
 
   create() {
     console.log('create gameboard scene');
 
-    this.cameras.main.zoom = this.game.emberGame.cameraMainZoom;
+    this.cameras.main.zoom = this.ember.cameraMainZoom;
+
+    const playerTile = this.storedPlayerTile ? {x: this.storedPlayerTile.x, y: this.storedPlayerTile.y} : {x: this.MapData.player.startX, y: this.MapData.player.startY};
 
     const playerConfig = {
-      playerX: this.MapData.player.startX,
-      playerY: this.MapData.player.startY,
+      playerX: playerTile.x,
+      playerY: playerTile.y,
       texture: 'player',
       scale: 1.25,
       face: 0,
@@ -39,11 +49,11 @@ export class GameboardScene extends Phaser.Scene {
 
       flagAttributes: {
         sightFlags: 0,
-        travelFlags: this.game.emberGame.constants.FLAGS.TRAVEL.LAND.value
+        travelFlags: this.ember.constants.FLAGS.TRAVEL.LAND.value
       },
 
       costCallback:  (tileXY) => {
-        return this.game.emberGame.map.getTileAttribute(this.board.scene, tileXY, 'sightCost');
+        return this.ember.map.getTileAttribute(this.board.scene, tileXY, 'sightCost');
       },
       preTestCallback: (tileXYArray) => {
 
@@ -77,16 +87,17 @@ export class GameboardScene extends Phaser.Scene {
     this.cursors = {...this.input.keyboard.addKeys('Q,W,S,A,D,E')};
 
     // Board
-    this.board = this.game.emberGame.map.createBoard(this, {
-      grid: this.game.emberGame.map.getHexagonGrid(this),
+    this.board = this.ember.map.createBoard(this, {
+      grid: this.ember.map.getHexagonGrid(this),
       width: this.MapData.sceneTiles[0].length,
       height: this.MapData.sceneTiles.length,
       sceneTiles: this.MapData.sceneTiles,
-      showHexInfo: this.game.emberGame.showHexInfo
+      allSeenTiles: this.allSeenTiles,
+      showHexInfo: this.ember.showHexInfo
     });
 
     // Player
-    this.player = this.game.emberGame.createPlayer(this, playerConfig);
+    this.player = this.ember.createPlayer(this, playerConfig);
     // this.player = new Player(this, playerConfig);
     console.log('Created Player', this.player);
 
@@ -95,7 +106,7 @@ export class GameboardScene extends Phaser.Scene {
     this.cameras.main.startFollow(this.player);
 
 
-    this.game.emberGame.map.findFOV(this.player);
+    this.ember.map.findFOV(this.player);
 
     // // The Q W S A D E keys
     // this.cursors = {...this.input.keyboard.addKeys('Q,W,S,A,D,E')};
@@ -103,21 +114,18 @@ export class GameboardScene extends Phaser.Scene {
 
     this.boardExperiments();
 
-    console.log('this gameboard-scene', this)
+
+    // spawn objects
+    this.ember.spawnerService.spawnObjects.perform();
   }
 
   boardExperiments() {
 
     // click end tileXY
     this.board.on('tiledown',  (pointer, tileXY) => {
-      const allAttrs = this.game.emberGame.map.getTileAttribute(this, tileXY);
-
-      console.log('tiledown tileXY', tileXY,'allAttrs',allAttrs);
-      // this.player.moveToTileXY(tileXY);
-
-      var clickedShape = this.board.tileXYToChessArray(tileXY.x, tileXY.y);
-      console.log('clickedShape', clickedShape);
-      // clickedShape[0].fillAlpha = 0;
+      const allAttrs = this.ember.map.getTileAttribute(this, tileXY);
+      const clickedShape = this.board.tileXYToChessArray(tileXY.x, tileXY.y);
+      console.log('tiledown tileXY', tileXY,'allAttrs', allAttrs, clickedShape);
     });
   }
 

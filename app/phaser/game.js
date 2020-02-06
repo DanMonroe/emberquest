@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import rexBoardPlugin from 'phaser3-rex-plugins/plugins/board-plugin'
+import {BootScene} from './scenes/boot';
 import {GameboardScene} from './scenes/gameboard-scene';
 
 export default class PhaserGame {
@@ -16,7 +17,7 @@ export default class PhaserGame {
         debug: false
       }
     },
-    scene: GameboardScene,
+    scene: [BootScene, GameboardScene],
     plugins: {
       scene: [{
         key: 'rexBoard',
@@ -25,6 +26,7 @@ export default class PhaserGame {
       }]
     }
   };
+    // scene: GameboardScene,
 
   game = undefined;
 
@@ -40,10 +42,22 @@ export default class PhaserGame {
     this.config.width = width;
 
     this.game = new Phaser.Game(this.config);
-
     this.game.emberGame = emberGameService;
 
-    console.log('this.game',this.game);
+
+  //   const storedPlayerTile = emberGameService.loadGameData("playerTile")
+  //     .then(storedPlayerTile => {
+  //       debugger;
+  //       console.log('storedPlayerTile', storedPlayerTile)
+  //
+  //       // this.game.scene.add('GameboardScene', GameboardScene);
+  //       this.game.scene.start('GameboardScene', storedPlayerTile);
+  //
+  //       this.game.emberGame = emberGameService;
+  //
+  //       console.log('this.game',this.game);
+  //     });
+
   }
 
 }

@@ -11,7 +11,11 @@ export default class GameboardComponent extends Component {
   setup(element) {
     console.log('setup', element, element.clientHeight, element.clientWidth);
 
+    // this.game.loadGame();
+
     new PhaserGame(this.game, element.clientHeight - 68, element.clientWidth);
+
+    // this.game.saveGame();
   }
 
   @action

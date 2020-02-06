@@ -1,5 +1,6 @@
 import Service from '@ember/service';
 import { inject as service } from '@ember/service';
+import localforage from "localforage";
 
 export default class MapService extends Service {
 
@@ -39,23 +40,61 @@ export default class MapService extends Service {
     // blitter.setAlpha(Constants.ALPHA_VISIBLE);
     // console.log('blitter', blitter)
 
-    board.forEachTileXY((tileXY, board) => {
+    // const sceneKey = scene.scene.key;
 
-      if(config.showHexInfo) {
-        const travelFlags = this.getTileAttribute(scene, tileXY, 'travelFlags');
+    // console.log('start')
+    // const newboard =  localforage.getItem(sceneKey)
+    //   .then(sceneData => {
+    //     console.log('sceneData', sceneData)
+        board.forEachTileXY((tileXY, board) => {
 
-        const points = board.getGridPoints(tileXY.x, tileXY.y, true);
-        graphics.strokePoints(points, true);
-        const out = board.tileXYToWorldXY(tileXY.x, tileXY.y, true);
-        scene.add.text(out.x, out.y, tileXY.x + ',' + tileXY.y + ' ' + travelFlags, {color: '#EFB21A'})
-          .setOrigin(0.5)
-          .setDepth(3);
-      }
+          if(config.showHexInfo) {
+            const travelFlags = this.getTileAttribute(scene, tileXY, 'travelFlags');
+
+            const points = board.getGridPoints(tileXY.x, tileXY.y, true);
+            graphics.strokePoints(points, true);
+            const out = board.tileXYToWorldXY(tileXY.x, tileXY.y, true);
+            scene.add.text(out.x, out.y, tileXY.x + ',' + tileXY.y + ' ' + travelFlags, {color: '#EFB21A'})
+              .setOrigin(0.5)
+              .setDepth(3);
+          }
 
 
-      scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, this.constants.TILEZ_FOG, this.constants.COLOR_HIDDEN, this.constants.ALPHA_VISIBLE);
+          const allSeenTileKey = `${tileXY.x}_${tileXY.y}`;
+          const previouslySeen = config.allSeenTiles.has(allSeenTileKey);
 
-    });
+          // console.log('key', allSeenTileKey, previouslySeen)
+
+          scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, this.constants.TILEZ_FOG, this.constants.COLOR_HIDDEN,
+            previouslySeen ? this.constants.ALPHA_PREVIOUSLY_SEEN : this.constants.ALPHA_VISIBLE);
+
+        });
+
+      //   return board;
+      // })
+      // .catch((err) => {
+      //   console.error(err);
+      // });
+
+
+    // console.log('after newboard', newboard)
+    // board.forEachTileXY((tileXY, board) => {
+    //
+    //   if(config.showHexInfo) {
+    //     const travelFlags = this.getTileAttribute(scene, tileXY, 'travelFlags');
+    //
+    //     const points = board.getGridPoints(tileXY.x, tileXY.y, true);
+    //     graphics.strokePoints(points, true);
+    //     const out = board.tileXYToWorldXY(tileXY.x, tileXY.y, true);
+    //     scene.add.text(out.x, out.y, tileXY.x + ',' + tileXY.y + ' ' + travelFlags, {color: '#EFB21A'})
+    //       .setOrigin(0.5)
+    //       .setDepth(3);
+    //   }
+    //
+    //
+    //   scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, this.constants.TILEZ_FOG, this.constants.COLOR_HIDDEN, this.constants.ALPHA_VISIBLE);
+    //
+    // });
 
 
 
@@ -106,9 +145,10 @@ export default class MapService extends Service {
       }
     });
 
+    // console.log('tempTiles', tempTiles)
     tempTiles.forEach((tileXY) => {
       const splitTileXY = tileXY.split('_');
-      const fovShape = this.getShapeAtTileXY(board, splitTileXY);
+      const fovShape = this.getShapeAtTileXY(board, {x:splitTileXY[0], y:splitTileXY[1]});
 
       if (fovShape) {
         fovShape.fillAlpha = this.constants.ALPHA_PREVIOUSLY_SEEN;
@@ -118,13 +158,18 @@ export default class MapService extends Service {
     // remove player tile if there
     tempTiles.delete(`${agent.rexChess.tileXYZ.x}_${agent.rexChess.tileXYZ.y}`)
 
+    // Keep track of previously seen tiles and keep all seen tiles
     board.scene.lastSeenTiles = visibleTiles;
+    visibleTiles.forEach(board.scene.allSeenTiles.add, board.scene.allSeenTiles);
+    console.log('board.scene.allSeenTiles', board.scene.allSeenTiles);
   }
 
   getShapeAtTileXY(board, tileXY) {
     const fovShapeArray = board.tileXYToChessArray(tileXY.x, tileXY.y);
     if (fovShapeArray && fovShapeArray.length > 0) {
-      return fovShapeArray.find(object => (object.type && object.type === "Polygon"));
+      return fovShapeArray.find(object => {
+        return (object.type && object.type === "Polygon")
+      });
     }
     return undefined;
   }

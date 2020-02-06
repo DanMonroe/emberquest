@@ -8,6 +8,8 @@ export default {
 
   mapUrl: '/images/maps/landsea-min.png',
 
+  monsterLocations: [], // tiles where monsters may spawn
+
   sceneTiles: [
     [
       {'row': 0, 'col': 0, 'sightCost': 7, 'sightFlags': 0, 'speedCost': 0.3, 'travelFlags': 8, 'wesnoth': 'Ms^Xm'},

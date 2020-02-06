@@ -3,6 +3,7 @@ import Phaser from 'phaser';
 export default class Player extends Phaser.GameObjects.Sprite {
 
   scene = undefined;
+  ember = undefined;
 
   constructor(scene, config) {
     super(scene, config.playerX, config.playerY, config.texture);
@@ -11,6 +12,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
     this.scene = scene;
     this.board = scene.board;
+    this.ember = this.scene.game.emberGame;
 
     this.moveToObject = this.scene.rexBoard.add.moveTo(this, {
       speed: config.speed, // 400 default
@@ -23,8 +25,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
       }
 
 
-      const allattrs = this.scene.game.emberGame.map.getTileAttribute(pathFinder.scene, preTile);
-      const canMove = this.scene.game.emberGame.playerHasAbilityFlag(pathFinder.scene.player, this.scene.game.emberGame.constants.FLAG_TYPE_TRAVEL, allattrs.travelFlags);
+      const allattrs = this.ember.map.getTileAttribute(pathFinder.scene, preTile);
+      const canMove = this.ember.playerHasAbilityFlag(pathFinder.scene.player, this.ember.constants.FLAG_TYPE_TRAVEL, allattrs.travelFlags);
 
       if (!canMove) {
         // console.log('cant move! preTile', preTile, 'travelFlags', allattrs.travelFlags, 'wesnoth', allattrs.wesnoth);
@@ -45,7 +47,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       blockerTest: true,
       costCallback: (curTile, preTile, pathFinder) => {
         // pathFinder.gameObject is 'this'  i.e., this Player object
-        const travelFlags = this.scene.game.emberGame.map.getTileAttribute(pathFinder.chessData.board.scene, preTile, 'travelFlags');
+        const travelFlags = this.ember.map.getTileAttribute(pathFinder.chessData.board.scene, preTile, 'travelFlags');
         console.log('pathFinder costCallback', curTile, preTile, pathFinder, travelFlags);
 
         return travelFlags ? 100 : 0;
@@ -72,31 +74,32 @@ export default class Player extends Phaser.GameObjects.Sprite {
     if (!this.moveToObject.isRunning) {
 
       if (cursors.D.isDown) {
-        this.moveToObject.moveToward(this.scene.game.emberGame.constants.DIRECTIONS.SE);
+        this.moveToObject.moveToward(this.ember.constants.DIRECTIONS.SE);
         // this.showMoveableArea();
       } else if (cursors.S.isDown) {
-        this.moveToObject.moveToward(this.scene.game.emberGame.constants.DIRECTIONS.S);
+        this.moveToObject.moveToward(this.ember.constants.DIRECTIONS.S);
         // this.showMoveableArea();
       } else if (cursors.A.isDown) {
-        this.moveToObject.moveToward(this.scene.game.emberGame.constants.DIRECTIONS.SW);
+        this.moveToObject.moveToward(this.ember.constants.DIRECTIONS.SW);
         // this.showMoveableArea();
       } else if (cursors.Q.isDown) {
-        this.moveToObject.moveToward(this.scene.game.emberGame.constants.DIRECTIONS.NW);
+        this.moveToObject.moveToward(this.ember.constants.DIRECTIONS.NW);
         // this.showMoveableArea();
       } else if (cursors.W.isDown) {
-        this.moveToObject.moveToward(this.scene.game.emberGame.constants.DIRECTIONS.N);
+        this.moveToObject.moveToward(this.ember.constants.DIRECTIONS.N);
         // this.showMoveableArea();
       } else if (cursors.E.isDown) {
-        this.moveToObject.moveToward(this.scene.game.emberGame.constants.DIRECTIONS.NE);
+        this.moveToObject.moveToward(this.ember.constants.DIRECTIONS.NE);
         // this.showMoveableArea();
       }
     }
   }
 
-  moveToComplete(player, gameObject) {
+  moveToComplete(player, moveTo) {
     // console.log('moveToComplete', moveTo, gameObject);
-    // player.showMoveableArea();
-    player.board.scene.game.emberGame.map.findFOV(player);
+    moveTo.scene.game.emberGame.saveSceneData(moveTo.scene);
+    moveTo.scene.game.emberGame.saveGameData("playerTile", player.rexChess.tileXYZ);
+    moveTo.scene.game.emberGame.map.findFOV(player);
   }
 
   moveToTileXY = (endTileXY) => {
