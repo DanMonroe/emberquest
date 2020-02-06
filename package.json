@@ -14,7 +14,7 @@
     "build": "ember build",
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
-    "start": "ember serve",
+    "start": "ember serve --port 4300",
     "test": "ember test"
   },
   "devDependencies": {

@@ -41,7 +41,7 @@ export default class PhaserGame {
 
     this.game = new Phaser.Game(this.config);
 
-    this.game.emberGameService = emberGameService;
+    this.game.emberGame = emberGameService;
 
     console.log('this.game',this.game);
   }
