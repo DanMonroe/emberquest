@@ -20,6 +20,25 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+    },
+
+    game: {
+      // startingMapIndex: 1,
+      // // startingMapIndex: 2,
+      // enableGameSounds: false,
+      // gameClockEnabled: false,
+      modalsDuration: 600,  // transition time for drop down modals
+      // transport: {
+      //   moveQueueEnabled: true,
+      // },
+      // board: {
+      //   showTileGraphics: true,
+      //   showTileHexInfo: false,
+      //   showDebugLayer: false,
+      //   showScrollRectangle: false,
+      //   showFieldOfViewLayer: true,
+      //   pathFindingDebug: false
+      // }
     }
   };
 

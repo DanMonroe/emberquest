@@ -28,15 +28,24 @@ export default class ConstantsService extends Service {
   COLOR_HIDDEN = 0x000000;
   // COLOR_HIDDEN = 0x333333;
 
-  ALPHA_HIDDEN = 0;
-  ALPHA_VISIBLE = 1;
+  ALPHA_POLYGON_VISIBLE_TO_PLAYER = 0;
+  ALPHA_POLYGON_HIDDEN_TO_PLAYER = 1;
+  ALPHA_OBJECT_VISIBLE_TO_PLAYER = 1;
+  ALPHA_OBJECT_HIDDEN_TO_PLAYER = 0;
+
+  // ALPHA_VISIBLE_TO_PLAYER = 0;
+  // ALPHA_HIDDEN_FROM_PLAYER = 1;
   ALPHA_PREVIOUSLY_SEEN = 0.4;
+
+  SHAPE_TYPE_PLAYER = 'Player';
+  SHAPE_TYPE_POLYGON = 'Polygon';
 
   FLAG_TYPE_TRAVEL = 0;
   FLAG_TYPE_VISIBILITY = 1;
 
   TILEZ_PLAYER  = 1; // "layer" for player
   TILEZ_FOG  = 2;    // "layer" for fog of war
+  TILEZ_CHESTS  = 3;    // "layer" for chests
 
   FLAGS = {
     TRAVEL: {

@@ -41,7 +41,7 @@ export default class GameService extends Service {
   saveGameData(key, value) {
     localforage.setItem(key, value)
       .then((value) => {
-      console.log('done saving', value)
+      // console.log('done saving', value)
     }).catch((err) => {
       console.error(err);
     });
@@ -64,6 +64,17 @@ export default class GameService extends Service {
     player.fov = scene.rexBoard.add.fieldOfView(player, playerConfig);
 
     return player;
+  }
+
+  processPlayerMove(player) {
+    const tileXYZ = player.rexChess.tileXYZ;
+    console.log('player moved', tileXYZ, player);
+
+    const chestsHere = player.scene.board.tileXYZToChess(tileXYZ.x, tileXYZ.y, this.constants.TILEZ_CHESTS);
+    console.log('chestsHere', chestsHere);
+    if (chestsHere) {
+      chestsHere.playerFound();
+    }
   }
 
   playerHasAbilityFlag(playerObj, type, flag) {

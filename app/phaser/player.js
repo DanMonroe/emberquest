@@ -64,8 +64,14 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
     this.setData('attrs', config.flagAttributes);
 
+    // set immovable if another object collides with our player
+    // this.setImmovable(true);
+
+    // this.setCollideWorldBounds(true);
+
     this.setScale(config.scale);
 
+    this.setDepth(15);
   }
 
 
@@ -100,6 +106,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     moveTo.scene.game.emberGame.saveSceneData(moveTo.scene);
     moveTo.scene.game.emberGame.saveGameData("playerTile", player.rexChess.tileXYZ);
     moveTo.scene.game.emberGame.map.findFOV(player);
+    moveTo.scene.game.emberGame.processPlayerMove(player);
   }
 
   moveToTileXY = (endTileXY) => {

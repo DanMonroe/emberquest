@@ -66,7 +66,7 @@ export default class MapService extends Service {
           // console.log('key', allSeenTileKey, previouslySeen)
 
           scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, this.constants.TILEZ_FOG, this.constants.COLOR_HIDDEN,
-            previouslySeen ? this.constants.ALPHA_PREVIOUSLY_SEEN : this.constants.ALPHA_VISIBLE);
+            previouslySeen ? this.constants.ALPHA_PREVIOUSLY_SEEN : this.constants.ALPHA_POLYGON_HIDDEN_TO_PLAYER);
 
         });
 
@@ -130,11 +130,20 @@ export default class MapService extends Service {
 
       visibleTiles.add(`${tileXY.x}_${tileXY.y}`);
 
-      const fovShape = this.getShapeAtTileXY(board, tileXY);
-
-      if (fovShape) {
-        fovShape.fillAlpha = this.constants.ALPHA_HIDDEN;
+      const fovShapes = this.getGameObjectsAtTileXY(board, tileXY, undefined,this.constants.SHAPE_TYPE_PLAYER);
+      if (fovShapes && fovShapes.length > 0) {
+        fovShapes.forEach(fovShape => {
+          if (fovShape.type === this.constants.SHAPE_TYPE_POLYGON) {
+            fovShape.fillAlpha = this.constants.ALPHA_POLYGON_VISIBLE_TO_PLAYER;
+          } else {
+            fovShape.setAlpha(this.constants.ALPHA_OBJECT_VISIBLE_TO_PLAYER);
+          }
+        });
       }
+      // const fovShape = this.getShapeAtTileXY(board, tileXY, "Polygon");
+      // if (fovShape && fovShape.length === 1) {
+      //   fovShape[0].fillAlpha = this.constants.ALPHA_VISIBLE_TO_PLAYER;
+      // }
     }
 
     // update tiles visibility that are no longer in FOV
@@ -148,27 +157,56 @@ export default class MapService extends Service {
     // console.log('tempTiles', tempTiles)
     tempTiles.forEach((tileXY) => {
       const splitTileXY = tileXY.split('_');
-      const fovShape = this.getShapeAtTileXY(board, {x:splitTileXY[0], y:splitTileXY[1]});
 
-      if (fovShape) {
-        fovShape.fillAlpha = this.constants.ALPHA_PREVIOUSLY_SEEN;
+      const fovShapes = this.getGameObjectsAtTileXY(board, {x:splitTileXY[0], y:splitTileXY[1]}, undefined,"Player");
+
+      if (fovShapes && fovShapes.length > 0) {
+        fovShapes.forEach(fovShape => {
+          if (fovShape.type === this.constants.SHAPE_TYPE_POLYGON) {
+            fovShape.fillAlpha = this.constants.ALPHA_PREVIOUSLY_SEEN;
+          } else {
+            fovShape.setAlpha(this.constants.ALPHA_OBJECT_HIDDEN_TO_PLAYER);
+          }
+        });
       }
+
+      // const fovShape = this.getShapeAtTileXY(board, {x:splitTileXY[0], y:splitTileXY[1]}, "Polygon");
+      //
+      // if (fovShape) {
+      //   fovShape.fillAlpha = this.constants.ALPHA_PREVIOUSLY_SEEN;
+      // }
     });
 
     // remove player tile if there
-    tempTiles.delete(`${agent.rexChess.tileXYZ.x}_${agent.rexChess.tileXYZ.y}`)
+    tempTiles.delete(`${agent.rexChess.tileXYZ.x}_${agent.rexChess.tileXYZ.y}`);
 
     // Keep track of previously seen tiles and keep all seen tiles
     board.scene.lastSeenTiles = visibleTiles;
     visibleTiles.forEach(board.scene.allSeenTiles.add, board.scene.allSeenTiles);
-    console.log('board.scene.allSeenTiles', board.scene.allSeenTiles);
   }
 
-  getShapeAtTileXY(board, tileXY) {
+  // get a list of specific types with passing in a type ("Polygon", "Chest", etc)
+  // or get all objects at tile that are not of type excludedType  - everything but "Player"
+  getGameObjectsAtTileXY(board, tileXY, type, excludedType) {
     const fovShapeArray = board.tileXYToChessArray(tileXY.x, tileXY.y);
     if (fovShapeArray && fovShapeArray.length > 0) {
-      return fovShapeArray.find(object => {
-        return (object.type && object.type === "Polygon")
+      return fovShapeArray.filter(object => {
+        if (object.type) {
+          if (excludedType) {
+            return object.type !== excludedType;
+          }
+          return object.type === type;
+        }
+      });
+    }
+    return undefined;
+  }
+
+  getShapeAtTileXY(board, tileXY, type) {
+    const fovShapeArray = board.tileXYToChessArray(tileXY.x, tileXY.y);
+    if (fovShapeArray && fovShapeArray.length > 0) {
+      return fovShapeArray.filter(object => {
+        return (object.type && object.type === type)
       });
     }
     return undefined;

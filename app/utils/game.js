@@ -123,7 +123,7 @@
 //     const fovShape = getShapeAtTileXY(board, tileXY);
 //
 //     if (fovShape) {
-//       fovShape.fillAlpha = Constants.ALPHA_HIDDEN;
+//       fovShape.fillAlpha = Constants.ALPHA_VISIBLE_TO_PLAYER;
 //     }
 //
 //   }

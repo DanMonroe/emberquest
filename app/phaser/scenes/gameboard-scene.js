@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import Chest from '../chest';
 
 export class GameboardScene extends Phaser.Scene {
 
@@ -7,6 +8,9 @@ export class GameboardScene extends Phaser.Scene {
   lastSeenTiles = new Set();
   allSeenTiles = new Set();
   storedPlayerTile = undefined;
+  playerConfig = undefined;
+  chests = {};
+  monsters = {};
 
   constructor() {
     super({
@@ -23,18 +27,40 @@ export class GameboardScene extends Phaser.Scene {
     this.ember = this.game.emberGame;
     this.MapData = this.ember.getMapData();
     this.load.image('map', this.MapData.mapUrl);
-    this.load.image('player', this.ember.playerImgSrc);
-
   }
 
   create() {
-    console.log('create gameboard scene');
+    this.configureBoard();
+    this.createInput();
+    this.createBoard();
 
-    this.cameras.main.zoom = this.ember.cameraMainZoom;
+    this.createGroups();
+    this.createASingleChest();
 
+    this.createPlayer();
+    this.startSpawnerService();
+
+    this.addCollisions();
+
+
+    this.boardExperiments();
+  }
+
+  boardExperiments() {
+    // just a place to try new stuff out
+
+    // click end tileXY to get info in console
+    this.board.on('tiledown',  (pointer, tileXY) => {
+      const allAttrs = this.ember.map.getTileAttribute(this, tileXY);
+      const clickedShape = this.board.tileXYToChessArray(tileXY.x, tileXY.y);
+      console.log(tileXY, allAttrs, clickedShape);
+    });
+  }
+
+  createPlayer() {
     const playerTile = this.storedPlayerTile ? {x: this.storedPlayerTile.x, y: this.storedPlayerTile.y} : {x: this.MapData.player.startX, y: this.MapData.player.startY};
 
-    const playerConfig = {
+    this.playerConfig = {
       playerX: playerTile.x,
       playerY: playerTile.y,
       texture: 'player',
@@ -73,6 +99,22 @@ export class GameboardScene extends Phaser.Scene {
 
     };
 
+    this.player = this.ember.createPlayer(this, this.playerConfig);
+    // this.player = new Player(this, playerConfig);
+    console.log('Created Player', this.player);
+
+
+    // // make the camera follow the player
+    this.cameras.main.startFollow(this.player);
+
+    // update field of view
+    this.ember.map.findFOV(this.player);
+
+  }
+
+  configureBoard() {
+    this.cameras.main.zoom = this.ember.cameraMainZoom;
+
     this.map = this.add.image(0, 0, 'map');
     this.map.setOrigin(0,0);
 
@@ -82,11 +124,9 @@ export class GameboardScene extends Phaser.Scene {
 
     // set bounds so the camera won't go outside the game world
     this.cameras.main.setBounds(0, 0, this.map.width, this.map.height);
+  }
 
-    // The Q W S A D E keys
-    this.cursors = {...this.input.keyboard.addKeys('Q,W,S,A,D,E')};
-
-    // Board
+  createBoard() {
     this.board = this.ember.map.createBoard(this, {
       grid: this.ember.map.getHexagonGrid(this),
       width: this.MapData.sceneTiles[0].length,
@@ -95,60 +135,68 @@ export class GameboardScene extends Phaser.Scene {
       allSeenTiles: this.allSeenTiles,
       showHexInfo: this.ember.showHexInfo
     });
+  }
 
-    // Player
-    this.player = this.ember.createPlayer(this, playerConfig);
-    // this.player = new Player(this, playerConfig);
-    console.log('Created Player', this.player);
+  createASingleChest() {
 
+    let chest = new Chest(this, 442, 612, 'chest', 0, 100, 'chestFoo');
+    chest.setAlpha(0);
+    // chest.makeActive();
 
-    // make the camera follow the player
-    this.cameras.main.startFollow(this.player);
-
-
-    this.ember.map.findFOV(this.player);
-
-    // // The Q W S A D E keys
-    // this.cursors = {...this.input.keyboard.addKeys('Q,W,S,A,D,E')};
-    // this.cursors = {...this.input.keyboard.createCursorKeys(), ...this.input.keyboard.addKeys('Q,W,S,A,D,E')};
-
-    this.boardExperiments();
+    this.chests.add(chest);
+    this.board.addChess(chest, 3, 11, this.ember.constants.TILEZ_CHESTS);
 
 
+    chest = new Chest(this, 442, 612, 'chest', 0, 100, 'chestBar');
+    chest.setAlpha(0);
+    // chest.makeActive();
+
+    this.chests.add(chest);
+    this.board.addChess(chest, 5, 9, this.ember.constants.TILEZ_CHESTS);
+    // add chest to chests group
+  }
+
+
+  createGroups() {
+    // create a chest group
+    this.chests = this.physics.add.group();
+    // create a monster group
+    // this.monsters = this.physics.add.group();
+    // this.monsters.runChildUpdate = true;
+  }
+
+  startSpawnerService() {
     // spawn objects
     this.ember.spawnerService.spawnObjects.perform();
+
   }
 
-  boardExperiments() {
-
-    // click end tileXY
-    this.board.on('tiledown',  (pointer, tileXY) => {
-      const allAttrs = this.ember.map.getTileAttribute(this, tileXY);
-      const clickedShape = this.board.tileXYToChessArray(tileXY.x, tileXY.y);
-      console.log('tiledown tileXY', tileXY,'allAttrs', allAttrs, clickedShape);
-    });
+  createInput() {
+    // The Q W S A D E keys
+    this.cursors = {...this.input.keyboard.addKeys('Q,W,S,A,D,E')};
   }
 
+  addCollisions() {
+    // check for collisions between the player and the tiled blocked layer
+    // this.physics.add.collider(this.player, this.map.blockedLayer);
+
+    // check for overlaps between player and chest game objects
+    this.physics.add.overlap(this.player, this.chests, this.collectChest, null, this);
+
+    // check for collisions between the monster group and the tiled blocked layer
+    // this.physics.add.collider(this.monsters, this.map.blockedLayer);
+
+    // check for overlaps between the player's weapon and monster game objects
+    // this.physics.add.overlap(this.player.weapon, this.monsters, this.enemyOverlap, null, this);
+
+  }
+
+  collectChest() {
+    console.log('collect chest', arguments);
+  }
 
   update() {
-
     this.player.moveTo(this.cursors);
-
-    // playerMoveTo(this.cursors, this.player.playerMoveTo);
-
-
   }
 }
 
-// class Blocker extends RexPlugins.Board.Shape {
-//   constructor(board, tileXY) {
-//     var scene = board.scene;
-//     if (tileXY === undefined) {
-//       tileXY = board.getRandomEmptyTileXY(0);
-//     }
-//     // Shape(board, tileX, tileY, tileZ, fillColor, fillAlpha, addToBoard)
-//     super(board, tileXY.x, tileXY.y, 0, 0x000000, 0);
-//     // super(board, tileXY.x, tileXY.y, 0, 0x555555);
-//     scene.add.existing(this);
-//   }
-// }
