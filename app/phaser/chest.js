@@ -7,6 +7,8 @@ export default class Chest extends Phaser.Physics.Arcade.Image {
     this.coins = coins; // the amount of coins this chest contains
     this.id = id;
 
+    this.found = false;
+
     // enable physics
     this.scene.physics.world.enable(this);
     // add the player to our existing scene
@@ -28,6 +30,10 @@ export default class Chest extends Phaser.Physics.Arcade.Image {
   // }
 
   playerFound() {
-    console.log('player found chest', this)
+    console.log('player found chest', this);
+    this.found = !this.found;
+    this.setFrame(this.found ? 0 : 1);
+
+    this.scene.ember.foundChest(this);
   }
 }

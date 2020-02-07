@@ -276,6 +276,11 @@ button {
       display: none;
     }
 
+    .player-gems {
+      top: 80px;
+      left: 290px;
+    }
+
     .close-btn-x {
       top: 86px;
       left: 384px;
@@ -320,6 +325,11 @@ button {
       position: absolute;
       top: 100px;
       left: 220px;
+    }
+
+    .player-gems {
+      top: 86px;
+      left: 524px;
     }
 
     .close-btn-x {
@@ -374,6 +384,14 @@ button {
   background-repeat: no-repeat;
   background-size: contain;
   height: 726px;
+
+  .player-gems {
+    position: absolute;
+    color: #0065ff;
+    font-weight: bold;
+    font-size: 22px;
+    padding: 15px;
+  }
 
 
   .close-btn-x {

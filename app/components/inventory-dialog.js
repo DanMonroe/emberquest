@@ -1,9 +1,12 @@
 import Component from '@glimmer/component';
 import {action,computed} from '@ember/object';
 import { tracked } from '@glimmer/tracking';
+import { inject as service } from '@ember/service';
 
 export default class InventoryDialogComponent extends Component {
   tagName = '';
+
+  @service game;
 
   @tracked currentNavCategory = this.leftNavItems[0];
   @tracked itemSelected = null;

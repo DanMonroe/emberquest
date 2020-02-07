@@ -5,7 +5,9 @@
     </div>
     <div class="header">
       <h2>EmberQuest</h2>
+
       <div class="game-controls">
+        <spans class="gems">{{this.game.playerCoins}}</spans>
         <button type="button" class="btn inventory" {{on "click" (fn this.showInventory)}} >
           <EmberTooltip tooltipClass="tooltip-controls" >Inventory</EmberTooltip>
         </button>

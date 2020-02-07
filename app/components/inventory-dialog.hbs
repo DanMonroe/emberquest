@@ -1,5 +1,7 @@
 <div class="inventoryDialog">
   <h2 class="title title-text">Inventory</h2>
+  {{log "gems" this.game.playerCoins}}
+  <div class="player-gems">{{this.game.playerCoins}}</div>
   <div class="btn close-btn-x" {{action @close true}}>X</div>
   <div class="left-nav absolute">
     {{#each this.leftNavItems as |navItem|}}

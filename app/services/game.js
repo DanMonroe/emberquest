@@ -21,6 +21,8 @@ export default class GameService extends Service {
 
   @tracked sceneData = [];
 
+  @tracked playerCoins = 0;
+
   getMapData() {
     return MapData;
   }
@@ -99,4 +101,11 @@ export default class GameService extends Service {
     return false;
   }
 
+
+  foundChest(chest) {
+    if (chest) {
+      this.playerCoins += chest.coins;
+      chest.coins = 0;
+    }
+  }
 }

@@ -139,7 +139,7 @@ export class GameboardScene extends Phaser.Scene {
 
   createASingleChest() {
 
-    let chest = new Chest(this, 442, 612, 'chest', 0, 100, 'chestFoo');
+    let chest = new Chest(this, 442, 612, 'chests', 1, 100, 'chestFoo');
     chest.setAlpha(0);
     // chest.makeActive();
 
@@ -147,7 +147,7 @@ export class GameboardScene extends Phaser.Scene {
     this.board.addChess(chest, 3, 11, this.ember.constants.TILEZ_CHESTS);
 
 
-    chest = new Chest(this, 442, 612, 'chest', 0, 100, 'chestBar');
+    chest = new Chest(this, 442, 612, 'chests', 1, 100, 'chestBar');
     chest.setAlpha(0);
     // chest.makeActive();
 
