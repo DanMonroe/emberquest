@@ -7,7 +7,7 @@ import localforage from 'localforage';
 // import MapData from './tiledata/testmap'
 import MapData from '../phaser/scenes/tiledata/landsea'
 
-import Player from "../phaser/player";
+import PlayerContainer from "../phaser/player/playerContainer";
 
 export default class GameService extends Service {
 
@@ -59,7 +59,10 @@ export default class GameService extends Service {
   }
 
   createPlayer(scene, playerConfig) {
-    let player = new Player(scene, playerConfig);
+    let player = new PlayerContainer(scene, playerConfig);
+    // player.addCollisions();
+
+    // let player = new Player(scene, playerConfig);
 
     scene.board.addChess(player, playerConfig.playerX, playerConfig.playerY, this.constants.TILEZ_PLAYER);
 

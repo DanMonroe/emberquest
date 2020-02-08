@@ -1,33 +1,73 @@
 import Phaser from 'phaser';
+import Player from "./player";
 
-export default class Player extends Phaser.Physics.Arcade.Sprite{
-// export default class Player extends Phaser.GameObjects.Sprite {
+export default class PlayerContainer extends Phaser.GameObjects.Container {
 
   scene = undefined;
   ember = undefined;
 
   constructor(scene, config) {
-    super(scene, config.playerX, config.playerY, config.texture);
 
-    scene.add.existing(this);
+    // constructor(scene, x, y, key, frame, health, maxHealth, id, attackAudio) {
+    // super(scene, config.playerX, config.playerY, config.texture);
+    super(scene, 0, 0);
+    // super(scene, config.playerX, config.playerY);
 
     this.scene = scene;
     this.board = scene.board;
     this.ember = this.scene.game.emberGame;
 
+    this.id = config.id;
+    this.playerAttacking = false;
+    // this.flipX = true;
+    // this.swordHit = false;
+    this.health = config.health;
+    this.maxHealth = config.maxHealth;
+    this.power = config.power;
+    this.maxPower = config.maxPower;
+    this.attackAudio = config.attackAudio;
+
+    this.cachedHealthPercentage = 0;
+
+    // set a size on the container
+    this.setSize(42, 42);
+
     // enable physics
     this.scene.physics.world.enable(this);
+
+    // collide with world bounds
+    this.body.setCollideWorldBounds(true);
+
+    // add the player container to our existing scene
+    this.scene.add.existing(this);
+
+    // have the camera follow the player
+    this.scene.cameras.main.startFollow(this);
+
+
+    // create the player
+    this.player = new Player(this.scene, config);
+    // this.player = new Player(this.scene, 0, 0, key, frame);
+    this.add(this.player);
+
+    // // create the weapon game object
+    // this.weapon = this.scene.add.image(40, 0, 'items', 4);
+    // this.scene.add.existing(this.weapon);
+    // this.weapon.setScale(1.5);
+    // this.scene.physics.world.enable(this.weapon);
+    // this.add(this.weapon);
+    // this.weapon.alpha = 0;
 
     this.moveToObject = this.scene.rexBoard.add.moveTo(this, {
       speed: config.speed, // 400 default
     });
+
     this.moveToObject.on('complete', this.moveToComplete);
 
     this.moveToObject.moveableTestCallback = (curTile, preTile, pathFinder) => {
       if (this.moveToObject.isRunning) {
         return false;
       }
-
 
       const allattrs = this.ember.map.getTileAttribute(pathFinder.scene, preTile);
       const canMove = this.ember.playerHasAbilityFlag(pathFinder.scene.player, this.ember.constants.FLAG_TYPE_TRAVEL, allattrs.travelFlags);
@@ -68,40 +108,46 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
 
     this.setData('attrs', config.flagAttributes);
 
-    // set immovable if another object collides with our player
-    // this.setImmovable(true);
+    // this.setScale(config.scale);
 
-    // this.setCollideWorldBounds(true);
+    // this.setDepth(15);
 
-    this.setScale(config.scale);
-
-    this.setDepth(15);
-
-    // this.createHealthBar();
+    this.createHealthBar();
   }
 
-  // update() {
-  //   console.log('player update')
-  //   this.updateHealthBar();
-  // }
-  //
-  // createHealthBar() {
-  //   this.healthBar = this.scene.add.graphics();
-  //   this.updateHealthBar();
-  // }
-  //
-  // updateHealthBar() {
-  //   this.healthBar.clear();
-  //   this.healthBar.fillStyle(0xffffff, 1);
-  //   this.healthBar.fillRect(this.x, this.y - 8, 64, 5);
-  //   this.healthBar.fillGradientStyle(0xff0000, 0xffffff, 4);
-  //   this.healthBar.fillRect(this.x, this.y - 8, 64 * (this.health / this.maxHealth), 5);
-  // }
-  //
-  // updateHealth(health) {
-  //   this.health = health;
-  //   this.updateHealthBar();
-  // }
+  update(cursors) {
+    // console.log('player update');
+    this.moveTo(cursors);
+    this.updateHealthBar();
+  }
+
+  createHealthBar() {
+    this.healthBar = this.scene.add.graphics();
+    this.powerBar = this.scene.add.graphics();
+    this.updateHealthBar();
+  }
+
+  updateHealthBar() {
+    const healthPercentage = (this.health / this.maxHealth);
+    this.healthBar.clear();
+    this.healthBar.fillStyle(0xffffff, 0.4);
+    this.healthBar.fillRect(this.x + this.ember.constants.healthBarOffsetX, this.y + this.ember.constants.healthBarOffsetY, this.ember.constants.healthBarWidth, this.ember.constants.healthBarHeight);
+    this.healthBar.fillStyle(healthPercentage <- this.ember.constants.healthBarColorTippingPoint ? this.ember.constants.healthBarColorDanger : this.ember.constants.healthBarColorGood, 1);
+    this.healthBar.fillRect(this.x + this.ember.constants.healthBarOffsetX, this.y + this.ember.constants.healthBarOffsetY, this.ember.constants.healthBarWidth * healthPercentage, this.ember.constants.healthBarHeight);
+
+    const powerPercentage = (this.power / this.maxPower);
+    this.powerBar.clear();
+    this.powerBar.fillStyle(0xffffff, 0.4);
+    this.powerBar.fillRect(this.x + this.ember.constants.powerBarOffsetX, this.y + this.ember.constants.powerBarOffsetY, this.ember.constants.powerBarWidth, this.ember.constants.powerBarHeight);
+    this.powerBar.fillStyle(this.ember.constants.powerBarColor, 1);
+    this.powerBar.fillRect(this.x + this.ember.constants.powerBarOffsetX, this.y + this.ember.constants.powerBarOffsetY, this.ember.constants.powerBarWidth * powerPercentage, this.ember.constants.powerBarHeight);
+  }
+
+  updateHealth(health, power) {
+    this.health = health;
+    this.power = power;
+    this.updateHealthBar();
+  }
 
 
   moveTo(cursors) {

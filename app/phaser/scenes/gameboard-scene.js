@@ -62,7 +62,7 @@ export class GameboardScene extends Phaser.Scene {
   }
 
   createAudio() {
-    this.goldPickupAudio = this.sound.add('pickup', { loop: false, volume: 0.3 });
+    this.goldPickupAudio = this.sound.add('pickup', { loop: false, volume: 0.5 });
   }
 
   createPlayer() {
@@ -81,6 +81,13 @@ export class GameboardScene extends Phaser.Scene {
       movingPoints: 3,   // this is sight/movement Range
       visiblePoints: 8,   // this is sight/movement Range
 
+      health: 100,
+      maxHealth: 200,
+      power: 150,
+      maxPower: 200,
+      id: 'player1',
+      playerAttackAudio: undefined, // when ready, get from Boot scene
+
       flagAttributes: {
         sightFlags: 0,
         travelFlags: this.ember.constants.FLAGS.TRAVEL.LAND.value
@@ -93,11 +100,7 @@ export class GameboardScene extends Phaser.Scene {
 
         // Limit sight range tp player's sightRange
         // array includes player hex so add one
-        if (tileXYArray.length > (this.player.sightRange + 1)) {
-          return false;
-        }
-
-        return true;
+        return tileXYArray.length <= (this.player.sightRange + 1);
       },
 
       debug: {
@@ -219,7 +222,8 @@ export class GameboardScene extends Phaser.Scene {
   }
 
   update() {
-    this.player.moveTo(this.cursors);
+    if (this.player) this.player.update(this.cursors);
+    // this.player.moveTo(this.cursors);
   }
 }
 

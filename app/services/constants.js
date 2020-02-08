@@ -62,4 +62,19 @@ export default class ConstantsService extends Service {
       DOCK: {value: 1, description: 'Dock'}
     }
   };
+
+  healthBarOffsetX = -24;
+  healthBarOffsetY = -33;
+  healthBarWidth = 48;
+  healthBarHeight = 5;
+  healthBarColorGood = 0x30dd00;
+  healthBarColorDanger = 0xff0000;
+  healthBarColorTippingPoint = 0.25;
+
+  powerBarOffsetX = -24;
+  powerBarOffsetY = -27;
+  powerBarWidth = 48;
+  powerBarHeight = 5;
+  powerBarColor = 0x1E5AFF;
+
 }
