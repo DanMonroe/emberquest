@@ -69,14 +69,14 @@ export default class GameService extends Service {
   }
 
   processPlayerMove(player) {
-    const tileXYZ = player.rexChess.tileXYZ;
-    console.log('player moved', tileXYZ, player);
+    // const tileXYZ = player.rexChess.tileXYZ;
+    // console.log('player moved', tileXYZ, player);
 
-    const chestsHere = player.scene.board.tileXYZToChess(tileXYZ.x, tileXYZ.y, this.constants.TILEZ_CHESTS);
-    console.log('chestsHere', chestsHere);
-    if (chestsHere) {
-      chestsHere.playerFound();
-    }
+    // const chestsHere = player.scene.board.tileXYZToChess(tileXYZ.x, tileXYZ.y, this.constants.TILEZ_CHESTS);
+    // console.log('chestsHere', chestsHere);
+    // if (chestsHere) {
+    //   chestsHere.playerFound();
+    // }
   }
 
   playerHasAbilityFlag(playerObj, type, flag) {

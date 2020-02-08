@@ -36,69 +36,26 @@ export default class MapService extends Service {
       });
     }
 
-    // const blitter = scene.add.blitter(0, 0, 'blackhex');
-    // blitter.setAlpha(Constants.ALPHA_VISIBLE);
-    // console.log('blitter', blitter)
+    board.forEachTileXY((tileXY, board) => {
 
-    // const sceneKey = scene.scene.key;
+      if(config.showHexInfo) {
+        const travelFlags = this.getTileAttribute(scene, tileXY, 'travelFlags');
 
-    // console.log('start')
-    // const newboard =  localforage.getItem(sceneKey)
-    //   .then(sceneData => {
-    //     console.log('sceneData', sceneData)
-        board.forEachTileXY((tileXY, board) => {
+        const points = board.getGridPoints(tileXY.x, tileXY.y, true);
+        graphics.strokePoints(points, true);
+        const out = board.tileXYToWorldXY(tileXY.x, tileXY.y, true);
+        scene.add.text(out.x, out.y, tileXY.x + ',' + tileXY.y + ' ' + travelFlags, {color: '#EFB21A'})
+          .setOrigin(0.5)
+          .setDepth(3);
+      }
 
-          if(config.showHexInfo) {
-            const travelFlags = this.getTileAttribute(scene, tileXY, 'travelFlags');
+      const allSeenTileKey = `${tileXY.x}_${tileXY.y}`;
+      const previouslySeen = config.allSeenTiles.has(allSeenTileKey);
 
-            const points = board.getGridPoints(tileXY.x, tileXY.y, true);
-            graphics.strokePoints(points, true);
-            const out = board.tileXYToWorldXY(tileXY.x, tileXY.y, true);
-            scene.add.text(out.x, out.y, tileXY.x + ',' + tileXY.y + ' ' + travelFlags, {color: '#EFB21A'})
-              .setOrigin(0.5)
-              .setDepth(3);
-          }
+      scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, this.constants.TILEZ_FOG, this.constants.COLOR_HIDDEN,
+        previouslySeen ? this.constants.ALPHA_PREVIOUSLY_SEEN : this.constants.ALPHA_POLYGON_HIDDEN_TO_PLAYER);
 
-
-          const allSeenTileKey = `${tileXY.x}_${tileXY.y}`;
-          const previouslySeen = config.allSeenTiles.has(allSeenTileKey);
-
-          // console.log('key', allSeenTileKey, previouslySeen)
-
-          scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, this.constants.TILEZ_FOG, this.constants.COLOR_HIDDEN,
-            previouslySeen ? this.constants.ALPHA_PREVIOUSLY_SEEN : this.constants.ALPHA_POLYGON_HIDDEN_TO_PLAYER);
-
-        });
-
-      //   return board;
-      // })
-      // .catch((err) => {
-      //   console.error(err);
-      // });
-
-
-    // console.log('after newboard', newboard)
-    // board.forEachTileXY((tileXY, board) => {
-    //
-    //   if(config.showHexInfo) {
-    //     const travelFlags = this.getTileAttribute(scene, tileXY, 'travelFlags');
-    //
-    //     const points = board.getGridPoints(tileXY.x, tileXY.y, true);
-    //     graphics.strokePoints(points, true);
-    //     const out = board.tileXYToWorldXY(tileXY.x, tileXY.y, true);
-    //     scene.add.text(out.x, out.y, tileXY.x + ',' + tileXY.y + ' ' + travelFlags, {color: '#EFB21A'})
-    //       .setOrigin(0.5)
-    //       .setDepth(3);
-    //   }
-    //
-    //
-    //   scene.rexBoard.add.shape(board, tileXY.x, tileXY.y, this.constants.TILEZ_FOG, this.constants.COLOR_HIDDEN, this.constants.ALPHA_VISIBLE);
-    //
-    // });
-
-
-
-    // board.addChess(config.player, config.playerStartX, config.playerStartY, 0, true);
+    });
 
     // enable touch events
     if (true || this.boardIsInteractive) {
@@ -140,10 +97,6 @@ export default class MapService extends Service {
           }
         });
       }
-      // const fovShape = this.getShapeAtTileXY(board, tileXY, "Polygon");
-      // if (fovShape && fovShape.length === 1) {
-      //   fovShape[0].fillAlpha = this.constants.ALPHA_VISIBLE_TO_PLAYER;
-      // }
     }
 
     // update tiles visibility that are no longer in FOV
@@ -169,12 +122,6 @@ export default class MapService extends Service {
           }
         });
       }
-
-      // const fovShape = this.getShapeAtTileXY(board, {x:splitTileXY[0], y:splitTileXY[1]}, "Polygon");
-      //
-      // if (fovShape) {
-      //   fovShape.fillAlpha = this.constants.ALPHA_PREVIOUSLY_SEEN;
-      // }
     });
 
     // remove player tile if there

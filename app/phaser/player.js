@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 
-export default class Player extends Phaser.GameObjects.Sprite {
+export default class Player extends Phaser.Physics.Arcade.Sprite{
+// export default class Player extends Phaser.GameObjects.Sprite {
 
   scene = undefined;
   ember = undefined;
@@ -13,6 +14,9 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.scene = scene;
     this.board = scene.board;
     this.ember = this.scene.game.emberGame;
+
+    // enable physics
+    this.scene.physics.world.enable(this);
 
     this.moveToObject = this.scene.rexBoard.add.moveTo(this, {
       speed: config.speed, // 400 default
@@ -102,7 +106,6 @@ export default class Player extends Phaser.GameObjects.Sprite {
   }
 
   moveToComplete(player, moveTo) {
-    // console.log('moveToComplete', moveTo, gameObject);
     moveTo.scene.game.emberGame.saveSceneData(moveTo.scene);
     moveTo.scene.game.emberGame.saveGameData("playerTile", player.rexChess.tileXYZ);
     moveTo.scene.game.emberGame.map.findFOV(player);
@@ -157,24 +160,24 @@ export default class Player extends Phaser.GameObjects.Sprite {
     return this;
   }
 
-  showMoveableArea = () => {
-    this.hideMoveableArea();
-    // console.log('this._movingPoints', this._movingPoints);
-    var tileXYArray = this.pathFinder.findArea(this._movingPoints);
-    for (var i = 0, cnt = tileXYArray.length; i < cnt; i++) {
-      this._markers.push(
-        new MoveableMarker(this, tileXYArray[i])
-      );
-    }
-    return this;
-  }
-
-  hideMoveableArea = () => {
-    for (var i = 0, cnt = this._markers.length; i < cnt; i++) {
-      this._markers[i].destroy();
-    }
-    this._markers.length = 0;
-    return this;
-  }
+  // showMoveableArea = () => {
+  //   this.hideMoveableArea();
+  //   // console.log('this._movingPoints', this._movingPoints);
+  //   var tileXYArray = this.pathFinder.findArea(this._movingPoints);
+  //   for (var i = 0, cnt = tileXYArray.length; i < cnt; i++) {
+  //     this._markers.push(
+  //       new MoveableMarker(this, tileXYArray[i])
+  //     );
+  //   }
+  //   return this;
+  // }
+  //
+  // hideMoveableArea = () => {
+  //   for (var i = 0, cnt = this._markers.length; i < cnt; i++) {
+  //     this._markers[i].destroy();
+  //   }
+  //   this._markers.length = 0;
+  //   return this;
+  // }
 
 }

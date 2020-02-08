@@ -34,6 +34,8 @@ export class GameboardScene extends Phaser.Scene {
     this.createInput();
     this.createBoard();
 
+    this.createAudio();
+
     this.createGroups();
     this.createASingleChest();
 
@@ -55,6 +57,10 @@ export class GameboardScene extends Phaser.Scene {
       const clickedShape = this.board.tileXYToChessArray(tileXY.x, tileXY.y);
       console.log(tileXY, allAttrs, clickedShape);
     });
+  }
+
+  createAudio() {
+    this.goldPickupAudio = this.sound.add('pickup', { loop: false, volume: 0.3 });
   }
 
   createPlayer() {
@@ -191,8 +197,13 @@ export class GameboardScene extends Phaser.Scene {
 
   }
 
-  collectChest() {
+  collectChest(player, chest) {
+    if ( ! chest.found) {
     console.log('collect chest', arguments);
+      this.goldPickupAudio.play();
+
+      chest.playerFound();
+    }
   }
 
   update() {

@@ -14,7 +14,7 @@ export default class PhaserGame {
       default: 'arcade',
       arcade: {
         gravity: { y: 0 },
-        debug: false
+        debug: true
       }
     },
     scene: [BootScene, GameboardScene],
@@ -24,7 +24,8 @@ export default class PhaserGame {
         plugin: rexBoardPlugin,
         mapping: 'rexBoard'
       }]
-    }
+    },
+    pixelArt: true
   };
     // scene: GameboardScene,
 

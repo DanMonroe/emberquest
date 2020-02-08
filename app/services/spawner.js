@@ -7,9 +7,9 @@ import {task} from 'ember-concurrency-decorators';
 export default class SpawnerService extends Service {
 
   @tracked objectsCreated = 0;
-  @tracked objectLimit = 10;
+  @tracked objectLimit = 2;
   @tracked spawnLocations;
-  @tracked spawnInterval = 3000;
+  @tracked spawnInterval = 30000;
 
   @task
   *spawnObjects() {
