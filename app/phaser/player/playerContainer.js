@@ -1,10 +1,42 @@
 import Phaser from 'phaser';
 import Player from "./player";
+import { tracked } from '@glimmer/tracking';
+import { timeout } from 'ember-concurrency';
+import { task } from 'ember-concurrency-decorators';
+
 
 export default class PlayerContainer extends Phaser.GameObjects.Container {
 
   scene = undefined;
   ember = undefined;
+
+  @tracked maxHealth;
+  @tracked health;
+  @tracked maxPower;
+  @tracked power;
+  @tracked healingSpeed = 3000;
+  @tracked healingPower = 2;
+  @tracked energizeSpeed = 2000;
+  @tracked energizePower = 2;
+
+
+  @task
+  *reloadHealth() {
+    while (this.health < this.maxHealth) {
+      // console.log('reloadHealth')
+      yield timeout(this.healingSpeed);
+      this.health += Math.max(1, this.healingPower);
+    }
+  }
+
+  @task
+  *reloadPower() {
+    while (this.power < this.maxPower) {
+      // console.log('reloadPower')
+      yield timeout(this.energizeSpeed);
+      this.power += Math.max(1, this.energizePower);
+    }
+  }
 
   constructor(scene, config) {
 
@@ -26,6 +58,9 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
     this.power = config.power;
     this.maxPower = config.maxPower;
     this.attackAudio = config.attackAudio;
+
+    // this.healingSpeed = 1000;
+    // this.healingPower = 3;
 
     this.cachedHealthPercentage = 0;
 
@@ -65,18 +100,27 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
     this.moveToObject.on('complete', this.moveToComplete);
 
     this.moveToObject.moveableTestCallback = (curTile, preTile, pathFinder) => {
-      if (this.moveToObject.isRunning) {
+      if (this.moveToObject.isRunning || this.power <= 1) {
         return false;
       }
 
       const allattrs = this.ember.map.getTileAttribute(pathFinder.scene, preTile);
-      const canMove = this.ember.playerHasAbilityFlag(pathFinder.scene.player, this.ember.constants.FLAG_TYPE_TRAVEL, allattrs.travelFlags);
+      let canMove = this.ember.playerHasAbilityFlag(pathFinder.scene.player, this.ember.constants.FLAG_TYPE_TRAVEL, allattrs.travelFlags);
 
       if (!canMove) {
         // console.log('cant move! preTile', preTile, 'travelFlags', allattrs.travelFlags, 'wesnoth', allattrs.wesnoth);
       } else {
         // console.log('speed', config.speed * allattrs.speedCost)
         this.moveToObject.setSpeed(config.speed * allattrs.speedCost)
+
+        // console.log('(config.speed * allattrs.speedCost)', (config.speed * allattrs.speedCost), config.speed , allattrs.speedCost, (3 * (3 - allattrs.speedCost)))
+
+        this.power -= (2 - allattrs.speedCost);
+
+        // if (this.power <= 2) {
+        //   console.log('No power to move!')
+        //   canMove = false;
+        // }
       }
 
       // return true;
@@ -113,6 +157,8 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
     // this.setDepth(15);
 
     this.createHealthBar();
+    this.reloadHealth.perform();
+    this.reloadPower.perform();
   }
 
   update(cursors) {

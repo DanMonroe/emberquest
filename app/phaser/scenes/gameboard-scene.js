@@ -83,7 +83,7 @@ export class GameboardScene extends Phaser.Scene {
 
       health: 100,
       maxHealth: 200,
-      power: 150,
+      power: 20,
       maxPower: 200,
       id: 'player1',
       playerAttackAudio: undefined, // when ready, get from Boot scene
