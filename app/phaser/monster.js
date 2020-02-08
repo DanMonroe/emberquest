@@ -24,9 +24,9 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
     // this.setScale(.3);
 
     // update the origin
-    this.setOrigin(0);
+    // this.setOrigin(0);
 
-    this.createHealthBar();
+    // this.createHealthBar();
 
   }
 

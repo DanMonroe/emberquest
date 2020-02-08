@@ -26,6 +26,7 @@ export class BootScene extends Phaser.Scene {
 
   loadImages() {
     this.load.image('player', this.ember.playerImgSrc);
+    this.load.image('monsters', '/images/monsters/spider.png');
     // this.load.image('chest', '/images/closed_chest.png');
     // this.load.image('chest', '/images/open_chest.png');
 
@@ -33,6 +34,7 @@ export class BootScene extends Phaser.Scene {
 
   loadSpriteSheets() {
     this.load.spritesheet('chests', '/images/chest_sprite.png', { frameWidth: 140, frameHeight: 140 });
+    // this.load.spritesheet('monsters', '/images/monsters/spider.png', { frameWidth: 140, frameHeight: 140 });
     // this.load.spritesheet('items', 'assets/images/items.png', { frameWidth: 32, frameHeight: 32 });
     // this.load.spritesheet('characters', 'assets/images/characters.png', { frameWidth: 32, frameHeight: 32 });
     // this.load.spritesheet('monsters', 'assets/images/monsters.png', { frameWidth: 32, frameHeight: 32 });

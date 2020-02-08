@@ -76,7 +76,32 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
     this.setScale(config.scale);
 
     this.setDepth(15);
+
+    // this.createHealthBar();
   }
+
+  // update() {
+  //   console.log('player update')
+  //   this.updateHealthBar();
+  // }
+  //
+  // createHealthBar() {
+  //   this.healthBar = this.scene.add.graphics();
+  //   this.updateHealthBar();
+  // }
+  //
+  // updateHealthBar() {
+  //   this.healthBar.clear();
+  //   this.healthBar.fillStyle(0xffffff, 1);
+  //   this.healthBar.fillRect(this.x, this.y - 8, 64, 5);
+  //   this.healthBar.fillGradientStyle(0xff0000, 0xffffff, 4);
+  //   this.healthBar.fillRect(this.x, this.y - 8, 64 * (this.health / this.maxHealth), 5);
+  // }
+  //
+  // updateHealth(health) {
+  //   this.health = health;
+  //   this.updateHealthBar();
+  // }
 
 
   moveTo(cursors) {

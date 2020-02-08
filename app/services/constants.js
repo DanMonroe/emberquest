@@ -46,6 +46,7 @@ export default class ConstantsService extends Service {
   TILEZ_PLAYER  = 1; // "layer" for player
   TILEZ_FOG  = 2;    // "layer" for fog of war
   TILEZ_CHESTS  = 3;    // "layer" for chests
+  TILEZ_MONSTERS  = 4;    // "layer" for monsters
 
   FLAGS = {
     TRAVEL: {

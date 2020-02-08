@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import Chest from '../chest';
+import Monster from '../monster';
 
 export class GameboardScene extends Phaser.Scene {
 
@@ -37,7 +38,8 @@ export class GameboardScene extends Phaser.Scene {
     this.createAudio();
 
     this.createGroups();
-    this.createASingleChest();
+    this.createASingleChest();    // TODO update/remove
+    this.createASingleMonster();    // TODO update/remove
 
     this.createPlayer();
     this.startSpawnerService();
@@ -162,12 +164,22 @@ export class GameboardScene extends Phaser.Scene {
     // add chest to chests group
   }
 
+  createASingleMonster() {
+    let monster = new Monster(this, 0, 0, 'monsters', 1, 100, 'monsterFoo', 17, 25);
+    monster.setScale(.75);
+    monster.setAlpha(0);
+    // chest.makeActive();
+
+    this.monsters.add(monster);
+    this.board.addChess(monster, 8, 8, this.ember.constants.TILEZ_CHESTS);
+
+  }
 
   createGroups() {
     // create a chest group
     this.chests = this.physics.add.group();
     // create a monster group
-    // this.monsters = this.physics.add.group();
+    this.monsters = this.physics.add.group();
     // this.monsters.runChildUpdate = true;
   }
 

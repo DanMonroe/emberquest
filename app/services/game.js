@@ -15,7 +15,7 @@ export default class GameService extends Service {
   @service map;
   @service('spawner') spawnerService;
 
-  @tracked cameraMainZoom = 0.8;
+  @tracked cameraMainZoom = 1;
   @tracked playerImgSrc = '/images/agents/pirate.png';
   @tracked showHexInfo = false;
 

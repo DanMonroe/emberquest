@@ -142,7 +142,7 @@ a {
     }
   }
   .tooltip {
-    background-color: #000;
+    background-color: #1E5AFF;
     color: #fff;
     font-size: 1.1em;
     z-index: 150;
@@ -238,6 +238,7 @@ button {
 
 .game .epm-backdrop {
   background-color: #0a2430bd;
+  z-index: 5;
 }
 .epm-modal-container {
   .epm-modal {
