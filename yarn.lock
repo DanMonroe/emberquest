@@ -5201,6 +5201,19 @@ ember-named-arguments-polyfill@^1.0.0:
     ember-cli-babel "^6.6.0"
     ember-cli-version-checker "^2.1.2"
 
+ember-phaser@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/ember-phaser/-/ember-phaser-0.1.0.tgz#a549840a63e0463a728677d6befb16f124c69148"
+  integrity sha512-UHHU/ITbJpTV2jr1B0XmM/DFHVDEgnlqWjm4vQq7nfhfWY7rDLepXqhHbYPhMq5WQp+++ob63vitr9nVGgp1Vw==
+  dependencies:
+    "@ember/render-modifiers" "^1.0.2"
+    broccoli-funnel "^2.0.1"
+    broccoli-merge-trees "^3.0.1"
+    ember-auto-import "^1.5.3"
+    ember-cli-babel "^7.13.0"
+    ember-cli-htmlbars "^4.2.0"
+    phaser "^3.22.0"
+
 ember-promise-modals@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/ember-promise-modals/-/ember-promise-modals-0.1.0.tgz#457cd78b1cc8ed3b546ef1fd53c09a40986bf469"

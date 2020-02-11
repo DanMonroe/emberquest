@@ -4,13 +4,41 @@ import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import config from 'emberquest/config/environment';
 
-import PhaserGame from '../phaser/game'
+// import PhaserGame from '../phaser/game'
+import Phaser from "phaser";
+import {BootScene} from "../phaser/scenes/boot";
+import {GameboardScene} from "../phaser/scenes/gameboard-scene";
+import rexBoardPlugin from "phaser3-rex-plugins/plugins/board-plugin";
 
 export default class GameboardComponent extends Component {
-  @service game;
+  @service('game') emberGameService;
   @service modals;
 
   @tracked epmModalContainerClass = '';
+
+  config = {
+    type: Phaser.AUTO,
+    width: window.innerWidth,
+    height: window.innerHeight - 68,
+    parent: 'gameContainer',
+    physics: {
+      default: 'arcade',
+      arcade: {
+        gravity: { y: 0 },
+        debug: false
+      }
+    },
+    scene: [BootScene, GameboardScene],
+    plugins: {
+      scene: [{
+        key: 'rexBoard',
+        plugin: rexBoardPlugin,
+        mapping: 'rexBoard'
+      }]
+    },
+    pixelArt: true
+  };
+
 
   constructor() {
     super(...arguments);
@@ -21,9 +49,9 @@ export default class GameboardComponent extends Component {
 
   @action
   setup(element) {
-    console.log('setup', element, element.clientHeight, element.clientWidth);
+    console.log('gameboard setup', element, element.clientHeight, element.clientWidth);
 
-    new PhaserGame(this.game, element.clientHeight - 68, element.clientWidth);
+    // new PhaserGame(this.game, element.clientHeight - 68, element.clientWidth);
   }
 
   @action

@@ -22,12 +22,15 @@
         </button>
       </div>
     </div>
-    <div class="board"
-      {{did-insert this.setup}}
-      {{will-destroy this.teardown}}
-    >
-      <figure id="gameContainer" />
-    </div>
+
+    <EmberPhaser
+      class="board"
+      @phaserContainer="gameContainer"
+      @config={{this.config}}
+      @onSetup={{fn this.setup}}
+      @onTeardown={{fn this.teardown}}
+      @emberGame={{this.emberGameService}}
+    />
   </div>
 </div>
 
