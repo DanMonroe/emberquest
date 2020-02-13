@@ -48,7 +48,8 @@ export default {
         const speedCost = this.getTravelCost(terrainText);
         const sightFlags = this.getSightFlags(terrainText);
         const sightCost = this.getSightCost(terrainText);
-        mapSource += `{'row': ${row}, 'col': ${col}, 'sightCost': ${sightCost}, 'sightFlags': ${sightFlags}, 'speedCost': ${speedCost}, 'travelFlags': ${travelFlags}, 'wesnoth': '${terrainText.replace(/\\/g,"\\\\")}'},
+        const special = this.getSpecial(terrainText);
+        mapSource += `{'row': ${row}, 'col': ${col}, 'sightCost': ${sightCost}, 'sightFlags': ${sightFlags}, 'speedCost': ${speedCost}, 'travelFlags': ${travelFlags}, 'special': ${special}, 'wesnoth': '${terrainText.replace(/\\/g,"\\\\")}'},
     `;
         col++;
       });
@@ -100,6 +101,26 @@ export default {
     SWAMP: -0.7,
   };
 
+  getSpecial(terrain) {
+    let special = 0;
+
+    const terrainParts = this.getWesnothTerrainParts(terrain);
+
+    switch (terrainParts.primary) {
+      case this.WESNOTH.WATER:
+        switch (terrainParts.secondary) {
+          case this.WESNOTH.BRIDGE:
+            special |= Constants.FLAGS.TRAVEL.SPECIAL.DOCK.value;
+            break;
+          default:  // regular water
+        }
+        break;
+      default:
+    }
+
+    return special;
+  }
+
   getTravelFlags(terrain) {
     let terrainFlags = 0;
 
@@ -108,9 +129,8 @@ export default {
     switch (terrainParts.primary) {
       case this.WESNOTH.WATER:
         switch (terrainParts.secondary) {
-          case this.WESNOTH.BRIDGE: // can use land or sea flags to pass through
+          case this.WESNOTH.BRIDGE:
             terrainFlags |= Constants.FLAGS.TRAVEL.LAND.value;
-            terrainFlags |= Constants.FLAGS.TRAVEL.SEA.value;
             break;
           default:  // regular water
             terrainFlags |= Constants.FLAGS.TRAVEL.SEA.value;

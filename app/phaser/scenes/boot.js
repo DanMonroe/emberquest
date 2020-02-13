@@ -26,6 +26,7 @@ export class BootScene extends Phaser.Scene {
 
   loadImages() {
     this.load.image('player', this.ember.playerImgSrc);
+    this.load.image('playership', '/images/transports/ship.svg');
     this.load.image('monsters', '/images/monsters/spider.png');
     // this.load.image('chest', '/images/closed_chest.png');
     // this.load.image('chest', '/images/open_chest.png');
@@ -56,7 +57,9 @@ export class BootScene extends Phaser.Scene {
           this.scene.start('gameboard',  gameboardData ?
             {
               'storedPlayerTile': gameboardData.playerTile,
+              'storedPlayerAttrs': gameboardData.playerAttrs,
               'allSeenTiles': gameboardData.seenTiles,
+              'storedTransports': gameboardData.transports,
             } :
             {}
           );

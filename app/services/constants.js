@@ -39,6 +39,8 @@ export default class ConstantsService extends Service {
 
   SHAPE_TYPE_PLAYER = 'Player';
   SHAPE_TYPE_POLYGON = 'Polygon';
+  SHAPE_TYPE_CONTAINER = 'Container';
+  SHAPE_TYPE_TRANSPORT = 'Transport';
 
   FLAG_TYPE_TRAVEL = 0;
   FLAG_TYPE_VISIBILITY = 1;
@@ -47,6 +49,7 @@ export default class ConstantsService extends Service {
   TILEZ_FOG  = 2;    // "layer" for fog of war
   TILEZ_CHESTS  = 3;    // "layer" for chests
   TILEZ_MONSTERS  = 4;    // "layer" for monsters
+  TILEZ_TRANSPORTS  = 5; // "layer" for transports
 
   FLAGS = {
     TRAVEL: {

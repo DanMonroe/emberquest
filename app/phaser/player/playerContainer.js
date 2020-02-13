@@ -1,9 +1,8 @@
 import Phaser from 'phaser';
 import Player from "./player";
-import { tracked } from '@glimmer/tracking';
-import { timeout } from 'ember-concurrency';
-import { task } from 'ember-concurrency-decorators';
-
+import {tracked} from '@glimmer/tracking';
+import {timeout} from 'ember-concurrency';
+import {task} from 'ember-concurrency-decorators';
 
 export default class PlayerContainer extends Phaser.GameObjects.Container {
 
@@ -18,6 +17,7 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
   @tracked healingPower = 2;
   @tracked energizeSpeed = 2000;
   @tracked energizePower = 2;
+  @tracked boardedTransport;
 
 
   @task
@@ -48,6 +48,7 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
     this.scene = scene;
     this.board = scene.board;
     this.ember = this.scene.game.emberGame;
+    this.containerType = this.scene.game.emberGame.constants.SHAPE_TYPE_PLAYER;
 
     this.id = config.id;
     this.playerAttacking = false;
@@ -99,21 +100,34 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
 
     this.moveToObject.on('complete', this.moveToComplete);
 
-    this.moveToObject.moveableTestCallback = (curTile, preTile, pathFinder) => {
+    this.moveToObject.moveableTestCallback = (curTile, targetTile, pathFinder) => {
       if (this.moveToObject.isRunning || this.power <= 1) {
         return false;
       }
 
-      const allattrs = this.ember.map.getTileAttribute(pathFinder.scene, preTile);
+      const allattrs = this.ember.map.getTileAttribute(pathFinder.scene, targetTile);
       let canMove = this.ember.playerHasAbilityFlag(pathFinder.scene.player, this.ember.constants.FLAG_TYPE_TRAVEL, allattrs.travelFlags);
 
       if (!canMove) {
-        // console.log('cant move! preTile', preTile, 'travelFlags', allattrs.travelFlags, 'wesnoth', allattrs.wesnoth);
-      } else {
-        // console.log('speed', config.speed * allattrs.speedCost)
-        this.moveToObject.setSpeed(config.speed * allattrs.speedCost)
+        // console.log('cant move! targetTile', targetTile, 'travelFlags', allattrs.travelFlags, 'wesnoth', allattrs.wesnoth);
 
-        // console.log('(config.speed * allattrs.speedCost)', (config.speed * allattrs.speedCost), config.speed , allattrs.speedCost, (3 * (3 - allattrs.speedCost)))
+        // is there a transport at targetTile
+        const currentTileIsDock = this.ember.map.tileIsDock(pathFinder.scene, curTile);
+        if (currentTileIsDock) {
+          canMove = this.ember.map.targetTileHasTransport(pathFinder.scene, targetTile);
+
+        } else if (this.boardedTransport) {
+          // already on board a transport.. is target tile a dock?
+          const targetTileIsDock = this.ember.map.tileIsDock(pathFinder.scene, targetTile);
+          if (targetTileIsDock) {
+            this.disembarkTransport = true;
+
+            canMove = true;
+          }
+        }
+      } else if ( ! this.boardedTransport) {  // don't adjust speed/power when on a transport
+
+        this.moveToObject.setSpeed(config.speed * allattrs.speedCost);
 
         this.power -= (2 - allattrs.speedCost);
 
@@ -123,7 +137,6 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
         // }
       }
 
-      // return true;
       return canMove;
 
     };
@@ -133,10 +146,10 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
       occupiedTest: true,
       pathMode: 'A*',
       blockerTest: true,
-      costCallback: (curTile, preTile, pathFinder) => {
+      costCallback: (curTile, targetTile, pathFinder) => {
         // pathFinder.gameObject is 'this'  i.e., this Player object
-        const travelFlags = this.ember.map.getTileAttribute(pathFinder.chessData.board.scene, preTile, 'travelFlags');
-        console.log('pathFinder costCallback', curTile, preTile, pathFinder, travelFlags);
+        const travelFlags = this.ember.map.getTileAttribute(pathFinder.chessData.board.scene, targetTile, 'travelFlags');
+        console.error('pathFinder costCallback', curTile, targetTile, pathFinder, travelFlags);
 
         return travelFlags ? 100 : 0;
         // return travelFlags ? fov.BLOCKER : 0;
@@ -202,99 +215,46 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
 
       if (cursors.D.isDown) {
         this.moveToObject.moveToward(this.ember.constants.DIRECTIONS.SE);
-        // this.showMoveableArea();
+        if (this.boardedTransport) {
+          this.boardedTransport.moveToObject.moveToward(this.ember.constants.DIRECTIONS.SE);
+        }
       } else if (cursors.S.isDown) {
         this.moveToObject.moveToward(this.ember.constants.DIRECTIONS.S);
-        // this.showMoveableArea();
+        if (this.boardedTransport) {
+          this.boardedTransport.moveToObject.moveToward(this.ember.constants.DIRECTIONS.S);
+        }
       } else if (cursors.A.isDown) {
         this.moveToObject.moveToward(this.ember.constants.DIRECTIONS.SW);
-        // this.showMoveableArea();
+        if (this.boardedTransport) {
+          this.boardedTransport.moveToObject.moveToward(this.ember.constants.DIRECTIONS.SW);
+        }
       } else if (cursors.Q.isDown) {
         this.moveToObject.moveToward(this.ember.constants.DIRECTIONS.NW);
-        // this.showMoveableArea();
+        if (this.boardedTransport) {
+          this.boardedTransport.moveToObject.moveToward(this.ember.constants.DIRECTIONS.NW);
+        }
       } else if (cursors.W.isDown) {
         this.moveToObject.moveToward(this.ember.constants.DIRECTIONS.N);
-        // this.showMoveableArea();
+        if (this.boardedTransport) {
+          this.boardedTransport.moveToObject.moveToward(this.ember.constants.DIRECTIONS.N);
+        }
       } else if (cursors.E.isDown) {
         this.moveToObject.moveToward(this.ember.constants.DIRECTIONS.NE);
-        // this.showMoveableArea();
+        if (this.boardedTransport) {
+          this.boardedTransport.moveToObject.moveToward(this.ember.constants.DIRECTIONS.NE);
+        }
       }
     }
   }
 
   moveToComplete(player, moveTo) {
+    // console.log('move complete');
     moveTo.scene.game.emberGame.saveSceneData(moveTo.scene);
     moveTo.scene.game.emberGame.saveGameData("playerTile", player.rexChess.tileXYZ);
     moveTo.scene.game.emberGame.map.findFOV(player);
     moveTo.scene.game.emberGame.processPlayerMove(player);
   }
 
-  moveToTileXY = (endTileXY) => {
-    console.log('player moveToTileXY', endTileXY);
-    if (this.moveToObject.isRunning) {
-      return false;
-    }
-    const tileXYArray = this.pathFinder.findPath(endTileXY);
-    console.log('tileXYArray', tileXYArray);
 
-    this.showMovingPath(tileXYArray);
-    this.moveAlongPath(tileXYArray);
-    return true;
-  }
-
-  moveAlongPath = (path) => {
-    if (path.length === 0) {
-      this.showMoveableArea();
-      return;
-    }
-
-    this.moveToObject.once('complete', function () {
-      this.moveAlongPath(path);
-    }, this);
-    this.moveToObject.moveTo(path.shift());
-    return this;
-  }
-
-  showMovingPath = (tileXYArray) => {
-    this.hideMovingPath();
-    var tileXY, worldXY;
-    var scene = this.scene,
-      board = this.rexChess.board;
-    for (var i = 0, cnt = tileXYArray.length; i < cnt; i++) {
-      tileXY = tileXYArray[i];
-      worldXY = board.tileXYToWorldXY(tileXY.x, tileXY.y, true);
-      var text = scene.add.text(worldXY.x, worldXY.y, tileXY.cost)
-        .setOrigin(0.5);
-      this._markers.push(text);
-    }
-  }
-
-  hideMovingPath = () => {
-    for (var i = 0, cnt = this._markers.length; i < cnt; i++) {
-      this._markers[i].destroy();
-    }
-    this._markers.length = 0;
-    return this;
-  }
-
-  // showMoveableArea = () => {
-  //   this.hideMoveableArea();
-  //   // console.log('this._movingPoints', this._movingPoints);
-  //   var tileXYArray = this.pathFinder.findArea(this._movingPoints);
-  //   for (var i = 0, cnt = tileXYArray.length; i < cnt; i++) {
-  //     this._markers.push(
-  //       new MoveableMarker(this, tileXYArray[i])
-  //     );
-  //   }
-  //   return this;
-  // }
-  //
-  // hideMoveableArea = () => {
-  //   for (var i = 0, cnt = this._markers.length; i < cnt; i++) {
-  //     this._markers[i].destroy();
-  //   }
-  //   this._markers.length = 0;
-  //   return this;
-  // }
 
 }

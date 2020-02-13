@@ -140,9 +140,17 @@ export default class MapService extends Service {
       return fovShapeArray.filter(object => {
         if (object.type) {
           if (excludedType) {
-            return object.type !== excludedType;
+            if (object.type === this.constants.SHAPE_TYPE_CONTAINER) {
+              return object.containerType !== excludedType;
+            } else {
+              return object.type !== excludedType;
+            }
           }
-          return object.type === type;
+          if (object.type === this.constants.SHAPE_TYPE_CONTAINER) {
+            return object.containerType === type;
+          } else {
+            return object.type === type;
+          }
         }
       });
     }
@@ -153,7 +161,16 @@ export default class MapService extends Service {
     const fovShapeArray = board.tileXYToChessArray(tileXY.x, tileXY.y);
     if (fovShapeArray && fovShapeArray.length > 0) {
       return fovShapeArray.filter(object => {
-        return (object.type && object.type === type)
+        if (object.type) {
+          if (object.type === this.constants.SHAPE_TYPE_CONTAINER) {
+            return object.containerType === type;
+          } else {
+            return object.type === type;
+          }
+        } else {
+          return false;
+        }
+        // return (object.type && object.type === type);
       });
     }
     return undefined;
@@ -183,6 +200,16 @@ export default class MapService extends Service {
     } catch (e) {
 // debugger;
     }
+  }
+
+  tileIsDock(scene, tileXY) {
+    return this.getTileAttribute(scene, tileXY, 'special') & this.constants.FLAGS.SPECIAL.DOCK.value;
+  }
+
+  // return the transport
+  targetTileHasTransport(scene, tileXY) {
+    const fovShapes = this.getGameObjectsAtTileXY(scene.board, tileXY, this.constants.SHAPE_TYPE_TRANSPORT);
+    return (fovShapes && fovShapes.length > 0) ? fovShapes[0] : undefined;
   }
 
 }

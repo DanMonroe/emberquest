@@ -1,7 +1,7 @@
 import { BaseAgent } from './base-agent';
-// import { tracked } from '@glimmer/tracking';
+import { tracked } from '@glimmer/tracking';
 
-export class Player extends BaseAgent {
+export class Transport extends BaseAgent {
 
   constructor(args) {
     super(...arguments);

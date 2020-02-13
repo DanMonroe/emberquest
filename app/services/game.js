@@ -8,6 +8,7 @@ import localforage from 'localforage';
 import MapData from '../phaser/scenes/tiledata/landsea'
 
 import PlayerContainer from "../phaser/player/playerContainer";
+import TransportContainer from "../phaser/transport/transportContainer";
 
 export default class GameService extends Service {
 
@@ -32,9 +33,20 @@ export default class GameService extends Service {
 
     const currentData = this.sceneData[sceneKey] || {};
 
+    const transports = [];
+    scene.transports.children.entries.forEach(transport => {
+      transports.push({
+        'id': transport.id,
+        'tile': transport.rexChess.tileXYZ
+      })
+    });
+
+    // children.entries[""0""].rexChess
     Object.assign(currentData, {
       'playerTile': scene.player.rexChess.tileXYZ,
-      'seenTiles': scene.allSeenTiles
+      'playerAttrs': scene.player.data.get('attrs'),
+      'seenTiles': scene.allSeenTiles,
+      'transports': transports
     });
 
     this.saveGameData(sceneKey, currentData);
@@ -58,6 +70,14 @@ export default class GameService extends Service {
     return result;
   }
 
+  // transports is an array
+  findTransportFromArrayById(transports, transportId) {
+    if (!transports || !transports.length) {
+      return undefined;
+    }
+    return transports.find(transport => transport.id === transportId);
+  }
+
   createPlayer(scene, playerConfig) {
     let player = new PlayerContainer(scene, playerConfig);
     // player.addCollisions();
@@ -71,15 +91,33 @@ export default class GameService extends Service {
     return player;
   }
 
-  processPlayerMove(player) {
-    // const tileXYZ = player.rexChess.tileXYZ;
-    // console.log('player moved', tileXYZ, player);
+  createTransport(scene, transportConfig) {
 
-    // const chestsHere = player.scene.board.tileXYZToChess(tileXYZ.x, tileXYZ.y, this.constants.TILEZ_CHESTS);
-    // console.log('chestsHere', chestsHere);
-    // if (chestsHere) {
-    //   chestsHere.playerFound();
-    // }
+    let transport = new TransportContainer(scene, transportConfig);
+
+    scene.board.addChess(transport, transportConfig.playerX, transportConfig.playerY, this.constants.TILEZ_TRANSPORTS);
+
+    transport.fov = scene.rexBoard.add.fieldOfView(transport, transportConfig);
+
+    return transport;
+  }
+
+  processPlayerMove(player) {
+    if (player.disembarkTransport) {
+      this.turnOffPlayerTravelAbilityFlag(player, this.constants.FLAGS.TRAVEL.SEA);
+      this.turnOnPlayerTravelAbilityFlag(player, this.constants.FLAGS.TRAVEL.LAND);
+
+      player.boardedTransport = undefined;
+      player.disembarkTransport = false;
+    } else if (player.embarkTransport) {
+      player.boardedTransport = player.transportToBoard;
+
+      this.turnOffPlayerTravelAbilityFlag(player, this.constants.FLAGS.TRAVEL.LAND);
+      this.turnOnPlayerTravelAbilityFlag(player, this.constants.FLAGS.TRAVEL.SEA);
+
+      player.embarkTransport = false;
+      player.transportToBoard = undefined;
+    }
   }
 
   playerHasAbilityFlag(playerObj, type, flag) {
@@ -102,6 +140,44 @@ export default class GameService extends Service {
       }
     }
     return false;
+  }
+
+  turnOnPlayerTravelAbilityFlag(player, flag) {
+    if (player) {
+      if(flag && flag.value) {
+        flag = flag.value;
+      }
+      if(flag) {
+        player.data.get('attrs').travelFlags |= flag;
+      }
+    }
+  }
+
+  turnOffPlayerTravelAbilityFlag(player, flag) {
+    if (player) {
+      if (flag && flag.value) {
+        flag = flag.value;
+      }
+      if (flag) {
+        player.data.get('attrs').travelFlags &= ~flag;
+      }
+    }
+  }
+
+  describePlayerFlags(player) {
+    let descriptions = [];
+    // TODO there is a better way to do this
+    if (this.playerHasTravelAbilityFlag(player, this.constants.FLAGS.TRAVEL.LAND)) {
+      descriptions.push(this.constants.FLAGS.TRAVEL.LAND.description)
+    }
+    if (this.playerHasTravelAbilityFlag(player, this.constants.FLAGS.TRAVEL.SEA)) {
+      descriptions.push(this.constants.FLAGS.TRAVEL.SEA.description)
+    }
+    return `Player flags: ${descriptions.join(', ')}`;
+  }
+
+  playerHasTravelAbilityFlag(player, flag) {
+    return this.playerHasAbilityFlag(player, this.constants.FLAG_TYPE_TRAVEL, flag);
   }
 
 

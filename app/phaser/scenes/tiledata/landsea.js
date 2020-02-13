@@ -2,8 +2,8 @@
 export default {
 
   player: {
-    startX: 7,
-    startY: 3
+    startX: 6,
+    startY: 15
   },
 
   mapUrl: '/images/maps/landsea-min.png',
@@ -439,7 +439,7 @@ export default {
       {'row': 11, 'col': 28, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'wesnoth': 'Gs'},
       {'row': 11, 'col': 29, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'wesnoth': 'Gd^Efm'},
       {'row': 11, 'col': 30, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'wesnoth': 'Wwg'},
-      {'row': 11, 'col': 31, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 3, 'wesnoth': 'Wo^Bw|r'},
+      {'row': 11, 'col': 31, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 2, 'wesnoth': 'Wo^Bw|r', 'special': 1},
       {'row': 11, 'col': 32, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'wesnoth': 'Wwg'},
       {'row': 11, 'col': 33, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'wesnoth': 'Gs'},
     ],
@@ -592,7 +592,7 @@ export default {
       {'row': 16, 'col': 1, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 0.9, 'travelFlags': 6, 'wesnoth': 'Ds'},
       {'row': 16, 'col': 2, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'wesnoth': 'Wwt'},
       {'row': 16, 'col': 3, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'wesnoth': 'Wwf'},
-      {'row': 16, 'col': 4, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 3, 'wesnoth': 'Wwt^Bw/'},
+      {'row': 16, 'col': 4, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 2, 'wesnoth': 'Wwt^Bw/', 'special': 1},
       {'row': 16, 'col': 5, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1.2, 'travelFlags': 6, 'wesnoth': 'Rr'},
       {'row': 16, 'col': 6, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'wesnoth': 'Wwt'},
       {'row': 16, 'col': 7, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'wesnoth': 'Wo'},
@@ -713,7 +713,7 @@ export default {
       {'row': 19, 'col': 14, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 0.9, 'travelFlags': 6, 'wesnoth': 'Dd'},
       {'row': 19, 'col': 15, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 0.9, 'travelFlags': 6, 'wesnoth': 'Dd'},
       {'row': 19, 'col': 16, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'wesnoth': 'Wo'},
-      {'row': 19, 'col': 17, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 3, 'wesnoth': 'Wo^Bw\\r'},
+      {'row': 19, 'col': 17, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 2, 'wesnoth': 'Wo^Bw\\r', 'special': 1},
       {'row': 19, 'col': 18, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'wesnoth': 'Wo'},
       {'row': 19, 'col': 19, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'wesnoth': 'Wo'},
       {'row': 19, 'col': 20, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'wesnoth': 'Wwt'},
@@ -761,7 +761,7 @@ export default {
       {'row': 20, 'col': 26, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'wesnoth': 'Wwt'},
       {'row': 20, 'col': 27, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'wesnoth': 'Wwt'},
       {'row': 20, 'col': 28, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'wesnoth': 'Wwt'},
-      {'row': 20, 'col': 29, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 3, 'wesnoth': 'Wwt^Bw\\'},
+      {'row': 20, 'col': 29, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 2, 'wesnoth': 'Wwt^Bw\\', 'special': 1},
       {'row': 20, 'col': 30, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 0.9, 'travelFlags': 6, 'wesnoth': 'Aa'},
       {'row': 20, 'col': 31, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'wesnoth': 'Wwt'},
       {'row': 20, 'col': 32, 'sightCost': 7, 'sightFlags': 0, 'speedCost': 0.3, 'travelFlags': 8, 'wesnoth': 'Ms^Xm'},
