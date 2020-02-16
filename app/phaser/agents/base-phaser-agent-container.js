@@ -23,13 +23,9 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
 
     this.showPowerBar = config.showPowerBar;
 
-    // this.agent.reloadHealth.perform();
-
   }
 
   baseUpdate() {
-    // console.log('baseUpdate')
-    // this.moveTo();
     this.updateHealthBar();
   }
 
@@ -63,6 +59,7 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
       this.powerBar.fillRect(this.x + this.ember.constants.powerBarOffsetX, this.y + this.ember.constants.powerBarOffsetY, this.ember.constants.powerBarWidth * powerPercentage, this.ember.constants.powerBarHeight);
     }
   }
+
   updateHealth(health, power) {
     this.health = health;
     this.power = power;

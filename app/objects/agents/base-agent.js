@@ -13,13 +13,11 @@ export class BaseAgent {
 
 
   constructor(scene, config) {
-    console.log('in base-agent constructor', scene, config)
+    // console.log('in base-agent constructor', scene, config)
 
     this.scene = scene;
     this.board = scene.board;
     this.ember = this.scene.emberGame;
-    // this.ember = this.scene.game.emberGame;
-    // this.containerType = this.scene.game.emberGame.constants.SHAPE_TYPE_PLAYER;
 
     this.id = config.id;
 

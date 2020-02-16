@@ -59,11 +59,9 @@ export default class MapService extends Service {
 
     // enable touch events
     if (true || this.boardIsInteractive) {
-      console.log('board is interactive');
       board.setInteractive();
     }
 
-    console.log('Created Board', board);
     return board;
   }
 

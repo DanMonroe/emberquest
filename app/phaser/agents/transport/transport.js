@@ -7,8 +7,6 @@ export default class Transport extends BasePhaserAgent {
   constructor(scene, config) {
     super(scene, config);
 
-    console.log('in transport phaser obj')
-
     this.setDepth(15);
 
     // add the player to our existing scene

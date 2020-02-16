@@ -53,7 +53,7 @@ export class BootScene extends Phaser.Scene {
 
     this.game.emberGame.loadGameData("gameboard")
         .then(gameboardData => {
-          console.log('gameboardData', gameboardData);
+          // console.log('gameboardData', gameboardData);
           this.scene.start('gameboard',  gameboardData ?
             {
               'storedPlayerTile': gameboardData.playerTile,

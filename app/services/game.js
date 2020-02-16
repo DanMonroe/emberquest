@@ -7,9 +7,6 @@ import localforage from 'localforage';
 // import MapData from './tiledata/testmap'
 import MapData from '../phaser/scenes/tiledata/landsea'
 
-// import PlayerContainer from "../phaser/agents/player/playerContainer";
-// import TransportContainer from "../phaser/agents/transport/transportContainer";
-
 import {Player} from "../objects/agents/player";
 import {Transport} from "../objects/agents/transport";
 
@@ -17,7 +14,6 @@ export default class GameService extends Service {
 
   @service constants;
   @service map;
-  // @service('spawner') spawnerService;
   @service('game-manager') manager;
 
   @tracked cameraMainZoom = 1;
@@ -99,7 +95,7 @@ export default class GameService extends Service {
     let transport = new Transport(scene, transportConfig);
     // let transport = new TransportContainer(scene, transportConfig);
 
-    scene.board.addChess(transport.container, transportConfig.playerX, transportConfig.playerY, this.constants.TILEZ_TRANSPORTS);
+    scene.board.addChess(transport.container, transportConfig.x, transportConfig.y, this.constants.TILEZ_TRANSPORTS);
 
     // transport.fov = scene.rexBoard.add.fieldOfView(transport, transportConfig);
 

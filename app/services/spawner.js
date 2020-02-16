@@ -16,6 +16,7 @@ export default class SpawnerService extends Service {
 
   @tracked spawners = {};
   @tracked chests = {};
+  @tracked transports = {};
   @tracked monsters = {};
   @tracked players = {};
 
@@ -33,8 +34,9 @@ export default class SpawnerService extends Service {
         limit: this.spawnLocations.chests.limit || 1,
         spawnerType: this.constants.SPAWNER_TYPE.CHEST
       }
-      this.spawnLocations.chests.locations.forEach(location => {
-        config.id = `chest-${location.id}`;
+      this.spawnLocations.chests.locations.forEach(locationObj => {
+        config.id = `chest-${locationObj.id}`;
+        config.objectConfig = locationObj;
 
         let spawner = new Spawner(
           config,
@@ -49,6 +51,58 @@ export default class SpawnerService extends Service {
 
         // console.log('chest location spawnerConfig', spawnerConfig)
         // this.spawnLocations.transports.push(spawnerConfig);
+      });
+    }
+
+    // create transport spawners
+    if (this.spawnLocations.transports) {
+      config = {
+        spawnInterval: this.spawnLocations.transports.spawnInterval || 3000,
+        limit: this.spawnLocations.transports.limit || 1,
+        spawnerType: this.constants.SPAWNER_TYPE.TRANSPORT
+      }
+      this.spawnLocations.transports.locations.forEach(locationObj => {
+        config.id = `transport-${locationObj.id}`;
+        config.locationId = +locationObj.id - 1;
+        config.objectConfig = locationObj
+
+        let spawner = new Spawner(
+          config,
+          this.spawnLocations.transports.locations,
+          this.addTransport.bind(this),
+          this.deleteTransport.bind(this),
+          null,
+          this.constants
+        );
+
+        this.spawners[spawner.id] = spawner;
+
+      });
+    }
+
+    // create monster spawners
+    if (this.spawnLocations.monsters) {
+      config = {
+        spawnInterval: this.spawnLocations.monsters.spawnInterval || 3000,
+        limit: this.spawnLocations.monsters.limit || 1,
+        spawnerType: this.constants.SPAWNER_TYPE.MONSTER
+      }
+      this.spawnLocations.monsters.locations.forEach(locationObj => {
+        config.id = `monster-${locationObj.id}`;
+        config.locationId = +locationObj.id - 1;
+        config.objectConfig = locationObj
+
+        let spawner = new Spawner(
+          config,
+          this.spawnLocations.monsters.locations,
+          this.addMonster.bind(this),
+          this.deleteMonster.bind(this),
+          null,
+          this.constants
+        );
+
+        this.spawners[spawner.id] = spawner;
+
       });
     }
 
@@ -91,6 +145,24 @@ export default class SpawnerService extends Service {
 
   deleteChest(chestId) {
     delete this.chests[chestId];
+  }
+
+  addTransport(transportId, transport) {
+    this.transports[transportId] = transport;
+    this.scene.events.emit('transportSpawned', transport);
+  }
+
+  deleteTransport(transportId) {
+    delete this.transports[transportId];
+  }
+
+  addMonster(monstertId, monster) {
+    this.monsters[monstertId] = monster;
+    this.scene.events.emit('monsterSpawned', monster);
+  }
+
+  deleteMonster(monsterId) {
+    delete this.monsters[monsterId];
   }
 
   // @task

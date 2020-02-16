@@ -10,9 +10,31 @@ export default {
 
   spawnLocations : {
     players: [{x: 6, y: 15}], // tiles where the player may spawn
-    transports: { spawnInterval: 3000, limit: 1, locations: [{id: 1, x: 3, y: 17}]},
-    chests: { spawnInterval: 3000, limit: 2, locations: [{id: 1, x: 3, y: 11}, {id: 2, x: 5, y: 9}]},
-    monsters: { spawnInterval: 3000, limit: 1, locations: [{id: 1, x: 8, y: 8}]},
+    transports: {
+      spawnInterval: 3000,
+      limit: 1,
+      locations: [
+        {
+          id: 1, x: 3, y: 17,
+          texture: 'playership',
+          scale: 0.4,
+          speed: 200,
+          sightRange: 3,   // this is sight/movement Range
+          movingPoints: 3,   // this is sight/movement Range
+          visiblePoints: 8,   // this is sight/movement Range
+          health: 100,
+          maxHealth: 200,
+          power: 20,
+          maxPower: 200,
+          flagAttributes: {
+            sightFlags: 0,
+            travelFlags: 1
+          },
+        }
+      ]
+    },
+    chests: { spawnInterval: 3000, limit: 1, locations: [{id: 1, x: 3, y: 11}, {id: 2, x: 5, y: 9}]},
+    monsters: { spawnInterval: 3000, limit: 1, locations: [{id: 1, x: 8, y: 8, health: 100, maxHealth: 200,scale: 0.75}]},
     agents: { spawnInterval: 3000, limit: 1, locations: [{id: 1, x: 8, y: 8}]}
   },
 

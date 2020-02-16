@@ -8,9 +8,6 @@ export default class BasePhaserAgent extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, config) {
     super(scene, -1, 0, config.texture);
 
-    console.log('in base phaser agent obj')
-
-
     this.scene = scene;
     this.board = scene.board;
     this.ember = this.scene.game.emberGame;

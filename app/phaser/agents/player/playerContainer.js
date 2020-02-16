@@ -21,14 +21,6 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
   @tracked boardedTransport;
 
 
-  // @task
-  // *reloadHealth() {
-  //   while (this.health < this.maxHealth) {
-  //     yield timeout(this.healingSpeed);
-  //     this.health += Math.max(1, this.healingPower);
-  //   }
-  // }
-
   @task
   *reloadPower() {
     while (this.power < this.maxPower) {

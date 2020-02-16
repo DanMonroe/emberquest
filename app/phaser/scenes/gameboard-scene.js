@@ -44,23 +44,9 @@ export class GameboardScene extends Phaser.Scene {
     this.configureBoard();
     this.createInput();
     this.createBoard();
-
     this.createAudio();
-
     this.createGroups();
-
     this.createGameManager();
-
-    // this.createASingleChest();    // TODO update/remove
-    // this.createASingleMonster();    // TODO update/remove
-    // this.createASingleTransport();    // TODO update/remove
-
-    // this.startSpawnerService();
-    // this.createPlayer();
-
-    // this.addCollisions();
-
-
     this.boardExperiments();
   }
 
@@ -79,155 +65,82 @@ export class GameboardScene extends Phaser.Scene {
 
     // this has to be before game manager setup
     this.events.on('spawnPlayer', (playerObject) => {
-      console.log('on spawnPlaner')
-      this.player = playerObject;
-
-      this.board.addChess(playerObject.container, playerObject.playerConfig.playerX, playerObject.playerConfig.playerY, this.ember.constants.TILEZ_PLAYER);
-
-      playerObject.container.fov = this.rexBoard.add.fieldOfView(playerObject.container, playerObject.playerConfig);
-      // player.container.fov = scene.rexBoard.add.fieldOfView(player.container, playerConfig);
-
-      // this.createPlayer(playerObject);
-      // // make the camera follow the player
-      this.cameras.main.startFollow(playerObject.container);
-      // this.cameras.main.startFollow(this.player);
-
-      // update field of view
-      this.ember.map.findFOV(playerObject.container);
-      // this.ember.map.findFOV(this.player);
+      this.spawnPlayer(playerObject);
 
       this.addCollisions();
     });
 
+    this.events.on('chestSpawned', (chestObject) => {
+      this.spawnChest(chestObject);
+    });
+
+    this.events.on('transportSpawned', (transportObject) => {
+      this.spawnTransport(transportObject);
+    });
+
+    this.events.on('monsterSpawned', (monsterObject) => {
+      this.spawnMonster(monsterObject);
+    });
 
     this.game.emberGame.manager.setup(this);
+  }
+
+  spawnPlayer(playerObject) {
+    this.player = playerObject;
+
+    this.board.addChess(playerObject.container, playerObject.playerConfig.playerX, playerObject.playerConfig.playerY, this.ember.constants.TILEZ_PLAYER);
+
+    playerObject.container.fov = this.rexBoard.add.fieldOfView(playerObject.container, playerObject.playerConfig);
+
+    // // make the camera follow the player
+    this.cameras.main.startFollow(playerObject.container);
+
+    // update field of view
+    this.ember.map.findFOV(playerObject.container);
+  }
+
+  spawnChest(chestObj) {
+    let chest = new Chest(this, 0, 0, 'chests', 1, chestObj.coins, chestObj.id);
+    chest.setAlpha(0);
+
+    this.chests.add(chest);
+    this.board.addChess(chest, chestObj.x, chestObj.y, this.ember.constants.TILEZ_CHESTS);
+  }
+
+  spawnMonster(monsterObj) {
+    let monster = new Monster(this, 0, 0, 'monsters', 1, monsterObj.id, monsterObj.objectConfig.health, monsterObj.objectConfig.maxHealth);
+    monster.setScale(monsterObj.objectConfig.scale);
+    monster.setAlpha(0);
+
+    this.monsters.add(monster);
+    this.board.addChess(monster, monsterObj.x, monsterObj.y, this.ember.constants.TILEZ_MONSTERS);
+  }
+
+  spawnTransport(transportObj) {
+    const storedTransport = this.ember.findTransportFromArrayById(this.storedTransports, transportObj.objectConfig.id);
+    if (storedTransport) {
+      transportObj.objectConfig.x = storedTransport.tile.x;
+      transportObj.objectConfig.y = storedTransport.tile.y;
+    }
+    transportObj.objectConfig.costCallback = (tileXY) => {
+      return this.ember.map.getTileAttribute(this.board.scene, tileXY, 'sightCost');
+    };
+    transportObj.objectConfig.preTestCallback = (tileXYArray) => {
+      return tileXYArray.length <= (this.player.sightRange + 1);
+    }
+    transportObj.objectConfig.debug = {
+      // graphics: this.add.graphics().setDepth(10),
+      log: false
+    }
+
+    const transport = this.ember.createTransport(this, transportObj.objectConfig);
+    transport.setAlpha(0);
+    this.transports.add(transport);
   }
 
   createAudio() {
     this.goldPickupAudio = this.sound.add('pickup', { loop: false, volume: 0.5 });
   }
-
-  createASingleTransport() {
-
-    const transportConfig = {
-      playerX: 3,
-      playerY: 17,
-      texture: 'playership',
-      scale: 0.4,
-      face: 0,
-      coneMode: 'direction',
-      cone: 6,
-      speed: 200,
-      sightRange: 3,   // this is sight/movement Range
-      movingPoints: 3,   // this is sight/movement Range
-      visiblePoints: 8,   // this is sight/movement Range
-
-      health: 100,
-      maxHealth: 200,
-      power: 20,
-      maxPower: 200,
-      id: 'playership1',
-      playerAttackAudio: undefined, // when ready, get from Boot scene
-
-      flagAttributes: {
-        sightFlags: 0,
-        travelFlags: this.ember.constants.FLAGS.TRAVEL.SEA.value
-      },
-
-      costCallback:  (tileXY) => {
-        return this.ember.map.getTileAttribute(this.board.scene, tileXY, 'sightCost');
-      },
-      preTestCallback: (tileXYArray) => {
-
-        // Limit sight range tp player's sightRange
-        // array includes player hex so add one
-        return tileXYArray.length <= (this.player.sightRange + 1);
-      },
-
-      debug: {
-        // graphics: this.add.graphics().setDepth(10),
-        log: false
-      }
-
-    };
-
-    // extract
-    // const storedTransport = this.storedTransports.find(transport => transport.id === transportConfig.id);
-    const storedTransport = this.ember.findTransportFromArrayById(this.storedTransports, transportConfig.id);
-    console.log('storedTransport', storedTransport);
-    if (storedTransport) {
-      transportConfig.playerX = storedTransport.tile.x;
-      transportConfig.playerY = storedTransport.tile.y;
-    }
-      // ? {x: this.storedPlayerTile.x, y: this.storedPlayerTile.y} : {x: this.MapData.player.startX, y: this.MapData.player.startY};
-
-
-
-
-    const transport = this.ember.createTransport(this, transportConfig);
-    transport.setAlpha(0);
-    this.transports.add(transport);
-    console.log('Created Transport', transport);
-
-  }
-
-  // createPlayer() {
-  //   const playerTile = this.storedPlayerTile ? {x: this.storedPlayerTile.x, y: this.storedPlayerTile.y} : {x: this.MapData.player.startX, y: this.MapData.player.startY};
-  //
-  //   this.playerConfig = {
-  //     playerX: playerTile.x,
-  //     playerY: playerTile.y,
-  //     texture: 'player',
-  //     scale: 1.25,
-  //     face: 0,
-  //     coneMode: 'direction',
-  //     cone: 6,
-  //     speed: 200,
-  //     sightRange: 3,   // this is sight/movement Range
-  //     movingPoints: 3,   // this is sight/movement Range
-  //     visiblePoints: 8,   // this is sight/movement Range
-  //
-  //     health: 100,
-  //     maxHealth: 200,
-  //     power: 150,
-  //     maxPower: 200,
-  //     id: 'player1',
-  //     playerAttackAudio: undefined, // when ready, get from Boot scene
-  //
-  //     flagAttributes: {
-  //       sightFlags: this.storedPlayerAttrs.sightFlags || 0,
-  //       travelFlags: this.storedPlayerAttrs.travelFlags || this.ember.constants.FLAGS.TRAVEL.LAND.value
-  //     },
-  //
-  //     costCallback:  (tileXY) => {
-  //       return this.ember.map.getTileAttribute(this.board.scene, tileXY, 'sightCost');
-  //     },
-  //     preTestCallback: (tileXYArray) => {
-  //
-  //       // Limit sight range tp player's sightRange
-  //       // array includes player hex so add one
-  //       return tileXYArray.length <= (this.player.sightRange + 1);
-  //     },
-  //
-  //     debug: {
-  //       // graphics: this.add.graphics().setDepth(10),
-  //       log: false
-  //     }
-  //
-  //   };
-  //
-  //   this.player = this.ember.createPlayer(this, this.playerConfig);
-  //   // this.player = new Player(this, playerConfig);
-  //   console.log('Created Player', this.player);
-  //
-  //
-  //   // // make the camera follow the player
-  //   this.cameras.main.startFollow(this.player);
-  //
-  //   // update field of view
-  //   this.ember.map.findFOV(this.player);
-  //
-  // }
 
   configureBoard() {
     this.cameras.main.zoom = this.ember.cameraMainZoom;
@@ -254,36 +167,6 @@ export class GameboardScene extends Phaser.Scene {
     });
   }
 
-  // createASingleChest() {
-  //
-  //   let chest = new Chest(this, 442, 612, 'chests', 1, 100, 'chestFoo');
-  //   chest.setAlpha(0);
-  //   // chest.makeActive();
-  //
-  //   this.chests.add(chest);
-  //   this.board.addChess(chest, 3, 11, this.ember.constants.TILEZ_CHESTS);
-  //
-  //
-  //   chest = new Chest(this, 442, 612, 'chests', 1, 100, 'chestBar');
-  //   chest.setAlpha(0);
-  //   // chest.makeActive();
-  //
-  //   this.chests.add(chest);
-  //   this.board.addChess(chest, 5, 9, this.ember.constants.TILEZ_CHESTS);
-  //   // add chest to chests group
-  // }
-
-  createASingleMonster() {
-    let monster = new Monster(this, 0, 0, 'monsters', 1, 100, 'monsterFoo', 17, 25);
-    monster.setScale(.75);
-    monster.setAlpha(0);
-    // chest.makeActive();
-
-    this.monsters.add(monster);
-    this.board.addChess(monster, 8, 8, this.ember.constants.TILEZ_MONSTERS);
-
-  }
-
   createGroups() {
     // create a chest group
     this.chests = this.physics.add.group();
@@ -295,12 +178,6 @@ export class GameboardScene extends Phaser.Scene {
     this.monsters = this.physics.add.group();
     // this.monsters.runChildUpdate = true;
   }
-
-  // startSpawnerService() {
-  //   // spawn objects
-  //   this.ember.spawnerService.spawnObjects.perform();
-  //
-  // }
 
   createInput() {
     // The Q W S A D E keys

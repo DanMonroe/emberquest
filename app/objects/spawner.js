@@ -2,6 +2,8 @@ import {timeout} from 'ember-concurrency';
 import {task} from 'ember-concurrency-decorators';
 import { tracked } from '@glimmer/tracking';
 import {Chest} from "./models/chest";
+import {Monster} from "./models/monster";
+import {Transport} from "./models/transport";
 
 export class Spawner {
 
@@ -12,6 +14,7 @@ export class Spawner {
 
   constructor(config, spawnLocations, addObject, deleteObject, moveObjects, constants) {
     this.id = config.id;
+    this.config = config;
     this.spawnInterval = config.spawnInterval;
     this.limit = config.limit;
     this.objectType = config.spawnerType;
@@ -44,6 +47,9 @@ export class Spawner {
       case this.constants.SPAWNER_TYPE.CHEST:
         this.spawnChest();
         break;
+      case this.constants.SPAWNER_TYPE.TRANSPORT:
+        this.spawnTransport();
+        break;
       case this.constants.SPAWNER_TYPE.MONSTER:
         this.spawnMonster();
         break;
@@ -58,13 +64,32 @@ export class Spawner {
   spawnChest() {
     const location = this.pickRandomLocation();
 
-    const chest = new Chest(location[0], location[1], 100, this.id);
+    const chest = new Chest(location.x, location.y, 100, this.id);
 
     this.objectsCreated.push(chest);
     this.addObject(chest.id, chest);
   }
 
-  spawnMonster() {}
+  spawnTransport() {
+    const location = this.pickLocationById();
+
+    const transport = new Transport(location.x, location.y, this.id, this.config.objectConfig);
+
+    // console.log('spawnTransport', transport);
+    this.objectsCreated.push(transport);
+    this.addObject(transport.id, transport);
+  }
+
+  spawnMonster() {
+    const location = this.pickRandomLocation();
+
+    const monster = new Monster(location.x, location.y, this.id, this.config.objectConfig);
+
+    // console.log('spawnMonster', monster);
+    this.objectsCreated.push(monster);
+    this.addObject(monster.id, monster);
+
+  }
 
   removeObject(id) {
     this.objectsCreated = this.objectsCreated.filter(obj => obj.id !== id);
@@ -79,6 +104,11 @@ export class Spawner {
 
     if (invalidLocation) return this.pickRandomLocation();
     return location;
+  }
+
+  pickLocationById() {
+    // id's are in the MapData
+    return this.spawnLocations[this.config.locationId];
   }
 
 }

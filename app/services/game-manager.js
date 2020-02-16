@@ -67,18 +67,28 @@ export default class GameManagerService extends Service {
   // }
 
   setupEventListener() {
-    console.log('setupEventListener')
+    this.scene.events.on('pickUpChest', (chestId, playerId) => {
+      console.log('pickUpChest', chestId, playerId);
+      // // update the spawner
+      // if (this.chests[chestId]) {
+      //   const { gold } = this.chests[chestId];
+      //
+      //   // updating the players gold
+      //   this.players[playerId].updateGold(gold);
+      //   this.scene.events.emit('updateScore', this.players[playerId].gold);
+      //
+      //   // removing the chest
+      //   this.spawners[this.chests[chestId].spawnerId].removeObject(chestId);
+      //   this.scene.events.emit('chestRemoved', chestId);
+      // }
+    });
   }
 
   setupSpawners() {
-    console.log('setupSpawners')
     this.spawnerService.setup(this.scene, this.scene.MapData.spawnLocations);
-
   }
 
   spawnPlayer() {
-    console.log('spawnPlayer');
-
     const playerTile = this.storedData.storedPlayerTile ? {x: this.storedData.storedPlayerTile.x, y: this.storedData.storedPlayerTile.y} : {x: this.MapData.player.startX, y: this.MapData.player.startY};
 
     this.playerConfig = {
@@ -130,7 +140,6 @@ export default class GameManagerService extends Service {
     this.player = new Player(this.scene, this.playerConfig);
     this.players[this.player.id] = this.player;
 
-    console.log('emit spawnPlaner', this.player)
     this.scene.events.emit('spawnPlayer', this.player);
 
   }
