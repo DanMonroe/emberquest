@@ -1,14 +1,14 @@
 import Phaser from 'phaser';
 
-export default class Transport extends Phaser.Physics.Arcade.Sprite {
+export default class BasePhaserAgent extends Phaser.Physics.Arcade.Sprite {
 
   scene = undefined;
   ember = undefined;
 
   constructor(scene, config) {
     super(scene, -1, 0, config.texture);
-    // super(scene, config.playerX, config.playerY, config.texture);
-    // super(scene, config.playerX, config.playerY, config.texture, config.frame);
+
+    console.log('in base phaser agent obj')
 
 
     this.scene = scene;
@@ -16,7 +16,7 @@ export default class Transport extends Phaser.Physics.Arcade.Sprite {
     this.ember = this.scene.game.emberGame;
 
     // enable physics
-    // this.scene.physics.world.enable(this);
+    this.scene.physics.world.enable(this);
 
     // set immovable if another object collides with our player
     // this.setImmovable(true);
@@ -24,10 +24,11 @@ export default class Transport extends Phaser.Physics.Arcade.Sprite {
     // debugger;
     this.setScale(config.scale);
 
-    this.setDepth(15);
+    // this.setDepth(14);
 
-    // add the player to our existing scene
-    scene.add.existing(this);
+    // add the agent to our existing scene
+    // scene.add.existing(this);
 
   }
+
 }

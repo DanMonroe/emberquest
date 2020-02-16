@@ -7,14 +7,18 @@ import localforage from 'localforage';
 // import MapData from './tiledata/testmap'
 import MapData from '../phaser/scenes/tiledata/landsea'
 
-import PlayerContainer from "../phaser/player/playerContainer";
-import TransportContainer from "../phaser/transport/transportContainer";
+// import PlayerContainer from "../phaser/agents/player/playerContainer";
+// import TransportContainer from "../phaser/agents/transport/transportContainer";
+
+import {Player} from "../objects/agents/player";
+import {Transport} from "../objects/agents/transport";
 
 export default class GameService extends Service {
 
   @service constants;
   @service map;
-  @service('spawner') spawnerService;
+  // @service('spawner') spawnerService;
+  @service('game-manager') manager;
 
   @tracked cameraMainZoom = 1;
   @tracked playerImgSrc = '/images/agents/pirate.png';
@@ -43,8 +47,8 @@ export default class GameService extends Service {
 
     // children.entries[""0""].rexChess
     Object.assign(currentData, {
-      'playerTile': scene.player.rexChess.tileXYZ,
-      'playerAttrs': scene.player.data.get('attrs'),
+      'playerTile': scene.player.container.rexChess.tileXYZ,
+      'playerAttrs': scene.player.container.data.get('attrs'),
       'seenTiles': scene.allSeenTiles,
       'transports': transports
     });
@@ -79,27 +83,27 @@ export default class GameService extends Service {
   }
 
   createPlayer(scene, playerConfig) {
-    let player = new PlayerContainer(scene, playerConfig);
-    // player.addCollisions();
+    debugger; // shouldnt call this anymore ?
+    let player = new Player(scene, playerConfig);
 
-    // let player = new Player(scene, playerConfig);
+    // let player = new PlayerContainer(scene, playerConfig);
 
-    scene.board.addChess(player, playerConfig.playerX, playerConfig.playerY, this.constants.TILEZ_PLAYER);
+    scene.board.addChess(player.container, playerConfig.playerX, playerConfig.playerY, this.constants.TILEZ_PLAYER);
 
-    player.fov = scene.rexBoard.add.fieldOfView(player, playerConfig);
+    player.container.fov = scene.rexBoard.add.fieldOfView(player.container, playerConfig);
 
-    return player;
+    return player.container;
   }
 
   createTransport(scene, transportConfig) {
+    let transport = new Transport(scene, transportConfig);
+    // let transport = new TransportContainer(scene, transportConfig);
 
-    let transport = new TransportContainer(scene, transportConfig);
+    scene.board.addChess(transport.container, transportConfig.playerX, transportConfig.playerY, this.constants.TILEZ_TRANSPORTS);
 
-    scene.board.addChess(transport, transportConfig.playerX, transportConfig.playerY, this.constants.TILEZ_TRANSPORTS);
+    // transport.fov = scene.rexBoard.add.fieldOfView(transport, transportConfig);
 
-    transport.fov = scene.rexBoard.add.fieldOfView(transport, transportConfig);
-
-    return transport;
+    return transport.container;
   }
 
   processPlayerMove(player) {

@@ -41,6 +41,7 @@ export default class ConstantsService extends Service {
   SHAPE_TYPE_POLYGON = 'Polygon';
   SHAPE_TYPE_CONTAINER = 'Container';
   SHAPE_TYPE_TRANSPORT = 'Transport';
+  SHAPE_TYPE_ENEMY = 'Enemy';
 
   FLAG_TYPE_TRAVEL = 0;
   FLAG_TYPE_VISIBILITY = 1;
@@ -50,6 +51,12 @@ export default class ConstantsService extends Service {
   TILEZ_CHESTS  = 3;    // "layer" for chests
   TILEZ_MONSTERS  = 4;    // "layer" for monsters
   TILEZ_TRANSPORTS  = 5; // "layer" for transports
+
+  SPAWNER_TYPE = {
+    MONSTER: 'MONSTER',
+    CHEST: 'CHEST',
+    TRANSPORT: 'TRANSPORT'
+  };
 
   FLAGS = {
     TRAVEL: {

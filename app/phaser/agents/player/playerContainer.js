@@ -1,33 +1,33 @@
-import Phaser from 'phaser';
+// import Phaser from 'phaser';
 import Player from "./player";
+import BasePhaserAgentContainer from "../base-phaser-agent-container";
 import {tracked} from '@glimmer/tracking';
 import {timeout} from 'ember-concurrency';
 import {task} from 'ember-concurrency-decorators';
 
-export default class PlayerContainer extends Phaser.GameObjects.Container {
+export default class PlayerContainer extends BasePhaserAgentContainer {
 
-  scene = undefined;
-  ember = undefined;
+  // scene = undefined;
+  // ember = undefined;
 
-  @tracked maxHealth;
-  @tracked health;
-  @tracked maxPower;
-  @tracked power;
-  @tracked healingSpeed = 3000;
-  @tracked healingPower = 2;
-  @tracked energizeSpeed = 2000;
-  @tracked energizePower = 2;
+@tracked maxHealth;
+@tracked health;
+@tracked maxPower;
+@tracked power;
+@tracked healingSpeed = 3000;
+@tracked healingPower = 2;
+@tracked energizeSpeed = 2000;
+@tracked energizePower = 2;
   @tracked boardedTransport;
 
 
-  @task
-  *reloadHealth() {
-    while (this.health < this.maxHealth) {
-      // console.log('reloadHealth')
-      yield timeout(this.healingSpeed);
-      this.health += Math.max(1, this.healingPower);
-    }
-  }
+  // @task
+  // *reloadHealth() {
+  //   while (this.health < this.maxHealth) {
+  //     yield timeout(this.healingSpeed);
+  //     this.health += Math.max(1, this.healingPower);
+  //   }
+  // }
 
   @task
   *reloadPower() {
@@ -40,9 +40,10 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
 
   constructor(scene, config) {
 
-    // constructor(scene, x, y, key, frame, health, maxHealth, id, attackAudio) {
-    // super(scene, config.playerX, config.playerY, config.texture);
-    super(scene, 0, 0);
+    config.showPowerBar = true;
+
+    super(scene, config);
+
     // super(scene, config.playerX, config.playerY);
 
     this.scene = scene;
@@ -106,7 +107,7 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
       }
 
       const allattrs = this.ember.map.getTileAttribute(pathFinder.scene, targetTile);
-      let canMove = this.ember.playerHasAbilityFlag(pathFinder.scene.player, this.ember.constants.FLAG_TYPE_TRAVEL, allattrs.travelFlags);
+      let canMove = this.ember.playerHasAbilityFlag(pathFinder.scene.player.container, this.ember.constants.FLAG_TYPE_TRAVEL, allattrs.travelFlags);
 
       if (!canMove) {
         // console.log('cant move! targetTile', targetTile, 'travelFlags', allattrs.travelFlags, 'wesnoth', allattrs.wesnoth);
@@ -175,9 +176,9 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
   }
 
   update(cursors) {
-    // console.log('player update');
     this.moveTo(cursors);
-    this.updateHealthBar();
+    // this.updateHealthBar();
+    this.baseUpdate();
   }
 
   createHealthBar() {

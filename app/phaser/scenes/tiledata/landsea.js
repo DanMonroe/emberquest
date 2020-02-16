@@ -8,7 +8,13 @@ export default {
 
   mapUrl: '/images/maps/landsea-min.png',
 
-  monsterLocations: [], // tiles where monsters may spawn
+  spawnLocations : {
+    players: [{x: 6, y: 15}], // tiles where the player may spawn
+    transports: { spawnInterval: 3000, limit: 1, locations: [{id: 1, x: 3, y: 17}]},
+    chests: { spawnInterval: 3000, limit: 2, locations: [{id: 1, x: 3, y: 11}, {id: 2, x: 5, y: 9}]},
+    monsters: { spawnInterval: 3000, limit: 1, locations: [{id: 1, x: 8, y: 8}]},
+    agents: { spawnInterval: 3000, limit: 1, locations: [{id: 1, x: 8, y: 8}]}
+  },
 
   sceneTiles: [
     [
