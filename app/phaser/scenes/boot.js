@@ -28,8 +28,7 @@ export class BootScene extends Phaser.Scene {
     this.load.image('player', this.ember.playerImgSrc);
     this.load.image('playership', '/images/transports/ship.svg');
     this.load.image('monsters', '/images/monsters/spider.png');
-    // this.load.image('chest', '/images/closed_chest.png');
-    // this.load.image('chest', '/images/open_chest.png');
+    this.load.image('galleon', '/images/agents/galleon.svg');
 
   }
 

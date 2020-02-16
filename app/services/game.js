@@ -9,6 +9,7 @@ import MapData from '../phaser/scenes/tiledata/landsea'
 
 import {Player} from "../objects/agents/player";
 import {Transport} from "../objects/agents/transport";
+import {Agent} from "../objects/agents/agent"
 
 export default class GameService extends Service {
 
@@ -91,13 +92,19 @@ export default class GameService extends Service {
     return player.container;
   }
 
+  createAgent(scene, agentConfig) {
+    let agent = new Agent(scene, agentConfig);
+    console.log('agent', agent)
+
+    scene.board.addChess(agent.container, agentConfig.x, agentConfig.y, this.constants.TILEZ_AGENTS);
+
+    return agent.container;
+  }
+
   createTransport(scene, transportConfig) {
     let transport = new Transport(scene, transportConfig);
-    // let transport = new TransportContainer(scene, transportConfig);
-
+    console.log('transport', transport)
     scene.board.addChess(transport.container, transportConfig.x, transportConfig.y, this.constants.TILEZ_TRANSPORTS);
-
-    // transport.fov = scene.rexBoard.add.fieldOfView(transport, transportConfig);
 
     return transport.container;
   }

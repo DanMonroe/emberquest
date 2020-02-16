@@ -34,37 +34,7 @@ export default class GameManagerService extends Service {
     this.spawnPlayer();
   }
 
-  // setupSpawnLocations() {
-  //   console.log('setupSpawnLocations')
-  //   this.scene.MapData.spawnLocations.players.forEach(spawnerConfig => {
-  //     console.log('player location spawnerConfig', spawnerConfig)
-  //     this.spawnLocations.players.push(spawnerConfig);
-  //   });
-  //   if (this.scene.MapData.spawnLocations.transports) {
-  //     this.scene.MapData.spawnLocations.transports.forEach(spawnerConfig => {
-  //       console.log('transport location spawnerConfig', spawnerConfig)
-  //       this.spawnLocations.transports.push(spawnerConfig);
-  //     });
-  //   }
-  //   if (this.scene.MapData.spawnLocations.chests) {
-  //     this.scene.MapData.spawnLocations.chests.forEach(spawnerConfig => {
-  //       console.log('chest location spawnerConfig', spawnerConfig)
-  //       this.spawnLocations.transports.push(spawnerConfig);
-  //     });
-  //   }
-  //   if (this.scene.MapData.spawnLocations.monsters) {
-  //     this.scene.MapData.spawnLocations.monsters.forEach(spawnerConfig => {
-  //       console.log('monster location spawnerConfig', spawnerConfig)
-  //       this.spawnLocations.transports.push(spawnerConfig);
-  //     });
-  //   }
-  //   if (this.scene.MapData.spawnLocations.agents) {
-  //     this.scene.MapData.spawnLocations.agents.forEach(spawnerConfig => {
-  //       console.log('agent location spawnerConfig', spawnerConfig)
-  //       this.spawnLocations.transports.push(spawnerConfig);
-  //     });
-  //   }
-  // }
+
 
   setupEventListener() {
     this.scene.events.on('pickUpChest', (chestId, playerId) => {
@@ -89,7 +59,7 @@ export default class GameManagerService extends Service {
   }
 
   spawnPlayer() {
-    const playerTile = this.storedData.storedPlayerTile ? {x: this.storedData.storedPlayerTile.x, y: this.storedData.storedPlayerTile.y} : {x: this.MapData.player.startX, y: this.MapData.player.startY};
+    const playerTile = this.storedData.storedPlayerTile ? {x: this.storedData.storedPlayerTile.x, y: this.storedData.storedPlayerTile.y} : {x: this.scene.MapData.player.startX, y: this.scene.MapData.player.startY};
 
     this.playerConfig = {
       playerX: playerTile.x,
@@ -112,8 +82,8 @@ export default class GameManagerService extends Service {
       playerAttackAudio: undefined, // when ready, get from Boot scene
 
       flagAttributes: {
-        sightFlags: this.storedData.storedPlayerAttrs.sightFlags || 0,
-        travelFlags: this.storedData.storedPlayerAttrs.travelFlags || this.ember.constants.FLAGS.TRAVEL.LAND.value
+        sightFlags: (this.storedData.storedPlayerAttrs && this.storedData.storedPlayerAttrs.sightFlags) || 0,
+        travelFlags: (this.storedData.storedPlayerAttrs && this.storedData.storedPlayerAttrs.travelFlags) || this.ember.constants.FLAGS.TRAVEL.LAND.value
       },
 
       costCallback:  (tileXY) => {

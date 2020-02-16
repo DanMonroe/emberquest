@@ -1,8 +1,7 @@
 import { BaseModel } from './base-model';
 
-export class Chest extends BaseModel {
+export class Agent extends BaseModel {
   constructor(x, y, spawnerId, objectConfig) {
     super(x, y, spawnerId, objectConfig);
-    this.gold = objectConfig.gold;
   }
 }

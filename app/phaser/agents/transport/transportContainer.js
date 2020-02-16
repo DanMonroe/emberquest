@@ -3,81 +3,51 @@ import Transport from "./transport";
 import { tracked } from '@glimmer/tracking';
 import { timeout } from 'ember-concurrency';
 import { task } from 'ember-concurrency-decorators';
+import BasePhaserAgentContainer from "../base-phaser-agent-container";
 
-export default class TransportContainer extends Phaser.GameObjects.Container {
+export default class TransportContainer extends BasePhaserAgentContainer {
+// export default class TransportContainer extends Phaser.GameObjects.Container {
 
-  scene = undefined;
-  ember = undefined;
+  // scene = undefined;
+  // ember = undefined;
 
-  @tracked maxHealth;
-  @tracked health;
-  @tracked maxPower;
-  @tracked power;
-  @tracked healingSpeed = 3000;
-  @tracked healingPower = 2;
-  @tracked energizeSpeed = 2000;
-  @tracked energizePower = 2;
+  // @tracked maxHealth;
+  // @tracked health;
+  // @tracked maxPower;
+  // @tracked power;
+  // @tracked healingSpeed = 3000;
+  // @tracked healingPower = 2;
+  // @tracked energizeSpeed = 2000;
+  // @tracked energizePower = 2;
 
 
-  @task
-  *reloadHealth() {
-    while (this.health < this.maxHealth) {
-      // console.log('reloadHealth')
-      yield timeout(this.healingSpeed);
-      this.health += Math.max(1, this.healingPower);
-    }
-  }
-
-  @task
-  *reloadPower() {
-    while (this.power < this.maxPower) {
-      // console.log('reloadPower')
-      yield timeout(this.energizeSpeed);
-      this.power += Math.max(1, this.energizePower);
-    }
-  }
+  // @task
+  // *reloadHealth() {
+  //   while (this.health < this.maxHealth) {
+  //     // console.log('reloadHealth')
+  //     yield timeout(this.healingSpeed);
+  //     this.health += Math.max(1, this.healingPower);
+  //   }
+  // }
+  //
+  // @task
+  // *reloadPower() {
+  //   while (this.power < this.maxPower) {
+  //     // console.log('reloadPower')
+  //     yield timeout(this.energizeSpeed);
+  //     this.power += Math.max(1, this.energizePower);
+  //   }
+  // }
 
   constructor(scene, config) {
 
-    // constructor(scene, x, y, key, frame, health, maxHealth, id, attackAudio) {
-    // super(scene, config.playerX, config.playerY, config.texture);
-    super(scene, 0, 0);
-    // super(scene, config.playerX, config.playerY);
-
-    this.scene = scene;
-    this.board = scene.board;
-    this.ember = this.scene.game.emberGame;
+    super(scene, config);
     this.containerType = this.scene.game.emberGame.constants.SHAPE_TYPE_TRANSPORT;
 
-    this.id = config.id;
-    // this.playerAttacking = false;
-    this.health = config.health;
-    this.maxHealth = config.maxHealth;
-    this.power = config.power;
-    this.maxPower = config.maxPower;
-    this.attackAudio = config.attackAudio;
 
-    // this.healingSpeed = 1000;
-    // this.healingPower = 3;
+    // this.cachedHealthPercentage = 0;
 
-    this.cachedHealthPercentage = 0;
-
-    // set a size on the container
-    this.setSize(42, 42);
-
-    // enable physics
-    this.scene.physics.world.enable(this);
-
-    // collide with world bounds
-    this.body.setCollideWorldBounds(true);
-
-    // add the player container to our existing scene
-    this.scene.add.existing(this);
-
-    // have the camera follow the player
-    this.scene.cameras.main.startFollow(this);
-
-    // create the player
+    // create the tranport
     this.transport = new Transport(this.scene, config);
 
     this.add(this.transport);
@@ -95,13 +65,11 @@ export default class TransportContainer extends Phaser.GameObjects.Container {
         (pathFinder.scene.player.container.rexChess.tileXYZ.y === targetTile.y) );
 
       if (this.ember.map.tileIsDock(pathFinder.scene, targetTile)) {
-        // console.log('tranport targetTileIsDock');
         return false;
       }
       // console.log('transport canMove', canMove);
       return canMove;
 
-      // return false;
     };
 
 
@@ -110,43 +78,43 @@ export default class TransportContainer extends Phaser.GameObjects.Container {
     this.reloadPower.perform();
   }
 
-  moveToComplete(transport, moveTo) {
-    console.log('transport moveComplete', arguments)
-  }
+  // moveToComplete(transport, moveTo) {
+  //   console.log('transport moveComplete', arguments)
+  // }
 
-  update(cursors) {
-    // console.log('player update');
-    // this.moveTo(cursors);
-    this.updateHealthBar();
-  }
+  // update() {
+  //   // console.log('player update');
+  //   // this.moveTo(cursors);
+  //   this.updateHealthBar();
+  // }
 
-  createHealthBar() {
-    this.healthBar = this.scene.add.graphics();
-    this.powerBar = this.scene.add.graphics();
-    this.updateHealthBar();
-  }
+  // createHealthBar() {
+  //   this.healthBar = this.scene.add.graphics();
+  //   this.powerBar = this.scene.add.graphics();
+  //   this.updateHealthBar();
+  // }
+  //
+  // updateHealthBar() {
+  //   const healthPercentage = (this.health / this.maxHealth);
+  //   this.healthBar.clear();
+  //   this.healthBar.fillStyle(0xffffff, 0.4);
+  //   this.healthBar.fillRect(this.x + this.ember.constants.healthBarOffsetX, this.y + this.ember.constants.healthBarOffsetY, this.ember.constants.healthBarWidth, this.ember.constants.healthBarHeight);
+  //   this.healthBar.fillStyle(healthPercentage <- this.ember.constants.healthBarColorTippingPoint ? this.ember.constants.healthBarColorDanger : this.ember.constants.healthBarColorGood, 1);
+  //   this.healthBar.fillRect(this.x + this.ember.constants.healthBarOffsetX, this.y + this.ember.constants.healthBarOffsetY, this.ember.constants.healthBarWidth * healthPercentage, this.ember.constants.healthBarHeight);
+  //
+  //   const powerPercentage = (this.power / this.maxPower);
+  //   this.powerBar.clear();
+  //   this.powerBar.fillStyle(0xffffff, 0.4);
+  //   this.powerBar.fillRect(this.x + this.ember.constants.powerBarOffsetX, this.y + this.ember.constants.powerBarOffsetY, this.ember.constants.powerBarWidth, this.ember.constants.powerBarHeight);
+  //   this.powerBar.fillStyle(this.ember.constants.powerBarColor, 1);
+  //   this.powerBar.fillRect(this.x + this.ember.constants.powerBarOffsetX, this.y + this.ember.constants.powerBarOffsetY, this.ember.constants.powerBarWidth * powerPercentage, this.ember.constants.powerBarHeight);
+  // }
 
-  updateHealthBar() {
-    const healthPercentage = (this.health / this.maxHealth);
-    this.healthBar.clear();
-    this.healthBar.fillStyle(0xffffff, 0.4);
-    this.healthBar.fillRect(this.x + this.ember.constants.healthBarOffsetX, this.y + this.ember.constants.healthBarOffsetY, this.ember.constants.healthBarWidth, this.ember.constants.healthBarHeight);
-    this.healthBar.fillStyle(healthPercentage <- this.ember.constants.healthBarColorTippingPoint ? this.ember.constants.healthBarColorDanger : this.ember.constants.healthBarColorGood, 1);
-    this.healthBar.fillRect(this.x + this.ember.constants.healthBarOffsetX, this.y + this.ember.constants.healthBarOffsetY, this.ember.constants.healthBarWidth * healthPercentage, this.ember.constants.healthBarHeight);
-
-    const powerPercentage = (this.power / this.maxPower);
-    this.powerBar.clear();
-    this.powerBar.fillStyle(0xffffff, 0.4);
-    this.powerBar.fillRect(this.x + this.ember.constants.powerBarOffsetX, this.y + this.ember.constants.powerBarOffsetY, this.ember.constants.powerBarWidth, this.ember.constants.powerBarHeight);
-    this.powerBar.fillStyle(this.ember.constants.powerBarColor, 1);
-    this.powerBar.fillRect(this.x + this.ember.constants.powerBarOffsetX, this.y + this.ember.constants.powerBarOffsetY, this.ember.constants.powerBarWidth * powerPercentage, this.ember.constants.powerBarHeight);
-  }
-
-  updateHealth(health, power) {
-    this.health = health;
-    this.power = power;
-    this.updateHealthBar();
-  }
+  // updateHealth(health, power) {
+  //   this.health = health;
+  //   this.power = power;
+  //   this.updateHealthBar();
+  // }
 
 
   // moveTo(cursors) {

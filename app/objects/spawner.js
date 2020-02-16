@@ -1,6 +1,7 @@
 import {timeout} from 'ember-concurrency';
 import {task} from 'ember-concurrency-decorators';
 import { tracked } from '@glimmer/tracking';
+import {Agent} from "./models/agent";
 import {Chest} from "./models/chest";
 import {Monster} from "./models/monster";
 import {Transport} from "./models/transport";
@@ -53,6 +54,9 @@ export class Spawner {
       case this.constants.SPAWNER_TYPE.MONSTER:
         this.spawnMonster();
         break;
+      case this.constants.SPAWNER_TYPE.AGENT:
+        this.spawnAgent();
+        break;
       default:
         break;
     }
@@ -64,7 +68,7 @@ export class Spawner {
   spawnChest() {
     const location = this.pickRandomLocation();
 
-    const chest = new Chest(location.x, location.y, 100, this.id);
+    const chest = new Chest(location.x, location.y, this.id, {gold: 100});
 
     this.objectsCreated.push(chest);
     this.addObject(chest.id, chest);
@@ -88,6 +92,17 @@ export class Spawner {
     // console.log('spawnMonster', monster);
     this.objectsCreated.push(monster);
     this.addObject(monster.id, monster);
+
+  }
+
+  spawnAgent() {
+    const location = this.pickRandomLocation();
+
+    const agent = new Agent(location.x, location.y, this.id, this.config.objectConfig);
+
+    // console.log('spawnMonster', monster);
+    this.objectsCreated.push(agent);
+    this.addObject(agent.id, agent);
 
   }
 

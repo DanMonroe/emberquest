@@ -1,12 +1,8 @@
-import { v4 } from "ember-uuid";
+import { BaseModel } from './base-model';
 
-export class Transport {
+export class Transport extends BaseModel {
   constructor(x, y, spawnerId, objectConfig) {
-    let uuid = v4();
-    this.id = `${spawnerId}-${uuid}`;
-    this.spawnerId = spawnerId;
-    this.x = x;
-    this.y = y;
-    this.objectConfig = objectConfig;
+    super(x, y, spawnerId, objectConfig);
   }
+
 }

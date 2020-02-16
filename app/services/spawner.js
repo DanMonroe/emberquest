@@ -19,6 +19,7 @@ export default class SpawnerService extends Service {
   @tracked transports = {};
   @tracked monsters = {};
   @tracked players = {};
+  @tracked agents = {};
 
   scene = undefined;
 
@@ -106,6 +107,32 @@ export default class SpawnerService extends Service {
       });
     }
 
+    // create agent spawners
+    if (this.spawnLocations.agents) {
+      config = {
+        spawnInterval: this.spawnLocations.agents.spawnInterval || 3000,
+        limit: this.spawnLocations.agents.limit || 1,
+        spawnerType: this.constants.SPAWNER_TYPE.AGENT
+      }
+      this.spawnLocations.agents.locations.forEach(locationObj => {
+        config.id = `agent-${locationObj.id}`;
+        config.locationId = +locationObj.id - 1;
+        config.objectConfig = locationObj
+
+        let spawner = new Spawner(
+          config,
+          this.spawnLocations.agents.locations,
+          this.addAgent.bind(this),
+          this.deleteAgent.bind(this),
+          null,
+          this.constants
+        );
+
+        this.spawners[spawner.id] = spawner;
+
+      });
+    }
+
 
     // console.log('setupSpawnLocations')
     // this.scene.MapData.spawnLocations.players.forEach(spawnerConfig => {
@@ -156,8 +183,8 @@ export default class SpawnerService extends Service {
     delete this.transports[transportId];
   }
 
-  addMonster(monstertId, monster) {
-    this.monsters[monstertId] = monster;
+  addMonster(monsterId, monster) {
+    this.monsters[monsterId] = monster;
     this.scene.events.emit('monsterSpawned', monster);
   }
 
@@ -165,23 +192,12 @@ export default class SpawnerService extends Service {
     delete this.monsters[monsterId];
   }
 
-  // @task
-  // *spawnObjects() {
-  //   while (true) {
-  //     if (this.objectsCreated <= this.objectLimit) {
-  //       this.spawnObject();
-  //     }
-  //     yield timeout(this.spawnInterval);
-  //   }
-  // }
-  //
-  // spawnObject() {
-  //   console.log('spawn object.  count:', this.objectsCreated)
-  //   this.objectsCreated++;  // temp counter
-  // }
-  //
-  // removeObject() {
-  //   console.log('remove object')
-  // }
-  //
+  addAgent(agentId, agent) {
+    this.agents[agentId] = agent;
+    this.scene.events.emit('agentSpawned', agent);
+  }
+
+  deleteAgent(agentId) {
+    delete this.agents[agentId];
+  }
 }

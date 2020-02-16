@@ -17,6 +17,7 @@ export default {
         {
           id: 1, x: 3, y: 17,
           texture: 'playership',
+          textureSize: { width: 42, height: 42},
           scale: 0.4,
           speed: 200,
           sightRange: 3,   // this is sight/movement Range
@@ -35,7 +36,28 @@ export default {
     },
     chests: { spawnInterval: 3000, limit: 1, locations: [{id: 1, x: 3, y: 11}, {id: 2, x: 5, y: 9}]},
     monsters: { spawnInterval: 3000, limit: 1, locations: [{id: 1, x: 8, y: 8, health: 100, maxHealth: 200,scale: 0.75}]},
-    agents: { spawnInterval: 3000, limit: 1, locations: [{id: 1, x: 8, y: 8}]}
+    agents: { spawnInterval: 3000, limit: 1,
+      locations: [
+          {
+            id: 1, x: 7, y: 17,
+            texture: 'galleon',
+            textureSize: { width: 42, height: 42},
+            scale: 0.1,
+            speed: 200,
+            sightRange: 3,   // this is sight/movement Range
+            movingPoints: 3,   // this is sight/movement Range
+            visiblePoints: 8,   // this is sight/movement Range
+            health: 100,
+            maxHealth: 200,
+            power: 20,
+            maxPower: 200,
+            flagAttributes: {
+              sightFlags: 0,
+              travelFlags: 1
+            },
+          }
+        ]
+    }
   },
 
   sceneTiles: [

@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import Chest from '../chest';
 import Monster from '../monster';
+import Agent from '../agents/agent/agent';
 
 export class GameboardScene extends Phaser.Scene {
 
@@ -19,6 +20,7 @@ export class GameboardScene extends Phaser.Scene {
   monsters = {};
   enemyships = {};
   transports = {};
+  agents = {};
 
   constructor() {
     super({
@@ -82,6 +84,10 @@ export class GameboardScene extends Phaser.Scene {
       this.spawnMonster(monsterObject);
     });
 
+    this.events.on('agentSpawned', (agentObject) => {
+      this.spawnAgent(agentObject);
+    });
+
     this.game.emberGame.manager.setup(this);
   }
 
@@ -114,6 +120,12 @@ export class GameboardScene extends Phaser.Scene {
 
     this.monsters.add(monster);
     this.board.addChess(monster, monsterObj.x, monsterObj.y, this.ember.constants.TILEZ_MONSTERS);
+  }
+
+  spawnAgent(agentObj) {
+    const agent = this.ember.createAgent(this, agentObj.objectConfig);
+    agent.setAlpha(0);
+    this.agents.add(agent);
   }
 
   spawnTransport(transportObj) {
@@ -157,11 +169,12 @@ export class GameboardScene extends Phaser.Scene {
   }
 
   createBoard() {
+    const mapData = this.ember.getMapData();
     this.board = this.ember.map.createBoard(this, {
       grid: this.ember.map.getHexagonGrid(this),
-      width: this.MapData.sceneTiles[0].length,
-      height: this.MapData.sceneTiles.length,
-      sceneTiles: this.MapData.sceneTiles,
+      width: mapData.sceneTiles[0].length,
+      height: mapData.sceneTiles.length,
+      sceneTiles: mapData.sceneTiles,
       allSeenTiles: this.allSeenTiles,
       showHexInfo: this.ember.showHexInfo
     });
@@ -177,6 +190,9 @@ export class GameboardScene extends Phaser.Scene {
     // create a monster group
     this.monsters = this.physics.add.group();
     // this.monsters.runChildUpdate = true;
+
+    // create an agent group
+    this.agents = this.physics.add.group();
   }
 
   createInput() {

@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { tracked } from '@glimmer/tracking';
 import {timeout} from 'ember-concurrency';
 import {task} from 'ember-concurrency-decorators';
 
@@ -11,10 +12,20 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
 
   showPowerBar = false;
 
+  @tracked maxHealth;
+  @tracked health;
+  @tracked maxPower;
+  @tracked power;
+  @tracked healingSpeed = 3000;
+  @tracked healingPower = 2;
+  @tracked energizeSpeed = 2000;
+  @tracked energizePower = 2;
+
+
   constructor(scene, config) {
 
     super(scene, 0, 0);
-
+// debugger;
     this.scene = scene;
     this.board = scene.board;
     this.ember = this.scene.game.emberGame;
@@ -22,6 +33,25 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
     this.id = config.id;
 
     this.showPowerBar = config.showPowerBar;
+
+    this.health = config.health;
+    this.maxHealth = config.maxHealth;
+    this.power = config.power;
+    this.maxPower = config.maxPower;
+    this.attackAudio = config.attackAudio;
+
+    if (config.textureSize) {
+      this.setSize(config.textureSize.width, config.textureSize.height);
+    }
+    // enable physics
+    this.scene.physics.world.enable(this);
+
+    // collide with world bounds
+    // this.body.setCollideWorldBounds(true);
+
+    // add the player container to our existing scene
+    this.scene.add.existing(this);
+
 
   }
 
@@ -37,8 +67,21 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
     }
   }
 
+  @task
+  *reloadPower() {
+    while (this.power < this.maxPower) {
+      // console.log('reloadPower')
+      yield timeout(this.energizeSpeed);
+      this.power += Math.max(1, this.energizePower);
+    }
+  }
+
+
   createHealthBar() {
     this.healthBar = this.scene.add.graphics();
+    if (this.showPowerBar) {
+      this.powerBar = this.scene.add.graphics();
+    }
     this.updateHealthBar();
   }
 

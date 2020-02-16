@@ -8,7 +8,7 @@ export class Transport extends BaseAgent {
 
     let transportContainer = new TransportContainer(scene, config);
 
-    this.container = transportContainer
+    this.container = transportContainer;
 
   }
 }
