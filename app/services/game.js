@@ -168,10 +168,10 @@ export default class GameService extends Service {
     let descriptions = [];
     // TODO there is a better way to do this
     if (this.playerHasTravelAbilityFlag(player, this.constants.FLAGS.TRAVEL.LAND)) {
-      descriptions.push(this.constants.FLAGS.TRAVEL.LAND.description)
+      descriptions.push(`${this.constants.FLAGS.TRAVEL.LAND.value}:${this.constants.FLAGS.TRAVEL.LAND.description}`)
     }
     if (this.playerHasTravelAbilityFlag(player, this.constants.FLAGS.TRAVEL.SEA)) {
-      descriptions.push(this.constants.FLAGS.TRAVEL.SEA.description)
+      descriptions.push(`${this.constants.FLAGS.TRAVEL.SEA.value}:${this.constants.FLAGS.TRAVEL.SEA.description}`)
     }
     return `Player flags: ${descriptions.join(', ')}`;
   }

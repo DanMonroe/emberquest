@@ -57,7 +57,7 @@ export class GameboardScene extends Phaser.Scene {
     this.board.on('tiledown',  (pointer, tileXY) => {
       const allAttrs = this.ember.map.getTileAttribute(this, tileXY);
       const clickedShape = this.board.tileXYToChessArray(tileXY.x, tileXY.y);
-      console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.player));
+      console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.player.container));
     });
   }
 
@@ -189,10 +189,10 @@ export class GameboardScene extends Phaser.Scene {
     // this.physics.add.collider(this.player, this.map.blockedLayer);
 
     // check for overlaps between player and chest game objects
-    this.physics.add.overlap(this.player, this.chests, this.collectChest, null, this);
+    this.physics.add.overlap(this.player.container, this.chests, this.collectChest, null, this);
 
     // check for overlaps between player and transport game objects
-    this.physics.add.collider(this.player, this.transports, this.boardTransport, this.boardTransportProcessCallback, this);
+    this.physics.add.collider(this.player.container, this.transports, this.boardTransport, this.boardTransportProcessCallback, this);
     // this.physics.add.overlap(this.player, this.transports, this.boardTransport, this.boardTransportProcessCallback, this);
 
     // check for collisions between the monster group and the tiled blocked layer

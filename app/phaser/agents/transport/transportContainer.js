@@ -89,10 +89,10 @@ export default class TransportContainer extends Phaser.GameObjects.Container {
     this.moveToObject.on('complete', this.moveToComplete);
 
     this.moveToObject.moveableTestCallback = (curTile, targetTile, pathFinder) => {
-    //   console.log('transport moveTo testCallback', curTile, targetTile, pathFinder.scene.player.rexChess.tileXYZ)
+      // console.log('transport moveTo testCallback', curTile, targetTile, pathFinder.scene.player.container.rexChess.tileXYZ)
 
-      const canMove = ( (pathFinder.scene.player.rexChess.tileXYZ.x === targetTile.x) &&
-        (pathFinder.scene.player.rexChess.tileXYZ.y === targetTile.y) );
+      const canMove = ( (pathFinder.scene.player.container.rexChess.tileXYZ.x === targetTile.x) &&
+        (pathFinder.scene.player.container.rexChess.tileXYZ.y === targetTile.y) );
 
       if (this.ember.map.tileIsDock(pathFinder.scene, targetTile)) {
         // console.log('tranport targetTileIsDock');

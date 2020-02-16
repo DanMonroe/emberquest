@@ -65,7 +65,12 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
     this.scene.physics.world.enable(this);
 
     // collide with world bounds
-    this.body.setCollideWorldBounds(true);
+    //
+    // Setting this to tr prevents the player from completing
+    // a move to the outer edges of the map (causing endless loop)
+    // and then they get stuck and can't move away from the edge.
+    //
+    // this.body.setCollideWorldBounds(true);
 
     // add the player container to our existing scene
     this.scene.add.existing(this);
@@ -240,12 +245,12 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
     }
   }
 
-  moveToComplete(player, moveTo) {
+  moveToComplete(playerContainer, moveTo) {
     // console.log('move complete');
     moveTo.scene.game.emberGame.saveSceneData(moveTo.scene);
-    moveTo.scene.game.emberGame.saveGameData("playerTile", player.rexChess.tileXYZ);
-    moveTo.scene.game.emberGame.map.findFOV(player);
-    moveTo.scene.game.emberGame.processPlayerMove(player);
+    moveTo.scene.game.emberGame.saveGameData("playerTile", playerContainer.rexChess.tileXYZ);
+    moveTo.scene.game.emberGame.map.findFOV(playerContainer);
+    moveTo.scene.game.emberGame.processPlayerMove(playerContainer);
   }
 
 
