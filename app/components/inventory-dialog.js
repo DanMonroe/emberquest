@@ -16,19 +16,24 @@ export default class InventoryDialogComponent extends Component {
     return [
       {
         text: 'Weapons',
-        img: '/images/item-icon-primary.png',
+        img: '/images/icons/item-icon-primary.png',
         category: 'weapon'
       },
       {
         text: 'Armor',
-        img: '/images/item-icon-armor.png',
+        img: '/images/icons/item-icon-armor.png',
         category: 'armor'
       },
       {
         text: 'Other',
-        img: '/images/item-icon-accessories.png',
+        img: '/images/icons/item-icon-accessories.png',
         category: 'other'
       },
+      {
+        text: 'Help',
+        img: '/images/icons/item-icon-books.png',
+        category: 'help'
+      }
     ];
   }
 
@@ -153,6 +158,16 @@ export default class InventoryDialogComponent extends Component {
         locked: false,
         unlockText: 'Unlock',
         type: 'weapon'
+      },
+      {
+        id:12,
+        name: 'Ember Guides',
+        price: 99,
+        owned: true,
+        img: '/images/items/programmaticon.png',
+        locked: false,
+        unlockText: 'Unlock',
+        type: 'help'
       }
     ];
     return items;

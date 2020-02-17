@@ -5,6 +5,7 @@ body {
   margin: 0;
   padding: 0;
   background: #22454f url(/images/backgrounds/portal-background.png);
+  font-family: "Open Sans Condensed", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 button {
@@ -248,7 +249,7 @@ button {
 .epm-modal-container {
   &.config {
     .epm-modal {
-      top: 27%;
+      top: 35%;
       transform: translate(-50%, -50%);
     }
   }
@@ -258,9 +259,17 @@ button {
     background-clip: padding-box;
     outline: none;
     .epm-modal {
-      top: 27%;
+      top: 35%;
       transform: translate(-50%, -50%);
     }
+  }
+}
+@media only screen and (min-height: 1050px) {
+  .epm-modal-container.inventory .epm-modal {
+    top: 324px;
+  }
+  .epm-modal-container.config .epm-modal {
+    top: 305px;
   }
 }
 @media only screen and (max-width: 1300px) {
@@ -324,7 +333,7 @@ button {
     width: 1227px;
     h2.title {
       position: absolute;
-      top: 100px;
+      top: 60px;
       left: 220px;
     }
 
