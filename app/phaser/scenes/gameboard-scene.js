@@ -126,6 +126,10 @@ export class GameboardScene extends Phaser.Scene {
     const agent = this.ember.createAgent(this, agentObj.objectConfig);
     agent.setAlpha(0);
     this.agents.add(agent);
+    if (agentObj.objectConfig.patrol) {
+      agent.pushAgentWaypointToMoveQueue();
+      agent.patrolTask.perform();
+    }
   }
 
   spawnTransport(transportObj) {

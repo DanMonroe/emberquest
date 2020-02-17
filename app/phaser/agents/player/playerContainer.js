@@ -21,14 +21,14 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
   @tracked boardedTransport;
 
 
-  @task
-  *reloadPower() {
-    while (this.power < this.maxPower) {
-      // console.log('reloadPower')
-      yield timeout(this.energizeSpeed);
-      this.power += Math.max(1, this.energizePower);
-    }
-  }
+  // @task
+  // *reloadPower() {
+  //   while (this.power < this.maxPower) {
+  //     // console.log('reloadPower')
+  //     yield timeout(this.energizeSpeed);
+  //     this.power += Math.max(1, this.energizePower);
+  //   }
+  // }
 
   constructor(scene, config) {
 
@@ -160,11 +160,9 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
     this.movingPoints = config.movingPoints;   // this is sight/movement Range
     this.visiblePoints = config.visiblePoints;   // this is sight/movement Range
 
-
     this.setData('attrs', config.flagAttributes);
 
-    // this.setScale(config.scale);
-
+    this.ember.playerContainer = this;
     // this.setDepth(15);
 
     this.createHealthBar();

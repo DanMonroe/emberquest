@@ -54,6 +54,11 @@ export default class ConstantsService extends Service {
   TILEZ_TRANSPORTS  = 5; // "layer" for transports
   TILEZ_AGENTS  = 6; // "layer" for agents
 
+  PATROLMETHOD = {
+    RANDOM: 'random',
+    STATIC: 'static'
+  }
+
   SPAWNER_TYPE = {
     MONSTER: 'MONSTER',
     CHEST: 'CHEST',

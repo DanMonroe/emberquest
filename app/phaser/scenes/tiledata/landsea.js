@@ -39,7 +39,7 @@ export default {
     agents: { spawnInterval: 3000, limit: 1,
       locations: [
           {
-            id: 1, x: 7, y: 17,
+            id: 1, x: 10, y: 16,
             texture: 'galleon',
             textureSize: { width: 42, height: 42},
             scale: 0.1,
@@ -55,6 +55,16 @@ export default {
               sightFlags: 0,
               travelFlags: 1
             },
+            patrol: {
+              timeout: 2000,
+              // aggressionTimeout: 1000,  // delay time in between aggression turns
+              method: 'random',
+              tiles: [
+                {x: 10, y: 16}, {x: 7, y: 14}, {x: 11, y: 15}
+              ]
+            }
+
+
           }
         ]
     }
