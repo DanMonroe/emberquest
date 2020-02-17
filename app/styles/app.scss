@@ -37,9 +37,6 @@ a {
   margin: 20px;
 }
 
-.instructions {
-  margin: 25px;
-}
 .absolute {
   position: absolute;
 }
@@ -100,8 +97,8 @@ a {
 }
 .game-controls {
   position: absolute;
-  right: 2.5%;
-  top: 1%;
+  right: 18px;
+  top: 18px;
   z-index: 2;
   .btn {
     width: 40px;
@@ -137,6 +134,9 @@ a {
     }
     &.gems {
       background-position: -240px 0px;
+    }
+    &.instructions {
+      background-position: -160px 0px;
     }
     &.settings {
       background-position: -200px 0px;
@@ -247,7 +247,7 @@ button {
   }
 }
 .epm-modal-container {
-  &.config {
+  &.config, &.instructions {
     .epm-modal {
       top: 35%;
       transform: translate(-50%, -50%);
@@ -268,7 +268,7 @@ button {
   .epm-modal-container.inventory .epm-modal {
     top: 324px;
   }
-  .epm-modal-container.config .epm-modal {
+  .epm-modal-container.config .epm-modal,.epm-modal-container.instructions .epm-modal {
     top: 305px;
   }
 }
@@ -276,7 +276,7 @@ button {
   .epm-modal-container.inventory .epm-modal {
     top: 324px;
   }
-  .epm-modal-container.config .epm-modal {
+  .epm-modal-container.config .epm-modal,.epm-modal-container.instructions .epm-modal {
     top: 305px;
   }
   .inventoryDialog {
@@ -699,7 +699,7 @@ button {
   }
 } // inventoryDialog
 
-.configDialog {
+.configDialog, .instructionsDialog {
   position: relative;
   background-image: url("/images/subscribe-background-blank.png");
   background-repeat: no-repeat;
@@ -709,14 +709,14 @@ button {
 
   h2.title {
     position: absolute;
-    top: 120px;
-    left: 395px;
+    top: 78px;
+    left: 350px;
   }
 
   .close-btn-x {
     position: absolute;
     color: #efefef;
-    top: 124px;
+    top: 117px;
     left: 736px;
 
     font-weight: bold;

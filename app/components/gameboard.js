@@ -70,6 +70,12 @@ export default class GameboardComponent extends Component {
   }
 
   @action
+  async showInstructionsDialog() {
+    this.epmModalContainerClass = 'instructions';
+    await this.modals.open('instructions-dialog');
+  }
+
+  @action
   async clickGems() {
     console.log('click gems');
   }
