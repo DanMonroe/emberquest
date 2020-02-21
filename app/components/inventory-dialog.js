@@ -7,11 +7,24 @@ export default class InventoryDialogComponent extends Component {
   tagName = '';
 
   @service game;
+  @service modals;
 
   @tracked currentNavCategory = this.leftNavItems[0];
   @tracked itemSelected = null;
 
-  @computed
+  @tracked inventoryItems;
+
+  items = undefined;
+
+  constructor() {
+    super(...arguments);
+
+    this.inventoryItems = this.modals.top._data;
+    this.resetAllToUnlock();
+    this.itemSelected = this.filteredItems[0];
+  }
+
+  // @computed
   get leftNavItems() {
     return [
       {
@@ -30,150 +43,194 @@ export default class InventoryDialogComponent extends Component {
         category: 'other'
       },
       {
-        text: 'Help',
+        text: 'Tomes',
         img: '/images/icons/item-icon-books.png',
-        category: 'help'
+        category: 'tome'
       }
     ];
   }
 
-  @computed
-  get inventoryItems() {
-    // TODO get this from ember data models. for now hard code for display
-    const items = [
-      {
-        id:1,
-        name: 'Sword',
-        price: 100,
-        owned: true,
-        img: '/images/items/crossbow.png',
-        locked: false,
-        type: 'weapon'
-      },
-      {
-        id:2,
-        name: 'Crossbow',
-        price: 100,
-        owned: false,
-        img: '/images/items/crossbow.png',
-        locked: false,
-        unlockText: 'Unlock',
-        type: 'weapon'
-      },
-      {
-        id:3,
-        name: 'Faux Fur Hat',
-        price: 100,
-        owned: true,
-        img: '/images/items/furhat.png',
-        locked: false,
-        type: 'armor',
-        stats: [
-          {
-            title: 'Health',
-            desc: '+8'
-          }
-        ],
-        description: 'Modest range and damage; it\'s the beginner crossbow. But hey, it\'s cheap!' +
-          'Modest range and damage; it\'s the beginner crossbow. But hey, it\'s cheap!' +
-          'Modest range and damage; it\'s the beginner crossbow. But hey, it\'s cheap!' +
-          'Modest range and damage; it\'s the beginner crossbow. But hey, it\'s cheap!\n',
-        skills: [
-          {
-            title: 'attack',
-            desc: 'The attack method makes the hero attack the target.'
-          }
-        ]
-      },
-      {
-        id:4,
-        name: 'Sword',
-        price: 100,
-        owned: true,
-        img: '/images/items/crossbow.png',
-        locked: false,
-        type: 'other'
-      },
-      {
-        id:5,
-        name: 'Sword 2',
-        price: 1337,
-        owned: false,
-        img: '/images/items/crossbow.png',
-        locked: false,
-        unlockText: 'Unlock', // TODO change to computed
-        type: 'weapon'
-      },
-      {
-        id:6,
-        name: 'Crossbow 2',
-        price: 100,
-        owned: true,
-        img: '/images/items/crossbow.png',
-        locked: false,
-        type: 'weapon'
-      },
-      {
-        id:7,
-        name: 'Sword 2',
-        price: 100,
-        owned: true,
-        img: '/images/items/crossbow.png',
-        locked: false,
-        type: 'armor'
-      },
-      {
-        id:8,
-        name: 'Sword 2',
-        price: 100,
-        owned: true,
-        img: '/images/items/crossbow.png',
-        locked: false,
-        type: 'other'
-      },
-      {
-        id:9,
-        name: 'Sword 3',
-        price: 100,
-        owned: true,
-        img: '/images/items/crossbow.png',
-        locked: false,
-        type: 'armor'
-      },
-      {
-        id:10,
-        name: 'Sword 4',
-        price: 100,
-        owned: true,
-        img: '/images/items/crossbow.png',
-        locked: false,
-        type: 'other'
-      },
-      {
-        id:11,
-        name: 'Sword 5',
-        price: 99,
-        owned: false,
-        img: '/images/items/crossbow.png',
-        locked: false,
-        unlockText: 'Unlock',
-        type: 'weapon'
-      },
-      {
-        id:12,
-        name: 'Ember Guides',
-        price: 99,
-        owned: true,
-        img: '/images/items/programmaticon.png',
-        locked: false,
-        unlockText: 'Unlock',
-        type: 'help'
-      }
-    ];
-    return items;
+  // @computed
+  // get inventoryItems() {
+  //   return this.items;
+  // }
+
+  // @computed
+  // get inventoryItemsHardcoded() {
+  //   // console.log('getInventoryItems', this.inventoryItems)
+  //   // TODO get this from ember data models. for now hard code for display
+  //   const items = [
+  //     {
+  //       id:1,
+  //       name: 'Sword',
+  //       price: 100,
+  //       owned: true,
+  //       img: '/images/items/crossbow.png',
+  //       locked: false,
+  //       type: 'weapon'
+  //     },
+  //     {
+  //       id:2,
+  //       name: 'Crossbow',
+  //       price: 100,
+  //       owned: false,
+  //       img: '/images/items/crossbow.png',
+  //       locked: false,
+  //       unlockText: 'Unlock',
+  //       type: 'weapon'
+  //     },
+  //     {
+  //       id:3,
+  //       name: 'Faux Fur Hat',
+  //       price: 100,
+  //       owned: true,
+  //       img: '/images/items/furhat.png',
+  //       locked: false,
+  //       type: 'armor',
+  //       stats: [
+  //         {
+  //           title: 'Health',
+  //           desc: '+8'
+  //         }
+  //       ],
+  //       description: 'Modest range and damage; it\'s the beginner crossbow. But hey, it\'s cheap!' +
+  //         'Modest range and damage; it\'s the beginner crossbow. But hey, it\'s cheap!' +
+  //         'Modest range and damage; it\'s the beginner crossbow. But hey, it\'s cheap!' +
+  //         'Modest range and damage; it\'s the beginner crossbow. But hey, it\'s cheap!\n',
+  //       skills: [
+  //         {
+  //           title: 'attack',
+  //           desc: 'The attack method makes the hero attack the target.'
+  //         }
+  //       ]
+  //     },
+  //     {
+  //       id:30,
+  //       name: 'Auto Import',
+  //       price: 100,
+  //       owned: true,
+  //       img: '/images/items/wand_of_wishing.png',
+  //       locked: false,
+  //       type: 'armor',
+  //       stats: [
+  //         {
+  //           title: 'Health',
+  //           desc: '+8'
+  //         }
+  //       ],
+  //       description: 'Modest range and damage; it\'s the beginner crossbow. But hey, it\'s cheap!' +
+  //         'Modest range and damage; it\'s the beginner crossbow. But hey, it\'s cheap!' +
+  //         'Modest range and damage; it\'s the beginner crossbow. But hey, it\'s cheap!' +
+  //         'Modest range and damage; it\'s the beginner crossbow. But hey, it\'s cheap!\n',
+  //       skills: [
+  //         {
+  //           title: 'attack',
+  //           desc: 'The attack method makes the hero attack the target.'
+  //         }
+  //       ]
+  //     },
+  //     {
+  //       id:4,
+  //       name: 'Mirage',
+  //       price: 100,
+  //       owned: true,
+  //       img: '/images/items/omnioculars.png',
+  //       locked: false,
+  //       type: 'other'
+  //     },
+  //     {
+  //       id:5,
+  //       name: 'Ring of Concurrency',
+  //       price: 1337,
+  //       owned: false,
+  //       img: '/images/items/ring5.png',
+  //       codeimg: '/code/reloadHealthTask.png',
+  //       exampleTitle: 'Ember Concurrency Example',
+  //       addonName: 'ember-concurrency',
+  //       description: '"The solution to so many problems you never knew you had."',
+  //       locked: false,
+  //       unlockText: 'Unlock', // TODO change to computed
+  //       type: 'other'
+  //     },
+  //     {
+  //       id:6,
+  //       name: 'Crossbow 2',
+  //       price: 100,
+  //       owned: true,
+  //       img: '/images/items/crossbow.png',
+  //       locked: false,
+  //       type: 'weapon'
+  //     },
+  //     {
+  //       id:7,
+  //       name: 'Sword 2',
+  //       price: 100,
+  //       owned: true,
+  //       img: '/images/items/crossbow.png',
+  //       locked: false,
+  //       type: 'armor'
+  //     },
+  //     {
+  //       id:8,
+  //       name: 'Sword 2',
+  //       price: 100,
+  //       owned: true,
+  //       img: '/images/items/crossbow.png',
+  //       locked: false,
+  //       type: 'other'
+  //     },
+  //     {
+  //       id:9,
+  //       name: 'Sword 3',
+  //       price: 100,
+  //       owned: true,
+  //       img: '/images/items/crossbow.png',
+  //       locked: false,
+  //       type: 'armor'
+  //     },
+  //     {
+  //       id:10,
+  //       name: 'Sword 4',
+  //       price: 100,
+  //       owned: true,
+  //       img: '/images/items/crossbow.png',
+  //       locked: false,
+  //       type: 'other'
+  //     },
+  //     {
+  //       id:11,
+  //       name: 'Sword 5',
+  //       price: 99,
+  //       owned: false,
+  //       img: '/images/items/crossbow.png',
+  //       locked: false,
+  //       unlockText: 'Unlock',
+  //       type: 'weapon'
+  //     },
+  //     {
+  //       id:12,
+  //       name: 'Ember Guides',
+  //       price: 99,
+  //       owned: true,
+  //       img: '/images/items/tome3.png',
+  //       locked: false,
+  //       unlockText: 'Unlock',
+  //       type: 'tome'
+  //     }
+  //   ];
+  //   return items;
+  // }
+
+  resetAllToUnlock() {
+    if (this.items) {
+      this.items.forEach(item => {
+        item.unlockText = 'Unlock';
+        item.confirmUnlock = false;
+      });
+    }
   }
 
-  @computed('inventoryItems', 'currentNavCategory')
+  // @computed('inventoryItems', 'currentNavCategory')
   get filteredItems() {
     return this.inventoryItems.filterBy('type', this.currentNavCategory.category);
   }
@@ -181,6 +238,8 @@ export default class InventoryDialogComponent extends Component {
   @action
   pickCategory(category) {
     this.currentNavCategory = category;
+    this.resetAllToUnlock();
+    this.itemSelected = this.filteredItems[0];
   }
 
   @action
@@ -195,14 +254,22 @@ export default class InventoryDialogComponent extends Component {
 
   @action
   unlockItem(item) {
-    console.log('unlock', item.name);
+    // console.log('unlock', item, item.name, item.confirmUnlock);
     if (item.confirmUnlock) {
-      console.log('todo unlock');
-      item.confirmUnlock = false;
-      // item.unlockText.set('unlockText','Unlock');
+      item.owned = true;
+
+      //player.playerCoins -= item.price;
+      console.warn('TODO:  implement actually adding to inventory')
     } else {
+      item.unlockText ='Confirm';
       item.confirmUnlock = true;
-      // item.unlockText.set('unlockText','Confirm');
     }
+  }
+
+  @action
+  showCodeExample(item) {
+    console.log('code example', item);
+    // this.close()
+    this.game.closeCurrentAndOpenNewModal(item);
   }
 }

@@ -41,6 +41,10 @@ a {
   position: absolute;
 }
 
+.hidden {
+  visibility: hidden;
+}
+
 .title-text {
   color: #febc44;
   font-size: 38px;
@@ -78,6 +82,10 @@ a {
 .header {
   margin: 20px;
   height: 28px;
+  img.logo {
+    width: 340px;
+    margin-top: -26px;
+  }
 }
 .board {
   height: 100vh;
@@ -247,11 +255,14 @@ button {
   }
 }
 .epm-modal-container {
-  &.config, &.instructions {
+  &.config, &.instructions, &.code-example {
     .epm-modal {
       top: 35%;
       transform: translate(-50%, -50%);
     }
+  }
+  &.code-example .epm-modal {
+      top: 410px;
   }
   &.inventory {
     position: relative;
@@ -271,6 +282,9 @@ button {
   .epm-modal-container.config .epm-modal,.epm-modal-container.instructions .epm-modal {
     top: 305px;
   }
+  .epm-modal-container.code-example .epm-modal {
+    top: 360px;
+  }
 }
 @media only screen and (max-width: 1300px) {
   .epm-modal-container.inventory .epm-modal {
@@ -278,6 +292,9 @@ button {
   }
   .epm-modal-container.config .epm-modal,.epm-modal-container.instructions .epm-modal {
     top: 305px;
+  }
+  .epm-modal-container.code-example .epm-modal {
+    top: 360px;
   }
   .inventoryDialog {
     background-image: url("/images/items-background-narrow.png");
@@ -287,8 +304,11 @@ button {
     }
 
     .player-gems {
-      top: 80px;
-      left: 290px;
+      top: 81px;
+      left: 275px;
+      .gems-count {
+
+      }
     }
 
     .close-btn-x {
@@ -339,7 +359,10 @@ button {
 
     .player-gems {
       top: 86px;
-      left: 524px;
+      left: 500px;
+      .gems-count {
+      }
+
     }
 
     .close-btn-x {
@@ -401,6 +424,14 @@ button {
     font-weight: bold;
     font-size: 22px;
     padding: 15px;
+    width: 62px;
+    transform: rotate(5deg);
+
+    .gems-count {
+      font-size: 25px;
+      color: #01405b;
+    }
+
   }
 
 
@@ -438,6 +469,9 @@ button {
         span {
           color: #fff;
         }
+        img {
+          margin-left: -17px;
+        }
       }
       img {
         vertical-align: middle;
@@ -448,7 +482,7 @@ button {
   .item-details-view {
     img.hr {
       width: 70%;
-      margin: 0 10% -3px;
+      margin: 0 42px -3px;
     }
 
     .stat-row {
@@ -467,9 +501,18 @@ button {
       }
     }
 
+    .addon-row {
+      position: relative;
+      font-weight: bold;
+      .name {
+        text-align: center;
+        margin: 10px 0 5px 0;
+      }
+    }
+
     .item-title {
       h2 {
-        font-size: 18px;
+        font-size: 15px;
         text-align: center;
         vertical-align: middle;
         margin-top: 13px;
@@ -486,6 +529,11 @@ button {
       color: #555;
 
       .item-description {
+        margin: 20px 0;
+        font-size: 1.3em;
+      }
+
+      .item-addon {
         margin: 15px 15px 0 25px;
         padding-right: 5px;
       }
@@ -529,8 +577,20 @@ button {
             border-radius: 10px;
           }
 
+          .item-content-wrapper {
+            padding-right: 25px;
+
+            .btn.styled {
+              padding: 15px 25px;
+            }
+            .item-code-example {
+              text-align: center;
+              padding-top: 15px;
+            }
+          }
+
           .item-container {
-            height: 163px;
+            height: 142px;
             width: 100%;
             img {
               vertical-align: middle;
@@ -607,8 +667,8 @@ button {
           left: 0;
           right: 0;
           bottom: 0;
-          top: 45px;
-          width: 90px;
+          top: 50px;
+          //width: 90px;
           height: 90px;
         }
 
@@ -699,7 +759,7 @@ button {
   }
 } // inventoryDialog
 
-.configDialog, .instructionsDialog {
+.configDialog, .instructionsDialog, .codeExampleDialog {
   position: relative;
   background-image: url("/images/subscribe-background-blank.png");
   background-repeat: no-repeat;
@@ -748,6 +808,43 @@ button {
     }
     button:focus {
       outline: none;
+    }
+  }
+}
+
+.codeExampleDialog {
+  width: 1116px;
+  height: 856px;
+
+  .titlewrap {
+    position: relative;
+    top: 97px;
+    left: 180px;
+    width: 651px;
+    display: block;
+    text-align: center;
+
+    h2.title {
+      position: inherit;
+      display: inline-block;
+      top: 0;
+      left: 0;
+    }
+  }
+ .close-btn-x {
+    top: 131px;
+    left: 861px;
+    font-size: 36px;
+  }
+
+  .body {
+    position: absolute;
+    top: 249px;
+    left: 40px;
+
+    .code-img {
+      height: 515px;
+      width: 1025px;
     }
   }
 }

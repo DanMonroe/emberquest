@@ -1,10 +1,9 @@
 <div class="inventoryDialog">
   <h2 class="title title-text">Inventory</h2>
-  <div class="player-gems">{{this.game.playerCoins}}</div>
+  <div class="player-gems"><span  class="gems-count big-font">{{this.game.playerCoins}}</span></div>
   <div class="btn close-btn-x" {{action @close true}}>X</div>
   <div class="left-nav absolute">
     {{#each this.leftNavItems as |navItem|}}
-      {{log "navItem" navItem}}
       <button class="btn{{if (eq this.currentNavCategory.text navItem.text) " active"}}" type="button" {{on "click" (fn this.pickCategory navItem)}}><img src={{navItem.img}}/><span class="big-font">{{navItem.text}}</span></button>
     {{/each}}
   </div>
@@ -19,7 +18,7 @@
               <span class="big-font owned">Owned</span>
             {{else}}
               <span class="cost"><img src="/images/gem.png"><span class="big-font">{{item.price}}</span></span>
-              <button class="btn unlock-button big-font" {{on "click" (fn this.unlockItem item)}}>{{item.unlockText}}</button>
+              <button class="btn unlock-button big-font{{if item.confirmUnlock " confirm"}}" {{on "click" (fn this.unlockItem item)}}><span>{{item.unlockText}}</span></button>
             {{/if}}
           </div>
         {{/each}}
@@ -34,37 +33,57 @@
       <div class="item-details-body">
         <div class="pane">
           <div class="scroll">
-            <div class="item-container">
-              <img src="{{this.itemSelected.img}}" draggable="false" class="item-img">
-              <img src="{{this.itemSelected.img}}" draggable="false" class="item-shadow">
-            </div>
-            <img src="/images/hr.png" class="hr">
-            {{#each this.itemSelected.stats as |stat|}}
-              <div class="stat-row big-font short-name">
-                <div class="stat-label">{{stat.title}}</div>
-                <div class="stat">{{stat.desc}}</div>
+            <div class="item-content-wrapper">
+              <div class="item-container">
+                <img src="{{this.itemSelected.img}}" draggable="false" class="item-img">
+                <img src="{{this.itemSelected.img}}" draggable="false" class="item-shadow">
               </div>
               <img src="/images/hr.png" class="hr">
-            {{/each}}
-            {{#if this.itemSelected.description}}
-              <div dir="auto" class="item-description">
-                {{this.itemSelected.description}}
-              </div>
-            {{/if}}
-            {{#if (gte this.itemSelected.skills.length 0)}}
-              <div class="skills">
-                <h3 class="big-font">
-                  Skills Granted
-                </h3>
-                {{#each this.itemSelected.skills as |skill|}}
-                  <p>
-                    <strong>{{skill.title}}</strong>
-                    <span class="spr">:</span>
-                    <span>{{skill.desc}}</span>
-                  </p>
-                {{/each}}
-              </div>
-            {{/if}}
+              {{#each this.itemSelected.stats as |stat|}}
+                <div class="stat-row big-font short-name">
+                  <div class="stat-label">{{stat.title}}</div>
+                  <div class="stat">{{stat.desc}}</div>
+                </div>
+                <img src="/images/hr.png" class="hr">
+              {{/each}}
+              {{#if this.itemSelected.addonName}}
+                <div class="addon-row big-font">
+                  <div class="name">{{this.itemSelected.addonName}}</div>
+                </div>
+                <img src="/images/hr.png" class="hr">
+              {{/if}}
+
+              {{#if this.itemSelected.description}}
+                <div dir="auto" class="item-description">
+                  {{this.itemSelected.description}}
+                </div>
+              {{/if}}
+
+
+              {{#if this.itemSelected.codeimg}}
+                <div dir="auto" class="item-code-example">
+                  <button class="btn styled btn-primary" type="button" {{on "click" (fn this.showCodeExample this.itemSelected)}}>Code Example</button>
+                </div>
+              {{/if}}
+
+
+
+
+              {{#if (gte this.itemSelected.skills.length 0)}}
+                <div class="skills">
+                  <h3 class="big-font">
+                    Skills Granted
+                  </h3>
+                  {{#each this.itemSelected.skills as |skill|}}
+                    <p>
+                      <strong>{{skill.title}}</strong>
+                      <span class="spr">:</span>
+                      <span>{{skill.desc}}</span>
+                    </p>
+                  {{/each}}
+                </div>
+              {{/if}}
+            </div>
           </div>
         </div>
       </div>

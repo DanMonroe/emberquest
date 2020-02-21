@@ -13,17 +13,22 @@ import {Agent} from "../objects/agents/agent"
 
 export default class GameService extends Service {
 
+  @service modals;
   @service constants;
   @service map;
   @service('game-manager') manager;
 
   @tracked cameraMainZoom = 1;
-  @tracked playerImgSrc = '/images/agents/pirate.png';
+  // @tracked playerImgSrc = '/images/agents/sherpa_tomster.png';
+  @tracked playerImgSrc = '/images/agents/sherpa_tomster_1_25.png';
+  // @tracked playerImgSrc = '/images/agents/pirate.png';
   @tracked showHexInfo = false;
+  @tracked epmModalContainerClass = '';
+
 
   @tracked sceneData = [];
 
-  @tracked playerCoins = 0;
+  @tracked playerCoins = 3163;
 
   getMapData() {
     return MapData;
@@ -193,5 +198,14 @@ export default class GameService extends Service {
       this.playerCoins += chest.coins;
       chest.coins = 0;
     }
+  }
+
+  // for use for EmberConf.  item is for code example
+  async closeCurrentAndOpenNewModal(item) {
+    console.log('closeCurrentAndOpenNewModal', item);
+    // debugger;
+    await this.modals.top.close();
+    this.epmModalContainerClass = 'code-example';
+    await this.modals.open('code-example-dialog', item);
   }
 }

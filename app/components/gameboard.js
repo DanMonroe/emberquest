@@ -14,7 +14,7 @@ export default class GameboardComponent extends Component {
   @service('game') emberGameService;
   @service modals;
 
-  @tracked epmModalContainerClass = '';
+  // @tracked epmModalContainerClass = '';
 
   config = {
     type: Phaser.AUTO,
@@ -47,6 +47,9 @@ export default class GameboardComponent extends Component {
 
   }
 
+  // get inventoryItems() {
+  //   return this.args.inventoryItems;
+  // }
   @action
   setup(/*element*/) {
     // console.log('gameboard setup', element, element.clientHeight, element.clientWidth);
@@ -59,20 +62,30 @@ export default class GameboardComponent extends Component {
 
   @action
   async showConfigDialog() {
-    this.epmModalContainerClass = 'config';
+    this.emberGameService.epmModalContainerClass = 'config';
     await this.modals.open('config-dialog');
   }
 
   @action
   async showInventory() {
-    this.epmModalContainerClass = 'inventory';
-    await this.modals.open('inventory-dialog');
+    this.emberGameService.epmModalContainerClass = 'inventory';
+    // debugger;
+    await this.modals.open('inventory-dialog', this.args.inventoryItems);
   }
 
   @action
   async showInstructionsDialog() {
-    this.epmModalContainerClass = 'instructions';
+    this.emberGameService.epmModalContainerClass = 'instructions';
     await this.modals.open('instructions-dialog');
+  }
+
+  // for use for EmberConf.  item is for code example
+  async closeCurrentAndOpenNewModal(item) {
+    console.log('closeCurrentAndOpenNewModal', item);
+    // debugger;
+    await this.modals.top.close();
+    this.emberGameService.epmModalContainerClass = 'code-example';
+    await this.modals.open('code-example-dialog', item);
   }
 
   @action

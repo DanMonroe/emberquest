@@ -1,0 +1,10 @@
+<div class="codeExampleDialog">
+  <span class="titlewrap"><h2 class="title title-text">{{this.item.exampleTitle}}</h2></span>
+  <button type="button" class="btn close-btn-x" {{on "click" (fn @close true)}}>X</button>
+  <div class="body">
+
+    <div class="example">
+      <img src="{{this.item.codeimg}}" draggable="false" class="code-img">
+    </div>
+  </div>
+</div>
