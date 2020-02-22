@@ -1,6 +1,6 @@
 <div class="inventoryDialog">
   <h2 class="title title-text">Inventory</h2>
-  <div class="player-gems"><span  class="gems-count big-font">{{this.game.playerCoins}}</span></div>
+  <div class="player-gems"><span  class="gems-count big-font">{{this.game.gameManager.player.playerCoins}}</span></div>
   <div class="btn close-btn-x" {{action @close true}}>X</div>
   <div class="left-nav absolute">
     {{#each this.leftNavItems as |navItem|}}
@@ -11,16 +11,25 @@
     <div class="pane">
       <div class="scroll">
         {{#each this.filteredItems as |item|}}
-          <div class="item{{if (eq item.id this.itemSelected.id) " selected"}}" {{on "click" (fn this.selectItem item)}}>
-            <strong class="big-font">{{item.name}}</strong>
-            <img class="item-img" src="{{item.img}}">
-            {{#if item.owned}}
-              <span class="big-font owned">Owned</span>
-            {{else}}
-              <span class="cost"><img src="/images/gem.png"><span class="big-font">{{item.price}}</span></span>
-              <button class="btn unlock-button big-font{{if item.confirmUnlock " confirm"}}" {{on "click" (fn this.unlockItem item)}}><span>{{item.unlockText}}</span></button>
-            {{/if}}
-          </div>
+          {{#if item.locked}}
+            <div class="item silhouetted">
+              <span class="glyphicon glyphicon-lock bolder"></span>
+              <span class="glyphicon glyphicon-lock"></span>
+              <img class="item-silhouette" src="{{item.img}}">
+              <span class="big-font locked">Locked</span>
+            </div>
+          {{else}}
+            <div class="item{{if (eq item.id this.itemSelected.id) " selected"}}" {{on "click" (fn this.selectItem item)}}>
+              <strong class="big-font">{{item.name}}</strong>
+              <img class="item-img" src="{{item.img}}">
+              {{#if item.owned}}
+                <span class="big-font owned">Owned</span>
+              {{else}}
+                <span class="cost"><img src="/images/gem.png"><span class="big-font">{{item.price}}</span></span>
+                <button class="btn unlock-button big-font{{if item.confirmUnlock " confirm"}}" {{on "click" (fn this.unlockItem item)}}><span>{{item.unlockText}}</span></button>
+              {{/if}}
+            </div>
+          {{/if}}
         {{/each}}
       </div>
     </div>

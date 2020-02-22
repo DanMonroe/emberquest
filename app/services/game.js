@@ -16,7 +16,9 @@ export default class GameService extends Service {
   @service modals;
   @service constants;
   @service map;
-  @service('game-manager') manager;
+  @service inventory;
+  @service gameManager;
+  // @service('game-manager') manager;
 
   @tracked cameraMainZoom = 1;
   // @tracked playerImgSrc = '/images/agents/sherpa_tomster.png';
@@ -28,7 +30,7 @@ export default class GameService extends Service {
 
   @tracked sceneData = [];
 
-  @tracked playerCoins = 3163;
+  // @tracked playerCoins = 3163;
 
   getMapData() {
     return MapData;

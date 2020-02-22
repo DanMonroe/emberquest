@@ -17,6 +17,7 @@ export default class InventoryItemModel extends Model {
   @attr owner;
   @attr tileX;
   @attr tileY;
+  @attr listorder;
   @attr('number', { defaultValue: 20 }) maxRange;
   @attr('number', { defaultValue: 1 }) damage;
   @attr('number', { defaultValue: 1000 }) weaponSpeed; // time between attacks
@@ -29,6 +30,6 @@ export default class InventoryItemModel extends Model {
   @attr exampleTitle;
   @attr addonName;
 
-  @tracked unlockText = 'unlock';
+  @tracked unlockText = 'buy';
   @tracked confirmUnlock = false;
 }

@@ -6,6 +6,7 @@ export class InventoryItems {
         id: 1,
         type: 'inventory-item',
         attributes: {
+          listorder: 1,
           name: 'Crossbow',
           price: 20,
           owned: true,
@@ -20,6 +21,7 @@ export class InventoryItems {
         id: 2,
         type: 'inventory-item',
         attributes: {
+          listorder: 10,
           name: 'Bolt Splitter',
           price: 200,
           owned: false,
@@ -34,6 +36,7 @@ export class InventoryItems {
         id: 3,
         type: 'inventory-item',
         attributes: {
+          listorder: 3,
           name: 'Simple Sword',
           price: 10,
           owned: true,
@@ -48,6 +51,7 @@ export class InventoryItems {
         id: 4,
         type: 'inventory-item',
         attributes: {
+          listorder: 15,
           name: 'Katana',
           price: 50,
           owned: false,
@@ -62,6 +66,7 @@ export class InventoryItems {
         id: 5,
         type: 'inventory-item',
         attributes: {
+          listorder: 20,
           name: 'Claymore',
           price: 100,
           owned: false,
@@ -76,11 +81,12 @@ export class InventoryItems {
         id: 6,
         type: 'inventory-item',
         attributes: {
+          listorder: 25,
           name: 'Tracked',
           price: 500,
           owned: false,
           img: '/images/items/weapons/ember_sword.png',
-          locked: true,
+          locked: false,
           type: 'weapon',
           description: ''
         },
@@ -90,6 +96,7 @@ export class InventoryItems {
         id: 7,
         type: 'inventory-item',
         attributes: {
+          listorder: 7,
           name: 'Hammer',
           price: 50,
           owned: false,
@@ -104,6 +111,7 @@ export class InventoryItems {
         id: 8,
         type: 'inventory-item',
         attributes: {
+          listorder: 35,
           name: 'Jeweled Hammer',
           price: 250,
           owned: false,
@@ -118,11 +126,12 @@ export class InventoryItems {
         id: 9,
         type: 'inventory-item',
         attributes: {
+          listorder: 40,
           name: 'Gold Staff',
           price: 50,
-          owned: true,
+          owned: false,
           img: '/images/items/weapons/goldstaff.png',
-          locked: false,
+          locked: true,
           type: 'weapon',
           description: ''
         },
@@ -133,6 +142,7 @@ export class InventoryItems {
         id: 10,
         type: 'inventory-item',
         attributes: {
+          listorder: 1,
           name: 'Boots',
           price: 50,
           owned: true,
@@ -147,6 +157,7 @@ export class InventoryItems {
         id: 11,
         type: 'inventory-item',
         attributes: {
+          listorder: 11,
           name: 'Reinforced Boots',
           price: 50,
           owned: false,
@@ -161,6 +172,7 @@ export class InventoryItems {
         id: 12,
         type: 'inventory-item',
         attributes: {
+          listorder: 13,
           name: 'Steel Toed Boots',
           price: 50,
           owned: false,
@@ -175,6 +187,7 @@ export class InventoryItems {
         id: 13,
         type: 'inventory-item',
         attributes: {
+          listorder: 15,
           name: 'Flying Boots',
           price: 50,
           owned: false,
@@ -189,6 +202,7 @@ export class InventoryItems {
         id: 14,
         type: 'inventory-item',
         attributes: {
+          listorder: 3,
           name: 'Fur Hat',
           price: 50,
           owned: true,
@@ -203,6 +217,7 @@ export class InventoryItems {
         id: 15,
         type: 'inventory-item',
         attributes: {
+          listorder: 25,
           name: 'Floppy Hat',
           price: 50,
           owned: false,
@@ -217,6 +232,7 @@ export class InventoryItems {
         id: 16,
         type: 'inventory-item',
         attributes: {
+          listorder: 30,
           name: 'Fire Hat',
           price: 50,
           owned: false,
@@ -231,6 +247,7 @@ export class InventoryItems {
         id: 17,
         type: 'inventory-item',
         attributes: {
+          listorder: 35,
           name: 'Magic Hat',
           price: 50,
           owned: false,
@@ -245,6 +262,7 @@ export class InventoryItems {
         id: 18,
         type: 'inventory-item',
         attributes: {
+          listorder: 10,
           name: 'Tomster Glasses',
           price: 50,
           owned: true,
@@ -259,6 +277,7 @@ export class InventoryItems {
         id: 19,
         type: 'inventory-item',
         attributes: {
+          listorder: 7,
           name: 'Robe',
           price: 50,
           owned: false,
@@ -273,6 +292,7 @@ export class InventoryItems {
         id: 20,
         type: 'inventory-item',
         attributes: {
+          listorder: 50,
           name: 'Tailored Robe',
           price: 50,
           owned: false,
@@ -287,6 +307,7 @@ export class InventoryItems {
         id: 21,
         type: 'inventory-item',
         attributes: {
+          listorder: 55,
           name: 'Embroidered Robe',
           price: 50,
           owned: false,
@@ -301,6 +322,7 @@ export class InventoryItems {
         id: 22,
         type: 'inventory-item',
         attributes: {
+          listorder: 60,
           name: 'Wooden Shield',
           price: 50,
           owned: true,
@@ -315,6 +337,7 @@ export class InventoryItems {
         id: 23,
         type: 'inventory-item',
         attributes: {
+          listorder: 65,
           name: 'Iron Shield',
           price: 50,
           owned: false,
@@ -329,6 +352,7 @@ export class InventoryItems {
         id: 24,
         type: 'inventory-item',
         attributes: {
+          listorder: 70,
           name: 'Tower Shield',
           price: 50,
           owned: false,
@@ -346,6 +370,7 @@ export class InventoryItems {
         id: 100,
         type: 'inventory-item',
         attributes: {
+          listorder: 1,
           name: 'Tarnished Ring',
           price: 50,
           owned: true,
@@ -360,6 +385,7 @@ export class InventoryItems {
         id: 101,
         type: 'inventory-item',
         attributes: {
+          listorder: 5,
           name: 'Ring of Concurrency',
           price: 1337,
           owned: false,
@@ -379,6 +405,7 @@ export class InventoryItems {
         id: 102,
         type: 'inventory-item',
         attributes: {
+          listorder: 10,
           name: 'Fire Amulet',
           price: 50,
           owned: false,
@@ -393,6 +420,7 @@ export class InventoryItems {
         id: 103,
         type: 'inventory-item',
         attributes: {
+          listorder: 15,
           name: 'Ice Amulet',
           price: 50,
           owned: false,
@@ -407,6 +435,7 @@ export class InventoryItems {
         id: 104,
         type: 'inventory-item',
         attributes: {
+          listorder: 20,
           name: 'Blood Amulet',
           price: 50,
           owned: false,
@@ -421,6 +450,7 @@ export class InventoryItems {
         id: 105,
         type: 'inventory-item',
         attributes: {
+          listorder: 25,
           name: 'Mirage',
           price: 250,
           owned: false,
@@ -438,6 +468,7 @@ export class InventoryItems {
         id: 106,
         type: 'inventory-item',
         attributes: {
+          listorder: 30,
           name: 'Healing Potion',
           price: 50,
           owned: true,
@@ -452,6 +483,7 @@ export class InventoryItems {
         id: 107,
         type: 'inventory-item',
         attributes: {
+          listorder: 35,
           name: 'Sleeping Potion',
           price: 150,
           owned: false,
@@ -466,6 +498,7 @@ export class InventoryItems {
         id: 108,
         type: 'inventory-item',
         attributes: {
+          listorder: 40,
           name: 'Wand of Wishing',
           price: 1200,
           owned: false,
@@ -486,6 +519,7 @@ export class InventoryItems {
         id: 400,
         type: 'inventory-item',
         attributes: {
+          listorder: 1,
           name: 'Ember Blog',
           price: 50,
           owned: true,
@@ -500,6 +534,7 @@ export class InventoryItems {
         id: 405,
         type: 'inventory-item',
         attributes: {
+          listorder: 5,
           name: 'Discord',
           price: 50,
           owned: true,
@@ -514,6 +549,7 @@ export class InventoryItems {
         id: 410,
         type: 'inventory-item',
         attributes: {
+          listorder: 10,
           name: 'Ember Guides',
           price: 400,
           owned: true,

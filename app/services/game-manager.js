@@ -1,9 +1,12 @@
 import Service from '@ember/service';
 import { inject as service } from '@ember/service';
 import {Player} from "../objects/agents/player";
+import { tracked } from '@glimmer/tracking';
 
 export default class GameManagerService extends Service {
   @service('spawner') spawnerService;
+
+  @tracked player;
 
   scene = undefined;
   ember = undefined;
@@ -74,6 +77,8 @@ export default class GameManagerService extends Service {
       sightRange: 3,   // this is sight/movement Range
       movingPoints: 3,   // this is sight/movement Range
       visiblePoints: 8,   // this is sight/movement Range
+
+      playerCoins: 12345,
 
       health: 100,
       maxHealth: 200,

@@ -1,5 +1,5 @@
 import Component from '@glimmer/component';
-import {action,computed} from '@ember/object';
+import {action} from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
 
@@ -7,6 +7,7 @@ export default class InventoryDialogComponent extends Component {
   tagName = '';
 
   @service game;
+  @service inventory;
   @service modals;
 
   @tracked currentNavCategory = this.leftNavItems[0];
@@ -50,181 +51,10 @@ export default class InventoryDialogComponent extends Component {
     ];
   }
 
-  // @computed
-  // get inventoryItems() {
-  //   return this.items;
-  // }
-
-  // @computed
-  // get inventoryItemsHardcoded() {
-  //   // console.log('getInventoryItems', this.inventoryItems)
-  //   // TODO get this from ember data models. for now hard code for display
-  //   const items = [
-  //     {
-  //       id:1,
-  //       name: 'Sword',
-  //       price: 100,
-  //       owned: true,
-  //       img: '/images/items/crossbow.png',
-  //       locked: false,
-  //       type: 'weapon'
-  //     },
-  //     {
-  //       id:2,
-  //       name: 'Crossbow',
-  //       price: 100,
-  //       owned: false,
-  //       img: '/images/items/crossbow.png',
-  //       locked: false,
-  //       unlockText: 'Unlock',
-  //       type: 'weapon'
-  //     },
-  //     {
-  //       id:3,
-  //       name: 'Faux Fur Hat',
-  //       price: 100,
-  //       owned: true,
-  //       img: '/images/items/furhat.png',
-  //       locked: false,
-  //       type: 'armor',
-  //       stats: [
-  //         {
-  //           title: 'Health',
-  //           desc: '+8'
-  //         }
-  //       ],
-  //       description: 'Modest range and damage; it\'s the beginner crossbow. But hey, it\'s cheap!' +
-  //         'Modest range and damage; it\'s the beginner crossbow. But hey, it\'s cheap!' +
-  //         'Modest range and damage; it\'s the beginner crossbow. But hey, it\'s cheap!' +
-  //         'Modest range and damage; it\'s the beginner crossbow. But hey, it\'s cheap!\n',
-  //       skills: [
-  //         {
-  //           title: 'attack',
-  //           desc: 'The attack method makes the hero attack the target.'
-  //         }
-  //       ]
-  //     },
-  //     {
-  //       id:30,
-  //       name: 'Auto Import',
-  //       price: 100,
-  //       owned: true,
-  //       img: '/images/items/wand_of_wishing.png',
-  //       locked: false,
-  //       type: 'armor',
-  //       stats: [
-  //         {
-  //           title: 'Health',
-  //           desc: '+8'
-  //         }
-  //       ],
-  //       description: 'Modest range and damage; it\'s the beginner crossbow. But hey, it\'s cheap!' +
-  //         'Modest range and damage; it\'s the beginner crossbow. But hey, it\'s cheap!' +
-  //         'Modest range and damage; it\'s the beginner crossbow. But hey, it\'s cheap!' +
-  //         'Modest range and damage; it\'s the beginner crossbow. But hey, it\'s cheap!\n',
-  //       skills: [
-  //         {
-  //           title: 'attack',
-  //           desc: 'The attack method makes the hero attack the target.'
-  //         }
-  //       ]
-  //     },
-  //     {
-  //       id:4,
-  //       name: 'Mirage',
-  //       price: 100,
-  //       owned: true,
-  //       img: '/images/items/omnioculars.png',
-  //       locked: false,
-  //       type: 'other'
-  //     },
-  //     {
-  //       id:5,
-  //       name: 'Ring of Concurrency',
-  //       price: 1337,
-  //       owned: false,
-  //       img: '/images/items/ring5.png',
-  //       codeimg: '/code/reloadHealthTask.png',
-  //       exampleTitle: 'Ember Concurrency Example',
-  //       addonName: 'ember-concurrency',
-  //       description: '"The solution to so many problems you never knew you had."',
-  //       locked: false,
-  //       unlockText: 'Unlock', // TODO change to computed
-  //       type: 'other'
-  //     },
-  //     {
-  //       id:6,
-  //       name: 'Crossbow 2',
-  //       price: 100,
-  //       owned: true,
-  //       img: '/images/items/crossbow.png',
-  //       locked: false,
-  //       type: 'weapon'
-  //     },
-  //     {
-  //       id:7,
-  //       name: 'Sword 2',
-  //       price: 100,
-  //       owned: true,
-  //       img: '/images/items/crossbow.png',
-  //       locked: false,
-  //       type: 'armor'
-  //     },
-  //     {
-  //       id:8,
-  //       name: 'Sword 2',
-  //       price: 100,
-  //       owned: true,
-  //       img: '/images/items/crossbow.png',
-  //       locked: false,
-  //       type: 'other'
-  //     },
-  //     {
-  //       id:9,
-  //       name: 'Sword 3',
-  //       price: 100,
-  //       owned: true,
-  //       img: '/images/items/crossbow.png',
-  //       locked: false,
-  //       type: 'armor'
-  //     },
-  //     {
-  //       id:10,
-  //       name: 'Sword 4',
-  //       price: 100,
-  //       owned: true,
-  //       img: '/images/items/crossbow.png',
-  //       locked: false,
-  //       type: 'other'
-  //     },
-  //     {
-  //       id:11,
-  //       name: 'Sword 5',
-  //       price: 99,
-  //       owned: false,
-  //       img: '/images/items/crossbow.png',
-  //       locked: false,
-  //       unlockText: 'Unlock',
-  //       type: 'weapon'
-  //     },
-  //     {
-  //       id:12,
-  //       name: 'Ember Guides',
-  //       price: 99,
-  //       owned: true,
-  //       img: '/images/items/tome3.png',
-  //       locked: false,
-  //       unlockText: 'Unlock',
-  //       type: 'tome'
-  //     }
-  //   ];
-  //   return items;
-  // }
-
   resetAllToUnlock() {
     if (this.items) {
       this.items.forEach(item => {
-        item.unlockText = 'Unlock';
+        item.unlockText = 'Buy';
         item.confirmUnlock = false;
       });
     }
@@ -232,7 +62,8 @@ export default class InventoryDialogComponent extends Component {
 
   // @computed('inventoryItems', 'currentNavCategory')
   get filteredItems() {
-    return this.inventoryItems.filterBy('type', this.currentNavCategory.category);
+    const filteredByCategory = this.inventoryItems.filterBy('type', this.currentNavCategory.category);
+    return filteredByCategory.sortBy('listorder');
   }
 
   @action
@@ -256,6 +87,7 @@ export default class InventoryDialogComponent extends Component {
   unlockItem(item) {
     // console.log('unlock', item, item.name, item.confirmUnlock);
     if (item.confirmUnlock) {
+      this.inventory.buyInventory(item);
       item.owned = true;
 
       //player.playerCoins -= item.price;

@@ -159,6 +159,29 @@ a {
       display: none;
     }
   }
+  .gem-wrapper {
+    display: inline;
+    .gems-count {
+      font-size: 1.3em;
+      margin: 0 15px 0 5px;
+      top: -8px;
+      position: relative;
+    }
+    .gem {
+      &.gem-30 {
+        width: 30px;
+        height: 30px;
+      }
+
+      display: inline-block;
+      background: transparent url(/images/gem.png) no-repeat center;
+      background-size: contain;
+      width: 80px;
+      height: 80px;
+      margin: 0 2px;
+    }
+  }
+
 }
 
 .btn {
@@ -423,7 +446,7 @@ button {
     color: #0065ff;
     font-weight: bold;
     font-size: 22px;
-    padding: 15px;
+    padding: 13px 0 0 4px;
     width: 62px;
     transform: rotate(5deg);
 
@@ -644,8 +667,39 @@ button {
         text-align: center;
         position: relative;
 
+        &.silhouetted {
+          cursor: default;
+        }
+        .glyphicon-lock.bolder {
+          font-weight: bolder;
+          color: #d3c8af;
+        }
+        .glyphicon-lock {
+          font-size: 60px;
+          position: absolute;
+          top: 50px;
+          color: #958d7b;
+          z-index: 1;
+          left: 0;
+          right: 0;
+          margin-left: auto;
+          margin-right: auto;
+          &:before {
+            content: "\E033";
+          }
+        }
         &.selected {
           background: url("/images/item-box-background-selected.png");
+        }
+        .locked {
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          height: 41px;
+          color: #163d49;
+          line-height: 38px;
+          font-size: 16px;
         }
         strong {
           position: absolute;
@@ -672,6 +726,14 @@ button {
           height: 90px;
         }
 
+        .item-silhouette {
+          opacity: 0.2;
+        }
+        img.item-silhouette {
+          top: 25px;
+          width: 110px;
+          height: 110px;
+        }
         span.owned {
           position: absolute;
           left: 0;
@@ -758,6 +820,18 @@ button {
     }
   }
 } // inventoryDialog
+
+.glyphicon {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 .configDialog, .instructionsDialog, .codeExampleDialog {
   position: relative;

@@ -5,9 +5,11 @@
     </div>
     <div class="header">
       <img src="/images/emberquestlogo.png" class="logo" />
-
       <div class="game-controls">
-        <spans class="gems">{{this.game.playerCoins}}</spans>
+        <div class="gem-wrapper">
+          <span class="gem gem-30"></span>
+          <span class="gems-count">{{this.emberGameService.gameManager.player.playerCoins}}</span>
+        </div>
         <button type="button" class="btn inventory" {{on "click" (fn this.showInventory)}} >
           <EmberTooltip tooltipClass="tooltip-controls" >Inventory</EmberTooltip>
         </button>

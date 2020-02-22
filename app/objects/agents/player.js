@@ -1,8 +1,11 @@
 import { BaseAgent } from './base-agent';
 import PlayerContainer from "../../phaser/agents/player/playerContainer";
 import { v4 } from "ember-uuid";
+import { tracked } from '@glimmer/tracking';
 
 export class Player extends BaseAgent {
+
+  @tracked playerCoins;
 
   constructor(scene, config) {
     super(scene, config);
@@ -13,5 +16,6 @@ export class Player extends BaseAgent {
     this.container = new PlayerContainer(scene, config);
     this.playerConfig = config;
 
+    this.playerCoins = config.playerCoins;
   }
 }

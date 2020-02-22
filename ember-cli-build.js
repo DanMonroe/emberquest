@@ -7,13 +7,42 @@ module.exports = function(defaults) {
     // Add options here
     fingerprint: {
       exclude: [
-        // 'images/hex',
-        // 'images/agents',
-        // 'images/transports',
-        // 'images/icons'
+        'images',
+        'images/agents',
+        'images/backgrounds',
+        'images/common',
+        'images/icons',
+        'images/items',
+        'images/items/armor',
+        'images/items/other',
+        'images/items/tomes',
+        'images/items/weapons',
+        'images/maps',
+        'images/monsters',
+        'images/transports',
       ]
     }
 
+  });
+
+  app.import('vendor/bootstrap/css/bootstrap.css', {
+    destDir: 'assets'
+  });
+  // app.import('vendor/bootstrap/css/bootstrap-theme.css');
+  app.import('vendor/bootstrap/fonts/glyphicons-halflings-regular.eot', {
+    destDir: 'fonts'
+  });
+  app.import('vendor/bootstrap/fonts/glyphicons-halflings-regular.svg', {
+    destDir: 'fonts'
+  });
+  app.import('vendor/bootstrap/fonts/glyphicons-halflings-regular.ttf', {
+    destDir: 'fonts'
+  });
+  app.import('vendor/bootstrap/fonts/glyphicons-halflings-regular.woff', {
+    destDir: 'fonts'
+  });
+  app.import('vendor/bootstrap/fonts/glyphicons-halflings-regular.woff2', {
+    destDir: 'fonts'
   });
 
   // Use `app.import` to add additional libraries to the generated

@@ -88,7 +88,7 @@ export class GameboardScene extends Phaser.Scene {
       this.spawnAgent(agentObject);
     });
 
-    this.game.emberGame.manager.setup(this);
+    this.game.emberGame.gameManager.setup(this);
   }
 
   spawnPlayer(playerObject) {
