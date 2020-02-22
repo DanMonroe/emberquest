@@ -25,6 +25,11 @@
         <button type="button" class="btn settings" {{on "click" (fn this.showConfigDialog)}} >
           <EmberTooltip tooltipClass="tooltip-controls" >Settings</EmberTooltip>
         </button>
+
+        <button title="Adjust volume" class="volume" {{on "click" (fn this.adjustVolume)}}>
+          <div class="glyphicon glyphicon-volume-{{this.volumeCSSClass}}"></div>
+          <EmberTooltip tooltipClass="tooltip-controls" >Volume</EmberTooltip>
+        </button>
       </div>
     </div>
 

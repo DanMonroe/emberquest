@@ -13,7 +13,18 @@ export class InventoryItems {
           img: '/images/items/weapons/crossbow.png',
           locked: false,
           type: 'weapon',
-          description: ''
+          description: 'Modest range and damage; it\'s the beginner crossbow.',
+          stats: [
+            {
+              title: 'Damage',
+              desc: '8'
+            },
+            {
+              title: 'Range',
+              desc: '2'
+            }
+          ]
+
         },
         relationships: {}
       },
@@ -43,7 +54,19 @@ export class InventoryItems {
           img: '/images/items/weapons/simplesword.png',
           locked: false,
           type: 'weapon',
-          description: ''
+          description: 'A simple introductory sword.',
+          stats: [
+            {
+              title: 'Damage',
+              desc: '8'
+            }
+          ]
+          // skills: [
+          //   {
+          //     title: 'attack',
+          //     desc: 'The attack method makes the hero attack the target.'
+          //   }
+          // ]
         },
         relationships: {}
       },
@@ -128,10 +151,10 @@ export class InventoryItems {
         attributes: {
           listorder: 40,
           name: 'Gold Staff',
-          price: 50,
+          price: 50000,
           owned: false,
           img: '/images/items/weapons/goldstaff.png',
-          locked: true,
+          locked: false,
           type: 'weapon',
           description: ''
         },

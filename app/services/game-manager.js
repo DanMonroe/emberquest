@@ -7,6 +7,7 @@ export default class GameManagerService extends Service {
   @service('spawner') spawnerService;
 
   @tracked player;
+  @tracked volume = 1;
 
   scene = undefined;
   ember = undefined;
@@ -37,6 +38,12 @@ export default class GameManagerService extends Service {
     this.spawnPlayer();
   }
 
+  adjustVolume() {
+    this.volume++;
+    if (this.volume > 2) {
+      this.volume = 0;
+    }
+  }
 
 
   setupEventListener() {

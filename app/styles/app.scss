@@ -105,9 +105,32 @@ a {
 }
 .game-controls {
   position: absolute;
-  right: 18px;
+  right: 87px;
   top: 18px;
   z-index: 2;
+  .volume {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    margin-left: 35px;
+    font-size: 32px;
+    color: #333;
+    background-color: #737373;
+    border: 3px solid #9a9a9a;
+    border-radius: 5px;
+    .glyphicon {
+      position: relative;
+      top: -5px;
+      left: -2px;
+    }
+    &:hover {
+      -webkit-box-shadow: 0 0 6px #bbf;
+      box-shadow: 0 0 6px #bbf;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
   .btn {
     width: 40px;
     height: 40px;
@@ -434,6 +457,30 @@ button {
   }
 
 }
+
+//.popover {
+//  border-style: solid;
+//  border-image: url(/images/level/popover_border_background.png) 16 12 fill stretch;
+//  border-width: 16px 12px;
+
+  //position: absolute;
+  //top: 0;
+  //left: 0;
+  //z-index: 1010;
+  //display: none;
+  //max-width: 276px;
+  //padding: 1px;
+  //text-align: left;
+  //background-color: #fff;
+  //background-clip: padding-box;
+  //border: 1px solid #ccc;
+  //border: 1px solid rgba(0,0,0,0.2);
+  //border-radius: 6px;
+  //-webkit-box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+  //box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+  //white-space: normal;
+//}
+
 .inventoryDialog {
   position: relative;
   //background-image: url("/images/items-background.png");
@@ -786,6 +833,10 @@ button {
           font-size: 16px;
           &.confirm {
             padding-left: 6px;
+          }
+          &.too-expensive {
+            opacity: 0.5;
+            cursor: not-allowed;
           }
         }
       }

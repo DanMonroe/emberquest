@@ -47,6 +47,19 @@ export default class GameboardComponent extends Component {
 
   }
 
+  get volumeCSSClass() {
+    switch (this.emberGameService.gameManager.volume) {
+      case 0:
+        return 'off';
+      case 1:
+        return 'down';
+      case 2:
+        return 'up';
+      default:
+        break;
+    }
+    return '';
+  }
   // get inventoryItems() {
   //   return this.args.inventoryItems;
   // }
@@ -97,6 +110,12 @@ export default class GameboardComponent extends Component {
   saveGame() {
     console.log('Component Save Game');
     // this.game.saveGame();
+  }
+
+  @action
+  adjustVolume() {
+    console.log('adjustVolume');
+    this.emberGameService.gameManager.adjustVolume();
   }
 
 }

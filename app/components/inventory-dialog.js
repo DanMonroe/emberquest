@@ -15,6 +15,9 @@ export default class InventoryDialogComponent extends Component {
 
   @tracked inventoryItems;
 
+  @tracked showToggleablePopover = false;
+  @tracked popoverTarget = '';
+
   items = undefined;
 
   constructor() {
@@ -85,16 +88,16 @@ export default class InventoryDialogComponent extends Component {
 
   @action
   unlockItem(item) {
-    // console.log('unlock', item, item.name, item.confirmUnlock);
-    if (item.confirmUnlock) {
-      this.inventory.buyInventory(item);
-      item.owned = true;
-
-      //player.playerCoins -= item.price;
-      console.warn('TODO:  implement actually adding to inventory')
+    if (item.price <= this.game.gameManager.player.playerCoins) {
+      if (item.confirmUnlock) {
+          this.inventory.buyInventory(item);
+          item.owned = true;
+      } else {
+        item.unlockText ='Confirm';
+        item.confirmUnlock = true;
+      }
     } else {
-      item.unlockText ='Confirm';
-      item.confirmUnlock = true;
+      console.log('cant buy')
     }
   }
 
