@@ -43,6 +43,19 @@ export default class GameManagerService extends Service {
     if (this.volume > 2) {
       this.volume = 0;
     }
+    switch (this.volume) {
+      case 0:
+        this.scene.musicAudio.setVolume(0);
+        break;
+      case 1:
+        this.scene.musicAudio.setVolume(0.4);
+        break;
+      case 2:
+        this.scene.musicAudio.setVolume(1);
+        break;
+      default:
+        break;
+    }
   }
 
 

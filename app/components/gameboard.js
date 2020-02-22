@@ -1,10 +1,8 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
-import { tracked } from '@glimmer/tracking';
 import config from 'emberquest/config/environment';
 
-// import PhaserGame from '../phaser/game'
 import Phaser from "phaser";
 import {BootScene} from "../phaser/scenes/boot";
 import {GameboardScene} from "../phaser/scenes/gameboard-scene";
@@ -13,8 +11,6 @@ import rexBoardPlugin from "phaser3-rex-plugins/plugins/board-plugin";
 export default class GameboardComponent extends Component {
   @service('game') emberGameService;
   @service modals;
-
-  // @tracked epmModalContainerClass = '';
 
   config = {
     type: Phaser.AUTO,
@@ -58,11 +54,9 @@ export default class GameboardComponent extends Component {
       default:
         break;
     }
-    return '';
+    return 'off';
   }
-  // get inventoryItems() {
-  //   return this.args.inventoryItems;
-  // }
+
   @action
   setup(/*element*/) {
     // console.log('gameboard setup', element, element.clientHeight, element.clientWidth);
@@ -82,7 +76,6 @@ export default class GameboardComponent extends Component {
   @action
   async showInventory() {
     this.emberGameService.epmModalContainerClass = 'inventory';
-    // debugger;
     await this.modals.open('inventory-dialog', this.args.inventoryItems);
   }
 
@@ -95,7 +88,6 @@ export default class GameboardComponent extends Component {
   // for use for EmberConf.  item is for code example
   async closeCurrentAndOpenNewModal(item) {
     console.log('closeCurrentAndOpenNewModal', item);
-    // debugger;
     await this.modals.top.close();
     this.emberGameService.epmModalContainerClass = 'code-example';
     await this.modals.open('code-example-dialog', item);
@@ -109,7 +101,6 @@ export default class GameboardComponent extends Component {
   @action
   saveGame() {
     console.log('Component Save Game');
-    // this.game.saveGame();
   }
 
   @action

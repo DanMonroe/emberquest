@@ -42,6 +42,7 @@ export class BootScene extends Phaser.Scene {
 
   loadAudio() {
     this.load.audio('pickup', ['/audio/pickup.wav']);
+    this.load.audio('music1', ['/audio/warframe_ost.mp3']);
     // this.load.audio('enemyDeath', ['assets/audio/EnemyDeath.wav']);
     // this.load.audio('playerAttack', ['assets/audio/PlayerAttack.wav']);
     // this.load.audio('playerDamage', ['assets/audio/PlayerDamage.wav']);
