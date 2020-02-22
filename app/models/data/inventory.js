@@ -536,6 +536,23 @@ export class InventoryItems {
         },
         relationships: {}
       },
+      {
+        id: 109,
+        type: 'inventory-item',
+        attributes: {
+          listorder: 2,
+          name: 'Babel Fish',
+          price: 1200,
+          owned: true,
+          img: '/images/items/other/babelfish.png',
+          locked: false,
+          type: 'other',
+          description: 'Put in next-gen JavaScript. Get browser-compatible JavaScript out',
+          'addon-name': 'ember-cli-babel'
+
+        },
+        relationships: {}
+      },
 
       // Tomes
       {
