@@ -36,37 +36,62 @@ export default {
     },
     chests: { spawnInterval: 3000, limit: 1, locations: [{id: 1, x: 3, y: 11}, {id: 2, x: 5, y: 9}]},
     monsters: { spawnInterval: 3000, limit: 1, locations: [{id: 1, x: 8, y: 8, health: 100, maxHealth: 200,scale: 0.75}]},
-    agents: { spawnInterval: 3000, limit: 1,
+    agents: { spawnInterval: 3000, limit: 5,
       locations: [
-          {
-            id: 1, x: 10, y: 16,
-            texture: 'galleon',
-            textureSize: { width: 42, height: 42},
-            scale: 0.1,
-            speed: 200,
-            sightRange: 3,   // this is sight/movement Range
-            movingPoints: 3,   // this is sight/movement Range
-            visiblePoints: 8,   // this is sight/movement Range
-            health: 100,
-            maxHealth: 200,
-            power: 20,
-            maxPower: 200,
-            flagAttributes: {
-              sightFlags: 0,
-              travelFlags: 1
-            },
-            patrol: {
-              timeout: 2000,
-              // aggressionTimeout: 1000,  // delay time in between aggression turns
-              method: 'random',
-              tiles: [
-                {x: 10, y: 16}, {x: 7, y: 14}, {x: 11, y: 15}
-              ]
-            }
-
-
+        {
+          id: 1, x: 10, y: 16,
+          texture: 'galleon',
+          textureSize: { width: 42, height: 42},
+          scale: 0.1,
+          speed: 200,
+          sightRange: 3,   // this is sight/movement Range
+          movingPoints: 3,   // this is sight/movement Range
+          visiblePoints: 8,   // this is sight/movement Range
+          health: 100,
+          maxHealth: 200,
+          power: 20,
+          maxPower: 200,
+          flagAttributes: {
+            sightFlags: 0,
+            travelFlags: 1
+          },
+          patrol: {
+            timeout: 2000,
+            // aggressionTimeout: 1000,  // delay time in between aggression turns
+            method: 'random',
+            tiles: [
+              {x: 10, y: 16}, {x: 7, y: 14}, {x: 11, y: 15}
+            ]
           }
-        ]
+        },
+        {
+          id: 2, x: 7, y: 7,
+          texture: 'vue',
+          textureSize: { width: 42, height: 42},
+          scale: 0.15,
+          speed: 200,
+          sightRange: 3,   // this is sight/movement Range
+          movingPoints: 3,   // this is sight/movement Range
+          visiblePoints: 8,   // this is sight/movement Range
+          health: 100,
+          maxHealth: 200,
+          power: 20,
+          maxPower: 200,
+          flagAttributes: {
+            sightFlags: 0,
+            travelFlags: 2
+          },
+          patrol: {
+            timeout: 2000,
+            // aggressionTimeout: 1000,  // delay time in between aggression turns
+            method: 'random',
+            tiles: [
+              {x: 2, y: 3}, {x: 6, y: 5}
+            ]
+          }
+        }
+
+      ]
     }
   },
 

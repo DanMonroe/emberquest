@@ -66,6 +66,10 @@ export default class AgentContainer extends BasePhaserAgentContainer {
 
     });
 
+    debugger;
+    this.createHealthBar();
+    this.reloadHealth.perform();
+
   }
 
   moveToComplete() {
