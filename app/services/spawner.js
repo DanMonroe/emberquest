@@ -82,30 +82,30 @@ export default class SpawnerService extends Service {
     }
 
     // create monster spawners
-    if (this.spawnLocations.monsters) {
-      config = {
-        spawnInterval: this.spawnLocations.monsters.spawnInterval || 3000,
-        limit: this.spawnLocations.monsters.limit || 1,
-        spawnerType: this.constants.SPAWNER_TYPE.MONSTER
-      }
-      this.spawnLocations.monsters.locations.forEach(locationObj => {
-        config.id = `monster-${locationObj.id}`;
-        config.locationId = +locationObj.id - 1;
-        config.objectConfig = locationObj
-
-        let spawner = new Spawner(
-          config,
-          this.spawnLocations.monsters.locations,
-          this.addMonster.bind(this),
-          this.deleteMonster.bind(this),
-          null,
-          this.constants
-        );
-
-        this.spawners[spawner.id] = spawner;
-
-      });
-    }
+    // if (this.spawnLocations.monsters) {
+    //   config = {
+    //     spawnInterval: this.spawnLocations.monsters.spawnInterval || 3000,
+    //     limit: this.spawnLocations.monsters.limit || 1,
+    //     spawnerType: this.constants.SPAWNER_TYPE.MONSTER
+    //   }
+    //   this.spawnLocations.monsters.locations.forEach(locationObj => {
+    //     config.id = `monster-${locationObj.id}`;
+    //     config.locationId = +locationObj.id - 1;
+    //     config.objectConfig = locationObj
+    //
+    //     let spawner = new Spawner(
+    //       config,
+    //       this.spawnLocations.monsters.locations,
+    //       this.addMonster.bind(this),
+    //       this.deleteMonster.bind(this),
+    //       null,
+    //       this.constants
+    //     );
+    //
+    //     this.spawners[spawner.id] = spawner;
+    //
+    //   });
+    // }
 
     // create agent spawners
     if (this.spawnLocations.agents) {

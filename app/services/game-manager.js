@@ -98,7 +98,7 @@ export default class GameManagerService extends Service {
       movingPoints: 3,   // this is sight/movement Range
       visiblePoints: 8,   // this is sight/movement Range
 
-      playerCoins: 12345,
+      playerCoins: 1337,
 
       health: 100,
       maxHealth: 200,

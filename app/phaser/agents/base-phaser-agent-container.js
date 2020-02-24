@@ -64,6 +64,7 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
     while (this.health < this.maxHealth) {
       yield timeout(this.healingSpeed);
       this.health += Math.max(1, this.healingPower);
+      // console.log('reloadHealth health', this.health, this.id)
     }
   }
 
@@ -86,12 +87,14 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
   }
 
   updateHealthBar() {
+    // console.log('updateHealthBar this', this)
     const healthPercentage = (this.health / this.maxHealth);
     this.healthBar.clear();
     this.healthBar.fillStyle(0xffffff, 0.4);
     this.healthBar.fillRect(this.x + this.ember.constants.healthBarOffsetX, this.y + this.ember.constants.healthBarOffsetY, this.ember.constants.healthBarWidth, this.ember.constants.healthBarHeight);
     this.healthBar.fillStyle(healthPercentage <- this.ember.constants.healthBarColorTippingPoint ? this.ember.constants.healthBarColorDanger : this.ember.constants.healthBarColorGood, 1);
     this.healthBar.fillRect(this.x + this.ember.constants.healthBarOffsetX, this.y + this.ember.constants.healthBarOffsetY, this.ember.constants.healthBarWidth * healthPercentage, this.ember.constants.healthBarHeight);
+    // console.log('this.healthBar', this.healthBar, this.id)
 
     if (this.showPowerBar) {
       const powerPercentage = (this.power / this.maxPower);

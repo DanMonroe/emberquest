@@ -2,14 +2,19 @@
 export default {
 
   player: {
-    startX: 6,
-    startY: 15
+    startX: 5,
+    startY: 7
   },
+  // player: {
+  //   startX: 6,
+  //   startY: 15
+  // },
 
   mapUrl: '/images/maps/landsea-min.png',
 
   spawnLocations : {
-    players: [{x: 6, y: 15}], // tiles where the player may spawn
+    players: [{x: 5, y: 7}], // tiles where the player may spawn
+    // players: [{x: 6, y: 15}], // tiles where the player may spawn
     transports: {
       spawnInterval: 3000,
       limit: 1,
@@ -34,8 +39,9 @@ export default {
         }
       ]
     },
-    chests: { spawnInterval: 3000, limit: 1, locations: [{id: 1, x: 3, y: 11}, {id: 2, x: 5, y: 9}]},
-    monsters: { spawnInterval: 3000, limit: 1, locations: [{id: 1, x: 8, y: 8, health: 100, maxHealth: 200,scale: 0.75}]},
+    chests: { spawnInterval: 3000, limit: 1, locations: []},
+    // chests: { spawnInterval: 3000, limit: 1, locations: [{id: 1, x: 3, y: 11}, {id: 2, x: 5, y: 9}]},
+    // monsters: { spawnInterval: 3000, limit: 1, locations: [{id: 1, x: 8, y: 8, health: 100, maxHealth: 200,scale: 0.75}]},
     agents: { spawnInterval: 3000, limit: 5,
       locations: [
         {
@@ -64,32 +70,32 @@ export default {
             ]
           }
         },
-        {
-          id: 2, x: 7, y: 7,
-          texture: 'vue',
-          textureSize: { width: 42, height: 42},
-          scale: 0.15,
-          speed: 200,
-          sightRange: 3,   // this is sight/movement Range
-          movingPoints: 3,   // this is sight/movement Range
-          visiblePoints: 8,   // this is sight/movement Range
-          health: 100,
-          maxHealth: 200,
-          power: 20,
-          maxPower: 200,
-          flagAttributes: {
-            sightFlags: 0,
-            travelFlags: 2
-          },
-          patrol: {
-            timeout: 2000,
-            // aggressionTimeout: 1000,  // delay time in between aggression turns
-            method: 'random',
-            tiles: [
-              {x: 2, y: 3}, {x: 6, y: 5}
-            ]
-          }
-        }
+        // {
+        //   id: 2, x: 7, y: 7,
+        //   texture: 'vue',
+        //   textureSize: { width: 42, height: 42},
+        //   scale: 0.15,
+        //   speed: 200,
+        //   sightRange: 3,   // this is sight/movement Range
+        //   movingPoints: 3,   // this is sight/movement Range
+        //   visiblePoints: 8,   // this is sight/movement Range
+        //   health: 100,
+        //   maxHealth: 200,
+        //   power: 20,
+        //   maxPower: 200,
+        //   flagAttributes: {
+        //     sightFlags: 0,
+        //     travelFlags: 2
+        //   },
+        //   patrol: {
+        //     timeout: 2000,
+        //     // aggressionTimeout: 1000,  // delay time in between aggression turns
+        //     method: 'random',
+        //     tiles: [
+        //       {x: 2, y: 3}, {x: 6, y: 5}
+        //     ]
+        //   }
+        // }
 
       ]
     }

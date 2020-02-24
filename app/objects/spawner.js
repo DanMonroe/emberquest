@@ -51,9 +51,9 @@ export class Spawner {
       case this.constants.SPAWNER_TYPE.TRANSPORT:
         this.spawnTransport();
         break;
-      case this.constants.SPAWNER_TYPE.MONSTER:
-        this.spawnMonster();
-        break;
+      // case this.constants.SPAWNER_TYPE.MONSTER:
+      //   this.spawnMonster();
+      //   break;
       case this.constants.SPAWNER_TYPE.AGENT:
         this.spawnAgent();
         break;

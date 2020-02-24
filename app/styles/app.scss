@@ -185,10 +185,16 @@ a {
   .gem-wrapper {
     display: inline;
     .gems-count {
-      font-size: 1.3em;
+      font-size: 24px;
       margin: 0 15px 0 5px;
       top: -8px;
       position: relative;
+      color: white;
+      text-shadow: 0px 2px 1px black, 0px -2px 1px black, -2px 0px 1px black, 2px 0px 1px black;
+      height: 32px;
+      line-height: 32px;
+      font-family: "Open Sans Condensed","Helvetica Neue",Helvetica,Arial,sans-serif;
+      font-variant: small-caps;
     }
     .gem {
       &.gem-30 {

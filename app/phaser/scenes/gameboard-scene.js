@@ -81,9 +81,9 @@ export class GameboardScene extends Phaser.Scene {
       this.spawnTransport(transportObject);
     });
 
-    this.events.on('monsterSpawned', (monsterObject) => {
-      this.spawnMonster(monsterObject);
-    });
+    // this.events.on('monsterSpawned', (monsterObject) => {
+    //   this.spawnMonster(monsterObject);
+    // });
 
     this.events.on('agentSpawned', (agentObject) => {
       this.spawnAgent(agentObject);
@@ -247,7 +247,18 @@ export class GameboardScene extends Phaser.Scene {
   }
 
   update() {
+    // console.log('agents', this.agents)
     if (this.player) this.player.container.update(this.cursors);
+    if (this.agents.children) {
+      this.agents.children.each(agentChild => {
+        agentChild.update();
+      })
+    }
+    // if (this.monsters.children) {
+    //   this.monsters.children.each(monsterChild => {
+    //     monsterChild.update();
+    //   })
+    // }
   }
 }
 
