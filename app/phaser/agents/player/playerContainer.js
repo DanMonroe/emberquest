@@ -59,7 +59,7 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
     this.cachedHealthPercentage = 0;
 
     // set a size on the container
-    this.setSize(42, 42);
+    this.setSize(config.textureSize.width, config.textureSize.height);
 
     // enable physics
     this.scene.physics.world.enable(this);
@@ -99,6 +99,10 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
     this.moveToObject.on('complete', this.moveToComplete);
 
     this.moveToObject.moveableTestCallback = (curTile, targetTile, pathFinder) => {
+
+// TODO  Take this out or the player can move anywhere
+// return true;
+
       if (this.moveToObject.isRunning || this.power <= 1) {
         return false;
       }

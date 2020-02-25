@@ -43,7 +43,7 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
     this.healthBar.fillRect(this.x, this.y - 8, 64 * (this.health / this.maxHealth), 5);
   }
 
-  updateHealth(health) {
+  setHealth(health) {
     this.health = health;
     this.updateHealthBar();
   }

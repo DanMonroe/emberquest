@@ -51,12 +51,32 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
 
     // add the player container to our existing scene
     this.scene.add.existing(this);
+  }
 
-
+  update() {
+    this.baseUpdate();
   }
 
   baseUpdate() {
     this.updateHealthBar();
+  }
+
+  // player just hit the agent with some type of weapon.
+  takeDamage(sourceWeapon) {
+    console.log('take Damage', sourceWeapon);
+    this.health -= sourceWeapon.damage;
+    console.log('villain', this)
+    if (this.agent) {
+      this.agent.tint = 0xff3333;
+      this.scene.time.addEvent({
+        delay: 200,
+        callback: () => {
+          // this.hitDelay = false;
+          this.agent.tint = 0xffffff;
+        },
+        callbackScope: this
+      });
+    }
   }
 
   @task
@@ -106,10 +126,11 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
     }
   }
 
-  updateHealth(health, power) {
+  setHealthAndPower(health, power) {
     this.health = health;
     this.power = power;
     this.updateHealthBar();
   }
+
 
 }

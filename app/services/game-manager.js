@@ -88,6 +88,7 @@ export default class GameManagerService extends Service {
       playerX: playerTile.x,
       playerY: playerTile.y,
       texture: 'player',
+      textureSize: { width: 42, height: 42},
       // scale: 0.1,
       scale: 0.4,
       face: 0,
@@ -96,13 +97,14 @@ export default class GameManagerService extends Service {
       speed: 200,
       sightRange: 3,   // this is sight/movement Range
       movingPoints: 3,   // this is sight/movement Range
-      visiblePoints: 8,   // this is sight/movement Range
+      // visiblePoints: 60,   // this is sight/movement Range
+      visiblePoints: 6,   // this is sight/movement Range
 
       playerCoins: 1337,
 
-      health: 100,
+      health: 200,
       maxHealth: 200,
-      power: 150,
+      power: 200,
       maxPower: 200,
       id: 'player1',
       playerAttackAudio: undefined, // when ready, get from Boot scene
@@ -139,4 +141,54 @@ export default class GameManagerService extends Service {
     this.scene.events.emit('spawnPlayer', this.player);
 
   }
+
+  findAgentAtTile(tileXY) {
+    const agentShapes = this.ember.map.getGameObjectsAtTileXY(this.scene.board, tileXY, this.ember.constants.SHAPE_TYPE_AGENT);
+    // console.log('agentShapes at tile', agentShapes)
+    return agentShapes.length > 0 ? agentShapes[0] : null;
+  }
+
+  attack(clickedTile, clickedShape, attacker) {
+    // console.log('attack', clickedTile, clickedShape, 'by', attacker);
+
+    // const playerTileXYZ = this.scene.player.container.rexChess.tileXYZ;
+    // console.log('player tile:', playerTileXYZ);
+    // console.log('this.scene', this.scene);
+
+
+    const agentToAttack = this.findAgentAtTile(clickedTile);
+    if (agentToAttack) {
+      const radian = this.scene.board.angleBetween(attacker.rexChess.tileXYZ, clickedTile);
+      // const x = Math.cos(radian);
+      // const y = Math.sin(radian);
+      // console.log('radian', radian, 'x', x, 'y', y);
+
+        // debugger;
+      const isNeighbor = this.scene.board.areNeighbors(attacker.rexChess.tileXYZ, agentToAttack.rexChess.tileXYZ);
+      // console.log('isNeighbor', isNeighbor)
+
+      if (true) {
+        this.scene.projectiles.fireProjectile(attacker.rexChess.tileXYZ, radian);
+      } else {
+
+      if (isNeighbor) {
+        // Melee
+        console.log('Melee Attack!');
+      } else {
+                            // Ranged attack
+                            console.log('Ranged Attack!');
+
+                            const isInLOS = attacker.ember.playerContainer.fov.isInLOS(agentToAttack.rexChess.tileXYZ);
+                            console.log('in LOS', isInLOS);
+                            if (isInLOS) {
+                              // ok to fire projectile
+                              this.scene.projectiles.fireProjectile(attacker.rexChess.tileXYZ, radian);
+                            }
+                          }
+      }
+    }
+  }
+
+
+
 }

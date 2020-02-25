@@ -1,7 +1,8 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
-import Constants from '../utils/constants';
+// import Constants from '../utils/constants';
+import { inject as service } from '@ember/service';
 
 export default class EditorComponent extends Component {
 
@@ -14,6 +15,8 @@ export default class EditorComponent extends Component {
   @tracked hexRowIdsArray;
 
   @tracked finalMap;
+
+  @service constants;
 
   @action
   generateHexes() {
@@ -110,7 +113,7 @@ export default {
       case this.WESNOTH.WATER:
         switch (terrainParts.secondary) {
           case this.WESNOTH.BRIDGE:
-            special |= Constants.FLAGS.TRAVEL.SPECIAL.DOCK.value;
+            special |= this.constants.FLAGS.TRAVEL.SPECIAL.DOCK.value;
             break;
           default:  // regular water
         }
@@ -130,38 +133,38 @@ export default {
       case this.WESNOTH.WATER:
         switch (terrainParts.secondary) {
           case this.WESNOTH.BRIDGE:
-            terrainFlags |= Constants.FLAGS.TRAVEL.LAND.value;
+            terrainFlags |= this.constants.FLAGS.TRAVEL.LAND.value;
             break;
           default:  // regular water
-            terrainFlags |= Constants.FLAGS.TRAVEL.SEA.value;
-            terrainFlags |= Constants.FLAGS.TRAVEL.AIR.value;
+            terrainFlags |= this.constants.FLAGS.TRAVEL.SEA.value;
+            terrainFlags |= this.constants.FLAGS.TRAVEL.AIR.value;
         }
         break;
       case this.WESNOTH.UNWALKABLE:
         switch (terrainParts.secondary) {
           case this.WESNOTH.BRIDGE: // can use land or air flags to pass through
-            terrainFlags |= Constants.FLAGS.TRAVEL.LAND.value;
-            terrainFlags |= Constants.FLAGS.TRAVEL.AIR.value;
+            terrainFlags |= this.constants.FLAGS.TRAVEL.LAND.value;
+            terrainFlags |= this.constants.FLAGS.TRAVEL.AIR.value;
             break;
           default:  // fly
-            terrainFlags |= Constants.FLAGS.TRAVEL.AIR.value;
+            terrainFlags |= this.constants.FLAGS.TRAVEL.AIR.value;
         }
         break;
       case this.WESNOTH.MOUNTAIN:
         switch (terrainParts.secondary) {
           case this.WESNOTH.IMPASSABLE: // can use air flags to pass through
-            terrainFlags |= Constants.FLAGS.TRAVEL.IMPASSABLE.value;
+            terrainFlags |= this.constants.FLAGS.TRAVEL.IMPASSABLE.value;
             break;
           default:
-            terrainFlags |= Constants.FLAGS.TRAVEL.AIR.value;
+            terrainFlags |= this.constants.FLAGS.TRAVEL.AIR.value;
         }
         break;
       case this.WESNOTH.IMPASSABLE:
-        terrainFlags |= Constants.FLAGS.TRAVEL.IMPASSABLE.value;
+        terrainFlags |= this.constants.FLAGS.TRAVEL.IMPASSABLE.value;
         break;
       default:
-        terrainFlags |= Constants.FLAGS.TRAVEL.LAND.value;
-        terrainFlags |= Constants.FLAGS.TRAVEL.AIR.value;
+        terrainFlags |= this.constants.FLAGS.TRAVEL.LAND.value;
+        terrainFlags |= this.constants.FLAGS.TRAVEL.AIR.value;
     }
 
     return terrainFlags;
@@ -213,6 +216,10 @@ export default {
       case this.WESNOTH.MOUNTAIN:
         // sightCost += 6;
         break;
+      case this.WESNOTH.IMPASSABLE:
+        sightCost += 6;
+        break;
+
       default:
     }
 
@@ -237,7 +244,7 @@ export default {
     switch (terrainParts.primary) {
     // switch (terrainParts.secondary) {
       case this.WESNOTH.IMPASSABLE:
-        sightFlags |= Constants.FLAGS.SIGHT.IMPASSABLE.value;
+        sightFlags |= this.constants.FLAGS.SIGHT.IMPASSABLE.value;
         break;
       default:
     }

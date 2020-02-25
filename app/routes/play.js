@@ -4,7 +4,7 @@ import {InventoryItems} from '../models/data/inventory';
 
 export default class PlayRoute extends Route {
   async model() {
-    console.log('InventoryItems', InventoryItems)
+    // console.log('InventoryItems', InventoryItems)
 
     this.store.pushPayload({
       data: new InventoryItems().data

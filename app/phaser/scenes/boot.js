@@ -30,7 +30,9 @@ export class BootScene extends Phaser.Scene {
     this.load.image('monsters', '/images/monsters/spider.png');
     this.load.image('galleon', '/images/agents/galleon.svg');
     this.load.image('vue', '/images/agents/vue.png');
+    this.load.image('projectile', '/images/items/ballBlack_04.png');
 
+    this.load.image('bullet', '/images/items/bullet7.png');
   }
 
   loadSpriteSheets() {

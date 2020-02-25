@@ -80,7 +80,7 @@ export default class AgentContainer extends BasePhaserAgentContainer {
     // console.log('moveToComplete', agentContainer, agentContainer.healthBar)
     // set visibility of agent after it moves.
 
-    // TODO Sems the health bar should also be set when the container is set??
+    // TODO Seems like the health bar should also be set when the container is set??
 
     const isInLOS = agentContainer.ember.playerContainer.fov.isInLOS(agentContainer.rexChess.tileXYZ);
 

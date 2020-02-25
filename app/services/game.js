@@ -3,9 +3,8 @@ import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
 import localforage from 'localforage';
 
-// import MapData from './tiledata/cave1'
-// import MapData from './tiledata/testmap'
-import MapData from '../phaser/scenes/tiledata/landsea'
+import MapData from '../phaser/scenes/tiledata/cave1'
+// import MapData from '../phaser/scenes/tiledata/landsea'
 
 import {Player} from "../objects/agents/player";
 import {Transport} from "../objects/agents/transport";
@@ -101,7 +100,7 @@ export default class GameService extends Service {
 
   createAgent(scene, agentConfig) {
     let agent = new Agent(scene, agentConfig);
-    console.log('agent', agent)
+    // console.log('agent', agent)
 
     scene.board.addChess(agent.container, agentConfig.x, agentConfig.y, this.constants.TILEZ_AGENTS);
 

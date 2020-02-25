@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import Chest from '../chest';
 import Monster from '../monster';
+import Projectiles from '../groups/projectiles';
 
 export class GameboardScene extends Phaser.Scene {
 
@@ -20,11 +21,14 @@ export class GameboardScene extends Phaser.Scene {
   enemyships = {};
   transports = {};
   agents = {};
+  projectiles = {};
 
   constructor() {
     super({
       key: 'gameboard'
     });
+
+    this.projectiles;
   }
 
   init(data){
@@ -48,20 +52,21 @@ export class GameboardScene extends Phaser.Scene {
     this.createAudio();
     this.createGroups();
     this.createGameManager();
-    this.boardExperiments();
+    // this.boardExperiments();
 
-    this.musicAudio.play();
+
+    // this.musicAudio.play();
   }
 
   boardExperiments() {
     // just a place to try new stuff out
 
     // click end tileXY to get info in console
-    this.board.on('tiledown',  (pointer, tileXY) => {
-      const allAttrs = this.ember.map.getTileAttribute(this, tileXY);
-      const clickedShape = this.board.tileXYToChessArray(tileXY.x, tileXY.y);
-      console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.player.container));
-    });
+    // this.board.on('tiledown',  (pointer, tileXY) => {
+    //   const allAttrs = this.ember.map.getTileAttribute(this, tileXY);
+    //   const clickedShape = this.board.tileXYToChessArray(tileXY.x, tileXY.y);
+    //   console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.player.container));
+    // });
   }
 
   createGameManager() {
@@ -87,6 +92,15 @@ export class GameboardScene extends Phaser.Scene {
 
     this.events.on('agentSpawned', (agentObject) => {
       this.spawnAgent(agentObject);
+    });
+
+    this.board.on('tiledown',  (pointer, tileXY) => {
+      // report tile info for debugging
+      // const allAttrs = this.ember.map.getTileAttribute(this, tileXY);
+      const clickedShape = this.board.tileXYToChessArray(tileXY.x, tileXY.y);
+      // console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.player.container));
+
+      this.ember.gameManager.attack(tileXY, clickedShape, this.player.container);
     });
 
     this.game.emberGame.gameManager.setup(this);
@@ -199,6 +213,10 @@ export class GameboardScene extends Phaser.Scene {
 
     // create an agent group
     this.agents = this.physics.add.group();
+    this.agents.runChildUpdate = true;
+
+    // creating the projectiles
+    this.projectiles = new Projectiles(this.physics.world, this);
   }
 
   createInput() {
@@ -216,6 +234,8 @@ export class GameboardScene extends Phaser.Scene {
     // check for overlaps between player and transport game objects
     this.physics.add.collider(this.player.container, this.transports, this.boardTransport, this.boardTransportProcessCallback, this);
     // this.physics.add.overlap(this.player, this.transports, this.boardTransport, this.boardTransportProcessCallback, this);
+
+    this.physics.add.overlap(this.projectiles, this.agents, this.projectiles.enemyCollision);
 
     // check for collisions between the monster group and the tiled blocked layer
     // this.physics.add.collider(this.monsters, this.map.blockedLayer);
@@ -250,9 +270,9 @@ export class GameboardScene extends Phaser.Scene {
     // console.log('agents', this.agents)
     if (this.player) this.player.container.update(this.cursors);
     if (this.agents.children) {
-      this.agents.children.each(agentChild => {
+      this.agents.getChildren().forEach(agentChild => {
         agentChild.update();
-      })
+      });
     }
     // if (this.monsters.children) {
     //   this.monsters.children.each(monsterChild => {
