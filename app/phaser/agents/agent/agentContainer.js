@@ -4,12 +4,14 @@ import {task} from "ember-concurrency-decorators";
 import {timeout} from "ember-concurrency";
 import {tracked} from '@glimmer/tracking';
 import { v4 } from "ember-uuid";
+import {isPresent} from '@ember/utils';
 
 export default class AgentContainer extends BasePhaserAgentContainer {
 
   currentTargetTileCounter = -1;
   @tracked moveQueue = [];
   @tracked patrolEnabled = true;
+  @tracked agentState = 0;  // IDLE
 
   constructor(scene, config) {
     super(scene, config);
@@ -84,36 +86,120 @@ export default class AgentContainer extends BasePhaserAgentContainer {
 
     const isInLOS = agentContainer.ember.playerContainer.fov.isInLOS(agentContainer.rexChess.tileXYZ);
 
-    agentContainer.setAlpha(isInLOS ?
-      agentContainer.ember.constants.ALPHA_OBJECT_VISIBLE_TO_PLAYER :
-      agentContainer.ember.constants.ALPHA_OBJECT_HIDDEN_TO_PLAYER);
+    agentContainer.setVisibilityIfInLineOfSight(agentContainer, isInLOS);
 
-    agentContainer.healthBar.setAlpha(isInLOS ?
-      agentContainer.ember.constants.ALPHA_OBJECT_VISIBLE_TO_PLAYER :
-      agentContainer.ember.constants.ALPHA_OBJECT_HIDDEN_TO_PLAYER);
+    if (isInLOS) {
+      const shouldPursue = agentContainer.checkAgression(agentContainer);
+
+      if (shouldPursue) {
+        agentContainer.transitionToPursuit();
+      } else {
+        // return to patrol
+        agentContainer.transitionToPatrol();
+      }
+    }
+
+    // agentContainer.setAlpha(isInLOS ?
+    //   agentContainer.ember.constants.ALPHA_OBJECT_VISIBLE_TO_PLAYER :
+    //   agentContainer.ember.constants.ALPHA_OBJECT_HIDDEN_TO_PLAYER);
+    //
+    // agentContainer.healthBar.setAlpha(isInLOS ?
+    //   agentContainer.ember.constants.ALPHA_OBJECT_VISIBLE_TO_PLAYER :
+    //   agentContainer.ember.constants.ALPHA_OBJECT_HIDDEN_TO_PLAYER);
 
   }
 
   pushAgentWaypointToMoveQueue() {
-
+    console.log('pushAgentWaypointToMoveQueue')
     const nextTargetTile = this.getNextTargetTile();
-    // debugger;
-    // const tileXYArrayPath = this.pathFinder.getPath(nextTargetTile);
     const tileXYArrayPath = this.pathFinder.findPath(nextTargetTile);
 
-    // this.showMovingPath(tileXYArrayPath)
-
+    const moveQueueId = v4();
+    this.moveQueueId = moveQueueId;
     let moveObject = {
       agent: this,
       path: tileXYArrayPath,
-      uuid: v4(),
+      uuid: moveQueueId,
       finishedCallback: () => {
         this.pushAgentWaypointToMoveQueue();
       }
     }
     this.moveQueue.push(moveObject);
-    // console.log('moveObject', moveObject)
+    console.log('moveObject', moveObject)
 
+  }
+
+  @task
+  *engagePlayer() {
+    console.log('engagePlayerTask')
+    // and player is still alive
+    while(this.agentState === this.ember.constants.AGENTSTATE.MISSILE) {
+      this.fireProjectile.perform();
+      yield timeout(this.patrol.aggressionSpeedTimeout);
+    }
+  }
+
+  @task
+  *chasePlayer() {
+    console.log('chasePlayerTask')
+    // and player is still alive
+    while(this.agentState === this.ember.constants.AGENTSTATE.MISSILE) {
+      const pathToPlayer = this.pathFinder.findPath(this.ember.playerContainer.rexChess.tileXYZ);
+      // console.log('pathToPlayer', pathToPlayer, 'this.config.sightRange',this.config.sightRange);
+      if (pathToPlayer) {
+        if (pathToPlayer.length > this.config.sightRange) {
+          // console.log('can no longer see the player')
+          this.transitionToPatrol();
+        } else if (pathToPlayer.length > 1) { // don't move agent on top of player
+          const firstMove = pathToPlayer[0];
+          if (firstMove) {
+            this.moveToObject.moveTo(firstMove.x, firstMove.y);
+          }
+        }
+      } else {
+        this.transitionToPatrol();
+      }
+
+      yield timeout(this.patrol.pursuitSpeed);
+    }
+  }
+
+  @task
+  *fireProjectile() {
+    console.log('Enemy Fire!');
+    yield timeout(1000);
+    // // if (this.game.player.boardedTransport === null) {
+    // // not on ship
+    // // return;
+    // // }
+    //
+    // if (!this.weapons || this.weapons.length === 0) {
+    //   // console.log('no weapons');
+    //   return;
+    // }
+    //
+    // // let weapon = this.weapons[0];
+    // let weapon = this.weapons.firstObject;
+    // if (!this.agent.canFireWeapon(this, weapon.poweruse)) {
+    //   // console.log('no power!');
+    //   return
+    // }
+    //
+    // if (this.agent.fireWeapon.isRunning) {
+    //   // console.log('waiting to reload - 1');
+    //   // yield waitForProperty(this, 'fireWeapon.isIdle');
+    //   // console.log('done waiting - fire!');
+    //   return;
+    // }
+    //
+    // if (this.hex) {
+    //   let startPoint = this.point;
+    //   let playerTargetHex = this.game.player.hex;
+    //   let targetPoint = playerTargetHex.point;
+    //   // let targetPoint = this.game.mapService.currentLayout.hexToPixel(playerTargetHex);
+    //
+    //   yield this.agent.fireWeapon.perform(this, weapon, startPoint, targetPoint);
+    // }
   }
 
   @task
@@ -156,6 +242,45 @@ export default class AgentContainer extends BasePhaserAgentContainer {
 
       yield timeout(this.patrol.timeout);
 
+    }
+  }
+
+  removeAgentFromMoveQueue(agent) {
+    console.log('removeAgentFromMoveQueue', this.moveQueue);
+    this.moveQueue = this.moveQueue.reject((thisAgent) => {
+      console.log('remove agent', thisAgent);
+      return agent.moveQueueId === thisAgent.uuid;
+      // return thisAgent.name = agent.name;
+    });
+  }
+
+
+  transitionToPursuit() {
+    this.agentState = this.ember.constants.AGENTSTATE.MISSILE;
+    if(this.patrol.method === this.ember.constants.PATROLMETHOD.STATIC) {
+      if (this.engagePlayer.isIdle) {
+        this.engagePlayer.perform();
+      }
+    } else {
+
+      // cancel any patrolling for this enemy
+      this.removeAgentFromMoveQueue(this);
+
+      // Fire and pursue
+      if (this.engagePlayer.isIdle) {
+        this.engagePlayer.perform();
+      }
+      if (this.chasePlayer.isIdle) {
+        this.chasePlayer.perform();
+      }
+    }
+  }
+
+  transitionToPatrol() {
+    this.agentState = this.ember.constants.AGENTSTATE.PATROL;
+    if (isPresent(this.patrol.tiles.length) > 0) {
+
+      this.pushAgentWaypointToMoveQueue();
     }
   }
 

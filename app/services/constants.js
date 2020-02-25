@@ -54,6 +54,16 @@ export default class ConstantsService extends Service {
   TILEZ_TRANSPORTS  = 5; // "layer" for transports
   TILEZ_AGENTS  = 6; // "layer" for agents
 
+  AGENTSTATE = {
+    IDLE: 0,
+    PATROL: 1,
+    MELEE: 2,
+    MISSILE: 3,
+    SEARCHING: 4,
+    FLEEING: 5,
+    FINDHELP: 6
+  };
+
   PATROLMETHOD = {
     RANDOM: 'random',
     STATIC: 'static'

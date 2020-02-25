@@ -31,6 +31,7 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
     this.ember = this.scene.game.emberGame;
 
     this.id = config.id;
+    this.config = config;
 
     this.showPowerBar = config.showPowerBar;
 
@@ -132,5 +133,21 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
     this.updateHealthBar();
   }
 
+  checkAgression(/*agentContainer*/) {
+    // TODO implement.  check to see if they want to fight, or run away, etc
+    return true;
+  }
+
+  setVisibilityIfInLineOfSight(agentContainer, isInLOS) {
+    agentContainer.setAlpha(isInLOS ?
+      agentContainer.ember.constants.ALPHA_OBJECT_VISIBLE_TO_PLAYER :
+      agentContainer.ember.constants.ALPHA_OBJECT_HIDDEN_TO_PLAYER);
+
+    if (agentContainer.healthBar) {
+      agentContainer.healthBar.setAlpha(isInLOS ?
+        agentContainer.ember.constants.ALPHA_OBJECT_VISIBLE_TO_PLAYER :
+        agentContainer.ember.constants.ALPHA_OBJECT_HIDDEN_TO_PLAYER);
+    }
+  }
 
 }
