@@ -20,8 +20,7 @@ export default class GameService extends Service {
   // @service('game-manager') manager;
 
   @tracked cameraMainZoom = 1;
-  // @tracked playerImgSrc = '/images/agents/sherpa_tomster.png';
-  @tracked playerImgSrc = '/images/agents/sherpa_tomster_1_25.png';
+  @tracked playerImgSrc = '/images/agents/tomster-head-classic.png';
   // @tracked playerImgSrc = '/images/agents/pirate.png';
   @tracked showHexInfo = false;
   @tracked epmModalContainerClass = '';

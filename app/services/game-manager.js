@@ -5,9 +5,12 @@ import { tracked } from '@glimmer/tracking';
 
 export default class GameManagerService extends Service {
   @service('spawner') spawnerService;
+  @service modals;
 
   @tracked player;
   @tracked volume = 1;
+
+  @tracked gamePaused = true;
 
   scene = undefined;
   ember = undefined;
@@ -36,6 +39,11 @@ export default class GameManagerService extends Service {
     this.setupEventListener();
     this.setupSpawners();
     this.spawnPlayer();
+    this.pauseGame(false);
+  }
+
+  pauseGame(paused) {
+    this.gamePaused = paused;
   }
 
   adjustVolume() {
@@ -48,10 +56,10 @@ export default class GameManagerService extends Service {
         this.scene.musicAudio.setVolume(0);
         break;
       case 1:
-        this.scene.musicAudio.setVolume(0.4);
+        this.scene.musicAudio.setVolume(0.3);
         break;
       case 2:
-        this.scene.musicAudio.setVolume(1);
+        this.scene.musicAudio.setVolume(0.7);
         break;
       default:
         break;
@@ -100,14 +108,15 @@ export default class GameManagerService extends Service {
       // visiblePoints: 60,   // this is sight/movement Range
       visiblePoints: 6,   // this is sight/movement Range
 
-      playerCoins: 1337,
+      playerCoins: 5150,
 
+      // health: 2,
       health: 200,
       maxHealth: 200,
-      power: 200,
-      maxPower: 200,
+      power: 50,
+      maxPower: 50,
       id: 'player1',
-      playerAttackAudio: undefined, // when ready, get from Boot scene
+      playerAttackAudio: undefined, // when ready, get from Boot scene  --- actually should get from the weapon the player is using.
 
       flagAttributes: {
         sightFlags: (this.storedData.storedPlayerAttrs && this.storedData.storedPlayerAttrs.sightFlags) || 0,
@@ -155,6 +164,9 @@ export default class GameManagerService extends Service {
     // console.log('player tile:', playerTileXYZ);
     // console.log('this.scene', this.scene);
 
+    if (this.gamePaused) {
+      return;
+    }
 
     const agentToAttack = this.findAgentAtTile(clickedTile);
     if (agentToAttack) {
@@ -169,6 +181,9 @@ export default class GameManagerService extends Service {
 
       if (true) {
         this.scene.projectiles.fireProjectile(attacker.rexChess.tileXYZ, radian);
+
+        this.player.power -= 2;
+        // this.player.power -= weapon.poweruse;
       } else {
 
       if (isNeighbor) {
@@ -189,6 +204,20 @@ export default class GameManagerService extends Service {
     }
   }
 
+  async enemyVictory(enemy) {
+    this.pauseGame(true);
+    // debugger;
+    this.ember.epmModalContainerClass = 'victory';
+    await this.modals.open('victory-dialog', {foo:'bar'});
+    this.pauseGame(false);
+  }
 
+  async playerDied() {
+    // debugger;
+    this.pauseGame(true);
+    this.ember.epmModalContainerClass = 'victory';
+    await this.modals.open('death-dialog', {playerDead:true});
+    this.pauseGame(false);
+  }
 
 }

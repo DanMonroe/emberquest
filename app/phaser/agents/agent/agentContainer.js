@@ -1,7 +1,7 @@
 import BasePhaserAgentContainer from "../base-phaser-agent-container";
 import Agent from './agent';
 import {task} from "ember-concurrency-decorators";
-import {timeout} from "ember-concurrency";
+import {timeout,waitForProperty } from "ember-concurrency";
 import {tracked} from '@glimmer/tracking';
 import { v4 } from "ember-uuid";
 import {isPresent} from '@ember/utils';
@@ -20,7 +20,9 @@ export default class AgentContainer extends BasePhaserAgentContainer {
 
     this.agent = new Agent(this.scene, config);
 
-    this.patrol = config.patrol;
+    this.patrol = config.patrol;    // should this be on data.attrs ?
+    this.weapons = config.weapons;
+
     this.setData('attrs', config.flagAttributes);
 
     this.add(this.agent);
@@ -70,6 +72,7 @@ export default class AgentContainer extends BasePhaserAgentContainer {
 
     this.createHealthBar();
     this.reloadHealth.perform();
+    this.reloadPower.perform();
 
   }
 
@@ -89,7 +92,7 @@ export default class AgentContainer extends BasePhaserAgentContainer {
     agentContainer.setVisibilityIfInLineOfSight(agentContainer, isInLOS);
 
     if (isInLOS) {
-      const shouldPursue = agentContainer.checkAgression(agentContainer);
+      const shouldPursue = agentContainer.checkAggression(agentContainer);
 
       if (shouldPursue) {
         agentContainer.transitionToPursuit();
@@ -98,19 +101,10 @@ export default class AgentContainer extends BasePhaserAgentContainer {
         agentContainer.transitionToPatrol();
       }
     }
-
-    // agentContainer.setAlpha(isInLOS ?
-    //   agentContainer.ember.constants.ALPHA_OBJECT_VISIBLE_TO_PLAYER :
-    //   agentContainer.ember.constants.ALPHA_OBJECT_HIDDEN_TO_PLAYER);
-    //
-    // agentContainer.healthBar.setAlpha(isInLOS ?
-    //   agentContainer.ember.constants.ALPHA_OBJECT_VISIBLE_TO_PLAYER :
-    //   agentContainer.ember.constants.ALPHA_OBJECT_HIDDEN_TO_PLAYER);
-
   }
 
   pushAgentWaypointToMoveQueue() {
-    console.log('pushAgentWaypointToMoveQueue')
+    // console.log('pushAgentWaypointToMoveQueue')
     const nextTargetTile = this.getNextTargetTile();
     const tileXYArrayPath = this.pathFinder.findPath(nextTargetTile);
 
@@ -125,72 +119,88 @@ export default class AgentContainer extends BasePhaserAgentContainer {
       }
     }
     this.moveQueue.push(moveObject);
-    console.log('moveObject', moveObject)
+    // console.log('moveObject', moveObject)
 
   }
 
   @task
   *engagePlayer() {
-    console.log('engagePlayerTask')
+    // console.log('engagePlayerTask')
     // and player is still alive
     while(this.agentState === this.ember.constants.AGENTSTATE.MISSILE) {
-      this.fireProjectile.perform();
+      if (!this.ember.gameManager.gamePaused) {
+
+        if (!this.ember.playerContainer.fov.isInLOS(this.rexChess.tileXYZ)) {
+          this.transitionToPatrol();
+        }
+
+        // agentContainer.transitionToPatrol();
+        this.attack.perform();
+      }
       yield timeout(this.patrol.aggressionSpeedTimeout);
     }
   }
 
   @task
   *chasePlayer() {
-    console.log('chasePlayerTask')
+    // console.log('chasePlayerTask')
     // and player is still alive
     while(this.agentState === this.ember.constants.AGENTSTATE.MISSILE) {
-      const pathToPlayer = this.pathFinder.findPath(this.ember.playerContainer.rexChess.tileXYZ);
-      // console.log('pathToPlayer', pathToPlayer, 'this.config.sightRange',this.config.sightRange);
-      if (pathToPlayer) {
-        if (pathToPlayer.length > this.config.sightRange) {
-          // console.log('can no longer see the player')
-          this.transitionToPatrol();
-        } else if (pathToPlayer.length > 1) { // don't move agent on top of player
-          const firstMove = pathToPlayer[0];
-          if (firstMove) {
-            this.moveToObject.moveTo(firstMove.x, firstMove.y);
+      if (!this.ember.gameManager.gamePaused) {
+        const pathToPlayer = this.pathFinder.findPath(this.ember.playerContainer.rexChess.tileXYZ);
+        // console.log('pathToPlayer', pathToPlayer, 'this.config.sightRange',this.config.sightRange);
+        if (pathToPlayer) {
+          if (pathToPlayer.length > this.config.sightRange) {
+            // console.log('can no longer see the player')
+            this.transitionToPatrol();
+          } else if (pathToPlayer.length > 1) { // don't move agent on top of player
+            const firstMove = pathToPlayer[0];
+            if (firstMove) {
+              this.moveToObject.moveTo(firstMove.x, firstMove.y);
+            }
           }
+        } else {
+          this.transitionToPatrol();
         }
-      } else {
-        this.transitionToPatrol();
       }
-
       yield timeout(this.patrol.pursuitSpeed);
     }
   }
 
   @task
-  *fireProjectile() {
-    console.log('Enemy Fire!');
-    yield timeout(1000);
+  *attack() {
+    if (this.ember.gameManager.gamePaused) { return }
+
+    // console.log('Enemy Fire!');
+    // yield timeout(1000);
     // // if (this.game.player.boardedTransport === null) {
     // // not on ship
     // // return;
     // // }
     //
-    // if (!this.weapons || this.weapons.length === 0) {
-    //   // console.log('no weapons');
-    //   return;
-    // }
+
+    if (!this.ember.playerContainer.fov.isInLOS(this.rexChess.tileXYZ)) {
+      return;
+    }
+
+    if (!this.weapons || this.weapons.length === 0) {
+      console.log('no weapons');
+      return;
+    }
     //
     // // let weapon = this.weapons[0];
-    // let weapon = this.weapons.firstObject;
-    // if (!this.agent.canFireWeapon(this, weapon.poweruse)) {
-    //   // console.log('no power!');
-    //   return
-    // }
-    //
-    // if (this.agent.fireWeapon.isRunning) {
-    //   // console.log('waiting to reload - 1');
-    //   // yield waitForProperty(this, 'fireWeapon.isIdle');
-    //   // console.log('done waiting - fire!');
-    //   return;
-    // }
+    let weapon = this.weapons.firstObject;
+    if (!this.canFireWeapon(weapon.poweruse)) {
+      // console.log('no power!');
+      return;
+    }
+
+    if (this.fireWeapon.isRunning) {
+      // console.log('waiting to reload - 1');
+      yield waitForProperty(this, 'fireWeapon.isIdle');
+      // console.log('done waiting - fire!');
+      return;
+    }
     //
     // if (this.hex) {
     //   let startPoint = this.point;
@@ -198,57 +208,58 @@ export default class AgentContainer extends BasePhaserAgentContainer {
     //   let targetPoint = playerTargetHex.point;
     //   // let targetPoint = this.game.mapService.currentLayout.hexToPixel(playerTargetHex);
     //
-    //   yield this.agent.fireWeapon.perform(this, weapon, startPoint, targetPoint);
+    const startTileXYZ = this.rexChess.tileXYZ
+    const radian = this.scene.board.angleBetween(startTileXYZ, this.ember.playerContainer.rexChess.tileXYZ);
+
+    yield this.fireWeapon.perform(this, weapon, startTileXYZ, radian);
+      // yield this.fireWeapon.perform(this, weapon,  startPoint, targetPoint);
     // }
   }
 
   @task
   *patrolTask() {
-    // console.log('in moveQueue', this.moveQueueEnabled);
     while (this.patrolEnabled === true) {
+      if (!this.ember.gameManager.gamePaused) {
 
-      // console.log('this.moveQueue.length', this.moveQueue.length)
-      // if there are things to move
-      if (this.moveQueue.length > 0) {
+        // if there are things to move
+        if (this.moveQueue.length > 0) {
 
-        this.moveQueue.forEach((moveObject) => {
-          // is there anywhere for this object to go?
-          if (moveObject.path.length > 0) {
+          this.moveQueue.forEach((moveObject) => {
+            // is there anywhere for this object to go?
+            if (moveObject.path.length > 0) {
 
-            // grab the next waypoint
-            let firstMove = moveObject.path[0]
-// console.log('firstMove', firstMove)
-            // attempt the move
-            this.moveToObject.moveTo(firstMove.x, firstMove.y);
+              // grab the next waypoint
+              let firstMove = moveObject.path[0]
 
-            // we're done, remove it from the list of waypoints to go to
-            moveObject.path.shift();
+              // attempt the move
+              this.moveToObject.moveTo(firstMove.x, firstMove.y);
 
-          } else {
-            // no moves left for this object
-            if (typeof moveObject.finishedCallback === 'function') {
-              moveObject.finishedCallback();
+              // we're done, remove it from the list of waypoints to go to
+              moveObject.path.shift();
+
+            } else {
+              // no moves left for this object
+              if (typeof moveObject.finishedCallback === 'function') {
+                moveObject.finishedCallback();
+              }
+
+              // remove the object from the global move list
+              this.moveQueue = this.moveQueue.filter(obj => obj.uuid !== moveObject.uuid);
+
             }
+          });
 
-            // remove the object from the global move list
-            this.moveQueue = this.moveQueue.filter(obj => obj.uuid !== moveObject.uuid);
-
-          }
-        });
-
-      } else {
-        // console.log('waiting....');
+        }
       }
-
       yield timeout(this.patrol.timeout);
 
     }
   }
 
   removeAgentFromMoveQueue(agent) {
-    console.log('removeAgentFromMoveQueue', this.moveQueue);
+    // console.log('removeAgentFromMoveQueue', this.moveQueue);
     this.moveQueue = this.moveQueue.reject((thisAgent) => {
-      console.log('remove agent', thisAgent);
+      // console.log('remove agent', thisAgent);
       return agent.moveQueueId === thisAgent.uuid;
       // return thisAgent.name = agent.name;
     });

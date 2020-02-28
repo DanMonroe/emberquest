@@ -1,8 +1,10 @@
 import Phaser from "phaser";
 
 export default class Projectile extends Phaser.Physics.Arcade.Sprite {
-  constructor (scene, x, y) {
-    super(scene, x, y, 'bullet');
+  constructor (scene, x, y, key) {
+    // debugger;
+    super(scene, x, y, key || 'bullet');
+    // super(scene, x, y, 'bullet');
     // super(scene, x, y, 'projectile');
 
     this.damage = 10;
@@ -49,13 +51,6 @@ export default class Projectile extends Phaser.Physics.Arcade.Sprite {
         // this.setVelocity(0);
       }
     });
-    // projectile.enableBody(true);
-      // projectile.active = true;
-      // projectile.visible = true;
-      // projectile.setPosition(attackerXYZ.x, attackerXYZ.y);
-      // projectile.setScale(0.1);
-      // projectile.setVelocityY(y * -300);
-      // projectile.setVelocityX(x * -300);
   }
 
   // fire (x, y) {

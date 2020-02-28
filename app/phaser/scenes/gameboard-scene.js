@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import Chest from '../chest';
 import Monster from '../monster';
 import Projectiles from '../groups/projectiles';
+import Projectile from "../groups/projectile";
 
 export class GameboardScene extends Phaser.Scene {
 
@@ -21,7 +22,9 @@ export class GameboardScene extends Phaser.Scene {
   enemyships = {};
   transports = {};
   agents = {};
+
   projectiles = {};
+  agentprojectiles = {};  // hard coded extra group for emberconf
 
   constructor() {
     super({
@@ -29,6 +32,7 @@ export class GameboardScene extends Phaser.Scene {
     });
 
     this.projectiles;
+    this.agentprojectiles;
   }
 
   init(data){
@@ -55,7 +59,7 @@ export class GameboardScene extends Phaser.Scene {
     // this.boardExperiments();
 
 
-    // this.musicAudio.play();
+    this.musicAudio.play();
   }
 
   boardExperiments() {
@@ -94,7 +98,16 @@ export class GameboardScene extends Phaser.Scene {
       this.spawnAgent(agentObject);
     });
 
-    this.board.on('tiledown',  (pointer, tileXY) => {
+    this.board.on('tiledown',  async (pointer, tileXY) => {
+
+      // // victory?
+      // debugger;
+      // this.ember.epmModalContainerClass = 'victory';
+      // let victoryModal = this.ember.modals.open('victory-dialog', {foo:'bar'});
+
+
+
+
       // report tile info for debugging
       // const allAttrs = this.ember.map.getTileAttribute(this, tileXY);
       const clickedShape = this.board.tileXYToChessArray(tileXY.x, tileXY.y);
@@ -216,7 +229,21 @@ export class GameboardScene extends Phaser.Scene {
     this.agents.runChildUpdate = true;
 
     // creating the projectiles
-    this.projectiles = new Projectiles(this.physics.world, this);
+    this.projectiles = new Projectiles(this.physics.world, this, {
+      frameQuantity: 3,
+      key: 'bullet',
+      active: false,
+      visible: false,
+      classType: Projectile
+    });
+    this.agentprojectiles = new Projectiles(this.physics.world, this, {
+      frameQuantity: 3,
+      key: 'ball',
+      active: false,
+      visible: false,
+      setScale: { x: 0.1},
+      classType: Projectile
+    });
   }
 
   createInput() {
@@ -236,6 +263,7 @@ export class GameboardScene extends Phaser.Scene {
     // this.physics.add.overlap(this.player, this.transports, this.boardTransport, this.boardTransportProcessCallback, this);
 
     this.physics.add.overlap(this.projectiles, this.agents, this.projectiles.enemyCollision);
+    this.physics.add.overlap(this.player.container, this.agentprojectiles, this.agentprojectiles.playerCollision);
 
     // check for collisions between the monster group and the tiled blocked layer
     // this.physics.add.collider(this.monsters, this.map.blockedLayer);

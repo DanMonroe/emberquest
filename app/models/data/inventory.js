@@ -32,7 +32,7 @@ export class InventoryItems {
         id: 2,
         type: 'inventory-item',
         attributes: {
-          listorder: 10,
+          listorder: 17,
           name: 'Bolt Splitter',
           price: 200,
           owned: false,
@@ -76,7 +76,7 @@ export class InventoryItems {
         attributes: {
           listorder: 15,
           name: 'Katana',
-          price: 50,
+          price: 100,
           owned: false,
           img: '/images/items/weapons/katana.png',
           locked: false,
@@ -104,14 +104,24 @@ export class InventoryItems {
         id: 6,
         type: 'inventory-item',
         attributes: {
-          listorder: 25,
-          name: 'Tracked',
+          listorder: 18,
+          name: '@Tracked',
           price: 500,
           owned: false,
           img: '/images/items/weapons/ember_sword.png',
           locked: false,
           type: 'weapon',
-          description: ''
+          description: '@Tracked magically installs native setters that tracks updates to properties allowing you to treat them like any other JavaScript value.',
+          stats: [
+            {
+              title: 'Magic',
+              desc: '100'
+            }
+          ],
+          codeimg: '/code/example_tracked.png',
+          'example-title': '@tracked Example'
+
+
         },
         relationships: {}
       },
@@ -154,15 +164,33 @@ export class InventoryItems {
           price: 50000,
           owned: false,
           img: '/images/items/weapons/goldstaff.png',
-          locked: false,
+          locked: true,
           type: 'weapon',
           description: ''
         },
         relationships: {}
       },
+      {
+        id: 17,
+        type: 'inventory-item',
+        attributes: {
+          listorder: 40,
+          name: 'BFG 9001',
+          price: 1000,
+          owned: false,
+          img: '/images/items/weapons/blaster2.png',
+          locked: false,
+          type: 'weapon',
+          description: 'Makes it easy to inject the Phaser game framework into your Ember application.',
+          codeimg: '/code/example_ember_phaser.png',
+          'example-title': 'Ember-Phaser Example',
+          'addon-name': 'ember-phaser'
+        },
+        relationships: {}
+      },
       // armor
       {
-        id: 10,
+        id: 110,
         type: 'inventory-item',
         attributes: {
           listorder: 1,
@@ -172,12 +200,19 @@ export class InventoryItems {
           img: '/images/items/armor/boots_simple.png',
           locked: false,
           type: 'armor',
-          description: ''
+          description: 'Allows your hero to move using simple keyboard commands: Q, W, E, A, S, D',
+          stats: [
+            {
+              title: 'Movement',
+              desc: '1 hex'
+            }
+          ]
+
         },
         relationships: {}
       },
       {
-        id: 11,
+        id: 120,
         type: 'inventory-item',
         attributes: {
           listorder: 11,
@@ -192,7 +227,7 @@ export class InventoryItems {
         relationships: {}
       },
       {
-        id: 12,
+        id: 130,
         type: 'inventory-item',
         attributes: {
           listorder: 13,
@@ -207,7 +242,7 @@ export class InventoryItems {
         relationships: {}
       },
       {
-        id: 13,
+        id: 140,
         type: 'inventory-item',
         attributes: {
           listorder: 15,
@@ -222,7 +257,7 @@ export class InventoryItems {
         relationships: {}
       },
       {
-        id: 14,
+        id: 145,
         type: 'inventory-item',
         attributes: {
           listorder: 3,
@@ -232,12 +267,19 @@ export class InventoryItems {
           img: '/images/items/armor/furhat.png',
           locked: false,
           type: 'armor',
-          description: ''
+          description: 'Keeps our ears warm',
+          stats: [
+            {
+              title: 'Armor',
+              desc: '1'
+            }
+          ]
+
         },
         relationships: {}
       },
       {
-        id: 15,
+        id: 150,
         type: 'inventory-item',
         attributes: {
           listorder: 25,
@@ -252,7 +294,7 @@ export class InventoryItems {
         relationships: {}
       },
       {
-        id: 16,
+        id: 160,
         type: 'inventory-item',
         attributes: {
           listorder: 30,
@@ -267,7 +309,7 @@ export class InventoryItems {
         relationships: {}
       },
       {
-        id: 17,
+        id: 170,
         type: 'inventory-item',
         attributes: {
           listorder: 35,
@@ -282,25 +324,55 @@ export class InventoryItems {
         relationships: {}
       },
       {
-        id: 18,
+        id: 180,
         type: 'inventory-item',
         attributes: {
-          listorder: 10,
+          listorder: 7,
           name: 'Tomster Glasses',
           price: 50,
           owned: true,
           img: '/images/items/armor/mahagonyglasses.png',
           locked: false,
           type: 'armor',
-          description: ''
+          description: 'Makes you look cool',
+          stats: [
+            {
+              title: 'Style',
+              desc: '11'
+            },
+            {
+              title: 'Sight Range',
+              desc: '3 hexes'
+            }
+          ]
+
         },
         relationships: {}
       },
       {
-        id: 19,
+        id: 185,
         type: 'inventory-item',
         attributes: {
-          listorder: 7,
+          listorder: 8,
+          name: 'Mirage',
+          price: 250,
+          owned: false,
+          img: '/images/items/other/omnioculars.png',
+          locked: false,
+          type: 'armor',
+          description: 'A client-side server to help you build, test and demo your Ember app.',
+          codeimg: '/code/example_mirage.png',
+          'example-title': 'Ember CLI Mirage Example',
+          'addon-name': 'ember-cli-mirage'
+        },
+        relationships: {}
+      },
+
+      {
+        id: 190,
+        type: 'inventory-item',
+        attributes: {
+          listorder: 10,
           name: 'Robe',
           price: 50,
           owned: false,
@@ -312,7 +384,7 @@ export class InventoryItems {
         relationships: {}
       },
       {
-        id: 20,
+        id: 200,
         type: 'inventory-item',
         attributes: {
           listorder: 50,
@@ -327,7 +399,7 @@ export class InventoryItems {
         relationships: {}
       },
       {
-        id: 21,
+        id: 210,
         type: 'inventory-item',
         attributes: {
           listorder: 55,
@@ -342,7 +414,7 @@ export class InventoryItems {
         relationships: {}
       },
       {
-        id: 22,
+        id: 220,
         type: 'inventory-item',
         attributes: {
           listorder: 60,
@@ -357,7 +429,7 @@ export class InventoryItems {
         relationships: {}
       },
       {
-        id: 23,
+        id: 230,
         type: 'inventory-item',
         attributes: {
           listorder: 65,
@@ -372,7 +444,7 @@ export class InventoryItems {
         relationships: {}
       },
       {
-        id: 24,
+        id: 240,
         type: 'inventory-item',
         attributes: {
           listorder: 70,
@@ -386,14 +458,31 @@ export class InventoryItems {
         },
         relationships: {}
       },
+      {
+        id: 250,
+        type: 'inventory-item',
+        attributes: {
+          listorder: 7,
+          name: 'Chromatic Spectacles',
+          price: 150,
+          owned: true,
+          img: '/images/items/armor/multi-colored-glasses.png',
+          locked: false,
+          type: 'armor',
+          description: 'Test with multiple dependencies',
+          'addon-name': 'ember-try'
+
+        },
+        relationships: {}
+      },
 
 
       // Other
       {
-        id: 100,
+        id: 300,
         type: 'inventory-item',
         attributes: {
-          listorder: 1,
+          listorder: 2,
           name: 'Tarnished Ring',
           price: 50,
           owned: true,
@@ -405,7 +494,7 @@ export class InventoryItems {
         relationships: {}
       },
       {
-        id: 101,
+        id: 310,
         type: 'inventory-item',
         attributes: {
           listorder: 5,
@@ -417,15 +506,17 @@ export class InventoryItems {
           type: 'other',
           description: '"The solution to so many problems you never knew you had."',
 
-          codeimg: '/code/reloadHealthTask.png',
+          codeimg: '/code/example_concurrency.png',
           'example-title': 'Ember Concurrency Example',
           'addon-name': 'ember-concurrency'
+          // codeimg: '/code/example_sample_tasks.png',
+          // 'example-title': 'Sample Concurrency Tasks',
 
         },
         relationships: {}
       },
       {
-        id: 102,
+        id: 320,
         type: 'inventory-item',
         attributes: {
           listorder: 10,
@@ -435,17 +526,20 @@ export class InventoryItems {
           img: '/images/items/other/amuletorange.png',
           locked: false,
           type: 'other',
-          description: ''
+          description: '',
+          codeimg: '/code/example_sample_tasks.png',
+          'example-title': 'Sample Concurrency Tasks',
+
         },
         relationships: {}
       },
       {
-        id: 103,
+        id: 330,
         type: 'inventory-item',
         attributes: {
           listorder: 15,
           name: 'Ice Amulet',
-          price: 50,
+          price: 75,
           owned: false,
           img: '/images/items/other/amuletblue.png',
           locked: false,
@@ -455,7 +549,7 @@ export class InventoryItems {
         relationships: {}
       },
       {
-        id: 104,
+        id: 340,
         type: 'inventory-item',
         attributes: {
           listorder: 20,
@@ -470,25 +564,7 @@ export class InventoryItems {
         relationships: {}
       },
       {
-        id: 105,
-        type: 'inventory-item',
-        attributes: {
-          listorder: 25,
-          name: 'Mirage',
-          price: 250,
-          owned: false,
-          img: '/images/items/other/omnioculars.png',
-          locked: false,
-          type: 'other',
-          description: '',
-          codeimg: '/code/reloadHealthTask.png',
-          'example-title': 'Ember CLI Mirage Example',
-          'addon-name': 'ember-cli-mirage'
-        },
-        relationships: {}
-      },
-      {
-        id: 106,
+        id: 350,
         type: 'inventory-item',
         attributes: {
           listorder: 30,
@@ -503,7 +579,7 @@ export class InventoryItems {
         relationships: {}
       },
       {
-        id: 107,
+        id: 360,
         type: 'inventory-item',
         attributes: {
           listorder: 35,
@@ -518,36 +594,34 @@ export class InventoryItems {
         relationships: {}
       },
       {
-        id: 108,
+        id: 370,
         type: 'inventory-item',
         attributes: {
-          listorder: 40,
+          listorder: 9,
           name: 'Wand of Wishing',
-          price: 1200,
+          price: 400,
           owned: false,
           img: '/images/items/other/wand_of_wishing.png',
           locked: false,
           type: 'other',
-          description: '',
-          codeimg: '/code/reloadHealthTask.png',
-          'example-title': 'Ember Auto Import Example',
+          description: 'Zero config import from npm packages',
           'addon-name': 'ember-auto-import'
 
         },
         relationships: {}
       },
       {
-        id: 109,
+        id: 380,
         type: 'inventory-item',
         attributes: {
-          listorder: 2,
+          listorder: 1,
           name: 'Babel Fish',
           price: 1200,
           owned: true,
           img: '/images/items/other/babelfish.png',
           locked: false,
           type: 'other',
-          description: 'Put in next-gen JavaScript. Get browser-compatible JavaScript out',
+          description: 'Put in next-gen JavaScript. Get browser-compatible JavaScript out.',
           'addon-name': 'ember-cli-babel'
 
         },
@@ -566,7 +640,7 @@ export class InventoryItems {
           img: '/images/items/tomes/tome1.png',
           locked: false,
           type: 'tome',
-          description: ''
+          description: '<div class="nowrap">Happy EmberConf Emberistas!</div><br /><div class="center table emberistas">🐹 🐹 🐹</div>'
         },
         relationships: {}
       },
@@ -581,7 +655,7 @@ export class InventoryItems {
           img: '/images/items/tomes/tome2.png',
           locked: false,
           type: 'tome',
-          description: ''
+          description: 'Ask questions and chat with community members in real-time.'
         },
         relationships: {}
       },
@@ -596,7 +670,13 @@ export class InventoryItems {
           img: '/images/items/tomes/tome3.png',
           locked: false,
           type: 'tome',
-          description: ''
+          description: 'Shout out to the entire Ember Core Learning Team. Thank you!',
+          stats: [
+            {
+              title: 'Knowledge',
+              desc: '100+'
+            }
+          ]
         },
         relationships: {}
       }

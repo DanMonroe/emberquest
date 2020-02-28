@@ -2,22 +2,20 @@
 import Player from "./player";
 import BasePhaserAgentContainer from "../base-phaser-agent-container";
 import {tracked} from '@glimmer/tracking';
-import {timeout} from 'ember-concurrency';
-import {task} from 'ember-concurrency-decorators';
 
 export default class PlayerContainer extends BasePhaserAgentContainer {
 
   // scene = undefined;
   // ember = undefined;
 
-@tracked maxHealth;
-@tracked health;
-@tracked maxPower;
-@tracked power;
-@tracked healingSpeed = 3000;
-@tracked healingPower = 2;
-@tracked energizeSpeed = 2000;
-@tracked energizePower = 2;
+// @tracked maxHealth;
+// @tracked health;
+// @tracked maxPower;
+// @tracked power;
+// @tracked healingSpeed = 3000;
+// @tracked healingPower = 2;
+// @tracked energizeSpeed = 2000;
+// @tracked energizePower = 2;
   @tracked boardedTransport;
 
 
@@ -47,12 +45,13 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
     this.playerAttacking = false;
     // this.flipX = true;
     // this.swordHit = false;
-    this.health = config.health;
+    this.health = config.health || 5;
     this.maxHealth = config.maxHealth;
     this.power = config.power;
     this.maxPower = config.maxPower;
     this.attackAudio = config.attackAudio;
 
+    this.showPowerBar = true;
     // this.healingSpeed = 1000;
     // this.healingPower = 3;
 
@@ -175,9 +174,10 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
   }
 
   update(cursors) {
-    this.moveTo(cursors);
-    // this.updateHealthBar();
-    this.baseUpdate();
+    if (!this.ember.gameManager.gamePaused) {
+      this.moveTo(cursors);
+      this.baseUpdate();
+    }
   }
 
   createHealthBar() {
@@ -191,7 +191,7 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
     this.healthBar.clear();
     this.healthBar.fillStyle(0xffffff, 0.4);
     this.healthBar.fillRect(this.x + this.ember.constants.healthBarOffsetX, this.y + this.ember.constants.healthBarOffsetY, this.ember.constants.healthBarWidth, this.ember.constants.healthBarHeight);
-    this.healthBar.fillStyle(healthPercentage <- this.ember.constants.healthBarColorTippingPoint ? this.ember.constants.healthBarColorDanger : this.ember.constants.healthBarColorGood, 1);
+    this.healthBar.fillStyle(healthPercentage <= this.ember.constants.healthBarColorTippingPoint ? this.ember.constants.healthBarColorDanger : this.ember.constants.healthBarColorGood, 1);
     this.healthBar.fillRect(this.x + this.ember.constants.healthBarOffsetX, this.y + this.ember.constants.healthBarOffsetY, this.ember.constants.healthBarWidth * healthPercentage, this.ember.constants.healthBarHeight);
 
     const powerPercentage = (this.power / this.maxPower);

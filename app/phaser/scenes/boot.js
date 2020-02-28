@@ -30,8 +30,8 @@ export class BootScene extends Phaser.Scene {
     this.load.image('monsters', '/images/monsters/spider.png');
     this.load.image('galleon', '/images/agents/galleon.svg');
     this.load.image('vue', '/images/agents/vue.png');
-    this.load.image('projectile', '/images/items/ballBlack_04.png');
 
+    this.load.image('ball', '/images/items/ballBlack_04.png');
     this.load.image('bullet', '/images/items/bullet7.png');
   }
 
@@ -45,7 +45,9 @@ export class BootScene extends Phaser.Scene {
 
   loadAudio() {
     this.load.audio('pickup', ['/audio/pickup.wav']);
-    this.load.audio('music1', ['/audio/warframe_ost.mp3']);
+    this.load.audio('music1', ['/audio/uncharted_territory_justin_monroe.mp3']);
+    // this.load.audio('music1', ['/audio/warframe_ost.mp3']);
+
     // this.load.audio('enemyDeath', ['assets/audio/EnemyDeath.wav']);
     // this.load.audio('playerAttack', ['assets/audio/PlayerAttack.wav']);
     // this.load.audio('playerDamage', ['assets/audio/PlayerDamage.wav']);

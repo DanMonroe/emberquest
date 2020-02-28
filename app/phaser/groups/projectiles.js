@@ -1,21 +1,22 @@
 import Phaser from 'phaser';
-import Projectile from './projectile';
+// import Projectile from './projectile';
 
   // constructor (world, scene, children) {
     // super(world, scene, children);
 
 export default class Projectiles extends Phaser.Physics.Arcade.Group {
-  constructor (world, scene) {
+  constructor (world, scene, config) {
     super(world, scene);
     this.scene = scene;
 
-    this.createMultiple({
-      frameQuantity: 3,
-      key: 'bullet',
-      active: false,
-      visible: false,
-      classType: Projectile
-    });
+    this.createMultiple(config);
+    // this.createMultiple({
+    //   frameQuantity: 3,
+    //   key: 'bullet',
+    //   active: false,
+    //   visible: false,
+    //   classType: Projectile
+    // });
   }
 
   fireProjectile(attackerXYZ, radian){
@@ -35,7 +36,17 @@ export default class Projectiles extends Phaser.Physics.Arcade.Group {
     projectile.setVelocity(0);
     projectile.disableBody();
     console.log('enemy.takeDamage', projectile)
-    enemy.takeDamage(projectile);
+    enemy.takeDamage(projectile, enemy);
+  }
+
+  // playerCollision (projectile, player) {
+  playerCollision (player, projectile) {  // why is this reversed?
+    projectile.active = false;
+    projectile.visible = false;
+    projectile.setVelocity(0);
+    projectile.disableBody();
+    console.log('player.takeDamage', projectile)
+    player.takeDamage(projectile, player);
   }
 
   fireProjectileBad(attackerXYZ, radian){

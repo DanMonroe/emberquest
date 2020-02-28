@@ -1,0 +1,34 @@
+<div class="victoryDialog">
+  <div class="background_wrapper death">
+    <div class="btn close-btn-x" {{on "click" (fn @close true)}}>X</div>
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <div id="death-header" class="">
+          <img class="death" src="/images/death.png" draggable="false">
+        </div>
+      </div>
+
+      <div class="modal-body">
+
+
+
+        <div class="message-wrapper">
+          <div class="message">
+            You have failed!
+
+          </div>
+        </div>
+
+      </div>
+
+
+
+      <div class="modal-footer">
+        <div class="next-level-buttons">
+          <button class="btn styled btn-green" type="button" {{on "click" (fn @close true)}}>Continue</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

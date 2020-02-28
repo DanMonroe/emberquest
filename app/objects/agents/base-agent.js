@@ -1,13 +1,26 @@
+// // objects/agents/base-agent.js
+//
+// import { tracked } from '@glimmer/tracking';
+//
+// export class BaseAgent {
+//
+//   @tracked health;
+//   @tracked maxHealth;
+//   @tracked healingSpeed;
+//   @tracked healingIncrement;
+// }
+// objects/agents/base-agent.js
+
 import { tracked } from '@glimmer/tracking';
 
 export class BaseAgent {
 
-  @tracked maxHealth;
   @tracked health;
-  @tracked maxPower;
-  @tracked power;
+  @tracked maxHealth;
   @tracked healingSpeed;
   @tracked healingPower;
+  @tracked power;
+  @tracked maxPower;
   @tracked energizeSpeed = 2000;
   @tracked energizePower = 2;
 

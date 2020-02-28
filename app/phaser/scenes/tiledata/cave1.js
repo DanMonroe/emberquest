@@ -33,7 +33,9 @@ export default {
           visiblePoints: 8,   // this is sight/movement Range
           health: 100,
           maxHealth: 200,
-          power: 20,
+          power: 15,
+          healingPower: 10,
+          // power: 20,
           maxPower: 200,
           flagAttributes: {
             sightFlags: 0,
@@ -50,7 +52,19 @@ export default {
               // {x: 20, y: 11}, {x: 19, y: 14}
               {x: 21, y: 20}, {x: 23, y: 18}
             ]
-          }
+          },
+          weapons: [  // this should be an id from the inventory items
+            {
+              minDistanceForHit: 10,
+              type: 'bullet',
+              damage: 1,
+              speed: 8, // projectile speed
+              poweruse: 2,
+              accuracy: 0.05, // percentage 0 (always accurate) - 1 (shoot any direction)
+              fireDelay: 500,
+              reloadDelay: 1000  // lower is faster
+            }
+          ]
         }
 
       ]
