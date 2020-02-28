@@ -101,10 +101,10 @@ export default class InventoryDialogComponent extends Component {
     }
   }
 
-  @action
-  showCodeExample(item) {
-    console.log('code example', item);
-    // this.close()
-    this.game.closeCurrentAndOpenNewModal(item);
-  }
+  // @action
+  // showCodeExample(item) {
+  //   console.log('code example', item);
+  //   // this.close(item)
+  //   this.game.closeCurrentAndOpenNewModal(item);
+  // }
 }

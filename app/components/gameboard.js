@@ -70,8 +70,9 @@ export default class GameboardComponent extends Component {
   async showDialog(epmModalContainerClass, dialogComponent, options) {
     this.emberGameService.gameManager.pauseGame(true);
     this.emberGameService.epmModalContainerClass = epmModalContainerClass;
-    await this.modals.open(dialogComponent, options);
+    let modalResult = await this.modals.open(dialogComponent, options);
     this.emberGameService.gameManager.pauseGame(false);
+    return modalResult;
   }
 
   @action
@@ -81,7 +82,10 @@ export default class GameboardComponent extends Component {
 
   @action
   async showInventory() {
-    await this.showDialog('inventory', 'inventory-dialog', this.args.inventoryItems);
+    let modalResult = await this.showDialog('inventory', 'inventory-dialog', this.args.inventoryItems);
+    if (modalResult && modalResult.codeimg) { // emberconf.. show code example
+      await this.showDialog('code-example', 'code-example-dialog', modalResult);
+    }
   }
 
   @action
@@ -90,16 +94,16 @@ export default class GameboardComponent extends Component {
   }
 
   // for use for EmberConf.  item is for code example
-  async closeCurrentAndOpenNewModal(item) {
+  // async closeCurrentAndOpenNewModal(item) {
     // this.emberGameService.gameManager.pauseGame(true);
     // console.log('closeCurrentAndOpenNewModal', item);
-    await this.modals.top.close();
-    await this.showDialog('code', 'code-dialog', item);
+    // await this.modals.top.close();
+    // await this.showDialog('code', 'code-dialog', item);
 
     // this.emberGameService.epmModalContainerClass = 'code-example';
     // await this.modals.open('code-example-dialog', item);
     // this.emberGameService.gameManager.pauseGame(false);
-  }
+  // }
 
   @action
   async clickGems() {

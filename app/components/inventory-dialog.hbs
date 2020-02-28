@@ -1,7 +1,7 @@
 <div class="inventoryDialog">
   <h2 class="title title-text">Inventory</h2>
   <div class="player-gems"><span  class="gems-count big-font">{{this.game.gameManager.player.playerCoins}}</span></div>
-  <div class="btn close-btn-x" {{action @close true}}>X</div>
+  <div class="btn close-btn-x" {{action @close}}>X</div>
   <div class="left-nav absolute">
     {{#each this.leftNavItems as |navItem|}}
       <button class="btn{{if (eq this.currentNavCategory.text navItem.text) " active"}}" type="button" {{on "click" (fn this.pickCategory navItem)}}><img src={{navItem.img}}/><span class="big-font">{{navItem.text}}</span></button>
@@ -71,7 +71,7 @@
 
               {{#if this.itemSelected.codeimg}}
                 <div dir="auto" class="item-code-example">
-                  <button class="btn styled btn-primary" type="button" {{on "click" (fn this.showCodeExample this.itemSelected)}}>Code Example</button>
+                  <button class="btn styled btn-primary" type="button" {{on "click" (fn @close  this.itemSelected)}}>Code Example</button>
                 </div>
               {{/if}}
 

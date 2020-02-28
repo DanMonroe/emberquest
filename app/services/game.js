@@ -200,12 +200,12 @@ export default class GameService extends Service {
     }
   }
 
-  // for use for EmberConf.  item is for code example
-  async closeCurrentAndOpenNewModal(item) {
-    console.log('closeCurrentAndOpenNewModal', item);
-    // debugger;
-    await this.modals.top.close();
-    this.epmModalContainerClass = 'code-example';
-    await this.modals.open('code-example-dialog', item);
-  }
+  // // for use for EmberConf.  item is for code example
+  // async closeCurrentAndOpenNewModal(item) {
+  //   console.log('closeCurrentAndOpenNewModal', item);
+  //   // debugger;
+  //   await this.modals.top.close();
+  //   this.epmModalContainerClass = 'code-example';
+  //   await this.modals.open('code-example-dialog', item);
+  // }
 }

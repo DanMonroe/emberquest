@@ -8,7 +8,7 @@ export default class GameManagerService extends Service {
   @service modals;
 
   @tracked player;
-  @tracked volume = 1;
+  @tracked volume = 0;
 
   @tracked gamePaused = true;
 
