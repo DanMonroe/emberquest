@@ -88,7 +88,8 @@ export default class ConstantsService extends Service {
       IMPASSABLE: {value: 1, description: 'Impassable'}
     },
     SPECIAL: {
-      DOCK: {value: 1, description: 'Dock'}
+      DOCK: {value: 1, description: 'Dock'},
+      PORTAL: {value: 2, description: 'Portal'}
     }
   };
 

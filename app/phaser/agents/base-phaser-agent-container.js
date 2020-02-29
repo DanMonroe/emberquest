@@ -25,7 +25,6 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
   constructor(scene, config) {
 
     super(scene, 0, 0);
-// debugger;
     this.scene = scene;
     this.board = scene.board;
     this.ember = this.scene.game.ember;

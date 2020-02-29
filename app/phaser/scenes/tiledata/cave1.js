@@ -2,7 +2,7 @@
 export default {
 
   player: {
-    startX: 24,
+    startX: 23,
     startY: 14
   },
 
@@ -11,7 +11,7 @@ export default {
   // cave2_fast ends at x:18, y:17
 
   spawnLocations : {
-    players: [{x: 24, y: 14}], // tiles where the player may spawn
+    players: [{x: 23, y: 14}], // tiles where the player may spawn
     transports: {
       spawnInterval: 3000,
       limit: 1,
@@ -518,7 +518,7 @@ export default {
       {'row': 14, 'col': 21, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'special': 0, 'wesnoth': 'Uu'},
       {'row': 14, 'col': 22, 'sightCost': 7, 'sightFlags': 1, 'speedCost': 1, 'travelFlags': 8, 'special': 0, 'wesnoth': 'Xu'},
       {'row': 14, 'col': 23, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'special': 0, 'wesnoth': 'Qxu^Bh\\'},
-      {'row': 14, 'col': 24, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'special': 0, 'wesnoth': 'Qxu^Bh\\'},
+      {'row': 14, 'col': 24, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'special': {value:2,map:'landsea',x:1,y:5}, 'wesnoth': 'Qxu^Bh\\'},
       {'row': 14, 'col': 25, 'sightCost': 7, 'sightFlags': 1, 'speedCost': 1, 'travelFlags': 8, 'special': 0, 'wesnoth': 'Xu'},
       {'row': 14, 'col': 26, 'sightCost': 7, 'sightFlags': 1, 'speedCost': 1, 'travelFlags': 8, 'special': 0, 'wesnoth': 'Xu'},
       {'row': 14, 'col': 27, 'sightCost': 7, 'sightFlags': 1, 'speedCost': 1, 'travelFlags': 8, 'special': 0, 'wesnoth': 'Xu'},

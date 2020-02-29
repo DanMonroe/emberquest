@@ -3,8 +3,8 @@ import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
 import localforage from 'localforage';
 
-import MapData from '../phaser/scenes/tiledata/cave1'
-// import MapData from '../phaser/scenes/tiledata/landsea'
+// import MapData from '../phaser/scenes/tiledata/cave1'
+// // import MapData from '../phaser/scenes/tiledata/landsea'
 
 import {Player} from "../objects/agents/player";
 import {Transport} from "../objects/agents/transport";
@@ -27,44 +27,75 @@ export default class GameService extends Service {
 
 
   @tracked sceneData = [];
+  @tracked gameData = undefined;
 
   // @tracked playerCoins = 3163;
 
-  getMapData() {
-    return MapData;
-  }
+  // getMapData() {
+  //   return MapData;
+  // }
 
-  saveSceneData(scene) {
-    const sceneKey = scene.scene.key;
+  async saveSceneData(scene) {
+    // debugger;
+    const mapname = scene.mapname;
+    // const sceneKey = scene.scene.key;
 
-    const currentData = this.sceneData[sceneKey] || {};
+    const currentMapData = this.sceneData[mapname] || {};
+    // const currentData = this.sceneData[sceneKey] || {};
+
+    let gameData = await this.loadGameData('gameboard');
+    if (!gameData) {
+      gameData = { 'currentMap': 'cave1', sceneData: [] };
+    } else {
+      gameData.currentMap = mapname;
+    }
 
     const transports = [];
-    scene.transports.children.entries.forEach(transport => {
-      transports.push({
-        'id': transport.id,
-        'tile': transport.rexChess.tileXYZ
-      })
-    });
+    if (scene.transports.children) {
+      scene.transports.getChildren().forEach(transport => {
+      // scene.transports.children.entries.forEach(transport => {
+        transports.push({
+          'id': transport.id,
+          'tile': transport.rexChess.tileXYZ,
+          'texture': transport.texture
+        })
+      });
+    }
 
-    // children.entries[""0""].rexChess
-    Object.assign(currentData, {
-      'playerTile': scene.player.container.rexChess.tileXYZ,
-      'playerAttrs': scene.player.container.data.get('attrs'),
+    Object.assign(currentMapData, {
+      'map': mapname,
+      // 'playerTile': scene.player.container.rexChess.tileXYZ,
+      // 'playerAttrs': scene.player.container.data.get('attrs'),
       'seenTiles': scene.allSeenTiles,
       'transports': transports
     });
 
-    this.saveGameData(sceneKey, currentData);
+    this.sceneData[mapname] = currentMapData;
+
+    Object.assign(gameData, {
+      'playerTile': scene.player.container.rexChess.tileXYZ,
+      'playerAttrs': scene.player.container.data.get('attrs'),
+      sceneData: this.sceneData
+    });
+
+    // gameData.sceneData = this.sceneData;
+
+    await this.saveGameData('gameboard', gameData);
   }
 
-  saveGameData(key, value) {
-    localforage.setItem(key, value)
+  async saveGameData(key, value) {
+    await localforage.setItem(key, value)
       .then((value) => {
       // console.log('done saving', value)
     }).catch((err) => {
       console.error(err);
     });
+  }
+
+  async loadSceneData(sceneMapName) {
+    const gameData = await this.loadGameData('gameboard');
+    const currentSceneData = gameData.sceneData[sceneMapName] || {};
+    return currentSceneData;
   }
 
   async loadGameData(key) {
@@ -114,22 +145,40 @@ export default class GameService extends Service {
     return transport.container;
   }
 
-  processPlayerMove(player) {
-    if (player.disembarkTransport) {
-      this.turnOffPlayerTravelAbilityFlag(player, this.constants.FLAGS.TRAVEL.SEA);
-      this.turnOnPlayerTravelAbilityFlag(player, this.constants.FLAGS.TRAVEL.LAND);
+  processPlayerMove(playerContainer, moveTo) {
+    if (playerContainer.disembarkTransport) {
+      this.turnOffPlayerTravelAbilityFlag(playerContainer, this.constants.FLAGS.TRAVEL.SEA);
+      this.turnOnPlayerTravelAbilityFlag(playerContainer, this.constants.FLAGS.TRAVEL.LAND);
 
-      player.boardedTransport = undefined;
-      player.disembarkTransport = false;
-    } else if (player.embarkTransport) {
-      player.boardedTransport = player.transportToBoard;
+      playerContainer.boardedTransport = undefined;
+      playerContainer.disembarkTransport = false;
+    } else if (playerContainer.embarkTransport) {
+      playerContainer.boardedTransport = playerContainer.transportToBoard;
 
-      this.turnOffPlayerTravelAbilityFlag(player, this.constants.FLAGS.TRAVEL.LAND);
-      this.turnOnPlayerTravelAbilityFlag(player, this.constants.FLAGS.TRAVEL.SEA);
+      this.turnOffPlayerTravelAbilityFlag(playerContainer, this.constants.FLAGS.TRAVEL.LAND);
+      this.turnOnPlayerTravelAbilityFlag(playerContainer, this.constants.FLAGS.TRAVEL.SEA);
 
-      player.embarkTransport = false;
-      player.transportToBoard = undefined;
+      playerContainer.embarkTransport = false;
+      playerContainer.transportToBoard = undefined;
     }
+    // debugger;
+    let tileIsPortal = moveTo.scene.game.ember.map.tileIsPortal(moveTo.scene, playerContainer.rexChess.tileXYZ);
+
+    if (tileIsPortal) {
+      moveTo.scene.cameras.main.fade(500, 0, 0, 0);
+      moveTo.scene.cameras.main.on('camerafadeoutcomplete', async () => {
+
+        const sceneData = await this.loadSceneData(tileIsPortal.map)
+        moveTo.scene.scene.restart({
+          'map': tileIsPortal.map,
+          'storedPlayerTile': { x: tileIsPortal.x || 10, y: tileIsPortal.y || 10 },
+          'storedPlayerAttrs': moveTo.scene.player.container.data.get('attrs'),
+          'allSeenTiles': sceneData.seenTiles || new Set(),
+          'storedTransports': sceneData.transports || new Set()
+        });
+      });
+    }
+
   }
 
   playerHasAbilityFlag(playerObj, type, flag) {

@@ -285,7 +285,7 @@ export default {
     [
       {'row': 5, 'col': 0, 'sightCost': 7, 'sightFlags': 0, 'speedCost': 0.3, 'travelFlags': 8, 'wesnoth': 'Md^Xm'},
       {'row': 5, 'col': 1, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 0.9, 'travelFlags': 6, 'wesnoth': 'Aa'},
-      {'row': 5, 'col': 2, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'wesnoth': 'Kud'},
+      {'row': 5, 'col': 2, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'wesnoth': 'Kud','special':{value:2,map:'cave1',x:23,y:14}},
       {'row': 5, 'col': 3, 'sightCost': 7, 'sightFlags': 0, 'speedCost': 0.3, 'travelFlags': 8, 'wesnoth': 'Md^Xm'},
       {'row': 5, 'col': 4, 'sightCost': 7, 'sightFlags': 0, 'speedCost': 0.3, 'travelFlags': 8, 'wesnoth': 'Md^Xm'},
       {'row': 5, 'col': 5, 'sightCost': 7, 'sightFlags': 0, 'speedCost': 0.3, 'travelFlags': 8, 'wesnoth': 'Md^Xm'},

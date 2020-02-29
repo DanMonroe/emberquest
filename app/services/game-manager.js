@@ -86,11 +86,11 @@ export default class GameManagerService extends Service {
   }
 
   setupSpawners() {
-    this.spawnerService.setup(this.scene, this.scene.MapData.spawnLocations);
+    this.spawnerService.setup(this.scene, this.scene.mapData.spawnLocations);
   }
 
   spawnPlayer() {
-    const playerTile = this.storedData.storedPlayerTile ? {x: this.storedData.storedPlayerTile.x, y: this.storedData.storedPlayerTile.y} : {x: this.scene.MapData.player.startX, y: this.scene.MapData.player.startY};
+    const playerTile = this.storedData.storedPlayerTile ? {x: this.storedData.storedPlayerTile.x, y: this.storedData.storedPlayerTile.y} : {x: this.scene.mapData.player.startX, y: this.scene.mapData.player.startY};
 
     this.playerConfig = {
       playerX: playerTile.x,

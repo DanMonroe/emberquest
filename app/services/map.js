@@ -1,10 +1,29 @@
 import Service from '@ember/service';
 import { inject as service } from '@ember/service';
-import localforage from "localforage";
+import cave1 from '../phaser/scenes/tiledata/cave1';
+import landsea from '../phaser/scenes/tiledata/landsea'
 
 export default class MapService extends Service {
 
   @service constants;
+
+  getMapData(mapToLoad) {
+    switch (mapToLoad) {
+      case 'cave1':
+        return cave1;
+      case 'landsea':
+        return landsea;
+      default:
+        return null;
+    }
+  }
+  // async getMapDataBad(mapToLoad) {
+  //   const mappath = '../phaser/scenes/tiledata/'+mapToLoad;
+  //   console.log(mappath)
+  //   // return await import(mappath);
+  //   return await import('../phaser/scenes/tiledata/cave1');
+  // }
+
 
   getHexagonGrid(scene) {
     return scene.rexBoard.add.hexagonGrid({
@@ -199,6 +218,17 @@ export default class MapService extends Service {
 // debugger;
     }
   }
+
+  tileIsPortal(scene, tileXY) {
+    const specialAttr = this.getTileAttribute(scene, tileXY, 'special')
+      if (!specialAttr) {
+      return undefined;
+    }
+    if( (specialAttr.value & this.constants.FLAGS.SPECIAL.PORTAL.value) === this.constants.FLAGS.SPECIAL.PORTAL.value);
+    return specialAttr;
+    // return specialAttr.value & this.constants.FLAGS.SPECIAL.PORTAL.value;
+  }
+
 
   tileIsDock(scene, tileXY) {
     return this.getTileAttribute(scene, tileXY, 'special') & this.constants.FLAGS.SPECIAL.DOCK.value;

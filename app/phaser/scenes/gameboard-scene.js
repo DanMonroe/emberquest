@@ -7,7 +7,7 @@ import Projectile from "../groups/projectile";
 export class GameboardScene extends Phaser.Scene {
 
   ember = undefined;
-  MapData = undefined;
+  mapData = undefined;
   lastSeenTiles = new Set();
   allSeenTiles = new Set();
 
@@ -36,6 +36,8 @@ export class GameboardScene extends Phaser.Scene {
   }
 
   init(data){
+    // console.log('gameboard init', data)
+    this.mapname = data.map;
     this.storedData = data;
     this.storedPlayerTile = data.storedPlayerTile;
     this.allSeenTiles = data.allSeenTiles || new Set();
@@ -45,8 +47,9 @@ export class GameboardScene extends Phaser.Scene {
 
   preload() {
     this.ember = this.game.ember;
-    this.MapData = this.ember.getMapData();
-    this.load.image('map', this.MapData.mapUrl);
+    this.mapData = this.ember.map.getMapData(this.mapname);
+    this.textures.remove('map');
+    this.load.image('map', this.mapData.mapUrl);
   }
 
   create() {
@@ -56,7 +59,8 @@ export class GameboardScene extends Phaser.Scene {
     this.createAudio();
     this.createGroups();
     this.createGameManager();
-    // this.boardExperiments();
+    this.boardExperiments();
+    this.ember.saveSceneData(this);
 
 
     this.musicAudio.play();
@@ -66,11 +70,11 @@ export class GameboardScene extends Phaser.Scene {
     // just a place to try new stuff out
 
     // click end tileXY to get info in console
-    // this.board.on('tiledown',  (pointer, tileXY) => {
-    //   const allAttrs = this.ember.map.getTileAttribute(this, tileXY);
-    //   const clickedShape = this.board.tileXYToChessArray(tileXY.x, tileXY.y);
-    //   console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.player.container));
-    // });
+    this.board.on('tiledown',  (pointer, tileXY) => {
+      const allAttrs = this.ember.map.getTileAttribute(this, tileXY);
+      const clickedShape = this.board.tileXYToChessArray(tileXY.x, tileXY.y);
+      console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.player.container));
+    });
   }
 
   createGameManager() {
@@ -162,7 +166,7 @@ export class GameboardScene extends Phaser.Scene {
 
   spawnTransport(transportObj) {
     const storedTransport = this.ember.findTransportFromArrayById(this.storedTransports, transportObj.objectConfig.id);
-    if (storedTransport) {
+    if (storedTransport && storedTransport.tile) {
       transportObj.objectConfig.x = storedTransport.tile.x;
       transportObj.objectConfig.y = storedTransport.tile.y;
     }
@@ -202,12 +206,12 @@ export class GameboardScene extends Phaser.Scene {
   }
 
   createBoard() {
-    const mapData = this.ember.getMapData();
+    // const mapData = this.ember.getMapData();
     this.board = this.ember.map.createBoard(this, {
       grid: this.ember.map.getHexagonGrid(this),
-      width: mapData.sceneTiles[0].length,
-      height: mapData.sceneTiles.length,
-      sceneTiles: mapData.sceneTiles,
+      width: this.mapData.sceneTiles[0].length,
+      height: this.mapData.sceneTiles.length,
+      sceneTiles: this.mapData.sceneTiles,
       allSeenTiles: this.allSeenTiles,
       showHexInfo: this.ember.showHexInfo
     });

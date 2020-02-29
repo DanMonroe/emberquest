@@ -87,18 +87,20 @@ export default class AgentContainer extends BasePhaserAgentContainer {
 
     // TODO Seems like the health bar should also be set when the container is set??
 
-    const isInLOS = agentContainer.ember.playerContainer.fov.isInLOS(agentContainer.rexChess.tileXYZ);
+    if (agentContainer.rexChess.tileXYZ) {
+      const isInLOS = agentContainer.ember.playerContainer.fov.isInLOS(agentContainer.rexChess.tileXYZ);
 
-    agentContainer.setVisibilityIfInLineOfSight(agentContainer, isInLOS);
+      agentContainer.setVisibilityIfInLineOfSight(agentContainer, isInLOS);
 
-    if (isInLOS) {
-      const shouldPursue = agentContainer.checkAggression(agentContainer);
+      if (isInLOS) {
+        const shouldPursue = agentContainer.checkAggression(agentContainer);
 
-      if (shouldPursue) {
-        agentContainer.transitionToPursuit();
-      } else {
-        // return to patrol
-        agentContainer.transitionToPatrol();
+        if (shouldPursue) {
+          agentContainer.transitionToPursuit();
+        } else {
+          // return to patrol
+          agentContainer.transitionToPatrol();
+        }
       }
     }
   }

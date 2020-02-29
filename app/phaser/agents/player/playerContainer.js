@@ -250,9 +250,9 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
   moveToComplete(playerContainer, moveTo) {
     // console.log('move complete');
     moveTo.scene.game.ember.saveSceneData(moveTo.scene);
-    moveTo.scene.game.ember.saveGameData("playerTile", playerContainer.rexChess.tileXYZ);
+    // moveTo.scene.game.ember.saveGameData("playerTile", playerContainer.rexChess.tileXYZ);
     moveTo.scene.game.ember.map.findFOV(playerContainer);
-    moveTo.scene.game.ember.processPlayerMove(playerContainer);
+    moveTo.scene.game.ember.processPlayerMove(playerContainer, moveTo);
   }
 
 
