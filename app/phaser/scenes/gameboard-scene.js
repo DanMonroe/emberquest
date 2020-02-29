@@ -44,7 +44,7 @@ export class GameboardScene extends Phaser.Scene {
   }
 
   preload() {
-    this.ember = this.game.emberGame;
+    this.ember = this.game.ember;
     this.MapData = this.ember.getMapData();
     this.load.image('map', this.MapData.mapUrl);
   }
@@ -116,7 +116,7 @@ export class GameboardScene extends Phaser.Scene {
       this.ember.gameManager.attack(tileXY, clickedShape, this.player.container);
     });
 
-    this.game.emberGame.gameManager.setup(this);
+    this.game.ember.gameManager.setup(this);
   }
 
   spawnPlayer(playerObject) {

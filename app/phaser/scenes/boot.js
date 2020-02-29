@@ -11,7 +11,7 @@ export class BootScene extends Phaser.Scene {
   }
 
   preload() {
-    this.ember = this.game.emberGame;
+    this.ember = this.game.ember;
 
     // load images
     this.loadImages();
@@ -56,7 +56,7 @@ export class BootScene extends Phaser.Scene {
 
   create() {
 
-    this.game.emberGame.loadGameData("gameboard")
+    this.game.ember.loadGameData("gameboard")
         .then(gameboardData => {
           // console.log('gameboardData', gameboardData);
           this.scene.start('gameboard',  gameboardData ?

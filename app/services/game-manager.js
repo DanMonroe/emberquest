@@ -207,6 +207,9 @@ export default class GameManagerService extends Service {
   async enemyVictory(enemy) {
     this.pauseGame(true);
     // debugger;
+    enemy.agentState = this.ember.constants.AGENTSTATE.DEAD;
+    enemy.healthBar.destroy();
+    enemy.destroy();
     this.ember.epmModalContainerClass = 'victory';
     await this.modals.open('victory-dialog', {foo:'bar'});
     this.pauseGame(false);

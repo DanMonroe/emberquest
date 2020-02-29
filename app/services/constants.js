@@ -61,7 +61,8 @@ export default class ConstantsService extends Service {
     MISSILE: 3,
     SEARCHING: 4,
     FLEEING: 5,
-    FINDHELP: 6
+    FINDHELP: 6,
+    DEAD: 7
   };
 
   PATROLMETHOD = {

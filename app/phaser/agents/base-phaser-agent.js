@@ -10,7 +10,7 @@ export default class BasePhaserAgent extends Phaser.Physics.Arcade.Sprite {
 
     this.scene = scene;
     this.board = scene.board;
-    this.ember = this.scene.game.emberGame;
+    this.ember = this.scene.game.ember;
 
     // enable physics
     this.scene.physics.world.enable(this);

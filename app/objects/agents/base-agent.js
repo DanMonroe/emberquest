@@ -30,7 +30,7 @@ export class BaseAgent {
 
     this.scene = scene;
     this.board = scene.board;
-    this.ember = this.scene.emberGame;
+    this.ember = this.scene.ember;
 
     this.id = config.id;
 
