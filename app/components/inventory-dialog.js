@@ -55,9 +55,9 @@ export default class InventoryDialogComponent extends Component {
   }
 
   resetAllToUnlock() {
-    if (this.items) {
-      this.items.forEach(item => {
-        item.unlockText = 'Buy';
+    if (this.inventoryItems) {
+      this.inventoryItems.forEach(item => {
+        // item.unlockText = 'Buy';
         item.confirmUnlock = false;
       });
     }
@@ -79,21 +79,22 @@ export default class InventoryDialogComponent extends Component {
   @action
   selectItem(item) {
     // console.log(item);
-    if(this.itemSelected) {
-      this.itemSelected.confirmUnlock = false;
-      // this.itemSelected.set('unlockText','Unlock');
-    };
+    // if(this.itemSelected) {
+      // this.itemSelected.confirmUnlock = false;
+    // }
     this.itemSelected = item;
   }
 
   @action
   unlockItem(item) {
     if (item.price <= this.game.gameManager.player.playerCoins) {
-      if (item.confirmUnlock) {
+      if (item.confirmUnlock === true) {
+        // console.log('buy')
           this.inventory.buyInventory(item);
           item.owned = true;
       } else {
-        item.unlockText ='Confirm';
+        // console.log('confirm', item.confirmUnlock)
+        // item.unlockText ='Confirm';
         item.confirmUnlock = true;
       }
     } else {

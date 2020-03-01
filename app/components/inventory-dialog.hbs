@@ -26,7 +26,9 @@
                 <span class="big-font owned">Owned</span>
               {{else}}
                 <span class="cost"><img src="/images/gem.png"><span class="big-font">{{item.price}}</span></span>
-                <button class="btn unlock-button big-font{{if item.confirmUnlock " confirm"}}{{if (gt item.price this.game.gameManager.player.playerCoins) " too-expensive"}}" {{on "click" (fn this.unlockItem item)}}><span>{{item.unlockText}}</span>                </button>
+                <button class="btn unlock-button big-font{{if item.confirmUnlock " confirm"}}{{if (gt item.price this.game.gameManager.player.playerCoins) " too-expensive"}}" {{on "click" (fn this.unlockItem item)}}>
+                  <span>{{item.unlockText}}</span>
+                </button>
               {{/if}}
             </div>
           {{/if}}

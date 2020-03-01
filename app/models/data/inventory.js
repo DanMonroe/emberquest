@@ -506,11 +506,11 @@ export class InventoryItems {
           type: 'other',
           description: '"The solution to so many problems you never knew you had."',
 
+          'addon-name': 'ember-concurrency',
           codeimg: '/code/example_concurrency.png',
-          'example-title': 'Ember Concurrency Example',
-          'addon-name': 'ember-concurrency'
+          'example-title': 'Ember Concurrency Example'
           // codeimg: '/code/example_sample_tasks.png',
-          // 'example-title': 'Sample Concurrency Tasks',
+          // 'example-title': 'Sample Concurrency Tasks'
 
         },
         relationships: {}

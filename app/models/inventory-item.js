@@ -30,6 +30,9 @@ export default class InventoryItemModel extends Model {
   @attr exampleTitle;
   @attr addonName;
 
-  @tracked unlockText = 'buy';
   @tracked confirmUnlock = false;
+  get unlockText() {
+    // console.log('unlockText', this.name, this.confirmUnlock)
+    return this.confirmUnlock ? "Confirm" : "Buy";
+  }
 }
