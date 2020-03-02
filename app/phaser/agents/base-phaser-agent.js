@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 
-export default class BasePhaserAgent extends Phaser.Physics.Arcade.Sprite {
+export default class BasePhaserAgent extends Phaser.Physics.Arcade.Image {
 
   scene = undefined;
   ember = undefined;

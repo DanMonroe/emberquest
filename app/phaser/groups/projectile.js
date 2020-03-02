@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 
-export default class Projectile extends Phaser.Physics.Arcade.Sprite {
+export default class Projectile extends Phaser.Physics.Arcade.Image {
   constructor (scene, x, y, key) {
     // debugger;
     super(scene, x, y, key || 'bullet');
