@@ -1021,6 +1021,11 @@ button {
   }
 }
 
+.instructionsDialog {
+  img {
+    width: 770px;
+  }
+}
 .configDialog, .instructionsDialog, .codeExampleDialog {
   position: relative;
   background-image: url("/images/subscribe-background-blank.png");
