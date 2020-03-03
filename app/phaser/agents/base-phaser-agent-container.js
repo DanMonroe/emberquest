@@ -21,6 +21,8 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
   @tracked energizeSpeed = 2000;
   @tracked energizePower = 1;
 
+  @tracked xpGain = 0;
+  @tracked gold = 0;
 
   constructor(scene, config) {
 
@@ -40,6 +42,8 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
     this.power = config.power;
     this.maxPower = config.maxPower;
     this.attackAudio = config.attackAudio;
+    this.xpGain = config.xpGain;
+    this.gold = config.gold;
 
     if (config.textureSize) {
       this.setSize(config.textureSize.width, config.textureSize.height);
@@ -70,6 +74,7 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
 
     // console.log('take Damage', sourceWeapon);
     if (isNaN(agentTakingDamage.health) === true) {
+      debugger;
       agentTakingDamage.health = 0;   // TODO // why sometimes NaN ?
     }
     agentTakingDamage.health -= sourceWeapon.damage;
@@ -93,6 +98,7 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
       agentTakingDamage.player.tint = 0xff3333;
 
       if (agentTakingDamage.health <= 0) {
+        debugger;
         this.ember.gameManager.playerDied(agentTakingDamage);
       }
 
@@ -114,29 +120,35 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
   // // agents/base-agent-container.js
   // @task
   // *reloadHealth() {
-  //   while (this.health < this.maxHealth) {
-  //     this.health += this.healingIncrement;
+  //   while (true) {
   //     yield timeout(this.healingSpeed);
+  //     if (this.health < this.maxHealth) {
+  //       this.health += Math.max(1, this.healingPower);
+  //     }
   //   }
   // }
+
   @task
   *reloadHealth() {
-    while (this.health < this.maxHealth) {
-      yield timeout(this.healingSpeed);
+    while (true) {
       if (!this.ember.gameManager.gamePaused) {
-        this.health += Math.max(1, this.healingPower);
+        if (this.health < this.maxHealth) {
+          this.health += Math.max(1, this.healingPower);
+        }
       }
+      yield timeout(this.healingSpeed);
     }
   }
 
   @task
   *reloadPower() {
-    while (this.power < this.maxPower) {
-      // console.log('reloadPower')
-      yield timeout(this.energizeSpeed);
+    while (true) {
       if (!this.ember.gameManager.gamePaused) {
-        this.power += Math.max(1, this.energizePower);
+        if (this.power < this.maxPower) {
+          this.power += Math.max(1, this.energizePower);
+        }
       }
+      yield timeout(this.energizeSpeed);
     }
   }
 

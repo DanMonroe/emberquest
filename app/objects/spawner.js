@@ -68,7 +68,7 @@ export class Spawner {
   spawnChest() {
     const location = this.pickRandomLocation();
 
-    const chest = new Chest(location.x, location.y, this.id, {gold: 100});
+    const chest = new Chest(location.x, location.y, this.id, this.config.objectConfig);
 
     this.objectsCreated.push(chest);
     this.addObject(chest.id, chest);

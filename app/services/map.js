@@ -2,6 +2,8 @@ import Service from '@ember/service';
 import { inject as service } from '@ember/service';
 import cave1 from '../phaser/scenes/tiledata/cave1';
 import landsea from '../phaser/scenes/tiledata/landsea'
+// import {cave1} from './../node_modules/map-data/cave1';
+// import {landsea} from '/map-data'
 
 export default class MapService extends Service {
 
@@ -17,11 +19,25 @@ export default class MapService extends Service {
         return null;
     }
   }
-  // async getMapDataBad(mapToLoad) {
-  //   const mappath = '../phaser/scenes/tiledata/'+mapToLoad;
-  //   console.log(mappath)
+  // async getMapData(mapToLoad) {
+  //   import('/map-data/tiledata/cave1').then((module) => {
+  //   // import('/map-data/testmap').then((module) => {
+  //     debugger;
+  //     console.log(module)
+  //     });
+  //   // const mappath = '/map-data/tiledata/'+mapToLoad;
   //   // return await import(mappath);
-  //   return await import('../phaser/scenes/tiledata/cave1');
+  //
+  //     // switch (mapToLoad) {
+  //       // case 'cave1':
+  //       //   return await import('/map-data/tiledata/cave1.js');
+  //       // case 'landsea':
+  //       //   return await import('/map-data/tiledata/landsea.js');
+  //       // default:
+  //       //   return await import('/map-data/testmap');
+  //       // return null;
+  //     // }
+  //
   // }
 
 

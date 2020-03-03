@@ -1,12 +1,13 @@
 import Phaser from 'phaser';
 
 export default class Chest extends Phaser.Physics.Arcade.Image {
-  constructor(scene, x, y, key, frame, coins, id) {
+  constructor(scene, x, y, key, frame, chestObj) {
 
     super(scene, x, y, key, frame);
     this.scene = scene; // the scene this game object will be added to
-    this.coins = coins; // the amount of coins this chest contains
-    this.id = id;
+    this.gold = chestObj.gold; // the amount of coins this chest contains
+    this.id = chestObj.id;
+    this.coords = chestObj.coords;
 
     this.found = false;
 

@@ -129,7 +129,7 @@ export default class AgentContainer extends BasePhaserAgentContainer {
   *engagePlayer() {
     while(this.agentState === this.ember.constants.AGENTSTATE.MISSILE) {
       // and player is still alive
-      console.log('engagePlayerTask', this)
+      // console.log('engagePlayerTask', this)
       if (!this.ember.gameManager.gamePaused) {
 
         if (!this.ember.playerContainer.fov.isInLOS(this.rexChess.tileXYZ)) {

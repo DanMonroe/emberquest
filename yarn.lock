@@ -5228,10 +5228,10 @@ ember-named-arguments-polyfill@^1.0.0:
     ember-cli-babel "^6.6.0"
     ember-cli-version-checker "^2.1.2"
 
-ember-phaser@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/ember-phaser/-/ember-phaser-0.3.0.tgz#fb9ba41a61895466888440ebbdc59ce5c228c662"
-  integrity sha512-nEsZ4Kd88ynnMArP0YdKS3ctwOC6QOzsHben4kxinkH+kSxSz9r7JsCGWjamS6AlmMFNHuy+fuYm51gIh2QA8w==
+ember-phaser@^0.4.0:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/ember-phaser/-/ember-phaser-0.4.2.tgz#d57bcc4a8fe9f3d9dab17afc3196d12b334670e3"
+  integrity sha512-0ovOdHP0RmQmDoMe3WEy/CkQr8fHXvdMf8p07mpYA2n1PpMwb33RjbR8tVJyrRZiDwDu587BgIt7YRgsyhburQ==
   dependencies:
     "@ember/render-modifiers" "^1.0.2"
     broccoli-funnel "^2.0.1"
@@ -8041,6 +8041,9 @@ map-cache@^0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/map-cache/-/map-cache-0.2.2.tgz#c32abd0bd6525d9b051645bb4f26ac5dc98a0dbf"
   integrity sha1-wyq9C9ZSXZsFFkW7TyasXcmKDb8=
+
+map-data@./lib/map-data:
+  version "0.1.0"
 
 map-visit@^1.0.0:
   version "1.0.0"

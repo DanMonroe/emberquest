@@ -38,7 +38,6 @@ export default class SpawnerService extends Service {
       this.spawnLocations.chests.locations.forEach(locationObj => {
         config.id = `chest-${locationObj.id}`;
         config.objectConfig = locationObj;
-
         let spawner = new Spawner(
           config,
           this.spawnLocations.chests.locations,

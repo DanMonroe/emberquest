@@ -66,6 +66,9 @@ a {
 .hidden {
   visibility: hidden;
 }
+.nodisplay {
+  display: none;
+}
 .nowrap {
   white-space: nowrap;
 }
@@ -351,7 +354,7 @@ button {
     background-clip: padding-box;
     outline: none;
     .epm-modal {
-      top: 335px;
+      top: 245px;
       transform: translate(-50%, -50%);
     }
   }
@@ -516,6 +519,48 @@ button {
   //box-shadow: 0 5px 10px rgba(0,0,0,0.2);
   //white-space: normal;
 //}
+
+.chestDialog {
+  background-image: url("/images/backgrounds/popover_background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 400px;
+  width: 500px;
+  color: #000;
+  img {
+    width: 200px;
+    position: absolute;
+    top: -35px;
+    right: -60px;
+    z-index: 4;
+  }
+  .chest-body {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    width: 440px;
+    height: 290px;
+    display: inline-block;
+  }
+  h1 {
+  }
+  .congrats {
+    padding: 50px 0 30px;
+    font-size: 1.3em;
+  }
+  .coords {
+    font-size: 1.3em;
+    font-weight: 700;
+    margin: auto 0;
+    text-align: center;
+  }
+  .chest-footer {
+    position: absolute;
+    bottom: 0;
+    left: 182px;
+    bottom: 20px;
+  }
+}
 
 .inventoryDialog {
   position: relative;
@@ -1082,7 +1127,7 @@ button {
   .modal-content {
     position: relative;
     margin-top: -251px;
-    min-height: 410px;
+    //min-height: 410px;
   }
   .modal-header {
     border: none;
@@ -1161,6 +1206,7 @@ button {
       width: 824px;
       height: 127px;
       margin: 0px -37px 0px -57px;
+      padding-top: 20px;
       position: relative;
       -webkit-transition-duration: 1s;
       transition-duration: 1s;
@@ -1313,6 +1359,7 @@ button {
     background: transparent url(/images/victory/xp_gems_parchment.png);
     position: relative;
     text-align: left;
+    margin-bottom: 10px;
     .total-wrapper {
       position: absolute;
       top: 18px;
@@ -1396,6 +1443,9 @@ button {
     text-transform: uppercase;
     font-family: "Open Sans Condensed", "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-shadow: black 2px 2px 0, black -2px -2px 0, black 2px -2px 0, black -2px 2px 0, black 2px 0px 0, black 0px -2px 0, black -2px 0px 0, black 0px 2px 0;
+  }
+  .level-feedback {
+    height: 20px;
   }
   .level-title {
     z-index: 1;

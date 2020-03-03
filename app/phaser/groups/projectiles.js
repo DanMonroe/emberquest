@@ -35,7 +35,7 @@ export default class Projectiles extends Phaser.Physics.Arcade.Group {
     projectile.visible = false;
     projectile.setVelocity(0);
     projectile.disableBody();
-    console.log('enemy.takeDamage', projectile)
+    // console.log('enemy.takeDamage', projectile)
     enemy.takeDamage(projectile, enemy);
   }
 
@@ -45,7 +45,7 @@ export default class Projectiles extends Phaser.Physics.Arcade.Group {
     projectile.visible = false;
     projectile.setVelocity(0);
     projectile.disableBody();
-    console.log('player.takeDamage', projectile)
+    // console.log('player.takeDamage', projectile)
     player.takeDamage(projectile, player);
   }
 

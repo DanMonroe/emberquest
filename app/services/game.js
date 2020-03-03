@@ -244,9 +244,18 @@ export default class GameService extends Service {
 
   foundChest(chest) {
     if (chest) {
-      this.playerCoins += chest.coins;
-      chest.coins = 0;
+      this.gameManager.player.playerCoins += chest.gold;
+      chest.gold = 0;
+
+      this.epmModalContainerClass = 'chest';
+      this.modals.open('chest-dialog', {coords:chest.coords});
+
     }
+  }
+
+  decryptCacheCoordinates(source) {
+    // TODO actually decrypt
+    return source.coords;
   }
 
   // // for use for EmberConf.  item is for code example

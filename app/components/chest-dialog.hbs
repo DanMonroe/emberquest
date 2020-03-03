@@ -1,0 +1,15 @@
+<div class="chestDialog">
+
+  <img src="/images/closed-treasure-chest.png" />
+
+  <div class="chest-body">
+    <h1>You Found a Chest!</h1>
+    <div class="congrats">Congratulations, you have discovered a hidden chest.  Take note of the physical GPS coordinates below and search for the real geocache at that location.</div>
+    <div class="coords">{{this.decryptedCacheCoords}}</div>
+  </div>
+
+  <div class="chest-footer">
+    <button class="btn styled btn-green" type="button" {{on "click" (fn @close true)}}>Continue</button>
+  </div>
+
+</div>

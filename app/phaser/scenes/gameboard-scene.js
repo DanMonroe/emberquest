@@ -106,8 +106,8 @@ export class GameboardScene extends Phaser.Scene {
 
       // // victory?
       // debugger;
-      // this.ember.epmModalContainerClass = 'victory';
-      // let victoryModal = this.ember.modals.open('victory-dialog', {foo:'bar'});
+      // this.ember.epmModalContainerClass = 'chest';
+      // let chestModal = this.ember.modals.open('chest-dialog', {coords:'N 45 31.641, W 122 39.761'});
 
 
 
@@ -138,7 +138,7 @@ export class GameboardScene extends Phaser.Scene {
   }
 
   spawnChest(chestObj) {
-    let chest = new Chest(this, 0, 0, 'chests', 1, chestObj.coins, chestObj.id);
+    let chest = new Chest(this, 0, 0, 'chests', 1, chestObj);
     chest.setAlpha(0);
 
     this.chests.add(chest);

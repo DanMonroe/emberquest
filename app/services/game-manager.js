@@ -113,6 +113,10 @@ export default class GameManagerService extends Service {
       // health: 2,
       health: 200,
       maxHealth: 200,
+      healingPower: 5,
+      healingSpeed: 2500,
+      energizeSpeed : 2000,
+      energizePower: 2,
       power: 50,
       maxPower: 50,
       id: 'player1',
@@ -211,7 +215,8 @@ export default class GameManagerService extends Service {
     enemy.healthBar.destroy();
     enemy.destroy();
     this.ember.epmModalContainerClass = 'victory';
-    await this.modals.open('victory-dialog', {foo:'bar'});
+    await this.modals.open('victory-dialog', {xp: enemy.xpGain || 25,gems: enemy.gold || 50});
+
     this.pauseGame(false);
   }
 
