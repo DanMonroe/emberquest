@@ -34,7 +34,7 @@ export default class Chest extends Phaser.Physics.Arcade.Image {
   }
 
   playerFound() {
-    console.log('player found chest', this);
+    // console.log('player found chest', this);
 
     this.found = !this.found;
     this.setFrame(this.found ? 0 : 1);

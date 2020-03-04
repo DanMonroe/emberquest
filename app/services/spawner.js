@@ -1,8 +1,6 @@
 import Service from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
-// import {timeout} from 'ember-concurrency';
-// import {task} from 'ember-concurrency-decorators';
 import {Spawner} from '../objects/spawner'
 
 export default class SpawnerService extends Service {

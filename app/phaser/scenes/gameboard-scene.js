@@ -45,6 +45,7 @@ export class GameboardScene extends Phaser.Scene {
     this.storedPlayerAttrs = data.storedPlayerAttrs || {};
   }
 
+  // async preload() {
   preload() {
     this.ember = this.game.ember;
     this.mapData = this.ember.map.getMapData(this.mapname);

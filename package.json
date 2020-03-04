@@ -54,7 +54,6 @@
     "eslint-plugin-ember": "^7.7.1",
     "eslint-plugin-node": "^11.0.0",
     "loader.js": "^4.7.0",
-    "map-data": "./lib/map-data",
     "phaser": "^3.22.0",
     "phaser3-rex-plugins": "^1.1.8",
     "qunit-dom": "^1.0.0",
@@ -68,11 +67,7 @@
   },
   "dependencies": {
     "focus-trap": "^5.1.0",
-    "localforage": "^1.7.3"
-  },
-  "ember-addon": {
-    "paths": [
-      "lib/map-data"
-    ]
+    "localforage": "^1.7.3",
+    "emberquest-map-data": "file:./lib/emberquest-map-data"
   }
 }

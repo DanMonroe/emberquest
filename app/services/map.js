@@ -19,25 +19,20 @@ export default class MapService extends Service {
         return null;
     }
   }
+
+  // async getMap(mapToLoad) {
+  //   const module = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/cave1');
+  //
+  //   console.log('mapData', mapToLoad, module)
+  //   return module;
+  //
+  // }
+  //
   // async getMapData(mapToLoad) {
-  //   import('/map-data/tiledata/cave1').then((module) => {
-  //   // import('/map-data/testmap').then((module) => {
-  //     debugger;
-  //     console.log(module)
-  //     });
-  //   // const mappath = '/map-data/tiledata/'+mapToLoad;
-  //   // return await import(mappath);
-  //
-  //     // switch (mapToLoad) {
-  //       // case 'cave1':
-  //       //   return await import('/map-data/tiledata/cave1.js');
-  //       // case 'landsea':
-  //       //   return await import('/map-data/tiledata/landsea.js');
-  //       // default:
-  //       //   return await import('/map-data/testmap');
-  //       // return null;
-  //     // }
-  //
+  //   console.log('1')
+  //   let map = this.getMap(mapToLoad);
+  //   console.log('2', map);
+  //   return map;
   // }
 
 

@@ -61,7 +61,7 @@ export class Spawner {
         break;
     }
 
-    console.log('spawn object.  count:', this.objectsCreated)
+    // console.log('spawn object.  count:', this.objectsCreated)
     this.objectsCreated++;  // temp counter
   }
 
