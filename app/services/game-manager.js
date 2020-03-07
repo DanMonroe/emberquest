@@ -103,10 +103,11 @@ export default class GameManagerService extends Service {
       coneMode: 'direction',
       cone: 6,
       speed: 200,
+      // sightRange: 30,   // this is sight/movement Range
       sightRange: 3,   // this is sight/movement Range
       movingPoints: 3,   // this is sight/movement Range
       // visiblePoints: 60,   // this is sight/movement Range
-      visiblePoints: 6,   // this is sight/movement Range
+      visiblePoints: 8,   // this is sight/movement Range
 
       playerCoins: 5150,
 

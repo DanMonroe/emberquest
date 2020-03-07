@@ -182,7 +182,7 @@ export class InventoryItems {
           locked: false,
           type: 'weapon',
           description: 'Makes it easy to inject the Phaser game framework into your Ember application.',
-          codeimg: '/code/example_ember_phaser.png',
+          codeimg: '/code/example_ember_phaser_2.png',
           'example-title': 'Ember-Phaser Example',
           'addon-name': 'ember-phaser'
         },

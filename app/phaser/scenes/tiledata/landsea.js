@@ -2,8 +2,8 @@
 export default {
 
   player: {
-    startX: 5,
-    startY: 7
+    startX: 13,
+    startY: 20
   },
   // player: {
   //   startX: 6,
@@ -20,16 +20,19 @@ export default {
       limit: 1,
       locations: [
         {
-          id: 1, x: 3, y: 17,
-          texture: 'playership',
+          id: 1, x: 18, y: 19,
+          texture: 'playerboat',
+          // texture: 'playership',
           textureSize: { width: 42, height: 42},
-          scale: 0.4,
+          scale: 1.2,
+          // scale: 0.4,
           speed: 200,
           sightRange: 3,   // this is sight/movement Range
           movingPoints: 3,   // this is sight/movement Range
           visiblePoints: 8,   // this is sight/movement Range
           health: 100,
           maxHealth: 200,
+          healingPower: 10,
           power: 20,
           maxPower: 200,
           flagAttributes: {
@@ -45,16 +48,19 @@ export default {
     agents: { spawnInterval: 3000, limit: 5,
       locations: [
         {
-          id: 1, x: 10, y: 16,
-          texture: 'galleon',
+          id: 1, x: 7, y: 18,
+          texture: 'pirategalleon',   // /Users/daniel.monroe/projects/opensource/wesnoth/data/core/images/units/transport/pirate-galleon.png
+          // texture: 'galleon',
           textureSize: { width: 42, height: 42},
-          scale: 0.1,
+          scale: 1,
+          // scale: 0.1,
           speed: 200,
           sightRange: 3,   // this is sight/movement Range
           movingPoints: 3,   // this is sight/movement Range
           visiblePoints: 8,   // this is sight/movement Range
           health: 100,
           maxHealth: 200,
+          healingPower: 10,
           power: 20,
           maxPower: 200,
           flagAttributes: {
@@ -64,11 +70,26 @@ export default {
           patrol: {
             timeout: 2000,
             // aggressionTimeout: 1000,  // delay time in between aggression turns
+            pursuitSpeed: 1500,
+            aggressionSpeedTimeout: 1000,
             method: 'random',
             tiles: [
-              {x: 10, y: 16}, {x: 7, y: 14}, {x: 11, y: 15}
+              {x: 7, y: 18}, {x: 14, y: 13}, {x: 8, y: 14}
             ]
-          }
+          },
+          weapons: [  // this should be an id from the inventory items
+            {
+              minDistanceForHit: 10,
+              type: 'bullet',
+              damage: 1,
+              speed: 8, // projectile speed
+              poweruse: 2,
+              accuracy: 0.05, // percentage 0 (always accurate) - 1 (shoot any direction)
+              fireDelay: 500,
+              reloadDelay: 1000  // lower is faster
+            }
+          ]
+
         },
         // {
         //   id: 2, x: 7, y: 7,
@@ -764,7 +785,7 @@ export default {
       {'row': 18, 'col': 10, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'wesnoth': 'Wo'},
       {'row': 18, 'col': 11, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 0.9, 'travelFlags': 6, 'wesnoth': 'Ds'},
       {'row': 18, 'col': 12, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 0.9, 'travelFlags': 6, 'wesnoth': 'Dd^Es'},
-      {'row': 18, 'col': 13, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 0.3, 'travelFlags': 4, 'wesnoth': 'Md'},
+      {'row': 18, 'col': 13, 'sightCost': 7, 'sightFlags': 0, 'speedCost': 0.3, 'travelFlags': 4, 'wesnoth': 'Md'},
       {'row': 18, 'col': 14, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 0.9, 'travelFlags': 6, 'wesnoth': 'Dd^Vdr'},
       {'row': 18, 'col': 15, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 0.9, 'travelFlags': 6, 'wesnoth': 'Dd'},
       {'row': 18, 'col': 16, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 0.9, 'travelFlags': 6, 'wesnoth': 'Dd'},
@@ -799,8 +820,8 @@ export default {
       {'row': 19, 'col': 9, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'wesnoth': 'Wo'},
       {'row': 19, 'col': 10, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'wesnoth': 'Wo'},
       {'row': 19, 'col': 11, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 0.9, 'travelFlags': 6, 'wesnoth': 'Ds'},
-      {'row': 19, 'col': 12, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 0.3, 'travelFlags': 4, 'wesnoth': 'Md'},
-      {'row': 19, 'col': 13, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 0.3, 'travelFlags': 4, 'wesnoth': 'Mv'},
+      {'row': 19, 'col': 12, 'sightCost': 7, 'sightFlags': 0, 'speedCost': 0.3, 'travelFlags': 4, 'wesnoth': 'Md'},
+      {'row': 19, 'col': 13, 'sightCost': 7, 'sightFlags': 0, 'speedCost': 0.3, 'travelFlags': 4, 'wesnoth': 'Mv'},
       {'row': 19, 'col': 14, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 0.9, 'travelFlags': 6, 'wesnoth': 'Dd'},
       {'row': 19, 'col': 15, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 0.9, 'travelFlags': 6, 'wesnoth': 'Dd'},
       {'row': 19, 'col': 16, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'wesnoth': 'Wo'},

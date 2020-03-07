@@ -217,9 +217,11 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
     return this.power >= powerRequirement;
   }
 
-  checkAggression(/*agentContainer*/) {
+  checkAggression(agentContainer) {
     // TODO implement.  check to see if they want to fight, or run away, etc
-    return true;
+    // console.log('agentContainer', agentContainer)
+    return false;
+    // return true;
   }
 
   setVisibilityIfInLineOfSight(agentContainer, isInLOS) {

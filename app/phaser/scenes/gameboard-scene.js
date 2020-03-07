@@ -160,7 +160,8 @@ export class GameboardScene extends Phaser.Scene {
     agent.setAlpha(0);
     this.agents.add(agent);
     if (agentObj.objectConfig.patrol) {
-      agent.pushAgentWaypointToMoveQueue();
+      // agent.pushAgentWaypointToMoveQueue();
+      agent.populatePatrolMoveQueue();
       agent.patrolTask.perform();
     }
   }

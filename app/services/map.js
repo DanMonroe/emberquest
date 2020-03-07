@@ -231,12 +231,13 @@ export default class MapService extends Service {
   }
 
   tileIsPortal(scene, tileXY) {
-    const specialAttr = this.getTileAttribute(scene, tileXY, 'special')
-      if (!specialAttr) {
-      return undefined;
-    }
-    if( (specialAttr.value & this.constants.FLAGS.SPECIAL.PORTAL.value) === this.constants.FLAGS.SPECIAL.PORTAL.value);
-    return specialAttr;
+    return this.getTileAttribute(scene, tileXY, 'special') & this.constants.FLAGS.SPECIAL.PORTAL.value;
+    // const specialAttr = this.getTileAttribute(scene, tileXY, 'special')
+    //   if (!specialAttr) {
+    //   return undefined;
+    // }
+    // if( (specialAttr.value & this.constants.FLAGS.SPECIAL.PORTAL.value) === this.constants.FLAGS.SPECIAL.PORTAL.value);
+    // return specialAttr;
     // return specialAttr.value & this.constants.FLAGS.SPECIAL.PORTAL.value;
   }
 

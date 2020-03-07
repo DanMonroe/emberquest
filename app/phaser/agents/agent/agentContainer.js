@@ -9,7 +9,7 @@ import {isPresent} from '@ember/utils';
 export default class AgentContainer extends BasePhaserAgentContainer {
 
   currentTargetTileCounter = -1;
-  @tracked moveQueue = [];
+  @tracked moveQueue = {path:[]};
   @tracked patrolEnabled = true;
   @tracked agentState = 0;  // IDLE
 
@@ -81,6 +81,7 @@ export default class AgentContainer extends BasePhaserAgentContainer {
   }
 
   moveToComplete() {
+    // console.log('moveToComplete');
     const agentContainer = arguments[0];
     // console.log('moveToComplete', agentContainer, agentContainer.healthBar)
     // set visibility of agent after it moves.
@@ -105,25 +106,7 @@ export default class AgentContainer extends BasePhaserAgentContainer {
     }
   }
 
-  pushAgentWaypointToMoveQueue() {
-    // console.log('pushAgentWaypointToMoveQueue')
-    const nextTargetTile = this.getNextTargetTile();
-    const tileXYArrayPath = this.pathFinder.findPath(nextTargetTile);
 
-    const moveQueueId = v4();
-    this.moveQueueId = moveQueueId;
-    let moveObject = {
-      agent: this,
-      path: tileXYArrayPath,
-      uuid: moveQueueId,
-      finishedCallback: () => {
-        this.pushAgentWaypointToMoveQueue();
-      }
-    }
-    this.moveQueue.push(moveObject);
-    // console.log('moveObject', moveObject)
-
-  }
 
   @task
   *engagePlayer() {
@@ -218,44 +201,93 @@ export default class AgentContainer extends BasePhaserAgentContainer {
     // }
   }
 
-  @task
-  *patrolTask() {
-    while (this.patrolEnabled === true) {
-      if (!this.ember.gameManager.gamePaused) {
+  // pushAgentWaypointToMoveQueue() {
+  //   debugger;
+  //   const nextTargetTile = this.getNextTargetTile();
+  //   const tileXYArrayPath = this.pathFinder.findPath(nextTargetTile);
+  //   console.error('pushAgentWaypointToMoveQueue', nextTargetTile, tileXYArrayPath)
+  //
+  //   this.showMovingPath(tileXYArrayPath)
+  //
+  //   // tileXYArrayPath.forEach((tile) => {
+  //   //   const moveQueueId = v4();
+  //   //   const moveObject = {
+  //   //     agent: this,
+  //   //     tile: tile,
+  //   //     uuid: moveQueueId,
+  //   //     finishedCallback: () => {
+  //   //       console.log('in finishedCallback')
+  //   //       this.pushAgentWaypointToMoveQueue();
+  //   //     }
+  //   //   }
+  //   //   this.moveQueue.push(moveObject);
+  //   // })
+  //
+  //   const moveQueueId = v4();
+  //   this.moveQueueId = moveQueueId;
+  //   let moveObject = {
+  //     agent: this,
+  //     path: tileXYArrayPath,
+  //     uuid: moveQueueId,
+  //     finishedCallback: () => {
+  //       console.log('in finishedCallback')
+  //       this.pushAgentWaypointToMoveQueue();
+  //     }
+  //   }
+  //   this.moveQueue.push(moveObject);
+  //   console.log('moveObject', moveObject)
+  //
+  // }
 
-        // if there are things to move
-        if (this.moveQueue.length > 0) {
+  populatePatrolMoveQueue() {
+    if (!this.moveQueue || (this.moveQueue.path && this.moveQueue.path.length === 0)) {
+      // no moves.. build the next one
+      const nextTargetTile = this.getNextTargetTile();
+      const tileXYArrayPath = this.pathFinder.findPath(nextTargetTile);
 
-          this.moveQueue.forEach((moveObject) => {
-            // is there anywhere for this object to go?
-            if (moveObject.path.length > 0) {
+      // this.showMovingPath(tileXYArrayPath);
 
-              // grab the next waypoint
-              let firstMove = moveObject.path[0]
-
-              // attempt the move
-              this.moveToObject.moveTo(firstMove.x, firstMove.y);
-
-              // we're done, remove it from the list of waypoints to go to
-              moveObject.path.shift();
-
-            } else {
-              // no moves left for this object
-              if (typeof moveObject.finishedCallback === 'function') {
-                moveObject.finishedCallback();
-              }
-
-              // remove the object from the global move list
-              this.moveQueue = this.moveQueue.filter(obj => obj.uuid !== moveObject.uuid);
-
-            }
-          });
-
+      let moveObject = {
+        agent: this,
+        path: tileXYArrayPath,
+        uuid: v4(),
+        finishedCallback: () => {
+          this.populatePatrolMoveQueue();
         }
       }
-      yield timeout(this.patrol.timeout);
+      this.moveQueue = moveObject;
 
+    } else {
+      // still have moves left
     }
+  }
+
+  @task
+  *patrolTask() {
+    // console.log('patrol task')
+    while (this.patrolEnabled === true) {
+
+      if (this.moveQueue.path.length > 0) {
+
+        // grab the next waypoint
+        let firstMove = this.moveQueue.path[0];
+
+        // attempt the move
+        this.moveToObject.moveTo(firstMove.x, firstMove.y);
+
+        // we're done, remove it from the list of waypoints to go to
+        this.moveQueue.path.shift();
+
+      } else {
+        // no moves left for this object
+          if (typeof this.moveQueue.finishedCallback === 'function') {
+            this.moveQueue.finishedCallback();
+          }
+      }
+      yield timeout(this.patrol.timeout);
+    }
+
+
   }
 
   removeAgentFromMoveQueue(agent) {
@@ -277,7 +309,8 @@ export default class AgentContainer extends BasePhaserAgentContainer {
     } else {
 
       // cancel any patrolling for this enemy
-      this.removeAgentFromMoveQueue(this);
+      // this.removeAgentFromMoveQueue(this);
+      this.moveQueue = {path:[]};
 
       // Fire and pursue
       if (this.engagePlayer.isIdle) {
@@ -290,10 +323,14 @@ export default class AgentContainer extends BasePhaserAgentContainer {
   }
 
   transitionToPatrol() {
-    this.agentState = this.ember.constants.AGENTSTATE.PATROL;
-    if (isPresent(this.patrol.tiles.length) > 0) {
+    if (this.agentState !== this.ember.constants.AGENTSTATE.PATROL) {
+      this.agentState = this.ember.constants.AGENTSTATE.PATROL;
+      if (isPresent(this.patrol.tiles.length) > 0) {
 
-      this.pushAgentWaypointToMoveQueue();
+        this.moveQueue = {path:[]};
+        this.populatePatrolMoveQueue();
+        // this.pushAgentWaypointToMoveQueue();
+      }
     }
   }
 
@@ -318,6 +355,7 @@ export default class AgentContainer extends BasePhaserAgentContainer {
   _markers = [];
 
   showMovingPath = (tileXYArray) => {
+    console.log('showMovingPath', tileXYArray)
     this.hideMovingPath();
     var tileXY, worldXY;
     var scene = this.scene,
