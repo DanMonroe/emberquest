@@ -231,19 +231,21 @@ export default class MapService extends Service {
   }
 
   tileIsPortal(scene, tileXY) {
-    return this.getTileAttribute(scene, tileXY, 'special') & this.constants.FLAGS.SPECIAL.PORTAL.value;
-    // const specialAttr = this.getTileAttribute(scene, tileXY, 'special')
-    //   if (!specialAttr) {
-    //   return undefined;
-    // }
-    // if( (specialAttr.value & this.constants.FLAGS.SPECIAL.PORTAL.value) === this.constants.FLAGS.SPECIAL.PORTAL.value);
-    // return specialAttr;
-    // return specialAttr.value & this.constants.FLAGS.SPECIAL.PORTAL.value;
+    return this.tileHasGivenSpecialAttribute(scene, tileXY, this.constants.FLAGS.SPECIAL.PORTAL.value);
   }
 
 
   tileIsDock(scene, tileXY) {
-    return this.getTileAttribute(scene, tileXY, 'special') & this.constants.FLAGS.SPECIAL.DOCK.value;
+    return this.tileHasGivenSpecialAttribute(scene, tileXY, this.constants.FLAGS.SPECIAL.DOCK.value);
+  }
+
+  tileHasGivenSpecialAttribute(scene, tileXY, specialAttribute) {
+    const specialAttr = this.getTileAttribute(scene, tileXY, 'special');
+    if (!specialAttr) {
+      return false;
+    }
+
+    return ((specialAttr.value & specialAttribute) === specialAttribute) ? specialAttr : undefined;
   }
 
   // return the transport

@@ -38,6 +38,9 @@ export default {
           // power: 20,
           maxPower: 200,
 
+          // aggressionScale: 1,  // TODO need a better way to track aggression levels
+          aggressionScale: 10,  // TODO need a better way to track aggression levels
+
           // xpGain: 35,
           // gold: 50,
 

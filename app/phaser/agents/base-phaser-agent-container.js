@@ -21,6 +21,8 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
   @tracked energizeSpeed = 2000;
   @tracked energizePower = 1;
 
+  @tracked aggressionScale = 0;
+
   @tracked xpGain = 0;
   @tracked gold = 0;
 
@@ -44,6 +46,8 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
     this.attackAudio = config.attackAudio;
     this.xpGain = config.xpGain;
     this.gold = config.gold;
+
+    this.aggressionScale = config.aggressionScale ? config.aggressionScale : 0;
 
     if (config.textureSize) {
       this.setSize(config.textureSize.width, config.textureSize.height);
@@ -219,8 +223,7 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
 
   checkAggression(agentContainer) {
     // TODO implement.  check to see if they want to fight, or run away, etc
-    // console.log('agentContainer', agentContainer)
-    return false;
+    return agentContainer.aggressionScale > 5; // TODO just picked a number higher than 1
     // return true;
   }
 

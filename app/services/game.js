@@ -36,16 +36,13 @@ export default class GameService extends Service {
   // }
 
   async saveSceneData(scene) {
-    // debugger;
     const mapname = scene.mapname;
-    // const sceneKey = scene.scene.key;
 
     const currentMapData = this.sceneData[mapname] || {};
-    // const currentData = this.sceneData[sceneKey] || {};
 
     let gameData = await this.loadGameData('gameboard');
     if (!gameData) {
-      gameData = { 'currentMap': 'cave1', sceneData: [] };
+      gameData = { 'currentMap': mapname, sceneData: [] };
     } else {
       gameData.currentMap = mapname;
     }
@@ -53,7 +50,6 @@ export default class GameService extends Service {
     const transports = [];
     if (scene.transports.children) {
       scene.transports.getChildren().forEach(transport => {
-      // scene.transports.children.entries.forEach(transport => {
         transports.push({
           'id': transport.id,
           'tile': transport.rexChess.tileXYZ,
@@ -64,10 +60,9 @@ export default class GameService extends Service {
 
     Object.assign(currentMapData, {
       'map': mapname,
-      // 'playerTile': scene.player.container.rexChess.tileXYZ,
-      // 'playerAttrs': scene.player.container.data.get('attrs'),
       'seenTiles': scene.allSeenTiles,
-      'transports': transports
+      'transports': transports,
+      'boarded':  scene.player.container.boardedTransport ? scene.player.container.boardedTransport.id : 0
     });
 
     this.sceneData[mapname] = currentMapData;
@@ -77,8 +72,6 @@ export default class GameService extends Service {
       'playerAttrs': scene.player.container.data.get('attrs'),
       sceneData: this.sceneData
     });
-
-    // gameData.sceneData = this.sceneData;
 
     await this.saveGameData('gameboard', gameData);
   }

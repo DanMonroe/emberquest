@@ -114,6 +114,7 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
 
         // is there a transport at targetTile
         const currentTileIsDock = this.ember.map.tileIsDock(pathFinder.scene, curTile);
+
         if (currentTileIsDock) {
           canMove = this.ember.map.targetTileHasTransport(pathFinder.scene, targetTile);
 

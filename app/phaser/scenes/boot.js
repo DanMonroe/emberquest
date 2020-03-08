@@ -56,11 +56,11 @@ export class BootScene extends Phaser.Scene {
 
     this.game.ember.loadGameData("gameboard")
       .then(gameboardData => {
-        // console.log('gameboardData', gameboardData);
+        console.log('gameboardData', gameboardData);
 
         let data = {'map': 'landsea'}  // default initial map
         if (gameboardData) {
-          const sceneData =   gameboardData.sceneData[gameboardData.currentMap] || { allSeenTiles: [], storedTransports: []};
+          const sceneData =   gameboardData.sceneData[gameboardData.currentMap] || { allSeenTiles: [], storedTransports: [], boarded: 0};
 
           data = {
             'map': gameboardData.currentMap,
@@ -68,6 +68,7 @@ export class BootScene extends Phaser.Scene {
             'storedPlayerAttrs': gameboardData.playerAttrs,
             'allSeenTiles': sceneData.seenTiles,
             'storedTransports': sceneData.transports,
+            'boarded': sceneData.boarded
           }
         }
 
