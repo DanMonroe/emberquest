@@ -43,6 +43,7 @@ export class GameboardScene extends Phaser.Scene {
     this.allSeenTiles = data.allSeenTiles || new Set();
     this.storedTransports = data.storedTransports || [];
     this.storedPlayerAttrs = data.storedPlayerAttrs || {};
+    this.storedBoardedTransportId = data.boarded || 0;
   }
 
   // async preload() {
@@ -130,9 +131,17 @@ export class GameboardScene extends Phaser.Scene {
     this.board.addChess(playerObject.container, playerObject.playerConfig.playerX, playerObject.playerConfig.playerY, this.ember.constants.TILEZ_PLAYER);
 
     playerObject.container.fov = this.rexBoard.add.fieldOfView(playerObject.container, playerObject.playerConfig);
-debugger;
+    
     // // make the camera follow the player
     this.cameras.main.startFollow(playerObject.container);
+
+    if (this.storedBoardedTransportId > 0) {
+      const transportToBoard = this.transports.getChildren().find(transport => transport.id === this.storedBoardedTransportId);
+
+      if (transportToBoard) {
+        this.player.container.boardedTransport = transportToBoard;
+      }
+    }
 
     // update field of view
     this.ember.map.findFOV(playerObject.container);
