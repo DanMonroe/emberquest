@@ -112,6 +112,25 @@ a {
   }
 }
 
+.landing {
+  color: #fff;
+  p.intro {
+    margin: 40px;
+    display: block;
+    font-size: 2em;
+    text-align: center;
+  }
+  img.logo {
+    margin: 150px auto;
+    display: block;
+    width: 75vw;
+  }
+  a {
+    color: #ff9f00;
+  }
+}
+
+
 #gameContainer {
   margin: 0;
   padding: 0;
