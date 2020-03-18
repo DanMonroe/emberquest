@@ -1,7 +1,6 @@
 import { constants } from 'emberquest/services/constant';
 import { tracked } from '@glimmer/tracking';
-// import { computed } from '@ember/object';
-// import { A as emberArray } from '@ember/array';
+import { computed } from '@ember/object';
 
 export class BaseAgent {
 
@@ -14,10 +13,7 @@ export class BaseAgent {
   @tracked energizeSpeed = 2000;
   @tracked energizePower = 2;
 
-  @tracked _inventory = [];
-  @tracked _equippedInventory = null;
-  // @tracked inventory = [];
-  // @tracked inventory = emberArray([]);
+  @tracked inventory = [];
 
   constructor(scene, config) {
     // console.log('in base-agent constructor', scene, config)
@@ -37,46 +33,25 @@ export class BaseAgent {
     this.energizeSpeed = config.energizeSpeed || 10;// how fast they recharge power
     this.energizePower = config.energizePower || 10;// how much power they recharge each time
 
-    this._inventory = config.inventory || [];
-    this._equippedInventory = [];
-
-    this.setEquippedInventory();
+    this.inventory = config.inventory || [];
   }
 
-  get inventory() {
-    return this._inventory;
-  }
-
-  set inventory(inventory) {
-    this._inventory = inventory;
-  }
-
+  @computed('inventory.@each.equipped')
   get equippedInventory() {
-    return this._equippedInventory;
-  }
-
-  set equippedInventory(equippedInventory) {
-    this._equippedInventory = equippedInventory;
-  }
-
-  // call this whenever an item is equipped/unequipped
-  setEquippedInventory() {
-    this.equippedInventory = this.inventory.filter(item => item.equipped === true);
+    return this.inventory.filter(item => item.equipped === true);
   }
 
   addInventory(item) {
-    this._inventory.push(item);
+    this.inventory.push(item);
   }
 
   // could combine this with unequip but I think having them separate for now is better understood
   equipItem(item) {
     item.equipped = true;
-    this.setEquippedInventory();
   }
 
   unequipItem(item) {
     item.equipped = false;
-    this.setEquippedInventory();
   }
 
   getInventoryByType(type, equippedOnly = true) {

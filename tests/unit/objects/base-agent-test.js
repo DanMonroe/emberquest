@@ -156,6 +156,7 @@ module('Unit | Object | base-agent', function(hooks) {
       assert.equal(agent.getResistance(constants.RESISTANCE_FIRE), 2);
       assert.equal(agent.getResistance(constants.RESISTANCE_COLD), 42);
     });
+
     test('unequip reduces resistance', function(assert) {
 
       agent.addInventory(armor1);
