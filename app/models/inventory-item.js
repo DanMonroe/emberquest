@@ -15,6 +15,7 @@ export default class InventoryItemModel extends Model {
   @attr sound;
   @attr soundhit;
   @attr owner;
+  @attr equipped;
   @attr tileX;
   @attr tileY;
   @attr listorder;
@@ -24,6 +25,8 @@ export default class InventoryItemModel extends Model {
   @attr('number', { defaultValue: 200 }) projectileSpeed;
   @attr('number', { defaultValue: 10 }) poweruse;
   @attr('number', { defaultValue: 90 }) accuracy; // percentage
+
+  @attr resistance; // Object: { fire = 0, cold = 0 }
 
   // EmberConf
   @attr codeimg;

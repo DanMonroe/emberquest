@@ -131,7 +131,7 @@ export class GameboardScene extends Phaser.Scene {
     this.board.addChess(playerObject.container, playerObject.playerConfig.playerX, playerObject.playerConfig.playerY, this.ember.constants.TILEZ_PLAYER);
 
     playerObject.container.fov = this.rexBoard.add.fieldOfView(playerObject.container, playerObject.playerConfig);
-    
+
     // // make the camera follow the player
     this.cameras.main.startFollow(playerObject.container);
 
