@@ -98,7 +98,7 @@ export default class GameManagerService extends Service {
       texture: 'player',
       textureSize: { width: 42, height: 42},
       // scale: 0.1,
-      scale: 0.4,
+      scale: 1.5,
       face: 0,
       coneMode: 'direction',
       cone: 6,

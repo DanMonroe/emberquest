@@ -1,4 +1,4 @@
-import { constants } from 'emberquest/services/constant';
+import { constants } from 'emberquest/services/constants';
 import { tracked } from '@glimmer/tracking';
 import { computed } from '@ember/object';
 

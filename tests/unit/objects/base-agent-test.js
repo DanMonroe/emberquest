@@ -2,7 +2,7 @@ import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import { BaseAgent } from 'emberquest/objects/agents/base-agent';
 import { InventoryItem } from 'emberquest/objects/models/inventory-item';
-import { constants } from 'emberquest/services/constant';
+import { constants } from 'emberquest/services/constants';
 
 const scene = {
   board: {},

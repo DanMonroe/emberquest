@@ -8,20 +8,20 @@ import localforage from 'localforage';
 
 import {Player} from "../objects/agents/player";
 import {Transport} from "../objects/agents/transport";
-import {Agent} from "../objects/agents/agent"
+import {Agent} from "../objects/agents/agent";
+import { constants } from 'emberquest/services/constants';
+
 
 export default class GameService extends Service {
 
   @service modals;
-  @service constants;
   @service map;
   @service inventory;
   @service gameManager;
-  // @service('game-manager') manager;
 
   @tracked cameraMainZoom = 1;
-  @tracked playerImgSrc = '/images/agents/tomster-head-classic.png';
-  // @tracked playerImgSrc = '/images/agents/pirate.png';
+  // @tracked playerImgSrc = '/images/agents/tomster-head-classic.png';
+  @tracked playerImgSrc = '/images/agents/pirate.png';
   @tracked showHexInfo = false;
   @tracked epmModalContainerClass = '';
 
@@ -29,11 +29,7 @@ export default class GameService extends Service {
   @tracked sceneData = [];
   @tracked gameData = undefined;
 
-  // @tracked gold = 3163;
-
-  // getMapData() {
-  //   return MapData;
-  // }
+  constants = constants;
 
   async saveSceneData(scene) {
     const mapname = scene.mapname;
@@ -251,12 +247,4 @@ export default class GameService extends Service {
     return source.coords;
   }
 
-  // // for use for EmberConf.  item is for code example
-  // async closeCurrentAndOpenNewModal(item) {
-  //   console.log('closeCurrentAndOpenNewModal', item);
-  //   // debugger;
-  //   await this.modals.top.close();
-  //   this.epmModalContainerClass = 'code-example';
-  //   await this.modals.open('code-example-dialog', item);
-  // }
 }

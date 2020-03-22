@@ -28,11 +28,6 @@ export default class InventoryItemModel extends Model {
 
   @attr resistance; // Object: { fire = 0, cold = 0 }
 
-  // // EmberConf
-  // @attr codeimg;
-  // @attr exampleTitle;
-  // @attr addonName;
-
   @tracked confirmUnlock = false;
   get unlockText() {
     // console.log('unlockText', this.name, this.confirmUnlock)

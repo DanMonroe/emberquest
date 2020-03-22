@@ -90,28 +90,13 @@ export default class GameboardComponent extends Component {
 
   @action
   async showInventory() {
-    let modalResult = await this.showDialog('inventory', 'inventory-dialog', this.args.inventoryItems);
-    if (modalResult && modalResult.codeimg) { // emberconf.. show code example
-      await this.showDialog('code-example', 'code-example-dialog', modalResult);
-    }
+    await this.showDialog('inventory', 'inventory-dialog', this.args.inventoryItems);
   }
 
   @action
   async showInstructionsDialog() {
     await this.showDialog('instructions', 'instructions-dialog');
   }
-
-  // for use for EmberConf.  item is for code example
-  // async closeCurrentAndOpenNewModal(item) {
-    // this.emberGameService.gameManager.pauseGame(true);
-    // console.log('closeCurrentAndOpenNewModal', item);
-    // await this.modals.top.close();
-    // await this.showDialog('code', 'code-dialog', item);
-
-    // this.emberGameService.epmModalContainerClass = 'code-example';
-    // await this.modals.open('code-example-dialog', item);
-    // this.emberGameService.gameManager.pauseGame(false);
-  // }
 
   @action
   async showCaches() {

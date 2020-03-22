@@ -1,8 +1,7 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
-// import Constants from '../utils/constants';
-import { inject as service } from '@ember/service';
+import { constants } from 'emberquest/services/constants';
 
 export default class EditorComponent extends Component {
 
@@ -16,7 +15,7 @@ export default class EditorComponent extends Component {
 
   @tracked finalMap;
 
-  @service constants;
+  constants = constants;
 
   @action
   generateHexes() {

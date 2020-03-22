@@ -1,4 +1,3 @@
-// import Constants from '../utils/constants';
 // import Player from '../phaser/player'
 
 // const COLOR_DARK = 0x007ac1;

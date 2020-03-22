@@ -1,11 +1,11 @@
 import Service from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import { inject as service } from '@ember/service';
+import { constants } from 'emberquest/services/constants';
 import {Spawner} from '../objects/spawner'
 
 export default class SpawnerService extends Service {
 
-  @service constants;
+  constants = constants;
 
   @tracked objectsCreated = 0;
   @tracked objectLimit = 2;
