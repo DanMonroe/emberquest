@@ -1,6 +1,6 @@
 import BasePhaserAgent from "../base-phaser-agent";
 
-export default class Player extends BasePhaserAgent {
+export default class PlayerAgent extends BasePhaserAgent {
 
   constructor(scene, config) {
     super(scene, config);
