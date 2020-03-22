@@ -29,7 +29,7 @@ export default class GameService extends Service {
   @tracked sceneData = [];
   @tracked gameData = undefined;
 
-  // @tracked playerCoins = 3163;
+  // @tracked gold = 3163;
 
   // getMapData() {
   //   return MapData;
@@ -123,7 +123,7 @@ export default class GameService extends Service {
 
   createAgent(scene, agentConfig) {
     let agent = new Agent(scene, agentConfig);
-    // console.log('agent', agent)
+    console.log('agent', agent)
 
     scene.board.addChess(agent.container, agentConfig.x, agentConfig.y, this.constants.TILEZ_AGENTS);
 
@@ -237,7 +237,7 @@ export default class GameService extends Service {
 
   foundChest(chest) {
     if (chest) {
-      this.gameManager.player.playerCoins += chest.gold;
+      this.gameManager.player.gold += chest.gold;
       chest.gold = 0;
 
       this.epmModalContainerClass = 'chest';

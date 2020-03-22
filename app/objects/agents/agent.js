@@ -6,7 +6,7 @@ export class Agent extends BaseAgent {
   constructor(scene, config) {
     super(scene, config);
 
-    let agentContainer = new AgentContainer(scene, config);
+    let agentContainer = new AgentContainer(scene, config, this);
 
     this.container = agentContainer;
   }

@@ -9,22 +9,25 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
   ember = undefined;
 
   agent = undefined;
+  phaserAgent = undefined;
+
+  isPlayer = false;
 
   showPowerBar = false;
 
-  @tracked maxHealth;
-  @tracked health;
-  @tracked maxPower;
-  @tracked power;
-  @tracked healingSpeed = 3000;
-  @tracked healingPower = 2;
-  @tracked energizeSpeed = 2000;
-  @tracked energizePower = 1;
+  // @tracked maxHealth;
+  // @tracked health;
+  // @tracked maxPower;
+  // @tracked power;
+  // @tracked healingSpeed = 3000;
+  // @tracked healingPower = 2;
+  // @tracked energizeSpeed = 2000;
+  // @tracked energizePower = 1;
 
   @tracked aggressionScale = 0;
 
-  @tracked xpGain = 0;
-  @tracked gold = 0;
+  // @tracked xpGain = 0;
+  // @tracked gold = 0;
 
   constructor(scene, config) {
 
@@ -38,14 +41,14 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
 
     this.showPowerBar = config.showPowerBar;
 
-    this.health = config.health;
-    this.maxHealth = config.maxHealth;
-    this.healingPower = config.healingPower;
-    this.power = config.power;
-    this.maxPower = config.maxPower;
-    this.attackAudio = config.attackAudio;
-    this.xpGain = config.xpGain;
-    this.gold = config.gold;
+    // this.health = config.health;
+    // this.maxHealth = config.maxHealth;
+    // this.healingPower = config.healingPower;
+    // this.power = config.power;
+    // this.maxPower = config.maxPower;
+    // this.attackAudio = config.attackAudio;
+    // this.xpGain = config.xpGain;
+    // this.gold = config.gold;
 
     this.aggressionScale = config.aggressionScale ? config.aggressionScale : 0;
 
@@ -83,40 +86,44 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
     }
     agentTakingDamage.health -= sourceWeapon.damage;
 
-    if (agentTakingDamage.agent) {
-      agentTakingDamage.agent.tint = 0xff3333;
+    if (agentTakingDamage.container.phaserAgent) {
+      agentTakingDamage.container.phaserAgent.tint = 0xff3333;
       this.scene.time.addEvent({
         delay: 200,
         callback: () => {
           // this.hitDelay = false;
-          agentTakingDamage.agent.tint = 0xffffff;
+          agentTakingDamage.container.phaserAgent.tint = 0xffffff;
         },
         callbackScope: this
       });
 
       if (agentTakingDamage.health <= 0) {
-        this.ember.gameManager.enemyVictory(agentTakingDamage);
+        if (this.isPlayer) {
+          this.ember.gameManager.playerDied(agentTakingDamage.container);
+        } else {
+          this.ember.gameManager.enemyVictory(agentTakingDamage.container);
+        }
       }
     }
-    if (agentTakingDamage.player) {
-      agentTakingDamage.player.tint = 0xff3333;
-
-      if (agentTakingDamage.health <= 0) {
-        debugger;
-        this.ember.gameManager.playerDied(agentTakingDamage);
-      }
-
-      this.scene.time.addEvent({
-        delay: 200,
-        callback: () => {
-          // this.hitDelay = false;
-          agentTakingDamage.player.tint = 0xffffff;
-        },
-        callbackScope: this
-      });
-
-
-    }
+    // if (agentTakingDamage.player) {
+    //   agentTakingDamage.player.tint = 0xff3333;
+    //
+    //   if (agentTakingDamage.health <= 0) {
+    //     debugger;
+    //     this.ember.gameManager.playerDied(agentTakingDamage);
+    //   }
+    //
+    //   this.scene.time.addEvent({
+    //     delay: 200,
+    //     callback: () => {
+    //       // this.hitDelay = false;
+    //       agentTakingDamage.player.tint = 0xffffff;
+    //     },
+    //     callbackScope: this
+    //   });
+    //
+    //
+    // }
   }
 
   // For Conference Talk - carbon.now.sh
@@ -136,11 +143,11 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
   *reloadHealth() {
     while (true) {
       if (!this.ember.gameManager.gamePaused) {
-        if (this.health < this.maxHealth) {
-          this.health += Math.max(1, this.healingPower);
+        if (this.agent.health < this.agent.maxHealth) {
+          this.agent.health += Math.max(1, this.agent.healingPower);
         }
       }
-      yield timeout(this.healingSpeed);
+      yield timeout(this.agent.healingSpeed);
     }
   }
 
@@ -148,11 +155,11 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
   *reloadPower() {
     while (true) {
       if (!this.ember.gameManager.gamePaused) {
-        if (this.power < this.maxPower) {
-          this.power += Math.max(1, this.energizePower);
+        if (this.agent.power < this.agent.maxPower) {
+          this.agent.power += Math.max(1, this.agent.energizePower);
         }
       }
-      yield timeout(this.energizeSpeed);
+      yield timeout(this.agent.energizeSpeed);
     }
   }
 
@@ -181,9 +188,11 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
   }
 
   createHealthBar() {
+    // console.log('adding healthbar')
     this.healthBar = this.scene.add.graphics();
-    this,this.healthBar.setAlpha(0);
+    this.healthBar.setAlpha(this.isPlayer ? 1 : 0);
     if (this.showPowerBar) {
+    // console.log('adding power bar')
       this.powerBar = this.scene.add.graphics();
     }
     this.updateHealthBar();
@@ -191,7 +200,7 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
 
   updateHealthBar() {
     // console.log('updateHealthBar this', this)
-    const healthPercentage = (this.health / this.maxHealth);
+    const healthPercentage = (this.agent.health / this.agent.maxHealth);
     this.healthBar.clear();
     this.healthBar.fillStyle(0xffffff, 0.4);
     this.healthBar.fillRect(this.x + this.ember.constants.healthBarOffsetX, this.y + this.ember.constants.healthBarOffsetY, this.ember.constants.healthBarWidth, this.ember.constants.healthBarHeight);
@@ -201,7 +210,7 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
 
     if (this.showPowerBar) {
 
-      const powerPercentage = (this.power / this.maxPower);
+      const powerPercentage = (this.agent.power / this.agent.maxPower);
       this.powerBar.clear();
       this.powerBar.fillStyle(0xffffff, 0.4);
       this.powerBar.fillRect(this.x + this.ember.constants.powerBarOffsetX, this.y + this.ember.constants.powerBarOffsetY, this.ember.constants.powerBarWidth, this.ember.constants.powerBarHeight);
@@ -210,11 +219,11 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
     }
   }
 
-  setHealthAndPower(health, power) {
-    this.health = health;
-    this.power = power;
-    this.updateHealthBar();
-  }
+  // setHealthAndPower(health, power) {
+  //   this.health = health;
+  //   this.power = power;
+  //   this.updateHealthBar();
+  // }
 
   canFireWeapon(powerRequirement) {
     // console.log('canFire', agent.currentPower, powerRequirement);

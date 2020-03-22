@@ -7,20 +7,19 @@
       <img src="/images/emberquestlogo.png" class="logo" />
       <div class="game-controls">
         <div class="gem-wrapper">
-          <span class="gem gem-30"></span>
-          <span class="gems-count">{{this.emberGameService.gameManager.player.playerCoins}}</span>
+          {{#if this.emberGameService.gameManager.player}}
+            <span class="gem gem-30"></span>
+            <span class="gems-count">{{this.emberGameService.gameManager.player.gold}} Level {{this.emberGameService.gameManager.player.level}}</span>
+          {{/if}}
         </div>
         <button type="button" class="btn inventory" {{on "click" (fn this.showInventory)}} >
           <EmberTooltip tooltipClass="tooltip-controls" >Inventory</EmberTooltip>
         </button>
-        <button type="button" class="btn trophy" {{on "click" (fn this.saveGame)}}>
-          <EmberTooltip tooltipClass="tooltip-controls" >Awards</EmberTooltip>
-        </button>
-        <button type="button" class="btn gems" {{on "click" (fn this.clickGems)}}>
-          <EmberTooltip tooltipClass="tooltip-controls">Gems</EmberTooltip>
+        <button type="button" class="btn trophy" {{on "click" (fn this.showCaches)}}>
+          <EmberTooltip tooltipClass="tooltip-controls" >Geocaches</EmberTooltip>
         </button>
         <button type="button" class="btn instructions" {{on "click" (fn this.showInstructionsDialog)}} >
-          <EmberTooltip tooltipClass="tooltip-controls" >Credits</EmberTooltip>
+          <EmberTooltip tooltipClass="tooltip-controls" >Help</EmberTooltip>
         </button>
         <button type="button" class="btn settings" {{on "click" (fn this.showConfigDialog)}} >
           <EmberTooltip tooltipClass="tooltip-controls" >Settings</EmberTooltip>

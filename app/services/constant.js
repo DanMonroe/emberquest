@@ -6,6 +6,7 @@ const constants = Object.freeze({
   INVENTORY : {
     DAMAGE: 'damage',
     HEALTH: 'health',
+    POWER: 'power',
     ATTACK_SPEED: 'attackSpeed',
     MOVE_SPEED: 'moveSpeed',
     HEALING_SPEED: 'healingSpeedAdj',
@@ -22,6 +23,9 @@ const constants = Object.freeze({
       OTHER: 2
     }
   },
+
+  BASE_POWER: 100,
+  POWER_PER_LEVEL: 2,
 
   HEALTH_PER_LEVEL: 20,
   HEALTH_BONUS_PER_LEVEL: 1.2,

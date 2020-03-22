@@ -1,6 +1,6 @@
 import BasePhaserAgent from "../base-phaser-agent";
 
-export default class Transport extends BasePhaserAgent {
+export default class TransportPhaserAgent extends BasePhaserAgent {
 
   // scene = undefined;
   // ember = undefined;

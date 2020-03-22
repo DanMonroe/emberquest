@@ -114,14 +114,10 @@ export default class GameboardComponent extends Component {
   // }
 
   @action
-  async clickGems() {
-    console.log('click gems');
+  async showCaches() {
+    console.log('click Caches');
   }
 
-  @action
-  saveGame() {
-    console.log('Component Save Game');
-  }
 
   @action
   adjustVolume() {

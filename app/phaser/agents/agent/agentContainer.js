@@ -1,5 +1,5 @@
 import BasePhaserAgentContainer from "../base-phaser-agent-container";
-import Agent from './agent';
+import PhaserAgent from './phaser-agent';
 import {task} from "ember-concurrency-decorators";
 import {timeout,waitForProperty } from "ember-concurrency";
 import {tracked} from '@glimmer/tracking';
@@ -13,19 +13,20 @@ export default class AgentContainer extends BasePhaserAgentContainer {
   @tracked patrolEnabled = true;
   @tracked agentState = 0;  // IDLE
 
-  constructor(scene, config) {
+  constructor(scene, config, agent) {
     super(scene, config);
 
     this.containerType = this.ember.constants.SHAPE_TYPE_AGENT;
 
-    this.agent = new Agent(this.scene, config);
+    this.agent = agent;
+    this.phaserAgent = new PhaserAgent(this.scene, config);
+    this.add(this.phaserAgent);
 
     this.patrol = config.patrol;    // should this be on data.attrs ?
     this.weapons = config.weapons;
 
     this.setData('attrs', config.flagAttributes);
 
-    this.add(this.agent);
 
     this.moveToObject = scene.rexBoard.add.moveTo(this, {
       speed: config.speed

@@ -34,7 +34,7 @@ export default {
           maxHealth: 200,
           healingPower: 10,
           power: 20,
-          maxPower: 200,
+          // maxPower: 200,
           flagAttributes: {
             sightFlags: 0,
             travelFlags: 1
@@ -58,11 +58,11 @@ export default {
           sightRange: 3,   // this is sight/movement Range
           movingPoints: 3,   // this is sight/movement Range
           visiblePoints: 8,   // this is sight/movement Range
-          health: 100,
+          health: 9,
           maxHealth: 200,
           healingPower: 10,
           power: 20,
-          maxPower: 200,
+          // maxPower: 200,
 
           aggressionScale: 1,  // TODO need a better way to track aggression levels
 

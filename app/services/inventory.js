@@ -8,7 +8,7 @@ export default class InventoryService extends Service {
 
   buyInventory(item) {
     console.log('buy inventory', item);
-    this.gameManager.player.playerCoins -= item.price;
+    this.gameManager.player.gold -= item.price;
   }
 
 

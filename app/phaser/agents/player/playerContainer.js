@@ -1,5 +1,5 @@
 // import Phaser from 'phaser';
-import Player from "./player";
+import PlayerPhaserAgent from "./player-phaser-agent";
 import BasePhaserAgentContainer from "../base-phaser-agent-container";
 import {tracked} from '@glimmer/tracking';
 
@@ -28,7 +28,7 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
   //   }
   // }
 
-  constructor(scene, config) {
+  constructor(scene, config, agent) {
 
     config.showPowerBar = true;
 
@@ -43,13 +43,19 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
 
     this.id = config.id;
     this.playerAttacking = false;
+
+    this.isPlayer = true;
+    this.showPowerBar = true;
+
+    this.agent = agent;
+
     // this.flipX = true;
     // this.swordHit = false;
-    this.health = config.health || 5;
-    this.maxHealth = config.maxHealth;
-    this.power = config.power;
-    this.maxPower = config.maxPower;
-    this.attackAudio = config.attackAudio;
+    // this.health = config.health || 5;
+    // this.maxHealth = config.maxHealth;
+    // this.power = config.power;
+    // this.maxPower = config.maxPower;
+    // this.attackAudio = config.attackAudio;
 
     this.showPowerBar = true;
     // this.healingSpeed = 1000;
@@ -79,9 +85,11 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
 
 
     // create the player
-    this.player = new Player(this.scene, config);
-    // this.player = new Player(this.scene, 0, 0, key, frame);
+    this.player = new PlayerPhaserAgent(this.scene, config);
     this.add(this.player);
+
+    this.phaserAgent = this.player;
+    // this.agent = new Player
 
     // // create the weapon game object
     // this.weapon = this.scene.add.image(40, 0, 'items', 4);
@@ -102,7 +110,7 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
 // TODO  Take this out or the player can move anywhere
 // return true;
 
-      if (this.moveToObject.isRunning || this.power <= 1) {
+      if (this.moveToObject.isRunning || this.agent.power <= 1) {
         return false;
       }
 
@@ -131,7 +139,7 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
 
         this.moveToObject.setSpeed(config.speed * allattrs.speedCost);
 
-        this.power -= (2 - allattrs.speedCost);
+        this.agent.power -= (2 - allattrs.speedCost);
 
         // if (this.power <= 2) {
         //   console.log('No power to move!')
@@ -181,33 +189,33 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
     }
   }
 
-  createHealthBar() {
-    this.healthBar = this.scene.add.graphics();
-    this.powerBar = this.scene.add.graphics();
-    this.updateHealthBar();
-  }
+  // createHealthBar() {
+  //   this.healthBar = this.scene.add.graphics();
+  //   this.powerBar = this.scene.add.graphics();
+  //   this.updateHealthBar();
+  // }
 
-  updateHealthBar() {
-    const healthPercentage = (this.health / this.maxHealth);
-    this.healthBar.clear();
-    this.healthBar.fillStyle(0xffffff, 0.4);
-    this.healthBar.fillRect(this.x + this.ember.constants.healthBarOffsetX, this.y + this.ember.constants.healthBarOffsetY, this.ember.constants.healthBarWidth, this.ember.constants.healthBarHeight);
-    this.healthBar.fillStyle(healthPercentage <= this.ember.constants.healthBarColorTippingPoint ? this.ember.constants.healthBarColorDanger : this.ember.constants.healthBarColorGood, 1);
-    this.healthBar.fillRect(this.x + this.ember.constants.healthBarOffsetX, this.y + this.ember.constants.healthBarOffsetY, this.ember.constants.healthBarWidth * healthPercentage, this.ember.constants.healthBarHeight);
-
-    const powerPercentage = (this.power / this.maxPower);
-    this.powerBar.clear();
-    this.powerBar.fillStyle(0xffffff, 0.4);
-    this.powerBar.fillRect(this.x + this.ember.constants.powerBarOffsetX, this.y + this.ember.constants.powerBarOffsetY, this.ember.constants.powerBarWidth, this.ember.constants.powerBarHeight);
-    this.powerBar.fillStyle(this.ember.constants.powerBarColor, 1);
-    this.powerBar.fillRect(this.x + this.ember.constants.powerBarOffsetX, this.y + this.ember.constants.powerBarOffsetY, this.ember.constants.powerBarWidth * powerPercentage, this.ember.constants.powerBarHeight);
-  }
-
-  updateHealth(health, power) {
-    this.health = health;
-    this.power = power;
-    this.updateHealthBar();
-  }
+  // updateHealthBar() {
+  //   const healthPercentage = (this.player.health / this.player.maxHealth);
+  //   this.healthBar.clear();
+  //   this.healthBar.fillStyle(0xffffff, 0.4);
+  //   this.healthBar.fillRect(this.x + this.ember.constants.healthBarOffsetX, this.y + this.ember.constants.healthBarOffsetY, this.ember.constants.healthBarWidth, this.ember.constants.healthBarHeight);
+  //   this.healthBar.fillStyle(healthPercentage <= this.ember.constants.healthBarColorTippingPoint ? this.ember.constants.healthBarColorDanger : this.ember.constants.healthBarColorGood, 1);
+  //   this.healthBar.fillRect(this.x + this.ember.constants.healthBarOffsetX, this.y + this.ember.constants.healthBarOffsetY, this.ember.constants.healthBarWidth * healthPercentage, this.ember.constants.healthBarHeight);
+  //
+  //   const powerPercentage = (this.player.power / this.player.maxPower);
+  //   this.powerBar.clear();
+  //   this.powerBar.fillStyle(0xffffff, 0.4);
+  //   this.powerBar.fillRect(this.x + this.ember.constants.powerBarOffsetX, this.y + this.ember.constants.powerBarOffsetY, this.ember.constants.powerBarWidth, this.ember.constants.powerBarHeight);
+  //   this.powerBar.fillStyle(this.ember.constants.powerBarColor, 1);
+  //   this.powerBar.fillRect(this.x + this.ember.constants.powerBarOffsetX, this.y + this.ember.constants.powerBarOffsetY, this.ember.constants.powerBarWidth * powerPercentage, this.ember.constants.powerBarHeight);
+  // }
+  //
+  // updateHealth(health, power) {
+  //   this.player.health = health;
+  //   this.player.power = power;
+  //   this.updateHealthBar();
+  // }
 
 
   moveTo(cursors) {

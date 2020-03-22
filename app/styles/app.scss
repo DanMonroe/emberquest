@@ -214,7 +214,19 @@ a {
       }
     }
   }
-  .tooltip {
+  .btn.equip {
+    background: url(/images/premium-menu-icon.png) no-repeat;
+    background-position: 50% 50%;
+    background-size: 100%;
+    transform: scale(1.31) translateY(-3px) translateX(-3px);
+    box-shadow: initial;
+    filter: drop-shadow(2px 2px 4px black);
+    outline: none;
+    &:hover {
+      filter: drop-shadow(0 0 2px #bbf);
+    }
+  }
+  .tooltip, .tooltip.ember-tooltip {
     background-color: #1E5AFF;
     color: #fff;
     font-size: 1.1em;
@@ -224,9 +236,11 @@ a {
     }
   }
   .gem-wrapper {
-    display: inline;
+    display: inline-block;
+    min-width: 210px;
     .gems-count {
       font-size: 24px;
+      font-weight: 700;
       margin: 0 15px 0 5px;
       top: -8px;
       position: relative;
@@ -883,7 +897,7 @@ button {
         }
         span.owned {
           position: absolute;
-          left: 0;
+          left: -88px;
           right: 0;
           bottom: 0;
           height: 41px;
@@ -919,7 +933,7 @@ button {
             color: #163d49;
           }
         }
-        .unlock-button {
+        .unlock-button,.equip-button,.unequip-button {
           padding: 6px 9px;
           position: absolute;
           border: 3px solid #074153;
@@ -938,6 +952,14 @@ button {
             opacity: 0.5;
             cursor: not-allowed;
           }
+        }
+        .equip-button {
+          border: 3px solid #231e18;
+          background: #027910;
+        }
+        .unequip-button {
+          border: 3px solid #231e18;
+          background: #7b4c02;
         }
       }
       .scroll {

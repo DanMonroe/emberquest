@@ -36,7 +36,7 @@ export default {
           power: 15,
           healingPower: 10,
           // power: 20,
-          maxPower: 200,
+          // maxPower: 200,
 
           // aggressionScale: 1,  // TODO need a better way to track aggression levels
           aggressionScale: 10,  // TODO need a better way to track aggression levels

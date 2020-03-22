@@ -86,8 +86,20 @@ export default class InventoryDialogComponent extends Component {
   }
 
   @action
+  equip(item) {
+    console.log('equip', item);
+    item.equipped = true;
+  }
+
+  @action
+  unequip(item) {
+    console.log('unequip', item);
+    item.equipped = false;
+  }
+
+  @action
   unlockItem(item) {
-    if (item.price <= this.game.gameManager.player.playerCoins) {
+    if (item.price <= this.game.gameManager.player.gold) {
       if (item.confirmUnlock === true) {
         // console.log('buy')
           this.inventory.buyInventory(item);

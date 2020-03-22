@@ -30,7 +30,7 @@ export default class VictoryDialogComponent extends Component {
     this.countXP.perform(this.awards.xp);
     this.countGems.perform(this.awards.gems);
 
-    this.game.gameManager.player.playerCoins += this.awards.gems;
+    this.game.gameManager.player.gold += this.awards.gems;
   }
 
   @task

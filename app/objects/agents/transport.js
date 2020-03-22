@@ -6,7 +6,7 @@ export class Transport extends BaseAgent {
   constructor(scene, config) {
     super(scene, config);
 
-    let transportContainer = new TransportContainer(scene, config);
+    let transportContainer = new TransportContainer(scene, config, this);
 
     this.container = transportContainer;
 

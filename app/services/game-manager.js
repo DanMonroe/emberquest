@@ -109,17 +109,22 @@ export default class GameManagerService extends Service {
       // visiblePoints: 60,   // this is sight/movement Range
       visiblePoints: 8,   // this is sight/movement Range
 
-      playerCoins: 5150,
+      gold: 5150,
 
       // health: 2,
-      health: 200,
-      maxHealth: 200,
-      healingPower: 5,
-      healingSpeed: 2500,
+      health: 11,
+      // maxHealth: 200,
+      // healingPower: 5,
+      // healingSpeed: 2500,
+
+      baseHealingPower: 2,
+      baseHealingSpeed: 2500,
+
+
       energizeSpeed : 2000,
       energizePower: 2,
       power: 50,
-      maxPower: 50,
+      // maxPower: 50,
       id: 'player1',
       playerAttackAudio: undefined, // when ready, get from Boot scene  --- actually should get from the weapon the player is using.
 

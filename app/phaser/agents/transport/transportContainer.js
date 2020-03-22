@@ -1,8 +1,4 @@
-import Phaser from 'phaser';
-import Transport from "./transport";
-import { tracked } from '@glimmer/tracking';
-import { timeout } from 'ember-concurrency';
-import { task } from 'ember-concurrency-decorators';
+import TransportPhaserAgent from "./transport-phaser-agent";
 import BasePhaserAgentContainer from "../base-phaser-agent-container";
 
 export default class TransportContainer extends BasePhaserAgentContainer {
@@ -39,7 +35,7 @@ export default class TransportContainer extends BasePhaserAgentContainer {
   //   }
   // }
 
-  constructor(scene, config) {
+  constructor(scene, config, agent) {
 
     super(scene, config);
     this.containerType = this.scene.game.ember.constants.SHAPE_TYPE_TRANSPORT;
@@ -48,9 +44,11 @@ export default class TransportContainer extends BasePhaserAgentContainer {
     // this.cachedHealthPercentage = 0;
 
     // create the tranport
-    this.transport = new Transport(this.scene, config);
-
+    this.transport = new TransportPhaserAgent(this.scene, config);
     this.add(this.transport);
+
+    this.agent = agent;
+    this.phaserAgent = this.transport;
 
     this.moveToObject = this.scene.rexBoard.add.moveTo(this, {
       speed: config.speed, // 400 default

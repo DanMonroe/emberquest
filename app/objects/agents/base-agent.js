@@ -9,12 +9,16 @@ export class BaseAgent {
   // @tracked healingSpeed;
   // @tracked healingPower;
   @tracked power;
-  @tracked maxPower;
+  // @tracked maxPower = 1;
   @tracked energizeSpeed = 2000;
   @tracked energizePower = 2;
 
   @tracked inventory = [];
   @tracked experience = 0;
+
+  @tracked aggressionScale = 0;
+  @tracked xpGain = 0;
+  @tracked gold = 0;
 
   // These properties are derived from inventory items from the listed inventory property
   // attackDamage - from 'damage'
@@ -38,7 +42,11 @@ export class BaseAgent {
 
     this.health = config.health || 10;
     // this.maxHealth = config.maxHealth || 10;
+    this.gold = config.gold || 0;
+
     this.power = config.power || 10;
+    // this.maxPower = config.maxPower || 10;
+
     this.baseHealingPower = config.baseHealingPower || 2;
     this.baseHealingSpeed = config.baseHealingSpeed || 2000;  // how fast they heal
     // this.healingPower = config.healingPower || 10;  // how much they heal each time
@@ -50,7 +58,12 @@ export class BaseAgent {
 
   // Main properties:
 
+  get maxPower() {
+    return this.basePower + this.powerFromInventory;
+  }
+
   get maxHealth() {
+    // console.log('max heath', this.baseHealth + this.armorHealth, this)
     return this.baseHealth + this.armorHealth;
   }
 
@@ -59,7 +72,7 @@ export class BaseAgent {
   }
 
   get healingPower() {
-    return this.baseHealingPower * this.healingSpeedAdj;
+    return this.baseHealingPower * this.healingPowerAdj;
   }
 
 
@@ -101,6 +114,12 @@ export class BaseAgent {
     return baseWithBonus;
   }
 
+  get basePower() {
+    const base = this.level * constants.POWER_PER_LEVEL
+    const baseWithBonus = Math.floor(base * this.bonusPercentagePerLevel);
+    return constants.BASE_POWER + baseWithBonus;
+  }
+
 
   sumProperty(property) {
     return this.equippedInventory.reduce((sum, item) => {
@@ -127,6 +146,10 @@ export class BaseAgent {
 
   get armorHealth() {
     return this.sumProperty(constants.INVENTORY.HEALTH);
+  }
+
+  get powerFromInventory() {
+    return this.sumProperty(constants.INVENTORY.POWER);
   }
 
   // this will be multiplied by the attackSpeed concurrency timeout
