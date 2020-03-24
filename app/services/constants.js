@@ -4,13 +4,37 @@ const constants = Object.freeze({
 
   // Base agent properties are derived from inventory items from the listed inventory property
   INVENTORY: {
-    DAMAGE: 'damage',
-    HEALTH: 'health',
-    POWER: 'power',
-    ATTACK_SPEED: 'attackSpeed',
-    MOVE_SPEED: 'moveSpeed',
-    HEALING_SPEED: 'healingSpeedAdj',
-    HEALING_POWER: 'healingPowerAdj',
+    // DAMAGE: 'damage',
+    // HEALTH: 'health',
+    // POWER: 'power',
+    // ATTACK_SPEED: 'attackSpeed',
+    // MOVE_SPEED: 'moveSpeed',
+    // HEALING_SPEED: 'healingSpeedAdj',
+    // HEALING_POWER: 'healingPowerAdj',
+
+    TOTAL_BODYPARTS: 9,
+
+    BODYPART: {
+      BODY: 0,
+      FEET: 1,
+      HEAD: 2,
+      ARMS: 3,
+      LEFT_HAND: 4,
+      RIGHT_HAND: 5,
+      NECK: 6,
+      FINGERS: 7,
+      GLOVES: 8
+    },
+
+    STATS: {
+      DAMAGE: 0,
+      HEALTH: 1,
+      POWER: 2,
+      MOVESPEED: 3,
+      ATTACKSPEED: 4,
+      HEALINGSPEEDADJ: 5,
+      HEALINGPOWERADJ: 6
+    },
 
     RESISTANCE: {
       FIRE: 0,

@@ -6,6 +6,7 @@ import { tracked } from '@glimmer/tracking';
 export default class GameManagerService extends Service {
   @service('spawner') spawnerService;
   @service modals;
+  @service inventory;
 
   @tracked player;
   @tracked volume = 0;
@@ -45,6 +46,11 @@ export default class GameManagerService extends Service {
   pauseGame(paused) {
     this.gamePaused = paused;
   }
+
+  async saveSceneData() {
+    await this.ember.saveSceneData(this.scene);
+  }
+
 
   adjustVolume() {
     this.volume++;
@@ -109,7 +115,7 @@ export default class GameManagerService extends Service {
       // visiblePoints: 60,   // this is sight/movement Range
       visiblePoints: 8,   // this is sight/movement Range
 
-      gold: 5150,
+      gold: 15,
 
       // health: 2,
       health: 11,
@@ -133,6 +139,8 @@ export default class GameManagerService extends Service {
         travelFlags: (this.storedData.storedPlayerAttrs && this.storedData.storedPlayerAttrs.travelFlags) || this.ember.constants.FLAGS.TRAVEL.LAND.value
       },
 
+      storedPlayerAttrs: this.storedData.storedPlayerAttrs,
+
       costCallback:  (tileXY) => {
         return this.ember.map.getTileAttribute(this.scene, tileXY, 'sightCost');
         // return this.ember.map.getTileAttribute(this.board.scene, tileXY, 'sightCost');
@@ -152,7 +160,6 @@ export default class GameManagerService extends Service {
       }
 
     };
-
 
     this.player = new Player(this.scene, this.playerConfig);
     this.players[this.player.id] = this.player;

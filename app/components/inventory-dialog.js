@@ -2,6 +2,7 @@ import Component from '@glimmer/component';
 import {action} from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
+import { constants } from 'emberquest/services/constants';
 
 export default class InventoryDialogComponent extends Component {
   tagName = '';
@@ -22,8 +23,8 @@ export default class InventoryDialogComponent extends Component {
 
   constructor() {
     super(...arguments);
-
-    this.inventoryItems = this.modals.top._data;
+    this.inventoryItems = this.inventory.getInventoryItems();
+    // this.inventoryItems = this.modals.top._data;
     this.resetAllToUnlock();
     this.itemSelected = this.filteredItems[0];
   }
@@ -34,22 +35,22 @@ export default class InventoryDialogComponent extends Component {
       {
         text: 'Weapons',
         img: '/images/icons/item-icon-primary.png',
-        category: 'weapon'
+        category: constants.INVENTORY.TYPE.WEAPON
       },
       {
         text: 'Armor',
         img: '/images/icons/item-icon-armor.png',
-        category: 'armor'
+        category: constants.INVENTORY.TYPE.ARMOR
       },
       {
         text: 'Other',
         img: '/images/icons/item-icon-accessories.png',
-        category: 'other'
-      },
-      {
-        text: 'Tomes',
-        img: '/images/icons/item-icon-books.png',
-        category: 'tome'
+        category: constants.INVENTORY.TYPE.OTHER
+      // },
+      // {
+      //   text: 'Tomes',
+      //   img: '/images/icons/item-icon-books.png',
+      //   category: constants.INVENTORY.TYPE.
       }
     ];
   }
@@ -78,23 +79,27 @@ export default class InventoryDialogComponent extends Component {
 
   @action
   selectItem(item) {
-    // console.log(item);
-    // if(this.itemSelected) {
-      // this.itemSelected.confirmUnlock = false;
-    // }
     this.itemSelected = item;
   }
 
   @action
-  equip(item) {
+  async equip(item) {
     console.log('equip', item);
-    item.equipped = true;
+    const equippedSlotItem = this.inventory.getEquippedSlot(this.game.gameManager.player.container.agent, item);
+    if ( ! equippedSlotItem) {
+      this.game.gameManager.player.container.agent.equipItem(item);
+      await this.game.gameManager.saveSceneData();
+    } else {
+      console.log('slot full')
+    }
+    // item.equipped = true;
   }
 
   @action
-  unequip(item) {
+  async unequip(item) {
     console.log('unequip', item);
-    item.equipped = false;
+    this.game.gameManager.player.container.agent.unequipItem(item);
+    await this.game.gameManager.saveSceneData();
   }
 
   @action

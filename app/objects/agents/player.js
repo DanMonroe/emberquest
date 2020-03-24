@@ -12,5 +12,26 @@ export class Player extends BaseAgent {
 
     this.container = new PlayerContainer(scene, config, this);
     this.playerConfig = config;
+
+    this.loadInventory();
+  }
+
+  loadInventory() {
+    let inventoryItems = this.ember.inventory.getInventoryItems();
+
+    if (this.playerConfig.storedPlayerAttrs.inventory) {
+      this.playerConfig.storedPlayerAttrs.inventory.forEach(storedInventoryItem => {
+        // console.log('stored item', storedInventoryItem);
+        const gameInventoryItem = inventoryItems.findBy('id', storedInventoryItem.id);
+        // console.log('gameInventoryItem', gameInventoryItem);
+        if (gameInventoryItem) {
+          gameInventoryItem.owned = true;
+          if (storedInventoryItem.eq) {
+            this.equipItem(storedInventoryItem);
+          }
+          this.inventory.pushObject(gameInventoryItem);
+        }
+      })
+    }
   }
 }

@@ -63,17 +63,11 @@
               <img src="/images/hr.png" class="hr">
               {{#each this.itemSelected.stats as |stat|}}
                 <div class="stat-row big-font short-name">
-                  <div class="stat-label">{{stat.title}}</div>
-                  <div class="stat">{{stat.desc}}</div>
+                  <div class="stat-label">{{stat.getTitle}}</div>
+                  <div class="stat">{{stat.getDescription}}</div>
                 </div>
                 <img src="/images/hr.png" class="hr">
               {{/each}}
-              {{#if this.itemSelected.addonName}}
-                <div class="addon-row big-font">
-                  <div class="name">{{this.itemSelected.addonName}}</div>
-                </div>
-                <img src="/images/hr.png" class="hr">
-              {{/if}}
 
               {{#if this.itemSelected.description}}
                 <div dir="auto" class="item-description">
@@ -82,16 +76,16 @@
               {{/if}}
 
 
-              {{#if (gte this.itemSelected.skills.length 0)}}
-                <div class="skills">
+              {{#if (gte this.itemSelected.resistance.length 0)}}
+                <div class="resistance">
                   <h3 class="big-font">
-                    Skills Granted
+                    Resistance Granted
                   </h3>
-                  {{#each this.itemSelected.skills as |skill|}}
+                  {{#each this.itemSelected.resistance as |resistance|}}
                     <p>
-                      <strong>{{skill.title}}</strong>
+                      <strong>{{resistance.getTitle}}</strong>
                       <span class="spr">:</span>
-                      <span>{{skill.desc}}</span>
+                      <span>{{resistance.getDescription}}</span>
                     </p>
                   {{/each}}
                 </div>

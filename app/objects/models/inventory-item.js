@@ -8,27 +8,34 @@ export class InventoryItem {
   sound;
   soundhit;
   listorder;
-  damage = 1;
+
   maxRange = 20;
   weaponSpeed = 1000; // time between attacks
   projectileSpeed = 200;
   poweruse = 10;
   accuracy = 90; // percentage
 
+  bodypart;
+
   @tracked img;
   @tracked price;
-  @tracked owned;
+  @tracked owned = false;
   @tracked locked;
-  @tracked stats;
-  @tracked skills;
-  @tracked owner;
-  @tracked equipped;
+  // @tracked skills;
+  @tracked equipped = false;
   @tracked tileX;
   @tracked tileY;
-  @tracked resistance; // Object: { fire = 0, cold = 0 }
+  @tracked stats; // array of Stat objects
+  @tracked resistance; // array of Objects: { fire = 0, cold = 0 }
+
+  @tracked confirmUnlock;
 
   constructor(config) {
     // this.id = config.id;
     Object.assign(this, config);
+  }
+
+  get unlockText() {
+    return this.confirmUnlock ? "Confirm" : "Buy";
   }
 }

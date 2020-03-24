@@ -90,7 +90,7 @@ export default class GameboardComponent extends Component {
 
   @action
   async showInventory() {
-    await this.showDialog('inventory', 'inventory-dialog', this.args.inventoryItems);
+    await this.showDialog('inventory', 'inventory-dialog');
   }
 
   @action

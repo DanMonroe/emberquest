@@ -27,7 +27,12 @@ module('Unit | Object | base-agent', function(hooks) {
       type: constants.INVENTORY.TYPE.ARMOR,
       name: 'armor1',
       equipped: true,
-      health: 10,
+      stats: [
+        {
+          type: constants.INVENTORY.STATS.HEALTH,
+          value: 10
+        }
+      ],
       resistance: [{
         type: constants.INVENTORY.RESISTANCE.FIRE,
         value: 7
@@ -37,7 +42,12 @@ module('Unit | Object | base-agent', function(hooks) {
       type: constants.INVENTORY.TYPE.ARMOR,
       name: 'armor2',
       equipped: true,
-      health: 3,
+      stats: [
+        {
+          type: constants.INVENTORY.STATS.HEALTH,
+          value: 3
+        }
+      ],
       resistance: [{
         type: constants.INVENTORY.RESISTANCE.FIRE,
         value: 95
@@ -47,7 +57,12 @@ module('Unit | Object | base-agent', function(hooks) {
       type: constants.INVENTORY.TYPE.ARMOR,
       name: 'armor3',
       equipped: true,
-      health: 5,
+      stats: [
+        {
+          type: constants.INVENTORY.STATS.HEALTH,
+          value: 5
+        }
+      ],
       resistance: [
         {
           type: constants.INVENTORY.RESISTANCE.FIRE,
@@ -63,7 +78,12 @@ module('Unit | Object | base-agent', function(hooks) {
       type: constants.INVENTORY.TYPE.WEAPON,
       name: 'weapon1',
       equipped: true,
-      damage: 6,
+      stats: [
+        {
+          type: constants.INVENTORY.STATS.DAMAGE,
+          value: 6
+        }
+      ],
       resistance: [{
         type: constants.INVENTORY.RESISTANCE.FIRE,
         value: 3
@@ -73,9 +93,22 @@ module('Unit | Object | base-agent', function(hooks) {
       type: constants.INVENTORY.TYPE.WEAPON,
       name: 'weapon2',
       equipped: true,
-      damage: 7,
-      moveSpeed: 0.5,
-      attackSpeed: 1.1, // really big so it is slow
+      stats: [
+        {
+          type: constants.INVENTORY.STATS.DAMAGE,
+          value: 7
+        },
+        {
+          type: constants.INVENTORY.STATS.MOVESPEED,
+          value: 0.5
+        },
+        {
+          type: constants.INVENTORY.STATS.ATTACKSPEED,
+          value: 1.1 // really big so it is slow
+        }
+      ],
+      // moveSpeed: 0.5,
+      // attackSpeed: 1.1, // really big so it is slow
       resistance: [{
         type: constants.INVENTORY.RESISTANCE.FIRE,
         value: 3
@@ -84,8 +117,22 @@ module('Unit | Object | base-agent', function(hooks) {
     ring1 = new InventoryItem({
       name: 'ring1',
       equipped: true,
-      attackSpeed: -0.2,
-      healingSpeedAdj: -0.5
+      stats: [
+        {
+          type: constants.INVENTORY.STATS.DAMAGE,
+          value: 7
+        },
+        {
+          type: constants.INVENTORY.STATS.HEALINGSPEEDADJ,
+          value: -0.5
+        },
+        {
+          type: constants.INVENTORY.STATS.ATTACKSPEED,
+          value: -0.2
+        }
+      ],
+      // attackSpeed: -0.2,
+      // healingSpeedAdj: -0.5
     });
 
   });

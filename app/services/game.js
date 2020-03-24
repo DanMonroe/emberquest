@@ -63,9 +63,16 @@ export default class GameService extends Service {
 
     this.sceneData[mapname] = currentMapData;
 
+    let playerAttrs = scene.player.container.data.get('attrs');
+
+    // inventory
+    Object.assign(playerAttrs, {
+      'inventory': scene.player.container.agent.saveGameInventoryAttrs
+    });
+
     Object.assign(gameData, {
       'playerTile': scene.player.container.rexChess.tileXYZ,
-      'playerAttrs': scene.player.container.data.get('attrs'),
+      'playerAttrs': playerAttrs,
       sceneData: this.sceneData
     });
 

@@ -1,6 +1,7 @@
 import { constants } from 'emberquest/services/constants';
 import { tracked } from '@glimmer/tracking';
 import { computed } from '@ember/object';
+import { A as emberArray } from '@ember/array';
 
 export class BaseAgent {
 
@@ -13,12 +14,15 @@ export class BaseAgent {
   @tracked energizeSpeed = 2000;
   @tracked energizePower = 2;
 
-  @tracked inventory = [];
+  @tracked inventory = emberArray([]);
+  equippedSlot = [];
+
   @tracked experience = 0;
 
   @tracked aggressionScale = 0;
   @tracked xpGain = 0;
   @tracked gold = 0;
+
 
   // These properties are derived from inventory items from the listed inventory property
   // attackDamage - from 'damage'
@@ -53,7 +57,9 @@ export class BaseAgent {
     this.energizeSpeed = config.energizeSpeed || 10;// how fast they recharge power
     this.energizePower = config.energizePower || 10;// how much power they recharge each time
 
-    this.inventory = config.inventory || [];
+    for (let i = 0; i < constants.INVENTORY.TOTAL_BODYPARTS; i++) {
+      this.equippedSlot[i] = null;
+    }
   }
 
   // Main properties:
@@ -81,6 +87,14 @@ export class BaseAgent {
   @computed('inventory.@each.equipped')
   get equippedInventory() {
     return this.inventory.filter(item => item.equipped === true);
+  }
+
+  @computed('inventory.@each.equipped')
+  get saveGameInventoryAttrs() {
+    let saveAttrs = this.inventory.map(item => {
+      return { id: item.id, eq: item.equipped };
+    })
+    return saveAttrs;
   }
 
   get level() {
@@ -122,18 +136,22 @@ export class BaseAgent {
 
 
   sumProperty(property) {
+    // return this.getStats(property);
     return this.equippedInventory.reduce((sum, item) => {
       return sum + (item[property] || 0);
     }, 0);
   }
 
   addInventory(item) {
-    this.inventory.push(item);
+    console.log('adding inventory', item)
+    this.inventory.pushObject(item);
+    console.log('   new inventory', this.inventory)
   }
 
   // could combine this with unequip but I think having them separate for now is better understood
   equipItem(item) {
     item.equipped = true;
+    this.equippedSlot[item.bodypart] = item;
   }
 
   unequipItem(item) {
@@ -141,31 +159,31 @@ export class BaseAgent {
   }
 
   get attackDamage() {
-    return this.sumProperty(constants.INVENTORY.DAMAGE);
+    return this.getStats(constants.INVENTORY.STATS.DAMAGE);
   }
 
   get armorHealth() {
-    return this.sumProperty(constants.INVENTORY.HEALTH);
+    return this.getStats(constants.INVENTORY.STATS.HEALTH);
   }
 
   get powerFromInventory() {
-    return this.sumProperty(constants.INVENTORY.POWER);
+    return this.getStats(constants.INVENTORY.STATS.POWER);
   }
 
   // this will be multiplied by the attackSpeed concurrency timeout
   // it will add 1.  if all adjustments are 0m the there will be no change to attackSpeed timeout
   // an adjustment speed less than 1 is faster
   get attackSpeedAdj() {
-    return +parseFloat((this.sumProperty(constants.INVENTORY.ATTACK_SPEED)).toFixed(constants.FLOATING_POINT_PRECISION)) + 1;
+    return +parseFloat((this.getStats(constants.INVENTORY.STATS.ATTACKSPEED)).toFixed(constants.FLOATING_POINT_PRECISION)) + 1;
   }
   get moveSpeedAdj() {
-    return +parseFloat((this.sumProperty(constants.INVENTORY.MOVE_SPEED)).toFixed(constants.FLOATING_POINT_PRECISION)) + 1;
+    return +parseFloat((this.getStats(constants.INVENTORY.STATS.MOVESPEED)).toFixed(constants.FLOATING_POINT_PRECISION)) + 1;
   }
   get healingSpeedAdj() {
-    return +parseFloat((this.sumProperty(constants.INVENTORY.HEALING_SPEED)).toFixed(constants.FLOATING_POINT_PRECISION)) + 1;
+    return +parseFloat((this.getStats(constants.INVENTORY.STATS.HEALINGSPEEDADJ)).toFixed(constants.FLOATING_POINT_PRECISION)) + 1;
   }
   get healingPowerAdj() {
-    return +parseFloat((this.sumProperty(constants.INVENTORY.HEALING_POWER)).toFixed(constants.FLOATING_POINT_PRECISION)) + 1;
+    return +parseFloat((this.getStats(constants.INVENTORY.STATS.HEALINGPOWERADJ)).toFixed(constants.FLOATING_POINT_PRECISION)) + 1;
   }
 
   getInventoryByType(type, equippedOnly = true) {
@@ -199,6 +217,48 @@ export class BaseAgent {
       default:
         return [];
     }
+  }
+
+  getInventoryByStat(type) {
+    switch (type) {
+      case constants.INVENTORY.STATS.DAMAGE:
+      case constants.INVENTORY.STATS.HEALTH:
+      case constants.INVENTORY.STATS.MOVESPEED:
+      case constants.INVENTORY.STATS.ATTACKSPEED:
+      case constants.INVENTORY.STATS.HEALINGSPEEDADJ:
+        return this.equippedInventory.filter(item => {
+          if (!item.stats || item.stats.length === 0) {
+            return false;
+          }
+          return item.stats.some(stat => stat.type === type);
+        });
+      default:
+        return [];
+    }
+  }
+
+  getStats(type) {
+    let total = 0;
+    switch (type) {
+      case constants.INVENTORY.STATS.DAMAGE:
+      case constants.INVENTORY.STATS.HEALTH:
+      case constants.INVENTORY.STATS.MOVESPEED:
+      case constants.INVENTORY.STATS.ATTACKSPEED:
+      case constants.INVENTORY.STATS.HEALINGSPEEDADJ:
+
+        // sum all inventory items, and each stat object in that item.
+        total += this.getInventoryByStat(type).reduce((sum, { stats } ) => {
+          let subtotal_stat = stats.reduce((subsum, substat ) => {
+            return substat.type === type ? subsum + substat.value : subsum;
+          }, 0); // start with 0
+
+          return sum + subtotal_stat;
+        }, 0); // start with 0
+        break;
+      default:
+        break;
+    }
+    return total;
   }
 
   getResistance(type) {
