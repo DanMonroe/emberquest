@@ -21,6 +21,8 @@ export default class InventoryDialogComponent extends Component {
 
   items = undefined;
 
+  @tracked showDialogTest = false;
+
   constructor() {
     super(...arguments);
     this.inventoryItems = this.inventory.getInventoryItems();
@@ -84,14 +86,19 @@ export default class InventoryDialogComponent extends Component {
 
   @action
   async equip(item) {
-    console.log('equip', item);
-    const equippedSlotItem = this.inventory.getEquippedSlot(this.game.gameManager.player.container.agent, item);
-    if ( ! equippedSlotItem) {
-      this.game.gameManager.player.container.agent.equipItem(item);
-      await this.game.gameManager.saveSceneData();
-    } else {
-      console.log('slot full')
-    }
+
+    this.showDialogTest = ! this.showDialogTest;
+
+    console.log('this.showDialogTest', this.showDialogTest)
+
+    // console.log('equip', item);
+    // const equippedSlotItem = this.inventory.getEquippedSlot(this.game.gameManager.player.container.agent, item);
+    // if ( ! equippedSlotItem) {
+    //   this.game.gameManager.player.container.agent.equipItem(item);
+    //   await this.game.gameManager.saveSceneData();
+    // } else {
+    //   console.log('slot full')
+    // }
     // item.equipped = true;
   }
 

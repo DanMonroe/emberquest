@@ -96,4 +96,26 @@
       </div>
     {{/if}}
   </div>
+{{#if this.showDialogTest}}
+  {{#modal-dialog
+          onClose=(action (mut this.showDialogTest) false)
+          translucentOverlay=true
+          clickOutsideToClose=false
+          containerClass="eq-dialog"
+  }}
+    <div class="wrapper">
+      <h3>Dread Door</h3>
+      <div class="prompt">
+        <p>Behind a dread door lies a chest full of riches.</p>
+      </div>
+
+      <button class="btn btn-blue btn btn-lg btn-illustrated">
+        Cancel
+      </button>
+      <button class="btn btn-green btn btn-lg btn-illustrated">
+        OK
+      </button>
+    </div>
+  {{/modal-dialog}}
+{{/if}}
 </div>

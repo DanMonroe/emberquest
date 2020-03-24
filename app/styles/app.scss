@@ -1,3 +1,37 @@
+@import "ember-modal-dialog/ember-modal-structure";
+@import "ember-modal-dialog/ember-modal-appearance";
+
+.ember-modal-wrapper .ember-modal-dialog {
+  z-index: 2000;
+  &.eq-dialog {
+    background: url(/images/backgrounds/level-info-background.png);
+    width: 362px;
+    padding: 17px 20px 20px 20px;
+    border: 0;
+    background-size: 100% 100%;
+
+    h3 {
+      color: #e8d957;
+      text-shadow: black 2px 2px 0, black -2px -2px 0, black 2px -2px 0, black -2px 2px 0, black 2px 0px 0, black 0px -2px 0, black -2px 0px 0, black 0px 2px 0;
+      margin: 0 0 10px 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-variant: small-caps;
+      font-size: 24.5px;
+    }
+
+  }
+}
+
+.ember-modal-overlay.translucent {
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1120;
+}
+
+
+
+
 // From ember-promise-modals
 .epm-scrolling-disabled {
   overflow: hidden;
