@@ -93,29 +93,29 @@
             </div>
           </div>
         </div>
+
+        <button type="button" class="btn btn-blue big-font close-btn-big" {{on "click" @close}}>
+          Close Inventory
+        </button>
+
       </div>
     {{/if}}
   </div>
-{{#if this.showDialogTest}}
-  {{#modal-dialog
-          onClose=(action (mut this.showDialogTest) false)
-          translucentOverlay=true
-          clickOutsideToClose=false
-          containerClass="eq-dialog"
-  }}
-    <div class="wrapper">
-      <h3>Dread Door</h3>
-      <div class="prompt">
-        <p>Behind a dread door lies a chest full of riches.</p>
-      </div>
-
-      <button class="btn btn-blue btn btn-lg btn-illustrated">
-        Cancel
-      </button>
-      <button class="btn btn-green btn btn-lg btn-illustrated">
-        OK
-      </button>
-    </div>
-  {{/modal-dialog}}
-{{/if}}
 </div>
+{{#if this.swapEquipmentConfirmer}}
+  <ToElsewhere
+      @named={{"modal"}}
+      @send={{hash body=(component "confirmation-dialog"
+      header="Equipment swap"
+      prompt=this.swapEquipmentMessage
+      prompt2=this.swapEquipmentMessage2
+
+      cancelText="Cancel"
+      confirmationText="OK"
+      onConfirm=(action swapEquipmentConfirmer.confirm)
+      onCancel=(action swapEquipmentConfirmer.cancel)
+  )
+     onOutsideClick=(action (mut swapEquipmentConfirmer) null)
+  }}
+  />
+{{/if}}

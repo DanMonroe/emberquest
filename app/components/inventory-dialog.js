@@ -3,6 +3,7 @@ import {action} from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
 import { constants } from 'emberquest/services/constants';
+import Confirmer from 'confirmed';
 
 export default class InventoryDialogComponent extends Component {
   tagName = '';
@@ -18,6 +19,10 @@ export default class InventoryDialogComponent extends Component {
 
   @tracked showToggleablePopover = false;
   @tracked popoverTarget = '';
+
+  @tracked swapEquipmentConfirmer = null;
+  @tracked swapEquipmentMessage;
+  @tracked swapEquipmentMessage2;
 
   items = undefined;
 
@@ -91,14 +96,28 @@ export default class InventoryDialogComponent extends Component {
 
     console.log('this.showDialogTest', this.showDialogTest)
 
-    // console.log('equip', item);
-    // const equippedSlotItem = this.inventory.getEquippedSlot(this.game.gameManager.player.container.agent, item);
-    // if ( ! equippedSlotItem) {
-    //   this.game.gameManager.player.container.agent.equipItem(item);
-    //   await this.game.gameManager.saveSceneData();
-    // } else {
-    //   console.log('slot full')
-    // }
+    console.log('equip', item);
+    const equippedSlotItem = this.inventory.getEquippedSlot(this.game.gameManager.player.container.agent, item);
+    if ( ! equippedSlotItem) {
+      this.game.gameManager.player.container.agent.equipItem(item);
+      await this.game.gameManager.saveSceneData();
+    } else {
+
+    this.swapEquipmentMessage = `You already have ${equippedSlotItem.name} equipped for that part of your body.`;
+    this.swapEquipmentMessage2 = `Do you want to swap with ${item.name}?`;
+
+      console.log('slot full')
+      new Confirmer(swapEquipmentConfirmer => this.swapEquipmentConfirmer = swapEquipmentConfirmer)
+        .onConfirmed(() => {
+          console.log('ok', item)
+        })
+        .onCancelled(() => {
+          console.log('cancel')
+        })
+        .onDone(() => {
+          this.swapEquipmentConfirmer = null
+        });
+    }
     // item.equipped = true;
   }
 

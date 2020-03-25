@@ -40,11 +40,11 @@
     "ember-concurrency": "^1.1.5",
     "ember-concurrency-decorators": "^1.0.0",
     "ember-data": "~3.16.0",
+    "ember-elsewhere": "^1.1.0",
     "ember-export-application-global": "^2.0.1",
     "ember-fetch": "^7.0.0",
     "ember-load-initializers": "^2.1.1",
     "ember-maybe-import-regenerator": "^0.1.6",
-    "ember-modal-dialog": "^3.0.0-beta.4",
     "ember-phaser": "^0.4.0",
     "ember-qunit": "^4.6.0",
     "ember-resolver": "^7.0.0",
@@ -68,6 +68,7 @@
     "edition": "octane"
   },
   "dependencies": {
+    "confirmed": "^2.3.2",
     "emberquest-map-data": "file:./lib/emberquest-map-data",
     "focus-trap": "^5.1.0",
     "localforage": "^1.7.3"

@@ -1,0 +1,31 @@
+<div class="confirmation-dialog">
+  <div class="content">
+    {{#if @this.header}}
+      <h3>{{@this.header}}</h3>
+    {{/if}}
+
+    {{#if @this.prompt}}
+      <div class="prompt">
+          {{@this.prompt}}
+      </div>
+    {{/if}}
+
+    {{#if @this.prompt2}}
+      <div class="prompt">
+          {{@this.prompt2}}
+      </div>
+    {{/if}}
+
+    <img src="/images/hr.png" class="hr">
+  </div>
+  <div class="confirmfooter">
+    {{#if @this.cancelText}}
+      <button type="button" class="btn btn-warning big-font marginRight10{{if @this.cancelDisabled " disabled"}}" {{on "click" this.cancel}}>
+        {{@this.cancelText}}
+      </button>
+    {{/if}}
+    <button type="button" class="btn btn-green big-font{{if @this.confirmDisabled " disabled"}}" {{on "click" this.confirm}}>
+      {{@this.confirmationText}}{{#if @this.showBusy}} <FaIcon @icon="spinner" @spin={{true}} @size="1x" />{{/if}}
+    </button>
+  </div>
+</div>

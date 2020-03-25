@@ -1,5 +1,83 @@
-@import "ember-modal-dialog/ember-modal-structure";
-@import "ember-modal-dialog/ember-modal-appearance";
+/*---------------------------------------------------------------------------
+  ember-elsewhere
+---------------------------------------------------------------------------*/
+.elsewhere-modal-background {
+  background-color: black;
+  opacity: 0.6;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1200;
+}
+
+.elsewhere-modal-container {
+  width: 100vw;
+  height: 105vh;
+  //position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 500;
+}
+
+.elsewhere-modal-dialog {
+  border-radius: 5px;
+  position: relative;
+  z-index: 1500;
+
+  background: url(/images/backgrounds/level-info-background.png);
+  width: 362px;
+  padding: 17px 20px 20px 20px;
+  border: 0;
+  background-size: 100% 100%;
+
+  h3 {
+    color: #e8d957;
+    text-shadow: black 2px 2px 0, black -2px -2px 0, black 2px -2px 0, black -2px 2px 0, black 2px 0px 0, black 0px -2px 0, black -2px 0px 0, black 0px 2px 0;
+    margin: 5px 0 10px 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-variant: small-caps;
+    font-size: 24.5px;
+  }
+
+  img.hr {
+    width: 90%;
+    margin: 0 15px;
+    height: 4px;
+  }
+
+  button {
+    min-width: 100px;
+    min-height: 40px;
+    margin: 10px auto 0 auto;
+    position: relative;
+    color: #fff;
+    font-size: 16px;
+    font-variant: small-caps;
+    white-space: nowrap;
+    &.marginRight10 {
+      margin-right: 10px;
+    }
+  }
+
+  .prompt {
+    margin: 0 0 10px 10px;
+  }
+
+  .confirmfooter {
+    display: block;
+    text-align: center;
+  }
+}
+
+
+
 
 .ember-modal-wrapper .ember-modal-dialog {
   z-index: 2000;
@@ -650,6 +728,18 @@ button {
       color: #01405b;
     }
 
+  }
+
+  .close-btn-big {
+    min-width: 332px;
+    min-height: 40px;
+    margin: 10px 0 0 -23px;
+    position: relative;
+    color: #fff;
+    font-size: 16px;
+    font-variant: small-caps;
+    white-space: nowrap;
+    padding: 20px;
   }
 
 
