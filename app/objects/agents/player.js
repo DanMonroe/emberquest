@@ -27,7 +27,7 @@ export class Player extends BaseAgent {
         if (gameInventoryItem) {
           gameInventoryItem.owned = true;
           if (storedInventoryItem.eq) {
-            this.equipItem(storedInventoryItem);
+            this.equipItem(gameInventoryItem);
           }
           this.inventory.pushObject(gameInventoryItem);
         }

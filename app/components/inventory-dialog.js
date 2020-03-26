@@ -65,7 +65,6 @@ export default class InventoryDialogComponent extends Component {
   resetAllToUnlock() {
     if (this.inventoryItems) {
       this.inventoryItems.forEach(item => {
-        // item.unlockText = 'Buy';
         item.confirmUnlock = false;
       });
     }
@@ -91,28 +90,20 @@ export default class InventoryDialogComponent extends Component {
 
   @action
   async equip(item) {
-
-    this.showDialogTest = ! this.showDialogTest;
-
-    console.log('this.showDialogTest', this.showDialogTest)
-
-    console.log('equip', item);
     const equippedSlotItem = this.inventory.getEquippedSlot(this.game.gameManager.player.container.agent, item);
     if ( ! equippedSlotItem) {
       this.game.gameManager.player.container.agent.equipItem(item);
       await this.game.gameManager.saveSceneData();
     } else {
 
-    this.swapEquipmentMessage = `You already have ${equippedSlotItem.name} equipped for that part of your body.`;
-    this.swapEquipmentMessage2 = `Do you want to swap with ${item.name}?`;
+    this.swapEquipmentMessage = `You already have ${equippedSlotItem.name} equipped for your ${this.inventory.getBodyPartDescription(equippedSlotItem.bodypart)}.`;
+    this.swapEquipmentMessage2 = `Do you want to exchange it with ${item.name}?`;
 
-      console.log('slot full')
       new Confirmer(swapEquipmentConfirmer => this.swapEquipmentConfirmer = swapEquipmentConfirmer)
-        .onConfirmed(() => {
-          console.log('ok', item)
-        })
-        .onCancelled(() => {
-          console.log('cancel')
+        .onConfirmed(async () => {
+          this.game.gameManager.player.container.agent.unequipItem(equippedSlotItem);
+          this.game.gameManager.player.container.agent.equipItem(item);
+          await this.game.gameManager.saveSceneData();
         })
         .onDone(() => {
           this.swapEquipmentConfirmer = null
@@ -123,7 +114,6 @@ export default class InventoryDialogComponent extends Component {
 
   @action
   async unequip(item) {
-    console.log('unequip', item);
     this.game.gameManager.player.container.agent.unequipItem(item);
     await this.game.gameManager.saveSceneData();
   }
@@ -132,12 +122,9 @@ export default class InventoryDialogComponent extends Component {
   unlockItem(item) {
     if (item.price <= this.game.gameManager.player.gold) {
       if (item.confirmUnlock === true) {
-        // console.log('buy')
           this.inventory.buyInventory(item);
           item.owned = true;
       } else {
-        // console.log('confirm', item.confirmUnlock)
-        // item.unlockText ='Confirm';
         item.confirmUnlock = true;
       }
     } else {
@@ -145,10 +132,4 @@ export default class InventoryDialogComponent extends Component {
     }
   }
 
-  // @action
-  // showCodeExample(item) {
-  //   console.log('code example', item);
-  //   // this.close(item)
-  //   this.game.closeCurrentAndOpenNewModal(item);
-  // }
 }

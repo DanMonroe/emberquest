@@ -24,6 +24,8 @@ export class InventoryItems {
       })
     );
 
+
+
     // Armor
     let armorId = 500;
     items.push(

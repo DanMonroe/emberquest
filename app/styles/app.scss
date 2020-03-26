@@ -903,10 +903,6 @@ button {
               vertical-align: middle;
             }
 
-            //img.hr {
-            //  width: 80%;
-            //  margin: 0 10% -3px;
-            //}
             .item-img {
               top: 15px;
             }
@@ -976,37 +972,23 @@ button {
           background: url("/images/item-box-background-selected.png");
         }
         .locked {
-          position: absolute;
-          left: 0;
-          right: 0;
-          bottom: 0;
           height: 41px;
           color: #163d49;
           line-height: 38px;
           font-size: 16px;
         }
         strong {
-          position: absolute;
-          top: 7px;
           padding: 2px;
-          left: 0;
-          right: 0;
-          font-size: 18px;
+          font-size: 15px;
           z-index: 2;
           line-height: 18px;
           color: #161005;
           text-align: center;
+          white-space: nowrap;
         }
 
         img {
-          position: absolute;
-          margin-left: auto;
-          margin-right: auto;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          top: 50px;
-          //width: 90px;
+          margin: 13px auto 18px;
           height: 90px;
         }
 
@@ -1018,11 +1000,15 @@ button {
           width: 110px;
           height: 110px;
         }
+
+        .item-buttons {
+          width: 188px;
+          display: inline-block;
+          margin-left: -10px;
+        }
         span.owned {
-          position: absolute;
-          left: -88px;
-          right: 0;
-          bottom: 0;
+          width: 87px;
+          display: inline-block;
           height: 41px;
           color: #163d49;
           line-height: 38px;
@@ -1031,11 +1017,9 @@ button {
         }
 
         span.cost {
-          position: absolute;
+          width: 87px;
+          display: inline-block;
           height: 41px;
-          left: 0;
-          bottom: 0;
-          width: 95px;
           line-height: 38px;
           font-size: 16px;
           color: #163d49;
@@ -1043,12 +1027,13 @@ button {
           text-align: center;
 
           img {
-            width: 22px;
             height: 22px;
             margin-right: 8px;
             position: relative;
             top: -2px;
+            left: 5px;
             vertical-align: middle;
+            float: left;
           }
           span.big-font {
             line-height: 38px;
@@ -1058,13 +1043,10 @@ button {
         }
         .unlock-button,.equip-button,.unequip-button {
           padding: 6px 9px;
-          position: absolute;
           border: 3px solid #074153;
           background: #0077a8;
           color: white;
           border-radius: 0;
-          right: 3px;
-          bottom: 2px;
           width: 93px;
           height: 41px;
           font-size: 16px;
@@ -1075,6 +1057,10 @@ button {
             opacity: 0.5;
             cursor: not-allowed;
           }
+        }
+        .unlock-button {
+          margin-right: 2px;
+          float: right;
         }
         .equip-button {
           border: 3px solid #231e18;
@@ -1140,15 +1126,6 @@ button {
     border-width: 250px 0 100px 0;
     border-radius: 12px;
   }
-
-  //position: relative;
-  //background-image: url("/images/victory/victory_modal_border_background.png");
-  //background-repeat: no-repeat;
-  //background-size: contain;
-  //width: 966px;
-  //height: 726px;
-  //border-width: 250px 0 100px 0;
-  //border-radius: 12px;
 
   h2.title {
     position: absolute;

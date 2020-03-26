@@ -22,25 +22,27 @@
             </div>
           {{else}}
             <div id="item{{item.id}}" class="item{{if (eq item.id this.itemSelected.id) " selected"}}" {{on "click" (fn this.selectItem item)}}>
-              <strong class="big-font">{{item.name}}</strong>
+              <div class="item-name"><strong class="big-font">{{item.name}}</strong></div>
               <img class="item-img" src="{{item.img}}">
-              {{#if item.owned}}
-                <span class="big-font owned">Owned</span>
-                {{#if item.equipped}}
-                  <button class="btn unequip-button big-font" {{on "click" (fn this.unequip item)}}>
-                    <span>Unequip</span>
-                  </button>
+              <div class="item-buttons">
+                {{#if item.owned}}
+                  <span class="big-font owned">Owned</span>
+                  {{#if item.equipped}}
+                    <button type="button" class="btn unequip-button big-font" {{on "click" (fn this.unequip item)}}>
+                      Unequip
+                    </button>
+                  {{else}}
+                    <button type="button" class="btn equip-button big-font" {{on "click" (fn this.equip item)}}>
+                      Equip
+                    </button>
+                  {{/if}}
                 {{else}}
-                  <button class="btn equip-button big-font" {{on "click" (fn this.equip item)}}>
-                    <span>Equip</span>
+                  <span class="cost"><img src="/images/gem.png"><span class="big-font">{{item.price}}</span></span>
+                  <button type="button" class="btn unlock-button big-font{{if item.confirmUnlock " confirm"}}{{if (gt item.price this.game.gameManager.player.gold) " too-expensive"}}" {{on "click" (fn this.unlockItem item)}}>
+                    {{item.unlockText}}
                   </button>
                 {{/if}}
-              {{else}}
-                <span class="cost"><img src="/images/gem.png"><span class="big-font">{{item.price}}</span></span>
-                <button class="btn unlock-button big-font{{if item.confirmUnlock " confirm"}}{{if (gt item.price this.game.gameManager.player.gold) " too-expensive"}}" {{on "click" (fn this.unlockItem item)}}>
-                  <span>{{item.unlockText}}</span>
-                </button>
-              {{/if}}
+              </div>
             </div>
           {{/if}}
         {{/each}}
