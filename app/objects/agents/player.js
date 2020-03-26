@@ -19,7 +19,7 @@ export class Player extends BaseAgent {
   loadInventory() {
     let inventoryItems = this.ember.inventory.getInventoryItems();
 
-    if (this.playerConfig.storedPlayerAttrs.inventory) {
+    if (this.playerConfig.storedPlayerAttrs && this.playerConfig.storedPlayerAttrs.inventory) {
       this.playerConfig.storedPlayerAttrs.inventory.forEach(storedInventoryItem => {
         // console.log('stored item', storedInventoryItem);
         const gameInventoryItem = inventoryItems.findBy('id', storedInventoryItem.id);
