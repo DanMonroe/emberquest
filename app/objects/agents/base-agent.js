@@ -155,6 +155,7 @@ export class BaseAgent {
   }
 
   unequipItem(item) {
+    this.equippedSlot[item.bodypart] = null;
     item.equipped = false;
   }
 
@@ -226,6 +227,7 @@ export class BaseAgent {
       case constants.INVENTORY.STATS.MOVESPEED:
       case constants.INVENTORY.STATS.ATTACKSPEED:
       case constants.INVENTORY.STATS.HEALINGSPEEDADJ:
+      case constants.INVENTORY.STATS.HEALINGPOWERADJ:
         return this.equippedInventory.filter(item => {
           if (!item.stats || item.stats.length === 0) {
             return false;
@@ -245,6 +247,7 @@ export class BaseAgent {
       case constants.INVENTORY.STATS.MOVESPEED:
       case constants.INVENTORY.STATS.ATTACKSPEED:
       case constants.INVENTORY.STATS.HEALINGSPEEDADJ:
+      case constants.INVENTORY.STATS.HEALINGPOWERADJ:
 
         // sum all inventory items, and each stat object in that item.
         total += this.getInventoryByStat(type).reduce((sum, { stats } ) => {

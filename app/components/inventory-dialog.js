@@ -62,6 +62,14 @@ export default class InventoryDialogComponent extends Component {
     ];
   }
 
+  get fireResistance() {
+    return this.game.gameManager.player.container.agent.getResistance(constants.INVENTORY.RESISTANCE.FIRE);
+  }
+
+  get coldResistance() {
+    return this.game.gameManager.player.container.agent.getResistance(constants.INVENTORY.RESISTANCE.COLD);
+  }
+
   resetAllToUnlock() {
     if (this.inventoryItems) {
       this.inventoryItems.forEach(item => {

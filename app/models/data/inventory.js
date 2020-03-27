@@ -80,7 +80,6 @@ export class InventoryItems {
         description: 'Exquisite boots made from the scales of a fire dragon.',
         stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
         resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 20})]
-
       })
     );
 

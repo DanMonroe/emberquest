@@ -755,6 +755,41 @@ button {
     position: absolute;
     top: 180px;
 
+    .stats-container {
+      background: url("/images/flag.png");
+      width: 270px;
+      height: 376px;
+      background-size: cover;
+      transform: rotate(-9deg);
+      margin-top: -23px;
+      margin-left: -48px;
+
+      .stats {
+        transform: rotate(4deg);
+        padding-top: 64px;
+        padding-left: 60px;
+        padding-right: 65px;
+
+        .title, .resistance {
+          font-weight: 600;
+          font-size: 1.2em;
+          color: #fecd03;
+          margin: 8px 0 0 17px;
+        }
+
+        .stat {
+          line-height: 20px;
+        }
+        .label {
+          display: inline-block;
+        }
+
+        .val {
+          float:right;
+        }
+
+      }
+    }
 
     .btn {
       display: block;

@@ -8,6 +8,68 @@
     {{#each this.leftNavItems as |navItem|}}
       <button class="btn{{if (eq this.currentNavCategory.text navItem.text) " active"}}" type="button" {{on "click" (fn this.pickCategory navItem)}}><img src={{navItem.img}}/><span class="big-font">{{navItem.text}}</span></button>
     {{/each}}
+    <div class="stats-container">
+      <div class="stats">
+        <div class="title">Player Stats</div>
+
+        <div class="stat">
+          <div class="label">Health:</div>
+          <div class="val">{{this.game.gameManager.player.container.agent.maxHealth}}</div>
+        </div>
+
+        <div class="stat">
+          <div class="label">Attack:</div>
+          <div class="val">{{this.game.gameManager.player.container.agent.attackDamage}}</div>
+        </div>
+
+        <div class="stat">
+          <div class="label">Power:</div>
+          <div class="val">{{this.game.gameManager.player.container.agent.maxPower}}</div>
+        </div>
+
+        {{#if this.game.gameManager.player.container.agent.attackSpeedAdj}}
+          <div class="stat">
+            <div class="label">Attack Speed:</div>
+            <div class="val">{{this.game.gameManager.player.container.agent.attackSpeedAdj}} x</div>
+          </div>
+        {{/if}}
+        {{#if this.game.gameManager.player.container.agent.moveSpeedAdj}}
+          <div class="stat">
+            <div class="label">Move Speed:</div>
+            <div class="val">{{this.game.gameManager.player.container.agent.moveSpeedAdj}} x</div>
+          </div>
+        {{/if}}
+        {{#if this.game.gameManager.player.container.agent.healingSpeedAdj}}
+          <div class="stat">
+            <div class="label">Healing Speed:</div>
+            <div class="val">{{this.game.gameManager.player.container.agent.healingSpeedAdj}} x</div>
+          </div>
+        {{/if}}
+        {{#if this.game.gameManager.player.container.agent.healingPowerAdj}}
+          <div class="stat">
+            <div class="label">Healing Power:</div>
+            <div class="val">{{this.game.gameManager.player.container.agent.healingPowerAdj}} x</div>
+          </div>
+        {{/if}}
+        {{#if (or this.fireResistance this.coldResistance)}}
+          <div class="resistance">Resistance</div>
+          {{#if this.fireResistance}}
+            <div class="stat">
+              <div class="label">Fire:</div>
+              <div class="val">{{this.fireResistance}} %</div>
+            </div>
+          {{/if}}
+          {{#if this.coldResistance}}
+            <div class="stat">
+              <div class="label">Cold:</div>
+              <div class="val">{{this.coldResistance}} %</div>
+            </div>
+          {{/if}}
+        {{/if}}
+
+
+      </div>
+    </div>
   </div>
   <div class="inventory-list">
     <div class="pane">
