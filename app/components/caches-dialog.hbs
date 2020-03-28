@@ -1,0 +1,36 @@
+<div class="cachesDialog">
+  <span class="titlewrap"><h2 class="title title-text">Geocaches</h2></span>
+  <button type="button" class="btn close-btn-x" {{on "click" (fn @close true)}}>X</button>
+  <div class="caches-body">
+    <div class="pane">
+      <div class="scroll">
+
+        {{#each this.cacheList as |cache|}}
+      <div class="wrapper">
+        <div class="cache">
+          <div class="content_foo">
+            <input type="checkbox" id="toggle{{cache.gccode}}" class="toggle" />
+            <label class="title" for="toggle{{cache.gccode}}">
+              <span class="chest{{if cache.found "-open"}}"></span>
+              {{#if cache.found}}<span class="smiley"></span>{{/if}}
+              <div class="gccode">{{cache.gccode}}</div>
+              <div class="name">{{cache.name}}</div>
+              <div class="more">More Info</div>
+            </label>
+            <div class="content">
+              <p>Lorem ipsum dolor sit amet,</p>
+              <p>Lorem ipsum dolor sit amet,</p>
+              <p>Lorem ipsum dolor sit amet,</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <button class="btn styled btn-primary" type="button" {{on "click" (fn @close true)}}>Close</button>
+  </div>
+
+</div>

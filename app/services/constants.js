@@ -2,6 +2,19 @@ const constants = Object.freeze({
 
   FLOATING_POINT_PRECISION: 4,
 
+  CACHE: {
+    TYPE: {
+      MYSTERY: 0
+    },
+    SIZE: {
+      MICRO: 'Micro',
+      SMALL: 'Small',
+      REGULAR: 'Regular',
+      LARGE: 'Large',
+      OTHER: 'Other'
+    }
+  },
+
   // Base agent properties are derived from inventory items from the listed inventory property
   INVENTORY: {
     // DAMAGE: 'damage',

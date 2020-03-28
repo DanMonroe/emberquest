@@ -100,7 +100,7 @@ export default class GameboardComponent extends Component {
 
   @action
   async showCaches() {
-    console.log('click Caches');
+    await this.showDialog('caches', 'caches-dialog');
   }
 
 
