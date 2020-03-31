@@ -111,18 +111,18 @@ export default class GameService extends Service {
     return transports.find(transport => transport.id === transportId);
   }
 
-  createPlayer(scene, playerConfig) {
-    debugger; // shouldnt call this anymore ?
-    let player = new Player(scene, playerConfig);
-
-    // let player = new PlayerContainer(scene, playerConfig);
-
-    scene.board.addChess(player.container, playerConfig.playerX, playerConfig.playerY, this.constants.TILEZ_PLAYER);
-
-    player.container.fov = scene.rexBoard.add.fieldOfView(player.container, playerConfig);
-
-    return player.container;
-  }
+  // createPlayer(scene, playerConfig) {
+  //   debugger; // shouldnt call this anymore ?
+  //   let player = new Player(scene, playerConfig);
+  //
+  //   // let player = new PlayerContainer(scene, playerConfig);
+  //
+  //   scene.board.addChess(player.container, playerConfig.playerX, playerConfig.playerY, this.constants.TILEZ_PLAYER);
+  //
+  //   player.container.fov = scene.rexBoard.add.fieldOfView(player.container, playerConfig);
+  //
+  //   return player.container;
+  // }
 
   createAgent(scene, agentConfig) {
     let agent = new Agent(scene, agentConfig);

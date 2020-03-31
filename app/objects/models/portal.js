@@ -1,6 +1,6 @@
 import { BaseModel } from './base-model';
 
-export class Monster extends BaseModel {
+export class Portal extends BaseModel {
   constructor(x, y, spawnerId, objectConfig) {
     super(x, y, spawnerId, objectConfig);
   }

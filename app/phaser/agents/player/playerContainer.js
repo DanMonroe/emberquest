@@ -91,16 +91,10 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
     this.phaserAgent = this.player;
     // this.agent = new Player
 
-    // // create the weapon game object
-    // this.weapon = this.scene.add.image(40, 0, 'items', 4);
-    // this.scene.add.existing(this.weapon);
-    // this.weapon.setScale(1.5);
-    // this.scene.physics.world.enable(this.weapon);
-    // this.add(this.weapon);
-    // this.weapon.alpha = 0;
-
     this.moveToObject = this.scene.rexBoard.add.moveTo(this, {
       speed: config.speed, // 400 default
+      occupiedTest: true,
+      blockerTest: true
     });
 
     this.moveToObject.on('complete', this.moveToComplete);
@@ -116,7 +110,7 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
 
       const allattrs = this.ember.map.getTileAttribute(pathFinder.scene, targetTile);
       let canMove = this.ember.playerHasAbilityFlag(pathFinder.scene.player.container, this.ember.constants.FLAG_TYPE_TRAVEL, allattrs.travelFlags);
-
+// console.log('moveableTestCallback ', targetTile)
       if (!canMove) {
         // console.log('cant move! targetTile', targetTile, 'travelFlags', allattrs.travelFlags, 'wesnoth', allattrs.wesnoth);
 
@@ -188,34 +182,6 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
       this.baseUpdate();
     }
   }
-
-  // createHealthBar() {
-  //   this.healthBar = this.scene.add.graphics();
-  //   this.powerBar = this.scene.add.graphics();
-  //   this.updateHealthBar();
-  // }
-
-  // updateHealthBar() {
-  //   const healthPercentage = (this.player.health / this.player.maxHealth);
-  //   this.healthBar.clear();
-  //   this.healthBar.fillStyle(0xffffff, 0.4);
-  //   this.healthBar.fillRect(this.x + this.ember.constants.healthBarOffsetX, this.y + this.ember.constants.healthBarOffsetY, this.ember.constants.healthBarWidth, this.ember.constants.healthBarHeight);
-  //   this.healthBar.fillStyle(healthPercentage <= this.ember.constants.healthBarColorTippingPoint ? this.ember.constants.healthBarColorDanger : this.ember.constants.healthBarColorGood, 1);
-  //   this.healthBar.fillRect(this.x + this.ember.constants.healthBarOffsetX, this.y + this.ember.constants.healthBarOffsetY, this.ember.constants.healthBarWidth * healthPercentage, this.ember.constants.healthBarHeight);
-  //
-  //   const powerPercentage = (this.player.power / this.player.maxPower);
-  //   this.powerBar.clear();
-  //   this.powerBar.fillStyle(0xffffff, 0.4);
-  //   this.powerBar.fillRect(this.x + this.ember.constants.powerBarOffsetX, this.y + this.ember.constants.powerBarOffsetY, this.ember.constants.powerBarWidth, this.ember.constants.powerBarHeight);
-  //   this.powerBar.fillStyle(this.ember.constants.powerBarColor, 1);
-  //   this.powerBar.fillRect(this.x + this.ember.constants.powerBarOffsetX, this.y + this.ember.constants.powerBarOffsetY, this.ember.constants.powerBarWidth * powerPercentage, this.ember.constants.powerBarHeight);
-  // }
-  //
-  // updateHealth(health, power) {
-  //   this.player.health = health;
-  //   this.player.power = power;
-  //   this.updateHealthBar();
-  // }
 
 
   moveTo(cursors) {

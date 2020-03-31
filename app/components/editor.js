@@ -36,6 +36,21 @@ export default {
 
   mapUrl: '/images/maps/.png',
 
+  spawnLocations : {
+    players: [{x: 5, y: 7}], // tiles where the player may spawn
+    transports: {
+      spawnInterval: 3000,
+      limit: 1,
+      locations: []
+    },
+    chests: { spawnInterval: 3000, limit: 1, locations: []},
+    agents: {
+      spawnInterval: 3000,
+      limit: 5,
+      locations: []
+    }
+  },
+
   sceneTiles: [
     `;
 

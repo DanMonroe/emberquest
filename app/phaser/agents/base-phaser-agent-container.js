@@ -39,16 +39,8 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
     this.id = config.id;
     this.config = config;
 
+    this.showHealthBar = config.showHealthBar !== undefined ? config.showHealthBar : true;
     this.showPowerBar = config.showPowerBar;
-
-    // this.health = config.health;
-    // this.maxHealth = config.maxHealth;
-    // this.healingPower = config.healingPower;
-    // this.power = config.power;
-    // this.maxPower = config.maxPower;
-    // this.attackAudio = config.attackAudio;
-    // this.xpGain = config.xpGain;
-    // this.gold = config.gold;
 
     this.aggressionScale = config.aggressionScale ? config.aggressionScale : 0;
 
@@ -189,8 +181,10 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
 
   createHealthBar() {
     // console.log('adding healthbar')
-    this.healthBar = this.scene.add.graphics();
-    this.healthBar.setAlpha(this.isPlayer ? 1 : 0);
+    if (this.showHealthBar) {
+      this.healthBar = this.scene.add.graphics();
+      this.healthBar.setAlpha(this.isPlayer ? 1 : 0);
+    }
     if (this.showPowerBar) {
     // console.log('adding power bar')
       this.powerBar = this.scene.add.graphics();

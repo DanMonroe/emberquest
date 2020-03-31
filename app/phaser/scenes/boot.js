@@ -28,13 +28,16 @@ export class BootScene extends Phaser.Scene {
     this.load.image('player', this.ember.playerImgSrc);
     this.load.image('playerboat', '/images/transports/boat.png');
     // this.load.image('playership', '/images/transports/ship.svg');
-    this.load.image('monsters', '/images/monsters/spider.png');
+    // this.load.image('monsters', '/images/monsters/spider.png');
     this.load.image('pirategalleon', '/images/agents/pirate-galleon.png');
-    // this.load.image('galleon', '/images/agents/galleon.svg');
-    this.load.image('vue', '/images/agents/vue.png');
+
+    // portals
+    this.load.image('door_wooden_n', '/images/maps/portals/door-wooden-n.png');
 
     this.load.image('ball', '/images/items/ballBlack_04.png');
     this.load.image('bullet', '/images/items/bullet7.png');
+
+    // this.load.image('vue', '/images/agents/vue.png');
   }
 
   loadSpriteSheets() {
@@ -58,7 +61,7 @@ export class BootScene extends Phaser.Scene {
       .then(gameboardData => {
         console.log('gameboardData', gameboardData);
 
-        let data = {'map': 'landsea'}  // default initial map
+        let data = {'map': 'intro'}  // default initial map
         if (gameboardData) {
           const sceneData =   gameboardData.sceneData[gameboardData.currentMap] || { allSeenTiles: [], storedTransports: [], boarded: 0};
 

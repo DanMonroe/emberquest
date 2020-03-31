@@ -3,7 +3,7 @@ import {task} from 'ember-concurrency-decorators';
 import { tracked } from '@glimmer/tracking';
 import {Agent} from "./models/agent";
 import {Chest} from "./models/chest";
-import {Monster} from "./models/monster";
+import {Portal} from "./models/portal";
 import {Transport} from "./models/transport";
 
 export class Spawner {
@@ -51,9 +51,9 @@ export class Spawner {
       case this.constants.SPAWNER_TYPE.TRANSPORT:
         this.spawnTransport();
         break;
-      // case this.constants.SPAWNER_TYPE.MONSTER:
-      //   this.spawnMonster();
-      //   break;
+      case this.constants.SPAWNER_TYPE.PORTAL:
+        this.spawnPortal();
+        break;
       case this.constants.SPAWNER_TYPE.AGENT:
         this.spawnAgent();
         break;
@@ -74,6 +74,15 @@ export class Spawner {
     this.addObject(chest.id, chest);
   }
 
+  spawnPortal() {
+    const location = this.pickRandomLocation();
+
+    const portal = new Portal(location.x, location.y, this.id, this.config.objectConfig);
+
+    this.objectsCreated.push(portal);
+    this.addObject(portal.id, portal);
+  }
+
   spawnTransport() {
     const location = this.pickLocationById();
 
@@ -82,17 +91,6 @@ export class Spawner {
     // console.log('spawnTransport', transport);
     this.objectsCreated.push(transport);
     this.addObject(transport.id, transport);
-  }
-
-  spawnMonster() {
-    const location = this.pickRandomLocation();
-
-    const monster = new Monster(location.x, location.y, this.id, this.config.objectConfig);
-
-    // console.log('spawnMonster', monster);
-    this.objectsCreated.push(monster);
-    this.addObject(monster.id, monster);
-
   }
 
   spawnAgent() {

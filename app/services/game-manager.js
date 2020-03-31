@@ -143,7 +143,7 @@ export default class GameManagerService extends Service {
 
       costCallback:  (tileXY) => {
         return this.ember.map.getTileAttribute(this.scene, tileXY, 'sightCost');
-        // return this.ember.map.getTileAttribute(this.board.scene, tileXY, 'sightCost');
+
       },
       preTestCallback: (tileXYArray) => {
 

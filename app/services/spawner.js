@@ -15,7 +15,7 @@ export default class SpawnerService extends Service {
   @tracked spawners = {};
   @tracked chests = {};
   @tracked transports = {};
-  @tracked monsters = {};
+  @tracked portals = {};
   @tracked players = {};
   @tracked agents = {};
 
@@ -78,31 +78,31 @@ export default class SpawnerService extends Service {
       });
     }
 
-    // create monster spawners
-    // if (this.spawnLocations.monsters) {
-    //   config = {
-    //     spawnInterval: this.spawnLocations.monsters.spawnInterval || 3000,
-    //     limit: this.spawnLocations.monsters.limit || 1,
-    //     spawnerType: this.constants.SPAWNER_TYPE.MONSTER
-    //   }
-    //   this.spawnLocations.monsters.locations.forEach(locationObj => {
-    //     config.id = `monster-${locationObj.id}`;
-    //     config.locationId = +locationObj.id - 1;
-    //     config.objectConfig = locationObj
-    //
-    //     let spawner = new Spawner(
-    //       config,
-    //       this.spawnLocations.monsters.locations,
-    //       this.addMonster.bind(this),
-    //       this.deleteMonster.bind(this),
-    //       null,
-    //       this.constants
-    //     );
-    //
-    //     this.spawners[spawner.id] = spawner;
-    //
-    //   });
-    // }
+    // create portal spawners
+    if (this.spawnLocations.portals) {
+      config = {
+        spawnInterval: this.spawnLocations.portals.spawnInterval || 3000,
+        limit: this.spawnLocations.portals.limit || 1,
+        spawnerType: this.constants.SPAWNER_TYPE.PORTAL
+      }
+      this.spawnLocations.portals.locations.forEach(locationObj => {
+        config.id = `portal-${locationObj.id}`;
+        config.locationId = +locationObj.id - 1;
+        config.objectConfig = locationObj
+
+        let spawner = new Spawner(
+          config,
+          this.spawnLocations.portals.locations,
+          this.addPortal.bind(this),
+          this.deletePortal.bind(this),
+          null,
+          this.constants
+        );
+
+        this.spawners[spawner.id] = spawner;
+
+      });
+    }
 
     // create agent spawners
     if (this.spawnLocations.agents) {
@@ -180,13 +180,13 @@ export default class SpawnerService extends Service {
     delete this.transports[transportId];
   }
 
-  addMonster(monsterId, monster) {
-    this.monsters[monsterId] = monster;
-    this.scene.events.emit('monsterSpawned', monster);
+  addPortal(portalId, portal) {
+    this.portals[portalId] = portal;
+    this.scene.events.emit('portalSpawned', portal);
   }
 
-  deleteMonster(monsterId) {
-    delete this.monsters[monsterId];
+  deletePortal(portalId) {
+    delete this.portals[portalId];
   }
 
   addAgent(agentId, agent) {

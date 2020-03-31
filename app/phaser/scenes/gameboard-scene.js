@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import Chest from '../chest';
-import Monster from '../monster';
+import Portal from '../portal';
 import Projectiles from '../groups/projectiles';
 import Projectile from "../groups/projectile";
 
@@ -22,6 +22,7 @@ export class GameboardScene extends Phaser.Scene {
   enemyships = {};
   transports = {};
   agents = {};
+  portals = {};
 
   projectiles = {};
   agentprojectiles = {};  // hard coded extra group for emberconf
@@ -96,9 +97,9 @@ export class GameboardScene extends Phaser.Scene {
       this.spawnTransport(transportObject);
     });
 
-    // this.events.on('monsterSpawned', (monsterObject) => {
-    //   this.spawnMonster(monsterObject);
-    // });
+    this.events.on('portalSpawned', (portalObject) => {
+      this.spawnPortal(portalObject);
+    });
 
     this.events.on('agentSpawned', (agentObject) => {
       this.spawnAgent(agentObject);
@@ -155,15 +156,6 @@ export class GameboardScene extends Phaser.Scene {
     this.board.addChess(chest, chestObj.x, chestObj.y, this.ember.constants.TILEZ_CHESTS);
   }
 
-  spawnMonster(monsterObj) {
-    let monster = new Monster(this, 0, 0, 'monsters', 1, monsterObj.id, monsterObj.objectConfig.health, monsterObj.objectConfig.maxHealth);
-    monster.setScale(monsterObj.objectConfig.scale);
-    monster.setAlpha(0);
-
-    this.monsters.add(monster);
-    this.board.addChess(monster, monsterObj.x, monsterObj.y, this.ember.constants.TILEZ_MONSTERS);
-  }
-
   spawnAgent(agentObj) {
     const agent = this.ember.createAgent(this, agentObj.objectConfig);
     agent.setAlpha(0);
@@ -173,6 +165,22 @@ export class GameboardScene extends Phaser.Scene {
       agent.populatePatrolMoveQueue();
       agent.patrolTask.perform();
     }
+  }
+
+  spawnPortal(portalObj) {
+    console.log(portalObj)
+    let portal = new Portal(this, 0, 0, portalObj.objectConfig.texture, 1, portalObj);
+    portal.setAlpha(0);
+
+    this.portals.add(portal);
+
+    // var worldXY = this.board.tileXYToWorldXY(portalObj.x, portalObj.y);  // worldXY: {x, y}
+
+    // this.add.image(worldXY.x-2, worldXY.y+10, portalObj.objectConfig.texture);
+
+    this.board.addChess(portal, portalObj.x, portalObj.y, this.ember.constants.TILEZ_PORTALS);
+
+    portal.rexChess.setBlocker();
   }
 
   spawnTransport(transportObj) {
@@ -235,9 +243,8 @@ export class GameboardScene extends Phaser.Scene {
     // create a transport group
     this.transports = this.physics.add.group();
 
-    // create a monster group
-    this.monsters = this.physics.add.group();
-    // this.monsters.runChildUpdate = true;
+    // create a portals group
+    this.portals = this.physics.add.group();
 
     // create an agent group
     this.agents = this.physics.add.group();
@@ -280,8 +287,8 @@ export class GameboardScene extends Phaser.Scene {
     this.physics.add.overlap(this.projectiles, this.agents, this.projectiles.enemyCollision);
     this.physics.add.overlap(this.player.container, this.agentprojectiles, this.agentprojectiles.playerCollision);
 
-    // check for collisions between the monster group and the tiled blocked layer
-    // this.physics.add.collider(this.monsters, this.map.blockedLayer);
+    // check for collisions between the portals group and the player
+    this.physics.add.collider(this.player.container, this.portals, this.portalCollision, null, this);
 
     // check for overlaps between the player's weapon and monster game objects
     // this.physics.add.overlap(this.player.weapon, this.monsters, this.enemyOverlap, null, this);
@@ -306,6 +313,14 @@ export class GameboardScene extends Phaser.Scene {
       this.goldPickupAudio.play();
 
       chest.playerFound();
+    }
+  }
+
+  portalCollision(player, portal) {
+    // debugger;
+    if ( ! portal.touched) {
+      console.log('portalCollision', player, portal);
+      portal.touched = true;
     }
   }
 

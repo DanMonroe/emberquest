@@ -111,6 +111,7 @@ const constants = Object.freeze({
   SHAPE_TYPE_POLYGON: 'Polygon',
   SHAPE_TYPE_CONTAINER: 'Container',
   SHAPE_TYPE_TRANSPORT: 'Transport',
+  SHAPE_TYPE_PORTAL: 'Portal',
   SHAPE_TYPE_ENEMY: 'Enemy',
   SHAPE_TYPE_AGENT: 'Agent',
 
@@ -123,6 +124,7 @@ const constants = Object.freeze({
   TILEZ_MONSTERS: 4,    // "layer" for monsters
   TILEZ_TRANSPORTS: 5, // "layer" for transports
   TILEZ_AGENTS: 6, // "layer" for agents
+  TILEZ_PORTALS: 7, // "layer" for portalss
 
   AGENTSTATE: {
     IDLE: 0,
@@ -141,7 +143,7 @@ const constants = Object.freeze({
   },
 
   SPAWNER_TYPE: {
-    MONSTER: 'MONSTER',
+    PORTAL: 'PORTAL',
     CHEST: 'CHEST',
     TRANSPORT: 'TRANSPORT',
     AGENT: 'AGENT'
