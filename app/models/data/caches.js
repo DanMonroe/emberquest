@@ -8,8 +8,8 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC001',
-        name: 'Hello Emberquest Cache',
-        description: 'Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description ',
+        name: 'Hello EmberQuest Cache',
+        description: '<p>Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description Test description</p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -21,8 +21,8 @@ export class Caches {
       new Cache({
         gccode: 'GC002',
         found: true,
-        name: 'Hello Emberquest Cache 2',
-        description: 'Test description',
+        name: 'Hello EmberQuest Cache 2',
+        description: '<p>Test description</p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -33,8 +33,8 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC003',
-        name: 'Hello Emberquest Cache 3',
-        description: 'Test description',
+        name: 'Hello EmberQuest Cache 3',
+        description: '<p>Test description</p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -45,8 +45,8 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC003',
-        name: 'Hello Emberquest Cache 3',
-        description: 'Test description',
+        name: 'Hello EmberQuest Cache 3',
+        description: '<p>Test description</p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -57,8 +57,8 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC003',
-        name: 'Hello Emberquest Cache 3',
-        description: 'Test description',
+        name: 'Hello EmberQuest Cache 3',
+        description: '<p>Test description</p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -69,8 +69,8 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC003',
-        name: 'Hello Emberquest Cache 3',
-        description: 'Test description',
+        name: 'Hello EmberQuest Cache 3',
+        description: '<p>Test description</p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',

@@ -5,27 +5,25 @@
     <div class="pane">
       <div class="scroll">
 
-        {{#each this.cacheList as |cache|}}
-      <div class="wrapper">
-        <div class="cache">
-          <div class="content_foo">
-            <input type="checkbox" id="toggle{{cache.gccode}}" class="toggle" />
-            <label class="title" for="toggle{{cache.gccode}}">
-              <span class="chest{{if cache.found "-open"}}"></span>
-              {{#if cache.found}}<span class="smiley"></span>{{/if}}
-              <div class="gccode">{{cache.gccode}}</div>
-              <div class="name">{{cache.name}}</div>
-              <div class="more">More Info</div>
-            </label>
-            <div class="content">
-              <p>Lorem ipsum dolor sit amet,</p>
-              <p>Lorem ipsum dolor sit amet,</p>
-              <p>Lorem ipsum dolor sit amet,</p>
+        {{#each this.cacheList as |geocache|}}
+          <div class="wrapper">
+            <div class="cache">
+              <div class="content_foo">
+                <input type="checkbox" id="toggle{{geocache.gccode}}" class="toggle" />
+                <label class="title" for="toggle{{geocache.gccode}}">
+                  <span class="chest{{if geocache.found "-open"}}"></span>
+                  {{#if geocache.found}}<span class="smiley"></span>{{/if}}
+                  <div class="gccode">{{geocache.gccode}}</div>
+                  <div class="name">{{geocache.name}}</div>
+                  <div class="more">More Info</div>
+                </label>
+                <div class="content">
+                  {{{geocache.description}}}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    {{/each}}
+        {{/each}}
       </div>
     </div>
   </div>

@@ -5,9 +5,12 @@ export default class Chest extends Phaser.Physics.Arcade.Image {
 
     super(scene, x, y, key, frame);
     this.scene = scene; // the scene this game object will be added to
-    this.gold = chestObj.gold; // the amount of coins this chest contains
-    this.id = chestObj.id;
-    this.coords = chestObj.coords;
+
+    this.id = chestObj.objectConfig.id;
+    this.gold = chestObj.objectConfig.gold; // the amount of coins this chest contains
+    this.coords = chestObj.objectConfig.coords;
+    this.gccode = chestObj.objectConfig.gccode;
+    this.specialActions = chestObj.objectConfig.specialActions;
 
     this.found = false;
 

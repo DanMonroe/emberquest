@@ -11,6 +11,8 @@ export default class Portal extends Phaser.Physics.Arcade.Image {
     // enable physics
     this.scene.physics.world.enable(this);
 
+    this.type = this.scene.ember.constants.SHAPE_TYPE_PORTAL_DOOR;
+
     // this.setPosition(100, y);
 
     this.scene.add.existing(this);
@@ -28,6 +30,7 @@ export default class Portal extends Phaser.Physics.Arcade.Image {
     this.setActive(false);
     this.setVisible(false);
     this.body.checkCollision.none = true;
+    this.rexChess.setBlocker(false);
   }
 
   // playerFound() {

@@ -76,5 +76,8 @@ export default class TransportContainer extends BasePhaserAgentContainer {
     this.reloadPower.perform();
   }
 
+  moveToComplete(/*transport, moveTo*/) {
+    // console.log('moved transport')
+  }
 
 }

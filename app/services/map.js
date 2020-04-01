@@ -237,6 +237,9 @@ export default class MapService extends Service {
     return this.tileHasGivenSpecialAttribute(scene, tileXY, this.constants.FLAGS.SPECIAL.PORTAL.value);
   }
 
+  tileIsDoorPortal(scene, tileXY) {
+    return this.tileHasGivenSpecialAttribute(scene, tileXY, this.constants.FLAGS.SPECIAL.DOORPORTAL.value);
+  }
 
   tileIsDock(scene, tileXY) {
     return this.tileHasGivenSpecialAttribute(scene, tileXY, this.constants.FLAGS.SPECIAL.DOCK.value);

@@ -142,8 +142,13 @@ export default class GameManagerService extends Service {
       storedPlayerAttrs: this.storedData.storedPlayerAttrs,
 
       costCallback:  (tileXY) => {
-        return this.ember.map.getTileAttribute(this.scene, tileXY, 'sightCost');
+        let totalSightCost = this.ember.map.getTileAttribute(this.scene, tileXY, 'sightCost');
+        if (this.ember.map.tileIsDoorPortal(this.scene, tileXY)) {
+          const portalSpecialAttr = this.ember.map.getTileAttribute(this.scene, tileXY, 'special');
+          totalSightCost += portalSpecialAttr.sightCost;
+        }
 
+        return totalSightCost;
       },
       preTestCallback: (tileXYArray) => {
 

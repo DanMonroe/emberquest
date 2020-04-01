@@ -13,7 +13,7 @@ export default class ChestDialogComponent extends Component {
     super(...arguments);
 
     this.cacheData = this.modals.top._data;
-
+console.log('cacheData', this.cacheData)
     this.decryptedCacheCoords = this.game.decryptCacheCoordinates(this.cacheData);
   }
 }

@@ -207,6 +207,7 @@ export class GameboardScene extends Phaser.Scene {
 
   createAudio() {
     this.goldPickupAudio = this.sound.add('pickup', { loop: false, volume: 0.5 });
+    this.openDoorAudio = this.sound.add('open_door_1', { loop: false, volume: 0.5 });
     this.musicAudio = this.sound.add('music1', { loop: true, volume: 0 });
   }
 
@@ -318,10 +319,10 @@ export class GameboardScene extends Phaser.Scene {
 
   portalCollision(player, portal) {
     // debugger;
-    if ( ! portal.touched) {
-      console.log('portalCollision', player, portal);
-      portal.touched = true;
-    }
+    // if ( ! portal.touched) {
+    //   console.log('portalCollision', player, portal);
+    //   portal.touched = true;
+    // }
   }
 
   update() {

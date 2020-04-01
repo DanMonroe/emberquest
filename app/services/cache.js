@@ -1,10 +1,12 @@
 import Service from '@ember/service';
-// import { inject as service } from '@ember/service';
+import { inject as service } from '@ember/service';
 import {Caches} from '../models/data/caches';
 import { tracked } from '@glimmer/tracking';
 import { constants } from 'emberquest/services/constants';
 
 export default class CacheService extends Service {
+
+  @service game;
 
   @tracked caches = undefined;
 
@@ -17,4 +19,7 @@ export default class CacheService extends Service {
     return this.caches;
   }
 
+  findCache(gccode) {
+    return this.getCaches().findBy('gccode', gccode);
+  }
 }

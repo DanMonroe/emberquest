@@ -111,7 +111,7 @@ const constants = Object.freeze({
   SHAPE_TYPE_POLYGON: 'Polygon',
   SHAPE_TYPE_CONTAINER: 'Container',
   SHAPE_TYPE_TRANSPORT: 'Transport',
-  SHAPE_TYPE_PORTAL: 'Portal',
+  SHAPE_TYPE_PORTAL_DOOR: 'Portal Door',
   SHAPE_TYPE_ENEMY: 'Enemy',
   SHAPE_TYPE_AGENT: 'Agent',
 
@@ -149,6 +149,7 @@ const constants = Object.freeze({
     AGENT: 'AGENT'
   },
 
+  // all values in FLAGS should be bits  1, 2, 4, 8, 16, etc
   FLAGS: {
     TRAVEL: {
       SEA: {value: 1, description: 'Travel by Sea'},
@@ -161,9 +162,17 @@ const constants = Object.freeze({
     },
     SPECIAL: {
       DOCK: {value: 1, description: 'Dock'},
-      PORTAL: {value: 2, description: 'Portal'}
+      PORTAL: {value: 2, description: 'Portal'},
+      DOORPORTAL: {value: 4, description: 'Door Portal'}
     }
   },
+
+  SPECIAL_ACTIONS: {
+    REMOVE_PORTAL_DOOR: {value: 1, description: 'Remove Portal Door'},  // data: { portal_door_id:1, tileXY: {x: 11, y: 4} }
+    REMOVE_SIGHT_COST: {value: 2, description: 'Remove Sight Cost'},     // data: { tileXY: {x: 11, y: 3} }
+    PLAY_SOUND: {value: 3, description: 'Play Sound'}     // data: { sound: 'open_door_1' }
+  },
+
 
   healthBarOffsetX: -24,
   healthBarOffsetY: -33,

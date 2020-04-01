@@ -2,11 +2,13 @@ import Service from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
 import localforage from 'localforage';
+import {task} from "ember-concurrency-decorators";
+import {timeout} from 'ember-concurrency';
 
 // import MapData from '../phaser/scenes/tiledata/cave1'
 // // import MapData from '../phaser/scenes/tiledata/landsea'
 
-import {Player} from "../objects/agents/player";
+// import {Player} from "../objects/agents/player";
 import {Transport} from "../objects/agents/transport";
 import {Agent} from "../objects/agents/agent";
 import { constants } from 'emberquest/services/constants';
@@ -17,6 +19,7 @@ export default class GameService extends Service {
   @service modals;
   @service map;
   @service inventory;
+  @service cache;
   @service gameManager;
 
   @tracked cameraMainZoom = 1;
@@ -239,13 +242,51 @@ export default class GameService extends Service {
 
 
   foundChest(chest) {
+    console.log('foundChest', chest)
     if (chest) {
       this.gameManager.player.gold += chest.gold;
       chest.gold = 0;
 
-      this.epmModalContainerClass = 'chest';
-      this.modals.open('chest-dialog', {coords:chest.coords});
+      // special actions
+      if (chest.specialActions) {
+        console.log('special Actions:', chest.specialActions)
+        chest.specialActions.forEach(async(specialAction) => {
+          await this.processSpecialAction.perform(chest.scene, specialAction);
+        })
+      }
 
+      // get cache details
+      const geocache = this.cache.findCache(chest.gccode);
+      if (geocache) {
+        // show found it modal
+        this.epmModalContainerClass = 'chest';
+        this.modals.open('chest-dialog', {coords:geocache.coords});
+      }
+
+    }
+  }
+
+  @task
+  *processSpecialAction(scene, specialAction) {
+    let portalDoorShapes;
+    switch (specialAction.value) {
+      case this.constants.SPECIAL_ACTIONS.REMOVE_SIGHT_COST.value:  // data: { tileXY: {x: 11, y: 3 }}
+        // find the tile, set its sightCost to 0;
+        scene.game.ember.map.getTileAttribute(scene, specialAction.data.tileXY).special.sightCost = 0;
+        break;
+      case this.constants.SPECIAL_ACTIONS.REMOVE_PORTAL_DOOR.value: // data: { portal_door_id:1, tileXY: {x: 11, y: 4} }
+        portalDoorShapes = scene.game.ember.map.getGameObjectsAtTileXY(scene.board, specialAction.data.tileXY, scene.game.ember.constants.SHAPE_TYPE_PORTAL_DOOR);
+        if (portalDoorShapes && portalDoorShapes.length) {
+          portalDoorShapes[0].makeInactive();
+        }
+        break;
+      case this.constants.SPECIAL_ACTIONS.PLAY_SOUND.value: // data: { sound: 'open_door_1' }
+        yield timeout(400);
+        scene.openDoorAudio.play();
+        break;
+      default:
+        console.log('No Special Action found', specialAction);
+        yield timeout(1);
     }
   }
 
