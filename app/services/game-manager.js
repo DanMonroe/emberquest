@@ -143,7 +143,7 @@ export default class GameManagerService extends Service {
 
       costCallback:  (tileXY) => {
         let totalSightCost = this.ember.map.getTileAttribute(this.scene, tileXY, 'sightCost');
-        if (this.ember.map.tileIsDoorPortal(this.scene, tileXY)) {
+        if (this.ember.map.tileIsDoor(this.scene, tileXY)) {
           const portalSpecialAttr = this.ember.map.getTileAttribute(this.scene, tileXY, 'special');
           totalSightCost += portalSpecialAttr.sightCost;
         }

@@ -15,7 +15,7 @@ export default class SpawnerService extends Service {
   @tracked spawners = {};
   @tracked chests = {};
   @tracked transports = {};
-  @tracked portals = {};
+  @tracked doors = {};
   @tracked players = {};
   @tracked agents = {};
 
@@ -78,23 +78,23 @@ export default class SpawnerService extends Service {
       });
     }
 
-    // create portal spawners
-    if (this.spawnLocations.portals) {
+    // create door spawners
+    if (this.spawnLocations.doors) {
       config = {
-        spawnInterval: this.spawnLocations.portals.spawnInterval || 3000,
-        limit: this.spawnLocations.portals.limit || 1,
-        spawnerType: this.constants.SPAWNER_TYPE.PORTAL
+        spawnInterval: this.spawnLocations.doors.spawnInterval || 3000,
+        limit: this.spawnLocations.doors.limit || 1,
+        spawnerType: this.constants.SPAWNER_TYPE.DOOR
       }
-      this.spawnLocations.portals.locations.forEach(locationObj => {
-        config.id = `portal-${locationObj.id}`;
+      this.spawnLocations.doors.locations.forEach(locationObj => {
+        config.id = `door-${locationObj.id}`;
         config.locationId = +locationObj.id - 1;
         config.objectConfig = locationObj
 
         let spawner = new Spawner(
           config,
-          this.spawnLocations.portals.locations,
-          this.addPortal.bind(this),
-          this.deletePortal.bind(this),
+          this.spawnLocations.doors.locations,
+          this.addDoor.bind(this),
+          this.deleteDoor.bind(this),
           null,
           this.constants
         );
@@ -180,13 +180,13 @@ export default class SpawnerService extends Service {
     delete this.transports[transportId];
   }
 
-  addPortal(portalId, portal) {
-    this.portals[portalId] = portal;
-    this.scene.events.emit('portalSpawned', portal);
+  addDoor(portalId, portal) {
+    this.doors[portalId] = portal;
+    this.scene.events.emit('doorSpawned', portal);
   }
 
-  deletePortal(portalId) {
-    delete this.portals[portalId];
+  deleteDoor(portalId) {
+    delete this.doors[portalId];
   }
 
   addAgent(agentId, agent) {

@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import Chest from '../chest';
-import Portal from '../portal';
+import Door from '../door';
 import Projectiles from '../groups/projectiles';
 import Projectile from "../groups/projectile";
 
@@ -22,7 +22,7 @@ export class GameboardScene extends Phaser.Scene {
   enemyships = {};
   transports = {};
   agents = {};
-  portals = {};
+  doors = {};
 
   projectiles = {};
   agentprojectiles = {};  // hard coded extra group for emberconf
@@ -97,8 +97,8 @@ export class GameboardScene extends Phaser.Scene {
       this.spawnTransport(transportObject);
     });
 
-    this.events.on('portalSpawned', (portalObject) => {
-      this.spawnPortal(portalObject);
+    this.events.on('doorSpawned', (portalObject) => {
+      this.spawnDoor(portalObject);
     });
 
     this.events.on('agentSpawned', (agentObject) => {
@@ -167,20 +167,25 @@ export class GameboardScene extends Phaser.Scene {
     }
   }
 
-  spawnPortal(portalObj) {
-    console.log(portalObj)
-    let portal = new Portal(this, 0, 0, portalObj.objectConfig.texture, 1, portalObj);
-    portal.setAlpha(0);
+  // hideIfCacheFound
+  spawnDoor(doorObj) {
+    console.log('DoorObj', doorObj)
+    if (doorObj.objectConfig.hideIfCacheFound && this.ember.cache.isCacheFound(doorObj.objectConfig.hideIfCacheFound)) {
+      // don't add door
+      return;
+    }
+    let door = new Door(this, 0, 0, doorObj.objectConfig.texture, 1, doorObj);
+    door.setAlpha(0);
 
-    this.portals.add(portal);
+    this.doors.add(door);
 
-    // var worldXY = this.board.tileXYToWorldXY(portalObj.x, portalObj.y);  // worldXY: {x, y}
+    // var worldXY = this.board.tileXYToWorldXY(doorObj.x, doorObj.y);  // worldXY: {x, y}
 
-    // this.add.image(worldXY.x-2, worldXY.y+10, portalObj.objectConfig.texture);
+    // this.add.image(worldXY.x-2, worldXY.y+10, doorObj.objectConfig.texture);
 
-    this.board.addChess(portal, portalObj.x, portalObj.y, this.ember.constants.TILEZ_PORTALS);
+    this.board.addChess(door, doorObj.x, doorObj.y, this.ember.constants.TILEZ_DOORS);
 
-    portal.rexChess.setBlocker();
+    door.rexChess.setBlocker();
   }
 
   spawnTransport(transportObj) {
@@ -244,8 +249,8 @@ export class GameboardScene extends Phaser.Scene {
     // create a transport group
     this.transports = this.physics.add.group();
 
-    // create a portals group
-    this.portals = this.physics.add.group();
+    // create a doors group
+    this.doors = this.physics.add.group();
 
     // create an agent group
     this.agents = this.physics.add.group();
@@ -288,8 +293,8 @@ export class GameboardScene extends Phaser.Scene {
     this.physics.add.overlap(this.projectiles, this.agents, this.projectiles.enemyCollision);
     this.physics.add.overlap(this.player.container, this.agentprojectiles, this.agentprojectiles.playerCollision);
 
-    // check for collisions between the portals group and the player
-    this.physics.add.collider(this.player.container, this.portals, this.portalCollision, null, this);
+    // check for collisions between the doors group and the player
+    this.physics.add.collider(this.player.container, this.doors, this.doorCollision, null, this);
 
     // check for overlaps between the player's weapon and monster game objects
     // this.physics.add.overlap(this.player.weapon, this.monsters, this.enemyOverlap, null, this);
@@ -317,11 +322,11 @@ export class GameboardScene extends Phaser.Scene {
     }
   }
 
-  portalCollision(player, portal) {
+  doorCollision(player, door) {
     // debugger;
-    // if ( ! portal.touched) {
-    //   console.log('portalCollision', player, portal);
-    //   portal.touched = true;
+    // if ( ! door.touched) {
+    //   console.log('doorCollision', player, door);
+    //   door.touched = true;
     // }
   }
 

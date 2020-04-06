@@ -111,7 +111,7 @@ const constants = Object.freeze({
   SHAPE_TYPE_POLYGON: 'Polygon',
   SHAPE_TYPE_CONTAINER: 'Container',
   SHAPE_TYPE_TRANSPORT: 'Transport',
-  SHAPE_TYPE_PORTAL_DOOR: 'Portal Door',
+  SHAPE_TYPE_DOOR: 'Door',
   SHAPE_TYPE_ENEMY: 'Enemy',
   SHAPE_TYPE_AGENT: 'Agent',
 
@@ -124,7 +124,7 @@ const constants = Object.freeze({
   TILEZ_MONSTERS: 4,    // "layer" for monsters
   TILEZ_TRANSPORTS: 5, // "layer" for transports
   TILEZ_AGENTS: 6, // "layer" for agents
-  TILEZ_PORTALS: 7, // "layer" for portalss
+  TILEZ_DOORS: 7, // "layer" for doors
 
   AGENTSTATE: {
     IDLE: 0,
@@ -143,7 +143,7 @@ const constants = Object.freeze({
   },
 
   SPAWNER_TYPE: {
-    PORTAL: 'PORTAL',
+    DOOR: 'DOOR',
     CHEST: 'CHEST',
     TRANSPORT: 'TRANSPORT',
     AGENT: 'AGENT'
@@ -163,12 +163,12 @@ const constants = Object.freeze({
     SPECIAL: {
       DOCK: {value: 1, description: 'Dock'},
       PORTAL: {value: 2, description: 'Portal'},
-      DOORPORTAL: {value: 4, description: 'Door Portal'}
+      DOOR: {value: 4, description: 'Door'}
     }
   },
 
   SPECIAL_ACTIONS: {
-    REMOVE_PORTAL_DOOR: {value: 1, description: 'Remove Portal Door'},  // data: { portal_door_id:1, tileXY: {x: 11, y: 4} }
+    REMOVE_DOOR: {value: 1, description: 'Remove Door'},  // data: { door_id:1, tileXY: {x: 11, y: 4} }
     REMOVE_SIGHT_COST: {value: 2, description: 'Remove Sight Cost'},     // data: { tileXY: {x: 11, y: 3} }
     PLAY_SOUND: {value: 3, description: 'Play Sound'}     // data: { sound: 'open_door_1' }
   },

@@ -1848,3 +1848,38 @@ button {
     animation: rewardPulse 0.25s infinite;
   }
 }
+
+.editor {
+  margin: 20px;
+  color: #ff9f00;
+
+  //grid-gap: 10px;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 60px auto 100px;
+  grid-template-areas:
+    "editortitle  editortitle"
+    "mapeditor saveeditor"
+    "footer  footer";
+  min-height: 100vh;
+  p {
+    margin: 10px 0;
+  }
+}
+
+.editortitle {
+  grid-area: editortitle;
+  //background-color: green;
+}
+.footer {
+  grid-area: footer;
+  //background-color: purple;
+}
+.mapeditor {
+  grid-area: mapeditor;
+  //background-color: blue;
+}
+.saveeditor {
+  grid-area: saveeditor;
+  //background-color: yellow;
+}

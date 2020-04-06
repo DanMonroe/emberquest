@@ -16,7 +16,7 @@ export default {
       limit: 1,
       locations: []
     },
-    portals: {
+    doors: {
       spawnInterval: 3000,
       limit: 1,
       locations: [
@@ -25,7 +25,8 @@ export default {
           texture: 'door_wooden_n',
           textureSize: { width: 42, height: 42},
           scale: 1,
-          tileBeyond: { x: 11, y: 3}  // tile that has sightCost blocker
+          tileBeyond: { x: 11, y: 3},  // tile that has sightCost blocker,
+          hideIfCacheFound: 'GC001'    // don't spawn if this cache is found
         }
       ]
     },
@@ -33,7 +34,7 @@ export default {
     chests: { spawnInterval: 3000, limit: 1, locations: [
       {id: 1, x: 5, y: 7, gccode: 'GC001', gold: 15,
         specialActions: [
-          {value: constants.SPECIAL_ACTIONS.REMOVE_PORTAL_DOOR.value, data: { portal_door_id:1, tileXY: {x: 11, y: 4} }},
+          {value: constants.SPECIAL_ACTIONS.REMOVE_DOOR.value, data: { door_id:1, tileXY: {x: 11, y: 4} }},
           {value: constants.SPECIAL_ACTIONS.REMOVE_SIGHT_COST.value, data: { tileXY: {x: 11, y: 3} }},
           {value: constants.SPECIAL_ACTIONS.PLAY_SOUND.value, data: { sound: 'open_door_1' }}
         ]
@@ -102,9 +103,9 @@ export default {
       {'row': 2, 'col': 7, 'sightCost': 8, 'sightFlags': 1, 'speedCost': 1, 'travelFlags': 8, 'special': 0, 'wesnoth': 'Xv'},
       {'row': 2, 'col': 8, 'sightCost': 8, 'sightFlags': 1, 'speedCost': 1, 'travelFlags': 8, 'special': 0, 'wesnoth': 'Xv'},
       {'row': 2, 'col': 9, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'special': 0, 'wesnoth': 'Gg'},
-      {'row': 2, 'col': 10, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'special': {value:constants.FLAGS.SPECIAL.PORTAL.value,map:'landsea',x:13,y:20}, 'wesnoth': 'Gs'},
-      {'row': 2, 'col': 11, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'special': {value:constants.FLAGS.SPECIAL.PORTAL.value,map:'landsea',x:13,y:20}, 'wesnoth': 'Ur'},
-      {'row': 2, 'col': 12, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'special': {value:constants.FLAGS.SPECIAL.PORTAL.value,map:'landsea',x:13,y:20}, 'wesnoth': 'Gg^Efm'},
+      {'row': 2, 'col': 10, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'special': {value:constants.FLAGS.SPECIAL.PORTAL.value,map:'intro2',x:10,y:17}, 'wesnoth': 'Gs'},
+      {'row': 2, 'col': 11, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'special': {value:constants.FLAGS.SPECIAL.PORTAL.value,map:'intro2',x:10,y:17}, 'wesnoth': 'Ur'},
+      {'row': 2, 'col': 12, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'special': {value:constants.FLAGS.SPECIAL.PORTAL.value,map:'intro2',x:10,y:17}, 'wesnoth': 'Gg^Efm'},
       {'row': 2, 'col': 13, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'special': 0, 'wesnoth': 'Gg'},
       {'row': 2, 'col': 14, 'sightCost': 8, 'sightFlags': 1, 'speedCost': 1, 'travelFlags': 8, 'special': 0, 'wesnoth': 'Xv'},
       {'row': 2, 'col': 15, 'sightCost': 8, 'sightFlags': 1, 'speedCost': 1, 'travelFlags': 8, 'special': 0, 'wesnoth': 'Xv'},
@@ -125,7 +126,7 @@ export default {
       {'row': 3, 'col': 8, 'sightCost': 8, 'sightFlags': 1, 'speedCost': 1, 'travelFlags': 8, 'special': 0, 'wesnoth': 'Xom^Efs'},
       {'row': 3, 'col': 9, 'sightCost': 8, 'sightFlags': 1, 'speedCost': 1, 'travelFlags': 8, 'special': 0, 'wesnoth': 'Xom'},
       {'row': 3, 'col': 10, 'sightCost': 8, 'sightFlags': 1, 'speedCost': 1, 'travelFlags': 8, 'special': 0, 'wesnoth': 'Xom^Efs'},
-      {'row': 3, 'col': 11, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'special': {value: constants.FLAGS.SPECIAL.DOORPORTAL.value, id:1, sightCost: 7}, 'wesnoth': 'Ur'},
+      {'row': 3, 'col': 11, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'special': {value: constants.FLAGS.SPECIAL.DOOR.value, id:1, sightCost: 7}, 'wesnoth': 'Ur'},
       {'row': 3, 'col': 12, 'sightCost': 8, 'sightFlags': 1, 'speedCost': 1, 'travelFlags': 8, 'special': 0, 'wesnoth': 'Xom^Efs'},
       {'row': 3, 'col': 13, 'sightCost': 8, 'sightFlags': 1, 'speedCost': 1, 'travelFlags': 8, 'special': 0, 'wesnoth': 'Xom'},
       {'row': 3, 'col': 14, 'sightCost': 8, 'sightFlags': 1, 'speedCost': 1, 'travelFlags': 8, 'special': 0, 'wesnoth': 'Xom^Efs'},

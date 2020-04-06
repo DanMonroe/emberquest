@@ -1,6 +1,7 @@
 import Service from '@ember/service';
 import { constants } from 'emberquest/services/constants';
 import intro from '../phaser/scenes/tiledata/intro';
+import intro2 from '../phaser/scenes/tiledata/intro2';
 import cave1 from '../phaser/scenes/tiledata/cave1';
 import landsea from '../phaser/scenes/tiledata/landsea'
 // import {cave1} from './../node_modules/map-data/cave1';
@@ -14,6 +15,8 @@ export default class MapService extends Service {
     switch (mapToLoad) {
       case 'intro':
         return intro;
+      case 'intro2':
+        return intro2;
       case 'cave1':
         return cave1;
       case 'landsea':
@@ -237,8 +240,8 @@ export default class MapService extends Service {
     return this.tileHasGivenSpecialAttribute(scene, tileXY, this.constants.FLAGS.SPECIAL.PORTAL.value);
   }
 
-  tileIsDoorPortal(scene, tileXY) {
-    return this.tileHasGivenSpecialAttribute(scene, tileXY, this.constants.FLAGS.SPECIAL.DOORPORTAL.value);
+  tileIsDoor(scene, tileXY) {
+    return this.tileHasGivenSpecialAttribute(scene, tileXY, this.constants.FLAGS.SPECIAL.DOOR.value);
   }
 
   tileIsDock(scene, tileXY) {

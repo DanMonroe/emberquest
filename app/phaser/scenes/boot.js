@@ -59,6 +59,8 @@ export class BootScene extends Phaser.Scene {
 
   create() {
 
+    this.game.ember.initializeCachesAlreadyFound();
+
     this.game.ember.loadGameData("gameboard")
       .then(gameboardData => {
         console.log('gameboardData', gameboardData);

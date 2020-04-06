@@ -12,7 +12,10 @@ export default class Chest extends Phaser.Physics.Arcade.Image {
     this.gccode = chestObj.objectConfig.gccode;
     this.specialActions = chestObj.objectConfig.specialActions;
 
-    this.found = false;
+    // previously found?
+    this.found = this.scene.ember.cache.isCacheFound(this.gccode);
+
+    this.setFrame(this.found ? 0 : 1);
 
     // enable physics
     this.scene.physics.world.enable(this);

@@ -1,17 +1,17 @@
 import Phaser from 'phaser';
 
-export default class Portal extends Phaser.Physics.Arcade.Image {
-  constructor(scene, x, y, key, frame, portalObj) {
+export default class Door extends Phaser.Physics.Arcade.Image {
+  constructor(scene, x, y, key, frame, doorObj) {
 
     super(scene, x, y, key, frame);
     this.scene = scene; // the scene this game object will be added to
-    this.id = portalObj.id;
-    this.coords = portalObj.coords;
+    this.id = doorObj.id;
+    this.coords = doorObj.coords;
 
     // enable physics
     this.scene.physics.world.enable(this);
 
-    this.type = this.scene.ember.constants.SHAPE_TYPE_PORTAL_DOOR;
+    this.type = this.scene.ember.constants.SHAPE_TYPE_DOOR;
 
     // this.setPosition(100, y);
 
@@ -34,7 +34,7 @@ export default class Portal extends Phaser.Physics.Arcade.Image {
   }
 
   // playerFound() {
-  //   console.log('player found portal', this);
+  //   console.log('player found door', this);
   //
   //   this.found = !this.found;
   //   this.setFrame(this.found ? 0 : 1);

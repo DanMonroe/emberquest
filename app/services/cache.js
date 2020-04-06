@@ -22,4 +22,9 @@ export default class CacheService extends Service {
   findCache(gccode) {
     return this.getCaches().findBy('gccode', gccode);
   }
+
+  isCacheFound(gccode) {
+    const geocache = this.findCache(gccode);
+    return geocache ? geocache.found : false;
+  }
 }

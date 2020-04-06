@@ -21,6 +21,7 @@ export default class GameService extends Service {
   @service inventory;
   @service cache;
   @service gameManager;
+  @service storage;
 
   @tracked cameraMainZoom = 1;
   // @tracked playerImgSrc = '/images/agents/tomster-head-classic.png';
@@ -68,9 +69,10 @@ export default class GameService extends Service {
 
     let playerAttrs = scene.player.container.data.get('attrs');
 
-    // inventory
+    // add inventory, mapname to playerAttrs
     Object.assign(playerAttrs, {
-      'inventory': scene.player.container.agent.saveGameInventoryAttrs
+      'inventory': scene.player.container.agent.saveGameInventoryAttrs,
+      'mapname': mapname
     });
 
     Object.assign(gameData, {
@@ -84,11 +86,38 @@ export default class GameService extends Service {
 
   async saveGameData(key, value) {
     await localforage.setItem(key, value)
-      .then((value) => {
+      .then(() => {
       // console.log('done saving', value)
     }).catch((err) => {
       console.error(err);
     });
+  }
+
+  async saveCacheFound(geocache) {
+    const cachesData = await this.loadGameData('caches') || new Map();
+
+    let cipherObject = this.storage.encrypt(geocache.gccode);
+    cachesData.set(geocache.gccode, cipherObject);
+    await this.saveGameData('caches', cachesData);
+  }
+
+  async initializeCachesAlreadyFound() {
+    const cachesData = await this.loadGameData('caches') || new Map();
+    if (cachesData) {
+
+      cachesData.forEach((encryptedhash, gccode) => {
+        // console.log(`${gccode}: ${encryptedhash}`);
+        const decryptedObject = this.storage.decrypt(encryptedhash);
+        // make sure the player didn't mess with the data in localforage
+        if (decryptedObject === gccode) {
+          const geocache = this.cache.findCache(gccode);
+          if (geocache) {
+            console.log('found chest', geocache);
+            geocache.found = true;
+          }
+        }
+      });
+    }
   }
 
   async loadSceneData(sceneMapName) {
@@ -241,7 +270,7 @@ export default class GameService extends Service {
   }
 
 
-  foundChest(chest) {
+  async foundChest(chest) {
     console.log('foundChest', chest)
     if (chest) {
       this.gameManager.player.gold += chest.gold;
@@ -261,6 +290,9 @@ export default class GameService extends Service {
         // show found it modal
         this.epmModalContainerClass = 'chest';
         this.modals.open('chest-dialog', {coords:geocache.coords});
+
+        geocache.found = true;
+        await this.saveCacheFound(geocache);
       }
 
     }
@@ -268,16 +300,16 @@ export default class GameService extends Service {
 
   @task
   *processSpecialAction(scene, specialAction) {
-    let portalDoorShapes;
+    let doorShapes;
     switch (specialAction.value) {
       case this.constants.SPECIAL_ACTIONS.REMOVE_SIGHT_COST.value:  // data: { tileXY: {x: 11, y: 3 }}
         // find the tile, set its sightCost to 0;
         scene.game.ember.map.getTileAttribute(scene, specialAction.data.tileXY).special.sightCost = 0;
         break;
-      case this.constants.SPECIAL_ACTIONS.REMOVE_PORTAL_DOOR.value: // data: { portal_door_id:1, tileXY: {x: 11, y: 4} }
-        portalDoorShapes = scene.game.ember.map.getGameObjectsAtTileXY(scene.board, specialAction.data.tileXY, scene.game.ember.constants.SHAPE_TYPE_PORTAL_DOOR);
-        if (portalDoorShapes && portalDoorShapes.length) {
-          portalDoorShapes[0].makeInactive();
+      case this.constants.SPECIAL_ACTIONS.REMOVE_DOOR.value: // data: { door_id:1, tileXY: {x: 11, y: 4} }
+        doorShapes = scene.game.ember.map.getGameObjectsAtTileXY(scene.board, specialAction.data.tileXY, scene.game.ember.constants.SHAPE_TYPE_DOOR);
+        if (doorShapes && doorShapes.length) {
+          doorShapes[0].makeInactive();
         }
         break;
       case this.constants.SPECIAL_ACTIONS.PLAY_SOUND.value: // data: { sound: 'open_door_1' }
@@ -291,8 +323,7 @@ export default class GameService extends Service {
   }
 
   decryptCacheCoordinates(source) {
-    // TODO actually decrypt
-    return source.coords;
+    return this.storage.decrypt(source.coords);
   }
 
 }

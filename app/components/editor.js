@@ -2,20 +2,55 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { constants } from 'emberquest/services/constants';
+import { inject as service } from '@ember/service';
 
 export default class EditorComponent extends Component {
 
-  @tracked mapText;
-  @tracked mapArray;
-
-  @tracked hexesTextArray;
-  @tracked hexRowsTextArray;
-
-  @tracked hexRowIdsArray;
-
-  @tracked finalMap;
+  @service game;
 
   constants = constants;
+
+  @tracked mapText;
+  @tracked mapArray;
+  @tracked hexesTextArray;
+  @tracked hexRowsTextArray;
+  @tracked hexRowIdsArray;
+  @tracked finalMap;
+
+  @tracked currentGameData;
+
+  @action
+  loadCurrentGameData() {
+    this.game.loadGameData("gameboard")
+      .then(gameboardData => {
+        console.log('gameboardData', gameboardData);
+
+        this.currentGameData = JSON.stringify(gameboardData, undefined, 2);
+
+        document.getElementById('currentgamedata').value = this.currentGameData;
+        // this.currentGameData = JSON.stringify(gameboardData);
+
+        // let data = {'map': 'intro'}  // default initial map
+        // if (gameboardData) {
+        //   const sceneData = gameboardData.sceneData[gameboardData.currentMap] || {
+        //     allSeenTiles: [],
+        //     storedTransports: [],
+        //     boarded: 0
+        //   };
+        //
+        //   data = {
+        //     'map': gameboardData.currentMap,
+        //     'storedPlayerTile': gameboardData.playerTile,
+        //     'storedPlayerAttrs': gameboardData.playerAttrs,
+        //     'allSeenTiles': sceneData.seenTiles,
+        //     'storedTransports': sceneData.transports,
+        //     'boarded': sceneData.boarded
+        //   }
+        // }
+        //
+        // this.scene.start('gameboard', data);
+      });
+  }
 
   @action
   generateHexes() {

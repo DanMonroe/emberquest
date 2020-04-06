@@ -71,6 +71,7 @@
     "confirmed": "^2.3.2",
     "emberquest-map-data": "file:./lib/emberquest-map-data",
     "focus-trap": "^5.1.0",
-    "localforage": "^1.7.3"
+    "localforage": "^1.7.3",
+    "simple-crypto-js": "^2.2.0"
   }
 }

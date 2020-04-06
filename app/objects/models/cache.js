@@ -1,9 +1,9 @@
-// import { tracked } from '@glimmer/tracking';
+import { tracked } from '@glimmer/tracking';
 import { constants } from 'emberquest/services/constants';
 
 export class Cache {
   gccode;
-  found = false;
+  @tracked found = false;
   type = constants.CACHE.TYPE.MYSTERY;
   name;
   difficulty;
