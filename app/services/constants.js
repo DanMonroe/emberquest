@@ -118,7 +118,7 @@ const constants = Object.freeze({
   FLAG_TYPE_TRAVEL: 0,
   FLAG_TYPE_VISIBILITY: 1,
 
-  TILEZ_PLAYER: 1, // "layer" for player
+  TILEZ_PLAYER: 100, // "layer" for player
   TILEZ_FOG: 2,    // "layer" for fog of war
   TILEZ_CHESTS: 3,    // "layer" for chests
   TILEZ_MONSTERS: 4,    // "layer" for monsters

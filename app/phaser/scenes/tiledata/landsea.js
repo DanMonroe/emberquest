@@ -13,6 +13,8 @@ export default {
 
   mapUrl: '/images/maps/landsea-min.png',
 
+  chests: [],
+
   spawnLocations : {
     players: [{x: 5, y: 7}], // tiles where the player may spawn
     // players: [{x: 6, y: 15}], // tiles where the player may spawn
@@ -43,7 +45,7 @@ export default {
         }
       ]
     },
-    chests: { spawnInterval: 3000, limit: 1, locations: []},
+    // chests: { spawnInterval: 3000, limit: 1, locations: []},
     // chests: { spawnInterval: 3000, limit: 1, locations: [{id: 1, x: 3, y: 11}, {id: 2, x: 5, y: 9}]},
     // monsters: { spawnInterval: 3000, limit: 1, locations: [{id: 1, x: 8, y: 8, health: 100, maxHealth: 200,scale: 0.75}]},
     agents: { spawnInterval: 3000, limit: 5,

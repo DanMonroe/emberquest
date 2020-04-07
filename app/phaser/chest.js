@@ -6,11 +6,11 @@ export default class Chest extends Phaser.Physics.Arcade.Image {
     super(scene, x, y, key, frame);
     this.scene = scene; // the scene this game object will be added to
 
-    this.id = chestObj.objectConfig.id;
-    this.gold = chestObj.objectConfig.gold; // the amount of coins this chest contains
-    this.coords = chestObj.objectConfig.coords;
-    this.gccode = chestObj.objectConfig.gccode;
-    this.specialActions = chestObj.objectConfig.specialActions;
+    this.id = chestObj.id;
+    this.gold = chestObj.gold; // the amount of coins this chest contains
+    this.coords = chestObj.coords;
+    this.gccode = chestObj.gccode;
+    this.specialActions = chestObj.specialActions;
 
     // previously found?
     this.found = this.scene.ember.cache.isCacheFound(this.gccode);
@@ -25,21 +25,11 @@ export default class Chest extends Phaser.Physics.Arcade.Image {
     this.scene.add.existing(this);
     // scale the chest game object
     this.setScale(.3);
+
+    this.setDepth(this.scene.ember.constants.TILEZ_CHESTS);
   }
 
-  makeActive() {
-    this.setActive(true);
-    this.setVisible(true);
-    this.body.checkCollision.none = false;
-  }
-
-  makeInactive() {
-    this.setActive(false);
-    this.setVisible(false);
-    this.body.checkCollision.none = true;
-  }
-
-  playerFound() {
+  playerFoundChest() {
     // console.log('player found chest', this);
 
     this.found = !this.found;

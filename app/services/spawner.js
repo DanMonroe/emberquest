@@ -13,9 +13,7 @@ export default class SpawnerService extends Service {
   @tracked spawnInterval = 30000;
 
   @tracked spawners = {};
-  @tracked chests = {};
   @tracked transports = {};
-  @tracked doors = {};
   @tracked players = {};
   @tracked agents = {};
 
@@ -25,32 +23,6 @@ export default class SpawnerService extends Service {
     this.scene = scene;
     this.spawnLocations = spawnLocations;
     let config = {};
-
-    // create chest spawners
-    if (this.spawnLocations.chests) {
-      config = {
-        spawnInterval: this.spawnLocations.chests.spawnInterval || 3000,
-        limit: this.spawnLocations.chests.limit || 1,
-        spawnerType: this.constants.SPAWNER_TYPE.CHEST
-      }
-      this.spawnLocations.chests.locations.forEach(locationObj => {
-        config.id = `chest-${locationObj.id}`;
-        config.objectConfig = locationObj;
-        let spawner = new Spawner(
-          config,
-          this.spawnLocations.chests.locations,
-          this.addChest.bind(this),
-          this.deleteChest.bind(this),
-          null,
-          this.constants
-        );
-
-        this.spawners[spawner.id] = spawner;
-
-        // console.log('chest location spawnerConfig', spawnerConfig)
-        // this.spawnLocations.transports.push(spawnerConfig);
-      });
-    }
 
     // create transport spawners
     if (this.spawnLocations.transports) {
@@ -69,32 +41,6 @@ export default class SpawnerService extends Service {
           this.spawnLocations.transports.locations,
           this.addTransport.bind(this),
           this.deleteTransport.bind(this),
-          null,
-          this.constants
-        );
-
-        this.spawners[spawner.id] = spawner;
-
-      });
-    }
-
-    // create door spawners
-    if (this.spawnLocations.doors) {
-      config = {
-        spawnInterval: this.spawnLocations.doors.spawnInterval || 3000,
-        limit: this.spawnLocations.doors.limit || 1,
-        spawnerType: this.constants.SPAWNER_TYPE.DOOR
-      }
-      this.spawnLocations.doors.locations.forEach(locationObj => {
-        config.id = `door-${locationObj.id}`;
-        config.locationId = +locationObj.id - 1;
-        config.objectConfig = locationObj
-
-        let spawner = new Spawner(
-          config,
-          this.spawnLocations.doors.locations,
-          this.addDoor.bind(this),
-          this.deleteDoor.bind(this),
           null,
           this.constants
         );
@@ -131,44 +77,6 @@ export default class SpawnerService extends Service {
     }
 
 
-    // console.log('setupSpawnLocations')
-    // this.scene.MapData.spawnLocations.players.forEach(spawnerConfig => {
-    //   console.log('player location spawnerConfig', spawnerConfig)
-    //   this.spawnLocations.players.push(spawnerConfig);
-    // });
-    // if (this.scene.MapData.spawnLocations.transports) {
-    //   this.scene.MapData.spawnLocations.transports.forEach(spawnerConfig => {
-    //     console.log('transport location spawnerConfig', spawnerConfig)
-    //     this.spawnLocations.transports.push(spawnerConfig);
-    //   });
-    // }
-    // if (this.scene.MapData.spawnLocations.chests) {
-    //   this.scene.MapData.spawnLocations.chests.forEach(spawnerConfig => {
-    //     console.log('chest location spawnerConfig', spawnerConfig)
-    //     this.spawnLocations.transports.push(spawnerConfig);
-    //   });
-    // }
-    // if (this.scene.MapData.spawnLocations.monsters) {
-    //   this.scene.MapData.spawnLocations.monsters.forEach(spawnerConfig => {
-    //     console.log('monster location spawnerConfig', spawnerConfig)
-    //     this.spawnLocations.transports.push(spawnerConfig);
-    //   });
-    // }
-    // if (this.scene.MapData.spawnLocations.agents) {
-    //   this.scene.MapData.spawnLocations.agents.forEach(spawnerConfig => {
-    //     console.log('agent location spawnerConfig', spawnerConfig)
-    //     this.spawnLocations.transports.push(spawnerConfig);
-    //   });
-    // }
-  }
-
-  addChest(chestId, chest) {
-    this.chests[chestId] = chest;
-    this.scene.events.emit('chestSpawned', chest);
-  }
-
-  deleteChest(chestId) {
-    delete this.chests[chestId];
   }
 
   addTransport(transportId, transport) {
@@ -178,15 +86,6 @@ export default class SpawnerService extends Service {
 
   deleteTransport(transportId) {
     delete this.transports[transportId];
-  }
-
-  addDoor(portalId, portal) {
-    this.doors[portalId] = portal;
-    this.scene.events.emit('doorSpawned', portal);
-  }
-
-  deleteDoor(portalId) {
-    delete this.doors[portalId];
   }
 
   addAgent(agentId, agent) {

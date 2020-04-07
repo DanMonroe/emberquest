@@ -3,11 +3,35 @@ import { constants } from 'emberquest/services/constants';
 export default {
 
   player: {
-    startX: 13,
-    startY: 6
+    startX: 5,
+    startY: 7
   },
 
   mapUrl: '/images/maps/intro.png',
+
+  chests: [
+    {
+      id: 1, x: 5, y: 7,
+      gccode: 'GC001',
+      gold: 15,
+      specialActions: [
+        {value: constants.SPECIAL_ACTIONS.REMOVE_DOOR.value, data: { door_id:1, tileXY: {x: 11, y: 4} }},
+        {value: constants.SPECIAL_ACTIONS.REMOVE_SIGHT_COST.value, data: { tileXY: {x: 11, y: 3} }},
+        {value: constants.SPECIAL_ACTIONS.PLAY_SOUND.value, data: { sound: 'open_door_1' }}
+      ]
+    }
+  ],
+
+  doors: [
+    {
+      id: 1, x: 11, y: 4,
+      texture: 'door_wooden_n',
+      textureSize: { width: 42, height: 42},
+      scale: 1,
+      tileBeyond: { x: 11, y: 3},  // tile that has sightCost blocker,
+      hideIfCacheFound: 'GC001'    // don't spawn if this cache is found
+    }
+  ],
 
   spawnLocations : {
     players: [{x: 5, y: 7}], // tiles where the player may spawn
@@ -16,30 +40,7 @@ export default {
       limit: 1,
       locations: []
     },
-    doors: {
-      spawnInterval: 3000,
-      limit: 1,
-      locations: [
-        {
-          id: 1, x: 11, y: 4,
-          texture: 'door_wooden_n',
-          textureSize: { width: 42, height: 42},
-          scale: 1,
-          tileBeyond: { x: 11, y: 3},  // tile that has sightCost blocker,
-          hideIfCacheFound: 'GC001'    // don't spawn if this cache is found
-        }
-      ]
-    },
-    // chests: { spawnInterval: 3000, limit: 1, locations: []},
-    chests: { spawnInterval: 3000, limit: 1, locations: [
-      {id: 1, x: 5, y: 7, gccode: 'GC001', gold: 15,
-        specialActions: [
-          {value: constants.SPECIAL_ACTIONS.REMOVE_DOOR.value, data: { door_id:1, tileXY: {x: 11, y: 4} }},
-          {value: constants.SPECIAL_ACTIONS.REMOVE_SIGHT_COST.value, data: { tileXY: {x: 11, y: 3} }},
-          {value: constants.SPECIAL_ACTIONS.PLAY_SOUND.value, data: { sound: 'open_door_1' }}
-        ]
-      }
-    ]},
+
     agents: {
       spawnInterval: 3000,
       limit: 5,

@@ -34,8 +34,6 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
 
     super(scene, config);
 
-    // super(scene, config.playerX, config.playerY);
-
     this.scene = scene;
     this.board = scene.board;
     this.ember = this.scene.game.ember;
@@ -49,17 +47,7 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
 
     this.agent = agent;
 
-    // this.flipX = true;
-    // this.swordHit = false;
-    // this.health = config.health || 5;
-    // this.maxHealth = config.maxHealth;
-    // this.power = config.power;
-    // this.maxPower = config.maxPower;
-    // this.attackAudio = config.attackAudio;
-
     this.showPowerBar = true;
-    // this.healingSpeed = 1000;
-    // this.healingPower = 3;
 
     this.cachedHealthPercentage = 0;
 
@@ -71,7 +59,7 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
 
     // collide with world bounds
     //
-    // Setting this to tr prevents the player from completing
+    // Setting this to true prevents the player from completing
     // a move to the outer edges of the map (causing endless loop)
     // and then they get stuck and can't move away from the edge.
     //
@@ -87,6 +75,7 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
     // create the player
     this.player = new PlayerPhaserAgent(this.scene, config);
     this.add(this.player);
+    this.setDepth(this.ember.constants.TILEZ_PLAYER);
 
     this.phaserAgent = this.player;
     // this.agent = new Player
@@ -169,7 +158,6 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
     this.setData('attrs', config.flagAttributes);
 
     this.ember.playerContainer = this;
-    // this.setDepth(15);
 
     this.createHealthBar();
     this.reloadHealth.perform();
@@ -182,7 +170,6 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
       this.baseUpdate();
     }
   }
-
 
   moveTo(cursors) {
 
@@ -223,13 +210,9 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
   }
 
   moveToComplete(playerContainer, moveTo) {
-    // console.log('move complete');
     moveTo.scene.game.ember.saveSceneData(moveTo.scene);
-    // moveTo.scene.game.ember.saveGameData("playerTile", playerContainer.rexChess.tileXYZ);
     moveTo.scene.game.ember.map.findFOV(playerContainer);
     moveTo.scene.game.ember.processPlayerMove(playerContainer, moveTo);
   }
-
-
 
 }

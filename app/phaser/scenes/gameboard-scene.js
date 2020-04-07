@@ -18,8 +18,6 @@ export class GameboardScene extends Phaser.Scene {
   storedTransports = [];
   playerConfig = undefined;
   chests = {};
-  monsters = {};
-  enemyships = {};
   transports = {};
   agents = {};
   doors = {};
@@ -37,7 +35,7 @@ export class GameboardScene extends Phaser.Scene {
   }
 
   init(data){
-    // console.log('gameboard init', data)
+    console.log('gameboard init', data)
     this.mapname = data.map;
     this.storedData = data;
     this.storedPlayerTile = data.storedPlayerTile;
@@ -61,10 +59,11 @@ export class GameboardScene extends Phaser.Scene {
     this.createBoard();
     this.createAudio();
     this.createGroups();
+    this.createChests();
+    this.createDoors();
     this.createGameManager();
     this.boardExperiments();
     this.ember.saveSceneData(this);
-
 
     this.musicAudio.play();
   }
@@ -89,16 +88,8 @@ export class GameboardScene extends Phaser.Scene {
       this.addCollisions();
     });
 
-    this.events.on('chestSpawned', (chestObject) => {
-      this.spawnChest(chestObject);
-    });
-
     this.events.on('transportSpawned', (transportObject) => {
       this.spawnTransport(transportObject);
-    });
-
-    this.events.on('doorSpawned', (portalObject) => {
-      this.spawnDoor(portalObject);
     });
 
     this.events.on('agentSpawned', (agentObject) => {
@@ -106,14 +97,6 @@ export class GameboardScene extends Phaser.Scene {
     });
 
     this.board.on('tiledown',  async (pointer, tileXY) => {
-
-      // // victory?
-      // debugger;
-      // this.ember.epmModalContainerClass = 'chest';
-      // let chestModal = this.ember.modals.open('chest-dialog', {coords:'N 45 31.641, W 122 39.761'});
-
-
-
 
       // report tile info for debugging
       // const allAttrs = this.ember.map.getTileAttribute(this, tileXY);
@@ -133,7 +116,7 @@ export class GameboardScene extends Phaser.Scene {
 
     playerObject.container.fov = this.rexBoard.add.fieldOfView(playerObject.container, playerObject.playerConfig);
 
-    // // make the camera follow the player
+    // make the camera follow the player
     this.cameras.main.startFollow(playerObject.container);
 
     if (this.storedBoardedTransportId > 0) {
@@ -148,12 +131,19 @@ export class GameboardScene extends Phaser.Scene {
     this.ember.map.findFOV(playerObject.container);
   }
 
-  spawnChest(chestObj) {
-    let chest = new Chest(this, 0, 0, 'chests', 1, chestObj);
-    chest.setAlpha(0);
+  createChests() {
+    // console.log('create Chests.  mapdata', this.mapData)
 
-    this.chests.add(chest);
-    this.board.addChess(chest, chestObj.x, chestObj.y, this.ember.constants.TILEZ_CHESTS);
+    if (this.mapData.chests) {
+      this.mapData.chests.forEach(chestObj => {
+        let chest = new Chest(this, 0, 0, 'chests', 1, chestObj);
+        chest.setAlpha(0);
+
+        this.chests.add(chest);
+        this.board.addChess(chest, chestObj.x, chestObj.y, this.ember.constants.TILEZ_CHESTS);
+
+      })
+    }
   }
 
   spawnAgent(agentObj) {
@@ -167,25 +157,25 @@ export class GameboardScene extends Phaser.Scene {
     }
   }
 
-  // hideIfCacheFound
-  spawnDoor(doorObj) {
-    console.log('DoorObj', doorObj)
-    if (doorObj.objectConfig.hideIfCacheFound && this.ember.cache.isCacheFound(doorObj.objectConfig.hideIfCacheFound)) {
-      // don't add door
-      return;
+  createDoors() {
+    if (this.mapData.doors) {
+      this.mapData.doors.forEach(doorObj => {
+        // console.log('DoorObj', doorObj)
+        if (doorObj.hideIfCacheFound && this.ember.cache.isCacheFound(doorObj.hideIfCacheFound)) {
+          // don't add door
+          return;
+        }
+        let door = new Door(this, 0, 0, doorObj.texture, 1, doorObj);
+        door.setAlpha(0);
+
+        this.doors.add(door);
+
+        this.board.addChess(door, doorObj.x, doorObj.y, this.ember.constants.TILEZ_DOORS);
+
+        door.rexChess.setBlocker();
+
+      });
     }
-    let door = new Door(this, 0, 0, doorObj.objectConfig.texture, 1, doorObj);
-    door.setAlpha(0);
-
-    this.doors.add(door);
-
-    // var worldXY = this.board.tileXYToWorldXY(doorObj.x, doorObj.y);  // worldXY: {x, y}
-
-    // this.add.image(worldXY.x-2, worldXY.y+10, doorObj.objectConfig.texture);
-
-    this.board.addChess(door, doorObj.x, doorObj.y, this.ember.constants.TILEZ_DOORS);
-
-    door.rexChess.setBlocker();
   }
 
   spawnTransport(transportObj) {
@@ -315,10 +305,10 @@ export class GameboardScene extends Phaser.Scene {
 
   collectChest(player, chest) {
     if ( ! chest.found) {
-    console.log('collect chest', arguments);
+    // console.log('collect chest', arguments);
       this.goldPickupAudio.play();
 
-      chest.playerFound();
+      chest.playerFoundChest();
     }
   }
 
@@ -338,11 +328,6 @@ export class GameboardScene extends Phaser.Scene {
         agentChild.update();
       });
     }
-    // if (this.monsters.children) {
-    //   this.monsters.children.each(monsterChild => {
-    //     monsterChild.update();
-    //   })
-    // }
   }
 }
 

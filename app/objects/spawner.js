@@ -2,8 +2,8 @@ import {timeout} from 'ember-concurrency';
 import {task} from 'ember-concurrency-decorators';
 import { tracked } from '@glimmer/tracking';
 import {Agent} from "./models/agent";
-import {Chest} from "./models/chest";
-import {Door} from "./models/door";
+// import {Chest} from "./models/chest";
+// import {Door} from "./models/door";
 import {Transport} from "./models/transport";
 
 export class Spawner {
@@ -45,17 +45,17 @@ export class Spawner {
   }
 
   spawnObject() {
-    console.log('sapwnObject', this.objectType)
+    console.log('spawnObject', this.objectType)
     switch (this.objectType) {
-      case this.constants.SPAWNER_TYPE.CHEST:
-        this.spawnChest();
-        break;
+      // case this.constants.SPAWNER_TYPE.CHEST:
+      //   this.spawnChest();
+      //   break;
       case this.constants.SPAWNER_TYPE.TRANSPORT:
         this.spawnTransport();
         break;
-      case this.constants.SPAWNER_TYPE.DOOR:
-        this.spawnDoor();
-        break;
+      // case this.constants.SPAWNER_TYPE.DOOR:
+      //   this.spawnDoor();
+      //   break;
       case this.constants.SPAWNER_TYPE.AGENT:
         this.spawnAgent();
         break;
@@ -67,23 +67,23 @@ export class Spawner {
     this.objectsCreated++;  // temp counter
   }
 
-  spawnChest() {
-    const location = this.pickRandomLocation();
+  // spawnChest() {
+  //   const location = this.pickRandomLocation();
+  //
+  //   const chest = new Chest(location.x, location.y, this.id, this.config.objectConfig);
+  //
+  //   this.objectsCreated.push(chest);
+  //   this.addObject(chest.id, chest);
+  // }
 
-    const chest = new Chest(location.x, location.y, this.id, this.config.objectConfig);
-
-    this.objectsCreated.push(chest);
-    this.addObject(chest.id, chest);
-  }
-
-  spawnDoor() {
-    const location = this.pickRandomLocation();
-
-    const door = new Door(location.x, location.y, this.id, this.config.objectConfig);
-
-    this.objectsCreated.push(door);
-    this.addObject(door.id, door);
-  }
+  // spawnDoor() {
+  //   const location = this.pickRandomLocation();
+  //
+  //   const door = new Door(location.x, location.y, this.id, this.config.objectConfig);
+  //
+  //   this.objectsCreated.push(door);
+  //   this.addObject(door.id, door);
+  // }
 
   spawnTransport() {
     const location = this.pickLocationById();

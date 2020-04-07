@@ -9,6 +9,10 @@ export default {
 
   mapUrl: '/images/maps/cave1.png',
 
+  chests: [
+    {id: 1, x: 24, y: 17, gold: 250, coords:'N 45 31.641, W 122 39.761'}
+  ],
+
   // cave2_fast ends at x:18, y:17
 
   spawnLocations : {
@@ -18,7 +22,7 @@ export default {
       limit: 1,
       locations: []
     },
-    chests: { spawnInterval: 3000, limit: 1, locations: [{id: 1, x: 24, y: 17, gold: 250, coords:'N 45 31.641, W 122 39.761'}]},
+    // chests: { spawnInterval: 3000, limit: 1, locations: [{id: 1, x: 24, y: 17, gold: 250, coords:'N 45 31.641, W 122 39.761'}]},
     agents: { spawnInterval: 3000, limit: 5,
       locations: [
         {

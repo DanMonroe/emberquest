@@ -8,6 +8,10 @@ export default {
 
   mapUrl: '/images/maps/intro2.png',
 
+  chests: [
+    {id: 1, x: 10, y: 3, gccode: 'GC002', gold: 20, specialActions: []}
+  ],
+
   spawnLocations : {
     players: [{x: 5, y: 7}], // tiles where the player may spawn
     transports: {
@@ -15,9 +19,6 @@ export default {
       limit: 1,
       locations: []
     },
-    chests: { spawnInterval: 3000, limit: 1, locations: [
-        {id: 1, x: 10, y: 3, gccode: 'GC002', gold: 20, specialActions: []}
-      ]},
     agents: {
       spawnInterval: 3000,
       limit: 5,

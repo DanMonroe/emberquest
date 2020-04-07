@@ -184,10 +184,12 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
     if (this.showHealthBar) {
       this.healthBar = this.scene.add.graphics();
       this.healthBar.setAlpha(this.isPlayer ? 1 : 0);
+      this.healthBar.setDepth(this.ember.constants.TILEZ_PLAYER);
     }
     if (this.showPowerBar) {
     // console.log('adding power bar')
       this.powerBar = this.scene.add.graphics();
+      this.powerBar.setDepth(this.ember.constants.TILEZ_PLAYER);
     }
     this.updateHealthBar();
   }
