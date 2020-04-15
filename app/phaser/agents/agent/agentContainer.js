@@ -19,17 +19,49 @@ export default class AgentContainer extends BasePhaserAgentContainer {
     this.containerType = this.ember.constants.SHAPE_TYPE_AGENT;
 
     this.agent = agent;
-    this.phaserAgent = new PhaserAgent(this.scene, config);
-    this.add(this.phaserAgent);
+    // this.phaserAgentSprite = new PhaserAgent(this.scene, config);
+
+    const agentSprite = this.scene.add.sprite(0,0,config.texture);
+
+    if (config.animeframes) {
+      if (config.animeframes.rest) {
+        this.scene.anims.create({
+          key: config.animeframes.rest.key,
+          frames: this.scene.anims.generateFrameNumbers(config.texture, { start: config.animeframes.rest.start, end: config.animeframes.rest.end}),
+          frameRate: config.animeframes.rest.rate,
+          repeat: config.animeframes.rest.repeat,
+        });
+      }
+      if (config.animeframes.attack) {
+        this.scene.anims.create({
+          key: config.animeframes.attack.key,
+          frames: this.scene.anims.generateFrameNumbers(config.texture, { start: config.animeframes.attack.start, end: config.animeframes.attack.end}),
+          frameRate: config.animeframes.attack.rate
+        });
+      }
+    }
+    agentSprite.setScale(config.scale);
+
+    this.add(agentSprite);
+
+    // start playing the rest animation
+    if (config.animeframes.rest) {
+      agentSprite.anims.play(config.animeframes.rest.key);
+    }
+
+    this.phaserAgentSprite = agentSprite;
+
+    this.setDisplaySize(50,50)
 
     this.patrol = config.patrol;    // should this be on data.attrs ?
     this.weapons = config.weapons;
 
     this.setData('attrs', config.flagAttributes);
 
-
     this.moveToObject = scene.rexBoard.add.moveTo(this, {
-      speed: config.speed
+      speed: config.speed,
+      occupiedTest: true,
+      blockerTest: true
     });
 
     this.moveToObject.on('complete', this.moveToComplete);
@@ -55,13 +87,14 @@ export default class AgentContainer extends BasePhaserAgentContainer {
         this.moveToObject.setSpeed(config.speed * allattrs.speedCost);
 
       }
+
       return canMove;
     };
 
     this.pathFinder = scene.rexBoard.add.pathFinder(this, {
-      // occupiedTest: true,
+      occupiedTest: true,
       pathMode: 'A*',
-      // blockerTest: true,
+      blockerTest: true,
       costCallback: (curTile, targetTile, pathFinder) => {
         const travelFlags = this.ember.map.getTileAttribute(pathFinder.chessData.board.scene, targetTile, 'travelFlags');
         const canMove = this.ember.playerHasAbilityFlag(this, this.ember.constants.FLAG_TYPE_TRAVEL, travelFlags);
@@ -79,6 +112,11 @@ export default class AgentContainer extends BasePhaserAgentContainer {
 
   update() {
     this.updateHealthBar();
+        // console.log('agent update', this)
+    //
+    // if (this.phaserAgentSprite) {
+    //   this.phaserAgentSprite.update();
+    // }
   }
 
   moveToComplete() {

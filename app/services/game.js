@@ -160,7 +160,11 @@ export default class GameService extends Service {
     let agent = new Agent(scene, agentConfig);
     console.log('agent', agent)
 
-    scene.board.addChess(agent.container, agentConfig.x, agentConfig.y, this.constants.TILEZ_AGENTS);
+    const agentChess = scene.board.addChess(agent.container, agentConfig.x, agentConfig.y, this.constants.TILEZ_AGENTS);
+// debugger;
+//     var chess = scene.board.tileXYZToChess(agentConfig.x, agentConfig.y, this.constants.TILEZ_AGENTS);
+    // chess.getFirst().anims.play('young-ogre-rest');
+    // agent.container.phaserAgentSprite.anims.play('young-ogre-rest');
 
     return agent.container;
   }

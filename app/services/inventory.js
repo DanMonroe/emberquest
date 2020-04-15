@@ -28,8 +28,8 @@ export default class InventoryService extends Service {
   }
 
   // check to see if agent already has something equipped in the items slot
-  getEquippedSlot(agent, item) {
-    return agent.equippedSlot[item.bodypart];
+  getEquippedSlot(agent, bodyPart) {
+    return agent.equippedSlot[bodyPart];
   }
 
   getBodyPartDescription(bodyPart) {

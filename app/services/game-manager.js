@@ -1,7 +1,11 @@
 import Service from '@ember/service';
 import { inject as service } from '@ember/service';
-import {Player} from "../objects/agents/player";
+import { Player } from "../objects/agents/player";
 import { tracked } from '@glimmer/tracking';
+import { isEmpty } from '@ember/utils';
+import { timeout } from 'ember-concurrency';
+import { task } from 'ember-concurrency-decorators';
+
 
 export default class GameManagerService extends Service {
   @service('spawner') spawnerService;
@@ -179,12 +183,32 @@ export default class GameManagerService extends Service {
     return agentShapes.length > 0 ? agentShapes[0] : null;
   }
 
-  attack(clickedTile, clickedShape, attacker) {
-    // console.log('attack', clickedTile, clickedShape, 'by', attacker);
+  // // find an agent for example
+  // findTypeFromShapeArray(shapes, type) {
+  //   if (isEmpty(shapes)) {
+  //     return null;
+  //   }
+  //   const foundTypes = shapes.filter(object => {
+  //     if (object.type) {
+  //       if (object.type === this.constants.SHAPE_TYPE_CONTAINER) {
+  //         return object.containerType === type;
+  //       } else {
+  //         return object.type === type;
+  //       }
+  //     }
+  //   });
+  //   if (isEmpty(foundTypes)) {
+  //     return null;
+  //   }
+  //   return foundTypes[0];
+  // }
 
-    // const playerTileXYZ = this.scene.player.container.rexChess.tileXYZ;
-    // console.log('player tile:', playerTileXYZ);
-    // console.log('this.scene', this.scene);
+  @task({
+    drop:true,
+    maxConcurrency: 1
+  })
+  *attack(clickedTile, clickedShape, attacker) {
+    console.log('attack', clickedTile, clickedShape, 'by', attacker);
 
     if (this.gamePaused) {
       return;
@@ -192,37 +216,59 @@ export default class GameManagerService extends Service {
 
     const agentToAttack = this.findAgentAtTile(clickedTile);
     if (agentToAttack) {
-      const radian = this.scene.board.angleBetween(attacker.rexChess.tileXYZ, clickedTile);
-      // const x = Math.cos(radian);
-      // const y = Math.sin(radian);
-      // console.log('radian', radian, 'x', x, 'y', y);
 
-        // debugger;
       const isNeighbor = this.scene.board.areNeighbors(attacker.rexChess.tileXYZ, agentToAttack.rexChess.tileXYZ);
-      // console.log('isNeighbor', isNeighbor)
-
-      if (true) {
-        this.scene.projectiles.fireProjectile(attacker.rexChess.tileXYZ, radian);
-
-        this.player.power -= 2;
-        // this.player.power -= weapon.poweruse;
-      } else {
+      console.log('isNeighbor', isNeighbor)
 
       if (isNeighbor) {
         // Melee
         console.log('Melee Attack!');
-      } else {
-                            // Ranged attack
-                            console.log('Ranged Attack!');
 
-                            const isInLOS = attacker.ember.playerContainer.fov.isInLOS(agentToAttack.rexChess.tileXYZ);
-                            console.log('in LOS', isInLOS);
-                            if (isInLOS) {
-                              // ok to fire projectile
-                              this.scene.projectiles.fireProjectile(attacker.rexChess.tileXYZ, radian);
-                            }
-                          }
+        // get attackers weapon (in right hand?)
+        const equippedMeleeWeapon = attacker.agent.equippedMeleeWeapon;
+        console.log('1 equippedMeleeWeapon', equippedMeleeWeapon.name, equippedMeleeWeapon)
+        if (equippedMeleeWeapon) {
+          if (attacker.agent.power < equippedMeleeWeapon.powerUse) {
+            console.warn(`Not enough power to wield ${equippedMeleeWeapon.name}`);  // tell the user?
+            return;
+          }
+        }
+
+
+        const meleeAttackDamage = attacker.agent.attackDamage;
+        const targetsHealth = agentToAttack.agent.health;
+        console.log('meleeAttackDamage', meleeAttackDamage, 'targetsHealth', targetsHealth);
+
+
+        // weapon will have speed, damage?, timeout cooldown
+        agentToAttack.takeDamage(meleeAttackDamage, agentToAttack.agent, attacker.agent);
+
+        if (equippedMeleeWeapon) {
+          yield timeout(equippedMeleeWeapon.attackSpeed); // cooldown
+          attacker.agent.power -= equippedMeleeWeapon.powerUse;
+        } else {
+          yield timeout(1000); // cooldown
+        }
+
+
+      } else {
+        // Ranged attack
+        console.log('Ranged Attack!');
+
+        const radian = this.scene.board.angleBetween(attacker.rexChess.tileXYZ, clickedTile);
+
+        const playerHasRangedWeapon = false;
+        if(playerHasRangedWeapon) { // TODO put back if the player has ranged weapon
+          const isInLOS = attacker.ember.playerContainer.fov.isInLOS(agentToAttack.rexChess.tileXYZ);
+          console.log('in LOS', isInLOS);
+          if (isInLOS) {
+            // ok to fire projectile
+            this.scene.projectiles.fireProjectile(attacker.rexChess.tileXYZ, radian);
+          }
+        }
       }
+    } else {
+      console.log('No agent to attack')
     }
   }
 

@@ -45,7 +45,7 @@ export class Caches {
 
     caches.push(
       new Cache({
-        gccode: 'GC003',
+        gccode: 'GC004',
         name: 'Hello EmberQuest Cache 3',
         description: '<p>Test description</p>',
         difficulty: 1.5,
@@ -57,7 +57,7 @@ export class Caches {
 
     caches.push(
       new Cache({
-        gccode: 'GC003',
+        gccode: 'GC005',
         name: 'Hello EmberQuest Cache 3',
         description: '<p>Test description</p>',
         difficulty: 1.5,
@@ -69,7 +69,7 @@ export class Caches {
 
     caches.push(
       new Cache({
-        gccode: 'GC003',
+        gccode: 'GC006',
         name: 'Hello EmberQuest Cache 3',
         description: '<p>Test description</p>',
         difficulty: 1.5,

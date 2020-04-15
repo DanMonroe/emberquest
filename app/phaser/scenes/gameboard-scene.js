@@ -55,6 +55,7 @@ export class GameboardScene extends Phaser.Scene {
 
   create() {
     this.configureBoard();
+
     this.createInput();
     this.createBoard();
     this.createAudio();
@@ -72,11 +73,11 @@ export class GameboardScene extends Phaser.Scene {
     // just a place to try new stuff out
 
     // click end tileXY to get info in console
-    this.board.on('tiledown',  (pointer, tileXY) => {
-      const allAttrs = this.ember.map.getTileAttribute(this, tileXY);
-      const clickedShape = this.board.tileXYToChessArray(tileXY.x, tileXY.y);
-      console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.player.container));
-    });
+    // this.board.on('tiledown',  (pointer, tileXY) => {
+    //   const allAttrs = this.ember.map.getTileAttribute(this, tileXY);
+    //   const clickedShape = this.board.tileXYToChessArray(tileXY.x, tileXY.y);
+    //   console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.player.container));
+    // });
   }
 
   createGameManager() {
@@ -99,11 +100,11 @@ export class GameboardScene extends Phaser.Scene {
     this.board.on('tiledown',  async (pointer, tileXY) => {
 
       // report tile info for debugging
-      // const allAttrs = this.ember.map.getTileAttribute(this, tileXY);
+      const allAttrs = this.ember.map.getTileAttribute(this, tileXY);
       const clickedShape = this.board.tileXYToChessArray(tileXY.x, tileXY.y);
-      // console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.player.container));
+      console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.player.container));
 
-      this.ember.gameManager.attack(tileXY, clickedShape, this.player.container);
+      this.ember.gameManager.attack.perform(tileXY, clickedShape, this.player.container);
     });
 
     this.game.ember.gameManager.setup(this);
@@ -115,6 +116,8 @@ export class GameboardScene extends Phaser.Scene {
     this.board.addChess(playerObject.container, playerObject.playerConfig.playerX, playerObject.playerConfig.playerY, this.ember.constants.TILEZ_PLAYER);
 
     playerObject.container.fov = this.rexBoard.add.fieldOfView(playerObject.container, playerObject.playerConfig);
+
+    playerObject.container.rexChess.setBlocker();
 
     // make the camera follow the player
     this.cameras.main.startFollow(playerObject.container);
@@ -147,13 +150,15 @@ export class GameboardScene extends Phaser.Scene {
   }
 
   spawnAgent(agentObj) {
-    const agent = this.ember.createAgent(this, agentObj.objectConfig);
-    agent.setAlpha(0);
-    this.agents.add(agent);
+    const agentContainer = this.ember.createAgent(this, agentObj.objectConfig);
+    agentContainer.setAlpha(0);
+    this.agents.add(agentContainer);
+
+    agentContainer.rexChess.setBlocker();
+
     if (agentObj.objectConfig.patrol) {
-      // agent.pushAgentWaypointToMoveQueue();
-      agent.populatePatrolMoveQueue();
-      agent.patrolTask.perform();
+      agentContainer.populatePatrolMoveQueue();
+      agentContainer.patrolTask.perform();
     }
   }
 
@@ -312,7 +317,7 @@ export class GameboardScene extends Phaser.Scene {
     }
   }
 
-  doorCollision(player, door) {
+  doorCollision(/*player, door*/) {
     // debugger;
     // if ( ! door.touched) {
     //   console.log('doorCollision', player, door);

@@ -18,9 +18,12 @@ export class InventoryItems {
         bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
         name: 'Simple Sword',
         img: '/images/items/weapons/simplesword.png',
-        damage: 3,
         description: 'A simple introductory sword',
-        stats: [new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 4})]
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 4}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 50}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1500})
+        ]
       })
     );
 

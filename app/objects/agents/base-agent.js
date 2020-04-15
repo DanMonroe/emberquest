@@ -2,6 +2,9 @@ import { constants } from 'emberquest/services/constants';
 import { tracked } from '@glimmer/tracking';
 import { computed } from '@ember/object';
 import { A as emberArray } from '@ember/array';
+import { InventoryItem } from 'emberquest/objects/models/inventory-item';
+import { Stat } from 'emberquest/objects/models/stat';
+
 
 export class BaseAgent {
 
@@ -23,6 +26,7 @@ export class BaseAgent {
   @tracked xpGain = 0;
   @tracked gold = 0;
 
+  fists = undefined;
 
   // These properties are derived from inventory items from the listed inventory property
   // attackDamage - from 'damage'
@@ -60,6 +64,18 @@ export class BaseAgent {
     for (let i = 0; i < constants.INVENTORY.TOTAL_BODYPARTS; i++) {
       this.equippedSlot[i] = null;
     }
+
+    this.fists = new InventoryItem({
+      id: 8675309,
+      type: constants.INVENTORY.TYPE.WEAPON,
+      bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
+      name: 'Fists',
+      stats: [
+        new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 1}),
+        new Stat({type: constants.INVENTORY.STATS.POWER, value: 2}),
+        new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 500})
+      ]
+    })
   }
 
   // Main properties:
@@ -69,7 +85,6 @@ export class BaseAgent {
   }
 
   get maxHealth() {
-    // console.log('max heath', this.baseHealth + this.armorHealth, this)
     return this.baseHealth + this.armorHealth;
   }
 
@@ -83,6 +98,14 @@ export class BaseAgent {
 
 
   // **************
+
+  @computed('inventory.@each.equipped')
+  get equippedMeleeWeapon() {
+    const equippedMeleeWeapon = this.ember.inventory.getEquippedSlot(this, constants.INVENTORY.BODYPART.RIGHT_HAND);
+
+    // always have your fists to use.
+    return equippedMeleeWeapon ? equippedMeleeWesapon : this.fists;
+  }
 
   @computed('inventory.@each.equipped')
   get equippedInventory() {
@@ -159,14 +182,23 @@ export class BaseAgent {
     item.equipped = false;
   }
 
+  @computed('inventory.@each.equipped')
   get attackDamage() {
-    return this.getStats(constants.INVENTORY.STATS.DAMAGE);
+    // always return at least 1 (Fists)
+    return Math.max(1, this.getStats(constants.INVENTORY.STATS.DAMAGE));
   }
 
+  @computed('inventory.@each.equipped')
+  get rangedAttackDamage() {
+    return this.getStats(constants.INVENTORY.STATS.RANGEDDAMAGE);
+  }
+
+  @computed('inventory.@each.equipped')
   get armorHealth() {
     return this.getStats(constants.INVENTORY.STATS.HEALTH);
   }
 
+  @computed('inventory.@each.equipped')
   get powerFromInventory() {
     return this.getStats(constants.INVENTORY.STATS.POWER);
   }
@@ -174,15 +206,22 @@ export class BaseAgent {
   // this will be multiplied by the attackSpeed concurrency timeout
   // it will add 1.  if all adjustments are 0m the there will be no change to attackSpeed timeout
   // an adjustment speed less than 1 is faster
+  @computed('inventory.@each.equipped')
   get attackSpeedAdj() {
     return +parseFloat((this.getStats(constants.INVENTORY.STATS.ATTACKSPEED)).toFixed(constants.FLOATING_POINT_PRECISION)) + 1;
   }
+
+  @computed('inventory.@each.equipped')
   get moveSpeedAdj() {
     return +parseFloat((this.getStats(constants.INVENTORY.STATS.MOVESPEED)).toFixed(constants.FLOATING_POINT_PRECISION)) + 1;
   }
+
+  @computed('inventory.@each.equipped')
   get healingSpeedAdj() {
     return +parseFloat((this.getStats(constants.INVENTORY.STATS.HEALINGSPEEDADJ)).toFixed(constants.FLOATING_POINT_PRECISION)) + 1;
   }
+
+  @computed('inventory.@each.equipped')
   get healingPowerAdj() {
     return +parseFloat((this.getStats(constants.INVENTORY.STATS.HEALINGPOWERADJ)).toFixed(constants.FLOATING_POINT_PRECISION)) + 1;
   }
@@ -223,6 +262,7 @@ export class BaseAgent {
   getInventoryByStat(type) {
     switch (type) {
       case constants.INVENTORY.STATS.DAMAGE:
+      case constants.INVENTORY.STATS.RANGEDDAMAGE:
       case constants.INVENTORY.STATS.HEALTH:
       case constants.INVENTORY.STATS.MOVESPEED:
       case constants.INVENTORY.STATS.ATTACKSPEED:
@@ -240,9 +280,12 @@ export class BaseAgent {
   }
 
   getStats(type) {
+    console.count('getStats')
     let total = 0;
+    // console.log('getStats', type)
     switch (type) {
       case constants.INVENTORY.STATS.DAMAGE:
+      case constants.INVENTORY.STATS.RANGEDDAMAGE:
       case constants.INVENTORY.STATS.HEALTH:
       case constants.INVENTORY.STATS.MOVESPEED:
       case constants.INVENTORY.STATS.ATTACKSPEED:
@@ -254,7 +297,7 @@ export class BaseAgent {
           let subtotal_stat = stats.reduce((subsum, substat ) => {
             return substat.type === type ? subsum + substat.value : subsum;
           }, 0); // start with 0
-
+  // console.log('subtotal_stat', subtotal_stat)
           return sum + subtotal_stat;
         }, 0); // start with 0
         break;

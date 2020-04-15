@@ -67,8 +67,12 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
     this.updateHealthBar();
   }
 
-  // player just hit the agent with some type of weapon.
-  async takeDamage(sourceWeapon, agentTakingDamage) {
+  // agentAttacking just hit the agent with some type of weapon.
+  // agentAttacking can have bonus Adjustments in the inventory
+  // that adjust base damage.
+  // likewise, agent taking damage can have resistance to lower damage
+  async takeDamage(baseDamage, agentTakingDamage, agentAttacking) {
+  // async takeDamage(sourceWeapon, agentTakingDamage) {
     if (this.ember.gameManager.gamePaused) { return }
 
     // console.log('take Damage', sourceWeapon);
@@ -76,15 +80,18 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
       debugger;
       agentTakingDamage.health = 0;   // TODO // why sometimes NaN ?
     }
-    agentTakingDamage.health -= sourceWeapon.damage;
+    agentTakingDamage.health -= baseDamage;
 
-    if (agentTakingDamage.container.phaserAgent) {
-      agentTakingDamage.container.phaserAgent.tint = 0xff3333;
+    if (agentTakingDamage.container.phaserAgentSprite) {
+
+      // agentTakingDamage.container.phaserAgentSprite.anims.play('young-ogre-damage');
+
+      agentTakingDamage.container.phaserAgentSprite.tint = 0xff3333;
       this.scene.time.addEvent({
         delay: 200,
         callback: () => {
           // this.hitDelay = false;
-          agentTakingDamage.container.phaserAgent.tint = 0xffffff;
+          agentTakingDamage.container.phaserAgentSprite.tint = 0xffffff;
         },
         callbackScope: this
       });
@@ -165,7 +172,7 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
 
     // this.game.sound.playSound(weapon.sound);
 
-    agent.power -= weapon.poweruse;
+    // agent.power -= weapon.poweruse;
 
 
     // if (agent.type === this.game.constants.AGENTTYPES.PLAYER) {

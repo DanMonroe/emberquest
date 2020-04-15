@@ -20,9 +20,68 @@ export default {
       locations: []
     },
     agents: {
-      spawnInterval: 3000,
-      limit: 5,
-      locations: []
+      spawnInterval: 100000,
+      limit: 1,
+      locations: [
+        {
+          // id: 2, x: 20, y: 11,
+          id: 1, x: 13, y: 4,
+          texture: 'young-ogre',
+          textureSize: { width: 72, height: 72},
+
+          animeframes: {
+            rest: {key: 'young-ogre-rest', start: 1, end: 4, rate: 3, repeat: -1},
+            attack: {key: 'young-ogre-attack', start: 5, end: 8, rate: 12}
+          },
+
+          scale: 1.5,
+          // speed: 2000,
+          speed: 200,
+          sightRange: 3,   // this is sight/movement Range
+          movingPoints: 3,   // this is sight/movement Range
+          visiblePoints: 8,   // this is sight/movement Range
+          health: 20,
+          maxHealth: 20,
+          power: 15,
+          healingPower: 10,
+          // power: 20,
+          // maxPower: 200,
+
+          aggressionScale: 1,  // TODO need a better way to track aggression levels
+          // aggressionScale: 10,  // TODO need a better way to track aggression levels
+
+          // xpGain: 35,
+          // gold: 50,
+
+          flagAttributes: {
+            sightFlags: 0,
+            travelFlags: 2
+          },
+          patrol: {
+            // timeout: 200,
+            timeout: 2000,
+            pursuitSpeed: 1500,
+            aggressionSpeedTimeout: 1000,
+            // aggressionTimeout: 1000,  // delay time in between aggression turns
+            method: 'random',
+            tiles: [
+              {x: 13, y: 4}, {x: 13, y: 2}
+            ]
+          },
+          weapons: [  // this should be an id from the inventory items
+            {
+              minDistanceForHit: 10,
+              type: 'bullet',
+              damage: 1,
+              speed: 8, // projectile speed
+              poweruse: 2,
+              accuracy: 0.05, // percentage 0 (always accurate) - 1 (shoot any direction)
+              fireDelay: 500,
+              reloadDelay: 1000  // lower is faster
+            }
+          ]
+        }
+      ]
     }
   },
 

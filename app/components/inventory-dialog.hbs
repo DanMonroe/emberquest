@@ -18,13 +18,18 @@
         </div>
 
         <div class="stat">
-          <div class="label">Attack:</div>
+          <div class="label">Max Power:</div>
+          <div class="val">{{this.game.gameManager.player.container.agent.maxPower}}</div>
+        </div>
+
+        <div class="stat">
+          <div class="label">Melee Attack:</div>
           <div class="val">{{this.game.gameManager.player.container.agent.attackDamage}}</div>
         </div>
 
         <div class="stat">
-          <div class="label">Power:</div>
-          <div class="val">{{this.game.gameManager.player.container.agent.maxPower}}</div>
+          <div class="label">Ranged Attack:</div>
+          <div class="val">{{this.game.gameManager.player.container.agent.rangedAttackDamage}}</div>
         </div>
 
         {{#if this.game.gameManager.player.container.agent.attackSpeedAdj}}
@@ -125,13 +130,17 @@
                 <img src="{{this.itemSelected.img}}" draggable="false" class="item-shadow">
               </div>
               <img src="/images/hr.png" class="hr">
-              {{#each this.itemSelected.stats as |stat|}}
-                <div class="stat-row big-font short-name">
-                  <div class="stat-label">{{stat.getTitle}}</div>
-                  <div class="stat">{{stat.getDescription}}</div>
+              {{#if this.itemSelected.stats}}
+                <div class="stat-wrap">
+                  {{#each this.itemSelected.stats as |stat|}}
+                    <div class="stat-row big-font short-name">
+                      <div class="stat-label">{{stat.getTitle}}</div>
+                      <div class="stat">{{stat.getDescription}}</div>
+                    </div>
+                  {{/each}}
                 </div>
                 <img src="/images/hr.png" class="hr">
-              {{/each}}
+              {{/if}}
 
               {{#if this.itemSelected.description}}
                 <div dir="auto" class="item-description">

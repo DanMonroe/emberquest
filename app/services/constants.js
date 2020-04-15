@@ -25,7 +25,7 @@ const constants = Object.freeze({
     // HEALING_SPEED: 'healingSpeedAdj',
     // HEALING_POWER: 'healingPowerAdj',
 
-    TOTAL_BODYPARTS: 9,
+    TOTAL_BODYPARTS: 10,
 
     BODYPART: {
       BODY: 0,
@@ -36,17 +36,19 @@ const constants = Object.freeze({
       RIGHT_HAND: 5,
       NECK: 6,
       FINGERS: 7,
-      GLOVES: 8
+      GLOVES: 8,
+      RANGED: 9
     },
 
     STATS: {
       DAMAGE: 0,
-      HEALTH: 1,
-      POWER: 2,
-      MOVESPEED: 3,
-      ATTACKSPEED: 4,
-      HEALINGSPEEDADJ: 5,
-      HEALINGPOWERADJ: 6
+      RANGEDDAMAGE: 1,
+      HEALTH: 2,
+      POWER: 3,
+      MOVESPEED: 4,
+      ATTACKSPEED: 5,
+      HEALINGSPEEDADJ: 6,
+      HEALINGPOWERADJ: 7
     },
 
     RESISTANCE: {

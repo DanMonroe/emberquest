@@ -98,7 +98,7 @@ export default class InventoryDialogComponent extends Component {
 
   @action
   async equip(item) {
-    const equippedSlotItem = this.inventory.getEquippedSlot(this.game.gameManager.player.container.agent, item);
+    const equippedSlotItem = this.inventory.getEquippedSlot(this.game.gameManager.player.container.agent, item.bodypart);
     if ( ! equippedSlotItem) {
       this.game.gameManager.player.container.agent.equipItem(item);
       await this.game.gameManager.saveSceneData();

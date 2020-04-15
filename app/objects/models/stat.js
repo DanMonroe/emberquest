@@ -13,6 +13,12 @@ export class Stat {
     switch (this.type) {
       case constants.INVENTORY.STATS.DAMAGE:
         return 'Damage';
+      case constants.INVENTORY.STATS.POWER:
+        return 'Power Use';
+      case constants.INVENTORY.STATS.ATTACKSPEED:
+        return 'Speed cost';
+      case constants.INVENTORY.STATS.RANGEDDAMAGE:
+        return 'Ranged Damage';
       case constants.INVENTORY.STATS.HEALTH:
         return 'Health';
       default:
@@ -22,9 +28,15 @@ export class Stat {
   }
 
   get getDescription() {
+    let speed;
     switch (this.type) {
       case constants.INVENTORY.STATS.DAMAGE:
+      case constants.INVENTORY.STATS.RANGEDDAMAGE:
+      case constants.INVENTORY.STATS.POWER:
         return this.value;
+      case constants.INVENTORY.STATS.ATTACKSPEED:
+        speed = (+parseFloat((this.value / 1000).toFixed(1)));
+        return `${speed} seconds`
       case constants.INVENTORY.STATS.HEALTH:
         return `+${this.value}`;
       default:

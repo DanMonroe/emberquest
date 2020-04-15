@@ -1,4 +1,5 @@
 import { tracked } from '@glimmer/tracking';
+import { constants } from 'emberquest/services/constants';
 
 export class InventoryItem {
   id;
@@ -10,12 +11,12 @@ export class InventoryItem {
   listorder;
 
   maxRange = 20;
-  weaponSpeed = 1000; // time between attacks
+  // weaponSpeed = 1000; // time between attacks
   projectileSpeed = 200;
-  poweruse = 10;
+  // poweruse = 10;
   accuracy = 90; // percentage
 
-  bodypart;
+  bodypart;  // where the item can be equipped
 
   @tracked img;
   @tracked price;
@@ -35,7 +36,21 @@ export class InventoryItem {
     Object.assign(this, config);
   }
 
+  get powerUse() {
+    const powerStat = this.findStat(constants.INVENTORY.STATS.POWER);
+    return powerStat ? powerStat.value : 10;
+  }
+
+  get attackSpeed() {
+    const powerStat = this.findStat(constants.INVENTORY.STATS.ATTACKSPEED);
+    return powerStat ? powerStat.value : 1000;
+  }
+
   get unlockText() {
     return this.confirmUnlock ? "Confirm" : "Buy";
+  }
+
+  findStat(type) {
+    return this.stats.findBy('type', type);
   }
 }

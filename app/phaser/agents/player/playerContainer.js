@@ -77,7 +77,7 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
     this.add(this.player);
     this.setDepth(this.ember.constants.TILEZ_PLAYER);
 
-    this.phaserAgent = this.player;
+    this.phaserAgentSprite = this.player;
     // this.agent = new Player
 
     this.moveToObject = this.scene.rexBoard.add.moveTo(this, {
@@ -143,6 +143,7 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
         // pathFinder.gameObject is 'this'  i.e., this Player object
         const travelFlags = this.ember.map.getTileAttribute(pathFinder.chessData.board.scene, targetTile, 'travelFlags');
         console.error('pathFinder costCallback', curTile, targetTile, pathFinder, travelFlags);
+
 
         return travelFlags ? 100 : 0;
         // return travelFlags ? fov.BLOCKER : 0;

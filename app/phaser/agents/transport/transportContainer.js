@@ -48,7 +48,7 @@ export default class TransportContainer extends BasePhaserAgentContainer {
     this.add(this.transport);
 
     this.agent = agent;
-    this.phaserAgent = this.transport;
+    this.phaserAgentSprite = this.transport;
 
     this.moveToObject = this.scene.rexBoard.add.moveTo(this, {
       speed: config.speed, // 400 default

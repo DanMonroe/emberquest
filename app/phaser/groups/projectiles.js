@@ -1,8 +1,4 @@
 import Phaser from 'phaser';
-// import Projectile from './projectile';
-
-  // constructor (world, scene, children) {
-    // super(world, scene, children);
 
 export default class Projectiles extends Phaser.Physics.Arcade.Group {
   constructor (world, scene, config) {
@@ -10,13 +6,6 @@ export default class Projectiles extends Phaser.Physics.Arcade.Group {
     this.scene = scene;
 
     this.createMultiple(config);
-    // this.createMultiple({
-    //   frameQuantity: 3,
-    //   key: 'bullet',
-    //   active: false,
-    //   visible: false,
-    //   classType: Projectile
-    // });
   }
 
   fireProjectile(attackerXYZ, radian){
@@ -36,7 +25,7 @@ export default class Projectiles extends Phaser.Physics.Arcade.Group {
     projectile.setVelocity(0);
     projectile.disableBody();
     // console.log('enemy.takeDamage', projectile)
-    enemy.takeDamage(projectile, enemy.agent);
+    enemy.takeDamage(projectile.damage, enemy.agent);
   }
 
   // playerCollision (projectile, player) {
@@ -46,30 +35,18 @@ export default class Projectiles extends Phaser.Physics.Arcade.Group {
     projectile.setVelocity(0);
     projectile.disableBody();
     // console.log('player.takeDamage', projectile)
-    player.takeDamage(projectile, player.agent);
+    player.takeDamage(projectile.damage, player.agent);
   }
 
   fireProjectileBad(attackerXYZ, radian){
-    // const x = Math.cos(radian);
-    // const y = Math.sin(radian);
-    // console.log('fire projectile:  radian', radian, 'x', x, 'y', y, 'this', this);
     const projectile = this.getFirstDead(false);
       console.log('projectile',projectile);
     if (projectile) {
       projectile.fire(attackerXYZ, radian)
 
-      // projectile.enableBody(true);
-      // projectile.active = true;
-      // projectile.visible = true;
-      // projectile.setPosition(attackerXYZ.x, attackerXYZ.y);
-      // projectile.setScale(0.1);
-      // projectile.setVelocityY(y * -300);
-      // projectile.setVelocityX(x * -300);
-
       this.scene.time.addEvent({
         delay: 1500,
         callback: () => {
-          console.log('yo... done')
           projectile.disableBody();
           projectile.active = false;
           projectile.visible = false;

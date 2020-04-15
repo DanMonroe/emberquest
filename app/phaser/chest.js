@@ -1,6 +1,8 @@
 import Phaser from 'phaser';
 
 export default class Chest extends Phaser.Physics.Arcade.Image {
+// export default class Chest extends Phaser.Physics.Arcade.Sprite {
+
   constructor(scene, x, y, key, frame, chestObj) {
 
     super(scene, x, y, key, frame);
@@ -16,6 +18,13 @@ export default class Chest extends Phaser.Physics.Arcade.Image {
     this.found = this.scene.ember.cache.isCacheFound(this.gccode);
 
     this.setFrame(this.found ? 0 : 1);
+    // scene.anims.create({
+    //   key: 'young-ogre-rest',
+    //   frames: scene.anims.generateFrameNumbers('young-ogre', { start: 1, end: 4}),
+    //   frameRate: 3,
+    //   repeat: -1,
+    // });
+
 
     // enable physics
     this.scene.physics.world.enable(this);
