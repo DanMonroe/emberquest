@@ -178,6 +178,12 @@ export default class GameService extends Service {
   }
 
   processPlayerMove(playerContainer, moveTo) {
+    this.embarkOrDisembarkTransport(playerContainer);
+    this.checkForPortal(playerContainer, moveTo);
+    this.checkForAgents(playerContainer);
+  }
+
+  embarkOrDisembarkTransport(playerContainer) {
     if (playerContainer.disembarkTransport) {
       this.turnOffPlayerTravelAbilityFlag(playerContainer, this.constants.FLAGS.TRAVEL.SEA);
       this.turnOnPlayerTravelAbilityFlag(playerContainer, this.constants.FLAGS.TRAVEL.LAND);
@@ -193,7 +199,9 @@ export default class GameService extends Service {
       playerContainer.embarkTransport = false;
       playerContainer.transportToBoard = undefined;
     }
-    // debugger;
+  }
+
+  checkForPortal(playerContainer, moveTo) {
     let tileIsPortal = moveTo.scene.game.ember.map.tileIsPortal(moveTo.scene, playerContainer.rexChess.tileXYZ);
 
     if (tileIsPortal) {
@@ -210,7 +218,11 @@ export default class GameService extends Service {
         });
       });
     }
+  }
 
+  checkForAgents(playerContainer) {
+    console.log('checkForAgents');
+    // Any agents nearby?  if so, transition them to pursue if they are aggressive
   }
 
   playerHasAbilityFlag(playerObj, type, flag) {

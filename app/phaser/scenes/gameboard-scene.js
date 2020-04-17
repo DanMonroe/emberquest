@@ -84,6 +84,7 @@ export class GameboardScene extends Phaser.Scene {
 
     // this has to be before game manager setup
     this.events.on('spawnPlayer', (playerObject) => {
+console.log('spawnPlayer', playerObject)
       this.spawnPlayer(playerObject);
 
       this.addCollisions();
@@ -94,6 +95,7 @@ export class GameboardScene extends Phaser.Scene {
     });
 
     this.events.on('agentSpawned', (agentObject) => {
+console.log('agentSpawned', agentObject)
       this.spawnAgent(agentObject);
     });
 

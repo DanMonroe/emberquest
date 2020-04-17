@@ -1,3 +1,4 @@
+import { constants } from 'emberquest/services/constants';
 
 export default {
 
@@ -68,6 +69,24 @@ export default {
               {x: 13, y: 4}, {x: 13, y: 2}
             ]
           },
+          // Inventory: arrays containing inventory item arrays of
+          // possible items in each body part.
+          // Different spawns will pick at random one of the items to equip
+          inventory: [
+            { bodypart: constants.INVENTORY.BODYPART.BODY, items: []},
+            { bodypart: constants.INVENTORY.BODYPART.FEET, items: []},
+            { bodypart: constants.INVENTORY.BODYPART.HEAD, items: []},
+            { bodypart: constants.INVENTORY.BODYPART.ARMS, items: []},
+            { bodypart: constants.INVENTORY.BODYPART.LEFT_HAND, items: []},
+            { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items:
+              [
+                { itemId: 1, droppable: false }
+              ]
+            },
+            { bodypart: constants.INVENTORY.BODYPART.NECK, items: []},
+            { bodypart: constants.INVENTORY.BODYPART.FINGERS, items: []},
+            { bodypart: constants.INVENTORY.BODYPART.GLOVES, items: []}
+          ],
           weapons: [  // this should be an id from the inventory items
             {
               minDistanceForHit: 10,

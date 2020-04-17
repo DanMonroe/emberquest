@@ -226,7 +226,7 @@ export default class GameManagerService extends Service {
 
         // get attackers weapon (in right hand?)
         const equippedMeleeWeapon = attacker.agent.equippedMeleeWeapon;
-        console.log('1 equippedMeleeWeapon', equippedMeleeWeapon.name, equippedMeleeWeapon)
+        console.log('equippedMeleeWeapon', equippedMeleeWeapon.name, equippedMeleeWeapon)
         if (equippedMeleeWeapon) {
           if (attacker.agent.power < equippedMeleeWeapon.powerUse) {
             console.warn(`Not enough power to wield ${equippedMeleeWeapon.name}`);  // tell the user?

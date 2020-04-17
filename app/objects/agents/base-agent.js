@@ -104,7 +104,7 @@ export class BaseAgent {
     const equippedMeleeWeapon = this.ember.inventory.getEquippedSlot(this, constants.INVENTORY.BODYPART.RIGHT_HAND);
 
     // always have your fists to use.
-    return equippedMeleeWeapon ? equippedMeleeWesapon : this.fists;
+    return equippedMeleeWeapon ? equippedMeleeWeapon : this.fists;
   }
 
   @computed('inventory.@each.equipped')
@@ -280,7 +280,7 @@ export class BaseAgent {
   }
 
   getStats(type) {
-    console.count('getStats')
+    // console.count('getStats')
     let total = 0;
     // console.log('getStats', type)
     switch (type) {

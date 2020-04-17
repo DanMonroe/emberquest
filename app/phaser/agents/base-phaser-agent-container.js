@@ -104,39 +104,7 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
         }
       }
     }
-    // if (agentTakingDamage.player) {
-    //   agentTakingDamage.player.tint = 0xff3333;
-    //
-    //   if (agentTakingDamage.health <= 0) {
-    //     debugger;
-    //     this.ember.gameManager.playerDied(agentTakingDamage);
-    //   }
-    //
-    //   this.scene.time.addEvent({
-    //     delay: 200,
-    //     callback: () => {
-    //       // this.hitDelay = false;
-    //       agentTakingDamage.player.tint = 0xffffff;
-    //     },
-    //     callbackScope: this
-    //   });
-    //
-    //
-    // }
   }
-
-  // For Conference Talk - carbon.now.sh
-  // One Dark theme, Javascript, No border
-  // // agents/base-agent-container.js
-  // @task
-  // *reloadHealth() {
-  //   while (true) {
-  //     yield timeout(this.healingSpeed);
-  //     if (this.health < this.maxHealth) {
-  //       this.health += Math.max(1, this.healingPower);
-  //     }
-  //   }
-  // }
 
   @task
   *reloadHealth() {
@@ -166,14 +134,9 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
   *fireWeapon(agent, weapon, startTileXYZ, radian) {
     if (this.ember.gameManager.gamePaused) { return }
 
-    // console.log('firing weapon', agent, weapon)
-
     this.scene.agentprojectiles.fireProjectile(startTileXYZ, radian);
 
     // this.game.sound.playSound(weapon.sound);
-
-    // agent.power -= weapon.poweruse;
-
 
     // if (agent.type === this.game.constants.AGENTTYPES.PLAYER) {
     //   // if (whoFiredType === BaseAgent.AGENTTYPES.PLAYER) {
@@ -234,6 +197,9 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
   }
 
   checkAggression(agentContainer) {
+    // const isNeighbor = this.scene.board.areNeighbors(agentContainer.rexChess.tileXYZ, agentContainer.ember.playerContainer.rexChess.tileXYZ);
+    // console.log('checkAggression isNeighbor', isNeighbor)
+
     // TODO implement.  check to see if they want to fight, or run away, etc
     return agentContainer.aggressionScale > 5; // TODO just picked a number higher than 1
     // return true;
