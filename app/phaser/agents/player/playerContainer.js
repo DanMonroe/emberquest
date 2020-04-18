@@ -211,7 +211,7 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
   }
 
   moveToComplete(playerContainer, moveTo) {
-    console.log('player moveToComplete', playerContainer.agent.playerConfig.texture);
+    // console.log('player moveToComplete', playerContainer.agent.playerConfig.texture);
 
     moveTo.scene.game.ember.saveSceneData(moveTo.scene);
     moveTo.scene.game.ember.map.findFOV(playerContainer);

@@ -32,8 +32,12 @@ export default {
 
           animeframes: {
             rest: {key: 'young-ogre-rest', start: 1, end: 4, rate: 3, repeat: -1},
-            attack: {key: 'young-ogre-attack', start: 5, end: 8, rate: 12}
+            attack: {key: 'young-ogre-attack', start: 5, end: 8, rate: 12, delays: { frameNum: 3, delay: 300 }}
           },
+
+          audio: [
+            { die: '' }
+          ],
 
           scale: 1.5,
           // speed: 2000,
@@ -86,18 +90,6 @@ export default {
             { bodypart: constants.INVENTORY.BODYPART.NECK, items: []},
             { bodypart: constants.INVENTORY.BODYPART.FINGERS, items: []},
             { bodypart: constants.INVENTORY.BODYPART.GLOVES, items: []}
-          ],
-          weapons: [  // this should be an id from the inventory items
-            {
-              minDistanceForHit: 10,
-              type: 'bullet',
-              damage: 1,
-              speed: 8, // projectile speed
-              poweruse: 2,
-              accuracy: 0.05, // percentage 0 (always accurate) - 1 (shoot any direction)
-              fireDelay: 500,
-              reloadDelay: 1000  // lower is faster
-            }
           ]
         }
       ]

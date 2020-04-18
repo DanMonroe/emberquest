@@ -22,6 +22,13 @@ const constants = Object.freeze({
     }
   },
 
+  AUDIO: {
+    KEY: {
+      REST: 0,
+      ATTACK: 1
+    }
+  },
+
   // Base agent properties are derived from inventory items from the listed inventory property
   INVENTORY: {
     // DAMAGE: 'damage',

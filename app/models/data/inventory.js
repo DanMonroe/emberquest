@@ -23,7 +23,15 @@ export class InventoryItems {
           new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 4}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1500})
-        ]
+        ],
+        audio: {
+          attack: {
+            miss: {
+              name: 'sword_miss'
+            }
+          }
+        }
+
       })
     );
 

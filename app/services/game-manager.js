@@ -203,12 +203,22 @@ export default class GameManagerService extends Service {
   //   return foundTypes[0];
   // }
 
+  playSound(key) {
+    switch (key) {
+      case this.ember.constants.AUDIO.KEY.ATTACK:
+        this.scene.swordMiss.play();
+        break;
+      default:
+        break;
+    }
+  }
+
   @task({
     drop:true,
     maxConcurrency: 1
   })
   *attack(clickedTile, clickedShape, attacker) {
-    console.log('attack', clickedTile, clickedShape, 'by', attacker);
+    // console.log('attack', clickedTile, clickedShape, 'by', attacker);
 
     if (this.gamePaused) {
       return;
@@ -218,15 +228,15 @@ export default class GameManagerService extends Service {
     if (agentToAttack) {
 
       const isNeighbor = this.scene.board.areNeighbors(attacker.rexChess.tileXYZ, agentToAttack.rexChess.tileXYZ);
-      console.log('isNeighbor', isNeighbor)
+      // console.log('isNeighbor', isNeighbor)
 
       if (isNeighbor) {
         // Melee
-        console.log('Melee Attack!');
+        // console.log('Melee Attack!');
 
         // get attackers weapon (in right hand?)
         const equippedMeleeWeapon = attacker.agent.equippedMeleeWeapon;
-        console.log('equippedMeleeWeapon', equippedMeleeWeapon.name, equippedMeleeWeapon)
+        // console.log('equippedMeleeWeapon', equippedMeleeWeapon.name, equippedMeleeWeapon)
         if (equippedMeleeWeapon) {
           if (attacker.agent.power < equippedMeleeWeapon.powerUse) {
             console.warn(`Not enough power to wield ${equippedMeleeWeapon.name}`);  // tell the user?
@@ -234,10 +244,12 @@ export default class GameManagerService extends Service {
           }
         }
 
+        // find a way to play appropriate sound
+        this.playSound(this.ember.constants.AUDIO.KEY.ATTACK);
 
         const meleeAttackDamage = attacker.agent.attackDamage;
-        const targetsHealth = agentToAttack.agent.health;
-        console.log('meleeAttackDamage', meleeAttackDamage, 'targetsHealth', targetsHealth);
+        // const targetsHealth = agentToAttack.agent.health;
+        // console.log('meleeAttackDamage', meleeAttackDamage, 'targetsHealth', targetsHealth);
 
 
         // weapon will have speed, damage?, timeout cooldown
@@ -253,14 +265,14 @@ export default class GameManagerService extends Service {
 
       } else {
         // Ranged attack
-        console.log('Ranged Attack!');
+        // console.log('Ranged Attack!');
 
         const radian = this.scene.board.angleBetween(attacker.rexChess.tileXYZ, clickedTile);
 
         const playerHasRangedWeapon = false;
         if(playerHasRangedWeapon) { // TODO put back if the player has ranged weapon
           const isInLOS = attacker.ember.playerContainer.fov.isInLOS(agentToAttack.rexChess.tileXYZ);
-          console.log('in LOS', isInLOS);
+          // console.log('in LOS', isInLOS);
           if (isInLOS) {
             // ok to fire projectile
             this.scene.projectiles.fireProjectile(attacker.rexChess.tileXYZ, radian);

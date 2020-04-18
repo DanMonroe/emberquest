@@ -211,6 +211,8 @@ console.log('agentSpawned', agentObject)
     this.goldPickupAudio = this.sound.add('pickup', { loop: false, volume: 0.5 });
     this.openDoorAudio = this.sound.add('open_door_1', { loop: false, volume: 0.5 });
     this.musicAudio = this.sound.add('music1', { loop: true, volume: 0 });
+
+    this.swordMiss = this.sound.add('sword_miss', { loop: false, volume: 0.5 });
   }
 
   configureBoard() {

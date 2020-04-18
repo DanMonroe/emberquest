@@ -180,7 +180,7 @@ export default class GameService extends Service {
   processPlayerMove(playerContainer, moveTo) {
     this.embarkOrDisembarkTransport(playerContainer);
     this.checkForPortal(playerContainer, moveTo);
-    this.checkForAgents(playerContainer);
+    this.checkForAgents(playerContainer, moveTo);
   }
 
   embarkOrDisembarkTransport(playerContainer) {
@@ -220,9 +220,14 @@ export default class GameService extends Service {
     }
   }
 
-  checkForAgents(playerContainer) {
-    console.log('checkForAgents');
+  checkForAgents(playerContainer, moveTo) {
     // Any agents nearby?  if so, transition them to pursue if they are aggressive
+
+    const neighborAgents = moveTo.scene.board.getNeighborChess(playerContainer, null, constants.TILEZ_AGENTS);
+    // console.log('checkForAgents: neighborAgents', neighborAgents);
+    neighborAgents.forEach(agentContainer => {
+      agentContainer.transitionToMelee(agentContainer);
+    })
   }
 
   playerHasAbilityFlag(playerObj, type, flag) {

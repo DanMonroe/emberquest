@@ -15,16 +15,13 @@ export class Agent extends BaseAgent {
   }
 
   loadInventory() {
-    console.log('load agent inventory')
     let inventoryItems = this.ember.inventory.getInventoryItems();
     this.playerConfig.inventory.forEach(bodypart => {
-      console.log('bodypart', bodypart);
       if (isPresent(bodypart.items)) {
         const item = this.pickRandomItem(bodypart.items);
 
         const gameInventoryItem = inventoryItems.findBy('id', item.itemId);
 
-        console.log('gameInventoryItem', gameInventoryItem);
 
         if (gameInventoryItem) {
           // gameInventoryItem.owned = true;
