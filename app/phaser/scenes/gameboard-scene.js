@@ -73,11 +73,16 @@ export class GameboardScene extends Phaser.Scene {
     // just a place to try new stuff out
 
     // click end tileXY to get info in console
-    // this.board.on('tiledown',  (pointer, tileXY) => {
+    this.board.on('tiledown',  (pointer, tileXY) => {
     //   const allAttrs = this.ember.map.getTileAttribute(this, tileXY);
     //   const clickedShape = this.board.tileXYToChessArray(tileXY.x, tileXY.y);
     //   console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.player.container));
-    // });
+
+      // this.ember.showInfoDialog(`
+      //       <p>Makes it easy to inject the Phaser game framework into your Ember application.</p>
+      //   `);
+    });
+
   }
 
   createGameManager() {

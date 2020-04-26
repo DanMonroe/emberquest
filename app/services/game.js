@@ -4,6 +4,7 @@ import { inject as service } from '@ember/service';
 import localforage from 'localforage';
 import {task} from "ember-concurrency-decorators";
 import {timeout} from 'ember-concurrency';
+import Confirmer from 'confirmed';
 
 // import MapData from '../phaser/scenes/tiledata/cave1'
 // // import MapData from '../phaser/scenes/tiledata/landsea'
@@ -22,6 +23,7 @@ export default class GameService extends Service {
   @service cache;
   @service gameManager;
   @service storage;
+  @service intl;
 
   @tracked cameraMainZoom = 1;
   // @tracked playerImgSrc = '/images/agents/tomster-head-classic.png';
@@ -29,11 +31,35 @@ export default class GameService extends Service {
   @tracked showHexInfo = false;
   @tracked epmModalContainerClass = '';
 
+  @tracked showInfoHeader = "";
+  @tracked showInfoPrompt = "";
+
+  @tracked showInfoCancel = "";
+  @tracked showInfoConfirm = "OK";
+  @tracked showInfoConfirmer = null;
+
 
   @tracked sceneData = [];
   @tracked gameData = undefined;
 
   constants = constants;
+
+  showInfoDialog(message) {
+
+    this.showInfoPrompt = message;
+    new Confirmer(showInfoConfirmer => {
+      this.gameManager.pauseGame(true);
+      this.showInfoConfirmer = showInfoConfirmer
+    })
+      .onConfirmed(async () => {
+      })
+      .onDone(() => {
+        this.showInfoConfirmer = null;
+        this.gameManager.pauseGame(false);
+      });
+  }
+
+
 
   async saveSceneData(scene) {
     const mapname = scene.mapname;
@@ -181,6 +207,7 @@ export default class GameService extends Service {
     this.embarkOrDisembarkTransport(playerContainer);
     this.checkForPortal(playerContainer, moveTo);
     this.checkForAgents(playerContainer, moveTo);
+    this.checkForSpecial(playerContainer, moveTo);
   }
 
   embarkOrDisembarkTransport(playerContainer) {
@@ -228,6 +255,47 @@ export default class GameService extends Service {
     neighborAgents.forEach(agentContainer => {
       agentContainer.transitionToMelee(agentContainer);
     })
+  }
+
+  checkForSpecial(playerContainer, moveTo) {
+    // any special flags for the target hex?
+    let specialTile = moveTo.scene.game.ember.map.getTileSpecial(moveTo.scene, playerContainer.rexChess.tileXYZ);
+    if (!specialTile || !specialTile.value) {
+      return;
+    }
+    console.log(`Special Tile at x:${playerContainer.rexChess.tileXYZ.x} y:${playerContainer.rexChess.tileXYZ.y}`, specialTile)
+    switch (specialTile.value) {
+      case constants.FLAGS.SPECIAL.MESSAGE.value:
+        if (this.shouldShowMessage(specialTile, moveTo.scene)) {
+          moveTo.scene.game.ember.showInfoDialog(this.intl.t(`messages.${specialTile.msg}`));
+        }
+        break;
+      default:
+        console.log(`No handler for special value ${specialTile.value} at x:${playerContainer.rexChess.tileXYZ.x} y:${playerContainer.rexChess.tileXYZ.y}`);
+        break;
+    }
+  }
+
+  shouldShowMessage(tileSpecialData, scene) {
+    if (!tileSpecialData || !tileSpecialData.showIf) {
+      return true;
+    }
+    // 'special': {value: constants.FLAGS.SPECIAL.MESSAGE.value, id: 1, msg:'intro.id1', repeat: true,
+    // showIf: {value: constants.SHOW_MESSAGE_WHEN.DOOR_EXISTS.value, data: { door_id:1, tileXY: {x: 11, y: 4} }}}
+    let shapes;
+    // Going to be a lot of very specific scenarios
+
+    switch (tileSpecialData.showIf.value) {
+      case constants.SHOW_MESSAGE_WHEN.DOOR_EXISTS.value:
+        shapes = scene.game.ember.map.getGameObjectsAtTileXY(scene.board, tileSpecialData.showIf.data.tileXY, scene.game.ember.constants.SHAPE_TYPE_DOOR);
+        if (shapes && shapes.length) {
+          return shapes[0].active;
+        }
+        return false;
+      default:
+        break;
+    }
+    return true;
   }
 
   playerHasAbilityFlag(playerObj, type, flag) {

@@ -409,25 +409,29 @@ yield timeout(1000);
 
   @task
   *patrolTask() {
-    // console.log('patrol task')
+    // console.log('patrol task -  paused', this.ember.gameManager.gamePaused)
+
     while (this.patrolEnabled === true) {
 
-      if (this.moveQueue.path.length > 0) {
+      if (!this.ember.gameManager.gamePaused) {
 
-        // grab the next waypoint
-        let firstMove = this.moveQueue.path[0];
+        if (this.moveQueue.path.length > 0) {
 
-        // attempt the move
-        this.moveToObject.moveTo(firstMove.x, firstMove.y);
+          // grab the next waypoint
+          let firstMove = this.moveQueue.path[0];
 
-        // we're done, remove it from the list of waypoints to go to
-        this.moveQueue.path.shift();
+          // attempt the move
+          this.moveToObject.moveTo(firstMove.x, firstMove.y);
 
-      } else {
-        // no moves left for this object
+          // we're done, remove it from the list of waypoints to go to
+          this.moveQueue.path.shift();
+
+        } else {
+          // no moves left for this object
           if (typeof this.moveQueue.finishedCallback === 'function') {
             this.moveQueue.finishedCallback();
           }
+        }
       }
       yield timeout(this.patrol.timeout);
     }

@@ -2,7 +2,6 @@ import Service from '@ember/service';
 import { inject as service } from '@ember/service';
 import { Player } from "../objects/agents/player";
 import { tracked } from '@glimmer/tracking';
-import { isEmpty } from '@ember/utils';
 import { timeout } from 'ember-concurrency';
 import { task } from 'ember-concurrency-decorators';
 

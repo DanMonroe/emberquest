@@ -3,8 +3,8 @@ import { constants } from 'emberquest/services/constants';
 export default {
 
   player: {
-    startX: 5,
-    startY: 7
+    startX: 14,
+    startY: 5
   },
 
   mapUrl: '/images/maps/intro.png',
@@ -34,7 +34,7 @@ export default {
   ],
 
   spawnLocations : {
-    players: [{x: 5, y: 7}], // tiles where the player may spawn
+    players: [{x: 15, y: 5}], // tiles where the player may spawn
     transports: {
       spawnInterval: 3000,
       limit: 1,
@@ -171,7 +171,7 @@ export default {
       {'row': 5, 'col': 8, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'special': 0, 'wesnoth': 'Iwr'},
       {'row': 5, 'col': 9, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'special': 0, 'wesnoth': 'Iwr'},
       {'row': 5, 'col': 10, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'special': 0, 'wesnoth': 'Iwr'},
-      {'row': 5, 'col': 11, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'special': 0, 'wesnoth': 'Iwr'},
+      {'row': 5, 'col': 11, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'special': {value: constants.FLAGS.SPECIAL.MESSAGE.value, id: 1, msg:'intro.id1', repeat: true, showIf: {value: constants.SHOW_MESSAGE_WHEN.DOOR_EXISTS.value, data: { door_id:1, tileXY: {x: 11, y: 4} }}}, 'wesnoth': 'Iwr'},
       {'row': 5, 'col': 12, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'special': 0, 'wesnoth': 'Iwr'},
       {'row': 5, 'col': 13, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'special': 0, 'wesnoth': 'Iwr'},
       {'row': 5, 'col': 14, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'special': 0, 'wesnoth': 'Iwr'},

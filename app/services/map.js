@@ -232,8 +232,12 @@ export default class MapService extends Service {
         return thisTileAttrs;
       }
     } catch (e) {
-// debugger;
+      console.error(e);
     }
+  }
+
+  getTileSpecial(scene, tileXY) {
+    return this.getTileAttribute(scene, tileXY, 'special');
   }
 
   tileIsPortal(scene, tileXY) {

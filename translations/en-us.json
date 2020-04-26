@@ -1,0 +1,8 @@
+{
+  "test": "This is bar",
+  "messages": {
+    "intro": {
+      "id1": "<p>You have found a locked door.</p><p>Find a chest and this door will unlock.</p>"
+    }
+  }
+}

@@ -7,6 +7,7 @@
     <div class="header">
       <img src="/images/emberquestlogo.png" class="logo" />
       <div class="game-controls">
+
         <div class="gem-wrapper">
           {{#if this.emberGameService.gameManager.player}}
             <span class="gem gem-30"></span>
@@ -45,3 +46,19 @@
   </div>
 </div>
 
+{{#if this.emberGameService.showInfoConfirmer}}
+  <ToElsewhere
+        @named={{"modal"}}
+        @send={{hash body=(component "confirmation-dialog"
+        header=this.emberGameService.showInfoHeader
+        prompt=this.emberGameService.showInfoPrompt
+
+        cancelText=this.emberGameService.showInfoCancel
+        confirmationText=this.emberGameService.showInfoConfirm
+        onConfirm=(action emberGameService.showInfoConfirmer.confirm)
+        onCancel=(action emberGameService.showInfoConfirmer.cancel)
+  )
+     onOutsideClick=(action (mut emberGameService.showInfoConfirmer) null)
+  }}
+  />
+{{/if}}

@@ -7,7 +7,6 @@ import Phaser from "phaser";
 import {BootScene} from "../phaser/scenes/boot";
 import {GameboardScene} from "../phaser/scenes/gameboard-scene";
 import rexBoardPlugin from "phaser3-rex-plugins/plugins/board-plugin";
-// import awaitLoaderPlugin from 'phaser3-rex-plugins/plugins/awaitloader-plugin';
 
 export default class GameboardComponent extends Component {
   @service('game') emberGameService;
@@ -21,7 +20,7 @@ export default class GameboardComponent extends Component {
     physics: {
       default: 'arcade',
       arcade: {
-        gravity: { y: 0 },
+        gravity: {y: 0},
         debug: false
       }
     },

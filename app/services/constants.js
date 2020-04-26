@@ -179,8 +179,13 @@ const constants = Object.freeze({
     SPECIAL: {
       DOCK: {value: 1, description: 'Dock'},
       PORTAL: {value: 2, description: 'Portal'},
-      DOOR: {value: 4, description: 'Door'}
+      DOOR: {value: 4, description: 'Door'},
+      MESSAGE: {value: 8, description: 'Message'}
     }
+  },
+
+  SHOW_MESSAGE_WHEN: {
+    DOOR_EXISTS: {value: 1, description: 'Show Only When Door Exists'}, // data: { door_id:1, tileXY: {x: 11, y: 4} }}
   },
 
   SPECIAL_ACTIONS: {
