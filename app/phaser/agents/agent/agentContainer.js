@@ -326,7 +326,7 @@ yield timeout(1000);
             yield timeout(equippedMeleeWeapon.attackSpeed); // cooldown
             this.agent.power -= equippedMeleeWeapon.powerUse;
           } else {
-            yield timeout(1000); // cooldown
+            yield timeout(this.ember.constants.BASE_ATTACK_TIMEOUT); // cooldown
           }
 
         }

@@ -2,8 +2,8 @@ import { constants } from 'emberquest/services/constants';
 import { tracked } from '@glimmer/tracking';
 import { computed } from '@ember/object';
 import { A as emberArray } from '@ember/array';
-import { InventoryItem } from 'emberquest/objects/models/inventory-item';
-import { Stat } from 'emberquest/objects/models/stat';
+// import { InventoryItem } from 'emberquest/objects/models/inventory-item';
+// import { Stat } from 'emberquest/objects/models/stat';
 
 
 export class BaseAgent {
@@ -23,10 +23,11 @@ export class BaseAgent {
   @tracked experience = 0;
 
   @tracked aggressionScale = 0;
-  @tracked xpGain = 0;
+  @tracked experience = 0;
+  // @tracked xpGain = 0;
   @tracked gold = 0;
 
-  fists = undefined;
+  // fists = undefined;
 
   // These properties are derived from inventory items from the listed inventory property
   // attackDamage - from 'damage'
@@ -65,17 +66,17 @@ export class BaseAgent {
       this.equippedSlot[i] = null;
     }
 
-    this.fists = new InventoryItem({
-      id: 8675309,
-      type: constants.INVENTORY.TYPE.WEAPON,
-      bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
-      name: 'Fists',
-      stats: [
-        new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 1}),
-        new Stat({type: constants.INVENTORY.STATS.POWER, value: 2}),
-        new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 500})
-      ]
-    })
+    // this.fists = new InventoryItem({
+    //   id: 8675309,
+    //   type: constants.INVENTORY.TYPE.WEAPON,
+    //   bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
+    //   name: 'Fists',
+    //   stats: [
+    //     new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 1}),
+    //     new Stat({type: constants.INVENTORY.STATS.POWER, value: 2}),
+    //     new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: .5})
+    //   ]
+    // })
   }
 
   // Main properties:
@@ -104,7 +105,7 @@ export class BaseAgent {
     const equippedMeleeWeapon = this.ember.inventory.getEquippedSlot(this, constants.INVENTORY.BODYPART.RIGHT_HAND);
 
     // always have your fists to use.
-    return equippedMeleeWeapon ? equippedMeleeWeapon : this.fists;
+    return equippedMeleeWeapon ? equippedMeleeWeapon : this.ember.inventory.fists;
   }
 
   @computed('inventory.@each.equipped')
@@ -120,21 +121,20 @@ export class BaseAgent {
     return saveAttrs;
   }
 
+  @computed('experience')
   get level() {
-    if (this.experience < constants.LEVEL_2) { return 1; }
-    if (this.experience < constants.LEVEL_3) { return 2; }
-    if (this.experience < constants.LEVEL_4) { return 3; }
-    if (this.experience < constants.LEVEL_5) { return 4; }
-    if (this.experience < constants.LEVEL_6) { return 5; }
-    if (this.experience < constants.LEVEL_7) { return 6; }
-    if (this.experience < constants.LEVEL_8) { return 7; }
-    if (this.experience < constants.LEVEL_9) { return 8; }
-    if (this.experience < constants.LEVEL_10) { return 9; }
-    if (this.experience < constants.LEVEL_11) { return 10; }
-    if (this.experience < constants.LEVEL_12) { return 11; }
-
-    // after level 11, experience between levels is a constant.
-    return 12 + Math.floor((this.experience - constants.LEVEL_12)/constants.LEVEL_RANGE_AFTER_12);
+    let level = 0;
+    for (let i = 0; i < constants.LEVEL_BY_EXPERIENCE.length; i++) {
+      level = i;
+      if (constants.LEVEL_BY_EXPERIENCE[i] > this.experience) {
+  // console.log('this.experience', this.experience, level)
+        return level;
+      }
+    }
+    const maxXPInArray = constants.LEVEL_BY_EXPERIENCE[constants.LEVEL_BY_EXPERIENCE.length-1];
+    const remainderXP = this.experience - maxXPInArray;
+    const levelsAboveArrayLimit = Math.floor(remainderXP / constants.LEVEL_RANGE_AFTER_12);
+    return level + levelsAboveArrayLimit + 1;
   }
 
   get bonusPercentagePerLevel() {
@@ -157,6 +157,13 @@ export class BaseAgent {
     return constants.BASE_POWER + baseWithBonus;
   }
 
+  // experience award to player after a victory
+  get experienceAwarded() {
+    const halfBaseHealth = Math.floor(this.baseHealth * .5);
+    const xp =  Math.floor(Math.random() * (this.baseHealth - halfBaseHealth + 1) + halfBaseHealth);
+    // const xp =  Math.floor(Math.random() * (max - min + 1) + min)
+    return xp;
+  }
 
   sumProperty(property) {
     // return this.getStats(property);
@@ -204,26 +211,36 @@ export class BaseAgent {
   }
 
   // this will be multiplied by the attackSpeed concurrency timeout
-  // it will add 1.  if all adjustments are 0m the there will be no change to attackSpeed timeout
+  // it will add 1.  if all adjustments are 0 then there will be no change to attackSpeed timeout
   // an adjustment speed less than 1 is faster
   @computed('inventory.@each.equipped')
   get attackSpeedAdj() {
-    return +parseFloat((this.getStats(constants.INVENTORY.STATS.ATTACKSPEED)).toFixed(constants.FLOATING_POINT_PRECISION)) + 1;
+    const attackSpeed = this.getStats(constants.INVENTORY.STATS.ATTACKSPEED);
+    if (!attackSpeed) {
+      // should at least have fists which have a .5, so adjustment is 2x
+      return 2;
+    }
+    return +parseFloat(constants.BASE_ATTACK_TIMEOUT/(this.getStats(constants.INVENTORY.STATS.ATTACKSPEED)*constants.BASE_ATTACK_TIMEOUT));
+  }
+
+  @computed('attackSpeedAdj')
+  get attackSpeedAdjRounded() {
+    return this.attackSpeedAdj.toFixed(constants.FLOATING_POINT_PRECISION_1);
   }
 
   @computed('inventory.@each.equipped')
   get moveSpeedAdj() {
-    return +parseFloat((this.getStats(constants.INVENTORY.STATS.MOVESPEED)).toFixed(constants.FLOATING_POINT_PRECISION)) + 1;
+    return +parseFloat((this.getStats(constants.INVENTORY.STATS.MOVESPEED)).toFixed(constants.FLOATING_POINT_PRECISION_4)) + 1;
   }
 
   @computed('inventory.@each.equipped')
   get healingSpeedAdj() {
-    return +parseFloat((this.getStats(constants.INVENTORY.STATS.HEALINGSPEEDADJ)).toFixed(constants.FLOATING_POINT_PRECISION)) + 1;
+    return +parseFloat((this.getStats(constants.INVENTORY.STATS.HEALINGSPEEDADJ)).toFixed(constants.FLOATING_POINT_PRECISION_4)) + 1;
   }
 
   @computed('inventory.@each.equipped')
   get healingPowerAdj() {
-    return +parseFloat((this.getStats(constants.INVENTORY.STATS.HEALINGPOWERADJ)).toFixed(constants.FLOATING_POINT_PRECISION)) + 1;
+    return +parseFloat((this.getStats(constants.INVENTORY.STATS.HEALINGPOWERADJ)).toFixed(constants.FLOATING_POINT_PRECISION_4)) + 1;
   }
 
   getInventoryByType(type, equippedOnly = true) {

@@ -4,6 +4,7 @@ import { Player } from "../objects/agents/player";
 import { tracked } from '@glimmer/tracking';
 import { timeout } from 'ember-concurrency';
 import { task } from 'ember-concurrency-decorators';
+import { constants } from 'emberquest/services/constants';
 
 
 export default class GameManagerService extends Service {
@@ -258,7 +259,7 @@ export default class GameManagerService extends Service {
           yield timeout(equippedMeleeWeapon.attackSpeed); // cooldown
           attacker.agent.power -= equippedMeleeWeapon.powerUse;
         } else {
-          yield timeout(1000); // cooldown
+          yield timeout(this.ember.constants.BASE_ATTACK_TIMEOUT); // cooldown
         }
 
 
@@ -283,14 +284,31 @@ export default class GameManagerService extends Service {
     }
   }
 
-  async enemyVictory(enemy) {
+  async enemyVictory(enemy, player) {
     this.pauseGame(true);
     // debugger;
     enemy.agentState = this.ember.constants.AGENTSTATE.DEAD;
     enemy.healthBar.destroy();
     enemy.destroy();
+
+    // rewards
+    // console.log('player', player, enemy.agent.baseHealth)
+
+    const experienceAwarded = enemy.agent.experienceAwarded;
+
+    // player.experience += experienceAwarded || 0;
+    // // player.experience += enemy.agent.xpGain || 0;
+    // player.gold += enemy.agent.gold || 0;
+
+    // show dialog
     this.ember.epmModalContainerClass = 'victory';
-    await this.modals.open('victory-dialog', {xp: enemy.xpGain || 25,gems: enemy.gold || 50});
+    await this.modals.open('victory-dialog', {
+      player: player,
+      xp: experienceAwarded || 0,
+      gems: enemy.agent.gold || 0
+    });
+
+    await this.saveSceneData();
 
     this.pauseGame(false);
   }
@@ -301,6 +319,22 @@ export default class GameManagerService extends Service {
     this.ember.epmModalContainerClass = 'victory';
     await this.modals.open('death-dialog', {playerDead:true});
     this.pauseGame(false);
+  }
+
+  getExperienceFromLevel(level) {
+    if (level === 0) {
+      return 0;
+    }
+    let experience = 0;
+    if (level <= constants.LEVEL_BY_EXPERIENCE.length) {
+      experience = constants.LEVEL_BY_EXPERIENCE[level-1];
+    } else {
+      const baseXP = constants.LEVEL_BY_EXPERIENCE[constants.LEVEL_BY_EXPERIENCE.length];
+      const moreLevels = level - constants.LEVEL_BY_EXPERIENCE.length;
+      const additionalXP = moreLevels * constants.LEVEL_RANGE_AFTER_12;
+      experience = baseXP + additionalXP;
+    }
+    return experience;
   }
 
 }

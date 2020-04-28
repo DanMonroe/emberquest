@@ -22,7 +22,7 @@ export class InventoryItems {
         stats: [
           new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 4}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
-          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1500})
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
         ],
         audio: {
           attack: {

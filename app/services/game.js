@@ -95,10 +95,13 @@ export default class GameService extends Service {
 
     let playerAttrs = scene.player.container.data.get('attrs');
 
+    // console.log('scene.player.experience', scene.player.experience)
+
     // add inventory, mapname to playerAttrs
     Object.assign(playerAttrs, {
       'inventory': scene.player.container.agent.saveGameInventoryAttrs,
-      'mapname': mapname
+      'mapname': mapname,
+      'xp': this.storage.encrypt(scene.player.experience)
     });
 
     Object.assign(gameData, {

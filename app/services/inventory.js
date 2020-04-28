@@ -3,6 +3,8 @@ import { inject as service } from '@ember/service';
 import {InventoryItems} from '../models/data/inventory';
 import { tracked } from '@glimmer/tracking';
 import { constants } from 'emberquest/services/constants';
+import { InventoryItem } from 'emberquest/objects/models/inventory-item';
+import { Stat } from 'emberquest/objects/models/stat';
 
 export default class InventoryService extends Service {
 
@@ -12,6 +14,18 @@ export default class InventoryService extends Service {
   @tracked inventoryItems = undefined;
 
   constants = constants;
+
+  fists = new InventoryItem({
+    id: 8675309,
+    type: constants.INVENTORY.TYPE.WEAPON,
+    bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
+    name: 'Fists',
+    stats: [
+      new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 1}),
+      new Stat({type: constants.INVENTORY.STATS.POWER, value: 2}),
+      new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: .5})
+    ]
+  });
 
   getInventoryItems() {
     if (this.inventoryItems === undefined) {

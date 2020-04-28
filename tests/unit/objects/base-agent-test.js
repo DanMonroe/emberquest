@@ -137,63 +137,62 @@ module('Unit | Object | base-agent', function(hooks) {
 
   });
 
-  module('Levels', function(hooks) {
+  module('Levels', function() {
     test('level 1', function(assert) {
       assert.equal(agent.level, 1, "initial level");
     });
     test('levels based on experience', function(assert) {
-      agent.experience = constants.LEVEL_1;
+      let levelIndex = 0;
+      agent.experience = constants.LEVEL_BY_EXPERIENCE[levelIndex++];
       assert.equal(agent.level, 1, 'initial level');
       assert.equal(agent.baseHealth, 20, 'initial health');
 
-      agent.experience = constants.LEVEL_2;
+      agent.experience = constants.LEVEL_BY_EXPERIENCE[levelIndex++];
       assert.equal(agent.level, 2, 'level 2');
       assert.equal(agent.baseHealth, 44, 'level 2');
 
-      agent.experience = constants.LEVEL_3;
+      agent.experience = constants.LEVEL_BY_EXPERIENCE[levelIndex++];
       assert.equal(agent.level, 3, 'level 3');
       assert.equal(agent.baseHealth, 72, 'level 3');
 
-      agent.experience = constants.LEVEL_4;
+      agent.experience = constants.LEVEL_BY_EXPERIENCE[levelIndex++];
       assert.equal(agent.level, 4, 'level 4');
 
-      agent.experience = constants.LEVEL_5;
+      agent.experience = constants.LEVEL_BY_EXPERIENCE[levelIndex++];
       assert.equal(agent.level, 5, 'level 5');
 
-      agent.experience = constants.LEVEL_6;
+      agent.experience = constants.LEVEL_BY_EXPERIENCE[levelIndex++];
       assert.equal(agent.level, 6, 'level 6');
 
-      agent.experience = constants.LEVEL_7;
+      agent.experience = constants.LEVEL_BY_EXPERIENCE[levelIndex++];
       assert.equal(agent.level, 7, 'level 7');
 
-      agent.experience = constants.LEVEL_8;
+      agent.experience = constants.LEVEL_BY_EXPERIENCE[levelIndex++];
       assert.equal(agent.level, 8, 'level 8');
 
-      agent.experience = constants.LEVEL_9;
+      agent.experience = constants.LEVEL_BY_EXPERIENCE[levelIndex++];
       assert.equal(agent.level, 9, 'level 9');
 
-      agent.experience = constants.LEVEL_10;
+      agent.experience = constants.LEVEL_BY_EXPERIENCE[levelIndex++];
       assert.equal(agent.level, 10, 'level 10');
 
-      agent.experience = constants.LEVEL_11;
+      agent.experience = constants.LEVEL_BY_EXPERIENCE[levelIndex++];
       assert.equal(agent.level, 11, 'level 11');
 
-      agent.experience = constants.LEVEL_12;
-      assert.equal(agent.level, 12, 'level 12');
+      agent.experience = constants.LEVEL_BY_EXPERIENCE[levelIndex];
+      assert.equal(agent.level, 12, `level 12 [${levelIndex}] ${agent.experience}`);
 
-      agent.experience = constants.LEVEL_12 + 1;
-      assert.equal(agent.level, 12, 'level 12 - barely');
+      agent.experience = constants.LEVEL_BY_EXPERIENCE[levelIndex] + 1;
+      assert.equal(agent.level, 12, `level 12 - barely [${levelIndex}] ${agent.experience}`);
 
-      agent.experience = constants.LEVEL_12 + constants.LEVEL_RANGE_AFTER_12;
-      assert.equal(agent.level, 13, 'level 13');
+      agent.experience = constants.LEVEL_BY_EXPERIENCE[levelIndex] + constants.LEVEL_RANGE_AFTER_12;
+      assert.equal(agent.level, 13, `level 13 [${levelIndex}] ${agent.experience}`);
 
-      agent.experience = constants.LEVEL_12 + constants.LEVEL_RANGE_AFTER_12 + 1;
-      assert.equal(agent.level, 13, 'level 13');
-      // console.log(agent.baseHealth);
+      agent.experience = constants.LEVEL_BY_EXPERIENCE[levelIndex] + constants.LEVEL_RANGE_AFTER_12 + 1;
+      assert.equal(agent.level, 13, `level 13 [${levelIndex}] ${agent.experience}`);
 
-      agent.experience = constants.LEVEL_12 + (constants.LEVEL_RANGE_AFTER_12 * 11);
-      assert.equal(agent.level, 23, 'level 23');
-      // console.log(agent.baseHealth);
+      agent.experience = constants.LEVEL_BY_EXPERIENCE[levelIndex] + (constants.LEVEL_RANGE_AFTER_12 * 11);
+      assert.equal(agent.level, 23, `level 23 [${levelIndex}] ${agent.experience}`);
     });
   });
 
@@ -240,7 +239,7 @@ module('Unit | Object | base-agent', function(hooks) {
 
       assert.equal(agent.armorHealth, 10, 'armor health');
 
-      agent.experience = constants.LEVEL_3;
+      agent.experience = constants.LEVEL_BY_EXPERIENCE[2];
       assert.equal(agent.level, 3, 'level 3');
       assert.equal(agent.baseHealth, 72, 'baseHealth');
 

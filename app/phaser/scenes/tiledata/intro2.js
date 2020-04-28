@@ -45,6 +45,7 @@ export default {
           sightRange: 3,   // this is sight/movement Range
           movingPoints: 3,   // this is sight/movement Range
           visiblePoints: 8,   // this is sight/movement Range
+// health: 2,
           health: 20,
           maxHealth: 20,
           power: 15,
@@ -55,8 +56,12 @@ export default {
           aggressionScale: 1,  // TODO need a better way to track aggression levels
           // aggressionScale: 10,  // TODO need a better way to track aggression levels
 
-          // xpGain: 35,
-          // gold: 50,
+          // xpGain: 15,
+          gold: 20,
+          // either a specific level, or a level range relative to the players
+          level: 1,
+          levelRange: 0,
+          // levelRange: 2, +/- 2 levels from player
 
           flagAttributes: {
             sightFlags: 0,

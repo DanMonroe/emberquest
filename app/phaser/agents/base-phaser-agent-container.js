@@ -9,7 +9,7 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
   ember = undefined;
 
   agent = undefined;
-  phaserAgent = undefined;
+  // phaserAgent = undefined;
 
   isPlayer = false;
 
@@ -100,7 +100,7 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
         if (this.isPlayer) {
           this.ember.gameManager.playerDied(agentTakingDamage.container);
         } else {
-          this.ember.gameManager.enemyVictory(agentTakingDamage.container);
+          this.ember.gameManager.enemyVictory(agentTakingDamage.container, agentAttacking);
         }
       }
     }

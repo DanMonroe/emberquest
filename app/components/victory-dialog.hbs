@@ -13,14 +13,13 @@
       <div id="victory-text" class="nodisplay">&nbsp;</div>
       <div class="level-feedback">&nbsp;</div>
 
-      <div data-achievement-id="5452ad3c57e83800009730eb" data-animate="" class="achievement-panel earned">
-<!--        <div dir="auto" class="achievement-description">Clean code: no code errors or warnings. </div>-->
+      <div data-animate="" class="achievement-panel earned">
         <div class="achievement-rewards">
-          <div data-number="6" data-number-unit="xp" data-previous-number="0" class="reward-panel numerical xp">
+          <div class="reward-panel numerical xp">
             <div class="reward-image-container show{{if this.countXP.isRunning " pulse"}}"><img src="/images/victory/reward_icon_xp.png" class=""></div>
             <div class="reward-text">+{{this.xpGainedCounter}}</div>
           </div>
-          <div data-number="9" data-number-unit="gem" data-previous-number="0" class="reward-panel numerical gems pulse">
+          <div class="reward-panel numerical gems pulse">
             <div class="reward-image-container show{{if this.countGems.isRunning " pulse"}}"><img src="/images/victory/reward_icon_gems.png" class=""></div>
             <div class="reward-text">+{{this.gemsGainedCounter}}</div>
           </div>
@@ -35,15 +34,14 @@
       <div id="totals">
         <div id="xp-wrapper" class="total-wrapper">
           <div id="xp-total" class="total-count">{{this.xpGainedCounter}}</div>
-          <div class="total-label rtl-allowed"><span data-i18n="play_level.victory_experience_gained" class="spr">XP Gained</span>-<span data-i18n="general.player_level" class="spl spr">Level</span><span class="level">1</span></div>
+          <div class="total-label rtl-allowed"><span class="spr">XP Gained</span> - <span class="spl spr">Level </span> <span class="level"> {{this.params.player.level}}</span></div>
           <div class="xp-bar-outer">
-            <div class="xp-bar-already-achieved" style="width: {{this.xpAchieved}}%;"></div>
             <div class="xp-bar-total" style="width: {{this.xpTotal}}%;"></div>
           </div>
         </div>
         <div id="gem-wrapper" class="total-wrapper">
           <div id="gem-total" class="total-count">{{this.gemsGainedCounter}}</div>
-          <div data-i18n="play_level.victory_gems_gained" class="total-label">Gems Gained</div>
+          <div class="total-label">Gems Gained</div>
         </div>
       </div>
       <div class="next-level-buttons">

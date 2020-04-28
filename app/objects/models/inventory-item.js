@@ -43,7 +43,7 @@ export class InventoryItem {
 
   get attackSpeed() {
     const powerStat = this.findStat(constants.INVENTORY.STATS.ATTACKSPEED);
-    return powerStat ? powerStat.value : 1000;
+    return powerStat ? powerStat.value * constants.BASE_ATTACK_TIMEOUT : constants.BASE_ATTACK_TIMEOUT;
   }
 
   get unlockText() {

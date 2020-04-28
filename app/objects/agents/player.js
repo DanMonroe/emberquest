@@ -14,6 +14,7 @@ export class Player extends BaseAgent {
     this.playerConfig = config;
 
     this.loadInventory();
+    this.loadStats();
   }
 
   loadInventory() {
@@ -34,4 +35,25 @@ export class Player extends BaseAgent {
       })
     }
   }
+
+  loadStats() {
+    if (this.playerConfig.storedPlayerAttrs) {
+      // experience
+      if(this.playerConfig.storedPlayerAttrs.xp) {
+        try {
+          // console.log('load xp', this.playerConfig.storedPlayerAttrs.xp);
+          // console.log('load xp', this.ember.storage.decrypt(this.playerConfig.storedPlayerAttrs.xp));
+          this.experience = this.ember.storage.decrypt(this.playerConfig.storedPlayerAttrs.xp);
+        } catch (e) {
+          console.error('No XP', e);
+          this.experience = 0;
+        }
+
+      } else {
+        console.log('no xp found');
+        this.experience = 0;
+      }
+    }
+  }
+
 }

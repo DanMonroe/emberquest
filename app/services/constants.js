@@ -1,6 +1,7 @@
 const constants = Object.freeze({
 
-  FLOATING_POINT_PRECISION: 4,
+  FLOATING_POINT_PRECISION_4: 4,
+  FLOATING_POINT_PRECISION_1: 1,
 
   CACHE: {
     TYPE: {
@@ -77,24 +78,29 @@ const constants = Object.freeze({
     }
   },
 
+  BASE_ATTACK_TIMEOUT: 1000,  // yield this * attackAdj of inventory item equipped
+
   BASE_POWER: 100,
   POWER_PER_LEVEL: 2,
 
   HEALTH_PER_LEVEL: 20,
   HEALTH_BONUS_PER_LEVEL: 1.2,
 
-  LEVEL_1:     0,
-  LEVEL_2:   300,
-  LEVEL_3:   900,
-  LEVEL_4:  2700,
-  LEVEL_5:  6500,
-  LEVEL_6: 14000,
-  LEVEL_7: 23000,
-  LEVEL_8: 34000,
-  LEVEL_9: 48000,
-  LEVEL_10:64000,
-  LEVEL_11: 85000,
-  LEVEL_12:100000,
+  LEVEL_BY_EXPERIENCE: [0,50,70,85,300,400,900,2700,6500,14000,23000,34000,48000,64000,85000,100000],
+
+
+  // LEVEL_1:     0,
+  // LEVEL_2:   300,
+  // LEVEL_3:   900,
+  // LEVEL_4:  2700,
+  // LEVEL_5:  6500,
+  // LEVEL_6: 14000,
+  // LEVEL_7: 23000,
+  // LEVEL_8: 34000,
+  // LEVEL_9: 48000,
+  // LEVEL_10:64000,
+  // LEVEL_11: 85000,
+  // LEVEL_12:100000,
   LEVEL_RANGE_AFTER_12:25000,
 
   COLORS: {
