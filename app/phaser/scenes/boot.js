@@ -78,9 +78,13 @@ export class BootScene extends Phaser.Scene {
         let data = {'map': 'intro'}  // default initial map
         if (gameboardData) {
           const sceneData =   gameboardData.sceneData[gameboardData.currentMap] || { allSeenTiles: [], storedTransports: [], boarded: 0};
-
+console.log('sceneData', sceneData)
           data = {
             'map': gameboardData.currentMap,
+
+            'gameboardData': gameboardData,
+            'sceneData': sceneData,
+
             'storedPlayerTile': gameboardData.playerTile,
             'storedPlayerAttrs': gameboardData.playerAttrs,
             'allSeenTiles': sceneData.seenTiles,

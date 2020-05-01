@@ -20,6 +20,7 @@ export class GameboardScene extends Phaser.Scene {
   chests = {};
   transports = {};
   agents = {};
+  deadAgents = new Set();
   doors = {};
 
   projectiles = {};
@@ -34,6 +35,13 @@ export class GameboardScene extends Phaser.Scene {
     this.agentprojectiles;
   }
 
+  // 'map': gameboardData.currentMap,
+  // 'storedPlayerTile': gameboardData.playerTile,
+  // 'storedPlayerAttrs': gameboardData.playerAttrs,
+  // 'allSeenTiles': sceneData.seenTiles,
+  // 'storedTransports': sceneData.transports,
+    // 'boarded': sceneData.boarded
+
   init(data){
     console.log('gameboard init', data)
     this.mapname = data.map;
@@ -43,6 +51,8 @@ export class GameboardScene extends Phaser.Scene {
     this.storedTransports = data.storedTransports || [];
     this.storedPlayerAttrs = data.storedPlayerAttrs || {};
     this.storedBoardedTransportId = data.boarded || 0;
+    this.deadAgents = data.sceneData ? data.sceneData.deadAgents || new Set() : new Set();
+
   }
 
   // async preload() {
@@ -81,6 +91,13 @@ export class GameboardScene extends Phaser.Scene {
       // this.ember.showInfoDialog(`
       //       <p>Makes it easy to inject the Phaser game framework into your Ember application.</p>
       //   `);
+
+      // full heal:   TODO remove
+      if (tileXY.x < 10 && tileXY.y === 0) {
+        console.log('heal', this.player);
+        this.player.health = this.player.baseHealth;
+        this.player.power = this.player.basePower;
+      }
     });
 
   }
@@ -89,7 +106,7 @@ export class GameboardScene extends Phaser.Scene {
 
     // this has to be before game manager setup
     this.events.on('spawnPlayer', (playerObject) => {
-console.log('spawnPlayer', playerObject)
+// console.log('spawnPlayer', playerObject)
       this.spawnPlayer(playerObject);
 
       this.addCollisions();
@@ -100,7 +117,7 @@ console.log('spawnPlayer', playerObject)
     });
 
     this.events.on('agentSpawned', (agentObject) => {
-console.log('agentSpawned', agentObject)
+// console.log('agentSpawned', agentObject)
       this.spawnAgent(agentObject);
     });
 
@@ -109,7 +126,7 @@ console.log('agentSpawned', agentObject)
       // report tile info for debugging
       const allAttrs = this.ember.map.getTileAttribute(this, tileXY);
       const clickedShape = this.board.tileXYToChessArray(tileXY.x, tileXY.y);
-      console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.player.container));
+console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.player.container));
 
       this.ember.gameManager.attack.perform(tileXY, clickedShape, this.player.container);
     });

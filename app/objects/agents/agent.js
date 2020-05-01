@@ -1,7 +1,6 @@
 import { BaseAgent } from './base-agent';
 import AgentContainer from "../../phaser/agents/agent/agentContainer"
 import {isPresent} from '@ember/utils';
-import { constants } from 'emberquest/services/constants';
 
 export class Agent extends BaseAgent {
 
@@ -14,7 +13,6 @@ export class Agent extends BaseAgent {
 
     this.loadInventory();
     this.setExperienceBasedFromConfigLevel();
-console.log('agent XP = ', this.experience);
   }
 
   loadInventory() {

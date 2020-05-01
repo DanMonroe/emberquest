@@ -128,6 +128,9 @@ export default class MapService extends Service {
             fovShape.fillAlpha = this.constants.ALPHA_POLYGON_VISIBLE_TO_PLAYER;
           } else {
             fovShape.setAlpha(this.constants.ALPHA_OBJECT_VISIBLE_TO_PLAYER);
+            if (fovShape.healthBar) {
+              fovShape.healthBar.setAlpha(this.constants.ALPHA_OBJECT_VISIBLE_TO_PLAYER);
+            }
           }
         });
       }
@@ -153,6 +156,10 @@ export default class MapService extends Service {
             fovShape.fillAlpha = this.constants.ALPHA_PREVIOUSLY_SEEN;
           } else {
             fovShape.setAlpha(this.constants.ALPHA_OBJECT_HIDDEN_TO_PLAYER);
+            if (fovShape.healthBar) {
+              fovShape.healthBar.setAlpha(this.constants.ALPHA_OBJECT_HIDDEN_TO_PLAYER);
+            }
+
           }
         });
       }

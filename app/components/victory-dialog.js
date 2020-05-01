@@ -9,7 +9,8 @@ export default class VictoryDialogComponent extends Component {
   @service game;
 
   // counterSpeed = 500;
-  counterSpeed = 100;
+  counterSpeed = 3000;
+  // counterSpeed = 100;
 
   @tracked params;
   @tracked player;
@@ -54,6 +55,7 @@ export default class VictoryDialogComponent extends Component {
   *countXP(maxXP) {
     this.xpGainedCounter = 0;
 
+    const timeoutDelay = Math.floor(this.counterSpeed / maxXP);
     const xpSinceStartXP = this.player.experience - this.levelStartXP;
 
     while (this.xpGainedCounter < maxXP) {
@@ -65,18 +67,18 @@ export default class VictoryDialogComponent extends Component {
       if (this.player.experience >= this.levelEndXP) {
         this.levelUp();
       }
-
-      yield timeout(this.counterSpeed);
+      yield timeout(timeoutDelay);
     }
   }
 
   @task
-  *countGems(maxXP) {
+  *countGems(maxGems) {
+    const timeoutDelay = Math.floor(this.counterSpeed / maxGems);
     this.gemsGainedCounter = 0;
-    while (this.gemsGainedCounter < maxXP) {
+    while (this.gemsGainedCounter < maxGems) {
       this.gemsGainedCounter++;
       this.player.gold++;
-      yield timeout(this.counterSpeed);
+      yield timeout(timeoutDelay);
     }
   }
 }

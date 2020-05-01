@@ -49,7 +49,7 @@ export default {
           health: 20,
           maxHealth: 20,
           power: 15,
-          healingPower: 10,
+          healingPower: 5,
           // power: 20,
           // maxPower: 200,
 
@@ -545,7 +545,7 @@ export default {
       {'row': 18, 'col': 7, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 0.3, 'travelFlags': 4, 'special': 0, 'wesnoth': 'Mm'},
       {'row': 18, 'col': 8, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 0.7, 'travelFlags': 6, 'special': 0, 'wesnoth': 'Hh'},
       {'row': 18, 'col': 9, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'special': 0, 'wesnoth': 'Gg'},
-      {'row': 18, 'col': 10, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1.2, 'travelFlags': 6, 'special': 0, 'wesnoth': 'Rb'},
+      {'row': 18, 'col': 10, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1.2, 'travelFlags': 6, 'special': {value:constants.FLAGS.SPECIAL.PORTAL.value,map:'intro',x:11,y:2}, 'wesnoth': 'Rb'},
       {'row': 18, 'col': 11, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'special': 0, 'wesnoth': 'Gg'},
       {'row': 18, 'col': 12, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'special': 0, 'wesnoth': 'Gg'},
       {'row': 18, 'col': 13, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'special': 0, 'wesnoth': 'Gg'},

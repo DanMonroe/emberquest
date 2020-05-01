@@ -3,6 +3,13 @@ const constants = Object.freeze({
   FLOATING_POINT_PRECISION_4: 4,
   FLOATING_POINT_PRECISION_1: 1,
 
+  STOREDATTRS: [
+    { key: 'xp', attr: 'experience', default: 0 },
+    { key: 'health', attr: 'health', default: 10 },
+    { key: 'power', attr: 'power', default: 10 },
+    { key: 'gold', attr: 'gold', default: 0 }
+  ],
+
   CACHE: {
     TYPE: {
       MYSTERY: 0

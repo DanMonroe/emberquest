@@ -284,9 +284,12 @@ export default class GameManagerService extends Service {
     }
   }
 
-  async enemyVictory(enemy, player) {
+  async enemyVictory(enemy, player, scene) {
     this.pauseGame(true);
     // debugger;
+
+    scene.deadAgents.add(enemy.id);
+
     enemy.agentState = this.ember.constants.AGENTSTATE.DEAD;
     enemy.healthBar.destroy();
     enemy.destroy();
@@ -313,7 +316,7 @@ export default class GameManagerService extends Service {
     this.pauseGame(false);
   }
 
-  async playerDied() {
+  async playerDied(player, scene) {
     // debugger;
     this.pauseGame(true);
     this.ember.epmModalContainerClass = 'victory';

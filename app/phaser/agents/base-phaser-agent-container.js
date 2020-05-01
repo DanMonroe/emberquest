@@ -7,27 +7,14 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
 
   scene = undefined;
   ember = undefined;
-
   agent = undefined;
-  // phaserAgent = undefined;
 
   isPlayer = false;
 
   showPowerBar = false;
 
-  // @tracked maxHealth;
-  // @tracked health;
-  // @tracked maxPower;
-  // @tracked power;
-  // @tracked healingSpeed = 3000;
-  // @tracked healingPower = 2;
-  // @tracked energizeSpeed = 2000;
-  // @tracked energizePower = 1;
-
   @tracked aggressionScale = 0;
 
-  // @tracked xpGain = 0;
-  // @tracked gold = 0;
 
   constructor(scene, config) {
 
@@ -98,9 +85,9 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
 
       if (agentTakingDamage.health <= 0) {
         if (this.isPlayer) {
-          this.ember.gameManager.playerDied(agentTakingDamage.container);
+          this.ember.gameManager.playerDied(agentTakingDamage.container, this.scene);
         } else {
-          this.ember.gameManager.enemyVictory(agentTakingDamage.container, agentAttacking);
+          this.ember.gameManager.enemyVictory(agentTakingDamage.container, agentAttacking, this.scene);
         }
       }
     }
@@ -165,7 +152,7 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
   }
 
   updateHealthBar() {
-    // console.log('updateHealthBar this', this)
+    // console.log('updateHealthBar this', this.agent.health, this.agent.maxHealth)
     const healthPercentage = (this.agent.health / this.agent.maxHealth);
     this.healthBar.clear();
     this.healthBar.fillStyle(0xffffff, 0.4);
@@ -184,12 +171,6 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
       this.powerBar.fillRect(this.x + this.ember.constants.powerBarOffsetX, this.y + this.ember.constants.powerBarOffsetY, this.ember.constants.powerBarWidth * powerPercentage, this.ember.constants.powerBarHeight);
     }
   }
-
-  // setHealthAndPower(health, power) {
-  //   this.health = health;
-  //   this.power = power;
-  //   this.updateHealthBar();
-  // }
 
   canFireWeapon(powerRequirement) {
     // console.log('canFire', agent.currentPower, powerRequirement);

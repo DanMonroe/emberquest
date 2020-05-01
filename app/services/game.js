@@ -1,18 +1,20 @@
 import Service from '@ember/service';
 import { tracked } from '@glimmer/tracking';
+import {get} from '@ember/object';
+import {isPresent} from '@ember/utils';
 import { inject as service } from '@ember/service';
 import localforage from 'localforage';
 import {task} from "ember-concurrency-decorators";
 import {timeout} from 'ember-concurrency';
 import Confirmer from 'confirmed';
+import { constants } from 'emberquest/services/constants';
+import {Transport} from "../objects/agents/transport";
+import {Agent} from "../objects/agents/agent";
 
 // import MapData from '../phaser/scenes/tiledata/cave1'
 // // import MapData from '../phaser/scenes/tiledata/landsea'
 
 // import {Player} from "../objects/agents/player";
-import {Transport} from "../objects/agents/transport";
-import {Agent} from "../objects/agents/agent";
-import { constants } from 'emberquest/services/constants';
 
 
 export default class GameService extends Service {
@@ -84,10 +86,31 @@ export default class GameService extends Service {
       });
     }
 
+    const agents = [];
+// console.log('scene.agents', scene.agents)
+    if (scene.agents.children) {
+      scene.agents.getChildren().forEach(thisAgent => {
+        // console.log('thisAgent', thisAgent.agent)
+        agents.push({
+          'id': thisAgent.id,
+          'tile': thisAgent.rexChess.tileXYZ,
+          'texture': thisAgent.agent.playerConfig.texture,
+          'health': thisAgent.agent.health,
+          'power': thisAgent.agent.power,
+          'gold': thisAgent.agent.gold,
+          'state': thisAgent.agent.agentState
+        })
+      });
+    }
+
+    // console.log('save agents', agents);
+
     Object.assign(currentMapData, {
       'map': mapname,
       'seenTiles': scene.allSeenTiles,
       'transports': transports,
+      'agents': agents,
+      'deadAgents': scene.deadAgents,
       'boarded':  scene.player.container.boardedTransport ? scene.player.container.boardedTransport.id : 0
     });
 
@@ -100,8 +123,16 @@ export default class GameService extends Service {
     // add inventory, mapname to playerAttrs
     Object.assign(playerAttrs, {
       'inventory': scene.player.container.agent.saveGameInventoryAttrs,
-      'mapname': mapname,
-      'xp': this.storage.encrypt(scene.player.experience)
+      'mapname': mapname
+    });
+
+    constants.STOREDATTRS.forEach(storedObj => {
+      try {
+        // console.log('save ', playerAttrs[storedObj.key], storedObj.key, (+parseFloat(get(scene, `player.${storedObj.attr}`)).toFixed(0)));
+        playerAttrs[storedObj.key] = this.storage.encrypt((+parseFloat(get(scene, `player.${storedObj.attr}`)).toFixed(0)));
+      } catch (e) {
+        console.error(e);
+      }
     });
 
     Object.assign(gameData, {
@@ -164,6 +195,14 @@ export default class GameService extends Service {
     return result;
   }
 
+  // agents is an array
+  findAgentFromArrayById(agents, agentId) {
+    if (!agents || !agents.length) {
+      return undefined;
+    }
+    return agents.find(agent => agent.id === agentId);
+  }
+
   // transports is an array
   findTransportFromArrayById(transports, transportId) {
     if (!transports || !transports.length) {
@@ -172,35 +211,32 @@ export default class GameService extends Service {
     return transports.find(transport => transport.id === transportId);
   }
 
-  // createPlayer(scene, playerConfig) {
-  //   debugger; // shouldnt call this anymore ?
-  //   let player = new Player(scene, playerConfig);
-  //
-  //   // let player = new PlayerContainer(scene, playerConfig);
-  //
-  //   scene.board.addChess(player.container, playerConfig.playerX, playerConfig.playerY, this.constants.TILEZ_PLAYER);
-  //
-  //   player.container.fov = scene.rexBoard.add.fieldOfView(player.container, playerConfig);
-  //
-  //   return player.container;
-  // }
-
   createAgent(scene, agentConfig) {
     let agent = new Agent(scene, agentConfig);
-    console.log('agent', agent)
 
-    const agentChess = scene.board.addChess(agent.container, agentConfig.x, agentConfig.y, this.constants.TILEZ_AGENTS);
-// debugger;
-//     var chess = scene.board.tileXYZToChess(agentConfig.x, agentConfig.y, this.constants.TILEZ_AGENTS);
-    // chess.getFirst().anims.play('young-ogre-rest');
-    // agent.container.phaserAgentSprite.anims.play('young-ogre-rest');
+    let existingAgent = null;
+    if (scene.storedData.sceneData) {
+      existingAgent = this.findAgentFromArrayById(scene.storedData.sceneData.agents, agentConfig.id);
+    }
+
+    scene.board.addChess(
+      agent.container,
+      existingAgent ? existingAgent.tile.x : agentConfig.x,
+      existingAgent ? existingAgent.tile.y : agentConfig.y,
+      this.constants.TILEZ_AGENTS);
+
+    if (existingAgent) {
+      agent.container.agent.health = existingAgent.health;
+      agent.container.agent.power = existingAgent.power;
+      agent.container.agent.state = existingAgent.state;
+    }
 
     return agent.container;
   }
 
   createTransport(scene, transportConfig) {
     let transport = new Transport(scene, transportConfig);
-    console.log('transport', transport)
+    // console.log('transport', transport)
     scene.board.addChess(transport.container, transportConfig.x, transportConfig.y, this.constants.TILEZ_TRANSPORTS);
 
     return transport.container;

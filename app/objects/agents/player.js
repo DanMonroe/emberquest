@@ -1,6 +1,8 @@
 import { BaseAgent } from './base-agent';
 import PlayerContainer from "../../phaser/agents/player/playerContainer";
+import {get,set} from '@ember/object';
 import { v4 } from "ember-uuid";
+import { constants } from 'emberquest/services/constants';
 
 export class Player extends BaseAgent {
 
@@ -38,22 +40,33 @@ export class Player extends BaseAgent {
 
   loadStats() {
     if (this.playerConfig.storedPlayerAttrs) {
-      // experience
-      if(this.playerConfig.storedPlayerAttrs.xp) {
-        try {
-          // console.log('load xp', this.playerConfig.storedPlayerAttrs.xp);
-          // console.log('load xp', this.ember.storage.decrypt(this.playerConfig.storedPlayerAttrs.xp));
-          this.experience = this.ember.storage.decrypt(this.playerConfig.storedPlayerAttrs.xp);
-        } catch (e) {
-          console.error('No XP', e);
-          this.experience = 0;
-        }
 
-      } else {
-        console.log('no xp found');
-        this.experience = 0;
-      }
+      constants.STOREDATTRS.forEach(storedObj => {
+        try {
+// console.log('load ', storedObj.key, storedObj.attr, get(this, storedObj.attr), this.ember.storage.decrypt(get(this, `playerConfig.storedPlayerAttrs.${storedObj.key}`)));
+          set(this, storedObj.attr, +(this.ember.storage.decrypt(get(this, `playerConfig.storedPlayerAttrs.${storedObj.key}`))));
+        } catch (e) {
+          console.error(e);
+          set(this, storedObj.attr, storedObj.default || 0);
+        }
+      });
+
     }
+
+      // health
+      // if(this.playerConfig.storedPlayerAttrs.xp) {
+      //   try {
+      //     // console.log('load xp', this.playerConfig.storedPlayerAttrs.xp);
+      //     // console.log('load xp', this.ember.storage.decrypt(this.playerConfig.storedPlayerAttrs.xp));
+      //     this.experience = this.ember.storage.decrypt(this.playerConfig.storedPlayerAttrs.xp);
+      //   } catch (e) {
+      //     console.error('No XP', e);
+      //     this.experience = 0;
+      //   }
+      // } else {
+      //   this.experience = 0;
+      // }
+    // }
   }
 
 }

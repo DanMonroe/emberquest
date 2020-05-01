@@ -89,8 +89,14 @@ export default class SpawnerService extends Service {
   }
 
   addAgent(agentId, agent) {
-    this.agents[agentId] = agent;
-    this.scene.events.emit('agentSpawned', agent);
+    // agent.objectConfig.id
+// console.log('addAgent - deadAgents', this.scene.deadAgents)
+    if ( ! (this.scene.deadAgents && this.scene.deadAgents.has(agent.objectConfig.id))) {
+      this.agents[agentId] = agent;
+      this.scene.events.emit('agentSpawned', agent);
+    } else {
+      console.log('NOT spawning agent', agent.objectConfig.id)
+    }
   }
 
   deleteAgent(agentId) {

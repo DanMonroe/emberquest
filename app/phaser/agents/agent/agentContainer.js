@@ -174,7 +174,7 @@ export default class AgentContainer extends BasePhaserAgentContainer {
   moveToComplete() {
     const agentContainer = arguments[0];
 
-    // console.log('agent moveToComplete', agentContainer.agent.playerConfig.texture);
+    // console.log('agent moveToComplete', agentContainer.agent.playerConfig.texture, agentContainer.agent);
 
 // return;
     // set visibility of agent after it moves.
