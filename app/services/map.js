@@ -4,6 +4,7 @@ import intro from '../phaser/scenes/tiledata/intro';
 import intro2 from '../phaser/scenes/tiledata/intro2';
 import cave1 from '../phaser/scenes/tiledata/cave1';
 import landsea from '../phaser/scenes/tiledata/landsea'
+import play from '../phaser/scenes/tiledata/play'
 // import {cave1} from './../node_modules/map-data/cave1';
 // import {landsea} from '/map-data'
 
@@ -21,6 +22,8 @@ export default class MapService extends Service {
         return cave1;
       case 'landsea':
         return landsea;
+      case 'play':
+        return play;
       default:
         return null;
     }

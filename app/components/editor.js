@@ -62,6 +62,8 @@ export default class EditorComponent extends Component {
 
   createFinalMap() {
     let mapSource = `
+import { constants } from 'emberquest/services/constants';
+
 export default {
 
   player: {
@@ -71,6 +73,10 @@ export default {
 
   mapUrl: '/images/maps/.png',
 
+  chests: [
+    // {id: 1, x: 10, y: 3, gccode: 'GC002', gold: 20, specialActions: []}
+  ],
+
   spawnLocations : {
     players: [{x: 5, y: 7}], // tiles where the player may spawn
     transports: {
@@ -78,7 +84,6 @@ export default {
       limit: 1,
       locations: []
     },
-    chests: { spawnInterval: 3000, limit: 1, locations: []},
     agents: {
       spawnInterval: 3000,
       limit: 5,
@@ -101,7 +106,7 @@ export default {
         const sightFlags = this.getSightFlags(terrainText);
         const sightCost = this.getSightCost(terrainText);
         const special = this.getSpecial(terrainText);
-        mapSource += `{'row': ${row}, 'col': ${col}, 'sightCost': ${sightCost}, 'sightFlags': ${sightFlags}, 'speedCost': ${speedCost}, 'travelFlags': ${travelFlags}, 'special': ${special}, 'wesnoth': '${terrainText.replace(/\\/g,"\\\\")}'},
+        mapSource += `{'col': ${col}, 'row': ${row}, 'sightCost': ${sightCost}, 'sightFlags': ${sightFlags}, 'speedCost': ${speedCost}, 'travelFlags': ${travelFlags}, 'wesnoth': '${terrainText.replace(/\\/g,"\\\\")}', 'special': ${special} },
     `;
         col++;
       });

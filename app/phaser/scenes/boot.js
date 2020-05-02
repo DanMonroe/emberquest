@@ -44,6 +44,7 @@ export class BootScene extends Phaser.Scene {
     this.load.spritesheet('chests', '/images/chest_sprite.png', { frameWidth: 140, frameHeight: 140 });
 
     this.load.spritesheet('young-ogre', '/images/monsters/young-ogre.png', { frameWidth: 72, frameHeight: 72 });
+    this.load.spritesheet('spider', '/images/monsters/spider.png', { frameWidth: 72, frameHeight: 72 });
 
 
 

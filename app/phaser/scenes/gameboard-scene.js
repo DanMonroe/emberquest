@@ -173,14 +173,15 @@ console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.
     }
   }
 
-  spawnAgent(agentObj) {
-    const agentContainer = this.ember.createAgent(this, agentObj.objectConfig);
+  spawnAgent(agentObject) {
+    const agentContainer = this.ember.createAgent(this, agentObject);
+    // const agentContainer = this.ember.createAgent(this, agentObj.objectConfig);
     agentContainer.setAlpha(0);
     this.agents.add(agentContainer);
 
     agentContainer.rexChess.setBlocker();
 
-    if (agentObj.objectConfig.patrol) {
+    if (agentObject.objectConfig.patrol.tiles.length) {
       agentContainer.populatePatrolMoveQueue();
       agentContainer.patrolTask.perform();
     }

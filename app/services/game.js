@@ -211,18 +211,20 @@ export default class GameService extends Service {
     return transports.find(transport => transport.id === transportId);
   }
 
-  createAgent(scene, agentConfig) {
-    let agent = new Agent(scene, agentConfig);
+  createAgent(scene, agentObject) {
+  // createAgent(scene, agentConfig) {
+    let agent = new Agent(scene, agentObject.objectConfig);
 
     let existingAgent = null;
     if (scene.storedData.sceneData) {
-      existingAgent = this.findAgentFromArrayById(scene.storedData.sceneData.agents, agentConfig.id);
+      existingAgent = this.findAgentFromArrayById(scene.storedData.sceneData.agents, agentObject.id);
+      // existingAgent = this.findAgentFromArrayById(scene.storedData.sceneData.agents, agentObject.objectConfig.id);
     }
 
     scene.board.addChess(
       agent.container,
-      existingAgent ? existingAgent.tile.x : agentConfig.x,
-      existingAgent ? existingAgent.tile.y : agentConfig.y,
+      existingAgent ? existingAgent.tile.x : agentObject.x,
+      existingAgent ? existingAgent.tile.y : agentObject.y,
       this.constants.TILEZ_AGENTS);
 
     if (existingAgent) {
