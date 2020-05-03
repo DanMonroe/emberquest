@@ -186,7 +186,14 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
     // return true;
   }
 
+  setVisibility() {
+    if (this.ember.playerContainer) {
+      const isInLOS = this.ember.playerContainer.fov.isInLOS(this.rexChess.tileXYZ);
+      this.setVisibilityIfInLineOfSight(this, isInLOS)
+    }
+  }
   setVisibilityIfInLineOfSight(agentContainer, isInLOS) {
+
     agentContainer.setAlpha(isInLOS ?
       agentContainer.ember.constants.ALPHA_OBJECT_VISIBLE_TO_PLAYER :
       agentContainer.ember.constants.ALPHA_OBJECT_HIDDEN_TO_PLAYER);

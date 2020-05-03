@@ -286,11 +286,13 @@ export default class GameManagerService extends Service {
 
   async enemyVictory(enemy, player, scene) {
     this.pauseGame(true);
-    // debugger;
 
     scene.deadAgents.add(enemy.id);
 
     enemy.agentState = this.ember.constants.AGENTSTATE.DEAD;
+
+    scene.ember.gameManager.spawnerService.deleteAgent(enemy);
+
     enemy.healthBar.destroy();
     enemy.destroy();
 

@@ -7,7 +7,9 @@ export default class AgentPoolService extends Service {
   @tracked agentpool;
 
   getAgentConfig(key) {
-    const agentConfig = this.getAgentPool().get(key);
+    const pool = this.getAgentPool();
+    const agentConfig = pool.get(key);
+    // const agentConfig = this.getAgentPool().get(key);
     console.log('agentConfig', key, agentConfig);
     return agentConfig;
     // return this.getAgentPool().get(key);
@@ -21,18 +23,45 @@ export default class AgentPoolService extends Service {
   }
 
   populateAgentPool() {
-    console.log('populate agent pool');
+    // console.log('populate agent pool');
 
     this.agentpool = new Map();
-
+    // SPIDER
+    let baseAgentclone = Object.assign({}, this.baseAgent);
     this.agentpool.set('spider',
-      Object.assign(this.baseAgent, {
+      Object.assign(baseAgentclone, {
         id: 1,
         texture: 'spider',
+        health: 2,
+        maxHealth: 2,
+        healingPower: 1,
+
         animeframes: {
-          rest: {key: 'spider-rest', start: 1, end: 1, repeat: 0},
+          rest: {key: 'spider-rest', start: 1, end: 2, repeat: -1, rate: 1},
           attack: {key: 'spider-attack', start: 2, end: 14, rate: 12},
           range: {key: 'spider-range', start: 15, end: 21, rate: 12}
+        },
+        patrol: {
+          tiles: [
+            // {x: 13, y: 4}, {x: 13, y: 2}
+          ]
+        }
+      })
+    );
+
+    // YOUNG-OGRE
+    baseAgentclone = Object.assign({}, this.baseAgent);
+    this.agentpool.set('young-ogre',
+      Object.assign(baseAgentclone, {
+        id: 2,
+        texture: 'young-ogre',
+health: 2,
+maxHealth: 2,
+healingPower: 1,
+        scale: 1.5,
+        animeframes: {
+          rest: {key: 'young-ogre-rest', start: 1, end: 4, rate: 3, repeat: -1},
+          attack: {key: 'young-ogre-attack', start: 5, end: 8, rate: 12, delays: { frameNum: 3, delay: 300 }}
         },
         patrol: {
           tiles: [
@@ -58,11 +87,13 @@ export default class AgentPoolService extends Service {
     sightRange: 3,   // this is sight/movement Range
     movingPoints: 3,   // this is sight/movement Range
     visiblePoints: 8,   // this is sight/movement Range
-// health: 2,
-    health: 20,
-    maxHealth: 20,
+health: 2,
+maxHealth: 22,
+healingPower: 1,
+    // health: 20,
+    // maxHealth: 20,
     power: 15,
-    healingPower: 5,
+    // healingPower: 5,
 
     aggressionScale: 1,  // TODO need a better way to track aggression levels
     // aggressionScale: 10,  // TODO need a better way to track aggression levels

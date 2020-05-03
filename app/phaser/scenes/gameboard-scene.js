@@ -181,6 +181,8 @@ console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.
 
     agentContainer.rexChess.setBlocker();
 
+    agentContainer.setVisibility();
+
     if (agentObject.objectConfig.patrol.tiles.length) {
       agentContainer.populatePatrolMoveQueue();
       agentContainer.patrolTask.perform();

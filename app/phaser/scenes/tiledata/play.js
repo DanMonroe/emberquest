@@ -2,10 +2,10 @@ import { constants } from 'emberquest/services/constants';
 
 export default {
 
-  // player: {
-  //   startX: 7,
-  //   startY: 3
-  // },
+  player: {
+    startX: 6,
+    startY: 5
+  },
 
   mapUrl: '/images/maps/play.png',
 
@@ -21,15 +21,19 @@ export default {
       locations: []
     },
     agents: {
-      spawnInterval: 300000,
-      limit: 1,
+      spawnInterval: 3000,
+      limit: 4,
       locations: [
       // locations: [
-        {id: 1, x: 4, y: 4, pool: [ 'spider' ]},
-        {id: 2, x: 6, y: 4, pool: [ 'spider' ]},
-        {id: 3, x: 8, y: 4, pool: [ 'spider' ]}
+        {id: 1, x: 4, y: 4, pool: [ 'spider', 'young-ogre' ]},
+        {id: 2, x: 6, y: 4, pool: [ 'spider', 'young-ogre' ]},
+        {id: 3, x: 8, y: 4, pool: [ 'spider', 'young-ogre' ]},
+        {id: 4, x: 5, y: 6, pool: [ 'spider', 'young-ogre' ]},
+        {id: 5, x: 5, y: 3, pool: [ 'spider', 'young-ogre' ]},
+        {id: 6, x: 7, y: 3, pool: [ 'spider', 'young-ogre' ]},
+        {id: 7, x: 6, y: 2, pool: [ 'spider', 'young-ogre' ]}
       ],
-      globalPool: [ 'spider' ]
+      globalPool: [ 'spider', 'young-ogre' ]
     }
   },
 
