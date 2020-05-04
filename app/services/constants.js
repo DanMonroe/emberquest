@@ -33,7 +33,9 @@ const constants = Object.freeze({
   AUDIO: {
     KEY: {
       REST: 0,
-      ATTACK: 1
+      ATTACK: 1,
+      SWORD: 2,
+      ARROW: 3
     }
   },
 
@@ -81,7 +83,8 @@ const constants = Object.freeze({
     TYPE: {
       ARMOR: 0,
       WEAPON: 1,
-      OTHER: 2
+      OTHER: 2,
+      MONSTER: 3
     }
   },
 

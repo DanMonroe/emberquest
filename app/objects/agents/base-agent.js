@@ -87,6 +87,14 @@ export class BaseAgent {
   }
 
   @computed('inventory.@each.equipped')
+  get equippedRangedWeapon() {
+    const equippedRangedWeapon = this.ember.inventory.getEquippedSlot(this, constants.INVENTORY.BODYPART.LEFT_HAND);
+
+    // no default ranged weapon, so just return what is in left hand.
+    return equippedRangedWeapon;
+  }
+
+  @computed('inventory.@each.equipped')
   get equippedInventory() {
     return this.inventory.filter(item => item.equipped === true);
   }

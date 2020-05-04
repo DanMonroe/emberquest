@@ -35,6 +35,96 @@ export class InventoryItems {
       })
     );
 
+    // Weapons
+    items.push(
+      new InventoryItem({
+        id: 2000,
+        name: 'Simple Sword',
+        type: constants.INVENTORY.TYPE.MONSTER,
+        bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 4}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
+        ],
+        audio: {
+          attack: {
+            miss: {
+              name: 'sword_miss'
+            }
+          }
+        }
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: 2001,
+        name: 'Spider Fang',
+        type: constants.INVENTORY.TYPE.MONSTER,
+        bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 4}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
+        ],
+        audio: {
+          attack: {
+            miss: {
+              name: 'sword_miss'
+            }
+          }
+        }
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: 2002,
+        name: 'Spider Web',
+        type: constants.INVENTORY.TYPE.MONSTER,
+        bodypart: constants.INVENTORY.BODYPART.RANGED,
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 3}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.8})
+        ],
+        audio: {
+          attack: {
+            miss: {
+              name: 'sword_miss'
+            }
+          }
+        }
+      })
+    );
+
+    // Ranged Weapons
+    let rangedWeaponId = 250;
+    items.push(
+      new InventoryItem({
+        id: rangedWeaponId++,
+        owned: false,
+        price: 10,
+        type: constants.INVENTORY.TYPE.WEAPON,
+        bodypart: constants.INVENTORY.BODYPART.RANGED,
+        name: 'Crossbow',
+        img: '/images/items/weapons/crossbow.png',
+        projectileImg: 'missile',
+        // velocity: 350, // 300 default
+        description: 'Modest range and damage; it\'s the beginner crossbow.',
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 3}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 2}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.5})
+        ],
+        audio: {
+          attack: {
+            miss: {
+              name: 'sword_miss'
+            }
+          }
+        }
+      })
+    );
 
 
     // Armor

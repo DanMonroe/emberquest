@@ -7,71 +7,45 @@ export default class Projectile extends Phaser.Physics.Arcade.Image {
     // super(scene, x, y, 'bullet');
     // super(scene, x, y, 'projectile');
 
-    this.damage = 10;
+    this.damage = 1;
   }
 
-  // preUpdate (time, delta)
-  // {
-  //   super.preUpdate(time, delta);
-  //
-  //   console.log('preupdate',time, delta, this)
-  //   if (this.y <= -32)
-  //   {
-  //     console.log('setting inactive')
-  //     this.setActive(false);
-  //     this.setVisible(false);
-  //   }
-  // }
 
-  fire(attackerXYZ, radian){
+  fire(attacker, radians, weapon){
     // console.log('fire attackerXYZ', attackerXYZ)
-    const x = Math.cos(radian);
-    const y = Math.sin(radian);
-    // console.log('fire projectile:  radian', radian, 'x', x, 'y', y, 'this', this);
+    const x = Math.cos(radians);
+    const y = Math.sin(radians);
 
-    let worldXY = this.scene.board.tileXYToWorldXY(attackerXYZ.x, attackerXYZ.y);
+    let worldXY = this.scene.board.tileXYToWorldXY(attacker.rexChess.tileXYZ.x, attacker.rexChess.tileXYZ.y);
+
+    console.log('fire projectile:  this', this);
+    // console.log('fire projectile:  radians', radians, 'x', x, 'y', y, 'this', this, 'attacker.rexChess.tileXYZ', attacker.rexChess.tileXYZ, 'worldXY', worldXY, 'attacker', attacker);
+
+    this.setRotation(radians);
+
+    // this.setOffset(100, 0)
+    // this.setDisplayOrigin(0.1, 0.1)
 
     this.enableBody();
-      // this.body.reset(x, y);
 
-      this.setActive(true);
-      this.setVisible(true);
-    // console.log('setting position', worldXY.x, worldXY.y)
-      this.setPosition(worldXY.x, worldXY.y);
-      // this.setVelocityY(-300);
-    this.setVelocityY(y * 300);
-    this.setVelocityX(x * 300);
+    this.setActive(true);
+    this.setVisible(true);
 
-    this.scene.time.addEvent({
-      delay: 500,
-      callback: () => {
-        // this.disableBody();
-        this.active = false;
-        this.visible = false;
-        // this.setVelocity(0);
-      }
-    });
+    this.setPosition(worldXY.x, worldXY.y);
+    // this.setPosition(worldXY.x + (attacker.width), worldXY.y + (attacker.height));
+    // this.setPosition(worldXY.x + (attacker.width/2), worldXY.y + (attacker.height/2));
+// debugger;
+    this.setVelocityY(y * (weapon.velocity || 300));
+    this.setVelocityX(x * (weapon.velocity || 300));
+
+    // this.scene.time.addEvent({
+    //   delay: 3500,
+    //   callback: () => {
+    //     // this.disableBody();
+    //     this.active = false;
+    //     this.visible = false;
+    //     // this.setVelocity(0);
+    //   }
+    // });
   }
-
-  // fire (x, y) {
-  //   this.body.reset(x, y);
-  //
-  //   this.setActive(true);
-  //   this.setVisible(true);
-  //
-  //   this.setVelocityY(-300);
-  //
-  //   // Hook into Ember
-  //   this.scene.game.emberGame.bulletFired(this);
-  // }
-
-  // preUpdate (time, delta) {
-  //   super.preUpdate(time, delta);
-  //
-  //   if (this.y <= -32)
-  //   {
-  //     this.setActive(false);
-  //     this.setVisible(false);
-  //   }
-  // }
 }

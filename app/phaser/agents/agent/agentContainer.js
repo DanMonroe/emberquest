@@ -301,7 +301,7 @@ yield timeout(1000);
       case this.ember.constants.AGENTSTATE.MELEE:
         // console.log('Agent Melee Attack!');
         equippedMeleeWeapon = this.agent.equippedMeleeWeapon;
-        // console.log('agent equippedMeleeWeapon', equippedMeleeWeapon.name, equippedMeleeWeapon)
+        console.log('agent equippedMeleeWeapon', equippedMeleeWeapon.name, equippedMeleeWeapon)
 // debugger;
         if (equippedMeleeWeapon) {
           if (this.agent.power < equippedMeleeWeapon.powerUse) {

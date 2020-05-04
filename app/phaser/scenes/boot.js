@@ -37,6 +37,8 @@ export class BootScene extends Phaser.Scene {
     this.load.image('ball', '/images/items/ballBlack_04.png');
     this.load.image('bullet', '/images/items/bullet7.png');
 
+    this.load.image('missile', '/images/items/missile-n.png');
+
     // this.load.image('vue', '/images/agents/vue.png');
   }
 
@@ -57,6 +59,7 @@ export class BootScene extends Phaser.Scene {
     this.load.audio('pickup', ['/audio/sounds/pickup.wav']);
 
     this.load.audio('sword_miss', ['/audio/sounds/sword_miss.mp3']);
+    this.load.audio('arrow', ['/audio/sounds/arrow.mp3']);
 
 
     this.load.audio('music1', ['/audio/music/uncharted_territory_justin_monroe.mp3']);

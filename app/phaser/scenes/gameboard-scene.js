@@ -238,6 +238,7 @@ console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.
     this.musicAudio = this.sound.add('music1', { loop: true, volume: 0 });
 
     this.swordMiss = this.sound.add('sword_miss', { loop: false, volume: 0.5 });
+    this.arrow = this.sound.add('arrow', { loop: false, volume: 0.4, rate: 2 });
   }
 
   configureBoard() {
@@ -281,9 +282,10 @@ console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.
     this.agents.runChildUpdate = true;
 
     // creating the projectiles
+    //   key: 'bullet',
     this.projectiles = new Projectiles(this.physics.world, this, {
       frameQuantity: 3,
-      key: 'bullet',
+      key: 'missile',
       active: false,
       visible: false,
       classType: Projectile
@@ -315,7 +317,7 @@ console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.
     // this.physics.add.overlap(this.player, this.transports, this.boardTransport, this.boardTransportProcessCallback, this);
 
     this.physics.add.overlap(this.projectiles, this.agents, this.projectiles.enemyCollision);
-    this.physics.add.overlap(this.player.container, this.agentprojectiles, this.agentprojectiles.playerCollision);
+    this.physics.add.overlap(this.agentprojectiles, this.player.container, this.agentprojectiles.playerCollision);
 
     // check for collisions between the doors group and the player
     this.physics.add.collider(this.player.container, this.doors, this.doorCollision, null, this);

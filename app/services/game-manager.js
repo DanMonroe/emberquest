@@ -206,9 +206,13 @@ export default class GameManagerService extends Service {
   playSound(key) {
     switch (key) {
       case this.ember.constants.AUDIO.KEY.ATTACK:
-        this.scene.swordMiss.play();
         break;
+      case this.ember.constants.AUDIO.KEY.ARROW:
+        this.scene.arrow.play();
+        break;
+      case this.ember.constants.AUDIO.KEY.SWORD:
       default:
+        this.scene.swordMiss.play();
         break;
     }
   }
@@ -236,53 +240,90 @@ export default class GameManagerService extends Service {
 
         // get attackers weapon (in right hand?)
         const equippedMeleeWeapon = attacker.agent.equippedMeleeWeapon;
+
         // console.log('equippedMeleeWeapon', equippedMeleeWeapon.name, equippedMeleeWeapon)
-        if (equippedMeleeWeapon) {
-          if (attacker.agent.power < equippedMeleeWeapon.powerUse) {
-            console.warn(`Not enough power to wield ${equippedMeleeWeapon.name}`);  // tell the user?
-            return;
+
+        if (equippedMeleeWeapon && this.hasEnoughPowerToUseItem(equippedMeleeWeapon, attacker.agent)) {
+
+          // find a way to play appropriate sound
+          this.playSound(this.ember.constants.AUDIO.KEY.SWORD);
+
+          const meleeAttackDamage = attacker.agent.attackDamage;
+          // const targetsHealth = agentToAttack.agent.health;
+          // console.log('meleeAttackDamage', meleeAttackDamage, 'targetsHealth', targetsHealth);
+
+
+          // weapon will have speed, damage?, timeout cooldown
+          agentToAttack.takeDamage(meleeAttackDamage, agentToAttack.agent, attacker.agent);
+
+          if (equippedMeleeWeapon) {
+            yield timeout(equippedMeleeWeapon.attackSpeed); // cooldown
+            attacker.agent.power -= equippedMeleeWeapon.powerUse;
+          } else {
+            yield timeout(this.ember.constants.BASE_ATTACK_TIMEOUT); // cooldown
           }
-        }
-
-        // find a way to play appropriate sound
-        this.playSound(this.ember.constants.AUDIO.KEY.ATTACK);
-
-        const meleeAttackDamage = attacker.agent.attackDamage;
-        // const targetsHealth = agentToAttack.agent.health;
-        // console.log('meleeAttackDamage', meleeAttackDamage, 'targetsHealth', targetsHealth);
-
-
-        // weapon will have speed, damage?, timeout cooldown
-        agentToAttack.takeDamage(meleeAttackDamage, agentToAttack.agent, attacker.agent);
-
-        if (equippedMeleeWeapon) {
-          yield timeout(equippedMeleeWeapon.attackSpeed); // cooldown
-          attacker.agent.power -= equippedMeleeWeapon.powerUse;
-        } else {
-          yield timeout(this.ember.constants.BASE_ATTACK_TIMEOUT); // cooldown
         }
 
 
       } else {
         // Ranged attack
-        // console.log('Ranged Attack!');
+        console.log('Ranged Attack!');
 
-        const radian = this.scene.board.angleBetween(attacker.rexChess.tileXYZ, clickedTile);
+        // get attackers weapon (in right hand?)
+        const equippedRangedWeapon = attacker.agent.equippedRangedWeapon;
 
-        const playerHasRangedWeapon = false;
-        if(playerHasRangedWeapon) { // TODO put back if the player has ranged weapon
-          const isInLOS = attacker.ember.playerContainer.fov.isInLOS(agentToAttack.rexChess.tileXYZ);
-          // console.log('in LOS', isInLOS);
-          if (isInLOS) {
+console.log('equippedRangedWeapon', equippedRangedWeapon)
+        if (equippedRangedWeapon && this.hasEnoughPowerToUseItem(equippedRangedWeapon, attacker.agent)) {
+
+          const isInLineOfSight = attacker.ember.playerContainer.fov.isInLOS(agentToAttack.rexChess.tileXYZ);
+
+          if (isInLineOfSight) {
             // ok to fire projectile
-            this.scene.projectiles.fireProjectile(attacker.rexChess.tileXYZ, radian);
+
+            // find a way to play appropriate sound
+            this.playSound(this.ember.constants.AUDIO.KEY.ARROW);
+
+            this.scene.projectiles.fireProjectile(this.scene, attacker, clickedTile, equippedRangedWeapon);
+
+            if (equippedRangedWeapon) {
+              yield timeout(equippedRangedWeapon.attackSpeed); // cooldown
+              attacker.agent.power -= equippedRangedWeapon.powerUse;
+            } else {
+              yield timeout(this.ember.constants.BASE_ATTACK_TIMEOUT); // cooldown
+            }
           }
+
+
+          // const radian = this.scene.board.angleBetween(attacker.rexChess.tileXYZ, clickedTile);
+          //
+          // const playerHasRangedWeapon = false;
+          // if(playerHasRangedWeapon) { // TODO put back if the player has ranged weapon
+          //   const isInLOS = attacker.ember.playerContainer.fov.isInLOS(agentToAttack.rexChess.tileXYZ);
+          //   // console.log('in LOS', isInLOS);
+          //   if (isInLOS) {
+          //     // ok to fire projectile
+          //     this.scene.projectiles.fireProjectile(attacker.rexChess.tileXYZ, radian);
+          //   }
+          // }
         }
       }
     } else {
       console.log('No agent to attack')
     }
   }
+
+  hasEnoughPowerToUseItem(inventoryItem, wieldingAgent) {
+
+    if (!inventoryItem.powerUse) {
+      return true;
+    }
+    if (wieldingAgent.power < inventoryItem.powerUse) {
+      console.warn(`Not enough power to wield ${inventoryItem.name}`);  // TODO tell the user?
+      return false;
+    }
+    return true;
+  }
+
 
   async enemyVictory(enemy, player, scene) {
     this.pauseGame(true);
