@@ -1,7 +1,6 @@
 import Service from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import {get} from '@ember/object';
-import {isPresent} from '@ember/utils';
 import { inject as service } from '@ember/service';
 import localforage from 'localforage';
 import {task} from "ember-concurrency-decorators";
@@ -39,7 +38,6 @@ export default class GameService extends Service {
   @tracked showInfoCancel = "";
   @tracked showInfoConfirm = "OK";
   @tracked showInfoConfirmer = null;
-
 
   @tracked sceneData = [];
   @tracked gameData = undefined;
@@ -290,12 +288,36 @@ export default class GameService extends Service {
 
   checkForAgents(playerContainer, moveTo) {
     // Any agents nearby?  if so, transition them to pursue if they are aggressive
+    const board = moveTo.scene.board;
 
-    const neighborAgents = moveTo.scene.board.getNeighborChess(playerContainer, null, constants.TILEZ_AGENTS);
-    // console.log('checkForAgents: neighborAgents', neighborAgents);
-    neighborAgents.forEach(agentContainer => {
-      agentContainer.transitionToMelee(agentContainer);
-    })
+    let tileXYArray = playerContainer.fov.clearDebugGraphics().findFOV(playerContainer.visiblePoints);
+    console.log('checkForAgents - findFOV', tileXYArray);
+    let tileXY;
+    for (let i = 0, cnt = tileXYArray.length; i < cnt; i++) {
+      tileXY = tileXYArray[i];
+      const fovShapes = this.map.getGameObjectsAtTileXY(board, tileXY, constants.SHAPE_TYPE_AGENT);
+      if (fovShapes && fovShapes.length > 0) {
+        fovShapes.forEach(fovShapeAgent => {
+console.log('fovShapeAgent', fovShapeAgent)
+          const shouldPursue = fovShapeAgent.checkAggression(fovShapeAgent);
+console.log('shouldPursue', shouldPursue)
+          if (board.areNeighbors(playerContainer, fovShapeAgent)) {
+            console.log('  is neighbor')
+            fovShapeAgent.transitionToMelee(fovShapeAgent);
+          } else {
+            console.log('not neighbor')
+            fovShapeAgent.transitionToPursuit(fovShapeAgent);
+          }
+        });
+      }
+
+    }
+
+    //   const neighborAgents = board.getNeighborChess(playerContainer, null, constants.TILEZ_AGENTS);
+    // // console.log('checkForAgents: neighborAgents', neighborAgents);
+    // neighborAgents.forEach(agentContainer => {
+    //   agentContainer.transitionToMelee(agentContainer);
+    // })
   }
 
   checkForSpecial(playerContainer, moveTo) {
@@ -456,4 +478,7 @@ export default class GameService extends Service {
     return this.storage.decrypt(source.coords);
   }
 
+  randomIntFromInterval(min, max) { // min and max included
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
 }

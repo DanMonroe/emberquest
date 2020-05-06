@@ -126,17 +126,25 @@ export default class SpawnerService extends Service {
 
   spawnObject(spawnerType) {
     const location = this.pickRandomLocation(spawnerType);
-    let agentConfigFromPool;
+    let locationClone, agentConfigFromPool;
     switch (spawnerType) {
       case constants.SPAWNER_TYPE.TRANSPORT:
         // this.spawnTransport();
         break;
       case constants.SPAWNER_TYPE.AGENT:
-        agentConfigFromPool = this.pickRandomAgentFromPool(location);
-        // console.log('            || agentConfigFromPool', agentConfigFromPool)
+        agentConfigFromPool = Object.assign({}, this.pickRandomAgentFromPool(location));
+        locationClone = Object.assign({}, location);
+// console.log('            || agentConfigFromPool', agentConfigFromPool)
+
 
         if (agentConfigFromPool) {
-          const agent = new Agent(location.x, location.y, Object.assign(location, agentConfigFromPool));
+          if (locationClone.patrol) {
+            // assign any properties
+            Object.assign(agentConfigFromPool.patrol, locationClone.patrol)
+          }
+console.log('            || agentConfigFromPool', agentConfigFromPool, 'locationClone', locationClone)
+
+          const agent = new Agent(locationClone.x, locationClone.y, Object.assign(locationClone, agentConfigFromPool));
           // console.log('               ++ agent', agent)
 
           this.addAgent(agent);

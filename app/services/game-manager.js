@@ -17,13 +17,19 @@ export default class GameManagerService extends Service {
 
   @tracked gamePaused = true;
 
+  counterSpeed = 3000;
+  // @tracked levelStartXP;
+  // @tracked levelEndXP;
+  // @tracked levelXPRange;
+  @tracked xpGainedCounter = 0;
+  @tracked gemsGainedCounter = 0;
+  @tracked xpTotal = 20;
+
   scene = undefined;
   ember = undefined;
   storedData = undefined;
 
-  spawners = {};
   chests = {};
-  monsters = {};  // same as agents?
   players = {};
   agents = {};
   transports = {};
@@ -46,6 +52,72 @@ export default class GameManagerService extends Service {
     this.spawnPlayer();
     this.pauseGame(false);
   }
+
+  get levelStartXP() {
+    return this.player ? this.getExperienceFromLevel(this.player.level) : 0;
+  }
+
+  get levelEndXP() {
+    return this.player ? this.getExperienceFromLevel(this.player.level + 1) : 1;
+  }
+
+  get levelXPRange() {
+    return this.levelEndXP - this.levelStartXP;
+  }
+
+  get xpSinceStartXP() {
+    return this.player ? (this.player.experience - this.levelStartXP) : 0;
+  }
+
+  get xpTotalPercentage() {
+    console.log('xpTotalPercentage levelStartXP', this.levelStartXP, 'levelEndXP', this.levelEndXP, 'XP', this.player ? this.player.experience : 0)
+    return Math.min(100, Math.floor((this.xpSinceStartXP / this.levelXPRange) * 100));
+  }
+
+
+  // setLevelStartAndEndXP() {
+  //   if (this.player) {
+  //     this.levelStartXP = this.getExperienceFromLevel(this.player.level);
+  //     this.levelEndXP = this.getExperienceFromLevel(this.player.level+1);
+  //     this.levelXPRange = this.levelEndXP - this.levelStartXP;
+  //   }
+  // }
+  // levelUp() {
+  //   // show any visual effect?
+  //   this.setLevelStartAndEndXP();
+  // }
+
+  // @task
+  // *countXP(maxXP) {
+  //   this.xpGainedCounter = 0;
+  //
+  //   const timeoutDelay = Math.floor(this.counterSpeed / maxXP);
+  //   const xpSinceStartXP = this.player.experience - this.levelStartXP;
+  //
+  //   while (this.xpGainedCounter < maxXP) {
+  //     this.xpGainedCounter++;
+  //     this.player.experience++;
+  //
+  //     this.xpTotal = Math.min(100, Math.floor(((xpSinceStartXP + this.xpGainedCounter) / this.levelXPRange) * 100));
+  //
+  //     if (this.player.experience >= this.levelEndXP) {
+  //       this.levelUp();
+  //     }
+  //     yield timeout(timeoutDelay);
+  //   }
+  // }
+  //
+  // @task
+  // *countGems(maxGems) {
+  //   const timeoutDelay = Math.floor(this.counterSpeed / maxGems);
+  //   this.gemsGainedCounter = 0;
+  //   while (this.gemsGainedCounter < maxGems) {
+  //     this.gemsGainedCounter++;
+  //     this.player.gold++;
+  //     yield timeout(timeoutDelay);
+  //   }
+  // }
+
 
   pauseGame(paused) {
     this.gamePaused = paused;

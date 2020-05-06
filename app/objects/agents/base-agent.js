@@ -37,8 +37,8 @@ export class BaseAgent {
 
     this.baseHealingPower = config.baseHealingPower || 2;
     this.baseHealingSpeed = config.baseHealingSpeed || 2000;  // how fast they heal
-    this.energizeSpeed = config.energizeSpeed || 10;// how fast they recharge power
-    this.energizePower = config.energizePower || 10;// how much power they recharge each time
+    this.energizeSpeed = config.energizeSpeed || 3000;// how fast they recharge power
+    this.energizePower = config.energizePower || 1;// how much power they recharge each time
 
     for (let i = 0; i < constants.INVENTORY.TOTAL_BODYPARTS; i++) {
       this.equippedSlot[i] = null;
@@ -88,7 +88,7 @@ export class BaseAgent {
 
   @computed('inventory.@each.equipped')
   get equippedRangedWeapon() {
-    const equippedRangedWeapon = this.ember.inventory.getEquippedSlot(this, constants.INVENTORY.BODYPART.LEFT_HAND);
+    const equippedRangedWeapon = this.ember.inventory.getEquippedSlot(this, constants.INVENTORY.BODYPART.RANGED);
 
     // no default ranged weapon, so just return what is in left hand.
     return equippedRangedWeapon;

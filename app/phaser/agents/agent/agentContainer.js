@@ -1,5 +1,5 @@
 import BasePhaserAgentContainer from "../base-phaser-agent-container";
-import {task} from "ember-concurrency-decorators";
+import {task,restartableTask} from "ember-concurrency-decorators";
 import {timeout,waitForProperty } from "ember-concurrency";
 import {tracked} from '@glimmer/tracking';
 import { v4 } from "ember-uuid";
@@ -21,6 +21,7 @@ export default class AgentContainer extends BasePhaserAgentContainer {
 
     this.agent = agent;
     this.config = config;
+    this.showPowerBar = true;
 
     this.setupSprite();
 
@@ -117,6 +118,19 @@ export default class AgentContainer extends BasePhaserAgentContainer {
           frameRate: this.config.animeframes.attack.rate
         });
       }
+      if (this.config.animeframes.range) {
+        const rangeFrames = this.scene.anims.generateFrameNumbers(this.config.texture, { start: this.config.animeframes.range.start, end: this.config.animeframes.range.end });
+
+        if (this.config.animeframes.range.delays) {
+          rangeFrames[this.config.animeframes.range.delays.frameNum].duration = this.config.animeframes.range.delays.delay;
+        }
+
+        this.scene.anims.create({
+          key: this.config.animeframes.range.key,
+          frames: rangeFrames,
+          frameRate: this.config.animeframes.range.rate
+        });
+      }
     }
 
     agentSprite.on('animationcomplete',  (anim, frame) => {
@@ -129,6 +143,11 @@ export default class AgentContainer extends BasePhaserAgentContainer {
     }
     if (this.config.animeframes.attack) {
       agentSprite.on('animationcomplete-attack', () => {
+        this.playAnimation(this.ember.constants.ANIMATION.KEY.REST);
+      });
+    }
+    if (this.config.animeframes.range) {
+      agentSprite.on('animationcomplete-range', () => {
         this.playAnimation(this.ember.constants.ANIMATION.KEY.REST);
       });
     }
@@ -156,6 +175,11 @@ export default class AgentContainer extends BasePhaserAgentContainer {
           this.phaserAgentSprite.anims.play(this.config.animeframes.attack.key);
         }
         break;
+      case this.ember.constants.ANIMATION.KEY.RANGE:
+        if (this.config.animeframes.range) {
+          this.phaserAgentSprite.anims.play(this.config.animeframes.range.key);
+        }
+        break;
       default:
         break;
     }
@@ -174,7 +198,7 @@ export default class AgentContainer extends BasePhaserAgentContainer {
   moveToComplete() {
     const agentContainer = arguments[0];
 
-    // console.log('agent moveToComplete', agentContainer.agent.playerConfig.texture, agentContainer.agent);
+    console.log('agent moveToComplete', agentContainer.agent.playerConfig.texture, agentContainer.agent);
 
 // return;
     // set visibility of agent after it moves.
@@ -195,7 +219,7 @@ export default class AgentContainer extends BasePhaserAgentContainer {
 
         if (isInLOS) {
           const shouldPursue = agentContainer.checkAggression(agentContainer);
-
+  console.log('>>>>> shouldPursue', shouldPursue)
           if (shouldPursue) {
             agentContainer.transitionToPursuit();
           } else {
@@ -208,9 +232,9 @@ export default class AgentContainer extends BasePhaserAgentContainer {
   }
 
 
-  @task
+  @restartableTask
   *engagePlayer(agentContainer) {
-
+console.log('engage player', agentContainer.agent.playerConfig.texture)
     this.attack.cancelAll();
     this.chasePlayer.cancelAll();
     this.patrolTask.cancelAll();
@@ -288,20 +312,41 @@ export default class AgentContainer extends BasePhaserAgentContainer {
   *attack() {
     if (this.ember.gameManager.gamePaused) { return }
 
-    let equippedMeleeWeapon;
+    let equippedMeleeWeapon,equippedRangedWeapon;
     switch (this.agentState) {
       case this.ember.constants.AGENTSTATE.MISSILE:
-        // console.log('Agent Ranged Attack!');
+console.log('Agent Ranged Attack!');
         if (!this.ember.playerContainer.fov.isInLOS(this.rexChess.tileXYZ)) {
 yield timeout(1000);
           return;
         }
 
+        equippedRangedWeapon = this.agent.equippedRangedWeapon;
+        // console.log('equippedRangedWeapon', equippedRangedWeapon)
+        if (equippedRangedWeapon && this.ember.gameManager.hasEnoughPowerToUseItem(equippedRangedWeapon, this.agent)) {
+
+          // find a way to play appropriate sound
+          this.playSound(this.ember.constants.AUDIO.KEY.ARROW);
+
+          this.stopAnimation();
+          this.playAnimation(this.ember.constants.ANIMATION.KEY.RANGE);
+          this.playSound(this.ember.constants.AUDIO.KEY.RANGE);
+
+          this.scene.projectiles.fireProjectile(this.scene, this, this.rexChess.tileXYZ, equippedRangedWeapon);
+
+          if (equippedRangedWeapon) {
+            yield timeout(equippedRangedWeapon.attackSpeed); // cooldown
+            this.agent.power -= equippedRangedWeapon.powerUse;
+          } else {
+            yield timeout(this.ember.constants.BASE_ATTACK_TIMEOUT); // cooldown
+          }
+
+        }
         break;
       case this.ember.constants.AGENTSTATE.MELEE:
         // console.log('Agent Melee Attack!');
         equippedMeleeWeapon = this.agent.equippedMeleeWeapon;
-        console.log('agent equippedMeleeWeapon', equippedMeleeWeapon.name, equippedMeleeWeapon)
+        // console.log('agent equippedMeleeWeapon', equippedMeleeWeapon.name, equippedMeleeWeapon)
 // debugger;
         if (equippedMeleeWeapon) {
           if (this.agent.power < equippedMeleeWeapon.powerUse) {
@@ -388,19 +433,24 @@ yield timeout(1000);
     if (!this.moveQueue || (this.moveQueue.path && this.moveQueue.path.length === 0)) {
       // no moves.. build the next one
       const nextTargetTile = this.getNextTargetTile();
-      const tileXYArrayPath = this.pathFinder.findPath(nextTargetTile);
+      if (nextTargetTile) {
 
-      // this.showMovingPath(tileXYArrayPath);
+        const tileXYArrayPath = this.pathFinder.findPath(nextTargetTile);
 
-      let moveObject = {
-        agent: this,
-        path: tileXYArrayPath,
-        uuid: v4(),
-        finishedCallback: () => {
-          this.populatePatrolMoveQueue();
+        // this.showMovingPath(tileXYArrayPath);
+
+        let moveObject = {
+          agent: this,
+          path: tileXYArrayPath,
+          uuid: v4(),
+          finishedCallback: () => {
+            this.populatePatrolMoveQueue();
+          }
         }
+        this.moveQueue = moveObject;
+      } else {
+        console.log('no nextTargetTile')
       }
-      this.moveQueue = moveObject;
 
     } else {
       // still have moves left
@@ -419,7 +469,7 @@ yield timeout(1000);
 
           // grab the next waypoint
           let firstMove = this.moveQueue.path[0];
-
+// console.log('patrolTask firstMove', firstMove, this.rexChess.tileXYZ)
           // attempt the move
           this.moveToObject.moveTo(firstMove.x, firstMove.y);
 
@@ -433,7 +483,7 @@ yield timeout(1000);
           }
         }
       }
-      yield timeout(this.patrol.timeout);
+      yield timeout(this.patrol.timeout || 2000);
     }
   }
 
@@ -460,6 +510,7 @@ yield timeout(1000);
   }
 
   transitionToPursuit() {
+    console.error('transitionToPursuit')
     this.agentState = this.ember.constants.AGENTSTATE.MISSILE;
     if(this.patrol.method === this.ember.constants.PATROLMETHOD.STATIC) {
       if (this.engagePlayer.isIdle) {
@@ -472,8 +523,9 @@ yield timeout(1000);
       this.moveQueue = {path:[]};
 
       // Fire and pursue
+      console.error('Fire and pursue')
       if (this.engagePlayer.isIdle) {
-        this.engagePlayer.perform();
+        this.engagePlayer.perform(this);
       }
       if (this.chasePlayer.isIdle) {
         this.chasePlayer.perform();
@@ -482,10 +534,17 @@ yield timeout(1000);
   }
 
   transitionToPatrol() {
-    // console.log('transition to patrol');
-    this.engagePlayer.cancelAll();
+    console.log('transition to patrol', this.agent.playerConfig.texture, this.engagePlayer.concurrency, this.engagePlayer.isRunning);
+    // if (this.engagePlayer.concurrency && this.engagePlayer.isRunning) {
+    //   console.log('show cancelAll')
+    //   this.engagePlayer.cancelAll();
+    //   // this.engagePlayer.cancel();
+    // } else {
+    //   console.log('no engagePlayer tasks running')
+    // }
 
     if (this.agentState !== this.ember.constants.AGENTSTATE.PATROL) {
+      console.log('this.agentState !== this.ember.constants.AGENTSTATE.PATROL', this.agentState)
       this.agentState = this.ember.constants.AGENTSTATE.PATROL;
       if (isPresent(this.patrol.tiles.length) > 0) {
 
@@ -496,24 +555,57 @@ yield timeout(1000);
           this.patrolTask.perform();
         }
       }
+    } else {
+      console.log('this.agentState === this.ember.constants.AGENTSTATE.PATROL', this.agentState)
+
     }
   }
 
+  getRandomNeighborTile() {
+    const neighborChessTile = this.rexChess.board.getTileXYAtDirection(this.rexChess.tileXYZ, this.ember.randomIntFromInterval(0, 5), 3);
+    let canMove = false;
+    if (neighborChessTile) {
+      const allattrs = this.ember.map.getTileAttribute(this.scene, neighborChessTile);
+      canMove = this.ember.playerHasAbilityFlag(this, this.ember.constants.FLAG_TYPE_TRAVEL, allattrs.travelFlags);
+    }
+
+    if (!canMove) {
+      return this.getRandomNeighborTile()
+    }
+    return neighborChessTile;
+  }
   getNextTargetTile() {
     let nextTargetTile;
 
-    if(this.patrol.method === this.ember.constants.PATROLMETHOD.RANDOM) {
-      //random patrol:
-      nextTargetTile = this.patrol.tiles[Math.floor(Math.random() * this.patrol.tiles.length)];
-
-    } else {
-      // rolling patrol:
-      this.currentTargetTileCounter++;
-      if (this.currentTargetTileCounter >= this.patrol.tiles.length) {
-        this.currentTargetTileCounter = 0;
-      }
-      nextTargetTile = this.patrol.tiles[this.currentTargetTileCounter];
+    switch (this.patrol.method) {
+      case this.ember.constants.PATROLMETHOD.RANDOM:
+        nextTargetTile = this.patrol.tiles[Math.floor(Math.random() * this.patrol.tiles.length)];
+        break;
+      case this.ember.constants.PATROLMETHOD.WANDER:
+console.log('getNextTargetTile - Wander');
+        nextTargetTile = this.getRandomNeighborTile();
+        break;
+      default:
+        // rolling patrol:
+        this.currentTargetTileCounter++;
+        if (this.currentTargetTileCounter >= this.patrol.tiles.length) {
+          this.currentTargetTileCounter = 0;
+        }
+        nextTargetTile = this.patrol.tiles[this.currentTargetTileCounter];
+        break;
     }
+    // if(this.patrol.method === this.ember.constants.PATROLMETHOD.RANDOM) {
+    //   //random patrol:
+    //   nextTargetTile = this.patrol.tiles[Math.floor(Math.random() * this.patrol.tiles.length)];
+    //
+    // } else {
+    //   // rolling patrol:
+    //   this.currentTargetTileCounter++;
+    //   if (this.currentTargetTileCounter >= this.patrol.tiles.length) {
+    //     this.currentTargetTileCounter = 0;
+    //   }
+    //   nextTargetTile = this.patrol.tiles[this.currentTargetTileCounter];
+    // }
     return nextTargetTile;
   }
 

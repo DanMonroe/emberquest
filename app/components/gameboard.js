@@ -48,6 +48,7 @@ export default class GameboardComponent extends Component {
 
     this.modals.set('modalsDuration', config.game.modalsDuration);
 
+    // this.emberGameService.gameManager.setLevelStartAndEndXP();
   }
 
   get volumeCSSClass() {

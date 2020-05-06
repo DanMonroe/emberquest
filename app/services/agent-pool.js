@@ -39,7 +39,7 @@ export default class AgentPoolService extends Service {
         animeframes: {
           rest: {key: 'spider-rest', start: 1, end: 2, repeat: -1, rate: 1},
           attack: {key: 'spider-attack', start: 2, end: 14, rate: 12},
-          range: {key: 'spider-range', start: 15, end: 21, rate: 12}
+          range: {key: 'spider-range', start: 15, end: 21, rate: 8}
         },
         inventory: [
           {
@@ -48,13 +48,13 @@ export default class AgentPoolService extends Service {
           {
             bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 2002, droppable: false } ]
           }
-        ],
+        ]
 
-        patrol: {
-          tiles: [
-            // {x: 13, y: 4}, {x: 13, y: 2}
-          ]
-        }
+        // patrol: {
+        //   tiles: [
+        //     // {x: 13, y: 4}, {x: 13, y: 2}
+        //   ]
+        // }
       })
     );
 
@@ -77,13 +77,13 @@ export default class AgentPoolService extends Service {
             [
               { itemId: 2000, droppable: false }  // sword
             ]},
-        ],
+        ]
 
-        patrol: {
-          tiles: [
-            // {x: 13, y: 4}, {x: 13, y: 2}
-          ]
-        }
+        // patrol: {
+        //   tiles: [
+        //     // {x: 13, y: 4}, {x: 13, y: 2}
+        //   ]
+        // }
       })
     );
   }
@@ -108,8 +108,10 @@ export default class AgentPoolService extends Service {
 // healingPower: 1,
     health: 20,
     maxHealth: 20,
-    power: 15,
-    healingPower: 5,
+    power: 25,
+    healingPower: 1,
+    energizePower: 20,
+    energizeSpeed: 3000,
 
     aggressionScale: 1,  // TODO need a better way to track aggression levels
     // aggressionScale: 10,  // TODO need a better way to track aggression levels

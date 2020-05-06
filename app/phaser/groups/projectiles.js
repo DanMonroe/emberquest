@@ -24,7 +24,7 @@ export default class Projectiles extends Phaser.Physics.Arcade.Group {
         projectile.damage = attacker.agent.rangedAttackDamage;
       }
 
-      // projectile.setScale(0.1);
+      // projectile.setScale(0.4);
       projectile.fire(attacker, radians, weapon);
     } else {
       console.warn('No projectiles!')

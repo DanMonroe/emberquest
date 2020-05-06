@@ -82,6 +82,7 @@ export class InventoryItems {
         name: 'Spider Web',
         type: constants.INVENTORY.TYPE.MONSTER,
         bodypart: constants.INVENTORY.BODYPART.RANGED,
+        projectileImg: 'ball',
         stats: [
           new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 3}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),

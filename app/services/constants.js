@@ -26,7 +26,8 @@ const constants = Object.freeze({
   ANIMATION: {
     KEY: {
       REST: 0,
-      ATTACK: 1
+      ATTACK: 1,
+      RANGE: 2
     }
   },
 
@@ -97,20 +98,6 @@ const constants = Object.freeze({
   HEALTH_BONUS_PER_LEVEL: 1.2,
 
   LEVEL_BY_EXPERIENCE: [0,50,70,85,300,400,900,2700,6500,14000,23000,34000,48000,64000,85000,100000],
-
-
-  // LEVEL_1:     0,
-  // LEVEL_2:   300,
-  // LEVEL_3:   900,
-  // LEVEL_4:  2700,
-  // LEVEL_5:  6500,
-  // LEVEL_6: 14000,
-  // LEVEL_7: 23000,
-  // LEVEL_8: 34000,
-  // LEVEL_9: 48000,
-  // LEVEL_10:64000,
-  // LEVEL_11: 85000,
-  // LEVEL_12:100000,
   LEVEL_RANGE_AFTER_12:25000,
 
   COLORS: {
@@ -128,15 +115,12 @@ const constants = Object.freeze({
 
 
   COLOR_HIDDEN: 0x000000,
-  // COLOR_HIDDEN: 0x333333,
 
   ALPHA_POLYGON_VISIBLE_TO_PLAYER: 0,
   ALPHA_POLYGON_HIDDEN_TO_PLAYER: 1,
   ALPHA_OBJECT_VISIBLE_TO_PLAYER: 1,
   ALPHA_OBJECT_HIDDEN_TO_PLAYER: 0,
 
-  // ALPHA_VISIBLE_TO_PLAYER: 0,
-  // ALPHA_HIDDEN_FROM_PLAYER: 1,
   ALPHA_PREVIOUSLY_SEEN: 0.4,
 
   SHAPE_TYPE_PLAYER: 'Player',
@@ -171,7 +155,8 @@ const constants = Object.freeze({
 
   PATROLMETHOD: {
     RANDOM: 'random',
-    STATIC: 'static'
+    STATIC: 'static',
+    WANDER: 'wander'
   },
 
   SPAWNER_TYPE: {

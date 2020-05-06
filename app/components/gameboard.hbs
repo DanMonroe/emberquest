@@ -8,12 +8,25 @@
       <img src="/images/emberquestlogo.png" class="logo" />
       <div class="game-controls">
 
-        <div class="gem-wrapper">
-          {{#if this.emberGameService.gameManager.player}}
-            <span class="gem gem-30"></span>
-            <span class="gems-count">{{this.emberGameService.gameManager.player.gold}} Level {{this.emberGameService.gameManager.player.level}} XP {{this.emberGameService.gameManager.player.experience}}</span>
-          {{/if}}
-        </div>
+
+          <div class="xp-wrapper">
+              <span class="xp xp-30"></span>
+              <div class="xp-bar">
+                <div class="level">
+                    Level {{if this.emberGameService.gameManager.player this.emberGameService.gameManager.player.level "1"}}
+                </div>
+                <div class="xp-bar-outer">
+                  <div class="xp-bar-total" style="width: {{this.emberGameService.gameManager.xpTotalPercentage}}%;"></div>
+                  <div class="xp-bar-percent">{{this.emberGameService.gameManager.xpTotalPercentage}}%</div>
+                </div>
+              </div>
+          </div>
+
+
+          <div class="gem-wrapper">
+              <span class="gem gem-30"></span>
+              <span class="gems-count">{{if this.emberGameService.gameManager.player.gold this.emberGameService.gameManager.player.gold " "}}</span>
+          </div>
         <button type="button" class="btn inventory" {{on "click" (fn this.showInventory)}} >
           <EmberTooltip tooltipClass="tooltip-controls" >Inventory</EmberTooltip>
         </button>
