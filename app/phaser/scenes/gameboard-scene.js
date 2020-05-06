@@ -92,6 +92,12 @@ export class GameboardScene extends Phaser.Scene {
       //       <p>Makes it easy to inject the Phaser game framework into your Ember application.</p>
       //   `);
 
+
+      // this.ember.gameManager.countXP.perform(20)
+      // this.ember.gameManager.countGems.perform(30)
+
+
+
       // full heal:   TODO remove
       if (tileXY.x < 10 && tileXY.y === 0) {
         console.log('heal', this.player);

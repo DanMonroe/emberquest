@@ -3,7 +3,7 @@ import { inject as service } from '@ember/service';
 import { Player } from "../objects/agents/player";
 import { tracked } from '@glimmer/tracking';
 import { timeout } from 'ember-concurrency';
-import { task } from 'ember-concurrency-decorators';
+import { task, enqueueTask } from 'ember-concurrency-decorators';
 import { constants } from 'emberquest/services/constants';
 
 
@@ -17,7 +17,7 @@ export default class GameManagerService extends Service {
 
   @tracked gamePaused = true;
 
-  counterSpeed = 3000;
+  counterSpeed = 1000;
   // @tracked levelStartXP;
   // @tracked levelEndXP;
   // @tracked levelXPRange;
@@ -35,11 +35,11 @@ export default class GameManagerService extends Service {
   transports = {};
 
   spawnLocations = {
-    players : [],
-    chests : [],
-    monsters : [],  // same as agent?
-    agents : [],
-    transports : []
+    players: [],
+    chests: [],
+    monsters: [],  // same as agent?
+    agents: [],
+    transports: []
   }
 
   setup(scene) {
@@ -74,6 +74,42 @@ export default class GameManagerService extends Service {
     return Math.min(100, Math.floor((this.xpSinceStartXP / this.levelXPRange) * 100));
   }
 
+  @enqueueTask
+  *countXP(xpToAdd) {
+    let xpGainedCounter = 0;
+    const timeoutDelay = Math.floor(this.counterSpeed / xpToAdd);
+    console.log('timeoutDelay', timeoutDelay)
+    while (xpGainedCounter < xpToAdd) {
+      xpGainedCounter++;
+      this.player.experience++;
+
+      // this.xpTotal = Math.min(100, Math.floor(((xpSinceStartXP + this.xpGainedCounter) / this.levelXPRange) * 100));
+
+      // if (this.player.experience >= this.levelEndXP) {
+      //   this.levelUp();
+      // }
+      yield timeout(timeoutDelay);
+    }
+  }
+
+  @enqueueTask
+  *countGems(gemsToAdd) {
+    let gemsGainedCounter = 0;
+    const timeoutDelay = Math.floor(this.counterSpeed / gemsToAdd);
+    console.log('timeoutDelay', timeoutDelay)
+    while (gemsGainedCounter < gemsToAdd) {
+      gemsGainedCounter++;
+      this.player.gold++;
+
+      // this.xpTotal = Math.min(100, Math.floor(((xpSinceStartXP + this.xpGainedCounter) / this.levelXPRange) * 100));
+
+      // if (this.player.experience >= this.levelEndXP) {
+      //   this.levelUp();
+      // }
+      yield timeout(timeoutDelay);
+    }
+
+  }
 
   // setLevelStartAndEndXP() {
   //   if (this.player) {
@@ -414,17 +450,16 @@ console.log('equippedRangedWeapon', equippedRangedWeapon)
 
     const experienceAwarded = enemy.agent.experienceAwarded;
 
-    // player.experience += experienceAwarded || 0;
-    // // player.experience += enemy.agent.xpGain || 0;
-    // player.gold += enemy.agent.gold || 0;
+    this.countXP.perform(experienceAwarded || 0);
+    this.countGems.perform(enemy.agent.gold || 0);
 
     // show dialog
-    this.ember.epmModalContainerClass = 'victory';
-    await this.modals.open('victory-dialog', {
-      player: player,
-      xp: experienceAwarded || 0,
-      gems: enemy.agent.gold || 0
-    });
+    // this.ember.epmModalContainerClass = 'victory';
+    // await this.modals.open('victory-dialog', {
+    //   player: player,
+    //   xp: experienceAwarded || 0,
+    //   gems: enemy.agent.gold || 0
+    // });
 
     await this.saveSceneData();
 

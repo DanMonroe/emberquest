@@ -10,7 +10,7 @@
 
 
           <div class="xp-wrapper">
-              <span class="xp xp-30"></span>
+              <span class="xp xp-30{{if this.emberGameService.gameManager.countXP.isRunning " pulse"}}"></span>
               <div class="xp-bar">
                 <div class="level">
                     Level {{if this.emberGameService.gameManager.player this.emberGameService.gameManager.player.level "1"}}
@@ -24,7 +24,7 @@
 
 
           <div class="gem-wrapper">
-              <span class="gem gem-30"></span>
+              <span class="gem gem-30{{if this.emberGameService.gameManager.countGems.isRunning " pulse"}}"></span>
               <span class="gems-count">{{if this.emberGameService.gameManager.player.gold this.emberGameService.gameManager.player.gold " "}}</span>
           </div>
         <button type="button" class="btn inventory" {{on "click" (fn this.showInventory)}} >
