@@ -21,7 +21,7 @@ export default class AgentContainer extends BasePhaserAgentContainer {
 
     this.agent = agent;
     this.config = config;
-    this.showPowerBar = true;
+    this.showPowerBar = false;
 
     this.setupSprite();
 
@@ -234,12 +234,32 @@ export default class AgentContainer extends BasePhaserAgentContainer {
 
   @restartableTask
   *engagePlayer(agentContainer) {
-console.log('engage player', agentContainer.agent.playerConfig.texture)
+console.log('engage player', agentContainer.agent.playerConfig.texture, this.agentState)
     this.attack.cancelAll();
     this.chasePlayer.cancelAll();
     this.patrolTask.cancelAll();
 
-    let engageCount = 0;
+    if (agentContainer.scene.board.areNeighbors(agentContainer.rexChess.tileXYZ, agentContainer.ember.playerContainer.rexChess.tileXYZ)) {
+      console.log('----  neighbors.. use melee')
+      this.agentState = this.ember.constants.AGENTSTATE.MELEE;
+    } else {
+      console.log('----  not neighbors.. use missile')
+      const equippedMeleeWeapon = agentContainer.agent.equippedMeleeWeapon;
+      const equippedRangedWeapon = agentContainer.agent.equippedRangedWeapon;
+
+      if (equippedRangedWeapon) {
+        console.log('  got ranged weapon..go ahead and shoot')
+      } else {
+        console.log('  no ranged weapon..use melee or chase?')
+        this.agentState = this.ember.constants.AGENTSTATE.MISSILE;
+        this.chasePlayer.perform();
+        return;
+      }
+
+
+    }
+
+      let engageCount = 0;
     switch (this.agentState) {
       case this.ember.constants.AGENTSTATE.MISSILE:
         while(this.agentState === this.ember.constants.AGENTSTATE.MISSILE && engageCount <= 50) {
@@ -267,7 +287,14 @@ console.log('engage player', agentContainer.agent.playerConfig.texture)
             if (agentContainer.scene.board.areNeighbors(agentContainer.rexChess.tileXYZ, agentContainer.ember.playerContainer.rexChess.tileXYZ)) {
               yield this.attack.perform();
             } else {
-              this.transitionToPatrol();
+              const shouldPursue = agentContainer.checkAggression(agentContainer);
+              if (shouldPursue) {
+                console.log('meleee...  chase em')
+                this.chasePlayer.perform();
+              } else {
+                console.log('meleee...  run away')
+                this.transitionToPatrol();
+              }
             }
           } else {
             return; // game paused while we were in loop
@@ -279,9 +306,9 @@ console.log('engage player', agentContainer.agent.playerConfig.texture)
     }
   }
 
-  @task
+  @restartableTask
   *chasePlayer() {
-    // console.log('chasePlayerTask')
+    console.log('chasePlayerTask')
     // and player is still alive
     while(this.agentState === this.ember.constants.AGENTSTATE.MISSILE) {
       if (!this.ember.gameManager.gamePaused) {
@@ -312,7 +339,8 @@ console.log('engage player', agentContainer.agent.playerConfig.texture)
   *attack() {
     if (this.ember.gameManager.gamePaused) { return }
 
-    let equippedMeleeWeapon,equippedRangedWeapon;
+    const equippedMeleeWeapon = this.agent.equippedMeleeWeapon;
+    const equippedRangedWeapon = this.agent.equippedRangedWeapon;
     switch (this.agentState) {
       case this.ember.constants.AGENTSTATE.MISSILE:
 console.log('Agent Ranged Attack!');
@@ -321,8 +349,8 @@ yield timeout(1000);
           return;
         }
 
-        equippedRangedWeapon = this.agent.equippedRangedWeapon;
-        // console.log('equippedRangedWeapon', equippedRangedWeapon)
+        // equippedRangedWeapon = this.agent.equippedRangedWeapon;
+        console.log('equippedRangedWeapon', equippedRangedWeapon)
         if (equippedRangedWeapon && this.ember.gameManager.hasEnoughPowerToUseItem(equippedRangedWeapon, this.agent)) {
 
           // find a way to play appropriate sound
@@ -341,12 +369,14 @@ yield timeout(1000);
             yield timeout(this.ember.constants.BASE_ATTACK_TIMEOUT); // cooldown
           }
 
+        } else {
+
         }
         break;
       case this.ember.constants.AGENTSTATE.MELEE:
         // console.log('Agent Melee Attack!');
-        equippedMeleeWeapon = this.agent.equippedMeleeWeapon;
-        // console.log('agent equippedMeleeWeapon', equippedMeleeWeapon.name, equippedMeleeWeapon)
+        // equippedMeleeWeapon = this.agent.equippedMeleeWeapon;
+        console.log('agent equippedMeleeWeapon', equippedMeleeWeapon.name, equippedMeleeWeapon)
 // debugger;
         if (equippedMeleeWeapon) {
           if (this.agent.power < equippedMeleeWeapon.powerUse) {
@@ -501,12 +531,16 @@ yield timeout(1000);
     // console.log('transition to melee');
     const currentState = this.agentState;
     this.agentState = this.ember.constants.AGENTSTATE.MELEE;
-    if (this.engagePlayer.isIdle) {
+    // if (this.engagePlayer.isIdle) {
       this.engagePlayer.perform(agentContainer);
-    } else {
+      if (this.chasePlayer.isIdle) {
+        this.chasePlayer.perform();
+      }
+
+    // } else {
       // go back to original state
-      this.agentState = currentState;
-    }
+      // this.agentState = currentState;
+    // }
   }
 
   transitionToPursuit() {

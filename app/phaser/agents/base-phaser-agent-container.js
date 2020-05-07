@@ -11,8 +11,8 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
 
   isPlayer = false;
 
-  showPowerBar = true;
-  // showPowerBar = false;
+  // showPowerBar = true;
+  showPowerBar = false;
 
   @tracked aggressionScale = 0;
 
