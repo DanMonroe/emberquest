@@ -45,6 +45,7 @@ export class GameboardScene extends Phaser.Scene {
   init(data){
     console.log('gameboard init', data)
     this.mapname = data.map;
+    // this.mapData = data.mapData;
     this.storedData = data;
     this.storedPlayerTile = data.storedPlayerTile;
     this.allSeenTiles = data.allSeenTiles || new Set();
@@ -58,6 +59,7 @@ export class GameboardScene extends Phaser.Scene {
   // async preload() {
   preload() {
     this.ember = this.game.ember;
+    // this.mapData = await this.ember.map.getDynamicMapData(this.mapname);
     this.mapData = this.ember.map.getMapData(this.mapname);
     this.textures.remove('map');
     this.load.image('map', this.mapData.mapUrl);

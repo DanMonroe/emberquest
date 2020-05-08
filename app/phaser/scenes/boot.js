@@ -4,14 +4,61 @@ export class BootScene extends Phaser.Scene {
 
   ember = undefined;
 
+  width = 1;
+  height = 1;
+
+  scaleX = 1;
+  offsetX = 1;
+  offsetY = 1;
+  barWidth = 1;
+  barHeight = 1;
+
   constructor() {
     super({
-      key: 'Boot'
+      key: 'Boot',
+      pack: {
+        files: [ { type: 'image', key: 'loading', url: '/images/loading_background.png' } ]
+      }
     });
   }
 
   preload() {
     this.ember = this.game.ember;
+
+    this.width = this.cameras.main.width;
+    this.height = this.cameras.main.height;
+
+    const loading = this.add.image(0, 0, 'loading').setOrigin(0,0);
+    loading.displayWidth = this.width;
+    loading.scaleY = loading.scaleX;
+    this.scaleX = loading.scaleX;
+
+    this.offsetX = (loading.displayWidth / 2) - (123.886989553656212 * this.scaleX);
+    this.offsetY = (loading.displayHeight / 2) - (43 * this.scaleX);
+    this.barWidth = (246.476733143399793 * this.scaleX);
+    this.barHeight = (20 * this.scaleX);
+    // console.log('this.offsetX = ', this.offsetX)
+    // console.log('this.offsetY = ', this.offsetY)
+    // console.log('this.barWidth = ', this.barWidth)
+    // console.log('this.barHeight = ', this.barHeight)
+    // console.log('loading.displayWidth = ', loading.displayWidth)
+    // console.log('loading.displayHeight = ', loading.displayHeight)
+
+
+    // https://gamedevacademy.org/creating-a-preloading-screen-in-phaser-3/
+
+    this.newGraphics = this.add.graphics();
+    const progressBarFill = new Phaser.Geom.Rectangle(this.width/2, this.height/2, 190, 15);
+
+    console.log('height', this.height, 'width', this.width, 'loading.scaleX', this.scaleX)
+
+    this.newGraphics.fillStyle(0xff0000, 1);
+    this.newGraphics.fillRectShape(progressBarFill);
+
+    const fontSize = `${(26 * this.scaleX)}px`;
+    console.log('fontSize', fontSize)
+
+    const loadingText = this.add.text(this.offsetX - (35 * this.scaleX),this.offsetY + (60 * this.scaleX),"Loading: ", { fontSize: fontSize, fill: '#222' });
 
     // load images
     this.loadImages();
@@ -22,6 +69,37 @@ export class BootScene extends Phaser.Scene {
     // load audio
     this.loadAudio();
 
+    this.load.on('progress', this.updateBar, {
+      newGraphics:this.newGraphics,
+      loadingText:loadingText,
+      x:this.offsetX,
+      y:this.offsetY,
+      barWidth: this.barWidth,
+      barHeight: this.barHeight
+    });
+    this.load.on('fileprogress', this.updateFileProgress, {loadingText:loadingText});
+    this.load.on('complete', this.complete,{loadingText:loadingText});
+
+  }
+
+  updateFileProgress(file) {
+    // console.log(file);
+    this.loadingText.setText('Loading: ' + file.key);
+  }
+
+  updateBar(percentage) {
+    this.newGraphics.clear();
+    this.newGraphics.fillStyle(0xfab328, 1);
+    // console.log('x', this.x, 'y', this.y, 'barWidth', this.barWidth, 'barHeight', this.barHeight)
+
+    this.newGraphics.fillRectShape(new Phaser.Geom.Rectangle(this.x, this.y, percentage*this.barWidth, this.barHeight));
+
+    percentage = percentage * 100;
+  }
+
+  complete() {
+    this.loadingText.setText('Enjoy!');
+    // debugger;
   }
 
   loadImages() {
@@ -48,10 +126,6 @@ export class BootScene extends Phaser.Scene {
     this.load.spritesheet('young-ogre', '/images/monsters/young-ogre.png', { frameWidth: 72, frameHeight: 72 });
     this.load.spritesheet('spider', '/images/monsters/spider.png', { frameWidth: 72, frameHeight: 72 });
 
-
-
-
-
   }
 
   loadAudio() {
@@ -72,8 +146,12 @@ export class BootScene extends Phaser.Scene {
   }
 
   create() {
+    // this.add.image(10, 30, 'emberquestlogo');
+
 
     this.game.ember.initializeCachesAlreadyFound();
+
+    // let data = {};
 
     this.game.ember.loadGameData("gameboard")
       .then(gameboardData => {
@@ -83,7 +161,7 @@ export class BootScene extends Phaser.Scene {
         let data = {'map': 'intro'}  // default initial map
         if (gameboardData) {
           const sceneData =   gameboardData.sceneData[gameboardData.currentMap] || { allSeenTiles: [], storedTransports: [], boarded: 0};
-console.log('sceneData', sceneData)
+// console.log('sceneData', sceneData)
           data = {
             'map': gameboardData.currentMap,
 
@@ -97,6 +175,15 @@ console.log('sceneData', sceneData)
             'boarded': sceneData.boarded
           }
         }
+// console.log('boot 1 - data', data)
+//         this.ember.map.getDynamicMapData(data.map)
+//           .then((mapData) => {
+// console.log('boot 2', mapData)
+//             debugger;
+//             data.mapData = mapData;
+
+            // this.scene.start('gameboard',  data);
+          // })
 
         this.scene.start('gameboard',  data);
       });

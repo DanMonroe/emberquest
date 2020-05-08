@@ -70,7 +70,7 @@ export default class GameManagerService extends Service {
   }
 
   get xpTotalPercentage() {
-    console.log('xpTotalPercentage levelStartXP', this.levelStartXP, 'levelEndXP', this.levelEndXP, 'XP', this.player ? this.player.experience : 0)
+    // console.log('xpTotalPercentage levelStartXP', this.levelStartXP, 'levelEndXP', this.levelEndXP, 'XP', this.player ? this.player.experience : 0)
     return Math.min(100, Math.floor((this.xpSinceStartXP / this.levelXPRange) * 100));
   }
 
@@ -78,7 +78,7 @@ export default class GameManagerService extends Service {
   *countXP(xpToAdd) {
     let xpGainedCounter = 0;
     const timeoutDelay = Math.floor(this.counterSpeed / xpToAdd);
-    console.log('timeoutDelay', timeoutDelay)
+    // console.log('timeoutDelay', timeoutDelay)
     while (xpGainedCounter < xpToAdd) {
       xpGainedCounter++;
       this.player.experience++;
@@ -96,7 +96,7 @@ export default class GameManagerService extends Service {
   *countGems(gemsToAdd) {
     let gemsGainedCounter = 0;
     const timeoutDelay = Math.floor(this.counterSpeed / gemsToAdd);
-    console.log('timeoutDelay', timeoutDelay)
+    // console.log('timeoutDelay', timeoutDelay)
     while (gemsGainedCounter < gemsToAdd) {
       gemsGainedCounter++;
       this.player.gold++;

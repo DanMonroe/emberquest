@@ -142,7 +142,7 @@ export default class SpawnerService extends Service {
             // assign any properties
             Object.assign(agentConfigFromPool.patrol, locationClone.patrol)
           }
-console.log('            || agentConfigFromPool', agentConfigFromPool, 'locationClone', locationClone)
+// console.log('            || agentConfigFromPool', agentConfigFromPool, 'locationClone', locationClone)
 
           const agent = new Agent(locationClone.x, locationClone.y, Object.assign(locationClone, agentConfigFromPool));
           // console.log('               ++ agent', agent)
@@ -185,7 +185,7 @@ console.log('            || agentConfigFromPool', agentConfigFromPool, 'location
       return undefined;
     }
     const agentKey = agentPool[Math.floor(Math.random() * agentPool.length)];
-    console.log('         >>  pick random agent', agentKey);
+    // console.log('         >>  pick random agent', agentKey);
 
     if (!agentKey) {
       return undefined;
@@ -223,14 +223,14 @@ console.log('            || agentConfigFromPool', agentConfigFromPool, 'location
   }
 
   addAgent(agent) {
-    console.log('*** spawner service - add agent', agent.id, agent.x, agent.y)
+    // console.log('*** spawner service - add agent', agent.id, agent.x, agent.y)
 
 // console.log('addAgent - deadAgents', this.scene.deadAgents)
 //     if ( ! (this.scene.deadAgents && this.scene.deadAgents.has(agent.objectConfig.id))) {
       this.agents.push(agent);
       // this.agents.push(agent.id);
 
-    console.log('*** spawner service - agent count', this.agents.length)
+    // console.log('*** spawner service - agent count', this.agents.length)
 
       this.scene.events.emit('agentSpawned', agent);
 

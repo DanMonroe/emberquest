@@ -5,8 +5,10 @@ import intro2 from '../phaser/scenes/tiledata/intro2';
 import cave1 from '../phaser/scenes/tiledata/cave1';
 import landsea from '../phaser/scenes/tiledata/landsea'
 import play from '../phaser/scenes/tiledata/play'
+
+
+// import {play} from './../node_modules/map-data/play';
 // import {cave1} from './../node_modules/map-data/cave1';
-// import {landsea} from '/map-data'
 
 export default class MapService extends Service {
 
@@ -30,14 +32,16 @@ export default class MapService extends Service {
   }
 
   // async getMap(mapToLoad) {
-  //   const module = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/cave1');
+  //   // DOH.. Build Error:  ember-auto-import only supports dynamic import() with a string literal argument.
+  //   // const module = await import(/* webpackChunkName: "chunkName" */ `emberquest-map-data/tiledata/${mapToLoad}`);
+  //   const module = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/play');
   //
   //   console.log('mapData', mapToLoad, module)
   //   return module;
   //
   // }
   //
-  // async getMapData(mapToLoad) {
+  // async getDynamicMapData(mapToLoad) {
   //   console.log('1')
   //   let map = this.getMap(mapToLoad);
   //   console.log('2', map);

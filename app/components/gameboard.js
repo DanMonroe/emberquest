@@ -5,6 +5,7 @@ import config from 'emberquest/config/environment';
 
 import Phaser from "phaser";
 import {BootScene} from "../phaser/scenes/boot";
+// import {LoadingScene} from "../phaser/scenes/loading-scene";
 import {GameboardScene} from "../phaser/scenes/gameboard-scene";
 import rexBoardPlugin from "phaser3-rex-plugins/plugins/board-plugin";
 
@@ -23,6 +24,11 @@ export default class GameboardComponent extends Component {
         gravity: {y: 0},
         debug: false
       }
+    },
+    pack: {
+      files: [
+        { type: 'image', key: 'logo', url: '/images/emberquestlogo.png' }
+      ]
     },
     scene: [BootScene, GameboardScene],
     plugins: {
