@@ -136,7 +136,8 @@ export class BootScene extends Phaser.Scene {
     this.load.audio('arrow', ['/audio/sounds/arrow.mp3']);
 
 
-    this.load.audio('music1', ['/audio/music/uncharted_territory_justin_monroe.mp3']);
+    // this.load.audio('music1', ['/audio/music/uncharted_territory_justin_monroe.mp3']);
+
     // this.load.audio('music1', ['/audio/warframe_ost.mp3']);
 
     // this.load.audio('enemyDeath', ['assets/audio/EnemyDeath.wav']);

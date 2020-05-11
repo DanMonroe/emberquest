@@ -291,21 +291,21 @@ export default class GameService extends Service {
     const board = moveTo.scene.board;
 
     let tileXYArray = playerContainer.fov.clearDebugGraphics().findFOV(playerContainer.visiblePoints);
-    console.log('checkForAgents - findFOV', tileXYArray);
+// console.log('checkForAgents - findFOV', tileXYArray);
     let tileXY;
     for (let i = 0, cnt = tileXYArray.length; i < cnt; i++) {
       tileXY = tileXYArray[i];
       const fovShapes = this.map.getGameObjectsAtTileXY(board, tileXY, constants.SHAPE_TYPE_AGENT);
       if (fovShapes && fovShapes.length > 0) {
         fovShapes.forEach(fovShapeAgent => {
-console.log('fovShapeAgent', fovShapeAgent)
+// console.log('fovShapeAgent', fovShapeAgent)
           const shouldPursue = fovShapeAgent.checkAggression(fovShapeAgent);
-console.log('shouldPursue', shouldPursue)
+// console.log('shouldPursue', shouldPursue)
           if (board.areNeighbors(playerContainer, fovShapeAgent)) {
-            console.log('  is neighbor')
+            // console.log('  is neighbor')
             fovShapeAgent.transitionToMelee(fovShapeAgent);
           } else {
-            console.log('not neighbor')
+            // console.log('not neighbor')
             fovShapeAgent.transitionToPursuit(fovShapeAgent);
           }
         });

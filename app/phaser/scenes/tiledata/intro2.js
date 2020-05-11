@@ -13,6 +13,12 @@ export default {
     {id: 1, x: 10, y: 3, gccode: 'GC002', gold: 20, specialActions: []}
   ],
 
+  uniques: {
+    agents: [
+      {uniqueId: 1, x: 13, y: 4, agentKey: 'young-ogre', patrol: { method: 'random', tiles: [{x: 13, y: 4}, {x: 13, y: 2}] } }
+    ]
+  },
+
   spawnLocations : {
     players: [{x: 5, y: 7}], // tiles where the player may spawn
     transports: {
@@ -22,9 +28,9 @@ export default {
     },
     agents: {
       spawnInterval: 3000,
-      limit: 1,
+      limit: 3,
       locations: [
-        {id: 1, x: 13, y: 4, pool: [ 'young-ogre' ], patrol: { method: 'random', tiles: [{x: 13, y: 4}, {x: 13, y: 2}] } }
+        // {id: 1, x: 13, y: 4, pool: [ 'young-ogre' ], patrol: { method: 'random', tiles: [{x: 13, y: 4}, {x: 13, y: 2}] } }
       ],
       globalPool: []
     }

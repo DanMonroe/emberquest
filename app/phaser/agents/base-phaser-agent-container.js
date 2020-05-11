@@ -154,7 +154,9 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
 
   updateHealthBar() {
     // console.log('updateHealthBar this', this.agent.health, this.agent.maxHealth)
-    const healthPercentage = (this.agent.health / this.agent.maxHealth);
+    // const healthPercentage = (this.agent.health / this.agent.maxHealth);
+    let healthPercentage = this.agent.health / this.agent.maxHealth;
+    healthPercentage = healthPercentage <= 1 ? healthPercentage : 1;
     this.healthBar.clear();
     this.healthBar.fillStyle(0xffffff, 0.4);
     this.healthBar.fillRect(this.x + this.ember.constants.healthBarOffsetX, this.y + this.ember.constants.healthBarOffsetY, this.ember.constants.healthBarWidth, this.ember.constants.healthBarHeight);
@@ -163,8 +165,10 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
     // console.log('this.healthBar', this.healthBar, this.id)
 
     if (this.showPowerBar) {
+      // const powerPercentage = (this.agent.power / this.agent.maxPower);
+      let powerPercentage = this.agent.power / this.agent.maxPower;
+      powerPercentage = powerPercentage <= 1 ? powerPercentage : 1;
 
-      const powerPercentage = (this.agent.power / this.agent.maxPower);
       this.powerBar.clear();
       this.powerBar.fillStyle(0xffffff, 0.4);
       this.powerBar.fillRect(this.x + this.ember.constants.powerBarOffsetX, this.y + this.ember.constants.powerBarOffsetY, this.ember.constants.powerBarWidth, this.ember.constants.powerBarHeight);
@@ -181,9 +185,49 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
   checkAggression(agentContainer) {
     // const isNeighbor = this.scene.board.areNeighbors(agentContainer.rexChess.tileXYZ, agentContainer.ember.playerContainer.rexChess.tileXYZ);
     // console.log('checkAggression isNeighbor', isNeighbor)
+    /*
+
+    level difference between player and agent
+    player level - agent level
+    4 - 1 = 3     * -1 = -3
+    4 - 2 = 2     * -1 = -2
+    4 - 3 = 1     * -1 = -1
+    4 - 4 = 0     * -1 = 0
+    4 - 5 = -1    * -1 = 1
+    4 - 6 = -2    * -1 = 2
+
+    aggressionScale * health percentage
+    5 * 1  =  5  100% healthy
+    5 * .1  = .5  almost dead
+
+   -3 + 5  = 2      level 3 diff, healthy
+   -3 + .5  = -2.5  level 3 diff, almost dead
+
+   0 + 3  = 3  same level, aggressionScale = 3, healthy
+
+   -2 + 5  = 3
+   -1 + 5  = 4
+   0 + 5  = 5   same level, healthy
+   0 + .5  = .5   same level, almost dead
+
+
+
+     */
+    // debugger;
+
+
+    const levelDiff = Math.abs(this.ember.playerContainer.agent.level - agentContainer.agent.level);
+
+
+    const healthPercentage = this.agent.health / this.agent.maxHealth;
+    const aggressionTimesHealthPercentage = agentContainer.aggressionScale * healthPercentage;
+    // console.warn('      final', aggressionTimesHealthPercentage - levelDiff);
+
+    return aggressionTimesHealthPercentage - levelDiff > 2;
+
 
     // TODO implement.  check to see if they want to fight, or run away, etc
-    return agentContainer.aggressionScale > 5; // TODO just picked a number higher than 1
+    // return agentContainer.aggressionScale > 6; // TODO just picked a number higher than 1
     // return true;
   }
 

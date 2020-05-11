@@ -204,7 +204,7 @@ export default class GameManagerService extends Service {
   }
 
   setupSpawners() {
-    this.spawnerService.setup(this.scene, this.scene.mapData.spawnLocations);
+    this.spawnerService.setup(this.scene);
   }
 
   spawnPlayer() {
@@ -380,7 +380,7 @@ export default class GameManagerService extends Service {
         // get attackers weapon (in right hand?)
         const equippedRangedWeapon = attacker.agent.equippedRangedWeapon;
 
-console.log('equippedRangedWeapon', equippedRangedWeapon)
+console.log('game-manager - equippedRangedWeapon', equippedRangedWeapon)
         if (equippedRangedWeapon && this.hasEnoughPowerToUseItem(equippedRangedWeapon, attacker.agent)) {
 
           const isInLineOfSight = attacker.ember.playerContainer.fov.isInLOS(agentToAttack.rexChess.tileXYZ);
@@ -436,12 +436,13 @@ console.log('equippedRangedWeapon', equippedRangedWeapon)
   async enemyVictory(enemy, player, scene) {
     this.pauseGame(true);
 
-    scene.deadAgents.add(enemy.id);
+    // Only save unique dead agents
+    if (enemy.agent.playerConfig.uniqueId) {
+      scene.deadAgents.add(enemy.agent.playerConfig.uniqueId);
+    }
 
     enemy.agentState = this.ember.constants.AGENTSTATE.DEAD;
-
     scene.ember.gameManager.spawnerService.deleteAgent(enemy);
-
     enemy.healthBar.destroy();
     enemy.destroy();
 

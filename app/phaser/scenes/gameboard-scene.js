@@ -78,7 +78,7 @@ export class GameboardScene extends Phaser.Scene {
     this.boardExperiments();
     this.ember.saveSceneData(this);
 
-    this.musicAudio.play();
+    // this.musicAudio.play();
   }
 
   boardExperiments() {
@@ -192,8 +192,9 @@ console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.
     agentContainer.setVisibility();
 
     if (agentObject.objectConfig.patrol.tiles.length) {
-      agentContainer.populatePatrolMoveQueue();
-      agentContainer.patrolTask.perform();
+      agentContainer.transitionToPatrol();
+      // agentContainer.populatePatrolMoveQueue();
+      // agentContainer.patrolTask.perform();
     }
   }
 
@@ -243,7 +244,7 @@ console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.
   createAudio() {
     this.goldPickupAudio = this.sound.add('pickup', { loop: false, volume: 0.5 });
     this.openDoorAudio = this.sound.add('open_door_1', { loop: false, volume: 0.5 });
-    this.musicAudio = this.sound.add('music1', { loop: true, volume: 0 });
+    // this.musicAudio = this.sound.add('music1', { loop: true, volume: 0 });
 
     this.swordMiss = this.sound.add('sword_miss', { loop: false, volume: 0.5 });
     this.arrow = this.sound.add('arrow', { loop: false, volume: 0.4, rate: 2 });

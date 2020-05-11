@@ -55,9 +55,9 @@ export default {
           },
           patrol: {
             // timeout: 200,
-            timeout: 2000,
-            pursuitSpeed: 1500,
-            aggressionSpeedTimeout: 1000,
+            // timeout: 2000,
+            // pursuitSpeed: 1500,
+            // aggressionSpeedTimeout: 1000,
             // aggressionTimeout: 1000,  // delay time in between aggression turns
             method: 'random',
             tiles: [

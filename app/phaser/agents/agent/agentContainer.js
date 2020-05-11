@@ -16,7 +16,7 @@ export default class AgentContainer extends BasePhaserAgentContainer {
 
   constructor(scene, config, agent) {
     super(scene, config);
-
+// console.warn('AGENT CONTAINER CONFIG', config)
     this.containerType = this.ember.constants.SHAPE_TYPE_AGENT;
 
     this.agent = agent;
@@ -43,23 +43,16 @@ export default class AgentContainer extends BasePhaserAgentContainer {
     this.moveToObject.moveableTestCallback = (curTile, targetTile, pathFinder) => {
 
       if (this.moveToObject.isRunning) {
-      // if (this.moveToObject.isRunning || this.power <= 1) {
-      //   console.log('is running - return false')
         return false;
       }
 
       const allattrs = this.ember.map.getTileAttribute(pathFinder.scene, targetTile);
       let canMove = this.ember.playerHasAbilityFlag(this, this.ember.constants.FLAG_TYPE_TRAVEL, allattrs.travelFlags);
 
-      // console.log('allattrs', allattrs, targetTile, pathFinder.scene, 'canMove', canMove)
-
       if (!canMove) {
         // console.log('cant move! targetTile', targetTile, 'travelFlags', allattrs.travelFlags, 'wesnoth', allattrs.wesnoth);
-
       } else if ( ! this.boardedTransport) {  // don't adjust speed/power when on a transport
-
         this.moveToObject.setSpeed(config.speed * allattrs.speedCost);
-
       }
 
       return canMove;
@@ -154,8 +147,6 @@ export default class AgentContainer extends BasePhaserAgentContainer {
 
     // start playing the rest animation
     this.playAnimation(this.ember.constants.ANIMATION.KEY.REST);
-
-
   }
 
   stopAnimation() {
@@ -195,22 +186,43 @@ export default class AgentContainer extends BasePhaserAgentContainer {
     }
   }
 
-  moveToComplete() {
+  @task
+  *timeoutTask(agentContainer) {
+    // console.log('timeoutTask', agentContainer);
+    switch (this.agentState) {
+      case this.ember.constants.AGENTSTATE.IDLE:
+        break;
+      case this.ember.constants.AGENTSTATE.PATROL:
+        yield timeout(agentContainer.patrol.timeout || 2000);
+        break;
+      case this.ember.constants.AGENTSTATE.PURSUIT:
+        yield timeout(agentContainer.patrol.aggressionSpeedTimeout || 1500);
+        break;
+      default:
+        console.log('=== AGENT STATE: UNKNOWN', this.agentState);
+        yield timeout(5000);
+    }
+
+  }
+
+  async moveToComplete() {
     const agentContainer = arguments[0];
 
-    console.log('agent moveToComplete', agentContainer.agent.playerConfig.texture, agentContainer.agent);
+    console.log('agent moveToComplete', agentContainer.agent.playerConfig.texture);
+    // console.log('agent moveToComplete', agentContainer.agent.playerConfig.texture, agentContainer.agent);
+    agentContainer.describeAgentState();
 
-// return;
+    await agentContainer.timeoutTask.perform(agentContainer);
+
     // set visibility of agent after it moves.
-
-    // TODO Seems like the health bar should also be set when the container is set??
 
     if (agentContainer.rexChess.tileXYZ) {
       const isNeighbor = agentContainer.scene.board.areNeighbors(agentContainer.rexChess.tileXYZ, agentContainer.ember.playerContainer.rexChess.tileXYZ);
 
-      // console.log('checkAggression isNeighbor', isNeighbor)
+// console.log('   isNeighbor', isNeighbor, 'checkAggression', agentContainer.checkAggression(agentContainer))
 
       if (isNeighbor && agentContainer.checkAggression(agentContainer)) {
+console.log('      do transitionToMelee')
           agentContainer.transitionToMelee(agentContainer);
       } else {
         const isInLOS = agentContainer.ember.playerContainer.fov.isInLOS(agentContainer.rexChess.tileXYZ);
@@ -218,8 +230,9 @@ export default class AgentContainer extends BasePhaserAgentContainer {
         agentContainer.setVisibilityIfInLineOfSight(agentContainer, isInLOS);
 
         if (isInLOS) {
+          console.log('      is in LOS')
           const shouldPursue = agentContainer.checkAggression(agentContainer);
-  console.log('>>>>> shouldPursue', shouldPursue)
+          console.warn('         >>>>> shouldPursue', shouldPursue)
           if (shouldPursue) {
             agentContainer.transitionToPursuit();
           } else {
@@ -231,38 +244,67 @@ export default class AgentContainer extends BasePhaserAgentContainer {
     }
   }
 
+  setAgentState(newState) {
+    this.agentState = newState;
+    this.describeAgentState();
+  }
 
-  @restartableTask
+  describeAgentState() {
+    switch (this.agentState) {
+      case this.ember.constants.AGENTSTATE.IDLE:
+        console.log('=== AGENT STATE: IDLE');
+        break;
+      case this.ember.constants.AGENTSTATE.PATROL:
+        console.log('=== AGENT STATE: PATROL');
+        break;
+      case this.ember.constants.AGENTSTATE.MELEE:
+        console.log('=== AGENT STATE: MELEE');
+        break;
+      case this.ember.constants.AGENTSTATE.MISSILE:
+        console.log('=== AGENT STATE: MISSILE');
+        break;
+      case this.ember.constants.AGENTSTATE.PURSUE:
+        console.log('=== AGENT STATE: PURSUE');
+        break;
+      default:
+        console.log('=== AGENT STATE: UNKNOWN', this.agentState);
+    }
+  }
+
+  @task
+  // @restartableTask
   *engagePlayer(agentContainer) {
-console.log('engage player', agentContainer.agent.playerConfig.texture, this.agentState)
+    console.log('               engagePlayer')
+// console.log('engage player', agentContainer.agent.playerConfig.texture, this.agentState)
     this.attack.cancelAll();
     this.chasePlayer.cancelAll();
     this.patrolTask.cancelAll();
 
     if (agentContainer.scene.board.areNeighbors(agentContainer.rexChess.tileXYZ, agentContainer.ember.playerContainer.rexChess.tileXYZ)) {
-      console.log('----  neighbors.. use melee')
-      this.agentState = this.ember.constants.AGENTSTATE.MELEE;
+      console.log('                 ----  neighbors.. use melee')
+      this.setAgentState(this.ember.constants.AGENTSTATE.MELEE);
     } else {
-      console.log('----  not neighbors.. use missile')
+      console.log('                 ----  not neighbors.. use missile')
       const equippedMeleeWeapon = agentContainer.agent.equippedMeleeWeapon;
       const equippedRangedWeapon = agentContainer.agent.equippedRangedWeapon;
 
       if (equippedRangedWeapon) {
-        console.log('  got ranged weapon..go ahead and shoot')
+        console.log('                    got ranged weapon..go ahead and shoot')
       } else {
-        console.log('  no ranged weapon..use melee or chase?')
-        this.agentState = this.ember.constants.AGENTSTATE.MISSILE;
+        console.log('                    no ranged weapon..use melee or chase?')
+        // this.agentState = this.ember.constants.AGENTSTATE.MISSILE;
+        // this.setAgentState(this.ember.constants.AGENTSTATE.MISSILE);
         this.chasePlayer.perform();
         return;
       }
-
-
     }
-
-      let engageCount = 0;
+// debugger;
+    let engageCount = 0;
     switch (this.agentState) {
-      case this.ember.constants.AGENTSTATE.MISSILE:
-        while(this.agentState === this.ember.constants.AGENTSTATE.MISSILE && engageCount <= 50) {
+      case this.ember.constants.AGENTSTATE.PURSUE:
+      // case this.ember.constants.AGENTSTATE.MISSILE:
+        while(this.agentState === this.ember.constants.AGENTSTATE.PURSUE && engageCount <= 50) {
+        // while(this.agentState === this.ember.constants.AGENTSTATE.MISSILE && engageCount <= 50) {
           if (!this.ember.gameManager.gamePaused) {
             engageCount++;
             if (this.ember.playerContainer.fov.isInLOS(this.rexChess.tileXYZ)) {
@@ -274,7 +316,8 @@ console.log('engage player', agentContainer.agent.playerConfig.texture, this.age
             return; // game paused while we were in loop
           }
 
-          yield timeout(this.patrol.aggressionSpeedTimeout);
+          // yield timeout(5000);
+          // yield timeout(this.patrol.aggressionSpeedTimeout);
         }
         break;
       case this.ember.constants.AGENTSTATE.MELEE:
@@ -299,36 +342,60 @@ console.log('engage player', agentContainer.agent.playerConfig.texture, this.age
           } else {
             return; // game paused while we were in loop
           }
-          yield timeout(this.patrol.aggressionSpeedTimeout);
+          // yield timeout(5000);
+          // yield timeout(this.patrol.aggressionSpeedTimeout || 2000);
         }
         break;
       default:
     }
   }
 
-  @restartableTask
+  @task
   *chasePlayer() {
-    console.log('chasePlayerTask')
     // and player is still alive
-    while(this.agentState === this.ember.constants.AGENTSTATE.MISSILE) {
+    while(this.agentState === this.ember.constants.AGENTSTATE.PURSUE) {
+    // while(this.agentState === this.ember.constants.AGENTSTATE.MISSILE) {
+console.log('               chasePlayerTask')
       if (!this.ember.gameManager.gamePaused) {
         const pathToPlayer = this.pathFinder.findPath(this.ember.playerContainer.rexChess.tileXYZ);
-        // console.log('pathToPlayer', pathToPlayer, 'this.config.sightRange',this.config.sightRange);
-        if (pathToPlayer) {
+
+        // console.log('                  pathToPlayer', pathToPlayer, 'this.config.sightRange',this.config.sightRange);
+
+
+        if (pathToPlayer && pathToPlayer.length) {
+
+          // TODO is pathToPlayer length always going to be = 1
+          // use LOS instead?
+          // const isInLOS = agentContainer.ember.playerContainer.fov.isInLOS(agentContainer.rexChess.tileXYZ);
+  console.error('pathToPlayer.length', pathToPlayer.length)
           if (pathToPlayer.length > this.config.sightRange) {
-            // console.log('can no longer see the player')
+            console.log('can no longer see the player')
             this.transitionToPatrol();
-          } else if (pathToPlayer.length > 1) { // don't move agent on top of player
+          } else { // don't move agent on top of player
+          // } else if (pathToPlayer.length > 1) { // don't move agent on top of player
             const firstMove = pathToPlayer[0];
             if (firstMove) {
-              this.moveToObject.moveTo(firstMove.x, firstMove.y);
+              // if( firstMove.x !== this.ember.playerContainer.rexChess.tileXYZ.x ||
+              //   firstMove.y !== this.ember.playerContainer.rexChess.tileXYZ.y) {
+                 this.moveToObject.moveTo(firstMove.x, firstMove.y);
+
+                 // TODO May 10..  why does it appear to go into patrol mode after move here?
+              // console.log('1')
+              //   yield timeout(5000);
+              // console.log('2')
+
+              // }
             }
           }
         } else {
           this.transitionToPatrol();
         }
       }
-      yield timeout(this.patrol.pursuitSpeed);
+  //     console.log('this.patrol.pursuitSpeed', this.patrol.pursuitSpeed)
+  //     // debugger;
+  //     yield timeout(5000);
+      yield timeout(this.patrol.pursuitSpeed || 2000);
+      // yield timeout(1);
     }
   }
 
@@ -342,15 +409,16 @@ console.log('engage player', agentContainer.agent.playerConfig.texture, this.age
     const equippedMeleeWeapon = this.agent.equippedMeleeWeapon;
     const equippedRangedWeapon = this.agent.equippedRangedWeapon;
     switch (this.agentState) {
+      case this.ember.constants.AGENTSTATE.PURSUE:
       case this.ember.constants.AGENTSTATE.MISSILE:
 console.log('Agent Ranged Attack!');
         if (!this.ember.playerContainer.fov.isInLOS(this.rexChess.tileXYZ)) {
-yield timeout(1000);
+// yield timeout(5000);
           return;
         }
 
         // equippedRangedWeapon = this.agent.equippedRangedWeapon;
-        console.log('equippedRangedWeapon', equippedRangedWeapon)
+        // console.log('agent equippedRangedWeapon', equippedRangedWeapon)
         if (equippedRangedWeapon && this.ember.gameManager.hasEnoughPowerToUseItem(equippedRangedWeapon, this.agent)) {
 
           // find a way to play appropriate sound
@@ -360,7 +428,7 @@ yield timeout(1000);
           this.playAnimation(this.ember.constants.ANIMATION.KEY.RANGE);
           this.playSound(this.ember.constants.AUDIO.KEY.RANGE);
 
-          this.scene.projectiles.fireProjectile(this.scene, this, this.rexChess.tileXYZ, equippedRangedWeapon);
+          this.scene.agentprojectiles.fireProjectile(this.scene, this, this.ember.playerContainer.rexChess.tileXYZ, equippedRangedWeapon);
 
           if (equippedRangedWeapon) {
             yield timeout(equippedRangedWeapon.attackSpeed); // cooldown
@@ -376,7 +444,7 @@ yield timeout(1000);
       case this.ember.constants.AGENTSTATE.MELEE:
         // console.log('Agent Melee Attack!');
         // equippedMeleeWeapon = this.agent.equippedMeleeWeapon;
-        console.log('agent equippedMeleeWeapon', equippedMeleeWeapon.name, equippedMeleeWeapon)
+        // console.log('agent equippedMeleeWeapon', equippedMeleeWeapon.name, equippedMeleeWeapon)
 // debugger;
         if (equippedMeleeWeapon) {
           if (this.agent.power < equippedMeleeWeapon.powerUse) {
@@ -398,6 +466,7 @@ yield timeout(1000);
           this.ember.playerContainer.takeDamage(meleeAttackDamage, this.ember.playerContainer.agent, this.agent);
 
           if (equippedMeleeWeapon) {
+            // console.log('melee timeout', equippedMeleeWeapon.attackSpeed, this.agent)
             yield timeout(equippedMeleeWeapon.attackSpeed); // cooldown
             this.agent.power -= equippedMeleeWeapon.powerUse;
           } else {
@@ -409,7 +478,7 @@ yield timeout(1000);
         break;
       default:
     }
-    yield timeout(1000);
+    // yield timeout(5000);
 // debugger;
     return;
 
@@ -499,7 +568,7 @@ yield timeout(1000);
 
           // grab the next waypoint
           let firstMove = this.moveQueue.path[0];
-// console.log('patrolTask firstMove', firstMove, this.rexChess.tileXYZ)
+// console.log('111 patrolTask firstMove', firstMove, this.rexChess.tileXYZ, 'this.patrol.timeout', this.patrol.timeout)
           // attempt the move
           this.moveToObject.moveTo(firstMove.x, firstMove.y);
 
@@ -513,6 +582,7 @@ yield timeout(1000);
           }
         }
       }
+      // yield timeout(5000);
       yield timeout(this.patrol.timeout || 2000);
     }
   }
@@ -528,9 +598,10 @@ yield timeout(1000);
 
 
   transitionToMelee(agentContainer) {
+    console.log('            transitionToMelee')
     // console.log('transition to melee');
     const currentState = this.agentState;
-    this.agentState = this.ember.constants.AGENTSTATE.MELEE;
+    this.setAgentState(this.ember.constants.AGENTSTATE.MELEE);
     // if (this.engagePlayer.isIdle) {
       this.engagePlayer.perform(agentContainer);
       if (this.chasePlayer.isIdle) {
@@ -544,8 +615,12 @@ yield timeout(1000);
   }
 
   transitionToPursuit() {
-    console.error('transitionToPursuit')
-    this.agentState = this.ember.constants.AGENTSTATE.MISSILE;
+    console.log('            transitionToPursuit')
+
+    this.setAgentState(this.ember.constants.AGENTSTATE.PURSUE);
+
+    // // this.agentState = this.ember.constants.AGENTSTATE.MISSILE;
+
     if(this.patrol.method === this.ember.constants.PATROLMETHOD.STATIC) {
       if (this.engagePlayer.isIdle) {
         this.engagePlayer.perform();
@@ -557,7 +632,7 @@ yield timeout(1000);
       this.moveQueue = {path:[]};
 
       // Fire and pursue
-      console.error('Fire and pursue')
+      // console.error('Fire and pursue')
       if (this.engagePlayer.isIdle) {
         this.engagePlayer.perform(this);
       }
@@ -568,7 +643,8 @@ yield timeout(1000);
   }
 
   transitionToPatrol() {
-    console.log('transition to patrol', this.agent.playerConfig.texture, this.engagePlayer.concurrency, this.engagePlayer.isRunning);
+    console.log('            transitionToPatrol')
+    // console.log('transition to patrol', this.agent.playerConfig.texture, this.engagePlayer.concurrency, this.engagePlayer.isRunning);
     // if (this.engagePlayer.concurrency && this.engagePlayer.isRunning) {
     //   console.log('show cancelAll')
     //   this.engagePlayer.cancelAll();
@@ -577,9 +653,10 @@ yield timeout(1000);
     //   console.log('no engagePlayer tasks running')
     // }
 
-    if (this.agentState !== this.ember.constants.AGENTSTATE.PATROL) {
-      console.log('this.agentState !== this.ember.constants.AGENTSTATE.PATROL', this.agentState)
-      this.agentState = this.ember.constants.AGENTSTATE.PATROL;
+    // if (this.agentState !== this.ember.constants.AGENTSTATE.PATROL) {
+    //   console.log('this.agentState !== this.ember.constants.AGENTSTATE.PATROL', this.agentState)
+      this.setAgentState(this.ember.constants.AGENTSTATE.PATROL);
+      // this.agentState = this.ember.constants.AGENTSTATE.PATROL;
       if (isPresent(this.patrol.tiles.length) > 0) {
 
         this.moveQueue = {path:[]};
@@ -589,10 +666,10 @@ yield timeout(1000);
           this.patrolTask.perform();
         }
       }
-    } else {
-      console.log('this.agentState === this.ember.constants.AGENTSTATE.PATROL', this.agentState)
-
-    }
+    // } else {
+    //   console.log('this.agentState === this.ember.constants.AGENTSTATE.PATROL', this.agentState)
+    //
+    // }
   }
 
   getRandomNeighborTile() {

@@ -12,13 +12,13 @@ export default class Projectile extends Phaser.Physics.Arcade.Image {
 
 
   fire(attacker, radians, weapon){
-    // console.log('fire attackerXYZ', attackerXYZ)
+// console.log('fire attackerXYZ', attacker, radians, weapon)
     const x = Math.cos(radians);
     const y = Math.sin(radians);
 
     let worldXY = this.scene.board.tileXYToWorldXY(attacker.rexChess.tileXYZ.x, attacker.rexChess.tileXYZ.y);
 
-    console.log('fire projectile:  this', this);
+    // console.log('fire projectile:  this', this);
     // console.log('fire projectile:  radians', radians, 'x', x, 'y', y, 'this', this, 'attacker.rexChess.tileXYZ', attacker.rexChess.tileXYZ, 'worldXY', worldXY, 'attacker', attacker);
 
     this.setRotation(radians);

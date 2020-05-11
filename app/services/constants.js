@@ -150,7 +150,8 @@ const constants = Object.freeze({
     SEARCHING: 4,
     FLEEING: 5,
     FINDHELP: 6,
-    DEAD: 7
+    DEAD: 7,
+    PURSUE: 8
   },
 
   PATROLMETHOD: {

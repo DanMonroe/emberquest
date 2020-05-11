@@ -65,7 +65,7 @@ export class InventoryItems {
         stats: [
           new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 4}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
-          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 10.1})
         ],
         audio: {
           attack: {
@@ -83,10 +83,11 @@ export class InventoryItems {
         type: constants.INVENTORY.TYPE.MONSTER,
         bodypart: constants.INVENTORY.BODYPART.RANGED,
         projectileImg: 'ball',
+        projectileScale: 0.4,
         stats: [
           new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 3}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
-          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.8})
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 7.3})
         ],
         audio: {
           attack: {

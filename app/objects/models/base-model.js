@@ -6,15 +6,8 @@ export class BaseModel {
     this.id = `${uuid}`;
     this.x = x;
     this.y = y;
+    this.uniqueId = objectConfig.uniqueId;
     this.objectConfig = objectConfig;
     this.objectConfig.uuid = this.id;
   }
-  // constructor(x, y, spawnerId, objectConfig) {
-  //   let uuid = v4();
-  //   this.id = `${spawnerId}-${uuid}`;
-  //   this.spawnerId = spawnerId;
-  //   this.x = x;
-  //   this.y = y;
-  //   this.objectConfig = objectConfig;
-  // }
 }

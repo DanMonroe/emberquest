@@ -21,22 +21,27 @@ export default {
       locations: []
     },
     agents: {
-      spawnInterval: 3000,
-      limit: 1,
+      spawnInterval: 6000,
+      limit: 2,
+      // limit: 3,
       locations: [
-      // TODO Should spawn locations have patrol tiles specific to the location?
-      // TODO Also a new patrol method: PATROLMETHOD.WANDER to go in any random direction
+
+// pursuitSpeed: 1500,
+// aggressionSpeedTimeout: 1000,
+
+
         //   },
-        {id: 1, x: 4, y: 4, pool: [ 'spider' ]},
-        // {id: 1, x: 4, y: 4, pool: [ 'spider' ], patrol: { method: 'random', tiles: [{x: 2, y: 5}, {x: 5, y: 4}] } },
+        // {id: 1, x: 4, y: 4, pool: [ 'spider' ]}
+        {id: 1, x: 4, y: 4, pool: [ 'spider' ], patrol: { method: 'random', tiles: [{x: 4, y: 4}, {x: 8, y: 3}], speed: 100, pursuitSpeed: 1900, aggressionSpeedTimeout: 1800, timeout:2500} },
+        // {id: 1, x: 4, y: 4, pool: [ 'spider' ], patrol: { method: 'random', tiles: [{x: 4, y: 4}, {x: 8, y: 3}], pursuitSpeed: 1000, aggressionSpeedTimeout: 1000, timeout:1200 } },
         // {id: 1, x: 4, y: 4, pool: [ 'spider', 'young-ogre' ]},
         // {id: 2, x: 6, y: 4, pool: [ 'spider', 'young-ogre' ]},
-        // {id: 3, x: 8, y: 4, pool: [ 'young-ogre' ]}
-        // {id: 3, x: 10, y: 1, pool: [ 'young-ogre' ], patrol: { method: 'wander' }}
+        {id: 3, x: 8, y: 4, pool: [ 'young-ogre' ], patrol: { method: 'wander' }}
+// {id: 3, x: 10, y: 1, pool: [ 'spider', 'young-ogre' ], patrol: { method: 'wander' }},
         // {id: 3, x: 8, y: 4, pool: [ 'spider', 'young-ogre' ]}
         // {id: 4, x: 5, y: 6, pool: [ 'spider', 'young-ogre' ]},
         // {id: 5, x: 5, y: 3, pool: [ 'spider', 'young-ogre' ]},
-        // {id: 6, x: 7, y: 3, pool: [ 'spider', 'young-ogre' ]},
+// {id: 6, x: 7, y: 3, pool: [ 'spider', 'young-ogre' ], patrol: { method: 'wander' }}
         // {id: 7, x: 6, y: 2, pool: [ 'spider', 'young-ogre' ]}
       ],
       globalPool: [ 'spider', 'young-ogre' ]

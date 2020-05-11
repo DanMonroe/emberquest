@@ -35,6 +35,7 @@ export default class AgentPoolService extends Service {
         health: 20,
         maxHealth: 20,
         healingPower: 3,
+        // aggressionScale: 100,  // TODO need a better way to track aggression levels
 
         animeframes: {
           rest: {key: 'spider-rest', start: 1, end: 2, repeat: -1, rate: 1},
@@ -113,8 +114,8 @@ export default class AgentPoolService extends Service {
     energizePower: 20,
     energizeSpeed: 3000,
 
-    aggressionScale: 1,  // TODO need a better way to track aggression levels
-    // aggressionScale: 10,  // TODO need a better way to track aggression levels
+    // aggressionScale: 3,
+    aggressionScale: 10,
 
     // xpGain: 15,
     gold: 1,
@@ -131,7 +132,7 @@ export default class AgentPoolService extends Service {
       // timeout: 200,
       timeout: 2000,
       pursuitSpeed: 1500,
-      aggressionSpeedTimeout: 1000,
+      aggressionSpeedTimeout: 2000,
       // aggressionTimeout: 1000,  // delay time in between aggression turns
       method: 'random',
       tiles: [

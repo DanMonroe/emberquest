@@ -18,6 +18,9 @@ export default class Projectiles extends Phaser.Physics.Arcade.Group {
       // change the image
       if (weapon.projectileImg && projectile.texture.key !== weapon.projectileImg) {
         projectile.setTexture(weapon.projectileImg);
+        if (weapon.projectileScale) {
+          // projectile.setTexture(weapon.projectileScale);
+        }
       }
 
       if (attacker.agent.rangedAttackDamage) {
@@ -43,9 +46,7 @@ export default class Projectiles extends Phaser.Physics.Arcade.Group {
   }
 
   // playerCollision (projectile, player) {
-  playerCollision (projectile, player) {
-  // playerCollision (player, projectile) {  // why is this reversed?
-debugger;
+  playerCollision (player, projectile) {  // why is this reversed?
     projectile.active = false;
     projectile.visible = false;
     projectile.setVelocity(0);

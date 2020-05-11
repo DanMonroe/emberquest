@@ -12,6 +12,7 @@ export default class SpawnerService extends Service {
 
   @service agentPool;
 
+  @tracked uniques;
   @tracked spawnLocations;
   // @tracked spawnInterval = 300;
   @tracked spawnInterval = 1000;
@@ -27,14 +28,14 @@ export default class SpawnerService extends Service {
 
   scene = undefined;
 
-  setup(scene, spawnLocations) {
+  setup(scene) {
     this.scene = scene;
-    this.spawnLocations = spawnLocations;
-    let config = {};
+    this.spawnLocations = this.scene.mapData.spawnLocations;
+    this.uniques = this.scene.mapData.uniques;
 
     // create transport spawners
-    if (this.spawnLocations.transports) {
-      this.transportLimit = this.spawnLocations.transports.limit || 1,
+    if (this.spawnLocations.transports && this.spawnLocations.transports.locations.length > 0) {
+      this.transportLimit = this.spawnLocations.transports.limit || 1;
 
       // config = {
       //   spawnInterval: this.spawnLocations.transports.spawnInterval || 3000,
@@ -64,40 +65,62 @@ export default class SpawnerService extends Service {
     }
 
     // create agent spawners
-    if (this.spawnLocations.agents) {
-      this.agentLimit = this.spawnLocations.agents.limit || 1,
-      // config = {
-      //   spawnInterval: this.spawnLocations.agents.spawnInterval || 3000,
-      //   // limit: this.spawnLocations.agents.limit || 1,
-      //   spawnerType: constants.SPAWNER_TYPE.AGENT
-      // };
-
+    if (this.spawnLocations.agents && this.spawnLocations.agents.locations.length > 0) {
+      console.log('this.spawnLocations.agents.locations', this.spawnLocations.agents.locations)
+      this.agentLimit = this.spawnLocations.agents.limit || 1;
       this.spawners.push(constants.SPAWNER_TYPE.AGENT);
-
-
-      // this.spawnLocations.agents.locations.forEach(locationObj => {
-      //   config.id = `agent-${locationObj.id}`;
-      //   config.locationId = +locationObj.id - 1;
-      //   config.objectConfig = locationObj;
-      //   config.objectConfig.agentPool = locationObj.pool || this.spawnLocations.agents.globalPool || [];
-      // });
     }
 
     this.spawnObjects.perform();
+
+    this.spawnUniques();
+  }
+
+  // spawn one time objects that won't respawn
+  spawnUniques() {
+    if (this.uniques && this.uniques.agents && this.uniques.agents.length > 0) {
+      this.uniques.agents.forEach(unique => {
+        const agentConfig = this.agentPool.getAgentConfig(unique.agentKey);
+        // console.log('unique agentConfig ', agentConfig)
+
+        if (agentConfig) {
+
+          // don't spawn uniques that are already dead
+          if ( ! (this.scene.deadAgents && this.scene.deadAgents.has(unique.uniqueId))) {
+
+            if (unique.patrol) {
+              // assign any properties
+              Object.assign(agentConfig.patrol, unique.patrol)
+            }
+
+            agentConfig.uniqueId = unique.uniqueId;
+
+            const agent = new Agent(unique.x, unique.y, agentConfig);
+
+            this.addAgent(agent);
+          }
+        }
+      })
+    }
   }
 
   @task
   *spawnObjects() {
-    while (true) {
 
-      this.spawners.forEach(spawnerType => {
+    while (this.spawners.length > 0) {
+    // while (true) {
+      if (!this.scene.ember.gameManager.gamePaused) {
+        this.spawners.forEach(spawnerType => {
 
-        if (this.shouldSpawn(spawnerType)) {
-          this.spawnObject(spawnerType);
-        // } else {
-          // console.log('   >> ' + spawnerType + ' - NO!! Dont spawn')
-        }
-      });
+          if (this.shouldSpawn(spawnerType)) {
+            this.spawnObject(spawnerType);
+          } else {
+            // console.log('   >> ' + spawnerType + ' - NO!! Dont spawn')
+          }
+        });
+      } else {
+        console.log('no spawn, game paused')
+      }
 
       yield timeout(this.spawnInterval);
     }
@@ -134,18 +157,14 @@ export default class SpawnerService extends Service {
       case constants.SPAWNER_TYPE.AGENT:
         agentConfigFromPool = Object.assign({}, this.pickRandomAgentFromPool(location));
         locationClone = Object.assign({}, location);
-// console.log('            || agentConfigFromPool', agentConfigFromPool)
-
 
         if (agentConfigFromPool) {
           if (locationClone.patrol) {
             // assign any properties
             Object.assign(agentConfigFromPool.patrol, locationClone.patrol)
           }
-// console.log('            || agentConfigFromPool', agentConfigFromPool, 'locationClone', locationClone)
 
           const agent = new Agent(locationClone.x, locationClone.y, Object.assign(locationClone, agentConfigFromPool));
-          // console.log('               ++ agent', agent)
 
           this.addAgent(agent);
         }
@@ -197,21 +216,6 @@ export default class SpawnerService extends Service {
   }
 
 
-  // spawnTransport() {
-  //   const location = this.pickLocationById();
-  //
-  //   const transport = new Transport(location.x, location.y, this.id, this.config.objectConfig);
-  //
-  //   // console.log('spawnTransport', transport);
-  //   this.objectsCreated.push(transport);
-  //   this.addObject(transport.id, transport);
-  // }
-
-
-
-
-
-
   addTransport(transportId, transport) {
     // this.transports[transportId] = transport;
     this.transports.pushObject(transport);
@@ -224,23 +228,12 @@ export default class SpawnerService extends Service {
 
   addAgent(agent) {
     // console.log('*** spawner service - add agent', agent.id, agent.x, agent.y)
-
-// console.log('addAgent - deadAgents', this.scene.deadAgents)
-//     if ( ! (this.scene.deadAgents && this.scene.deadAgents.has(agent.objectConfig.id))) {
       this.agents.push(agent);
-      // this.agents.push(agent.id);
-
-    // console.log('*** spawner service - agent count', this.agents.length)
-
       this.scene.events.emit('agentSpawned', agent);
-
-    // } else {
-    //   console.log('NOT spawning agent', agent.objectConfig.id)
-    // }
   }
 
   deleteAgent(agentContainer) {
-    console.log('!!! delete agent', agentContainer)
+    // console.log('!!! delete agent', agentContainer)
 
     const index = this.agents.findIndex(agentObj => {
       return agentObj.id === agentContainer.agent.playerConfig.uuid;
