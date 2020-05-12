@@ -50,6 +50,7 @@ export default class GameManagerService extends Service {
     this.setupEventListener();
     this.setupSpawners();
     this.spawnPlayer();
+    this.setupUniques();
     this.pauseGame(false);
   }
 
@@ -207,6 +208,10 @@ export default class GameManagerService extends Service {
     this.spawnerService.setup(this.scene);
   }
 
+  setupUniques() {
+    this.spawnerService.spawnUniques();
+  }
+
   spawnPlayer() {
     const playerTile = this.storedData.storedPlayerTile ? {x: this.storedData.storedPlayerTile.x, y: this.storedData.storedPlayerTile.y} : {x: this.scene.mapData.player.startX, y: this.scene.mapData.player.startY};
 
@@ -317,6 +322,9 @@ export default class GameManagerService extends Service {
         break;
       case this.ember.constants.AUDIO.KEY.ARROW:
         this.scene.arrow.play();
+        break;
+      case this.ember.constants.AUDIO.KEY.PLAYERDEATH:
+        // this.scene.playerDeath.play();
         break;
       case this.ember.constants.AUDIO.KEY.SWORD:
       default:
@@ -433,7 +441,7 @@ console.log('game-manager - equippedRangedWeapon', equippedRangedWeapon)
   }
 
 
-  async enemyVictory(enemy, player, scene) {
+  async enemyDied(enemy, player, scene, shouldAwardExperience = true) {
     this.pauseGame(true);
 
     // Only save unique dead agents
@@ -449,10 +457,11 @@ console.log('game-manager - equippedRangedWeapon', equippedRangedWeapon)
     // rewards
     // console.log('player', player, enemy.agent.baseHealth)
 
-    const experienceAwarded = enemy.agent.experienceAwarded;
-
-    this.countXP.perform(experienceAwarded || 0);
-    this.countGems.perform(enemy.agent.gold || 0);
+    if (shouldAwardExperience) {
+      const experienceAwarded = enemy.agent.experienceAwarded;
+      this.countXP.perform(experienceAwarded || 0);
+      this.countGems.perform(enemy.agent.gold || 0);
+    }
 
     // show dialog
     // this.ember.epmModalContainerClass = 'victory';
@@ -467,9 +476,14 @@ console.log('game-manager - equippedRangedWeapon', equippedRangedWeapon)
     this.pauseGame(false);
   }
 
-  async playerDied(player, scene) {
+  async playerDied(playerContainer, scene) {
     // debugger;
     this.pauseGame(true);
+    // this.playSound(this.ember.constants.AUDIO.KEY.PLAYERDEATH);
+
+    // TODO what penalties?  For now, heal
+    playerContainer.agent.health = playerContainer.agent.baseHealth;
+
     this.ember.epmModalContainerClass = 'victory';
     await this.modals.open('death-dialog', {playerDead:true});
     this.pauseGame(false);

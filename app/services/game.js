@@ -320,23 +320,47 @@ export default class GameService extends Service {
     // })
   }
 
-  checkForSpecial(playerContainer, moveTo) {
+  checkForSpecial(agentContainer, moveTo) {
     // any special flags for the target hex?
-    let specialTile = moveTo.scene.game.ember.map.getTileSpecial(moveTo.scene, playerContainer.rexChess.tileXYZ);
+    if (!moveTo.scene) {
+      return;
+    }
+    let specialTile = moveTo.scene.game.ember.map.getTileSpecial(moveTo.scene, agentContainer.rexChess.tileXYZ);
     if (!specialTile || !specialTile.value) {
       return;
     }
-    console.log(`Special Tile at x:${playerContainer.rexChess.tileXYZ.x} y:${playerContainer.rexChess.tileXYZ.y}`, specialTile)
+    let fireDamage = 0;
+    let fireResistance = 0;
+    console.log(`Special Tile at x:${agentContainer.rexChess.tileXYZ.x} y:${agentContainer.rexChess.tileXYZ.y}`, specialTile)
     switch (specialTile.value) {
       case constants.FLAGS.SPECIAL.MESSAGE.value:
-        if (this.shouldShowMessage(specialTile, moveTo.scene)) {
-          moveTo.scene.game.ember.showInfoDialog(this.intl.t(`messages.${specialTile.msg}`));
+        if (agentContainer.isPlayer) {
+          if (this.shouldShowMessage(specialTile, moveTo.scene)) {
+            moveTo.scene.game.ember.showInfoDialog(this.intl.t(`messages.${specialTile.msg}`));
+          }
         }
         break;
+      case constants.FLAGS.SPECIAL.LAVA.value:
+        console.log('on lava');
+        fireDamage += 20;
+        break;
       default:
-        console.log(`No handler for special value ${specialTile.value} at x:${playerContainer.rexChess.tileXYZ.x} y:${playerContainer.rexChess.tileXYZ.y}`);
+        console.log(`No handler for special value ${specialTile.value} at x:${agentContainer.rexChess.tileXYZ.x} y:${agentContainer.rexChess.tileXYZ.y}`);
         break;
     }
+
+    // check for any special damage
+    if (fireDamage) {
+      fireResistance = agentContainer.agent.getResistance(constants.INVENTORY.RESISTANCE.FIRE);
+      if (fireResistance) {
+        fireDamage -= (fireDamage * (fireResistance / 100));
+      }
+
+      if (fireDamage > 0) {
+          agentContainer.takeDamage(fireDamage, agentContainer.agent, null, false);
+      }
+    }
+
   }
 
   shouldShowMessage(tileSpecialData, scene) {

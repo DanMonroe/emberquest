@@ -73,7 +73,6 @@ export default class SpawnerService extends Service {
 
     this.spawnObjects.perform();
 
-    this.spawnUniques();
   }
 
   // spawn one time objects that won't respawn
@@ -97,6 +96,7 @@ export default class SpawnerService extends Service {
 
             const agent = new Agent(unique.x, unique.y, agentConfig);
 
+            // this.scene.events.emit('agentSpawned', agent);
             this.addAgent(agent);
           }
         }

@@ -36,7 +36,7 @@ const constants = Object.freeze({
       REST: 0,
       ATTACK: 1,
       SWORD: 2,
-      ARROW: 3
+      PLAYERDEATH: 3
     }
   },
 
@@ -182,7 +182,8 @@ const constants = Object.freeze({
       DOCK: {value: 1, description: 'Dock'},
       PORTAL: {value: 2, description: 'Portal'},
       DOOR: {value: 4, description: 'Door'},
-      MESSAGE: {value: 8, description: 'Message'}
+      MESSAGE: {value: 8, description: 'Message'},
+      LAVA: {value: 16, description: 'Lava'}
     }
   },
 

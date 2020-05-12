@@ -315,7 +315,6 @@ export class BaseAgent {
     switch (type) {
       case constants.INVENTORY.RESISTANCE.FIRE:
       case constants.INVENTORY.RESISTANCE.COLD:
-
         // sum all inventory items, and each resistance object in that item.
         totalResistance += this.getInventoryByResistance(type).reduce((sum, { resistance } ) => {
           let subtotal_resistance = resistance.reduce((subsum, subresistance ) => {

@@ -175,7 +175,8 @@ export class InventoryItems {
         id: armorId++,
         owned: false,
         locked: false,
-        price: 550,
+        price: 5,
+        // price: 550,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.FEET,
         name: 'Dragon Boots',
@@ -190,14 +191,15 @@ export class InventoryItems {
         id: armorId++,
         owned: false,
         locked: false,
-        price: 550,
+        price: 5,
+        // price: 550,
         type: constants.INVENTORY.TYPE.ARMOR,
-        bodypart: constants.INVENTORY.BODYPART.FEET,
-        name: 'Dragon Boots',
-        img: '/images/items/armor/boots_wings.png',
-        description: 'Exquisite boots made from the scales of a fire dragon.',
+        bodypart: constants.INVENTORY.BODYPART.HEAD,
+        name: 'Dragon Helmet',
+        img: '/images/items/armor/red_helmet.png',
+        description: 'Exquisite helmet made from the scales of a fire dragon.',
         stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
-        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 20})]
+        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 30})]
       })
     );
     items.push(
@@ -205,29 +207,15 @@ export class InventoryItems {
         id: armorId++,
         owned: false,
         locked: false,
-        price: 550,
+        price: 5,
+        // price: 550,
         type: constants.INVENTORY.TYPE.ARMOR,
-        bodypart: constants.INVENTORY.BODYPART.FEET,
-        name: 'Dragon Boots',
-        img: '/images/items/armor/boots_wings.png',
-        description: 'Exquisite boots made from the scales of a fire dragon.',
+        bodypart: constants.INVENTORY.BODYPART.BODY,
+        name: 'Dragon Plate',
+        img: '/images/items/armor/red_breastplate.png',
+        description: 'Exquisite breastplate made from the scales of a fire dragon.',
         stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
-        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 20})]
-      })
-    );
-    items.push(
-      new InventoryItem({
-        id: armorId++,
-        owned: false,
-        locked: false,
-        price: 550,
-        type: constants.INVENTORY.TYPE.ARMOR,
-        bodypart: constants.INVENTORY.BODYPART.FEET,
-        name: 'Dragon Boots',
-        img: '/images/items/armor/boots_wings.png',
-        description: 'Exquisite boots made from the scales of a fire dragon.',
-        stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
-        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 20})]
+        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 50})]
       })
     );
 

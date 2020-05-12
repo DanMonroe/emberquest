@@ -126,6 +126,7 @@ export class BootScene extends Phaser.Scene {
     this.load.spritesheet('young-ogre', '/images/monsters/young-ogre.png', { frameWidth: 72, frameHeight: 72 });
     this.load.spritesheet('spider', '/images/monsters/spider.png', { frameWidth: 72, frameHeight: 72 });
 
+    // this.load.multiatlas('brazier', '/images/brazier.json', '/images');
   }
 
   loadAudio() {

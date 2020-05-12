@@ -242,6 +242,8 @@ console.log('      do transitionToMelee')
         }
       }
     }
+
+    agentContainer.ember.checkForSpecial(agentContainer, agentContainer.moveToObject);
   }
 
   setAgentState(newState) {

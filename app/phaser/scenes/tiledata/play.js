@@ -22,7 +22,7 @@ export default {
     },
     agents: {
       spawnInterval: 6000,
-      limit: 2,
+      limit: 1,
       // limit: 3,
       locations: [
 
@@ -32,11 +32,15 @@ export default {
 
         //   },
         // {id: 1, x: 4, y: 4, pool: [ 'spider' ]}
+
         {id: 1, x: 4, y: 4, pool: [ 'spider' ], patrol: { method: 'random', tiles: [{x: 4, y: 4}, {x: 8, y: 3}], speed: 100, pursuitSpeed: 1900, aggressionSpeedTimeout: 1800, timeout:2500} },
+
         // {id: 1, x: 4, y: 4, pool: [ 'spider' ], patrol: { method: 'random', tiles: [{x: 4, y: 4}, {x: 8, y: 3}], pursuitSpeed: 1000, aggressionSpeedTimeout: 1000, timeout:1200 } },
         // {id: 1, x: 4, y: 4, pool: [ 'spider', 'young-ogre' ]},
         // {id: 2, x: 6, y: 4, pool: [ 'spider', 'young-ogre' ]},
+
         {id: 3, x: 8, y: 4, pool: [ 'young-ogre' ], patrol: { method: 'wander' }}
+
 // {id: 3, x: 10, y: 1, pool: [ 'spider', 'young-ogre' ], patrol: { method: 'wander' }},
         // {id: 3, x: 8, y: 4, pool: [ 'spider', 'young-ogre' ]}
         // {id: 4, x: 5, y: 6, pool: [ 'spider', 'young-ogre' ]},
@@ -53,10 +57,10 @@ export default {
       {'col': 0, 'row': 0, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'wesnoth': 'Gg', 'special': 0 },
       {'col': 1, 'row': 0, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'wesnoth': 'Gg', 'special': 0 },
       {'col': 2, 'row': 0, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'wesnoth': 'Gg', 'special': 0 },
-      {'col': 3, 'row': 0, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 4, 'wesnoth': 'Qlf', 'special': 0 },
-      {'col': 4, 'row': 0, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 4, 'wesnoth': 'Qlf', 'special': 0 },
-      {'col': 5, 'row': 0, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 4, 'wesnoth': 'Qlf', 'special': 0 },
-      {'col': 6, 'row': 0, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 4, 'wesnoth': 'Qlf', 'special': 0 },
+      {'col': 3, 'row': 0, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 2, 'wesnoth': 'Qlf', 'special': {value:constants.FLAGS.SPECIAL.LAVA.value} },
+      {'col': 4, 'row': 0, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 2, 'wesnoth': 'Qlf', 'special': {value:constants.FLAGS.SPECIAL.LAVA.value} },
+      {'col': 5, 'row': 0, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 2, 'wesnoth': 'Qlf', 'special': {value:constants.FLAGS.SPECIAL.LAVA.value} },
+      {'col': 6, 'row': 0, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 2, 'wesnoth': 'Qlf', 'special': {value:constants.FLAGS.SPECIAL.LAVA.value} },
       {'col': 7, 'row': 0, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 4, 'wesnoth': 'Ql', 'special': 0 },
       {'col': 8, 'row': 0, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 4, 'wesnoth': 'Ql', 'special': 0 },
       {'col': 9, 'row': 0, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 4, 'wesnoth': 'Ql', 'special': 0 },
@@ -69,8 +73,8 @@ export default {
       {'col': 2, 'row': 1, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'wesnoth': 'Wo', 'special': 0 },
       {'col': 3, 'row': 1, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'wesnoth': 'Gg', 'special': 0 },
       {'col': 4, 'row': 1, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'wesnoth': 'Gg', 'special': 0 },
-      {'col': 5, 'row': 1, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 4, 'wesnoth': 'Qlf', 'special': 0 },
-      {'col': 6, 'row': 1, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 4, 'wesnoth': 'Qlf', 'special': 0 },
+      {'col': 5, 'row': 1, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 2, 'wesnoth': 'Qlf', 'special': {value:constants.FLAGS.SPECIAL.LAVA.value} },
+      {'col': 6, 'row': 1, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 2, 'wesnoth': 'Qlf', 'special': {value:constants.FLAGS.SPECIAL.LAVA.value} },
       {'col': 7, 'row': 1, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 4, 'wesnoth': 'Ql', 'special': 0 },
       {'col': 8, 'row': 1, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 4, 'wesnoth': 'Ql', 'special': 0 },
       {'col': 9, 'row': 1, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 4, 'wesnoth': 'Ql', 'special': 0 },
@@ -85,7 +89,7 @@ export default {
       {'col': 4, 'row': 2, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'wesnoth': 'Wo', 'special': 0 },
       {'col': 5, 'row': 2, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'wesnoth': 'Gg', 'special': 0 },
       {'col': 6, 'row': 2, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'wesnoth': 'Gg', 'special': 0 },
-      {'col': 7, 'row': 2, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 4, 'wesnoth': 'Qlf', 'special': 0 },
+      {'col': 7, 'row': 2, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 2, 'wesnoth': 'Qlf', 'special': {value:constants.FLAGS.SPECIAL.LAVA.value} },
       {'col': 8, 'row': 2, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'wesnoth': 'Gg', 'special': 0 },
       {'col': 9, 'row': 2, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'wesnoth': 'Gg', 'special': 0 },
       {'col': 10, 'row': 2, 'sightCost': 7, 'sightFlags': 0, 'speedCost': 0.3, 'travelFlags': 8, 'wesnoth': 'Md^Xm', 'special': 0 },

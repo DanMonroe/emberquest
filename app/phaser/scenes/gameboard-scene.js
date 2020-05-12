@@ -248,6 +248,7 @@ console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.
 
     this.swordMiss = this.sound.add('sword_miss', { loop: false, volume: 0.5 });
     this.arrow = this.sound.add('arrow', { loop: false, volume: 0.4, rate: 2 });
+    // this.playerDeath = this.sound.add('playerDeath', { loop: false, volume: 0.4, rate: 2 });
   }
 
   configureBoard() {
