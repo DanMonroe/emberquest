@@ -30,7 +30,7 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
     this.showHealthBar = config.showHealthBar !== undefined ? config.showHealthBar : true;
     this.showPowerBar = config.showPowerBar;
 
-    this.aggressionScale = config.aggressionScale ? config.aggressionScale : 0;
+    // this.aggressionScale = config.aggressionScale ? config.aggressionScale : 0;
 
     if (config.textureSize) {
       this.setSize(config.textureSize.width, config.textureSize.height);
@@ -213,14 +213,17 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
 
 
      */
-    // debugger;
-
+// debugger;
+    // so an agent can be configured to NOT pursue at all.
+    if (agentContainer.agent.aggressionScale <= 0) {
+      return false;
+    }
 
     const levelDiff = Math.abs(this.ember.playerContainer.agent.level - agentContainer.agent.level);
 
 
     const healthPercentage = this.agent.health / this.agent.maxHealth;
-    const aggressionTimesHealthPercentage = agentContainer.aggressionScale * healthPercentage;
+    const aggressionTimesHealthPercentage = agentContainer.agent.aggressionScale * healthPercentage;
     // console.warn('      final', aggressionTimesHealthPercentage - levelDiff);
 
     return aggressionTimesHealthPercentage - levelDiff > 2;

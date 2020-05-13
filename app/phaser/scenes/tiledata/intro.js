@@ -12,7 +12,7 @@ export default {
   chests: [
     {
       id: 1, x: 5, y: 7,
-      gccode: 'GC001',
+      gccode: 'GC8QAYM',
       gold: 15,
       specialActions: [
         {value: constants.SPECIAL_ACTIONS.REMOVE_DOOR.value, data: { door_id:1, tileXY: {x: 11, y: 4} }},
@@ -29,7 +29,7 @@ export default {
       textureSize: { width: 42, height: 42},
       scale: 1,
       tileBeyond: { x: 11, y: 3},  // tile that has sightCost blocker,
-      hideIfCacheFound: 'GC001'    // don't spawn if this cache is found
+      hideIfCacheFound: 'GC8QAYM'    // don't spawn if this cache is found
     }
   ],
 

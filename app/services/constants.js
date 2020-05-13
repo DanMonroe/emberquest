@@ -3,6 +3,8 @@ const constants = Object.freeze({
   FLOATING_POINT_PRECISION_4: 4,
   FLOATING_POINT_PRECISION_1: 1,
 
+  GAMECLOCKDELAY: 3000,
+
   STOREDATTRS: [
     { key: 'xp', attr: 'experience', default: 0 },
     { key: 'health', attr: 'health', default: 10 },

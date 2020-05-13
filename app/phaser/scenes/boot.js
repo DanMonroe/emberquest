@@ -159,6 +159,8 @@ export class BootScene extends Phaser.Scene {
       .then(gameboardData => {
         console.log('gameboardData', gameboardData);
 
+        // TODO:  If you update what is loaded here, also update checkForPortal in game.js
+
 // let data = {'map': 'play'}  // default initial map
         let data = {'map': 'intro'}  // default initial map
         if (gameboardData) {

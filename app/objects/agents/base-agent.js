@@ -33,6 +33,8 @@ export class BaseAgent {
     this.health = config.health || 10;
     this.gold = config.gold || 0;
 
+    this.aggressionScale = config.aggressionScale !== undefined ? config.aggressionScale : 5;
+
     this.power = config.power || 10;
 
     this.baseHealingPower = config.baseHealingPower || 2;

@@ -12,7 +12,7 @@
     <p class="btn-wrapper">
       <button class="btn style btn-primary" {{on "click" this.generateHexes}}>Generate Hex Models</button>
     </p>
-    <label for="maparrayteoutputtextareaxtarea">EmberQuest Output:</label>
+    <label for="outputtextarea">EmberQuest Output:</label>
     <p>
       <Textarea @id="outputtextarea" rows=20 cols=80 @value={{this.finalMap}} />
     </p>
@@ -24,6 +24,20 @@
     <button class="btn style btn-primary" {{on "click" this.loadCurrentGameData}}>Load Current Game Data</button>
     <p>
       <Textarea rows=20 cols=80 @id="currentgamedata" />
+    </p>
+
+    <h3>Coords Encryption</h3>
+    <label for="encryptedCoords">Encrypted</label>
+    <p>
+      <Textarea @id="encryptedCoords" rows=2 cols=80 @value={{this.encryptedCoords}} />
+    </p>
+    <label for="decryptedCoords">Decrypted</label>
+    <p>
+      <Textarea @id="decryptedCoords" rows=2 cols=80 @value={{this.decryptedCoords}} />
+    </p>
+    <p class="btn-wrapper">
+      <button class="btn style btn-primary" {{on "click" this.encryptcoords}}>Encrypt</button>
+      <button class="btn style btn-primary" {{on "click" this.decryptcoords}}>Decrypt</button>
     </p>
   </div>
 

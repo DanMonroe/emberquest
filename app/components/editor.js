@@ -7,6 +7,7 @@ import { inject as service } from '@ember/service';
 export default class EditorComponent extends Component {
 
   @service game;
+  @service storage;
 
   constants = constants;
 
@@ -17,7 +18,23 @@ export default class EditorComponent extends Component {
   @tracked hexRowIdsArray;
   @tracked finalMap;
 
+  @tracked encryptedCoords;
+  @tracked decryptedCoords;
+
   @tracked currentGameData;
+
+
+  @action
+  encryptcoords() {
+    const encrypted = this.storage.encrypt(this.decryptedCoords);
+    this.encryptedCoords = encrypted;
+  }
+
+  @action
+  decryptcoords() {
+    const decrypted = this.storage.decrypt(this.encryptedCoords);
+    this.decryptedCoords = decrypted;
+  }
 
   @action
   loadCurrentGameData() {

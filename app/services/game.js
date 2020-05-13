@@ -3,7 +3,7 @@ import { tracked } from '@glimmer/tracking';
 import {get} from '@ember/object';
 import { inject as service } from '@ember/service';
 import localforage from 'localforage';
-import {task} from "ember-concurrency-decorators";
+import {task, restartableTask} from "ember-concurrency-decorators";
 import {timeout} from 'ember-concurrency';
 import Confirmer from 'confirmed';
 import { constants } from 'emberquest/services/constants';
@@ -246,8 +246,10 @@ export default class GameService extends Service {
     this.embarkOrDisembarkTransport(playerContainer);
     this.checkForPortal(playerContainer, moveTo);
     this.checkForAgents(playerContainer, moveTo);
-    this.checkForSpecial(playerContainer, moveTo);
+    // this.checkForSpecial(playerContainer, moveTo);
+    this.gameManager.gameClock.perform(playerContainer, moveTo);
   }
+
 
   embarkOrDisembarkTransport(playerContainer) {
     if (playerContainer.disembarkTransport) {
@@ -271,17 +273,61 @@ export default class GameService extends Service {
     let tileIsPortal = moveTo.scene.game.ember.map.tileIsPortal(moveTo.scene, playerContainer.rexChess.tileXYZ);
 
     if (tileIsPortal) {
-      moveTo.scene.cameras.main.fade(500, 0, 0, 0);
+
+      this.gameManager.pauseGame(true);
+
+      // cancel all patrol tasks...
+      // debugger;
+      const agentContainers = this.gameManager.scene.agents.children;
+      agentContainers.entries.forEach(agentContainer => {
+        agentContainer.cancelAllTasks();
+      })
+
+      moveTo.scene.cameras.main.fade(300, 0, 0, 0);
       moveTo.scene.cameras.main.on('camerafadeoutcomplete', async () => {
 
-        const sceneData = await this.loadSceneData(tileIsPortal.map)
-        moveTo.scene.scene.restart({
-          'map': tileIsPortal.map,
-          'storedPlayerTile': { x: tileIsPortal.x || 10, y: tileIsPortal.y || 10 },
-          'storedPlayerAttrs': moveTo.scene.player.container.data.get('attrs'),
-          'allSeenTiles': sceneData.seenTiles || new Set(),
-          'storedTransports': sceneData.transports || new Set()
-        });
+        // const gameData = await this.loadGameData('gameboard')
+        this.loadGameData('gameboard')
+          .then(gameboardData => {
+            // console.log('gameboardData', gameboardData);
+
+            if (gameboardData) {
+              const sceneData =   gameboardData.sceneData[tileIsPortal.map] || { allSeenTiles: [], storedTransports: [], boarded: 0};
+              console.log('')
+              console.log('')
+              console.error('>>>>>> portal ===> loading map', tileIsPortal.map.toUpperCase(), 'sceneData', sceneData)
+              console.log('sceneData', sceneData)
+              console.log('')
+
+              let data = {
+                'map': tileIsPortal.map,
+
+                'gameboardData': gameboardData,
+                'sceneData': sceneData,
+
+                'storedPlayerTile': { x: tileIsPortal.x || 10, y: tileIsPortal.y || 10 },
+                'storedPlayerAttrs': gameboardData.playerAttrs,
+                'allSeenTiles': sceneData.seenTiles,
+                'storedTransports': sceneData.transports,
+                'boarded': sceneData.boarded
+              }
+              // console.log('restarting with data', data)
+              moveTo.scene.scene.restart(data);
+            }
+          });
+
+
+
+        // const sceneData = await this.loadSceneData(tileIsPortal.map)
+//         console.log('loadSceneData', sceneData);
+// debugger;
+//         moveTo.scene.scene.restart({
+//           'map': tileIsPortal.map,
+//           'storedPlayerTile': { x: tileIsPortal.x || 10, y: tileIsPortal.y || 10 },
+//           'storedPlayerAttrs': moveTo.scene.player.container.data.get('attrs'),
+//           'allSeenTiles': sceneData.seenTiles || new Set(),
+//           'storedTransports': sceneData.transports || new Set()
+//         });
       });
     }
   }
@@ -331,7 +377,7 @@ export default class GameService extends Service {
     }
     let fireDamage = 0;
     let fireResistance = 0;
-    console.log(`Special Tile at x:${agentContainer.rexChess.tileXYZ.x} y:${agentContainer.rexChess.tileXYZ.y}`, specialTile)
+    // console.log(`Special Tile at x:${agentContainer.rexChess.tileXYZ.x} y:${agentContainer.rexChess.tileXYZ.y}`, specialTile)
     switch (specialTile.value) {
       case constants.FLAGS.SPECIAL.MESSAGE.value:
         if (agentContainer.isPlayer) {
@@ -343,6 +389,9 @@ export default class GameService extends Service {
       case constants.FLAGS.SPECIAL.LAVA.value:
         console.log('on lava');
         fireDamage += 20;
+        break;
+      case constants.FLAGS.SPECIAL.PORTAL.value:
+        // do nothing
         break;
       default:
         console.log(`No handler for special value ${specialTile.value} at x:${agentContainer.rexChess.tileXYZ.x} y:${agentContainer.rexChess.tileXYZ.y}`);

@@ -129,6 +129,7 @@ export default class MapService extends Service {
       visibleTiles.add(`${tileXY.x}_${tileXY.y}`);
 
       const fovShapes = this.getGameObjectsAtTileXY(board, tileXY, undefined,this.constants.SHAPE_TYPE_PLAYER);
+// console.error('fovShapes.length', fovShapes.length, fovShapes, 'board.scene.lastSeenTiles', board.scene.lastSeenTiles.length, board.scene.lastSeenTiles)
       if (fovShapes && fovShapes.length > 0) {
         fovShapes.forEach(fovShape => {
           if (fovShape.type === this.constants.SHAPE_TYPE_POLYGON) {

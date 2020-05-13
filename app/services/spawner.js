@@ -3,7 +3,7 @@ import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { constants } from 'emberquest/services/constants';
 import { timeout } from 'ember-concurrency';
-import { task } from 'ember-concurrency-decorators';
+import { restartableTask } from 'ember-concurrency-decorators';
 import {Transport} from "../objects/models/transport";
 import {Agent} from "../objects/models/agent";
 
@@ -32,6 +32,9 @@ export default class SpawnerService extends Service {
     this.scene = scene;
     this.spawnLocations = this.scene.mapData.spawnLocations;
     this.uniques = this.scene.mapData.uniques;
+    this.spawners = [];
+    this.transports = [];
+    this.agents = [];
 
     // create transport spawners
     if (this.spawnLocations.transports && this.spawnLocations.transports.locations.length > 0) {
@@ -66,7 +69,7 @@ export default class SpawnerService extends Service {
 
     // create agent spawners
     if (this.spawnLocations.agents && this.spawnLocations.agents.locations.length > 0) {
-      console.log('this.spawnLocations.agents.locations', this.spawnLocations.agents.locations)
+      // console.log('this.spawnLocations.agents.locations', this.spawnLocations.agents.locations)
       this.agentLimit = this.spawnLocations.agents.limit || 1;
       this.spawners.push(constants.SPAWNER_TYPE.AGENT);
     }
@@ -90,13 +93,13 @@ export default class SpawnerService extends Service {
             if (unique.patrol) {
               // assign any properties
               Object.assign(agentConfig.patrol, unique.patrol)
+              Object.assign(agentConfig, unique)
             }
 
             agentConfig.uniqueId = unique.uniqueId;
 
             const agent = new Agent(unique.x, unique.y, agentConfig);
 
-            // this.scene.events.emit('agentSpawned', agent);
             this.addAgent(agent);
           }
         }
@@ -104,14 +107,14 @@ export default class SpawnerService extends Service {
     }
   }
 
-  @task
+  @restartableTask
   *spawnObjects() {
 
     while (this.spawners.length > 0) {
     // while (true) {
       if (!this.scene.ember.gameManager.gamePaused) {
         this.spawners.forEach(spawnerType => {
-
+console.log('spawnerType', spawnerType)
           if (this.shouldSpawn(spawnerType)) {
             this.spawnObject(spawnerType);
           } else {
@@ -143,7 +146,6 @@ export default class SpawnerService extends Service {
       default:
         break;
     }
-
     return true;
   }
 

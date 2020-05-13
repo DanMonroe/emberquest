@@ -48,12 +48,13 @@ export class GameboardScene extends Phaser.Scene {
     // this.mapData = data.mapData;
     this.storedData = data;
     this.storedPlayerTile = data.storedPlayerTile;
-    this.allSeenTiles = data.allSeenTiles || new Set();
+    this.allSeenTiles = data.allSeenTiles ? new Set(data.allSeenTiles) : new Set();
     this.storedTransports = data.storedTransports || [];
     this.storedPlayerAttrs = data.storedPlayerAttrs || {};
     this.storedBoardedTransportId = data.boarded || 0;
-    this.deadAgents = data.sceneData ? data.sceneData.deadAgents || new Set() : new Set();
+    this.deadAgents = data.sceneData ? data.sceneData.deadAgents ? new Set(data.sceneData.deadAgents) : new Set() : new Set();
 
+    this.lastSeenTiles = new Set();
   }
 
   // async preload() {
@@ -78,6 +79,7 @@ export class GameboardScene extends Phaser.Scene {
     this.boardExperiments();
     this.ember.saveSceneData(this);
 
+    this.ember.gameManager.pauseGame(false);
     // this.musicAudio.play();
   }
 
@@ -86,9 +88,10 @@ export class GameboardScene extends Phaser.Scene {
 
     // click end tileXY to get info in console
     this.board.on('tiledown',  (pointer, tileXY) => {
-    //   const allAttrs = this.ember.map.getTileAttribute(this, tileXY);
-    //   const clickedShape = this.board.tileXYToChessArray(tileXY.x, tileXY.y);
-    //   console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.player.container));
+
+      // const allAttrs = this.ember.map.getTileAttribute(this, tileXY);
+      // const clickedShape = this.board.tileXYToChessArray(tileXY.x, tileXY.y);
+      // console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.player.container));
 
       // this.ember.showInfoDialog(`
       //       <p>Makes it easy to inject the Phaser game framework into your Ember application.</p>
@@ -113,23 +116,27 @@ export class GameboardScene extends Phaser.Scene {
   createGameManager() {
 
     // this has to be before game manager setup
-    this.events.on('spawnPlayer', (playerObject) => {
-// console.log('spawnPlayer', playerObject)
-      this.spawnPlayer(playerObject);
+    // this.events.removeAllListeners( ['spawnPlayer', 'agentSpawned', 'transportSpawned', 'tiledown']);
 
+    // this.events.on('spawnPlayer', (playerObject) => {
+    this.events.off('spawnPlayer').on('spawnPlayer', (playerObject) => {
+      this.spawnPlayer(playerObject);
       this.addCollisions();
     });
 
-    this.events.on('transportSpawned', (transportObject) => {
+    // this.events.on('transportSpawned', (transportObject) => {
+    this.events.off('transportSpawned').on('transportSpawned', (transportObject) => {
       this.spawnTransport(transportObject);
     });
 
-    this.events.on('agentSpawned', (agentObject) => {
-// console.log('agentSpawned', agentObject)
+    // this.events.on('agentSpawned', (agentObject) => {
+    this.events.off('agentSpawned').on('agentSpawned', (agentObject) => {
       this.spawnAgent(agentObject);
     });
 
-    this.board.on('tiledown',  async (pointer, tileXY) => {
+    this.board.off('tiledown').on('tiledown',  async (pointer, tileXY) => {
+
+    // this.events.off('tiledown').on('tiledown',  async (pointer, tileXY) => {
 
       // report tile info for debugging
       const allAttrs = this.ember.map.getTileAttribute(this, tileXY);
@@ -138,6 +145,9 @@ console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.
 
       this.ember.gameManager.attack.perform(tileXY, clickedShape, this.player.container);
     });
+
+    // console.log('eventNames()', this.events.eventNames())
+
 
     this.game.ember.gameManager.setup(this);
   }
@@ -182,8 +192,22 @@ console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.
   }
 
   spawnAgent(agentObject) {
+    // fixes a problem where spawnAgent was being called numerous times for uniques
+    // if (agentObject.uniqueId) {
+    //   const existingUnique = this.agents.children.entries.find(agentContainer => {
+    //     if (!agentContainer.agent.playerConfig) {
+    //       return false;
+    //     }
+    //     return agentObject.uniqueId === agentContainer.agent.playerConfig.uniqueId;
+    //   })
+    //   if (existingUnique) {
+    //     console.log('NOT spawning', agentObject)
+    //     return;
+    //   }
+    // }
+
     const agentContainer = this.ember.createAgent(this, agentObject);
-    // const agentContainer = this.ember.createAgent(this, agentObj.objectConfig);
+
     agentContainer.setAlpha(0);
     this.agents.add(agentContainer);
 
@@ -193,8 +217,6 @@ console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.
 
     if (agentObject.objectConfig.patrol.tiles.length) {
       agentContainer.transitionToPatrol();
-      // agentContainer.populatePatrolMoveQueue();
-      // agentContainer.patrolTask.perform();
     }
   }
 
@@ -267,12 +289,13 @@ console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.
 
   createBoard() {
     // const mapData = this.ember.getMapData();
+
     this.board = this.ember.map.createBoard(this, {
       grid: this.ember.map.getHexagonGrid(this),
       width: this.mapData.sceneTiles[0].length,
       height: this.mapData.sceneTiles.length,
       sceneTiles: this.mapData.sceneTiles,
-      allSeenTiles: this.allSeenTiles,
+      allSeenTiles: new Set(this.allSeenTiles),
       showHexInfo: this.ember.showHexInfo
     });
   }

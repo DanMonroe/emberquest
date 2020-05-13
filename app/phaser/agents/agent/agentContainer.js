@@ -1,5 +1,5 @@
 import BasePhaserAgentContainer from "../base-phaser-agent-container";
-import {task,restartableTask} from "ember-concurrency-decorators";
+import {task} from "ember-concurrency-decorators";
 import {timeout,waitForProperty } from "ember-concurrency";
 import {tracked} from '@glimmer/tracking';
 import { v4 } from "ember-uuid";
@@ -186,6 +186,14 @@ export default class AgentContainer extends BasePhaserAgentContainer {
     }
   }
 
+  async cancelAllTasks() {
+    console.log('cancelling all tasks for', this.agent.playerConfig.texture)
+    await this.patrolTask.cancelAll();
+    await this.engagePlayer.cancelAll();
+    await this.chasePlayer.cancelAll();
+    await this.attack.cancelAll();
+  }
+
   @task
   *timeoutTask(agentContainer) {
     // console.log('timeoutTask', agentContainer);
@@ -208,7 +216,7 @@ export default class AgentContainer extends BasePhaserAgentContainer {
   async moveToComplete() {
     const agentContainer = arguments[0];
 
-    console.log('agent moveToComplete', agentContainer.agent.playerConfig.texture);
+    // console.log('agent moveToComplete', agentContainer.agent.playerConfig.texture);
     // console.log('agent moveToComplete', agentContainer.agent.playerConfig.texture, agentContainer.agent);
     agentContainer.describeAgentState();
 
@@ -254,22 +262,22 @@ console.log('      do transitionToMelee')
   describeAgentState() {
     switch (this.agentState) {
       case this.ember.constants.AGENTSTATE.IDLE:
-        console.log('=== AGENT STATE: IDLE');
+        // console.log('=== AGENT STATE: IDLE');
         break;
       case this.ember.constants.AGENTSTATE.PATROL:
-        console.log('=== AGENT STATE: PATROL');
+        // console.log('=== AGENT STATE: PATROL');
         break;
       case this.ember.constants.AGENTSTATE.MELEE:
-        console.log('=== AGENT STATE: MELEE');
+        // console.log('=== AGENT STATE: MELEE');
         break;
       case this.ember.constants.AGENTSTATE.MISSILE:
-        console.log('=== AGENT STATE: MISSILE');
+        // console.log('=== AGENT STATE: MISSILE');
         break;
       case this.ember.constants.AGENTSTATE.PURSUE:
-        console.log('=== AGENT STATE: PURSUE');
+        // console.log('=== AGENT STATE: PURSUE');
         break;
       default:
-        console.log('=== AGENT STATE: UNKNOWN', this.agentState);
+        // console.log('=== AGENT STATE: UNKNOWN', this.agentState);
     }
   }
 
@@ -357,7 +365,7 @@ console.log('      do transitionToMelee')
     // and player is still alive
     while(this.agentState === this.ember.constants.AGENTSTATE.PURSUE) {
     // while(this.agentState === this.ember.constants.AGENTSTATE.MISSILE) {
-console.log('               chasePlayerTask')
+// console.log('               chasePlayerTask')
       if (!this.ember.gameManager.gamePaused) {
         const pathToPlayer = this.pathFinder.findPath(this.ember.playerContainer.rexChess.tileXYZ);
 
@@ -369,7 +377,7 @@ console.log('               chasePlayerTask')
           // TODO is pathToPlayer length always going to be = 1
           // use LOS instead?
           // const isInLOS = agentContainer.ember.playerContainer.fov.isInLOS(agentContainer.rexChess.tileXYZ);
-  console.error('pathToPlayer.length', pathToPlayer.length)
+  // console.error('pathToPlayer.length', pathToPlayer.length)
           if (pathToPlayer.length > this.config.sightRange) {
             console.log('can no longer see the player')
             this.transitionToPatrol();
@@ -413,7 +421,7 @@ console.log('               chasePlayerTask')
     switch (this.agentState) {
       case this.ember.constants.AGENTSTATE.PURSUE:
       case this.ember.constants.AGENTSTATE.MISSILE:
-console.log('Agent Ranged Attack!');
+// console.log('Agent Ranged Attack!');
         if (!this.ember.playerContainer.fov.isInLOS(this.rexChess.tileXYZ)) {
 // yield timeout(5000);
           return;
@@ -600,7 +608,7 @@ console.log('Agent Ranged Attack!');
 
 
   transitionToMelee(agentContainer) {
-    console.log('            transitionToMelee')
+    // console.log('            transitionToMelee')
     // console.log('transition to melee');
     const currentState = this.agentState;
     this.setAgentState(this.ember.constants.AGENTSTATE.MELEE);
@@ -617,7 +625,7 @@ console.log('Agent Ranged Attack!');
   }
 
   transitionToPursuit() {
-    console.log('            transitionToPursuit')
+    // console.log('            transitionToPursuit')
 
     this.setAgentState(this.ember.constants.AGENTSTATE.PURSUE);
 
@@ -645,7 +653,7 @@ console.log('Agent Ranged Attack!');
   }
 
   transitionToPatrol() {
-    console.log('            transitionToPatrol')
+    // console.log('            transitionToPatrol')
     // console.log('transition to patrol', this.agent.playerConfig.texture, this.engagePlayer.concurrency, this.engagePlayer.isRunning);
     // if (this.engagePlayer.concurrency && this.engagePlayer.isRunning) {
     //   console.log('show cancelAll')
@@ -695,7 +703,7 @@ console.log('Agent Ranged Attack!');
         nextTargetTile = this.patrol.tiles[Math.floor(Math.random() * this.patrol.tiles.length)];
         break;
       case this.ember.constants.PATROLMETHOD.WANDER:
-console.log('getNextTargetTile - Wander');
+// console.log('getNextTargetTile - Wander');
         nextTargetTile = this.getRandomNeighborTile();
         break;
       default:

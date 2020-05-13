@@ -10,12 +10,12 @@ export default {
   mapUrl: '/images/maps/intro2.png',
 
   chests: [
-    {id: 1, x: 10, y: 3, gccode: 'GC002', gold: 20, specialActions: []}
+    {id: 1, x: 10, y: 3, gccode: 'GC8QB0H', gold: 20, specialActions: []}
   ],
 
   uniques: {
     agents: [
-      {uniqueId: 1, x: 13, y: 4, agentKey: 'young-ogre', patrol: { method: 'random', tiles: [{x: 13, y: 4}, {x: 13, y: 2}] } }
+      {uniqueId: 1, x: 13, y: 2, agentKey: 'young-ogre', aggressionScale: 0, patrol: { method: 'random', tiles: [{x: 13, y: 4}, {x: 13, y: 2}] } }
     ]
   },
 

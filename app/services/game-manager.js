@@ -3,7 +3,7 @@ import { inject as service } from '@ember/service';
 import { Player } from "../objects/agents/player";
 import { tracked } from '@glimmer/tracking';
 import { timeout } from 'ember-concurrency';
-import { task, enqueueTask } from 'ember-concurrency-decorators';
+import { task, enqueueTask, restartableTask } from 'ember-concurrency-decorators';
 import { constants } from 'emberquest/services/constants';
 
 
@@ -52,6 +52,7 @@ export default class GameManagerService extends Service {
     this.spawnPlayer();
     this.setupUniques();
     this.pauseGame(false);
+    this.gameClock.perform();
   }
 
   get levelStartXP() {
@@ -189,18 +190,6 @@ export default class GameManagerService extends Service {
   setupEventListener() {
     this.scene.events.on('pickUpChest', (chestId, playerId) => {
       console.log('pickUpChest', chestId, playerId);
-      // // update the spawner
-      // if (this.chests[chestId]) {
-      //   const { gold } = this.chests[chestId];
-      //
-      //   // updating the players gold
-      //   this.players[playerId].updateGold(gold);
-      //   this.scene.events.emit('updateScore', this.players[playerId].gold);
-      //
-      //   // removing the chest
-      //   this.spawners[this.chests[chestId].spawnerId].removeObject(chestId);
-      //   this.scene.events.emit('chestRemoved', chestId);
-      // }
     });
   }
 
@@ -296,26 +285,6 @@ export default class GameManagerService extends Service {
     return agentShapes.length > 0 ? agentShapes[0] : null;
   }
 
-  // // find an agent for example
-  // findTypeFromShapeArray(shapes, type) {
-  //   if (isEmpty(shapes)) {
-  //     return null;
-  //   }
-  //   const foundTypes = shapes.filter(object => {
-  //     if (object.type) {
-  //       if (object.type === this.constants.SHAPE_TYPE_CONTAINER) {
-  //         return object.containerType === type;
-  //       } else {
-  //         return object.type === type;
-  //       }
-  //     }
-  //   });
-  //   if (isEmpty(foundTypes)) {
-  //     return null;
-  //   }
-  //   return foundTypes[0];
-  // }
-
   playSound(key) {
     switch (key) {
       case this.ember.constants.AUDIO.KEY.ATTACK:
@@ -330,6 +299,20 @@ export default class GameManagerService extends Service {
       default:
         this.scene.swordMiss.play();
         break;
+    }
+  }
+
+  @restartableTask
+  *gameClock() {
+    while (true) {
+      if (!this.gamePaused) {
+        // console.log('gameClockTicking');
+
+        if (this.player.container) {
+          this.ember.checkForSpecial(this.player.container, this.player.container.moveToObject);
+        }
+      }
+      yield timeout( constants.GAMECLOCKDELAY );
     }
   }
 

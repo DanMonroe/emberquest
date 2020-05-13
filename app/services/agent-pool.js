@@ -115,7 +115,7 @@ export default class AgentPoolService extends Service {
     energizeSpeed: 3000,
 
     // aggressionScale: 3,
-    aggressionScale: 10,
+    aggressionScale: 5,
 
     // xpGain: 15,
     gold: 1,
