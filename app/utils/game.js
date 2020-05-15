@@ -43,7 +43,7 @@
 //
 //     if(config.showHexInfo) {
 //       const travelFlags = getTileAttribute(scene, tileXY, 'travelFlags');
-//       // const wesnoth = getTileAttribute(scene, tileXY, 'wesnoth');
+//       // const wesnoth = getTileAttribute(scene, tileXY, 'w'); // wesnoth tile
 //
 //       const points = board.getGridPoints(tileXY.x, tileXY.y, true);
 //       graphics.strokePoints(points, true);

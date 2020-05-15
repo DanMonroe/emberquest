@@ -50,7 +50,7 @@ export default class AgentContainer extends BasePhaserAgentContainer {
       let canMove = this.ember.playerHasAbilityFlag(this, this.ember.constants.FLAG_TYPE_TRAVEL, allattrs.travelFlags);
 
       if (!canMove) {
-        // console.log('cant move! targetTile', targetTile, 'travelFlags', allattrs.travelFlags, 'wesnoth', allattrs.wesnoth);
+        // console.log('cant move! targetTile', targetTile, 'travelFlags', allattrs.travelFlags, 'w', allattrs.wesnoth);
       } else if ( ! this.boardedTransport) {  // don't adjust speed/power when on a transport
         this.moveToObject.setSpeed(config.speed * allattrs.speedCost);
       }

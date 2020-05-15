@@ -101,7 +101,7 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
       let canMove = this.ember.playerHasAbilityFlag(pathFinder.scene.player.container, this.ember.constants.FLAG_TYPE_TRAVEL, allattrs.travelFlags);
 // console.log('moveableTestCallback ', targetTile)
       if (!canMove) {
-        // console.log('cant move! targetTile', targetTile, 'travelFlags', allattrs.travelFlags, 'wesnoth', allattrs.wesnoth);
+        // console.log('cant move! targetTile', targetTile, 'travelFlags', allattrs.travelFlags, 'w', allattrs.wesnoth);
 
         // is there a transport at targetTile
         const currentTileIsDock = this.ember.map.tileIsDock(pathFinder.scene, curTile);

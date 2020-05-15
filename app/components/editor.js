@@ -111,6 +111,12 @@ export default {
   sceneTiles: [
     `;
 
+    /****
+     *
+     * w:  wesnoth tile description
+     */
+
+
     let row = 0;
     this.mapArray.forEach((terrainRow) => {
       mapSource += `    [
@@ -123,7 +129,7 @@ export default {
         const sightFlags = this.getSightFlags(terrainText);
         const sightCost = this.getSightCost(terrainText);
         const special = this.getSpecial(terrainText);
-        mapSource += `{'col': ${col}, 'row': ${row}, 'sightCost': ${sightCost}, 'sightFlags': ${sightFlags}, 'speedCost': ${speedCost}, 'travelFlags': ${travelFlags}, 'wesnoth': '${terrainText.replace(/\\/g,"\\\\")}', 'special': ${special} },
+        mapSource += `{'x': ${col}, 'y': ${row}, 'sightCost': ${sightCost}, 'sightFlags': ${sightFlags}, 'speedCost': ${speedCost}, 'travelFlags': ${travelFlags}, 'w': '${terrainText.replace(/\\/g,"\\\\")}', 'special': ${special} },
     `;
         col++;
       });

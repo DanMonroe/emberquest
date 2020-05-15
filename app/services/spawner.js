@@ -52,6 +52,7 @@ export default class SpawnerService extends Service {
     if (this.spawnLocations.agents && this.spawnLocations.agents.locations.length > 0) {
       // console.log('this.spawnLocations.agents.locations', this.spawnLocations.agents.locations)
       this.agentLimit = this.spawnLocations.agents.limit || 1;
+      this.spawnInterval = this.spawnLocations.agents.spawnInterval || 3000;
       this.spawners.push(constants.SPAWNER_TYPE.AGENT);
     }
 
@@ -102,11 +103,12 @@ export default class SpawnerService extends Service {
             // console.log('   >> ' + spawnerType + ' - NO!! Dont spawn')
           }
         });
+        yield timeout(this.spawnInterval);
       } else {
         console.log('no spawn, game paused')
+        yield timeout(1000);
       }
 
-      yield timeout(this.spawnInterval);
     }
   }
 
