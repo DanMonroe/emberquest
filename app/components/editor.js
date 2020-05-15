@@ -162,7 +162,8 @@ export default {
     SWAMP: 'S',
     MOUNTAIN: 'M',
     UNWALKABLE: 'Q',
-    IMPASSABLE: 'X'
+    IMPASSABLE: 'X',
+    LAVA: 'Qlf'
   };
 
   SPEED = {
@@ -184,9 +185,14 @@ export default {
       case this.WESNOTH.WATER:
         switch (terrainParts.secondary) {
           case this.WESNOTH.BRIDGE:
-            special |= this.constants.FLAGS.TRAVEL.SPECIAL.DOCK.value;
+            special |= this.constants.FLAGS.SPECIAL.DOCK.value;
             break;
           default:  // regular water
+        }
+        break;
+      case this.WESNOTH.UNWALKABLE:
+        if(terrain === this.WESNOTH.LAVA) {
+          special = `{value:constants.FLAGS.SPECIAL.LAVA.value}`;
         }
         break;
       default:
@@ -218,7 +224,11 @@ export default {
             terrainFlags |= this.constants.FLAGS.TRAVEL.AIR.value;
             break;
           default:  // fly
-            terrainFlags |= this.constants.FLAGS.TRAVEL.AIR.value;
+            if (terrain === this.WESNOTH.LAVA) {
+              terrainFlags |= this.constants.FLAGS.TRAVEL.LAND.value;
+            } else {
+              terrainFlags |= this.constants.FLAGS.TRAVEL.AIR.value;
+            }
         }
         break;
       case this.WESNOTH.MOUNTAIN:

@@ -1,5 +1,7 @@
 import { constants } from 'emberquest/services/constants';
 
+// {value:constants.FLAGS.SPECIAL.PORTAL.value,map:'play',x:6,y:6}
+
 export default {
 
   player: {
@@ -131,7 +133,7 @@ export default {
       {'row': 0, 'col': 10, 'sightCost': 7, 'sightFlags': 1, 'speedCost': 1, 'travelFlags': 8, 'special': 0, 'wesnoth': 'Xv'},
       {'row': 0, 'col': 11, 'sightCost': 7, 'sightFlags': 1, 'speedCost': 1, 'travelFlags': 8, 'special': 0, 'wesnoth': 'Xv'},
       {'row': 0, 'col': 12, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'special': 0, 'wesnoth': 'Gg'},
-      {'row': 0, 'col': 13, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1.2, 'travelFlags': 6, 'special': {value:constants.FLAGS.SPECIAL.PORTAL.value,map:'play',x:6,y:6}, 'wesnoth': 'Rb'},
+      {'row': 0, 'col': 13, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1.2, 'travelFlags': 6, 'special': {value:constants.FLAGS.SPECIAL.PORTAL.value,map:'intro3',x:14,y:13}, 'wesnoth': 'Rb'},
       {'row': 0, 'col': 14, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'special': 0, 'wesnoth': 'Gg'},
       {'row': 0, 'col': 15, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'special': 0, 'wesnoth': 'Gg'},
       {'row': 0, 'col': 16, 'sightCost': 7, 'sightFlags': 1, 'speedCost': 1, 'travelFlags': 8, 'special': 0, 'wesnoth': 'Xv'},

@@ -11,6 +11,7 @@ export default class SpawnerService extends Service {
 
 
   @service agentPool;
+  @service transportPool;
 
   @tracked uniques;
   @tracked spawnLocations;
@@ -37,34 +38,14 @@ export default class SpawnerService extends Service {
     this.agents = [];
 
     // create transport spawners
-    if (this.spawnLocations.transports && this.spawnLocations.transports.locations.length > 0) {
-      this.transportLimit = this.spawnLocations.transports.limit || 1;
+    if (this.spawnLocations.transports && this.spawnLocations.transports.length > 0) {
+      // this.transportLimit = this.spawnLocations.transports.limit || 1;
+      // this.spawners.push(constants.SPAWNER_TYPE.TRANSPORT);
 
-      // config = {
-      //   spawnInterval: this.spawnLocations.transports.spawnInterval || 3000,
-      //   // limit: this.spawnLocations.transports.limit || 1,
-      //   spawnerType: constants.SPAWNER_TYPE.TRANSPORT
-      // };
-
-      this.spawners.push(constants.SPAWNER_TYPE.TRANSPORT);
-
-
-      // this.spawnLocations.transports.locations.forEach(locationObj => {
-      //   config.id = `transport-${locationObj.id}`;
-      //   config.locationId = +locationObj.id - 1;
-      //   config.objectConfig = locationObj
-      //
-      //   // let spawner = new Spawner(
-      //   //   this,
-      //   //   config,
-      //   //   this.spawnLocations.transports.locations,
-      //   //   this.addTransport.bind(this),
-      //   //   this.deleteTransport.bind(this)
-      //   // );
-      //
-      //   this.spawners[spawner.id] = spawner;
-      //
-      // });
+      this.spawnLocations.transports.forEach(transportObj => {
+        console.log('transport', transportObj);
+        this.spawnObject(constants.SPAWNER_TYPE.TRANSPORT, transportObj);
+      });
     }
 
     // create agent spawners
@@ -114,7 +95,7 @@ export default class SpawnerService extends Service {
     // while (true) {
       if (!this.scene.ember.gameManager.gamePaused) {
         this.spawners.forEach(spawnerType => {
-console.log('spawnerType', spawnerType)
+// console.log('spawnerType', spawnerType)
           if (this.shouldSpawn(spawnerType)) {
             this.spawnObject(spawnerType);
           } else {
@@ -133,11 +114,11 @@ console.log('spawnerType', spawnerType)
 
   shouldSpawn(spawnerType) {
     switch (spawnerType) {
-      case constants.SPAWNER_TYPE.TRANSPORT:
-        if (this.spawnLocations.transports.locations.length === 0 || this.transports.length >= this.transportLimit) {
-          return false;
-        }
-        break;
+      // case constants.SPAWNER_TYPE.TRANSPORT:
+      //   if (this.spawnLocations.transports.locations.length === 0 || this.transports.length >= this.transportLimit) {
+      //     return false;
+      //   }
+      //   break;
       case constants.SPAWNER_TYPE.AGENT:
         if (this.spawnLocations.agents.locations.length === 0 || this.agents.length >= this.agentLimit) {
           return false;
@@ -149,29 +130,32 @@ console.log('spawnerType', spawnerType)
     return true;
   }
 
-  spawnObject(spawnerType) {
-    const location = this.pickRandomLocation(spawnerType);
-    let locationClone, agentConfigFromPool;
+  spawnObject(spawnerType, objectConfig) {
+    let location, locationClone, agentConfigFromPool, transportConfigFromPool;
     switch (spawnerType) {
+
       case constants.SPAWNER_TYPE.TRANSPORT:
-        // this.spawnTransport();
+        location = {x: objectConfig.x, y: objectConfig.y};
+        transportConfigFromPool = this.transportPool.getTransportConfig(objectConfig.poolkey);
+        if (transportConfigFromPool) {
+          this.addTransport(new Transport(location.x, location.y, Object.assign(location, transportConfigFromPool)));
+        }
         break;
+
       case constants.SPAWNER_TYPE.AGENT:
+        location = this.pickRandomLocation(spawnerType);
         agentConfigFromPool = Object.assign({}, this.pickRandomAgentFromPool(location));
         locationClone = Object.assign({}, location);
-
         if (agentConfigFromPool) {
           if (locationClone.patrol) {
             // assign any properties
             Object.assign(agentConfigFromPool.patrol, locationClone.patrol)
           }
-
           const agent = new Agent(locationClone.x, locationClone.y, Object.assign(locationClone, agentConfigFromPool));
-
           this.addAgent(agent);
         }
-
         break;
+
       default:
         break;
     }
@@ -181,9 +165,9 @@ console.log('spawnerType', spawnerType)
   pickRandomLocation(spawnerType) {
     let location, invalidLocation = false;
     switch (spawnerType) {
-      case constants.SPAWNER_TYPE.TRANSPORT:
-        location = this.spawnLocations.transports.locations[Math.floor(Math.random() * this.spawnLocations.transports.locations.length)];
-        break;
+      // case constants.SPAWNER_TYPE.TRANSPORT:
+      //   location = this.spawnLocations.transports.locations[Math.floor(Math.random() * this.spawnLocations.transports.locations.length)];
+      //   break;
       case constants.SPAWNER_TYPE.AGENT:
         location = this.spawnLocations.agents.locations[Math.floor(Math.random() * this.spawnLocations.agents.locations.length)];
         invalidLocation = this.agents.some((obj) => {
@@ -218,7 +202,7 @@ console.log('spawnerType', spawnerType)
   }
 
 
-  addTransport(transportId, transport) {
+  addTransport(transport) {
     // this.transports[transportId] = transport;
     this.transports.pushObject(transport);
     this.scene.events.emit('transportSpawned', transport);

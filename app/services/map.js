@@ -2,8 +2,9 @@ import Service from '@ember/service';
 import { constants } from 'emberquest/services/constants';
 import intro from '../phaser/scenes/tiledata/intro';
 import intro2 from '../phaser/scenes/tiledata/intro2';
-import cave1 from '../phaser/scenes/tiledata/cave1';
-import landsea from '../phaser/scenes/tiledata/landsea'
+import intro3 from '../phaser/scenes/tiledata/intro3';
+// import cave1 from '../phaser/scenes/tiledata/cave1';
+// import landsea from '../phaser/scenes/tiledata/landsea'
 import play from '../phaser/scenes/tiledata/play'
 
 
@@ -20,10 +21,12 @@ export default class MapService extends Service {
         return intro;
       case 'intro2':
         return intro2;
-      case 'cave1':
-        return cave1;
-      case 'landsea':
-        return landsea;
+      case 'intro3':
+        return intro3;
+      // case 'cave1':
+      //   return cave1;
+      // case 'landsea':
+      //   return landsea;
       case 'play':
         return play;
       default:

@@ -154,7 +154,7 @@ console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.
 
   spawnPlayer(playerObject) {
     this.player = playerObject;
-
+    console.log('spawnPlayer', playerObject.playerConfig.playerX, playerObject.playerConfig.playerY)
     this.board.addChess(playerObject.container, playerObject.playerConfig.playerX, playerObject.playerConfig.playerY, this.ember.constants.TILEZ_PLAYER);
 
     playerObject.container.fov = this.rexBoard.add.fieldOfView(playerObject.container, playerObject.playerConfig);
@@ -247,20 +247,20 @@ console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.
       transportObj.objectConfig.x = storedTransport.tile.x;
       transportObj.objectConfig.y = storedTransport.tile.y;
     }
-    transportObj.objectConfig.costCallback = (tileXY) => {
-      return this.ember.map.getTileAttribute(this.board.scene, tileXY, 'sightCost');
-    };
-    transportObj.objectConfig.preTestCallback = (tileXYArray) => {
-      return tileXYArray.length <= (this.player.sightRange + 1);
-    }
-    transportObj.objectConfig.debug = {
-      // graphics: this.add.graphics().setDepth(10),
-      log: false
-    }
+    // transportObj.objectConfig.costCallback = (tileXY) => {
+    //   return this.ember.map.getTileAttribute(this.board.scene, tileXY, 'sightCost');
+    // };
+    // transportObj.objectConfig.preTestCallback = (tileXYArray) => {
+    //   return tileXYArray.length <= (this.player.sightRange + 1);
+    // }
+    // transportObj.objectConfig.debug = {
+    //   // graphics: this.add.graphics().setDepth(10),
+    //   log: false
+    // }
 
-    const transport = this.ember.createTransport(this, transportObj.objectConfig);
-    transport.setAlpha(0);
-    this.transports.add(transport);
+    const transportContainer = this.ember.createTransport(this, transportObj);
+    transportContainer.setAlpha(0);
+    this.transports.add(transportContainer);
   }
 
   createAudio() {

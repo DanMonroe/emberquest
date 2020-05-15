@@ -33,13 +33,13 @@ export class Caches {
 
     caches.push(
       new Cache({
-        gccode: 'GC003',
-        name: 'Hello EmberQuest Cache 3',
+        gccode: 'GC8QB0N',
+        name: 'EmberQuest #3',
         description: '<p>Test description</p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
-        coords: '1234567890'
+        coords: 'c2783cc64f29a9153697b71263b21965b8b56134cfb81edc5107fc1657c6b5bawJ+yik3S9opdThiPP6Tp2N57MP1cHBhYzvxa7QMfopU='
       })
     );
 

@@ -79,7 +79,7 @@ export default class GameService extends Service {
         transports.push({
           'id': transport.id,
           'tile': transport.rexChess.tileXYZ,
-          'texture': transport.texture
+          'texture': transport.config.texture
         })
       });
     }
@@ -235,9 +235,8 @@ export default class GameService extends Service {
   }
 
   createTransport(scene, transportConfig) {
-    let transport = new Transport(scene, transportConfig);
-    // console.log('transport', transport)
-    scene.board.addChess(transport.container, transportConfig.x, transportConfig.y, this.constants.TILEZ_TRANSPORTS);
+    const transport = new Transport(scene, transportConfig.objectConfig);
+    scene.board.addChess(transport.container, transportConfig.objectConfig.x, transportConfig.objectConfig.y, this.constants.TILEZ_TRANSPORTS);
 
     return transport.container;
   }

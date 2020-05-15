@@ -99,14 +99,12 @@ export class BootScene extends Phaser.Scene {
 
   complete() {
     this.loadingText.setText('Enjoy!');
-    // debugger;
   }
 
   loadImages() {
     this.load.image('player', this.ember.playerImgSrc);
-    this.load.image('playerboat', '/images/transports/boat.png');
-    // this.load.image('playership', '/images/transports/ship.svg');
-    // this.load.image('monsters', '/images/monsters/spider.png');
+    this.load.image('cutter', '/images/transports/cutter.png');
+
     this.load.image('pirategalleon', '/images/agents/pirate-galleon.png');
 
     // portals
@@ -117,7 +115,6 @@ export class BootScene extends Phaser.Scene {
 
     this.load.image('missile', '/images/items/missile-n.png');
 
-    // this.load.image('vue', '/images/agents/vue.png');
   }
 
   loadSpriteSheets() {
@@ -161,8 +158,11 @@ export class BootScene extends Phaser.Scene {
 
         // TODO:  If you update what is loaded here, also update checkForPortal in game.js
 
-// let data = {'map': 'play'}  // default initial map
+// let data = {'map': 'play'}
+// let data = {'map': 'intro3'} // cutter ship
+
         let data = {'map': 'intro'}  // default initial map
+
         if (gameboardData) {
           const sceneData =   gameboardData.sceneData[gameboardData.currentMap] || { allSeenTiles: [], storedTransports: [], boarded: 0};
 // console.log('sceneData', sceneData)
