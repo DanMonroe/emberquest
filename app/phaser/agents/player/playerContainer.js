@@ -44,6 +44,8 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
 
     this.isPlayer = true;
     this.showPowerBar = true;
+    this.damageColor = "#ff7700";
+    this.damageFont = "22px Arial";
 
     this.agent = agent;
 

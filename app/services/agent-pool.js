@@ -87,6 +87,36 @@ export default class AgentPoolService extends Service {
         // }
       })
     );
+
+    // DOG
+    baseAgentclone = Object.assign({}, this.baseAgent);
+    this.agentpool.set('dog',
+      Object.assign(baseAgentclone, {
+        id: 3,
+        texture: 'dog',
+// health: 2,
+// maxHealth: 2,
+// healingPower: 1,
+        scale: 1.5,
+        animeframes: {
+          rest: {key: 'dog-rest', start: 1, end: 3, rate: 3, repeat: -1},
+          // attack: {key: 'dog-attack', start: 4, end: 5, rate: 12}
+          attack: {key: 'dog-attack', start: 3, end: 5, rate: 12, delays: { frameNum: 1, delay: 300 }}
+        },
+        inventory: [
+          { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items:
+            [
+              { itemId: 2003 }  // bite
+            ]},
+        ]
+
+        // patrol: {
+        //   tiles: [
+        //     // {x: 13, y: 4}, {x: 13, y: 2}
+        //   ]
+        // }
+      })
+    );
   }
 
   baseAgent = {

@@ -98,6 +98,26 @@ export class InventoryItems {
         }
       })
     );
+    items.push(
+      new InventoryItem({
+        id: 2003,
+        name: 'Bite',
+        type: constants.INVENTORY.TYPE.MONSTER,
+        bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 3}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 3}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 10.1})
+        ],
+        audio: {
+          attack: {
+            miss: {
+              name: 'sword_miss'
+            }
+          }
+        }
+      })
+    );
 
     // Ranged Weapons
     let rangedWeaponId = 250;
