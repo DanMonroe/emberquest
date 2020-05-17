@@ -17,7 +17,7 @@ export default {
 
   uniques: {
     agents: [
-      {uniqueId: 1, x: 13, y: 2, agentKey: 'young-ogre', aggressionScale: 0, patrol: { method: 'random', tiles: [{x: 13, y: 4}, {x: 13, y: 2}] } }
+      {uniqueId: 1, x: 13, y: 2, agentKey: 'young-ogre', override: {aggressionScale: 0}, patrol: { method: 'random', tiles: [{x: 13, y: 4}, {x: 13, y: 2}] } }
     ]
   },
 

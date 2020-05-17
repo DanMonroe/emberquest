@@ -12,6 +12,7 @@ export class Agent extends BaseAgent {
     this.playerConfig = config;
 
     this.loadInventory();
+    this.setLevel();
     this.setExperienceBasedFromConfigLevel();
   }
 
@@ -39,6 +40,19 @@ export class Agent extends BaseAgent {
     return items[Math.floor(Math.random() * items.length)];
   }
 
+  setLevel() {
+    if (this.playerConfig.levelRange !== 0) {
+      let min = Math.max(1, this.ember.playerContainer.agent.level - this.playerConfig.levelRange);
+      let max = this.ember.playerContainer.agent.level + this.playerConfig.levelRange;
+      if (min !== max) {
+        const newLevel = this.ember.randomIntFromInterval(min, max);
+        this.level = newLevel;
+        return;
+      }
+    }
+    this.level = this.playerConfig.level || this.ember.playerContainer.agent.level;
+  }
+
   setExperienceBasedFromConfigLevel() {
     // have to set experience so level will be set on agent
     // so the player will get xp for a victory
@@ -54,24 +68,6 @@ export class Agent extends BaseAgent {
       // level range?
       // debugger;
     }
-
-    // this.experience = xp;
-    // get level() {
-    //   if (this.experience < constants.LEVEL_2) { return 1; }
-    //   if (this.experience < constants.LEVEL_3) { return 2; }
-    //   if (this.experience < constants.LEVEL_4) { return 3; }
-    //   if (this.experience < constants.LEVEL_5) { return 4; }
-    //   if (this.experience < constants.LEVEL_6) { return 5; }
-    //   if (this.experience < constants.LEVEL_7) { return 6; }
-    //   if (this.experience < constants.LEVEL_8) { return 7; }
-    //   if (this.experience < constants.LEVEL_9) { return 8; }
-    //   if (this.experience < constants.LEVEL_10) { return 9; }
-    //   if (this.experience < constants.LEVEL_11) { return 10; }
-    //   if (this.experience < constants.LEVEL_12) { return 11; }
-    //
-    //   // after level 11, experience between levels is a constant.
-    //   return 12 + Math.floor((this.experience - constants.LEVEL_12)/constants.LEVEL_RANGE_AFTER_12);
-    // }
 
   }
 

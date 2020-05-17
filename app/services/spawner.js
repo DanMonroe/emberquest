@@ -75,8 +75,11 @@ export default class SpawnerService extends Service {
             if (unique.patrol) {
               // assign any properties
               Object.assign(agentConfig.patrol, unique.patrol)
-              Object.assign(agentConfig, unique)
             }
+            if (agentConfig.override) {
+              Object.assign(agentConfig, unique.override);
+            }
+
 
             agentConfig.uniqueId = unique.uniqueId;
 
@@ -152,6 +155,9 @@ export default class SpawnerService extends Service {
           if (locationClone.patrol) {
             // assign any properties
             Object.assign(agentConfigFromPool.patrol, locationClone.patrol)
+          }
+          if (locationClone.override) {
+            Object.assign(agentConfigFromPool, locationClone.override)
           }
           const agent = new Agent(locationClone.x, locationClone.y, Object.assign(locationClone, agentConfigFromPool));
           this.addAgent(agent);

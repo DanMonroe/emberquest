@@ -160,10 +160,10 @@ export class BootScene extends Phaser.Scene {
 
         // TODO:  If you update what is loaded here, also update checkForPortal in game.js
 
-// let data = {'map': 'play'}
+let data = {'map': 'arena'}
 // let data = {'map': 'intro3'} // cutter ship
 
-        let data = {'map': 'intro'}  // default initial map
+        // let data = {'map': 'intro'}  // default initial map
 
         if (gameboardData) {
           const sceneData =   gameboardData.sceneData[gameboardData.currentMap] || { allSeenTiles: [], storedTransports: [], boarded: 0};

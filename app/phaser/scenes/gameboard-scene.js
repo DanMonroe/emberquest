@@ -89,9 +89,7 @@ export class GameboardScene extends Phaser.Scene {
     // click end tileXY to get info in console
     this.board.on('tiledown',  (pointer, tileXY) => {
 
-      // const allAttrs = this.ember.map.getTileAttribute(this, tileXY);
-      // const clickedShape = this.board.tileXYToChessArray(tileXY.x, tileXY.y);
-      // console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.player.container));
+      this.consoleLogReport(tileXY);
 
       // this.ember.showInfoDialog(`
       //       <p>Makes it easy to inject the Phaser game framework into your Ember application.</p>
@@ -110,7 +108,63 @@ export class GameboardScene extends Phaser.Scene {
         this.player.power = this.player.basePower;
       }
     });
+  }
 
+  consoleLogReport(tileXY) {
+    const clickedShape = this.board.tileXYToChessArray(tileXY.x, tileXY.y);
+    // console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.player.container));
+
+    clickedShape.forEach(tileObj => {
+      const a = tileObj.agent;
+      switch (tileObj.containerType) {
+        case 'Agent':
+            console.log('%c Agent Info', 'color: green; font-size: 16px; margin: 15px 0 0 0;')
+            console.table([
+              {
+                texture: a.playerConfig.texture,
+                level: a.level,
+                levelRange: a.playerConfig.levelRange,
+                health: a.health,
+                power: a.power,
+                gold: a.gold
+              }
+            ]);
+            console.log(tileObj);
+            console.log('')
+          break;
+        default:
+          break;
+      }
+    });
+
+    // Tile info
+    const allAttrs = this.ember.map.getTileAttribute(this, tileXY);
+    console.log('%c Tile Info', 'color: yellow; font-size: 16px; margin: 15px 0 0 0;')
+    // console.table([
+    //   {
+    //     texture: a.playerConfig.texture,
+    //     level: a.level,
+    //     health: a.health,
+    //     power: a.power,
+    //     gold: a.gold
+    //   }
+    // ]);
+    console.table([
+      {
+        x: allAttrs.x,
+        y: allAttrs.y,
+        sightCost: allAttrs.sightCost,
+        sightFlags: allAttrs.sightFlags,
+        speedCost: allAttrs.speedCost,
+        travelFlags: allAttrs.travelFlags,
+        w: allAttrs.w,
+        special: allAttrs.special
+      }
+    ]);
+    // console.log(allAttrs);
+    console.log('')
+
+    console.log(`%c${this.ember.describePlayerFlags(this.player.container)}`, 'color: puple; font-size: 16px; margin: 15px 0 0 0;')
   }
 
   createGameManager() {
@@ -139,11 +193,11 @@ export class GameboardScene extends Phaser.Scene {
     // this.events.off('tiledown').on('tiledown',  async (pointer, tileXY) => {
 
       // report tile info for debugging
-      const allAttrs = this.ember.map.getTileAttribute(this, tileXY);
-      const clickedShape = this.board.tileXYToChessArray(tileXY.x, tileXY.y);
-console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.player.container));
+      // const allAttrs = this.ember.map.getTileAttribute(this, tileXY);
+      // const clickedShape = this.board.tileXYToChessArray(tileXY.x, tileXY.y);
+// console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.player.container));
 
-      this.ember.gameManager.attack.perform(tileXY, clickedShape, this.player.container);
+      this.ember.gameManager.attack.perform(tileXY, this.board.tileXYToChessArray(tileXY.x, tileXY.y), this.player.container);
     });
 
     // console.log('eventNames()', this.events.eventNames())
@@ -215,7 +269,8 @@ console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.
 
     agentContainer.setVisibility();
 
-    if (agentObject.objectConfig.patrol.tiles.length) {
+    // if (agentObject.objectConfig.patrol.tiles.length) {
+    if (agentObject.objectConfig.patrol.method !== 'static') {
       agentContainer.transitionToPatrol();
     }
   }

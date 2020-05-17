@@ -144,7 +144,7 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
 
   playDamageText(amount) {
     let damageText = this.scene.add.text(-12, -30, amount, { font: this.damageFont, color: this.damageColor, fontStyle: "strong", stroke:this.damageColor, strokeThickness: 2 });
-
+    damageText.setDepth(230);
     this.add(damageText);
 
     let timeline = this.scene.tweens.createTimeline();
@@ -163,7 +163,7 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
       repeat: 0,            // -1: infinity
       offset: '-=500',   // starts 500ms before previous tween ends
       onComplete: function () {
-        damageText.destroy();
+        // damageText.destroy();
       }
     });
     timeline.play();

@@ -371,7 +371,7 @@ export default class GameManagerService extends Service {
         // get attackers weapon (in right hand?)
         const equippedRangedWeapon = attacker.agent.equippedRangedWeapon;
 
-console.log('game-manager - equippedRangedWeapon', equippedRangedWeapon)
+// console.log('game-manager - equippedRangedWeapon', equippedRangedWeapon)
         if (equippedRangedWeapon && this.hasEnoughPowerToUseItem(equippedRangedWeapon, attacker.agent)) {
 
           const isInLineOfSight = attacker.ember.playerContainer.fov.isInLOS(agentToAttack.rexChess.tileXYZ);

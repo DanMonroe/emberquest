@@ -24,7 +24,7 @@ export default {
       limit: 2,
       locations: [
         {id: 1, x: 0, y: 7, pool: [ 'spider' ], patrol: { method: 'wander' }},
-        {id: 1, x: 27, y: 14, pool: [ 'dog' ], patrol: { method: 'wander', timeout: 4000, pursuitSpeed: 2000, aggressionSpeedTimeout: 1500 }, health: 10, maxHealth: 10,}
+        {id: 1, x: 27, y: 14, pool: [ 'dog' ], override: {health: 10, maxHealth: 10}, patrol: { method: 'wander', timeout: 4000, pursuitSpeed: 2000, aggressionSpeedTimeout: 1500 }}
       ]
     }
   },
