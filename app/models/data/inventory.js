@@ -31,11 +31,262 @@ export class InventoryItems {
             }
           }
         }
-
       })
     );
 
-    // Weapons
+    items.push(
+      new InventoryItem({
+        id: weaponId++,
+        owned: false,
+        price: 2,
+        type: constants.INVENTORY.TYPE.WEAPON,
+        bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
+        name: 'Jagged Sword',
+        img: '/images/items/weapons/sword_jagged.png',
+        description: 'A simple introductory sword',
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 4}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
+        ],
+        audio: {
+          attack: {
+            miss: {
+              name: 'sword_miss'
+            }
+          }
+        }
+      })
+    );
+
+    items.push(
+      new InventoryItem({
+        id: weaponId++,
+        owned: false,
+        price: 2,
+        type: constants.INVENTORY.TYPE.WEAPON,
+        bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
+        name: 'Sword',
+        img: '/images/items/weapons/sword4.png',
+        description: 'A simple introductory sword',
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 4}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
+        ],
+        audio: {
+          attack: {
+            miss: {
+              name: 'sword_miss'
+            }
+          }
+        }
+      })
+    );
+
+    items.push(
+      new InventoryItem({
+        id: weaponId++,
+        owned: false,
+        price: 2,
+        type: constants.INVENTORY.TYPE.WEAPON,
+        bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
+        name: 'Claymore',
+        img: '/images/items/weapons/claymore.png',
+        description: 'A simple introductory sword',
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 4}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
+        ],
+        audio: {
+          attack: {
+            miss: {
+              name: 'sword_miss'
+            }
+          }
+        }
+      })
+    );
+
+    items.push(
+      new InventoryItem({
+        id: weaponId++,
+        owned: false,
+        price: 2,
+        type: constants.INVENTORY.TYPE.WEAPON,
+        bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
+        name: 'Katana',
+        img: '/images/items/weapons/katana.png',
+        description: 'A simple introductory sword',
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 4}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
+        ],
+        audio: {
+          attack: {
+            miss: {
+              name: 'sword_miss'
+            }
+          }
+        }
+      })
+    );
+
+    items.push(
+      new InventoryItem({
+        id: weaponId++,
+        owned: false,
+        price: 2,
+        type: constants.INVENTORY.TYPE.WEAPON,
+        bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
+        name: 'Runesword',
+        img: '/images/items/weapons/runesword.png',
+        description: 'A simple introductory sword',
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 4}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
+        ],
+        audio: {
+          attack: {
+            miss: {
+              name: 'sword_miss'
+            }
+          }
+        }
+      })
+    );
+
+    items.push(
+      new InventoryItem({
+        id: weaponId++,
+        owned: false,
+        price: 2,
+        type: constants.INVENTORY.TYPE.WEAPON,
+        bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
+        name: 'Simple Axe',
+        img: '/images/items/weapons/axe.png',
+        description: 'A simple introductory sword',
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 4}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
+        ],
+        audio: {
+          attack: {
+            miss: {
+              name: 'sword_miss'
+            }
+          }
+        }
+      })
+    );
+
+    items.push(
+      new InventoryItem({
+        id: weaponId++,
+        owned: false,
+        price: 2,
+        type: constants.INVENTORY.TYPE.WEAPON,
+        bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
+        name: 'Axe',
+        img: '/images/items/weapons/axe2.png',
+        description: 'A simple introductory sword',
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 4}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
+        ],
+        audio: {
+          attack: {
+            miss: {
+              name: 'sword_miss'
+            }
+          }
+        }
+      })
+    );
+
+    items.push(
+      new InventoryItem({
+        id: weaponId++,
+        owned: false,
+        price: 2,
+        type: constants.INVENTORY.TYPE.WEAPON,
+        bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
+        name: 'Battle Axe',
+        img: '/images/items/weapons/battleaxe.png',
+        description: 'A simple introductory sword',
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 4}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
+        ],
+        audio: {
+          attack: {
+            miss: {
+              name: 'sword_miss'
+            }
+          }
+        }
+      })
+    );
+
+    items.push(
+      new InventoryItem({
+        id: weaponId++,
+        owned: false,
+        price: 2,
+        type: constants.INVENTORY.TYPE.WEAPON,
+        bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
+        name: 'Simple Hammer',
+        img: '/images/items/weapons/hammer.png',
+        description: 'A simple introductory sword',
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 4}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
+        ],
+        audio: {
+          attack: {
+            miss: {
+              name: 'sword_miss'
+            }
+          }
+        }
+      })
+    );
+
+    items.push(
+      new InventoryItem({
+        id: weaponId++,
+        owned: false,
+        price: 2,
+        type: constants.INVENTORY.TYPE.WEAPON,
+        bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
+        name: 'Hammer',
+        img: '/images/items/weapons/hammer2.png',
+        description: 'A simple introductory sword',
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 4}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
+        ],
+        audio: {
+          attack: {
+            miss: {
+              name: 'sword_miss'
+            }
+          }
+        }
+      })
+    );
+
+
+
+    // Monster Weapons
     items.push(
       new InventoryItem({
         id: 2000,
@@ -65,7 +316,7 @@ export class InventoryItems {
         stats: [
           new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 4}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
-          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 10.1})
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
         ],
         audio: {
           attack: {
@@ -87,7 +338,7 @@ export class InventoryItems {
         stats: [
           new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 3}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
-          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 7.3})
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.8})
         ],
         audio: {
           attack: {
@@ -107,7 +358,7 @@ export class InventoryItems {
         stats: [
           new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 3}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 3}),
-          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 10.1})
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.9})
         ],
         audio: {
           attack: {
@@ -128,8 +379,86 @@ export class InventoryItems {
         price: 10,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RANGED,
+        name: 'Bow',
+        img: '/images/items/weapons/bow.png',
+        projectileImg: 'missile',
+        // velocity: 350, // 300 default
+        description: 'Modest range and damage; it\'s the beginner bow.',
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 3}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 2}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.5})
+        ],
+        audio: {
+          attack: {
+            miss: {
+              name: 'sword_miss'
+            }
+          }
+        }
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: rangedWeaponId++,
+        owned: false,
+        price: 10,
+        type: constants.INVENTORY.TYPE.WEAPON,
+        bodypart: constants.INVENTORY.BODYPART.RANGED,
+        name: 'Enhanced Bow',
+        img: '/images/items/weapons/bow2.png',
+        projectileImg: 'missile',
+        // velocity: 350, // 300 default
+        description: 'Modest range and damage; it\'s the beginner crossbow.',
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 3}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 2}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.5})
+        ],
+        audio: {
+          attack: {
+            miss: {
+              name: 'sword_miss'
+            }
+          }
+        }
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: rangedWeaponId++,
+        owned: false,
+        price: 10,
+        type: constants.INVENTORY.TYPE.WEAPON,
+        bodypart: constants.INVENTORY.BODYPART.RANGED,
         name: 'Crossbow',
         img: '/images/items/weapons/crossbow.png',
+        projectileImg: 'missile',
+        // velocity: 350, // 300 default
+        description: 'Modest range and damage; it\'s the beginner crossbow.',
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 3}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 2}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.5})
+        ],
+        audio: {
+          attack: {
+            miss: {
+              name: 'sword_miss'
+            }
+          }
+        }
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: rangedWeaponId++,
+        owned: false,
+        price: 10,
+        type: constants.INVENTORY.TYPE.WEAPON,
+        bodypart: constants.INVENTORY.BODYPART.RANGED,
+        name: 'Triple Bolt',
+        img: '/images/items/weapons/boltsplitter.png',
         projectileImg: 'missile',
         // velocity: 350, // 300 default
         description: 'Modest range and damage; it\'s the beginner crossbow.',
@@ -168,12 +497,25 @@ export class InventoryItems {
       new InventoryItem({
         id: armorId++,
         owned: false,
+        price: 3,
+        type: constants.INVENTORY.TYPE.ARMOR,
+        bodypart: constants.INVENTORY.BODYPART.FEET,
+        name: 'Leather Boots',
+        img: '/images/items/armor/leather_boots.png',
+        description: 'Slightly more sturdy than leather shoes',
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 3})]
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: armorId++,
+        owned: false,
         price: 10,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.FEET,
         name: 'Reinforced Boots',
         img: '/images/items/armor/boots_reinforced.png',
-        description: 'Slightly more sturdy than leather shoes',
+        description: '',
         stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 8})]
       })
     );
@@ -190,6 +532,261 @@ export class InventoryItems {
         stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
       })
     );
+
+    items.push(
+      new InventoryItem({
+        id: armorId++,
+        owned: false,
+        price: 5,
+        type: constants.INVENTORY.TYPE.ARMOR,
+        bodypart: constants.INVENTORY.BODYPART.BODY,
+        name: 'Robe',
+        img: '/images/items/armor/robe.png',
+        description: '',
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: armorId++,
+        owned: false,
+        price: 5,
+        type: constants.INVENTORY.TYPE.ARMOR,
+        bodypart: constants.INVENTORY.BODYPART.BODY,
+        name: 'Tailored Robe',
+        img: '/images/items/armor/robe_tailored.png',
+        description: '',
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: armorId++,
+        owned: false,
+        price: 5,
+        type: constants.INVENTORY.TYPE.ARMOR,
+        bodypart: constants.INVENTORY.BODYPART.BODY,
+        name: 'Magic Robe',
+        img: '/images/items/armor/robe_magic.png',
+        description: '',
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: armorId++,
+        owned: false,
+        price: 5,
+        type: constants.INVENTORY.TYPE.ARMOR,
+        bodypart: constants.INVENTORY.BODYPART.BODY,
+        name: 'Leather',
+        img: '/images/items/armor/leather.png',
+        description: '',
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: armorId++,
+        owned: false,
+        price: 5,
+        type: constants.INVENTORY.TYPE.ARMOR,
+        bodypart: constants.INVENTORY.BODYPART.BODY,
+        name: 'Reinforced Leather',
+        img: '/images/items/armor/leather2.png',
+        description: '',
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: armorId++,
+        owned: false,
+        price: 5,
+        type: constants.INVENTORY.TYPE.ARMOR,
+        bodypart: constants.INVENTORY.BODYPART.BODY,
+        name: 'Iron Breastplate',
+        img: '/images/items/armor/iron_breastplate.png',
+        description: '',
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: armorId++,
+        owned: false,
+        price: 5,
+        type: constants.INVENTORY.TYPE.ARMOR,
+        bodypart: constants.INVENTORY.BODYPART.BODY,
+        name: 'Steel Breastplate',
+        img: '/images/items/armor/steel_breastplate.png',
+        description: '',
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+      })
+    );
+
+    // HEAD
+    items.push(
+      new InventoryItem({
+        id: armorId++,
+        owned: false,
+        price: 5,
+        type: constants.INVENTORY.TYPE.ARMOR,
+        bodypart: constants.INVENTORY.BODYPART.HEAD,
+        name: 'Fur Hat',
+        img: '/images/items/armor/furhat.png',
+        description: '',
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: armorId++,
+        owned: false,
+        price: 5,
+        type: constants.INVENTORY.TYPE.ARMOR,
+        bodypart: constants.INVENTORY.BODYPART.HEAD,
+        name: 'Floppy Hat',
+        img: '/images/items/armor/hat_floppy.png',
+        description: '',
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: armorId++,
+        owned: false,
+        price: 5,
+        type: constants.INVENTORY.TYPE.ARMOR,
+        bodypart: constants.INVENTORY.BODYPART.HEAD,
+        name: 'Magic Hat',
+        img: '/images/items/armor/hat_magic.png',
+        description: '',
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: armorId++,
+        owned: false,
+        price: 5,
+        type: constants.INVENTORY.TYPE.ARMOR,
+        bodypart: constants.INVENTORY.BODYPART.HEAD,
+        name: 'Helmet',
+        img: '/images/items/armor/helmet.png',
+        description: '',
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: armorId++,
+        owned: false,
+        price: 5,
+        type: constants.INVENTORY.TYPE.ARMOR,
+        bodypart: constants.INVENTORY.BODYPART.HEAD,
+        name: 'Spiked Helmet',
+        img: '/images/items/armor/helmet2.png',
+        description: '',
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: armorId++,
+        owned: false,
+        price: 5,
+        type: constants.INVENTORY.TYPE.ARMOR,
+        bodypart: constants.INVENTORY.BODYPART.HEAD,
+        name: 'Iron Helmet',
+        img: '/images/items/armor/iron_helmet2.png',
+        description: '',
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: armorId++,
+        owned: false,
+        price: 5,
+        type: constants.INVENTORY.TYPE.ARMOR,
+        bodypart: constants.INVENTORY.BODYPART.HEAD,
+        name: 'Steel Helmet',
+        img: '/images/items/armor/steel_helmet.png',
+        description: '',
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+      })
+    );
+
+    // LEFT HAND
+    items.push(
+      new InventoryItem({
+        id: armorId++,
+        owned: false,
+        price: 5,
+        type: constants.INVENTORY.TYPE.ARMOR,
+        bodypart: constants.INVENTORY.BODYPART.LEFT_HAND,
+        name: 'Wooden Shield',
+        img: '/images/items/armor/shield_wooden.png',
+        description: '',
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: armorId++,
+        owned: false,
+        price: 5,
+        type: constants.INVENTORY.TYPE.ARMOR,
+        bodypart: constants.INVENTORY.BODYPART.LEFT_HAND,
+        name: 'Crude Spike Shield',
+        img: '/images/items/armor/crude_spike_shield.png',
+        description: '',
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: armorId++,
+        owned: false,
+        price: 5,
+        type: constants.INVENTORY.TYPE.ARMOR,
+        bodypart: constants.INVENTORY.BODYPART.LEFT_HAND,
+        name: 'Iron Shield',
+        img: '/images/items/armor/iron_shield.png',
+        description: '',
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: armorId++,
+        owned: false,
+        price: 5,
+        type: constants.INVENTORY.TYPE.ARMOR,
+        bodypart: constants.INVENTORY.BODYPART.LEFT_HAND,
+        name: 'Steel Shield',
+        img: '/images/items/armor/steel_shield.png',
+        description: '',
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: armorId++,
+        owned: false,
+        price: 5,
+        type: constants.INVENTORY.TYPE.ARMOR,
+        bodypart: constants.INVENTORY.BODYPART.LEFT_HAND,
+        name: 'Royal Shield',
+        img: '/images/items/armor/steel_shield_3.png',
+        description: '',
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+      })
+    );
+
+
+
     items.push(
       new InventoryItem({
         id: armorId++,
