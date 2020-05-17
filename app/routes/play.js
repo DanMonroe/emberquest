@@ -3,7 +3,10 @@ import Route from '@ember/routing/route';
 // import {InventoryItems} from '../models/data/inventory';
 
 export default class PlayRoute extends Route {
-  // async model() {
+  model(params) {
+    return {
+      overrideMap: params.map
+    }
   //   return { inventoryItems: new InventoryItems().data };
 
     // this.store.pushPayload({
@@ -13,5 +16,5 @@ export default class PlayRoute extends Route {
     // return RSVP.hash({
     //   inventoryItems: this.store.peekAll('inventory-item'),
     // });
-  // }
+  }
 }

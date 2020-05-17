@@ -147,12 +147,10 @@ export class BootScene extends Phaser.Scene {
   }
 
   create() {
-    // this.add.image(10, 30, 'emberquestlogo');
 
 
     this.game.ember.initializeCachesAlreadyFound();
 
-    // let data = {};
 
     this.game.ember.loadGameData("gameboard")
       .then(gameboardData => {
@@ -160,12 +158,14 @@ export class BootScene extends Phaser.Scene {
 
         // TODO:  If you update what is loaded here, also update checkForPortal in game.js
 
-let data = {'map': 'arena'}
-// let data = {'map': 'intro3'} // cutter ship
 
+        let data = {'map': this.game.ember.overrideMap || 'arena'}
+
+        // let data = {'map': 'intro3'} // cutter ship
         // let data = {'map': 'intro'}  // default initial map
 
         if (gameboardData) {
+          gameboardData.currentMap = this.game.ember.overrideMap || gameboardData.currentMap
           const sceneData =   gameboardData.sceneData[gameboardData.currentMap] || { allSeenTiles: [], storedTransports: [], boarded: 0};
 // console.log('sceneData', sceneData)
           data = {
@@ -181,15 +181,6 @@ let data = {'map': 'arena'}
             'boarded': sceneData.boarded
           }
         }
-// console.log('boot 1 - data', data)
-//         this.ember.map.getDynamicMapData(data.map)
-//           .then((mapData) => {
-// console.log('boot 2', mapData)
-//             debugger;
-//             data.mapData = mapData;
-
-            // this.scene.start('gameboard',  data);
-          // })
 
         this.scene.start('gameboard',  data);
       });
