@@ -3,6 +3,7 @@ import Chest from '../chest';
 import Door from '../door';
 import Projectiles from '../groups/projectiles';
 import Projectile from "../groups/projectile";
+import SignPost from "../signpost";
 
 export class GameboardScene extends Phaser.Scene {
 
@@ -22,6 +23,7 @@ export class GameboardScene extends Phaser.Scene {
   agents = {};
   deadAgents = new Set();
   doors = {};
+  signs = {};
 
   projectiles = {};
   agentprojectiles = {};  // hard coded extra group for emberconf
@@ -75,6 +77,7 @@ export class GameboardScene extends Phaser.Scene {
     this.createGroups();
     this.createChests();
     this.createDoors();
+    this.createSigns();
     this.createGameManager();
     this.boardExperiments();
     this.ember.saveSceneData(this);
@@ -168,9 +171,7 @@ export class GameboardScene extends Phaser.Scene {
   }
 
   createGameManager() {
-
     // this has to be before game manager setup
-    // this.events.removeAllListeners( ['spawnPlayer', 'agentSpawned', 'transportSpawned', 'tiledown']);
 
     // this.events.on('spawnPlayer', (playerObject) => {
     this.events.off('spawnPlayer').on('spawnPlayer', (playerObject) => {
@@ -189,19 +190,8 @@ export class GameboardScene extends Phaser.Scene {
     });
 
     this.board.off('tiledown').on('tiledown',  async (pointer, tileXY) => {
-
-    // this.events.off('tiledown').on('tiledown',  async (pointer, tileXY) => {
-
-      // report tile info for debugging
-      // const allAttrs = this.ember.map.getTileAttribute(this, tileXY);
-      // const clickedShape = this.board.tileXYToChessArray(tileXY.x, tileXY.y);
-// console.log(tileXY, allAttrs, clickedShape, this.ember.describePlayerFlags(this.player.container));
-
-      this.ember.gameManager.attack.perform(tileXY, this.board.tileXYToChessArray(tileXY.x, tileXY.y), this.player.container);
+      this.ember.gameManager.processClickedTile(tileXY, this.board.tileXYToChessArray(tileXY.x, tileXY.y), this.player.container);
     });
-
-    // console.log('eventNames()', this.events.eventNames())
-
 
     this.game.ember.gameManager.setup(this);
   }
@@ -296,6 +286,27 @@ export class GameboardScene extends Phaser.Scene {
     }
   }
 
+  createSigns() {
+    if (this.mapData.signs) {
+      this.mapData.signs.forEach(signObj => {
+        console.log('SignObj', signObj)
+        // if (doorObj.hideIfCacheFound && this.ember.cache.isCacheFound(doorObj.hideIfCacheFound)) {
+        //   // don't add door
+        //   return;
+        // }
+        let sign = new SignPost(this, 0, 0, signObj.texture, 1, signObj);
+        sign.setAlpha(0);
+
+        this.signs.add(sign);
+
+        this.board.addChess(sign, signObj.x, signObj.y, this.ember.constants.TILEZ_DOORS);
+
+        sign.rexChess.setBlocker();
+
+      });
+    }
+  }
+
   spawnTransport(transportObj) {
     const storedTransport = this.ember.findTransportFromArrayById(this.storedTransports, transportObj.objectConfig.id);
     if (storedTransport && storedTransport.tile) {
@@ -364,6 +375,9 @@ export class GameboardScene extends Phaser.Scene {
 
     // create a doors group
     this.doors = this.physics.add.group();
+
+    // create a signs group
+    this.signs = this.physics.add.group();
 
     // create an agent group
     this.agents = this.physics.add.group();

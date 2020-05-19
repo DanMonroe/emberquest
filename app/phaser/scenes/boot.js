@@ -105,7 +105,10 @@ export class BootScene extends Phaser.Scene {
     this.load.image('player', this.ember.playerImgSrc);
     this.load.image('cutter', '/images/transports/cutter.png');
 
-    this.load.image('pirategalleon', '/images/agents/pirate-galleon.png');
+    // this.load.image('pirategalleon', '/images/agents/pirate-galleon.png');
+
+    // portals
+    this.load.image('signpost', '/images/maps/signpost.png');
 
     // portals
     this.load.image('door_wooden_n', '/images/maps/portals/door-wooden-n.png');

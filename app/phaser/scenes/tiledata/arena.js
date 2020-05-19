@@ -30,6 +30,17 @@ export default {
     }
   },
 
+  signs: [
+    {
+      id: 1, x: 5, y: 3,
+      texture: 'signpost',
+      textureSize: { width: 72, height: 72},
+      scale: 0.7,
+      signMessageId: 'msg1'  // key to use to display message on sign
+    }
+  ],
+
+
   sceneTiles: [
     [
       {'x': 0, 'y': 0, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 0.9, 'travelFlags': 6, 'w': 'Ds', 'special': 0 },

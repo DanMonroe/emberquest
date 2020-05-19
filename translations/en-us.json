@@ -3,6 +3,10 @@
   "messages": {
     "intro": {
       "id1": "<p>You have found a locked door.</p><p>Find a chest and this door will unlock.</p>"
+    },
+    "signs": {
+      "toofar": "<p>You are too far away to read the sign.</p>",
+      "msg1": "<p>Cool sign dude</p>"
     }
   }
 }

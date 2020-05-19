@@ -1,7 +1,5 @@
-// import BasePhaserAgent from "../base-phaser-agent";
 import Phaser from "phaser";
 
-// export default class PhaserAgent extends BasePhaserAgent {
 export default class PhaserAgent extends Phaser.Physics.Arcade.Sprite {
 
   scene = undefined;

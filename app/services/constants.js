@@ -130,6 +130,7 @@ const constants = Object.freeze({
   SHAPE_TYPE_CONTAINER: 'Container',
   SHAPE_TYPE_TRANSPORT: 'Transport',
   SHAPE_TYPE_DOOR: 'Door',
+  SHAPE_TYPE_SIGNPOST: 'Sign',
   SHAPE_TYPE_ENEMY: 'Enemy',
   SHAPE_TYPE_AGENT: 'Agent',
 
@@ -143,6 +144,7 @@ const constants = Object.freeze({
   TILEZ_TRANSPORTS: 5, // "layer" for transports
   TILEZ_AGENTS: 6, // "layer" for agents
   TILEZ_DOORS: 7, // "layer" for doors
+  TILEZ_SIGNS: 8, // "layer" for signs
 
   AGENTSTATE: {
     IDLE: 0,

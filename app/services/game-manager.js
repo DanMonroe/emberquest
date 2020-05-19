@@ -11,6 +11,7 @@ export default class GameManagerService extends Service {
   @service('spawner') spawnerService;
   @service modals;
   @service inventory;
+  @service intl;
 
   @tracked player;
   @tracked volume = 0;
@@ -281,8 +282,12 @@ export default class GameManagerService extends Service {
 
   findAgentAtTile(tileXY) {
     const agentShapes = this.ember.map.getGameObjectsAtTileXY(this.scene.board, tileXY, this.ember.constants.SHAPE_TYPE_AGENT);
-    // console.log('agentShapes at tile', agentShapes)
     return agentShapes.length > 0 ? agentShapes[0] : null;
+  }
+
+  findSignPostAtTile(tileXY) {
+    const signPostShapes = this.ember.map.getGameObjectsAtTileXY(this.scene.board, tileXY, this.ember.constants.SHAPE_TYPE_SIGNPOST);
+    return signPostShapes.length > 0 ? signPostShapes[0] : null;
   }
 
   playSound(key) {
@@ -316,19 +321,41 @@ export default class GameManagerService extends Service {
     }
   }
 
+  processClickedTile(clickedTile, clickedShape, playerContainer) {
+    // console.log('attack', clickedTile, clickedShape, 'by', attacker);
+
+    const agentToAttack = this.findAgentAtTile(clickedTile);
+    if (agentToAttack) {
+      // Enemy agent
+      this.attack.perform(clickedTile, agentToAttack, playerContainer);
+
+    } else {
+      // Signs
+      const signToRead = this.findSignPostAtTile(clickedTile);
+      if (signToRead) {
+        const isNeighbor = this.scene.board.areNeighbors(playerContainer.rexChess.tileXYZ, signToRead.rexChess.tileXYZ);
+        this.scene.game.ember.showInfoDialog(isNeighbor
+          ? this.intl.t(`messages.signs.${signToRead.signMessageId}`)
+          : this.intl.t(`messages.signs.toofar`));
+      }
+    }
+  }
+
+
   @task({
     drop:true,
     maxConcurrency: 1
   })
-  *attack(clickedTile, clickedShape, attacker) {
+  // *attack(clickedTile, clickedShape, attacker) {
+  *attack(clickedTile, agentToAttack, attacker) {
     // console.log('attack', clickedTile, clickedShape, 'by', attacker);
 
     if (this.gamePaused) {
       return;
     }
 
-    const agentToAttack = this.findAgentAtTile(clickedTile);
-    if (agentToAttack) {
+    // const agentToAttack = this.findAgentAtTile(clickedTile);
+    // if (agentToAttack) {
 
       const isNeighbor = this.scene.board.areNeighbors(attacker.rexChess.tileXYZ, agentToAttack.rexChess.tileXYZ);
       // console.log('isNeighbor', isNeighbor)
@@ -391,24 +418,11 @@ export default class GameManagerService extends Service {
               yield timeout(this.ember.constants.BASE_ATTACK_TIMEOUT); // cooldown
             }
           }
-
-
-          // const radian = this.scene.board.angleBetween(attacker.rexChess.tileXYZ, clickedTile);
-          //
-          // const playerHasRangedWeapon = false;
-          // if(playerHasRangedWeapon) { // TODO put back if the player has ranged weapon
-          //   const isInLOS = attacker.ember.playerContainer.fov.isInLOS(agentToAttack.rexChess.tileXYZ);
-          //   // console.log('in LOS', isInLOS);
-          //   if (isInLOS) {
-          //     // ok to fire projectile
-          //     this.scene.projectiles.fireProjectile(attacker.rexChess.tileXYZ, radian);
-          //   }
-          // }
         }
       }
-    } else {
-      console.log('No agent to attack')
-    }
+    // } else {
+    //   console.log('No agent to attack')
+    // }
   }
 
   hasEnoughPowerToUseItem(inventoryItem, wieldingAgent) {
