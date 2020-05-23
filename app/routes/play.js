@@ -5,7 +5,13 @@ import Route from '@ember/routing/route';
 export default class PlayRoute extends Route {
   model(params) {
     return {
-      overrideMap: params.map
+      overrideMap: {
+          map: params.map,
+          x: params.x,
+          y: params.y
+        },
+      debug: params.foo
+      }
     }
   //   return { inventoryItems: new InventoryItems().data };
 
@@ -16,5 +22,5 @@ export default class PlayRoute extends Route {
     // return RSVP.hash({
     //   inventoryItems: this.store.peekAll('inventory-item'),
     // });
-  }
+  // }
 }

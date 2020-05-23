@@ -161,19 +161,20 @@ export class BootScene extends Phaser.Scene {
 
         // TODO:  If you update what is loaded here, also update checkForPortal in game.js
 
+        const overrideMapImage = (this.game.ember.overrideMap && this.game.ember.overrideMap.map) ? this.game.ember.overrideMap.map : undefined;
 
-        let data = {'map': this.game.ember.overrideMap || 'arena'}
+        let data = {'map': overrideMapImage || 'arena'};
 
         // let data = {'map': 'intro3'} // cutter ship
-        // let data = {'map': 'intro'}  // default initial map
+        // let data = {'map': overrideMapImage || 'map': 'intro'}  // default initial map
 
         if (gameboardData) {
-          gameboardData.currentMap = this.game.ember.overrideMap || gameboardData.currentMap
+          gameboardData.currentMap = overrideMapImage || gameboardData.currentMap
           const sceneData =   gameboardData.sceneData[gameboardData.currentMap] || { allSeenTiles: [], storedTransports: [], boarded: 0};
 // console.log('sceneData', sceneData)
           data = {
             'map': gameboardData.currentMap,
-
+            'overrideMap': this.game.ember.overrideMap,
             'gameboardData': gameboardData,
             'sceneData': sceneData,
 

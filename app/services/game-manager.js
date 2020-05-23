@@ -203,7 +203,21 @@ export default class GameManagerService extends Service {
   }
 
   spawnPlayer() {
-    const playerTile = this.storedData.storedPlayerTile ? {x: this.storedData.storedPlayerTile.x, y: this.storedData.storedPlayerTile.y} : {x: this.scene.mapData.player.startX, y: this.scene.mapData.player.startY};
+    // debugger;
+    let playerTile = {x: this.scene.mapData.player.startX, y: this.scene.mapData.player.startY};
+    if (this.storedData.storedPlayerTile) {
+      playerTile = {x: this.storedData.storedPlayerTile.x, y: this.storedData.storedPlayerTile.y};
+    }
+    if (this.ember.overrideMap) {
+      // x/y queryParams are strings... convert
+      // x/y could be a 0
+      if (this.ember.overrideMap.x !== undefined) {
+        playerTile.x = +this.ember.overrideMap.x;
+      }
+      if (this.ember.overrideMap.y !== undefined) {
+        playerTile.y = +this.ember.overrideMap.y;
+      }
+    }
 
     this.playerConfig = {
       playerX: playerTile.x,
