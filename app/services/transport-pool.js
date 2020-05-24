@@ -12,6 +12,13 @@ export default class TransportPoolService extends Service {
     return transportConfig;
   }
 
+  findTransportById(id) {
+    const pool = this.getTransportPool();
+    return [...pool.values()].find(transport => {
+      return transport.id === id;
+    });
+  }
+
   getTransportPool() {
     if (this.transportpool === undefined) {
       this.populateTransportPool();

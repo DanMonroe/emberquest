@@ -37,13 +37,49 @@ export default class SpawnerService extends Service {
     this.transports = [];
     this.agents = [];
 
-    // create transport spawners
+// debugger
+    // Transports
+    let boardedTransportId = 0;
+    try {
+      boardedTransportId = scene.ember.gameManager.storedData.gameboardData.playerAttrs.boardedTransport;
+      console.log('boardedTransportId', boardedTransportId)
+      if (boardedTransportId) {
+        const transportConfigFromPool = this.transportPool.findTransportById(boardedTransportId);
+        // console.log('found trans obj', transportConfigFromPool);
+        if (transportConfigFromPool) {
+          const location = {x: scene.ember.gameManager.storedData.gameboardData.playerTile.x, y: scene.ember.gameManager.storedData.gameboardData.playerTile.y};
+          const transport = new Transport(location.x, location.y, Object.assign(location, transportConfigFromPool));
+          transport.isBoardedTransport = true;
+          this.addTransport(transport);
+
+        }
+      }
+    } catch(e) {
+      // console.log('no boarded transport', e)
+    }
+
+    // load transports that originated from other scenes but were "parked" on this scene
+    try {
+      scene.ember.gameData.transports.forEach(sceneTransport => {
+        if (boardedTransportId !== sceneTransport.id && sceneTransport.map === scene.mapname) {
+          const transportConfigFromPool = this.transportPool.findTransportById(sceneTransport.id);
+          // console.log('found scene trans obj', transportConfigFromPool);
+          if (transportConfigFromPool) {
+            const location = {x: sceneTransport.tile.x, y: sceneTransport.tile.y};
+            const transport = new Transport(location.x, location.y, Object.assign(location, transportConfigFromPool));
+            this.addTransport(transport);
+          }
+        }
+      })
+    } catch(e) {
+      // console.log('no boarded transport', e)
+    }
+
     if (this.spawnLocations.transports && this.spawnLocations.transports.length > 0) {
       // this.transportLimit = this.spawnLocations.transports.limit || 1;
       // this.spawners.push(constants.SPAWNER_TYPE.TRANSPORT);
-
       this.spawnLocations.transports.forEach(transportObj => {
-        console.log('transport', transportObj);
+        // console.log('transport', transportObj);
         this.spawnObject(constants.SPAWNER_TYPE.TRANSPORT, transportObj);
       });
     }
@@ -94,12 +130,9 @@ export default class SpawnerService extends Service {
 
   @restartableTask
   *spawnObjects() {
-
     while (this.spawners.length > 0) {
-    // while (true) {
       if (!this.scene.ember.gameManager.gamePaused) {
         this.spawners.forEach(spawnerType => {
-// console.log('spawnerType', spawnerType)
           if (this.shouldSpawn(spawnerType)) {
             this.spawnObject(spawnerType);
           } else {
@@ -111,19 +144,11 @@ export default class SpawnerService extends Service {
         console.log('no spawn, game paused')
         yield timeout(1000);
       }
-
     }
   }
 
-
-
   shouldSpawn(spawnerType) {
     switch (spawnerType) {
-      // case constants.SPAWNER_TYPE.TRANSPORT:
-      //   if (this.spawnLocations.transports.locations.length === 0 || this.transports.length >= this.transportLimit) {
-      //     return false;
-      //   }
-      //   break;
       case constants.SPAWNER_TYPE.AGENT:
         if (this.spawnLocations.agents.locations.length === 0 || this.agents.length >= this.agentLimit) {
           return false;
@@ -209,11 +234,40 @@ export default class SpawnerService extends Service {
     return agentConfig;
   }
 
-
+  findTransportByObjectConfigId(id) {
+    return this.transports.find(transport => {
+      return transport.objectConfig.id === id;
+    });
+  }
   addTransport(transport) {
-    // this.transports[transportId] = transport;
-    this.transports.pushObject(transport);
-    this.scene.events.emit('transportSpawned', transport);
+
+
+    if (!this.findTransportByObjectConfigId(transport.objectConfig.id)) {
+
+
+      // dont spawn for a transport that is parked on another scene
+      let okToSpawn = true;
+      if (!transport.isBoardedTransport && this.scene.ember.gameData && this.scene.ember.gameData.transports) {
+        const savedTransportInThisSceneIndex = this.scene.ember.gameData.transports.findIndex(savedTransport => {
+          // console.log('savedTransport', savedTransport)
+            return savedTransport.id === transport.objectConfig.id;
+            // return savedTransport.id === transport.objectConfig.id && savedTransport.map !== this.scene.mapname;
+        });
+        if (savedTransportInThisSceneIndex >= 0) {
+          okToSpawn = this.scene.ember.gameData.transports[savedTransportInThisSceneIndex].map === this.scene.mapname;
+        }
+      }
+
+      // this.scene.ember.gameData.transports
+
+      if (okToSpawn) {
+        // console.log('going to spawn transport');
+        this.transports.pushObject(transport);
+        this.scene.events.emit('transportSpawned', transport);
+      }
+    } else {
+      // console.log('already spawned transport with id', transport.objectConfig.id);
+    }
   }
 
   deleteTransport(transportId) {

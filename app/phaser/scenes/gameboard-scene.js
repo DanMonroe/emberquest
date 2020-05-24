@@ -105,7 +105,8 @@ export class GameboardScene extends Phaser.Scene {
 
 
       // full heal:   TODO remove
-      if (tileXY.x < 10 && tileXY.y === 0) {
+      if (pointer.event.shiftKey) {
+      // if (tileXY.x < 10 && tileXY.y === 0) {
         console.log('heal', this.player);
         this.player.health = this.player.baseHealth;
         this.player.power = this.player.basePower;
@@ -210,7 +211,7 @@ export class GameboardScene extends Phaser.Scene {
 
     if (this.storedBoardedTransportId > 0) {
       const transportToBoard = this.transports.getChildren().find(transport => transport.id === this.storedBoardedTransportId);
-
+// console.log('transportToBoard', transportToBoard)
       if (transportToBoard) {
         this.player.container.boardedTransport = transportToBoard;
       }
@@ -308,21 +309,24 @@ export class GameboardScene extends Phaser.Scene {
   }
 
   spawnTransport(transportObj) {
-    const storedTransport = this.ember.findTransportFromArrayById(this.storedTransports, transportObj.objectConfig.id);
-    if (storedTransport && storedTransport.tile) {
-      transportObj.objectConfig.x = storedTransport.tile.x;
-      transportObj.objectConfig.y = storedTransport.tile.y;
+    if (transportObj.isBoardedTransport) {
+      // console.log('isBoardedTransport', transportObj, this.storedPlayerTile)
+      if (this.storedPlayerTile) {
+        transportObj.objectConfig.x = this.storedPlayerTile.x;
+        transportObj.objectConfig.y = this.storedPlayerTile.y;
+      }
+    } else {
+      const storedTransport = this.ember.findTransportFromArrayById(this.storedTransports, transportObj.objectConfig.id);
+      // console.log('spawning transport: transportObj', transportObj)
+      // console.log('storedTransport', storedTransport)
+      if (storedTransport && storedTransport.tile) {
+        transportObj.objectConfig.x = storedTransport.tile.x;
+        transportObj.objectConfig.y = storedTransport.tile.y;
+      }
     }
     // transportObj.objectConfig.costCallback = (tileXY) => {
     //   return this.ember.map.getTileAttribute(this.board.scene, tileXY, 'sightCost');
     // };
-    // transportObj.objectConfig.preTestCallback = (tileXYArray) => {
-    //   return tileXYArray.length <= (this.player.sightRange + 1);
-    // }
-    // transportObj.objectConfig.debug = {
-    //   // graphics: this.add.graphics().setDepth(10),
-    //   log: false
-    // }
 
     const transportContainer = this.ember.createTransport(this, transportObj);
     transportContainer.setAlpha(0);

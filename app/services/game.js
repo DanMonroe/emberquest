@@ -40,7 +40,7 @@ export default class GameService extends Service {
   @tracked showInfoConfirmer = null;
 
   @tracked sceneData = [];
-  @tracked gameData = undefined;
+  @tracked gameData = {};
 
   constants = constants;
 
@@ -62,21 +62,25 @@ export default class GameService extends Service {
 
 
   async saveSceneData(scene) {
+
+    // SCENE ATTRIBUTES
+    //
     const mapname = scene.mapname;
 
     const currentMapData = this.sceneData[mapname] || {};
 
-    let gameData = await this.loadGameData('gameboard');
-    if (!gameData) {
-      gameData = { 'currentMap': mapname, sceneData: [] };
+    this.gameData = await this.loadGameData('gameboard');
+    // let gameData = await this.loadGameData('gameboard');
+    if (!this.gameData) {
+      this.gameData = { 'currentMap': mapname, sceneData: [] };
     } else {
-      gameData.currentMap = mapname;
+      this.gameData.currentMap = mapname;
     }
 
-    const transports = [];
+    const sceneTransports = [];
     if (scene.transports.children) {
       scene.transports.getChildren().forEach(transport => {
-        transports.push({
+        sceneTransports.push({
           'id': transport.id,
           'tile': transport.rexChess.tileXYZ,
           'texture': transport.config.texture
@@ -103,27 +107,94 @@ export default class GameService extends Service {
 
     // console.log('save agents', agents);
 
+    const boardedTransportId = scene.player.container.boardedTransport ? scene.player.container.boardedTransport.id : 0;
     Object.assign(currentMapData, {
       'map': mapname,
       'seenTiles': scene.allSeenTiles,
-      'transports': transports,
+      'transports': sceneTransports,
       'agents': agents,
       'deadAgents': scene.deadAgents,
-      'boarded':  scene.player.container.boardedTransport ? scene.player.container.boardedTransport.id : 0
+      'boarded':  boardedTransportId
     });
 
     this.sceneData[mapname] = currentMapData;
 
+    // ALL TRANSPORTS
+    //
+    let allTransports = new Map();
+
+    if (scene.player.container.boardedTransport) {
+      if(!allTransports.has(scene.player.container.boardedTransport.id)) {
+        // console.log(' <<<<<<<<< boardedTransport', {
+        //   'id': scene.player.container.boardedTransport.id,
+        //   'tile': scene.player.container.boardedTransport.rexChess.tileXYZ,
+        //   'map': mapname
+        // });
+        allTransports.set(scene.player.container.boardedTransport.id,
+          {
+            'id': scene.player.container.boardedTransport.id,
+            'tile': scene.player.container.boardedTransport.rexChess.tileXYZ,
+            'map': mapname
+          }
+        );
+      }
+    }
+
+    sceneTransports.forEach((sceneTransport) => {
+      // if (sceneTransport.id !== boardedTransportId) {
+      if(!allTransports.has(sceneTransport.id)) {
+        // console.log(' <<<<<<<<< sceneTransport',{
+        //   'id': sceneTransport.id,
+        //   'tile': sceneTransport.tile,
+        //   'map': mapname
+        // });
+        allTransports.set(sceneTransport.id,
+          {
+            'id': sceneTransport.id,
+            'tile': sceneTransport.tile,
+            'map': mapname
+          }
+        );
+      }
+    });
+
+    // let allTransports = []; // get existing first - dont reset
+    if (scene.ember.gameData && scene.ember.gameData.transports) {
+      scene.ember.gameData.transports.forEach(gameDataTransport => {
+        // if (gameDataTransport.id !== boardedTransportId) {
+        // console.log(' <<<<<<<<< gameDataTransport', {
+        //   'id': gameDataTransport.id,
+        //   'tile': gameDataTransport.tile,
+        //   'map': gameDataTransport.map
+        // });
+        if(!allTransports.has(gameDataTransport.id)) {
+          allTransports.set(gameDataTransport.id,
+            {
+              'id': gameDataTransport.id,
+              'tile': gameDataTransport.tile,
+              'map': gameDataTransport.map
+            }
+          );
+        }
+        // }
+      });
+    }
+
+
+    const allTransportsArray = [...allTransports.values()];
+    // allTransportsArray.forEach(finalTransport => {
+    //   console.log(' !!!!!!!!!!!!! finalTransport', finalTransport)
+    // });
+
+    // PLAYER ATTRIBUTES
+    //
     let playerAttrs = scene.player.container.data.get('attrs');
-
-    // console.log('scene.player.experience', scene.player.experience)
-
     // add inventory, mapname to playerAttrs
     Object.assign(playerAttrs, {
       'inventory': scene.player.container.agent.saveGameInventoryAttrs,
+      'boardedTransport':  scene.player.container.boardedTransport ? scene.player.container.boardedTransport.id : 0,
       'mapname': mapname
     });
-
     constants.STOREDATTRS.forEach(storedObj => {
       try {
         // console.log('save ', playerAttrs[storedObj.key], storedObj.key, (+parseFloat(get(scene, `player.${storedObj.attr}`)).toFixed(0)));
@@ -133,13 +204,15 @@ export default class GameService extends Service {
       }
     });
 
-    Object.assign(gameData, {
+    // top level of the cookie - players sees these keys
+    Object.assign(this.gameData, {
       'playerTile': scene.player.container.rexChess.tileXYZ,
       'playerAttrs': playerAttrs,
+      'transports': allTransportsArray,
       sceneData: this.sceneData
     });
 
-    await this.saveGameData('gameboard', gameData);
+    await this.saveGameData('gameboard', this.gameData);
   }
 
   async saveGameData(key, value) {
@@ -178,11 +251,11 @@ export default class GameService extends Service {
     }
   }
 
-  async loadSceneData(sceneMapName) {
-    const gameData = await this.loadGameData('gameboard');
-    const currentSceneData = gameData.sceneData[sceneMapName] || {};
-    return currentSceneData;
-  }
+  // async loadSceneData(sceneMapName) {
+  //   const gameData = await this.loadGameData('gameboard');
+  //   const currentSceneData = gameData.sceneData[sceneMapName] || {};
+  //   return currentSceneData;
+  // }
 
   async loadGameData(key) {
     const result = await localforage.getItem(key)
@@ -298,6 +371,8 @@ export default class GameService extends Service {
               console.log('sceneData', sceneData)
               console.log('')
 
+              // moveTo.scene.game.ember.gameData.transports = gameboardData.transports;
+
               let data = {
                 'map': tileIsPortal.map,
 
@@ -308,9 +383,11 @@ export default class GameService extends Service {
                 'storedPlayerAttrs': gameboardData.playerAttrs,
                 'allSeenTiles': sceneData.seenTiles,
                 'storedTransports': sceneData.transports,
-                'boarded': sceneData.boarded
+                'boarded': this.playerContainer.boardedTransport ? this.playerContainer.boardedTransport.agent.id : 0
+// 'boarded': gameboardData.playerAttrs.boardedTransport  // the id of the transport the player is on
+                // 'boarded': sceneData.boarded
               }
-              // console.log('restarting with data', data)
+              console.log('restarting with data', data)
               moveTo.scene.scene.restart(data);
             }
           });

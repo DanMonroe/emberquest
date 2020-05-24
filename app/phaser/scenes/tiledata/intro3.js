@@ -4,8 +4,10 @@ import { constants } from 'emberquest/services/constants';
 export default {
 
   player: {
-    startX: 14,
-    startY: 13
+    startX: 6,
+    startY: 7
+    // startX: 14,
+    // startY: 13
   },
 
   mapUrl: '/images/maps/intro3-min.png',
@@ -15,15 +17,17 @@ export default {
   ],
 
   spawnLocations : {
-    players: [{x: 14, y: 13}], // tiles where the player may spawn
+    players: [{x: 6, y: 8}], // tiles where the player may spawn
+    // players: [{x: 14, y: 13}], // tiles where the player may spawn
     transports: [
-      {id: 1, x: 34, y: 7, poolkey: 'cutter' }
+      {id: 1, x: 7, y: 8, poolkey: 'cutter' }
+      // {id: 1, x: 34, y: 7, poolkey: 'cutter' }
     ],
     agents: {
       spawnInterval: 1000,
-      limit: 2,
+      limit: 0,
       locations: [
-        {id: 1, x: 0, y: 7, pool: [ 'spider' ], patrol: { method: 'wander' }},
+        // {id: 1, x: 0, y: 7, pool: [ 'spider' ], patrol: { method: 'wander' }},
         {id: 1, x: 27, y: 14, pool: [ 'dog' ], override: {health: 10, maxHealth: 10}, patrol: { method: 'wander', timeout: 4000, pursuitSpeed: 2000, aggressionSpeedTimeout: 1500 }}
       ]
     }
@@ -123,7 +127,7 @@ export default {
       {'x': 43, 'y': 1, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': 0 },
     ],
     [
-      {'x': 0, 'y': 2, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'w': 'Wwt', 'special': 0 },
+      {'x': 0, 'y': 2, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'w': 'Wwt', 'special': {value:constants.FLAGS.SPECIAL.PORTAL.value,map:'a1',x:44,y:25} },
       {'x': 1, 'y': 2, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': 0 },
       {'x': 2, 'y': 2, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gll', 'special': 0 },
       {'x': 3, 'y': 2, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': 0 },
@@ -169,7 +173,7 @@ export default {
       {'x': 43, 'y': 2, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': 0 },
     ],
     [
-      {'x': 0, 'y': 3, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'w': 'Ww', 'special': 0 },
+      {'x': 0, 'y': 3, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'w': 'Ww', 'special': {value:constants.FLAGS.SPECIAL.PORTAL.value,map:'a1',x:44,y:25} },
       {'x': 1, 'y': 3, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'w': 'Ww', 'special': 0 },
       {'x': 2, 'y': 3, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'w': 'Ww', 'special': 0 },
       {'x': 3, 'y': 3, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'w': 'Ww', 'special': 0 },
@@ -215,7 +219,7 @@ export default {
       {'x': 43, 'y': 3, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': 0 },
     ],
     [
-      {'x': 0, 'y': 4, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': 0 },
+      {'x': 0, 'y': 4, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': {value:constants.FLAGS.SPECIAL.PORTAL.value,map:'a1',x:44,y:26} },
       {'x': 1, 'y': 4, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': 0 },
       {'x': 2, 'y': 4, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': 0 },
       {'x': 3, 'y': 4, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'w': 'Wwt', 'special': 0 },
@@ -261,7 +265,7 @@ export default {
       {'x': 43, 'y': 4, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': 0 },
     ],
     [
-      {'x': 0, 'y': 5, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1.2, 'travelFlags': 6, 'w': 'Re', 'special': 0 },
+      {'x': 0, 'y': 5, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1.2, 'travelFlags': 6, 'w': 'Re', 'special': {value:constants.FLAGS.SPECIAL.PORTAL.value,map:'a1',x:44,y:27} },
       {'x': 1, 'y': 5, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1.2, 'travelFlags': 6, 'w': 'Re', 'special': 0 },
       {'x': 2, 'y': 5, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1.2, 'travelFlags': 6, 'w': 'Re', 'special': 0 },
       {'x': 3, 'y': 5, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1.2, 'travelFlags': 6, 'w': 'Re', 'special': 0 },
@@ -307,7 +311,7 @@ export default {
       {'x': 43, 'y': 5, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': 0 },
     ],
     [
-      {'x': 0, 'y': 6, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': 0 },
+      {'x': 0, 'y': 6, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': {value:constants.FLAGS.SPECIAL.PORTAL.value,map:'a1',x:44,y:29} },
       {'x': 1, 'y': 6, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg^Efm', 'special': 0 },
       {'x': 2, 'y': 6, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'w': 'Ww^Ewf', 'special': 0 },
       {'x': 3, 'y': 6, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': 0 },
@@ -353,7 +357,7 @@ export default {
       {'x': 43, 'y': 6, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': 0 },
     ],
     [
-      {'x': 0, 'y': 7, 'sightCost': 5, 'sightFlags': 0, 'speedCost': 0.65, 'travelFlags': 6, 'w': 'Gll^Fp', 'special': 0 },
+      {'x': 0, 'y': 7, 'sightCost': 5, 'sightFlags': 0, 'speedCost': 0.65, 'travelFlags': 6, 'w': 'Gll^Fp', 'special': {value:constants.FLAGS.SPECIAL.PORTAL.value,map:'a1',x:44,y:28} },
       {'x': 1, 'y': 7, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'w': 'Wwt', 'special': 0 },
       {'x': 2, 'y': 7, 'sightCost': 5, 'sightFlags': 0, 'speedCost': 0.65, 'travelFlags': 6, 'w': 'Gs^Fms', 'special': 0 },
       {'x': 3, 'y': 7, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'w': 'Ww^Ewl', 'special': 0 },
@@ -399,7 +403,7 @@ export default {
       {'x': 43, 'y': 7, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': 0 },
     ],
     [
-      {'x': 0, 'y': 8, 'sightCost': 5, 'sightFlags': 0, 'speedCost': 0.65, 'travelFlags': 6, 'w': 'Gll^Fp', 'special': 0 },
+      {'x': 0, 'y': 8, 'sightCost': 5, 'sightFlags': 0, 'speedCost': 0.65, 'travelFlags': 6, 'w': 'Gll^Fp', 'special': {value:constants.FLAGS.SPECIAL.PORTAL.value,map:'a1',x:44,y:29} },
       {'x': 1, 'y': 8, 'sightCost': 5, 'sightFlags': 0, 'speedCost': 0.65, 'travelFlags': 6, 'w': 'Gll^Fp', 'special': 0 },
       {'x': 2, 'y': 8, 'sightCost': 5, 'sightFlags': 0, 'speedCost': 0.65, 'travelFlags': 6, 'w': 'Gll^Fp', 'special': 0 },
       {'x': 3, 'y': 8, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': 0 },
@@ -445,7 +449,7 @@ export default {
       {'x': 43, 'y': 8, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': 0 },
     ],
     [
-      {'x': 0, 'y': 9, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': 0 },
+      {'x': 0, 'y': 9, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': {value:constants.FLAGS.SPECIAL.PORTAL.value,map:'a1',x:44,y:30} },
       {'x': 1, 'y': 9, 'sightCost': 5, 'sightFlags': 0, 'speedCost': 0.65, 'travelFlags': 6, 'w': 'Gll^Fp', 'special': 0 },
       {'x': 2, 'y': 9, 'sightCost': 5, 'sightFlags': 0, 'speedCost': 0.65, 'travelFlags': 6, 'w': 'Gs^Fds', 'special': 0 },
       {'x': 3, 'y': 9, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': 0 },
@@ -491,7 +495,7 @@ export default {
       {'x': 43, 'y': 9, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': 0 },
     ],
     [
-      {'x': 0, 'y': 10, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'w': 'Wwt', 'special': 0 },
+      {'x': 0, 'y': 10, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'w': 'Wwt', 'special': {value:constants.FLAGS.SPECIAL.PORTAL.value,map:'a1',x:44,y:31} },
       {'x': 1, 'y': 10, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gll^Em', 'special': 0 },
       {'x': 2, 'y': 10, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': 0 },
       {'x': 3, 'y': 10, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gll', 'special': 0 },
@@ -537,7 +541,7 @@ export default {
       {'x': 43, 'y': 10, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': 0 },
     ],
     [
-      {'x': 0, 'y': 11, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': 0 },
+      {'x': 0, 'y': 11, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': {value:constants.FLAGS.SPECIAL.PORTAL.value,map:'a1',x:44,y:33} },
       {'x': 1, 'y': 11, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'w': 'Wwt', 'special': 0 },
       {'x': 2, 'y': 11, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'w': 'Wwt', 'special': 0 },
       {'x': 3, 'y': 11, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': 0 },
@@ -583,7 +587,7 @@ export default {
       {'x': 43, 'y': 11, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': 0 },
     ],
     [
-      {'x': 0, 'y': 12, 'sightCost': 5, 'sightFlags': 0, 'speedCost': 0.65, 'travelFlags': 6, 'w': 'Gll^Fp', 'special': 0 },
+      {'x': 0, 'y': 12, 'sightCost': 5, 'sightFlags': 0, 'speedCost': 0.65, 'travelFlags': 6, 'w': 'Gll^Fp', 'special': {value:constants.FLAGS.SPECIAL.PORTAL.value,map:'a1',x:44,y:33} },
       {'x': 1, 'y': 12, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gd', 'special': 0 },
       {'x': 2, 'y': 12, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'w': 'Wwrt', 'special': 0 },
       {'x': 3, 'y': 12, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 5, 'w': 'Wwt', 'special': 0 },
@@ -629,7 +633,7 @@ export default {
       {'x': 43, 'y': 12, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': 0 },
     ],
     [
-      {'x': 0, 'y': 13, 'sightCost': 5, 'sightFlags': 0, 'speedCost': 0.65, 'travelFlags': 6, 'w': 'Gll^Fp', 'special': 0 },
+      {'x': 0, 'y': 13, 'sightCost': 5, 'sightFlags': 0, 'speedCost': 0.65, 'travelFlags': 6, 'w': 'Gll^Fp', 'special': {value:constants.FLAGS.SPECIAL.PORTAL.value,map:'a1',x:44,y:33} },
       {'x': 1, 'y': 13, 'sightCost': 5, 'sightFlags': 0, 'speedCost': 0.65, 'travelFlags': 6, 'w': 'Gll^Fp', 'special': 0 },
       {'x': 2, 'y': 13, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': 0 },
       {'x': 3, 'y': 13, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 0.9, 'travelFlags': 6, 'w': 'Ds', 'special': 0 },
@@ -675,7 +679,7 @@ export default {
       {'x': 43, 'y': 13, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': 0 },
     ],
     [
-      {'x': 0, 'y': 14, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': 0 },
+      {'x': 0, 'y': 14, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': {value:constants.FLAGS.SPECIAL.PORTAL.value,map:'a1',x:44,y:33} },
       {'x': 1, 'y': 14, 'sightCost': 5, 'sightFlags': 0, 'speedCost': 0.65, 'travelFlags': 6, 'w': 'Gll^Fp', 'special': 0 },
       {'x': 2, 'y': 14, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': 0 },
       {'x': 3, 'y': 14, 'sightCost': 1, 'sightFlags': 0, 'speedCost': 1, 'travelFlags': 6, 'w': 'Gg', 'special': 0 },

@@ -1,5 +1,6 @@
 import Service from '@ember/service';
 import { constants } from 'emberquest/services/constants';
+import a1 from '../phaser/scenes/tiledata/a1';
 import arena from '../phaser/scenes/tiledata/arena';
 import intro from '../phaser/scenes/tiledata/intro';
 import intro2 from '../phaser/scenes/tiledata/intro2';
@@ -18,6 +19,8 @@ export default class MapService extends Service {
 
   getMapData(mapToLoad) {
     switch (mapToLoad) {
+      case 'a1':
+        return a1;
       case 'arena':
         return arena;
       case 'intro':

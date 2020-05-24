@@ -163,12 +163,16 @@ export class BootScene extends Phaser.Scene {
 
         const overrideMapImage = (this.game.ember.overrideMap && this.game.ember.overrideMap.map) ? this.game.ember.overrideMap.map : undefined;
 
-        let data = {'map': overrideMapImage || 'arena'};
+        // let data = {'map': overrideMapImage || 'arena'};
+        let data = {'map': overrideMapImage || 'intro3'};
 
         // let data = {'map': 'intro3'} // cutter ship
         // let data = {'map': overrideMapImage || 'map': 'intro'}  // default initial map
 
         if (gameboardData) {
+
+          this.game.ember.gameData.transports = gameboardData.transports;
+
           gameboardData.currentMap = overrideMapImage || gameboardData.currentMap
           const sceneData =   gameboardData.sceneData[gameboardData.currentMap] || { allSeenTiles: [], storedTransports: [], boarded: 0};
 // console.log('sceneData', sceneData)
@@ -181,8 +185,10 @@ export class BootScene extends Phaser.Scene {
             'storedPlayerTile': gameboardData.playerTile,
             'storedPlayerAttrs': gameboardData.playerAttrs,
             'allSeenTiles': sceneData.seenTiles,
-            'storedTransports': sceneData.transports,
-            'boarded': sceneData.boarded
+            'storedTransports': sceneData.transports, // keeps track of transports in one scene
+            'boarded': gameboardData.playerAttrs.boardedTransport  // the id of the transport the player is on
+            // 'boarded': this.playerContainer.boardedTransport ? this.playerContainer.boardedTransport.agent.id : 0
+
           }
         }
 
