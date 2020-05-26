@@ -145,7 +145,7 @@ export class InventoryItems {
         img: '/images/items/weapons/runesword.png',
         description: 'A simple introductory sword',
         stats: [
-          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 4}),
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 40}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
         ],
@@ -463,7 +463,7 @@ export class InventoryItems {
         // velocity: 350, // 300 default
         description: 'Modest range and damage; it\'s the beginner crossbow.',
         stats: [
-          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 3}),
+          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 15}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 2}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.5})
         ],

@@ -388,7 +388,15 @@ export default class GameService extends Service {
                 // 'boarded': sceneData.boarded
               }
               console.log('restarting with data', data)
-              moveTo.scene.scene.restart(data);
+              // moveTo.scene.scene.restart(data);
+
+              this.map.getDynamicMapData(data.map).then(mapData => {
+                console.log('mapData', mapData);
+                data.mapData = mapData;
+
+                moveTo.scene.scene.start('gameboard',  data);
+              });
+
             }
           });
 

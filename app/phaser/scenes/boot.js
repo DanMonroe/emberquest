@@ -192,7 +192,17 @@ export class BootScene extends Phaser.Scene {
           }
         }
 
-        this.scene.start('gameboard',  data);
+
+        this.game.ember.map.getDynamicMapData(data.map).then(mapData => {
+          console.log('mapData', mapData);
+          data.mapData = mapData;
+
+          this.scene.start('gameboard',  data);
+        });
+
+
+
+        // this.scene.start('gameboard',  data);
       });
   }
 

@@ -1,13 +1,13 @@
 import Service from '@ember/service';
 import { constants } from 'emberquest/services/constants';
-import a1 from '../phaser/scenes/tiledata/a1';
-import arena from '../phaser/scenes/tiledata/arena';
-import intro from '../phaser/scenes/tiledata/intro';
-import intro2 from '../phaser/scenes/tiledata/intro2';
-import intro3 from '../phaser/scenes/tiledata/intro3';
-// import cave1 from '../phaser/scenes/tiledata/cave1';
-// import landsea from '../phaser/scenes/tiledata/landsea'
-import play from '../phaser/scenes/tiledata/play'
+// import a1 from '../phaser/scenes/tiledata/a1';
+// import arena from '../phaser/scenes/tiledata/arena';
+// import intro from '../phaser/scenes/tiledata/intro';
+// import intro2 from '../phaser/scenes/tiledata/intro2';
+// import intro3 from '../phaser/scenes/tiledata/intro3';
+// // import cave1 from '../phaser/scenes/tiledata/cave1';
+// // import landsea from '../phaser/scenes/tiledata/landsea'
+// import play from '../phaser/scenes/tiledata/play'
 
 
 // import {play} from './../node_modules/map-data/play';
@@ -17,45 +17,69 @@ export default class MapService extends Service {
 
   constants = constants;
 
-  getMapData(mapToLoad) {
+  // getMapData(mapToLoad) {
+  //   switch (mapToLoad) {
+  //     case 'a1':
+  //       return a1;
+  //     case 'arena':
+  //       return arena;
+  //     case 'intro':
+  //       return intro;
+  //     case 'intro2':
+  //       return intro2;
+  //     case 'intro3':
+  //       return intro3;
+  //     // case 'cave1':
+  //     //   return cave1;
+  //     // case 'landsea':
+  //     //   return landsea;
+  //     case 'play':
+  //       return play;
+  //     default:
+  //       return null;
+  //   }
+  // }
+
+  async getMap(mapToLoad) {
+    //  Build Error:  ember-auto-import only supports dynamic import() with a string literal argument.
+
+    // const module = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/play');
+
+    // console.log('getMap mapData', mapToLoad, module)
+    // return module;
+
+    let result;
     switch (mapToLoad) {
       case 'a1':
-        return a1;
+        result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/a1');
+        break;
       case 'arena':
-        return arena;
+        result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/arena');
+        break;
       case 'intro':
-        return intro;
+        result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/intro');
+        break;
       case 'intro2':
-        return intro2;
+        result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/intro2');
+        break;
       case 'intro3':
-        return intro3;
-      // case 'cave1':
-      //   return cave1;
-      // case 'landsea':
-      //   return landsea;
+        result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/intro3');
+        break;
       case 'play':
-        return play;
+        result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/play');
+        break;
       default:
         return null;
     }
+    return result.default;
   }
 
-  // async getMap(mapToLoad) {
-  //   // DOH.. Build Error:  ember-auto-import only supports dynamic import() with a string literal argument.
-  //   // const module = await import(/* webpackChunkName: "chunkName" */ `emberquest-map-data/tiledata/${mapToLoad}`);
-  //   const module = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/play');
-  //
-  //   console.log('mapData', mapToLoad, module)
-  //   return module;
-  //
-  // }
-  //
-  // async getDynamicMapData(mapToLoad) {
-  //   console.log('1')
-  //   let map = this.getMap(mapToLoad);
-  //   console.log('2', map);
-  //   return map;
-  // }
+  async getDynamicMapData(mapToLoad) {
+    console.log('1 mapToLoad', mapToLoad)
+    let map = await this.getMap(mapToLoad);
+    console.log('2', map);
+    return map;
+  }
 
 
   getHexagonGrid(scene) {
