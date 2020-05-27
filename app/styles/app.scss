@@ -271,6 +271,9 @@ a {
   font-family: "Open Sans Condensed", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: bold;
 }
+.tooltip-inner.ember-tooltip-inner {
+  white-space: nowrap;
+}
 .game-controls {
   position: absolute;
   right: 18px;
@@ -346,6 +349,9 @@ a {
     z-index: 150;
     .tooltip-arrow {
       display: none;
+    }
+    .tooltip-inner.ember-tooltip-inner {
+      white-space: nowrap;
     }
   }
 
@@ -617,16 +623,42 @@ button {
       &:hover {
         color: #ef0;
       }
+    }
 
+    .close-btn-big {
+      right: 20px;
+      bottom: 47px;
+    }
+
+    .item-slot {
+      .itemdesc {
+        font-size: 10px;
+      }
     }
 
     .inventory-list {
       width: 426px;
       left: 160px;
       height: 447px;
+      .doll {
+        .body, .hair {
+          position: absolute;
+          width: 35%;
+          left: 130px;
+          top: 70px;
+        }
+      }
     }
     .left-nav {
       left: -31px;
+    }
+
+    .item-details-view {
+      .stats-container {
+        height: 450px;
+        margin-top: 166px;
+        margin-left: 622px;
+      }
     }
     .item-title {
       position: absolute;
@@ -671,13 +703,43 @@ button {
       &:hover {
         color: #ef0;
       }
+    }
 
+    .close-btn-big {
+      right: 28px;
+      bottom: 15px;
+    }
+
+    .item-slot {
+      .itemdesc {
+        font-size: 14px;
+      }
+    }
+
+    .item-details-view {
+      .stats-container {
+        height: 459px;
+        margin-top: 187px;
+        margin-left: 872px;
+      }
     }
 
     .inventory-list {
       width: 653px;
       left: 180px;
       height: 481px;
+
+      .doll {
+        .body {
+          position: absolute;
+          left: 190px;
+        }
+        .hair {
+          position: absolute;
+          left: 190px;
+        }
+      }
+
     }
     .left-nav {
       left: -24px;
@@ -974,13 +1036,15 @@ button {
   .close-btn-big {
     min-width: 332px;
     min-height: 40px;
-    margin: 10px 0 0 -23px;
-    position: relative;
+    //margin: 10px 0 0 -23px;
+    //position: relative;
     color: #fff;
     font-size: 16px;
     font-variant: small-caps;
     white-space: nowrap;
     padding: 20px;
+
+    position: absolute;
   }
 
 
@@ -992,24 +1056,184 @@ button {
     padding: 15px;
   }
 
+  .placeholder {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    //opacity: 0.7;
+    //filter: alpha(opacity=70);
+    background-image: url(/images/inventory/slot-icons.png);
+  }
+
+  .item-slot {
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border: 2px dashed #bd8331;
+    position: relative;
+    cursor: pointer;
+    -webkit-transition: 0.5s ease;
+    transition: 0.5s ease;
+    z-index: 20;
+    .itemdesc {
+      height: 30px;
+      min-height: 30px;
+      display: inline-block;
+      margin-left: 30px;
+      margin-top: -2px;
+      padding: 0 0 0 10px;
+      line-height: 30px;
+      white-space: nowrap;
+      border: none;
+      color: black;
+
+      &.right {
+        float: right;
+        margin-right: 40px;
+        margin-left: 0;
+      }
+    }
+  }
+  .item-slot[data-slot] {
+    position: absolute;
+  }
+  .item-slot[data-slot="head"] {
+    left: -5px;
+    top: 20px;
+  }
+  .item-slot[data-slot="body"] {
+    left: -5px;
+    top: 90px;
+  }
+  .item-slot[data-slot="feet"] {
+    left: -5px;
+    top: 340px;
+  }
+  .item-slot[data-slot="arms"] {
+    left:inherit;
+    right: 40px;
+    top: 165px;
+  }
+  .item-slot[data-slot="lefthand"] {
+    left:inherit;
+    right: 40px;
+    top: 260px;
+  }
+  .item-slot[data-slot="righthand"] {
+    left: -5px;
+    top: 260px;
+  }
+  .item-slot[data-slot="neck"] {
+    top: 20px;
+    left:inherit;
+    right: 40px;
+  }
+  .item-slot[data-slot="fingers"] {
+    left:inherit;
+    right: 40px;
+    top: 90px;
+  }
+  .item-slot[data-slot="gloves"] {
+    left: -5px;
+    top: 165px;
+  }
+  .item-slot[data-slot="ranged"] {
+    left:inherit;
+    right: 40px;
+    top: 340px;
+  }
+
+  .item-slot[data-slot="head"] .placeholder {
+    background-position: -390px 0px;
+  }
+  .item-slot[data-slot="body"] .placeholder {
+    background-position: -240px 0px;
+  }
+  .item-slot[data-slot="feet"] .placeholder {
+    background-position: -270px 0px;
+  }
+  .item-slot[data-slot="arms"] .placeholder {
+    background-position: -150px 0px;
+  }
+  .item-slot[data-slot="lefthand"] .placeholder {
+    background-position: -480px 0px;
+  }
+  .item-slot[data-slot="righthand"] .placeholder {
+    background-position: -510px 0px;
+  }
+  .item-slot[data-slot="neck"] .placeholder {
+    background-position: -300px 0px;
+  }
+  .item-slot[data-slot="fingers"] .placeholder {
+    background-position: -210px 0px;
+  }
+  .item-slot[data-slot="gloves"] .placeholder {
+    background-position: -450px 0px;
+  }
+  .item-slot[data-slot="ranged"] .placeholder {
+    background-position: -540px 0px;
+  }
+
+
   .left-nav {
     position: absolute;
     top: 180px;
 
+
+
+    .btn {
+      display: block;
+      background: url("/images/menu-tab.png");
+      //background-repeat: no-repeat;
+      //background-size:  contain;
+      width: 180px;
+      height: 80px;
+      span {
+        font-size: 18px;
+        line-height: 50px;
+        background: none;
+        color: #c3997c;
+        font-weight: bold;
+        padding: 10px 7px;
+        &.stats {
+          padding-left: 14px;
+        }
+      }
+      &.active {
+        background: url("/images/menu-tab-selected.png");
+        width: 197px;
+        span {
+          color: #fff;
+          &.stats {
+            padding-left: 0;
+            margin-left: -3px;
+          }
+        }
+        img {
+          margin-left: -17px;
+        }
+      }
+      img {
+        vertical-align: middle;
+      }
+    }
+  }
+
+  .item-details-view {
+
     .stats-container {
+      position: absolute;
       background: url("/images/flag.png");
-      width: 270px;
-      height: 376px;
+      width: 328px;
       background-size: cover;
-      transform: rotate(-9deg);
-      margin-top: -23px;
-      margin-left: -48px;
+      transform: rotate(-3deg);
 
       .stats {
         transform: rotate(4deg);
-        padding-top: 64px;
-        padding-left: 60px;
-        padding-right: 65px;
+        padding-top: 99px;
+        padding-left: 74px;
+        padding-right: 79px;
 
         .title, .resistance {
           font-weight: 600;
@@ -1032,38 +1256,7 @@ button {
       }
     }
 
-    .btn {
-      display: block;
-      background: url("/images/menu-tab.png");
-      //background-repeat: no-repeat;
-      //background-size:  contain;
-      width: 180px;
-      height: 80px;
-      span {
-        font-size: 18px;
-        line-height: 50px;
-        background: none;
-        color: #c3997c;
-        font-weight: bold;
-        padding: 10px 7px;
-      }
-      &.active {
-        background: url("/images/menu-tab-selected.png");
-        width: 197px;
-        span {
-          color: #fff;
-        }
-        img {
-          margin-left: -17px;
-        }
-      }
-      img {
-        vertical-align: middle;
-      }
-    }
-  }
 
-  .item-details-view {
     img.hr {
       width: 70%;
       margin: 0 42px -3px;

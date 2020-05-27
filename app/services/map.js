@@ -43,11 +43,6 @@ export default class MapService extends Service {
   async getMap(mapToLoad) {
     //  Build Error:  ember-auto-import only supports dynamic import() with a string literal argument.
 
-    // const module = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/play');
-
-    // console.log('getMap mapData', mapToLoad, module)
-    // return module;
-
     let result;
     switch (mapToLoad) {
       case 'a1':

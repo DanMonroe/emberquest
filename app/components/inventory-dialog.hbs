@@ -6,79 +6,49 @@
   </div>
   <div class="left-nav absolute">
     {{#each this.leftNavItems as |navItem|}}
-      <button class="btn{{if (eq this.currentNavCategory.text navItem.text) " active"}}" type="button" {{on "click" (fn this.pickCategory navItem)}}><img src={{navItem.img}}/><span class="big-font">{{navItem.text}}</span></button>
+      <button class="btn{{if (eq this.currentNavCategory.text navItem.text) " active"}}" type="button" {{on "click" (fn this.pickCategory navItem)}}>{{#if navItem.img}}<img src={{navItem.img}}/>{{/if}}<span class="big-font {{navItem.clazz}}">{{navItem.text}}</span></button>
     {{/each}}
-    <div class="stats-container">
-      <div class="stats">
-        <div class="title">Player Stats</div>
-
-        <div class="stat">
-          <div class="label">Health:</div>
-          <div class="val">{{this.game.gameManager.player.container.agent.maxHealth}}</div>
-        </div>
-
-        <div class="stat">
-          <div class="label">Max Power:</div>
-          <div class="val">{{this.game.gameManager.player.container.agent.maxPower}}</div>
-        </div>
-
-        <div class="stat">
-          <div class="label">Melee Attack:</div>
-          <div class="val">{{this.game.gameManager.player.container.agent.attackDamage}}</div>
-        </div>
-
-        <div class="stat">
-          <div class="label">Ranged Attack:</div>
-          <div class="val">{{this.game.gameManager.player.container.agent.rangedAttackDamage}}</div>
-        </div>
-
-        {{#if this.game.gameManager.player.container.agent.attackSpeedAdj}}
-          <div class="stat">
-            <div class="label">Attack Speed:</div>
-            <div class="val">{{this.game.gameManager.player.container.agent.attackSpeedAdjRounded}} x</div>
-          </div>
-        {{/if}}
-        {{#if this.game.gameManager.player.container.agent.moveSpeedAdj}}
-          <div class="stat">
-            <div class="label">Move Speed:</div>
-            <div class="val">{{this.game.gameManager.player.container.agent.moveSpeedAdj}} x</div>
-          </div>
-        {{/if}}
-        {{#if this.game.gameManager.player.container.agent.healingSpeedAdj}}
-          <div class="stat">
-            <div class="label">Healing Speed:</div>
-            <div class="val">{{this.game.gameManager.player.container.agent.healingSpeedAdj}} x</div>
-          </div>
-        {{/if}}
-        {{#if this.game.gameManager.player.container.agent.healingPowerAdj}}
-          <div class="stat">
-            <div class="label">Healing Power:</div>
-            <div class="val">{{this.game.gameManager.player.container.agent.healingPowerAdj}} x</div>
-          </div>
-        {{/if}}
-        {{#if (or this.fireResistance this.coldResistance)}}
-          <div class="resistance">Resistance</div>
-          {{#if this.fireResistance}}
-            <div class="stat">
-              <div class="label">Fire:</div>
-              <div class="val">{{this.fireResistance}} %</div>
-            </div>
-          {{/if}}
-          {{#if this.coldResistance}}
-            <div class="stat">
-              <div class="label">Cold:</div>
-              <div class="val">{{this.coldResistance}} %</div>
-            </div>
-          {{/if}}
-        {{/if}}
-
-
-      </div>
-    </div>
   </div>
   <div class="inventory-list">
     <div class="pane">
-      <div class="scroll">
+      {{#if (eq this.currentNavCategory.category this.constants.INVENTORY.TYPE.STATS)}}
+        <div class="doll">
+          <img class="body" src="/images/inventory/doll_f2.png "/>
+          <img class="hair" src="/images/inventory/hair_f2.png "/>
+
+          <div data-slot="head" class="item-slot">
+            <div class="placeholder"><div class="itemdesc">{{inventory-item-name this.inventory this.player this.constants.INVENTORY.BODYPART.HEAD}}<EmberTooltip @side="right">Head</EmberTooltip></div></div>
+          </div>
+          <div data-slot="body" class="item-slot">
+            <div class="placeholder"><div class="itemdesc">{{inventory-item-name this.inventory this.player this.constants.INVENTORY.BODYPART.BODY}}<EmberTooltip @side="right">Body</EmberTooltip></div></div>
+          </div>
+          <div data-slot="feet" class="item-slot">
+            <div class="placeholder"><div class="itemdesc">{{inventory-item-name this.inventory this.player this.constants.INVENTORY.BODYPART.FEET}}<EmberTooltip @side="right">Feet</EmberTooltip></div></div>
+          </div>
+          <div data-slot="arms" class="item-slot">
+            <div class="placeholder"><div class="itemdesc right">{{inventory-item-name this.inventory this.player this.constants.INVENTORY.BODYPART.ARMS}}<EmberTooltip @side="left">Arms</EmberTooltip></div></div>
+          </div>
+          <div data-slot="lefthand" class="item-slot">
+            <div class="placeholder"><div class="itemdesc right">{{inventory-item-name this.inventory this.player this.constants.INVENTORY.BODYPART.LEFT_HAND}}<EmberTooltip @side="left">Left Hand</EmberTooltip></div></div>
+          </div>
+          <div data-slot="righthand" class="item-slot">
+            <div class="placeholder"><div class="itemdesc">{{inventory-item-name this.inventory this.player this.constants.INVENTORY.BODYPART.RIGHT_HAND}}<EmberTooltip @side="right">Right Hand</EmberTooltip></div></div>
+          </div>
+          <div data-slot="neck" class="item-slot">
+            <div class="placeholder"><div class="itemdesc right">{{inventory-item-name this.inventory this.player this.constants.INVENTORY.BODYPART.NECK}}<EmberTooltip @side="left">Neck</EmberTooltip></div></div>
+          </div>
+          <div data-slot="fingers" class="item-slot">
+            <div class="placeholder"><div class="itemdesc right">{{inventory-item-name this.inventory this.player this.constants.INVENTORY.BODYPART.FINGERS}}<EmberTooltip @side="left">Fingers</EmberTooltip></div></div>
+          </div>
+          <div data-slot="gloves" class="item-slot">
+            <div class="placeholder"><div class="itemdesc">{{inventory-item-name this.inventory this.player this.constants.INVENTORY.BODYPART.GLOVES}}<EmberTooltip @side="right">Gloves</EmberTooltip></div></div>
+          </div>
+          <div data-slot="ranged" class="item-slot">
+            <div class="placeholder"><div class="itemdesc right">{{inventory-item-name this.inventory this.player this.constants.INVENTORY.BODYPART.RANGED}}<EmberTooltip @side="left">Ranged Weapon</EmberTooltip></div></div>
+          </div>
+        </div>
+      {{else}}
+        <div class="scroll">
         {{#each this.filteredItems as |item|}}
           {{#if item.locked}}
             <div class="item silhouetted">
@@ -114,9 +84,83 @@
           {{/if}}
         {{/each}}
       </div>
+      {{/if}}
     </div>
   </div>
   <div class="item-details-view">
+    {{#if (eq this.currentNavCategory.category this.constants.INVENTORY.TYPE.STATS)}}
+      <div class="item-title">
+        <h2 class="one-line big-font">{{this.currentNavCategory.text}}</h2>
+      </div>
+      <div class="stats-container">
+        <div class="stats">
+
+          <div class="stat">
+            <div class="label">Health:</div>
+            <div class="val">{{this.game.gameManager.player.container.agent.maxHealth}}</div>
+          </div>
+
+          <div class="stat">
+            <div class="label">Max Power:</div>
+            <div class="val">{{this.game.gameManager.player.container.agent.maxPower}}</div>
+          </div>
+
+          <div class="stat">
+            <div class="label">Melee Attack:</div>
+            <div class="val">{{this.game.gameManager.player.container.agent.attackDamage}}</div>
+          </div>
+
+          <div class="stat">
+            <div class="label">Ranged Attack:</div>
+            <div class="val">{{this.game.gameManager.player.container.agent.rangedAttackDamage}}</div>
+          </div>
+
+          {{#if this.game.gameManager.player.container.agent.attackSpeedAdj}}
+            <div class="stat">
+              <div class="label">Attack Speed:</div>
+              <div class="val">{{this.game.gameManager.player.container.agent.attackSpeedAdjRounded}} x</div>
+            </div>
+          {{/if}}
+          {{#if this.game.gameManager.player.container.agent.moveSpeedAdj}}
+            <div class="stat">
+              <div class="label">Move Speed:</div>
+              <div class="val">{{this.game.gameManager.player.container.agent.moveSpeedAdj}} x</div>
+            </div>
+          {{/if}}
+          {{#if this.game.gameManager.player.container.agent.healingSpeedAdj}}
+            <div class="stat">
+              <div class="label">Healing Speed:</div>
+              <div class="val">{{this.game.gameManager.player.container.agent.healingSpeedAdj}} x</div>
+            </div>
+          {{/if}}
+          {{#if this.game.gameManager.player.container.agent.healingPowerAdj}}
+            <div class="stat">
+              <div class="label">Healing Power:</div>
+              <div class="val">{{this.game.gameManager.player.container.agent.healingPowerAdj}} x</div>
+            </div>
+          {{/if}}
+          {{#if (or this.fireResistance this.coldResistance)}}
+            <div class="resistance">Resistance</div>
+            {{#if this.fireResistance}}
+              <div class="stat">
+                <div class="label">Fire:</div>
+                <div class="val">{{this.fireResistance}} %</div>
+              </div>
+            {{/if}}
+            {{#if this.coldResistance}}
+              <div class="stat">
+                <div class="label">Cold:</div>
+                <div class="val">{{this.coldResistance}} %</div>
+              </div>
+            {{/if}}
+          {{/if}}
+
+
+        </div>
+
+      </div>
+
+    {{/if}}
     {{#if this.itemSelected}}
       <div class="item-title">
         <h2 class="one-line big-font">{{this.itemSelected.name}}</h2>
@@ -167,13 +211,14 @@
           </div>
         </div>
 
-        <button type="button" class="btn btn-blue big-font close-btn-big" {{on "click" @close}}>
-          Close Inventory
-        </button>
 
       </div>
     {{/if}}
   </div>
+    <button type="button" class="btn btn-blue big-font close-btn-big" {{on "click" @close}}>
+      Close Inventory
+    </button>
+
 </div>
 {{#if this.swapEquipmentConfirmer}}
   <ToElsewhere

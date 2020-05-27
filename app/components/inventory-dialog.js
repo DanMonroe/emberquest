@@ -3,6 +3,7 @@ import {action} from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
 import { constants } from 'emberquest/services/constants';
+import { alias } from '@ember/object/computed';
 import Confirmer from 'confirmed';
 
 export default class InventoryDialogComponent extends Component {
@@ -26,7 +27,11 @@ export default class InventoryDialogComponent extends Component {
 
   items = undefined;
 
+  constants = constants;
+
   @tracked showDialogTest = false;
+
+  @alias('game.gameManager.player') player;
 
   constructor() {
     super(...arguments);
@@ -40,18 +45,27 @@ export default class InventoryDialogComponent extends Component {
   get leftNavItems() {
     return [
       {
+        text: 'Current Stats',
+        // img: '/images/icons/item-icon-primary.png',
+        clazz: 'stats',
+        category: constants.INVENTORY.TYPE.STATS
+      },
+      {
         text: 'Weapons',
         img: '/images/icons/item-icon-primary.png',
+        clazz: 'weapon',
         category: constants.INVENTORY.TYPE.WEAPON
       },
       {
         text: 'Armor',
         img: '/images/icons/item-icon-armor.png',
+        clazz: 'armor',
         category: constants.INVENTORY.TYPE.ARMOR
       },
       {
         text: 'Other',
         img: '/images/icons/item-icon-accessories.png',
+        clazz: 'other',
         category: constants.INVENTORY.TYPE.OTHER
       // },
       // {

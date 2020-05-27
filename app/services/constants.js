@@ -87,7 +87,7 @@ const constants = Object.freeze({
       ARMOR: 0,
       WEAPON: 1,
       OTHER: 2,
-      MONSTER: 3
+      STATS: 3
     }
   },
 
