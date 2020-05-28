@@ -50,13 +50,10 @@ export class BootScene extends Phaser.Scene {
     this.newGraphics = this.add.graphics();
     const progressBarFill = new Phaser.Geom.Rectangle(this.width/2, this.height/2, 190, 15);
 
-    console.log('height', this.height, 'width', this.width, 'loading.scaleX', this.scaleX)
-
     this.newGraphics.fillStyle(0xff0000, 1);
     this.newGraphics.fillRectShape(progressBarFill);
 
     const fontSize = `${(26 * this.scaleX)}px`;
-    console.log('fontSize', fontSize)
 
     const loadingText = this.add.text(this.offsetX - (35 * this.scaleX),this.offsetY + (60 * this.scaleX),"Loading: ", { fontSize: fontSize, fill: '#222' });
 
@@ -157,17 +154,17 @@ export class BootScene extends Phaser.Scene {
 
     this.game.ember.loadGameData("gameboard")
       .then(gameboardData => {
-        console.log('gameboardData', gameboardData);
+        // console.log('gameboardData', gameboardData);
 
         // TODO:  If you update what is loaded here, also update checkForPortal in game.js
 
         const overrideMapImage = (this.game.ember.overrideMap && this.game.ember.overrideMap.map) ? this.game.ember.overrideMap.map : undefined;
 
         // let data = {'map': overrideMapImage || 'arena'};
-        let data = {'map': overrideMapImage || 'intro3'};
+        // let data = {'map': overrideMapImage || 'intro3'};
 
         // let data = {'map': 'intro3'} // cutter ship
-        // let data = {'map': overrideMapImage || 'map': 'intro'}  // default initial map
+        let data = {'map': overrideMapImage || 'intro'}  // default initial map
 
         if (gameboardData) {
 
@@ -192,9 +189,10 @@ export class BootScene extends Phaser.Scene {
           }
         }
 
+        // console.log('data', data);
 
         this.game.ember.map.getDynamicMapData(data.map).then(mapData => {
-          console.log('mapData', mapData);
+          // console.log('mapData', mapData);
           data.mapData = mapData;
 
           this.scene.start('gameboard',  data);

@@ -45,7 +45,7 @@ export class GameboardScene extends Phaser.Scene {
     // 'boarded': sceneData.boarded
 
   init(data){
-    console.log('gameboard init', data)
+    // console.log('gameboard init', data)
     this.mapname = data.map;
     this.mapData = data.mapData;
     this.storedData = data;
@@ -143,7 +143,7 @@ export class GameboardScene extends Phaser.Scene {
 
     // Tile info
     const allAttrs = this.ember.map.getTileAttribute(this, tileXY);
-    console.log('%c Tile Info', 'color: yellow; font-size: 16px; margin: 15px 0 0 0;')
+    console.log(`%c Map: ${this.mapname.toUpperCase()} - Tile Info:`, 'color: yellow; font-size: 16px; margin: 15px 0 0 0;')
     // console.table([
     //   {
     //     texture: a.playerConfig.texture,
@@ -199,7 +199,7 @@ export class GameboardScene extends Phaser.Scene {
 
   spawnPlayer(playerObject) {
     this.player = playerObject;
-    console.log('spawnPlayer', playerObject.playerConfig.playerX, playerObject.playerConfig.playerY)
+    // console.log('spawnPlayer', playerObject.playerConfig.playerX, playerObject.playerConfig.playerY)
     this.board.addChess(playerObject.container, playerObject.playerConfig.playerX, playerObject.playerConfig.playerY, this.ember.constants.TILEZ_PLAYER);
 
     playerObject.container.fov = this.rexBoard.add.fieldOfView(playerObject.container, playerObject.playerConfig);

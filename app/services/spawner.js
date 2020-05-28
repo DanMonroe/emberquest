@@ -42,7 +42,7 @@ export default class SpawnerService extends Service {
     let boardedTransportId = 0;
     try {
       boardedTransportId = scene.ember.gameManager.storedData.gameboardData.playerAttrs.boardedTransport;
-      console.log('boardedTransportId', boardedTransportId)
+      // console.log('boardedTransportId', boardedTransportId)
       if (boardedTransportId) {
         const transportConfigFromPool = this.transportPool.findTransportById(boardedTransportId);
         // console.log('found trans obj', transportConfigFromPool);

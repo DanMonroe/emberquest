@@ -70,12 +70,13 @@ export default class GameService extends Service {
     const currentMapData = this.sceneData[mapname] || {};
 
     this.gameData = await this.loadGameData('gameboard');
-    // let gameData = await this.loadGameData('gameboard');
+    // console.log('___ saveSceneData this.gameData', this.gameData)
     if (!this.gameData) {
       this.gameData = { 'currentMap': mapname, sceneData: [] };
     } else {
       this.gameData.currentMap = mapname;
     }
+    this.sceneData = this.gameData.sceneData;
 
     const sceneTransports = [];
     if (scene.transports.children) {
@@ -141,13 +142,7 @@ export default class GameService extends Service {
     }
 
     sceneTransports.forEach((sceneTransport) => {
-      // if (sceneTransport.id !== boardedTransportId) {
       if(!allTransports.has(sceneTransport.id)) {
-        // console.log(' <<<<<<<<< sceneTransport',{
-        //   'id': sceneTransport.id,
-        //   'tile': sceneTransport.tile,
-        //   'map': mapname
-        // });
         allTransports.set(sceneTransport.id,
           {
             'id': sceneTransport.id,
@@ -161,12 +156,6 @@ export default class GameService extends Service {
     // let allTransports = []; // get existing first - dont reset
     if (scene.ember.gameData && scene.ember.gameData.transports) {
       scene.ember.gameData.transports.forEach(gameDataTransport => {
-        // if (gameDataTransport.id !== boardedTransportId) {
-        // console.log(' <<<<<<<<< gameDataTransport', {
-        //   'id': gameDataTransport.id,
-        //   'tile': gameDataTransport.tile,
-        //   'map': gameDataTransport.map
-        // });
         if(!allTransports.has(gameDataTransport.id)) {
           allTransports.set(gameDataTransport.id,
             {
@@ -182,9 +171,6 @@ export default class GameService extends Service {
 
 
     const allTransportsArray = [...allTransports.values()];
-    // allTransportsArray.forEach(finalTransport => {
-    //   console.log(' !!!!!!!!!!!!! finalTransport', finalTransport)
-    // });
 
     // PLAYER ATTRIBUTES
     //
@@ -361,7 +347,7 @@ export default class GameService extends Service {
         // const gameData = await this.loadGameData('gameboard')
         this.loadGameData('gameboard')
           .then(gameboardData => {
-            // console.log('gameboardData', gameboardData);
+            // console.log('>> portal gameboardData', gameboardData);
 
             if (gameboardData) {
               const sceneData =   gameboardData.sceneData[tileIsPortal.map] || { allSeenTiles: [], storedTransports: [], boarded: 0};
@@ -387,11 +373,11 @@ export default class GameService extends Service {
 // 'boarded': gameboardData.playerAttrs.boardedTransport  // the id of the transport the player is on
                 // 'boarded': sceneData.boarded
               }
-              console.log('restarting with data', data)
+        // console.log('restarting with data', data)
               // moveTo.scene.scene.restart(data);
 
               this.map.getDynamicMapData(data.map).then(mapData => {
-                console.log('mapData', mapData);
+                // console.log('mapData', mapData);
                 data.mapData = mapData;
 
                 moveTo.scene.scene.start('gameboard',  data);

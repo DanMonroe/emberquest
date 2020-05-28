@@ -70,9 +70,7 @@ export default class MapService extends Service {
   }
 
   async getDynamicMapData(mapToLoad) {
-    console.log('1 mapToLoad', mapToLoad)
     let map = await this.getMap(mapToLoad);
-    console.log('2', map);
     return map;
   }
 

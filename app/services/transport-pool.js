@@ -27,7 +27,7 @@ export default class TransportPoolService extends Service {
   }
 
   populateTransportPool() {
-    console.log('populate transport pool');
+    // console.log('populate transport pool');
 
     this.transportpool = new Map();
 
