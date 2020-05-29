@@ -5574,8 +5574,9 @@ ember-uuid@^2.1.0:
     ember-cli-babel "^7.11.1"
     ember-cli-htmlbars "^4.0.0"
 
-"emberquest-map-data@file:./lib/emberquest-map-data":
+"emberquest-map-data@git+https://1309c762c1df34c730a31d0503fe1f7e05ecbe9c:x-oauth-basic@github.com/DanMonroe/emberquest-map-data.git":
   version "0.1.0"
+  resolved "git+https://1309c762c1df34c730a31d0503fe1f7e05ecbe9c:x-oauth-basic@github.com/DanMonroe/emberquest-map-data.git#57f29f245a8fe1d969e5295e0bbcafac4719c2a5"
 
 emoji-regex@^7.0.1:
   version "7.0.3"
