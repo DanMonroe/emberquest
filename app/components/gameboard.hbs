@@ -48,14 +48,14 @@
       </div>
     </div>
 
-    <EmberPhaser
-      class="board"
-      @phaserContainer="gameContainer"
-      @config={{this.config}}
-      @onSetup={{fn this.setup}}
-      @onTeardown={{fn this.teardown}}
-      @ember={{this.emberGameService}}
-    />
+      <EmberPhaser
+        class="board"
+        @phaserContainer="gameContainer"
+        @config={{this.config}}
+        @onSetup={{fn this.setup}}
+        @onTeardown={{fn this.teardown}}
+        @ember={{this.emberGameService}}
+      />
   </div>
 </div>
 

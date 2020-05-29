@@ -148,7 +148,6 @@ export class BootScene extends Phaser.Scene {
 
   create() {
 
-
     this.game.ember.initializeCachesAlreadyFound();
 
 

@@ -30,7 +30,10 @@ export class GameboardScene extends Phaser.Scene {
 
   constructor() {
     super({
-      key: 'gameboard'
+      key: 'gameboard',
+      pack: {
+        files: [ { type: 'image', key: 'loading_blank', url: '/images/loading_background_blank.png' } ]
+      }
     });
 
     this.projectiles;
@@ -62,11 +65,39 @@ export class GameboardScene extends Phaser.Scene {
   // async preload() {
   preload() {
     this.ember = this.game.ember;
+
+    const loading = this.add.image(0, 0, 'loading_blank').setOrigin(0,0);
+    loading.displayWidth = this.cameras.main.width;
+    loading.scaleY = loading.scaleX;
+    // this.scaleX = loading.scaleX;
+
+
+
     // this.mapData = await this.ember.map.getDynamicMapData(this.mapname);
     // this.mapData = this.ember.map.getMapData(this.mapname);
     this.textures.remove('map');
     this.load.image('map', this.mapData.mapUrl);
+
+
+    // this.load.off('progress').on('progress', this.updateBar, {});
+    // this.load.off('fileprogress').on('fileprogress', this.updateFileProgress, {loadingText:'loadingText'});
+    // this.load.off('complete').on('complete', this.complete,{loadingText:'loadingText', thisScene: this});
+
   }
+
+  // updateBar(percentage) {
+  //   console.log('percentage', percentage)
+  // }
+  // updateFileProgress(file) {
+  //   console.log(file);
+  //   // this.loadingText.setText('Loading: ' + file.key);
+  // }
+  // complete(thisScene) {
+  //   console.log('complete thisScene.textureManager.exists(\'map\')', thisScene.textureManager.exists('map'))
+  //   thisScene.textureManager.exists('map')
+  //   // this.loadingText.setText('Enjoy!');
+  // }
+
 
   create() {
     this.configureBoard();
