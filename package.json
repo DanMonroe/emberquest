@@ -71,7 +71,7 @@
   },
   "dependencies": {
     "confirmed": "^2.3.2",
-    "emberquest-map-data": "git+https://1309c762c1df34c730a31d0503fe1f7e05ecbe9c:x-oauth-basic@github.com/DanMonroe/emberquest-map-data.git",
+    "emberquest-map-data": "^0.1.0",
     "focus-trap": "^5.1.0",
     "localforage": "^1.7.3",
     "simple-crypto-js": "^2.2.0"

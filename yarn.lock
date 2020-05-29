@@ -5574,9 +5574,10 @@ ember-uuid@^2.1.0:
     ember-cli-babel "^7.11.1"
     ember-cli-htmlbars "^4.0.0"
 
-"emberquest-map-data@git+https://1309c762c1df34c730a31d0503fe1f7e05ecbe9c:x-oauth-basic@github.com/DanMonroe/emberquest-map-data.git":
+emberquest-map-data@^0.1.0:
   version "0.1.0"
-  resolved "git+https://1309c762c1df34c730a31d0503fe1f7e05ecbe9c:x-oauth-basic@github.com/DanMonroe/emberquest-map-data.git#57f29f245a8fe1d969e5295e0bbcafac4719c2a5"
+  resolved "https://registry.yarnpkg.com/emberquest-map-data/-/emberquest-map-data-0.1.0.tgz#11df49c7abdb396f81a16664df63c4cfd765ff32"
+  integrity sha512-oIcceeenIlQwi7HNbKlc6h/2qIaUNMeYO2eef2PbGmEVajaIVrOQrkctvlvpm5qfp8BWlB9hr0CwoOoqr00BZA==
 
 emoji-regex@^7.0.1:
   version "7.0.3"
