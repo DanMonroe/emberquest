@@ -32,7 +32,7 @@ export class GameboardScene extends Phaser.Scene {
     super({
       key: 'gameboard',
       pack: {
-        files: [ { type: 'image', key: 'loading_blank', url: '/images/loading_background_blank.png' } ]
+        files: [ { type: 'image', key: 'wood_texture', url: '/images/wood_texture.png' } ]
       }
     });
 
@@ -66,7 +66,7 @@ export class GameboardScene extends Phaser.Scene {
   preload() {
     this.ember = this.game.ember;
 
-    const loading = this.add.image(0, 0, 'loading_blank').setOrigin(0,0);
+    const loading = this.add.image(0, 0, 'wood_texture').setOrigin(0,0);
     loading.displayWidth = this.cameras.main.width;
     loading.scaleY = loading.scaleX;
     // this.scaleX = loading.scaleX;
