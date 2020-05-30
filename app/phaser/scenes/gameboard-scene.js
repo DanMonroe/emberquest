@@ -139,8 +139,8 @@ export class GameboardScene extends Phaser.Scene {
       if (pointer.event.shiftKey) {
       // if (tileXY.x < 10 && tileXY.y === 0) {
         console.log('heal', this.player);
-        this.player.health = this.player.baseHealth;
-        this.player.power = this.player.basePower;
+        this.player.health = this.player.baseHealth + this.player.armorHealth;
+        this.player.power = this.player.basePower + this.player.powerFromInventory;
       }
     });
   }
@@ -158,10 +158,13 @@ export class GameboardScene extends Phaser.Scene {
               {
                 texture: a.playerConfig.texture,
                 level: a.level,
-                levelRange: a.playerConfig.levelRange,
+                'level range': a.playerConfig.levelRange,
                 health: a.health,
                 power: a.power,
-                gold: a.gold
+                gold: a.gold,
+                xp: a.experienceAwarded,
+                'Melee Attack': a.attackDamage,
+                'Ranged Attack': a.rangedAttackDamage
               }
             ]);
             console.log(tileObj);

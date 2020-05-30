@@ -55,9 +55,9 @@ export default class GameboardComponent extends Component {
     this.modals.set('modalsDuration', config.game.modalsDuration);
 
     this.emberGameService.overrideMap = this.args.overrideMap;
-    this.emberGameService.debug = this.args.debug;  // foo queryparam
+    this.emberGameService.debug = this.args.debug;  // debug queryparam
 
-    if (this.emberGameService.debug) {
+    if (this.emberGameService.debug.phaserDebug) {
       this.config.physics.arcade.debug = true;
     }
   }

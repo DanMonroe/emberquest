@@ -282,10 +282,11 @@ export default class GameManagerService extends Service {
 
       debug: {
         // graphics: this.add.graphics().setDepth(10),
-        log: false
+        log: false,
+        override: this.ember.debug || {level:null,gold:null}
       }
-
     };
+
 
     this.player = new Player(this.scene, this.playerConfig);
     this.players[this.player.id] = this.player;

@@ -47,6 +47,9 @@ export class Agent extends BaseAgent {
       if (min !== max) {
         const newLevel = this.ember.randomIntFromInterval(min, max);
         this.level = newLevel;
+        this.health = this.baseHealth;
+        this.power = this.basePower;
+
         return;
       }
     }

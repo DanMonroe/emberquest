@@ -323,7 +323,7 @@ console.log('      do transitionToMelee')
               this.transitionToPatrol();
             }
           } else {
-            return; // game paused while we were in loop
+            yield waitForProperty(this.ember.gameManager, 'gamePaused', false);
           }
 
           // yield timeout(5000);
@@ -350,7 +350,7 @@ console.log('      do transitionToMelee')
               }
             }
           } else {
-            return; // game paused while we were in loop
+            yield waitForProperty(this.ember.gameManager, 'gamePaused', false);
           }
           // yield timeout(5000);
           // yield timeout(this.patrol.aggressionSpeedTimeout || 2000);
@@ -400,6 +400,8 @@ console.log('      do transitionToMelee')
         } else {
           this.transitionToPatrol();
         }
+      } else {
+        yield waitForProperty(this.ember.gameManager, 'gamePaused', false);
       }
   //     console.log('this.patrol.pursuitSpeed', this.patrol.pursuitSpeed)
   //     // debugger;
@@ -414,7 +416,9 @@ console.log('      do transitionToMelee')
     maxConcurrency: 1
   })
   *attack() {
-    if (this.ember.gameManager.gamePaused) { return }
+    if (this.ember.gameManager.gamePaused) {
+      return;
+    }
 
     const equippedMeleeWeapon = this.agent.equippedMeleeWeapon;
     const equippedRangedWeapon = this.agent.equippedRangedWeapon;
@@ -488,53 +492,7 @@ console.log('      do transitionToMelee')
         break;
       default:
     }
-    // yield timeout(5000);
-// debugger;
     return;
-
-    if (false) {
-
-    console.log('Enemy Fire!');
-    // yield timeout(1000);
-    // // if (this.game.player.boardedTransport === null) {
-    // // not on ship
-    // // return;
-    // // }
-    //
-    debugger;
-
-    if (!this.ember.playerContainer.fov.isInLOS(this.rexChess.tileXYZ)) {
-      return;
-    }
-
-    if (!this.weapons || this.weapons.length === 0) {
-      console.log('no weapons');
-      return;
-    }
-    //
-    // // let weapon = this.weapons[0];
-    let weapon = this.weapons.firstObject;
-    if (!this.canFireWeapon(weapon.poweruse)) {
-      // console.log('no power!');
-      return;
-    }
-
-    if (this.fireWeapon.isRunning) {
-      // console.log('waiting to reload - 1');
-      yield waitForProperty(this, 'fireWeapon.isIdle');
-      // console.log('done waiting - fire!');
-      return;
-    }
-
-    const startTileXYZ = this.rexChess.tileXYZ
-    const radian = this.scene.board.angleBetween(startTileXYZ, this.ember.playerContainer.rexChess.tileXYZ);
-
-    yield this.fireWeapon.perform(this, weapon, startTileXYZ, radian);
-      // yield this.fireWeapon.perform(this, weapon,  startPoint, targetPoint);
-    // }
-
-    }  // if false
-
   }
 
   populatePatrolMoveQueue() {
@@ -546,7 +504,9 @@ console.log('      do transitionToMelee')
 
         const tileXYArrayPath = this.pathFinder.findPath(nextTargetTile);
 
-        // this.showMovingPath(tileXYArrayPath);
+        if (this.ember.debug.phaserDebug) {
+          this.showMovingPath(tileXYArrayPath);
+        }
 
         let moveObject = {
           agent: this,
@@ -626,6 +586,9 @@ console.log('      do transitionToMelee')
 
   transitionToPursuit() {
     // console.log('            transitionToPursuit')
+    if (this.ember.debug.phaserDebug) {
+      this.hideMovingPath();
+    }
 
     this.setAgentState(this.ember.constants.AGENTSTATE.PURSUE);
 

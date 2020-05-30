@@ -10,7 +10,11 @@ export default class PlayRoute extends Route {
           x: params.x,
           y: params.y
         },
-      debug: params.foo
+        debug: {
+          phaserDebug: params.debug,
+          level: params.level,
+          gold: params.gold
+        }
       }
     }
   //   return { inventoryItems: new InventoryItems().data };

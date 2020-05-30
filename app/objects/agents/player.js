@@ -50,7 +50,17 @@ export class Player extends BaseAgent {
           set(this, storedObj.attr, storedObj.default || 0);
         }
       });
+      console.log('this', this)
+    }
 
+    // debug overrides
+    if (this.playerConfig.debug.override.gold) {
+      set(this, 'gold', this.playerConfig.debug.override.gold);
+    }
+    if (this.playerConfig.debug.override.level) {
+      set(this, 'experience', this.ember.gameManager.getExperienceFromLevel(this.playerConfig.debug.override.level));
+      this.health = this.baseHealth + this.armorHealth;
+      this.power = this.basePower + this.powerFromInventory;
     }
 
       // health
