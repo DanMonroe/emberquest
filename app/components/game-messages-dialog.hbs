@@ -1,0 +1,27 @@
+<div class="gameMessagesDialog">
+  <h2 class="title title-text">Game Message History</h2>
+  <div class="btn close-btn-x" {{on "click" (fn @close true)}}>X</div>
+  <div class="messages-body">
+    <div class="pane">
+      <div class="scroll">
+
+        {{#each this.messageList as |message|}}
+          <div class="wrapper">
+            <div class="msg">
+              {{{message}}}
+            </div>
+          </div>
+        {{else}}
+          <div class="empty">
+            <p>During the game, there will be numerous messages displayed to you.</p>
+            <p>This board will list the history of those messages for you to review.</p>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <button class="btn styled btn-primary" type="button" {{on "click" (fn @close true)}}>Close</button>
+  </div>
+</div>
+

@@ -31,6 +31,7 @@ export default class AgentPoolService extends Service {
     this.agentpool.set('spider',
       Object.assign(baseAgentclone, {
         id: 1,
+        name: 'Spider',
         texture: 'spider',
         health: 20,
         maxHealth: 20,
@@ -64,6 +65,7 @@ export default class AgentPoolService extends Service {
     this.agentpool.set('young-ogre',
       Object.assign(baseAgentclone, {
         id: 2,
+        name: 'Young Ogre',
         texture: 'young-ogre',
 // health: 2,
 // maxHealth: 2,
@@ -93,6 +95,7 @@ export default class AgentPoolService extends Service {
     this.agentpool.set('dog',
       Object.assign(baseAgentclone, {
         id: 3,
+        name: 'Dog',
         texture: 'dog',
 // health: 2,
 // maxHealth: 2,
@@ -121,6 +124,7 @@ export default class AgentPoolService extends Service {
 
   baseAgent = {
     id: 1,
+    name: '',
     texture: '',
     textureSize: { width: 72, height: 72},
 

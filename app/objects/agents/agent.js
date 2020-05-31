@@ -41,18 +41,32 @@ export class Agent extends BaseAgent {
   }
 
   setLevel() {
-    if (this.playerConfig.levelRange !== 0) {
-      let min = Math.max(1, this.ember.playerContainer.agent.level - this.playerConfig.levelRange);
-      let max = this.ember.playerContainer.agent.level + this.playerConfig.levelRange;
-      if (min !== max) {
-        const newLevel = this.ember.randomIntFromInterval(min, max);
-        this.level = newLevel;
-        this.health = this.baseHealth;
-        this.power = this.basePower;
+    let min = 1;
+    let max = 1;
 
-        return;
+    if (this.playerConfig.minLevel !== 0) {
+      console.log('minLevel', this.playerConfig.minLevel)
+      min = this.playerConfig.minLevel;
+    }
+    if (this.playerConfig.maxLevel !== 0) {
+      console.log('maxLevel', this.playerConfig.maxLevel)
+      max = this.playerConfig.maxLevel;
+      if (max < min) {
+        max = min;
       }
     }
+    if (this.playerConfig.levelRange !== 0) {
+      min = Math.max(1, this.ember.playerContainer.agent.level - this.playerConfig.levelRange);
+      max = this.ember.playerContainer.agent.level + this.playerConfig.levelRange;
+    }
+    if (min !== max) {
+      const newLevel = this.ember.randomIntFromInterval(min, max);
+      this.level = newLevel;
+      this.health = this.baseHealth;
+      this.power = this.basePower;
+      return;
+    }
+    // same as player
     this.level = this.playerConfig.level || this.ember.playerContainer.agent.level;
   }
 

@@ -105,8 +105,8 @@ export default class GameboardComponent extends Component {
   }
 
   @action
-  async showInstructionsDialog() {
-    await this.showDialog('instructions', 'instructions-dialog');
+  async showGameMessagesDialog() {
+    await this.showDialog('gameMessages', 'game-messages-dialog');
   }
 
   @action
