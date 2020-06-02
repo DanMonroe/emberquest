@@ -64,10 +64,24 @@ export class Agent extends BaseAgent {
       this.level = newLevel;
       this.health = this.baseHealth;
       this.power = this.basePower;
-      return;
+    } else {
+      // same as player
+      this.level = this.playerConfig.level || this.ember.playerContainer.agent.level;
     }
-    // same as player
-    this.level = this.playerConfig.level || this.ember.playerContainer.agent.level;
+
+    // show level
+    if (this.container.showLevel) {
+      console.log('adding level', this.level);
+      let color = '#00ff00';
+      if (Math.abs(this.ember.playerContainer.agent.level - this.level) <= 2) {
+        color = '#ffff00'
+      } else if( this.level - this.ember.playerContainer.agent.level > 2) {
+        color = '#ff0000'
+      }
+      this.container.levelIndicator = this.container.scene.add.text( this.ember.constants.levelIndicatorOffsetX, this.ember.constants.levelIndicatorOffsetY, `Lv ${this.level}`, { font: '20px Tahoma', fill: color });
+      this.container.add(this.container.levelIndicator);
+    }
+
   }
 
   setExperienceBasedFromConfigLevel() {

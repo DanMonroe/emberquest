@@ -8,7 +8,7 @@ export default class Projectiles extends Phaser.Physics.Arcade.Group {
     this.createMultiple(config);
   }
 
-  fireProjectile(scene, attacker, targetTile, weapon){
+  fireProjectile(scene, attacker, targetTile, weapon, didAttackHit){
   // fireProjectile(attackerXYZ, radian){
     const projectile = this.getFirstDead(false);
     if (projectile) {
@@ -25,6 +25,9 @@ export default class Projectiles extends Phaser.Physics.Arcade.Group {
 
       if (attacker.agent.rangedAttackDamage) {
         projectile.damage = attacker.agent.rangedAttackDamage;
+      }
+      if (!didAttackHit) {
+        projectile.damage = 0;
       }
 
       // projectile.setScale(0.4);

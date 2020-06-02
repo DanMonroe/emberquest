@@ -1,7 +1,5 @@
 import Service from '@ember/service';
-import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import { constants } from 'emberquest/services/constants';
 
 export default class MessagesService extends Service {
   @tracked messageList;

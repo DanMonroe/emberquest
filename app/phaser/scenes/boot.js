@@ -132,6 +132,7 @@ export class BootScene extends Phaser.Scene {
     this.load.audio('open_door_1', ['/audio/sounds/open_door_1.mp3']);
     this.load.audio('pickup', ['/audio/sounds/pickup.wav']);
 
+    this.load.audio('sword_hit', ['/audio/sounds/chink.mp3']);
     this.load.audio('sword_miss', ['/audio/sounds/sword_miss.mp3']);
     this.load.audio('arrow', ['/audio/sounds/arrow.mp3']);
 

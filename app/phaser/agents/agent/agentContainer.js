@@ -22,6 +22,7 @@ export default class AgentContainer extends BasePhaserAgentContainer {
     this.agent = agent;
     this.config = config;
     this.showPowerBar = false;
+    this.showLevel = true;
 
     this.setupSprite();
 
@@ -435,6 +436,8 @@ console.log('      do transitionToMelee')
         // console.log('agent equippedRangedWeapon', equippedRangedWeapon)
         if (equippedRangedWeapon && this.ember.gameManager.hasEnoughPowerToUseItem(equippedRangedWeapon, this.agent)) {
 
+          const hit = this.ember.gameManager.didAttackHit(equippedRangedWeapon, this.ember.playerContainer.agent, this.agent);
+
           // find a way to play appropriate sound
           this.playSound(this.ember.constants.AUDIO.KEY.ARROW);
 
@@ -442,7 +445,7 @@ console.log('      do transitionToMelee')
           this.playAnimation(this.ember.constants.ANIMATION.KEY.RANGE);
           this.playSound(this.ember.constants.AUDIO.KEY.RANGE);
 
-          this.scene.agentprojectiles.fireProjectile(this.scene, this, this.ember.playerContainer.rexChess.tileXYZ, equippedRangedWeapon);
+          this.scene.agentprojectiles.fireProjectile(this.scene, this, this.ember.playerContainer.rexChess.tileXYZ, equippedRangedWeapon, hit);
 
           if (equippedRangedWeapon) {
             yield timeout(equippedRangedWeapon.attackSpeed); // cooldown
@@ -467,14 +470,15 @@ console.log('      do transitionToMelee')
             return;
           }
 
-          const meleeAttackDamage = this.agent.attackDamage;
+          const hit = this.ember.gameManager.didAttackHit(equippedMeleeWeapon, this.ember.playerContainer.agent, this.agent);
+
+          const meleeAttackDamage = hit ? this.agent.attackDamage : 0;
           // const targetsHealth = this.ember.playerContainer.agent.health;
           // console.log('meleeAttackDamage', meleeAttackDamage, 'targetsHealth', targetsHealth);
 
           this.stopAnimation();
           this.playAnimation(this.ember.constants.ANIMATION.KEY.ATTACK);
           this.playSound(this.ember.constants.AUDIO.KEY.ATTACK);
-
 
           // weapon will have speed, damage?, timeout cooldown
           this.ember.playerContainer.takeDamage(meleeAttackDamage, this.ember.playerContainer.agent, this.agent);

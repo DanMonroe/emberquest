@@ -14,7 +14,7 @@ export class InventoryItem {
   // weaponSpeed = 1000; // time between attacks
   projectileSpeed = 200;
   // poweruse = 10;
-  accuracy = 90; // percentage
+  // accuracy = 90; // percentage
 
   bodypart;  // where the item can be equipped
 
@@ -30,6 +30,7 @@ export class InventoryItem {
   @tracked tileY;
   @tracked stats; // array of Stat objects
   @tracked resistance; // array of Objects: { fire = 0, cold = 0 }
+  @tracked accuracy = 5; // 1 - 10
 
   @tracked confirmUnlock;
 

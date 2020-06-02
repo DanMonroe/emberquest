@@ -75,7 +75,8 @@ const constants = Object.freeze({
       MOVESPEED: 4,
       ATTACKSPEED: 5,
       HEALINGSPEEDADJ: 6,
-      HEALINGPOWERADJ: 7
+      HEALINGPOWERADJ: 7,
+      ACCURACY: 8,
     },
 
     RESISTANCE: {
@@ -201,6 +202,9 @@ const constants = Object.freeze({
     PLAY_SOUND: {value: 3, description: 'Play Sound'}     // data: { sound: 'open_door_1' }
   },
 
+
+  levelIndicatorOffsetX: -35,
+  levelIndicatorOffsetY: -70,
 
   healthBarOffsetX: -24,
   healthBarOffsetY: -33,

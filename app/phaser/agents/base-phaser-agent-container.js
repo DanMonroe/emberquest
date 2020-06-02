@@ -16,6 +16,7 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
 
   // showPowerBar = true;
   showPowerBar = false;
+  showLevel = true;
 
   @tracked aggressionScale = 0;
 
@@ -72,7 +73,7 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
       agentTakingDamage.health = 0;   // TODO // why sometimes NaN ?
     }
     agentTakingDamage.health -= baseDamage;
-    agentTakingDamage.container.playDamageText(baseDamage);
+    agentTakingDamage.container.playDamageText(baseDamage ? baseDamage : 'Miss');
 
     if (agentTakingDamage.container.phaserAgentSprite) {
 
@@ -124,6 +125,7 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
 
   @task
   *fireWeapon(agent, weapon, startTileXYZ, radian) {
+    debugger;
     if (this.ember.gameManager.gamePaused) { return }
 
     this.scene.agentprojectiles.fireProjectile(startTileXYZ, radian);
@@ -170,14 +172,12 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
   }
 
   createHealthBar() {
-    // console.log('adding healthbar')
     if (this.showHealthBar) {
       this.healthBar = this.scene.add.graphics();
       this.healthBar.setAlpha(this.isPlayer ? 1 : 0);
       this.healthBar.setDepth(this.ember.constants.TILEZ_PLAYER);
     }
     if (this.showPowerBar) {
-    // console.log('adding power bar')
       this.powerBar = this.scene.add.graphics();
       this.powerBar.setDepth(this.ember.constants.TILEZ_PLAYER);
     }

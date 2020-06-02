@@ -390,13 +390,13 @@ export default class GameManagerService extends Service {
 
         if (equippedMeleeWeapon && this.hasEnoughPowerToUseItem(equippedMeleeWeapon, attacker.agent)) {
 
+          const hit = this.didAttackHit(equippedMeleeWeapon, agentToAttack.agent, attacker.agent);
+          console.log('hit - melee', hit);
+
           // find a way to play appropriate sound
           this.playSound(this.ember.constants.AUDIO.KEY.SWORD);
 
-          const meleeAttackDamage = attacker.agent.attackDamage;
-          // const targetsHealth = agentToAttack.agent.health;
-          // console.log('meleeAttackDamage', meleeAttackDamage, 'targetsHealth', targetsHealth);
-
+          const meleeAttackDamage = hit ? attacker.agent.attackDamage : 0;
 
           // weapon will have speed, damage?, timeout cooldown
           agentToAttack.takeDamage(meleeAttackDamage, agentToAttack.agent, attacker.agent);
@@ -425,10 +425,13 @@ export default class GameManagerService extends Service {
           if (isInLineOfSight) {
             // ok to fire projectile
 
+            const hit = this.didAttackHit(equippedRangedWeapon, agentToAttack.agent, attacker.agent);
+            console.log('hit - ranged', hit);
+
             // find a way to play appropriate sound
             this.playSound(this.ember.constants.AUDIO.KEY.ARROW);
 
-            this.scene.projectiles.fireProjectile(this.scene, attacker, clickedTile, equippedRangedWeapon);
+            this.scene.projectiles.fireProjectile(this.scene, attacker, clickedTile, equippedRangedWeapon, hit);
 
             if (equippedRangedWeapon) {
               yield timeout(equippedRangedWeapon.attackSpeed); // cooldown
@@ -442,6 +445,26 @@ export default class GameManagerService extends Service {
     // } else {
     //   console.log('No agent to attack')
     // }
+  }
+
+  didAttackHit(inventoryItem, agentToAttack, attacker) {
+    const levelDiff = attacker.level - agentToAttack.level;
+    const weaponAccuracy = inventoryItem.accuracy || 5;
+    let bonus = 0;
+    if (attacker.container.isPlayer) {
+      bonus += 10;
+    }
+    let chanceToHit = 65 + (levelDiff * 2) + weaponAccuracy + bonus;
+    if (chanceToHit > 99) {
+      chanceToHit = 99; // always chance to miss
+    }
+    if (chanceToHit < 1) {
+      chanceToHit = 1; // always chance to hit
+    }
+    const diceRoll = this.ember.randomIntFromInterval(0, 100);
+    // console.log('chanceToHit', chanceToHit, 'diceRoll', diceRoll, inventoryItem, agentToAttack, attacker, 'levelDiff', levelDiff, 'weaponAccuracy', weaponAccuracy, 'bonus', bonus);
+
+    return diceRoll <= chanceToHit;
   }
 
   hasEnoughPowerToUseItem(inventoryItem, wieldingAgent) {
