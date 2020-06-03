@@ -30,6 +30,7 @@
     "ember-cli-babel": "^7.17.2",
     "ember-cli-dependency-checker": "^3.2.0",
     "ember-cli-eslint": "^5.1.0",
+    "ember-cli-fastboot": "^2.2.2",
     "ember-cli-htmlbars": "^4.2.0",
     "ember-cli-inject-live-reload": "^2.0.1",
     "ember-cli-mirage": "^1.1.6",
@@ -60,6 +61,8 @@
     "loader.js": "^4.7.0",
     "phaser": "^3.22.0",
     "phaser3-rex-plugins": "^1.1.8",
+    "prember": "^1.0.4",
+    "prember-middleware": "^0.1.0",
     "qunit-dom": "^1.0.0",
     "sass": "^1.25.0"
   },

@@ -8,6 +8,11 @@ module.exports = function(defaults) {
       plugins: [ require.resolve('ember-auto-import/babel-plugin') ]
     },
 
+    prember: {
+      urls: [
+        '/'
+      ]
+    },
 
     fingerprint: {
       exclude: [

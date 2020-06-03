@@ -233,7 +233,7 @@ a {
     text-align: center;
   }
   img.logo {
-    margin: 150px auto;
+    margin: 30px auto;
     display: block;
     width: 75vw;
   }
@@ -1734,6 +1734,44 @@ button {
       }
     }
   }
+}
+
+.instructions-wrapper-top {
+  background: transparent url("/images/backgrounds/background_plank_top.png") no-repeat center;
+  width: 720px;
+  height: 75px;
+  padding: 0;
+  border: 0;
+  background-size: 720px 75px;
+  margin: 0 auto;
+}
+.instructions-wrapper-middle {
+  background: transparent url("/images/backgrounds/background_plank_middle.png") center;
+  width: 640px;
+  padding: 1px 40px;
+  border: 0;
+  background-size: contain;
+  resize: both;
+  margin: 0 auto;
+  .instructions {
+    margin-top: -60px;
+    color: #333;
+    p.p1 {
+      font-size: 1.4em;
+    }
+    .btn {
+      margin-left: 0;
+    }
+  }
+}
+.instructions-wrapper-bottom {
+  background: transparent url("/images/backgrounds/background_plank_bottom.png") no-repeat center;
+  width: 720px;
+  height: 75px;
+  padding: 0;
+  border: 0;
+  background-size: 720px 75px;
+  margin: 0 auto;
 }
 
 .instructions {
