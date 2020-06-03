@@ -1,7 +1,21 @@
 <div class="configDialog">
-  <h2 class="title title-text">Settings</h2>
   <div class="btn close-btn-x" {{on "click" (fn @close true)}}>X</div>
+  <div class="left-nav absolute">
+    {{#each this.leftNavItems as |navItem|}}
+      <button class="btn{{if (eq this.currentNavCategory.text navItem.text) " active"}}" type="button" {{on "click" (fn this.pickCategory navItem)}}><span class="big-font {{navItem.clazz}}">{{navItem.text}}</span></button>
+    {{/each}}
+  </div>
   <div class="body">
+    <div class="pane {{this.currentNavCategory.clazz}}">
+      <div class="scroll">
+        {{#if (eq this.currentNavCategory.text "Settings")}}
+          Settings
+        {{/if}}
+        {{#if (eq this.currentNavCategory.text "Help")}}
+          <Instructions />
+        {{/if}}
+      </div>
+    </div>
   </div>
   <div class="footer">
     <button class="btn styled btn-primary" type="button" {{on "click" (fn @close true)}}>Close</button>

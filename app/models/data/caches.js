@@ -8,7 +8,7 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC8QAYM',
-        name: 'EmberQuest #1',
+        name: 'EmberQuest #1 - Castle Storeroom',
         description: '<p>Description placeholder</p>',
         difficulty: 1.5,
         terrain: 1.5,
@@ -22,7 +22,7 @@ export class Caches {
       new Cache({
         gccode: 'GC8QB0H',
         found: false,
-        name: 'EmberQuest #2',
+        name: 'EmberQuest #2 - Ogre Covered Bridge',
         description: '<p>Test description</p>',
         difficulty: 1.5,
         terrain: 1.5,
