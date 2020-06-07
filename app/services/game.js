@@ -566,10 +566,11 @@ export default class GameService extends Service {
 
 
   async foundChest(chest) {
-    console.log('foundChest', chest)
+    console.log('foundChest!', chest)
     if (chest) {
-      this.gameManager.player.gold += chest.gold;
-      chest.gold = 0;
+      // debugger;
+      this.gameManager.player.gold = +this.gameManager.player.gold + +chest.gold;
+      // chest.gold = 0;
 
       // special actions
       if (chest.specialActions) {
@@ -584,7 +585,11 @@ export default class GameService extends Service {
       if (geocache) {
         // show found it modal
         this.epmModalContainerClass = 'chest';
-        this.modals.open('chest-dialog', {coords:geocache.coords});
+        this.modals.open('chest-dialog', {
+          coords:geocache.coords,
+          inventory:chest.inventory,
+          gold:chest.gold,
+        });
 
         geocache.found = true;
         await this.saveCacheFound(geocache);
@@ -617,8 +622,8 @@ export default class GameService extends Service {
     }
   }
 
-  decryptCacheCoordinates(source) {
-    return this.storage.decrypt(source.coords);
+  decryptCacheCoordinates(coords) {
+    return this.storage.decrypt(coords);
   }
 
   randomIntFromInterval(min, max) { // min and max included

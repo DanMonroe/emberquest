@@ -811,10 +811,11 @@ button {
   background-image: url("/images/backgrounds/popover_background.png");
   background-repeat: no-repeat;
   background-size: cover;
-  height: 400px;
-  width: 500px;
+  height: 500px;
+  width: 610px;
   color: #000;
-  img {
+  font-size: 1.3em;
+  img.closedChest {
     width: 200px;
     position: absolute;
     top: -35px;
@@ -822,18 +823,75 @@ button {
     z-index: 4;
   }
   .chest-body {
-    position: absolute;
-    top: 25px;
-    left: 25px;
-    width: 440px;
-    height: 290px;
+    //position: absolute;
+    //top: 25px;
+    //left: 25px;
+    //width: 600px;
+    //height: 290px;
+    padding: 15px 35px;
     display: inline-block;
+
+    .chestInventory {
+      margin-top: 15px;
+      .bonus {
+
+      }
+      .gem-wrapper {
+        @include gem-wrapper;
+        margin: 15px 0 0 15px;
+        .gems-count {
+          text-shadow: none;
+          color: #333;
+          font-size: .8em;
+          margin-left: 20px;
+        }
+      }
+
+      .item-wrapper {
+        position: relative;
+      }
+      .item-img-wrapper {
+          position: relative;
+          //height: 142px;
+          width: 100%;
+          img {
+            vertical-align: middle;
+          }
+
+          .item-img {
+            top: 15px;
+          }
+          .item-img, .item-shadow {
+            position: absolute;
+            margin-left: 20px;
+            left: -24px;
+            right: 0;
+            bottom: 0;
+            height: 65px;
+          }
+          .item-shadow {
+            top: 19px;
+            left: -21px;
+            -webkit-filter: contrast(0%) brightness(0%);
+            -moz-filter: contrast(0%) brightness(0%);
+            -o-filter: contrast(0%) brightness(0%);
+            filter: contrast(0%) brightness(0%);
+            opacity: 0.2;
+          }
+      }
+      .item-name {
+        position: absolute;
+        left: 80px;
+        top: 35px;
+        font-size: .8em;
+      }
+    }
   }
   h1 {
   }
   .congrats {
-    padding: 50px 0 30px;
-    font-size: 1.3em;
+    padding: 0 30px 10px 0;
+    //font-size: 1.3em;
   }
   .coords {
     font-size: 1.3em;
@@ -842,9 +900,10 @@ button {
     text-align: center;
   }
   .chest-footer {
+    //text-align: center;
     position: absolute;
     bottom: 0;
-    left: 182px;
+    left: 245px;
     bottom: 20px;
   }
 }

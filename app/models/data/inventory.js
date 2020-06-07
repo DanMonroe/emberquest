@@ -13,6 +13,7 @@ export class InventoryItems {
       new InventoryItem({
         id: weaponId++,
         owned: false,
+        display: true,
         price: 2,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
@@ -38,6 +39,7 @@ export class InventoryItems {
       new InventoryItem({
         id: weaponId++,
         owned: false,
+        display: true,
         price: 2,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
@@ -63,6 +65,7 @@ export class InventoryItems {
       new InventoryItem({
         id: weaponId++,
         owned: false,
+        display: true,
         price: 2,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
@@ -88,6 +91,7 @@ export class InventoryItems {
       new InventoryItem({
         id: weaponId++,
         owned: false,
+        display: true,
         price: 2,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
@@ -113,6 +117,7 @@ export class InventoryItems {
       new InventoryItem({
         id: weaponId++,
         owned: false,
+        display: true,
         price: 2,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
@@ -138,6 +143,7 @@ export class InventoryItems {
       new InventoryItem({
         id: weaponId++,
         owned: false,
+        display: true,
         price: 2,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
@@ -163,6 +169,7 @@ export class InventoryItems {
       new InventoryItem({
         id: weaponId++,
         owned: false,
+        display: true,
         price: 2,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
@@ -188,6 +195,7 @@ export class InventoryItems {
       new InventoryItem({
         id: weaponId++,
         owned: false,
+        display: true,
         price: 2,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
@@ -213,6 +221,7 @@ export class InventoryItems {
       new InventoryItem({
         id: weaponId++,
         owned: false,
+        display: true,
         price: 2,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
@@ -238,6 +247,7 @@ export class InventoryItems {
       new InventoryItem({
         id: weaponId++,
         owned: false,
+        display: true,
         price: 2,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
@@ -263,6 +273,7 @@ export class InventoryItems {
       new InventoryItem({
         id: weaponId++,
         owned: false,
+        display: true,
         price: 2,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
@@ -289,7 +300,7 @@ export class InventoryItems {
     // Monster Weapons
     items.push(
       new InventoryItem({
-        id: 2000,
+        id: 5000,
         name: 'Simple Sword',
         type: constants.INVENTORY.TYPE.MONSTER,
         bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
@@ -309,7 +320,7 @@ export class InventoryItems {
     );
     items.push(
       new InventoryItem({
-        id: 2001,
+        id: 5001,
         name: 'Spider Fang',
         type: constants.INVENTORY.TYPE.MONSTER,
         bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
@@ -329,7 +340,7 @@ export class InventoryItems {
     );
     items.push(
       new InventoryItem({
-        id: 2002,
+        id: 5002,
         name: 'Spider Web',
         type: constants.INVENTORY.TYPE.MONSTER,
         bodypart: constants.INVENTORY.BODYPART.RANGED,
@@ -351,7 +362,7 @@ export class InventoryItems {
     );
     items.push(
       new InventoryItem({
-        id: 2003,
+        id: 5003,
         name: 'Bite',
         type: constants.INVENTORY.TYPE.MONSTER,
         bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
@@ -376,6 +387,7 @@ export class InventoryItems {
       new InventoryItem({
         id: rangedWeaponId++,
         owned: false,
+        display: true,
         price: 10,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RANGED,
@@ -402,6 +414,7 @@ export class InventoryItems {
       new InventoryItem({
         id: rangedWeaponId++,
         owned: false,
+        display: true,
         price: 10,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RANGED,
@@ -428,6 +441,7 @@ export class InventoryItems {
       new InventoryItem({
         id: rangedWeaponId++,
         owned: false,
+        display: true,
         price: 10,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RANGED,
@@ -454,6 +468,7 @@ export class InventoryItems {
       new InventoryItem({
         id: rangedWeaponId++,
         owned: false,
+        display: true,
         price: 10,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RANGED,
@@ -484,6 +499,7 @@ export class InventoryItems {
       new InventoryItem({
         id: armorId++,
         owned: false,
+        display: true,
         price: 3,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.FEET,
@@ -497,6 +513,7 @@ export class InventoryItems {
       new InventoryItem({
         id: armorId++,
         owned: false,
+        display: true,
         price: 3,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.FEET,
@@ -510,6 +527,7 @@ export class InventoryItems {
       new InventoryItem({
         id: armorId++,
         owned: false,
+        display: true,
         price: 10,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.FEET,
@@ -523,6 +541,7 @@ export class InventoryItems {
       new InventoryItem({
         id: armorId++,
         owned: false,
+        display: true,
         price: 550,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.FEET,
@@ -537,6 +556,7 @@ export class InventoryItems {
       new InventoryItem({
         id: armorId++,
         owned: false,
+        display: true,
         price: 5,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.BODY,
@@ -550,6 +570,7 @@ export class InventoryItems {
       new InventoryItem({
         id: armorId++,
         owned: false,
+        display: true,
         price: 5,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.BODY,
@@ -563,6 +584,7 @@ export class InventoryItems {
       new InventoryItem({
         id: armorId++,
         owned: false,
+        display: true,
         price: 5,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.BODY,
@@ -576,6 +598,7 @@ export class InventoryItems {
       new InventoryItem({
         id: armorId++,
         owned: false,
+        display: true,
         price: 5,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.BODY,
@@ -589,6 +612,7 @@ export class InventoryItems {
       new InventoryItem({
         id: armorId++,
         owned: false,
+        display: true,
         price: 5,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.BODY,
@@ -602,6 +626,7 @@ export class InventoryItems {
       new InventoryItem({
         id: armorId++,
         owned: false,
+        display: true,
         price: 5,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.BODY,
@@ -615,6 +640,7 @@ export class InventoryItems {
       new InventoryItem({
         id: armorId++,
         owned: false,
+        display: true,
         price: 5,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.BODY,
@@ -630,6 +656,7 @@ export class InventoryItems {
       new InventoryItem({
         id: armorId++,
         owned: false,
+        display: true,
         price: 5,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.HEAD,
@@ -643,6 +670,7 @@ export class InventoryItems {
       new InventoryItem({
         id: armorId++,
         owned: false,
+        display: true,
         price: 5,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.HEAD,
@@ -656,6 +684,7 @@ export class InventoryItems {
       new InventoryItem({
         id: armorId++,
         owned: false,
+        display: true,
         price: 5,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.HEAD,
@@ -669,6 +698,7 @@ export class InventoryItems {
       new InventoryItem({
         id: armorId++,
         owned: false,
+        display: true,
         price: 5,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.HEAD,
@@ -682,6 +712,7 @@ export class InventoryItems {
       new InventoryItem({
         id: armorId++,
         owned: false,
+        display: true,
         price: 5,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.HEAD,
@@ -695,6 +726,7 @@ export class InventoryItems {
       new InventoryItem({
         id: armorId++,
         owned: false,
+        display: true,
         price: 5,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.HEAD,
@@ -708,6 +740,7 @@ export class InventoryItems {
       new InventoryItem({
         id: armorId++,
         owned: false,
+        display: true,
         price: 5,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.HEAD,
@@ -723,6 +756,7 @@ export class InventoryItems {
       new InventoryItem({
         id: armorId++,
         owned: false,
+        display: true,
         price: 5,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.LEFT_HAND,
@@ -736,6 +770,7 @@ export class InventoryItems {
       new InventoryItem({
         id: armorId++,
         owned: false,
+        display: true,
         price: 5,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.LEFT_HAND,
@@ -749,6 +784,7 @@ export class InventoryItems {
       new InventoryItem({
         id: armorId++,
         owned: false,
+        display: true,
         price: 5,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.LEFT_HAND,
@@ -762,6 +798,7 @@ export class InventoryItems {
       new InventoryItem({
         id: armorId++,
         owned: false,
+        display: true,
         price: 5,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.LEFT_HAND,
@@ -775,6 +812,7 @@ export class InventoryItems {
       new InventoryItem({
         id: armorId++,
         owned: false,
+        display: true,
         price: 5,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.LEFT_HAND,
@@ -782,57 +820,6 @@ export class InventoryItems {
         img: '/images/items/armor/steel_shield_3.png',
         description: '',
         stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
-      })
-    );
-
-
-
-    items.push(
-      new InventoryItem({
-        id: armorId++,
-        owned: false,
-        locked: false,
-        price: 5,
-        // price: 550,
-        type: constants.INVENTORY.TYPE.ARMOR,
-        bodypart: constants.INVENTORY.BODYPART.FEET,
-        name: 'Dragon Boots',
-        img: '/images/items/armor/boots_wings.png',
-        description: 'Exquisite boots made from the scales of a fire dragon.',
-        stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
-        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 20})]
-      })
-    );
-    items.push(
-      new InventoryItem({
-        id: armorId++,
-        owned: false,
-        locked: false,
-        price: 5,
-        // price: 550,
-        type: constants.INVENTORY.TYPE.ARMOR,
-        bodypart: constants.INVENTORY.BODYPART.HEAD,
-        name: 'Dragon Helmet',
-        img: '/images/items/armor/red_helmet.png',
-        description: 'Exquisite helmet made from the scales of a fire dragon.',
-        stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
-        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 30})]
-      })
-    );
-    items.push(
-      new InventoryItem({
-        id: armorId++,
-        owned: false,
-        locked: false,
-        price: 5,
-        // price: 550,
-        type: constants.INVENTORY.TYPE.ARMOR,
-        bodypart: constants.INVENTORY.BODYPART.BODY,
-        name: 'Dragon Plate',
-        img: '/images/items/armor/red_breastplate.png',
-        description: 'Exquisite breastplate made from the scales of a fire dragon.',
-        stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
-        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 50})]
       })
     );
 
@@ -855,6 +842,57 @@ export class InventoryItems {
     //       price: 50,
     //       owned: true,
     //       img: '/images/items/other/tarnishedring.png',
+
+
+    // Chest and Agent Inventory
+    items.push(
+      new InventoryItem({
+        id: 2000,
+        owned: false,
+        locked: false,
+        price: 0,
+        // price: 550,
+        type: constants.INVENTORY.TYPE.ARMOR,
+        bodypart: constants.INVENTORY.BODYPART.FEET,
+        name: 'Dragon Boots',
+        img: '/images/items/armor/boots_wings.png',
+        description: 'Exquisite boots made from the scales of a fire dragon.',
+        stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
+        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 20})]
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: 2001,
+        owned: false,
+        locked: false,
+        price: 0,
+        // price: 550,
+        type: constants.INVENTORY.TYPE.ARMOR,
+        bodypart: constants.INVENTORY.BODYPART.HEAD,
+        name: 'Dragon Helmet',
+        img: '/images/items/armor/red_helmet.png',
+        description: 'Exquisite helmet made from the scales of a fire dragon.',
+        stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
+        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 30})]
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: 2002,
+        owned: false,
+        locked: false,
+        price: 0,
+        // price: 550,
+        type: constants.INVENTORY.TYPE.ARMOR,
+        bodypart: constants.INVENTORY.BODYPART.BODY,
+        name: 'Dragon Plate',
+        img: '/images/items/armor/red_breastplate.png',
+        description: 'Exquisite breastplate made from the scales of a fire dragon.',
+        stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
+        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 50})]
+      })
+    );
 
 
 

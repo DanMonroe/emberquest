@@ -10,6 +10,7 @@ export default class Chest extends Phaser.Physics.Arcade.Image {
 
     this.id = chestObj.id;
     this.gold = chestObj.gold; // the amount of coins this chest contains
+    this.inventory = chestObj.inventory; // the amount of coins this chest contains
     this.coords = chestObj.coords;
     this.gccode = chestObj.gccode;
     this.specialActions = chestObj.specialActions;
@@ -18,13 +19,6 @@ export default class Chest extends Phaser.Physics.Arcade.Image {
     this.found = this.scene.ember.cache.isCacheFound(this.gccode);
 
     this.setFrame(this.found ? 0 : 1);
-    // scene.anims.create({
-    //   key: 'young-ogre-rest',
-    //   frames: scene.anims.generateFrameNumbers('young-ogre', { start: 1, end: 4}),
-    //   frameRate: 3,
-    //   repeat: -1,
-    // });
-
 
     // enable physics
     this.scene.physics.world.enable(this);

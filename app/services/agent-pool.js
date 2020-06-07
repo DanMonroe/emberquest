@@ -45,10 +45,10 @@ export default class AgentPoolService extends Service {
         },
         inventory: [
           {
-            bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{itemId: 2001, droppable: false}],
+            bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{itemId: 5001, droppable: false}],
           },
           {
-            bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 2002, droppable: false } ]
+            bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5002, droppable: false } ]
           }
         ]
 
@@ -78,7 +78,7 @@ export default class AgentPoolService extends Service {
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items:
             [
-              { itemId: 2000, droppable: false }  // sword
+              { itemId: 5000, droppable: false }  // sword
             ]},
         ]
 
@@ -109,7 +109,7 @@ export default class AgentPoolService extends Service {
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items:
             [
-              { itemId: 2003 }  // bite
+              { itemId: 5003 }  // bite
             ]},
         ]
 

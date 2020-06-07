@@ -23,8 +23,8 @@ export class InventoryItem {
   @tracked velocity;
   @tracked price;
   @tracked owned = false;
+  @tracked display = false;
   @tracked locked;
-  // @tracked skills;
   @tracked equipped = false;
   @tracked tileX;
   @tracked tileY;

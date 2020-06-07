@@ -1,11 +1,31 @@
 <div class="chestDialog">
 
-  <img src="/images/closed-treasure-chest.png" />
+  <img class="closedChest" src="/images/closed-treasure-chest.png" />
 
   <div class="chest-body">
     <h1>You Found a Chest!</h1>
     <div class="congrats">Congratulations, you have discovered a hidden chest.  Take note of the physical GPS coordinates below and search for the real geocache at that location.</div>
     <div class="coords">{{this.decryptedCacheCoords}}</div>
+    {{#if this.showBonus}}
+      <div class="chestInventory">
+        <div class="bonus">The chest also contains:</div>
+        {{#if this.cacheData.gold}}
+          <div class="gem-wrapper">
+            <span class="gem gem-30"></span>
+            <span class="gems-count big-font">{{this.cacheData.gold}} Gems</span>
+          </div>
+        {{/if}}
+        {{#each this.chestInventory as |item|}}
+          <div class="item-wrapper">
+            <div class="item-img-wrapper">
+              <img src="{{item.img}}" class="item-img">
+              <img src="{{item.img}}" class="item-shadow">
+            </div>
+            <div class="item-name"><strong class="big-font">{{item.name}}</strong></div>
+          </div>
+        {{/each}}
+      </div>
+    {{/if}}
   </div>
 
   <div class="chest-footer">

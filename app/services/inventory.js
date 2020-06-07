@@ -34,6 +34,19 @@ export default class InventoryService extends Service {
     return this.inventoryItems;
   }
 
+  getItemById(id) {
+    let item = this.getInventoryItems().find(inventoryItem => {
+      return inventoryItem.id === id;
+    });
+    return item;
+  }
+
+  addInventoryFromChest(item) {
+    item.owned = true;
+    item.display = true;
+    this.gameManager.player.container.agent.addInventory(item);
+  }
+
   buyInventory(item) {
     console.log('buy inventory', item);
     this.gameManager.player.gold -= item.price;

@@ -29,6 +29,7 @@ export class Player extends BaseAgent {
         // console.log('gameInventoryItem', gameInventoryItem);
         if (gameInventoryItem) {
           gameInventoryItem.owned = true;
+          gameInventoryItem.display = true;
           if (storedInventoryItem.eq) {
             this.equipItem(gameInventoryItem);
           }
@@ -50,7 +51,7 @@ export class Player extends BaseAgent {
           set(this, storedObj.attr, storedObj.default || 0);
         }
       });
-      console.log('this', this)
+      // console.log('this', this)
     }
 
     // debug overrides

@@ -1,19 +1,37 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
+import { computed } from '@ember/object';
+import { or } from '@ember/object/computed';
 
 export default class ChestDialogComponent extends Component {
   @service modals;
   @service game;
+  @service inventory;
 
   @tracked cacheData;
   decryptedCacheCoords = '';
+
+  @or('chestInventory', 'cacheData.gold') showBonus;
+
+  @computed('cacheData.inventory.[]')
+  get chestInventory() {
+    const chestInventory = [];
+    this.cacheData.inventory.forEach(itemId => {
+      const item = this.inventory.getItemById(itemId);
+      if (item) {
+        chestInventory.push(item);
+        this.inventory.addInventoryFromChest(item);
+      }
+    })
+    return chestInventory;
+  }
 
   constructor() {
     super(...arguments);
 
     this.cacheData = this.modals.top._data;
-console.log('cacheData', this.cacheData)
-    this.decryptedCacheCoords = this.game.decryptCacheCoordinates(this.cacheData);
+    console.log('this.cacheData', this.cacheData)
+    this.decryptedCacheCoords = this.game.decryptCacheCoordinates(this.cacheData.coords);
   }
 }

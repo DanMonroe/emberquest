@@ -161,9 +161,9 @@ export class BaseAgent {
   }
 
   addInventory(item) {
-    console.log('adding inventory', item)
+    // console.log('adding inventory', item)
     this.inventory.pushObject(item);
-    console.log('   new inventory', this.inventory)
+    // console.log('   new inventory', this.inventory)
   }
 
   // could combine this with unequip but I think having them separate for now is better understood
@@ -241,6 +241,29 @@ export class BaseAgent {
     }
   }
 
+  // @computed('inventory.@each.equipped')
+  // get inventoryByFireResistance() {
+  //   console.log('inventoryByFireResistance this.equippedInventory', this.equippedInventory)
+  //     return this.equippedInventory.filter(item => {
+  //       if (!item.resistance || item.resistance.length === 0) {
+  //         return false;
+  //
+  //       }
+  //       return item.resistance.some(resistance => resistance.type === constants.INVENTORY.RESISTANCE.FIRE);
+  //     });
+  // }
+  //
+  // @computed('inventory.@each.equipped')
+  // get inventoryByColdResistance() {
+  //   console.log('inventoryByColdResistance this.equippedInventory', this.equippedInventory)
+  //     return this.equippedInventory.filter(item => {
+  //       if (!item.resistance || item.resistance.length === 0) {
+  //         return false;
+  //
+  //       }
+  //       return item.resistance.some(resistance => resistance.type === constants.INVENTORY.RESISTANCE.COLD);
+  //     });
+  // }
   getInventoryByResistance(type) {
     switch (type) {
       case constants.INVENTORY.RESISTANCE.FIRE:
@@ -312,6 +335,35 @@ export class BaseAgent {
     return total;
   }
 
+  // getResistance(type) {
+  //   let totalResistance = 0;
+  //   let inventoryByResistance;
+  //   switch (type) {
+  //     case constants.INVENTORY.RESISTANCE.FIRE:
+  //       console.log('fire')
+  //       inventoryByResistance = this.inventoryByFireResistance;
+  //       break;
+  //     case constants.INVENTORY.RESISTANCE.COLD:
+  //       console.log('cold')
+  //       inventoryByResistance = this.inventoryByColdResistance;
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  //
+  //   console.log('inventoryByResistance', inventoryByResistance)
+  //   totalResistance += inventoryByResistance.reduce((sum, { resistance } ) => {
+  //     // totalResistance += this.getInventoryByResistance(type).reduce((sum, { resistance } ) => {
+  //     let subtotal_resistance = resistance.reduce((subsum, subresistance ) => {
+  //       return subresistance.type === type ? subsum + subresistance.value : subsum;
+  //     }, 0); // start with 0
+  //
+  //     return sum + subtotal_resistance;
+  //   }, 0); // start with 0
+  //
+  //   console.log('===totalResistance', totalResistance)
+  //   return totalResistance > 100 ? 100 : totalResistance;
+  // }
   getResistance(type) {
     let totalResistance = 0;
     switch (type) {

@@ -20,6 +20,10 @@ export default class ConfigDialogComponent extends Component {
       {
         text: 'Help',
         clazz: 'help'
+      },
+      {
+        text: 'Credits',
+        clazz: 'credits'
       }
     ];
   }

@@ -45,11 +45,11 @@ export class Agent extends BaseAgent {
     let max = 1;
 
     if (this.playerConfig.minLevel !== 0) {
-      console.log('minLevel', this.playerConfig.minLevel)
+      // console.log('minLevel', this.playerConfig.minLevel)
       min = this.playerConfig.minLevel;
     }
     if (this.playerConfig.maxLevel !== 0) {
-      console.log('maxLevel', this.playerConfig.maxLevel)
+      // console.log('maxLevel', this.playerConfig.maxLevel)
       max = this.playerConfig.maxLevel;
       if (max < min) {
         max = min;
@@ -71,7 +71,7 @@ export class Agent extends BaseAgent {
 
     // show level
     if (this.container.showLevel) {
-      console.log('adding level', this.level);
+      // console.log('adding level', this.level);
       let color = '#00ff00';
       if (Math.abs(this.ember.playerContainer.agent.level - this.level) <= 2) {
         color = '#ffff00'

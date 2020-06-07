@@ -35,7 +35,7 @@ export default class InventoryDialogComponent extends Component {
 
   constructor() {
     super(...arguments);
-    this.inventoryItems = this.inventory.getInventoryItems();
+    this.inventoryItems = this.inventory.getInventoryItems().filterBy('display', true);
     // this.inventoryItems = this.modals.top._data;
     this.resetAllToUnlock();
     this.itemSelected = this.filteredItems[0];
@@ -66,6 +66,12 @@ export default class InventoryDialogComponent extends Component {
         text: 'Other',
         img: '/images/icons/item-icon-accessories.png',
         clazz: 'other',
+        category: constants.INVENTORY.TYPE.OTHER
+      },
+      {
+        text: 'Transports',
+        // img: '/images/icons/item-icon-accessories.png',
+        clazz: 'transport',
         category: constants.INVENTORY.TYPE.OTHER
       // },
       // {

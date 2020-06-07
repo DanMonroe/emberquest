@@ -700,7 +700,7 @@ console.log('      do transitionToMelee')
   _markers = [];
 
   showMovingPath = (tileXYArray) => {
-    console.log('showMovingPath', tileXYArray)
+    // console.log('showMovingPath', tileXYArray)
     this.hideMovingPath();
     var tileXY, worldXY;
     var scene = this.scene,

@@ -15,6 +15,8 @@ export class Cache {
   hints = [];
   attributes = [];    // maybe can be used for a clue.  'lava' needs fire resistance, 'clouds' needs airship, etc
   map;  // map image?
+  inventory = [];   // some chests will award the player with special inventory items
+  gold = 0; // give them some gold as well?
 
 
   constructor(config) {
