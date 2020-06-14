@@ -101,6 +101,8 @@ export class BootScene extends Phaser.Scene {
   loadImages() {
     this.load.image('player', this.ember.playerImgSrc);
     this.load.image('cutter', '/images/transports/cutter.png');
+    this.load.image('barque', '/images/transports/barque.png');
+    this.load.image('boat', '/images/transports/boat.png');
 
     // this.load.image('pirategalleon', '/images/agents/pirate-galleon.png');
 
@@ -191,12 +193,17 @@ export class BootScene extends Phaser.Scene {
 
         // console.log('data', data);
 
-        this.game.ember.map.getDynamicMapData(data.map).then(mapData => {
-          // console.log('mapData', mapData);
-          data.mapData = mapData;
+        try {
 
-          this.scene.start('gameboard',  data);
-        });
+          this.game.ember.map.getDynamicMapData(data.map).then(mapData => {
+            // console.log('mapData', mapData);
+            data.mapData = mapData;
+
+            this.scene.start('gameboard', data);
+          });
+        } catch (error) {
+          debugger;
+        }
 
 
 

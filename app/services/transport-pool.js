@@ -19,6 +19,13 @@ export default class TransportPoolService extends Service {
     });
   }
 
+  findTransportByTexture(texture) {
+    const pool = this.getTransportPool();
+    return [...pool.values()].find(transport => {
+      return transport.texture === texture;
+    });
+  }
+
   getTransportPool() {
     if (this.transportpool === undefined) {
       this.populateTransportPool();
@@ -31,12 +38,56 @@ export default class TransportPoolService extends Service {
 
     this.transportpool = new Map();
 
+    // keys are originmapname_transportNumber
+
     // CUTTER
-    let baseTransportclone = Object.assign({}, this.baseTransport);
-    this.transportpool.set('cutter',
-      Object.assign(baseTransportclone, {
+    // let baseTransportclone = Object.assign({}, this.baseTransport);
+    this.transportpool.set('intro3_1',
+      Object.assign(Object.assign({}, this.baseTransport), {
         id: 1,
         texture: 'cutter',
+        scale: 1.4,
+      })
+    );
+    this.transportpool.set('m13_1',
+      Object.assign(Object.assign({}, this.baseTransport), {
+        id: 1301,
+        texture: 'cutter',
+        scale: 1.4,
+      })
+    );
+    this.transportpool.set('m13_2',
+      Object.assign(Object.assign({}, this.baseTransport), {
+        id: 1302,
+        texture: 'barque',
+        scale: 1.4,
+      })
+    );
+    this.transportpool.set('m13_3',
+      Object.assign(Object.assign({}, this.baseTransport), {
+        id: 1303,
+        texture: 'boat',
+        scale: 1.4,
+      })
+    );
+    this.transportpool.set('m13_4',
+      Object.assign(Object.assign({}, this.baseTransport), {
+        id: 1304,
+        texture: 'barque',
+        scale: 1.4,
+      })
+    );
+    this.transportpool.set('m13_5',
+      Object.assign(Object.assign({}, this.baseTransport), {
+        id: 1305,
+        texture: 'cutter',
+        scale: 1.4,
+      })
+    );
+    this.transportpool.set('m13_6',
+      Object.assign(Object.assign({}, this.baseTransport), {
+        id: 1306,
+        texture: 'barque',
         scale: 1.4,
       })
     );

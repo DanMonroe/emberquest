@@ -48,7 +48,7 @@ export default class InventoryService extends Service {
   }
 
   buyInventory(item) {
-    console.log('buy inventory', item);
+      // console.log('buy inventory', item);
     this.gameManager.player.gold -= item.price;
     this.gameManager.player.container.agent.addInventory(item);
     this.gameManager.saveSceneData();

@@ -331,64 +331,76 @@ export default class GameService extends Service {
     let tileIsPortal = moveTo.scene.game.ember.map.tileIsPortal(moveTo.scene, playerContainer.rexChess.tileXYZ);
 
     if (tileIsPortal) {
+      if (tileIsPortal.map === this.gameManager.scene.mapname) {
+        // portal to another hex in the same map
+        moveTo.scene.cameras.main.fadeOut(300);
+        moveTo.scene.cameras.main.off('camerafadeoutcomplete').on('camerafadeoutcomplete', async () => {
+          this.gameManager.scene.board.moveChess(playerContainer, tileIsPortal.x, tileIsPortal.y);
+          moveTo.scene.game.ember.saveSceneData(moveTo.scene);
+          moveTo.scene.game.ember.map.findFOV(playerContainer);
+          moveTo.scene.cameras.main.fadeIn(300);
+        });
+      } else {
+        this.gameManager.pauseGame(true);
 
-      this.gameManager.pauseGame(true);
+        // cancel all patrol tasks...
+        // debugger;
+        const agentContainers = this.gameManager.scene.agents.children;
+        agentContainers.entries.forEach(agentContainer => {
+          agentContainer.cancelAllTasks();
+        })
 
-      // cancel all patrol tasks...
-      // debugger;
-      const agentContainers = this.gameManager.scene.agents.children;
-      agentContainers.entries.forEach(agentContainer => {
-        agentContainer.cancelAllTasks();
-      })
+        moveTo.scene.cameras.main.fade(300, 0, 0, 0);
+        moveTo.scene.cameras.main.on('camerafadeoutcomplete', async () => {
 
-      moveTo.scene.cameras.main.fade(300, 0, 0, 0);
-      moveTo.scene.cameras.main.on('camerafadeoutcomplete', async () => {
+          // const gameData = await this.loadGameData('gameboard')
+          this.loadGameData('gameboard')
+            .then(gameboardData => {
+              // console.log('>> portal gameboardData', gameboardData);
 
-        // const gameData = await this.loadGameData('gameboard')
-        this.loadGameData('gameboard')
-          .then(gameboardData => {
-            // console.log('>> portal gameboardData', gameboardData);
+              if (gameboardData) {
+                const sceneData = gameboardData.sceneData[tileIsPortal.map] || {
+                  allSeenTiles: [],
+                  storedTransports: [],
+                  boarded: 0
+                };
+                console.log('')
+                console.log('')
+                console.error('>>>>>> portal ===> loading map', tileIsPortal.map.toUpperCase(), 'sceneData', sceneData)
+                console.log('sceneData', sceneData)
+                console.log('')
 
-            if (gameboardData) {
-              const sceneData =   gameboardData.sceneData[tileIsPortal.map] || { allSeenTiles: [], storedTransports: [], boarded: 0};
-              console.log('')
-              console.log('')
-              console.error('>>>>>> portal ===> loading map', tileIsPortal.map.toUpperCase(), 'sceneData', sceneData)
-              console.log('sceneData', sceneData)
-              console.log('')
+                // moveTo.scene.game.ember.gameData.transports = gameboardData.transports;
 
-              // moveTo.scene.game.ember.gameData.transports = gameboardData.transports;
+                let data = {
+                  'map': tileIsPortal.map,
 
-              let data = {
-                'map': tileIsPortal.map,
+                  'gameboardData': gameboardData,
+                  'sceneData': sceneData,
 
-                'gameboardData': gameboardData,
-                'sceneData': sceneData,
-
-                'storedPlayerTile': { x: tileIsPortal.x || 10, y: tileIsPortal.y || 10 },
-                'storedPlayerAttrs': gameboardData.playerAttrs,
-                'allSeenTiles': sceneData.seenTiles,
-                'storedTransports': sceneData.transports,
-                'boarded': this.playerContainer.boardedTransport ? this.playerContainer.boardedTransport.agent.id : 0
+                  'storedPlayerTile': {x: tileIsPortal.x || 10, y: tileIsPortal.y || 10},
+                  'storedPlayerAttrs': gameboardData.playerAttrs,
+                  'allSeenTiles': sceneData.seenTiles,
+                  'storedTransports': sceneData.transports,
+                  'boarded': this.playerContainer.boardedTransport ? this.playerContainer.boardedTransport.agent.id : 0
 // 'boarded': gameboardData.playerAttrs.boardedTransport  // the id of the transport the player is on
-                // 'boarded': sceneData.boarded
+                  // 'boarded': sceneData.boarded
+                }
+                // console.log('restarting with data', data)
+                // moveTo.scene.scene.restart(data);
+
+                this.map.getDynamicMapData(data.map).then(mapData => {
+                  // console.log('mapData', mapData);
+                  data.mapData = mapData;
+
+                  moveTo.scene.scene.start('gameboard', data);
+                });
+
               }
-        // console.log('restarting with data', data)
-              // moveTo.scene.scene.restart(data);
-
-              this.map.getDynamicMapData(data.map).then(mapData => {
-                // console.log('mapData', mapData);
-                data.mapData = mapData;
-
-                moveTo.scene.scene.start('gameboard',  data);
-              });
-
-            }
-          });
+            });
 
 
-
-        // const sceneData = await this.loadSceneData(tileIsPortal.map)
+          // const sceneData = await this.loadSceneData(tileIsPortal.map)
 //         console.log('loadSceneData', sceneData);
 // debugger;
 //         moveTo.scene.scene.restart({
@@ -398,11 +410,14 @@ export default class GameService extends Service {
 //           'allSeenTiles': sceneData.seenTiles || new Set(),
 //           'storedTransports': sceneData.transports || new Set()
 //         });
-      });
+        });
+      }
     }
   }
 
   checkForAgents(playerContainer, moveTo) {
+    console.error('remove the return in checkForAgents')
+    return;
     // Any agents nearby?  if so, transition them to pursue if they are aggressive
     const board = moveTo.scene.board;
 

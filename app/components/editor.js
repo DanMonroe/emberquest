@@ -12,6 +12,7 @@ export default class EditorComponent extends Component {
   constants = constants;
 
   @tracked mapText;
+  @tracked mapImage;
   @tracked mapArray;
   @tracked hexesTextArray;
   @tracked hexRowsTextArray;
@@ -78,8 +79,7 @@ export default class EditorComponent extends Component {
   }
 
   createFinalMap() {
-    let mapSource = `
-import { constants } from 'emberquest/services/constants';
+    let mapSource = `import { constants } from './constants';
 
 export default {
 
@@ -88,7 +88,7 @@ export default {
       startY: 3
   },
 
-  mapUrl: '/images/maps/.png',
+  mapUrl: '/images/maps/${this.mapImage}.png',
 
   chests: [
     // {id: 1, x: 10, y: 3, gccode: 'GC002', gold: 20, specialActions: []}
@@ -96,11 +96,8 @@ export default {
 
   spawnLocations : {
     players: [{x: 5, y: 7}], // tiles where the player may spawn
-    transports: {
-      spawnInterval: 3000,
-      limit: 1,
-      locations: []
-    },
+    transports: [
+    ],
     agents: {
       spawnInterval: 3000,
       limit: 5,
@@ -191,7 +188,8 @@ export default {
       case this.WESNOTH.WATER:
         switch (terrainParts.secondary) {
           case this.WESNOTH.BRIDGE:
-            special |= this.constants.FLAGS.SPECIAL.DOCK.value;
+            // special = `{value:constants.FLAGS.SPECIAL.DOCK.value}`;
+            // special |= this.constants.FLAGS.SPECIAL.DOCK.value;
             break;
           default:  // regular water
         }
@@ -217,6 +215,8 @@ export default {
         switch (terrainParts.secondary) {
           case this.WESNOTH.BRIDGE:
             terrainFlags |= this.constants.FLAGS.TRAVEL.LAND.value;
+            terrainFlags |= this.constants.FLAGS.TRAVEL.SEA.value;
+            terrainFlags |= this.constants.FLAGS.TRAVEL.AIR.value;
             break;
           default:  // regular water
             terrainFlags |= this.constants.FLAGS.TRAVEL.SEA.value;
@@ -301,7 +301,7 @@ export default {
 
     switch (terrainParts.primary) {
       case this.WESNOTH.MOUNTAIN:
-        // sightCost += 6;
+        sightCost += 4;
         break;
       case this.WESNOTH.IMPASSABLE:
         sightCost += 6;

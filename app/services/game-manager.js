@@ -235,7 +235,8 @@ export default class GameManagerService extends Service {
       sightRange: 3,   // this is sight/movement Range
       movingPoints: 3,   // this is sight/movement Range
       // visiblePoints: 60,   // this is sight/movement Range
-      visiblePoints: 8,   // this is sight/movement Range
+      visiblePoints: 2,   // this is sight/movement Range
+      // visiblePoints: 5.1,   // this is sight/movement Range
 
       gold: 15,
 
@@ -264,15 +265,23 @@ export default class GameManagerService extends Service {
       storedPlayerAttrs: this.storedData.storedPlayerAttrs,
 
       costCallback:  (tileXY) => {
+
         let totalSightCost = this.ember.map.getTileAttribute(this.scene, tileXY, 'sightCost');
         if (this.ember.map.tileIsDoor(this.scene, tileXY)) {
           const portalSpecialAttr = this.ember.map.getTileAttribute(this.scene, tileXY, 'special');
           totalSightCost += portalSpecialAttr.sightCost;
         }
-
+        // console.log('wesnoth', wesnoth, 'totalSightCost', totalSightCost, tileXY)
+        // let wesnoth = this.ember.map.getTileAttribute(this.scene, tileXY, 'w');
+        // if (wesnoth === 'Md') {
+        //   console.log('Mountain');
+          // return null;
+          // totalSightCost += 10;
+        // }
         return totalSightCost;
       },
       preTestCallback: (tileXYArray) => {
+        // console.log('preTestCallback', tileXYArray, visiblePoints, fieldOfView)
 
         // Limit sight range tp player's sightRange
         // array includes player hex so add one

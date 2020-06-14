@@ -45,8 +45,44 @@ export default class MapService extends Service {
 
     let result;
     switch (mapToLoad) {
-      case 'a1':
-        result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/a1');
+      case 'm1':
+        result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/m1');
+        break;
+      case 'm2':
+        result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/m2');
+        break;
+      case 'm3':
+        result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/m3');
+        break;
+      case 'm4':
+        result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/m4');
+        break;
+      case 'm5':
+        result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/m5');
+        break;
+      case 'm6':
+        result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/m6');
+        break;
+      case 'm7':
+        result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/m7');
+        break;
+      case 'm8':
+        result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/m8');
+        break;
+      case 'm9':
+        result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/m9');
+        break;
+      case 'm10':
+        result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/m10');
+        break;
+      case 'm11':
+        result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/m11');
+        break;
+      case 'm12':
+        result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/m12');
+        break;
+      case 'm13':
+        result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/m13');
         break;
       case 'arena':
         result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/arena');
@@ -135,14 +171,19 @@ export default class MapService extends Service {
   }
 
   findFOV(agent) {
+    console.log('findFOV', agent)
     const board = agent.rexChess.board;
 
     const chessArray = board.tileZToChessArray(-1);
     for (let i = 0, cnt = chessArray.length; i < cnt; i++) {
       chessArray[i].destroy();
     }
-
-    let tileXYArray = agent.fov.clearDebugGraphics().findFOV(agent.visiblePoints);
+    console.time('findFOV');
+    console.time('findFOV inner');
+    console.log('agent.visiblePoints', agent.visiblePoints)
+    let tileXYArray = agent.fov.findFOV(agent.visiblePoints);
+    console.timeEnd('findFOV inner');
+    // let tileXYArray = agent.fov.clearDebugGraphics().findFOV(agent.visiblePoints);
     let tileXY;
     let visibleTiles = new Set();
 
@@ -205,6 +246,7 @@ export default class MapService extends Service {
     // Keep track of previously seen tiles and keep all seen tiles
     board.scene.lastSeenTiles = visibleTiles;
     visibleTiles.forEach(board.scene.allSeenTiles.add, board.scene.allSeenTiles);
+console.timeEnd('findFOV');
   }
 
   // get a list of specific types with passing in a type ("Polygon", "Chest", etc)

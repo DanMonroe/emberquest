@@ -147,32 +147,6 @@ export class InventoryItems {
         price: 2,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
-        name: 'Runesword',
-        img: '/images/items/weapons/runesword.png',
-        description: 'A simple introductory sword',
-        stats: [
-          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 40}),
-          new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
-          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
-        ],
-        audio: {
-          attack: {
-            miss: {
-              name: 'sword_miss'
-            }
-          }
-        }
-      })
-    );
-
-    items.push(
-      new InventoryItem({
-        id: weaponId++,
-        owned: false,
-        display: true,
-        price: 2,
-        type: constants.INVENTORY.TYPE.WEAPON,
-        bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
         name: 'Simple Axe',
         img: '/images/items/weapons/axe.png',
         description: 'A simple introductory sword',
@@ -855,7 +829,7 @@ export class InventoryItems {
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.FEET,
         name: 'Dragon Boots',
-        img: '/images/items/armor/boots_wings.png',
+        img: '/images/items/dragon/boots.png',
         description: 'Exquisite boots made from the scales of a fire dragon.',
         stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
         resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 20})]
@@ -871,7 +845,7 @@ export class InventoryItems {
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.HEAD,
         name: 'Dragon Helmet',
-        img: '/images/items/armor/red_helmet.png',
+        img: '/images/items/armor/helmet.png',
         description: 'Exquisite helmet made from the scales of a fire dragon.',
         stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
         resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 30})]
@@ -887,12 +861,102 @@ export class InventoryItems {
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.BODY,
         name: 'Dragon Plate',
-        img: '/images/items/armor/red_breastplate.png',
+        img: '/images/items/armor/body.png',
         description: 'Exquisite breastplate made from the scales of a fire dragon.',
         stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
         resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 50})]
       })
     );
+    items.push(
+      new InventoryItem({
+        id: 2003,
+        owned: false,
+        display: false,
+        price: 0  ,
+        type: constants.INVENTORY.TYPE.WEAPON,
+        bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
+        name: 'Runesword',
+        img: '/images/items/dragon/sword.png',
+        description: 'A simple introductory sword',
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 40}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
+        ],
+        audio: {
+          attack: {
+            miss: {
+              name: 'sword_miss'
+            }
+          }
+        }
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: 2004,
+        owned: false,
+        locked: false,
+        price: 0,
+        // price: 550,
+        type: constants.INVENTORY.TYPE.ARMOR,
+        bodypart: constants.INVENTORY.BODYPART.GLOVES,
+        name: 'Dragon Plate',
+        img: '/images/items/armor/gloves.png',
+        description: 'Exquisite breastplate made from the scales of a fire dragon.',
+        stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
+        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 50})]
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: 2005,
+        owned: false,
+        locked: false,
+        price: 0,
+        // price: 550,
+        type: constants.INVENTORY.TYPE.ARMOR,
+        bodypart: constants.INVENTORY.BODYPART.NECK,
+        name: 'Dragon Plate',
+        img: '/images/items/armor/neck.png',
+        description: 'Exquisite breastplate made from the scales of a fire dragon.',
+        stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
+        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 50})]
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: 2006,
+        owned: false,
+        locked: false,
+        price: 0,
+        // price: 550,
+        type: constants.INVENTORY.TYPE.ARMOR,
+        bodypart: constants.INVENTORY.BODYPART.NECK,
+        name: 'Dragon Plate',
+        img: '/images/items/armor/ring.png',
+        description: 'Exquisite breastplate made from the scales of a fire dragon.',
+        stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
+        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 50})]
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: 2007,
+        owned: false,
+        locked: false,
+        price: 0,
+        // price: 550,
+        type: constants.INVENTORY.TYPE.ARMOR,
+        bodypart: constants.INVENTORY.BODYPART.LEFT_HAND,
+        name: 'Dragon Plate',
+        img: '/images/items/armor/shield.png',
+        description: 'Exquisite breastplate made from the scales of a fire dragon.',
+        stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
+        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 50})]
+      })
+    );
+
 
 
 
