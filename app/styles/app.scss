@@ -894,10 +894,22 @@ button {
     //font-size: 1.3em;
   }
   .coords {
-    font-size: 1.3em;
+    font-size: 1.2em;
     font-weight: 700;
     margin: auto 0;
     text-align: center;
+    .label {
+      padding-right: 10px;
+    }
+  }
+  .parking {
+    font-size: 1.2em;
+    font-weight: 500;
+    margin: auto 0;
+    text-align: center;
+    .label {
+      padding: 15px 10px 0 0;
+    }
   }
   .chest-footer {
     //text-align: center;
@@ -1006,9 +1018,41 @@ button {
             overflow: hidden;
             p {
               margin: 0;
-              padding: 0.5em 1em 1em;
+              padding: 0.5em 1em 1em 0;
+            }
+            .cacheInfo {
+              margin-left: 68px;
               font-size: 0.9em;
               line-height: 1.5;
+              .coords {
+                font-weight: 500;
+                font-size: 1.1em;
+                .label {
+                  min-width: 145px;
+                  text-align: end;
+                  display: inline-block;
+                }
+                .terrainDifficulty {
+                  float: right;
+                  margin: 11px 20px 0 0;
+                  font-weight: 400;
+                  font-size: .9em;
+                  span {
+                    margin: 0 2px 0 20px;
+                  }
+                }
+              }
+              .hints {
+                .label {
+                  padding: 5px 10px 0 0;
+                  display: inline-block;
+                }
+                .decrypt {
+                  color: #3D76C7;
+                  padding: 0 3px;
+                  cursor: pointer;
+                }
+              }
             }
           }
           .option {
@@ -1057,8 +1101,8 @@ button {
             background: url(/images/smiley.png) no-repeat;
             background-size: cover;
             position: absolute;
-            top: 28px;
-            left: 11px;
+            top: 32px;
+            left: 25px;
           }
           span.chest {
             background-position: -40px 0px

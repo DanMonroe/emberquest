@@ -623,6 +623,8 @@ export default class GameService extends Service {
         this.epmModalContainerClass = 'chest';
         this.modals.open('chest-dialog', {
           coords:geocache.coords,
+          parking:geocache.parking,
+          gccode:geocache.gccode,
           inventory:chest.inventory,
           gold:chest.gold,
         });

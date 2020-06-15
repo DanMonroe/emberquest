@@ -13,7 +13,8 @@ export class Caches {
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
-        coords: '4a2abab3a50e351142d3b2ca6ae8da8fcd3b30da36afa15666033b292ee60705zyuS5/9q4lUL3LCTrbM+kR9sM8qNtLQpdKlKG2j28es='
+        coords: '4a2abab3a50e351142d3b2ca6ae8da8fcd3b30da36afa15666033b292ee60705zyuS5/9q4lUL3LCTrbM+kR9sM8qNtLQpdKlKG2j28es=',
+        parking: '4a2abab3a50e351142d3b2ca6ae8da8fcd3b30da36afa15666033b292ee60705zyuS5/9q4lUL3LCTrbM+kR9sM8qNtLQpdKlKG2j28es='
         // coords: '1234567890'
       })
     );
@@ -27,7 +28,8 @@ export class Caches {
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
-        coords: 'be3c9537cd3f9c0a9a1e0a8a5e10419cae6ab8214aa1ce66b2231192a2368dd5goD3eZl5f0BE0SLO/jTCkmsgc2c8zUbSvCL6Tgu2sHo='
+        coords: 'be3c9537cd3f9c0a9a1e0a8a5e10419cae6ab8214aa1ce66b2231192a2368dd5goD3eZl5f0BE0SLO/jTCkmsgc2c8zUbSvCL6Tgu2sHo=',
+        parking: 'be3c9537cd3f9c0a9a1e0a8a5e10419cae6ab8214aa1ce66b2231192a2368dd5goD3eZl5f0BE0SLO/jTCkmsgc2c8zUbSvCL6Tgu2sHo='
       })
     );
 
@@ -39,7 +41,8 @@ export class Caches {
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
-        coords: 'c2783cc64f29a9153697b71263b21965b8b56134cfb81edc5107fc1657c6b5bawJ+yik3S9opdThiPP6Tp2N57MP1cHBhYzvxa7QMfopU='
+        coords: 'c2783cc64f29a9153697b71263b21965b8b56134cfb81edc5107fc1657c6b5bawJ+yik3S9opdThiPP6Tp2N57MP1cHBhYzvxa7QMfopU=',
+        parking: 'c2783cc64f29a9153697b71263b21965b8b56134cfb81edc5107fc1657c6b5bawJ+yik3S9opdThiPP6Tp2N57MP1cHBhYzvxa7QMfopU='
       })
     );
 
@@ -51,7 +54,8 @@ export class Caches {
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
-        coords: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw'
+        coords: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        parking: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw'
       })
     );
 
@@ -63,7 +67,8 @@ export class Caches {
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
-        coords: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw'
+        coords: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        parking: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw'
       })
     );
 
@@ -75,7 +80,10 @@ export class Caches {
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
-        coords: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw'
+        coords: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        parking: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        cacheHint: 'test',
+        puzzleHint: 'grfg'
       })
     );
 

@@ -4,13 +4,20 @@ import { tracked } from '@glimmer/tracking';
 
 export default class CachesDialogComponent extends Component {
   @service cache;
+  @service storage;
 
   @tracked cacheList;
 
   constructor() {
     super(...arguments);
     this.cacheList = this.cache.getCaches();
-console.log('cacheList', this.cacheList)
+// console.log('cacheList', this.cacheList)
   }
 
+  togglePuzzleHint(cache) {
+    cache.puzzleHintDecrypted = !cache.puzzleHintDecrypted;
+  }
+  toggleCacheHint(cache) {
+    cache.cacheHintDecrypted = !cache.cacheHintDecrypted;
+  }
 }

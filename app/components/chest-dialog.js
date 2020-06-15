@@ -11,6 +11,7 @@ export default class ChestDialogComponent extends Component {
 
   @tracked cacheData;
   decryptedCacheCoords = '';
+  decryptedParkingCoords = '';
 
   @computed('chestInventory', 'cacheData.gold')
   get showBonus() {
@@ -36,5 +37,8 @@ export default class ChestDialogComponent extends Component {
     this.cacheData = this.modals.top._data;
     console.log('this.cacheData', this.cacheData)
     this.decryptedCacheCoords = this.game.decryptCacheCoordinates(this.cacheData.coords);
+    if (this.cacheData.parking) {
+      this.decryptedParkingCoords = this.game.decryptCacheCoordinates(this.cacheData.parking);
+    }
   }
 }

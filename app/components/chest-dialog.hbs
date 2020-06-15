@@ -5,7 +5,10 @@
   <div class="chest-body">
     <h1>You Found a Chest!</h1>
     <div class="congrats">Congratulations, you have discovered a hidden chest.  Take note of the physical GPS coordinates below and search for the real geocache at that location.</div>
-    <div class="coords">{{this.decryptedCacheCoords}}</div>
+    <div class="coords"><span class="label">{{this.cacheData.gccode}} Final:</span>{{this.decryptedCacheCoords}}</div>
+    {{#if this.decryptedParkingCoords}}
+      <div class="parking"><span class="label">Parking:</span>{{this.decryptedParkingCoords}}</div>
+    {{/if}}
     {{#if this.showBonus}}
       <div class="chestInventory">
         <div class="bonus">The chest also contains:</div>

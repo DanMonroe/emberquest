@@ -10,6 +10,9 @@ export class Cache {
   terrain;
   size;
   coords;
+  parking;
+  @tracked cacheHint;
+  @tracked puzzleHint;
   description;
   foundInstructions;  // show after they have found this cache in game
   hints = [];
@@ -18,16 +21,25 @@ export class Cache {
   inventory = [];   // some chests will award the player with special inventory items
   gold = 0; // give them some gold as well?
 
+  @tracked cacheHintDecrypted = false;
+  @tracked puzzleHintDecrypted = false;
 
   constructor(config) {
     Object.assign(this, config);
   }
 
-  // get getTitle() {
-  //   return null;
-  // }
-  //
-  // get getDescription() {
-  //   return null;
-  // }
+  get getCacheHint() {
+    return this.cacheHintDecrypted ? this.rot13(this.cacheHint) : this.cacheHint;
+  }
+  get getPuzzleHint() {
+    return this.puzzleHintDecrypted ? this.rot13(this.puzzleHint) : this.puzzleHint;
+  }
+
+  rot13(text) {
+    const input     = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    const output    = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+    const index     = x => input.indexOf(x);
+    const translate = x => index(x) > -1 ? output[index(x)] : x;
+    return text.split('').map(translate).join('');
+  }
 }

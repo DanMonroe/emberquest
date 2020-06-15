@@ -78,7 +78,8 @@ export class Agent extends BaseAgent {
       } else if( this.level - this.ember.playerContainer.agent.level > 2) {
         color = '#ff0000'
       }
-      this.container.levelIndicator = this.container.scene.add.text( this.ember.constants.levelIndicatorOffsetX, this.ember.constants.levelIndicatorOffsetY, `Lv ${this.level}`, { font: '20px Tahoma', fill: color });
+      this.container.levelIndicator = this.container.scene.add.text( this.ember.constants.levelIndicatorOffsetX, this.ember.constants.levelIndicatorOffsetY, `${this.playerConfig.name}`, { font: '20px Tahoma', fill: color });
+      // this.container.levelIndicator = this.container.scene.add.text( this.ember.constants.levelIndicatorOffsetX, this.ember.constants.levelIndicatorOffsetY, `Lv ${this.level} ${this.playerConfig.name}`, { font: '20px Tahoma', fill: color });
       this.container.add(this.container.levelIndicator);
     }
 

@@ -8,7 +8,6 @@
         {{#each this.cacheList as |geocache|}}
           <div class="wrapper">
             <div class="cache">
-              <div class="content_foo">
                 <input type="checkbox" id="toggle{{geocache.gccode}}" class="toggle" />
                 <label class="title" for="toggle{{geocache.gccode}}">
                   <span class="chest{{if geocache.found "-open"}}"></span>
@@ -18,9 +17,40 @@
                   <div class="more">More Info</div>
                 </label>
                 <div class="content">
-                  {{{geocache.description}}}
+                    <div class="cacheInfo">
+                      <div class="coords">
+                        <span class="label">Cache Coordinates:</span>
+                        {{#if geocache.found}}
+                            <span>{{decrypt this.storage geocache.coords}}</span>
+                        {{else}}
+                            <span>Unknown</span>
+                        {{/if}}
+                        <span class="terrainDifficulty"><span>Terrain:</span>{{geocache.terrain}}<span>Difficulty:</span>{{geocache.difficulty}}</span>
+                      </div>
+                      <div class="coords">
+                        <span class="label">Parking:</span>
+                        {{#if geocache.found}}
+                            <span>{{decrypt this.storage geocache.parking}}</span>
+                        {{else}}
+                            <span>Unknown</span>
+                        {{/if}}
+                      </div>
+                      <div class="hints">
+                        {{#if geocache.puzzleHint}}
+                          <div>
+                            <span class="label">Puzzle Hint:</span><span>{{geocache.getPuzzleHint}} (<span role="button" class="decrypt" {{on "click" (fn this.togglePuzzleHint geocache)}}>{{if geocache.puzzleHintDecrypted 'Encrypt' 'Decrypt'}}</span>)</span>
+                          </div>
+                        {{/if}}
+                        {{#if geocache.cacheHint}}
+                          <div>
+                            <span class="label">Cache Hint:</span><span>{{geocache.getCacheHint}} (<span role="button" class="decrypt" {{on "click" (fn this.toggleCacheHint geocache)}}>{{if geocache.cacheHintDecrypted 'Encrypt' 'Decrypt'}}</span>)</span>
+                          </div>
+                        {{/if}}
+                      </div>
+
+                      {{{geocache.description}}}
+                    </div>
                 </div>
-              </div>
             </div>
           </div>
         {{/each}}
