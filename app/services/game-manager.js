@@ -235,7 +235,8 @@ export default class GameManagerService extends Service {
       sightRange: 3,   // this is sight/movement Range
       movingPoints: 3,   // this is sight/movement Range
       // visiblePoints: 60,   // this is sight/movement Range
-      visiblePoints: 2,   // this is sight/movement Range
+      // visiblePoints: 2,   // this is sight/movement Range
+      visiblePoints: 5,   // this is sight/movement Range
       // visiblePoints: 5.1,   // this is sight/movement Range
 
       gold: 15,

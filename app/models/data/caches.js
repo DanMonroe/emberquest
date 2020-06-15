@@ -51,7 +51,7 @@ export class Caches {
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
-        coords: '1234567890'
+        coords: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw'
       })
     );
 
@@ -63,7 +63,7 @@ export class Caches {
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
-        coords: '1234567890'
+        coords: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw'
       })
     );
 
@@ -75,7 +75,7 @@ export class Caches {
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
-        coords: '1234567890'
+        coords: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw'
       })
     );
 

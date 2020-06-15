@@ -12,7 +12,10 @@ export default class ChestDialogComponent extends Component {
   @tracked cacheData;
   decryptedCacheCoords = '';
 
-  @or('chestInventory', 'cacheData.gold') showBonus;
+  @computed('chestInventory', 'cacheData.gold')
+  get showBonus() {
+    return this.chestInventory.length > 0 || +this.cacheData.gold > 0;
+  }
 
   @computed('cacheData.inventory.[]')
   get chestInventory() {

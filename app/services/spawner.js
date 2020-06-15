@@ -37,7 +37,6 @@ export default class SpawnerService extends Service {
     this.transports = [];
     this.agents = [];
 
-// debugger
     // Transports
     let boardedTransportId = 0;
     try {
@@ -236,12 +235,12 @@ export default class SpawnerService extends Service {
 
   findTransportByObjectConfigId(id) {
     return this.transports.find(transport => {
-      console.log('find transport by objectConfigId', transport.objectConfig)
+      // console.log('find transport by objectConfigId', transport.objectConfig)
       return transport.objectConfig.id === id;
     });
   }
   addTransport(transport) {
-    console.log('addTransport', transport.objectConfig)
+    // console.log('addTransport', transport.objectConfig)
 
     if (!this.findTransportByObjectConfigId(transport.objectConfig.id)) {
 

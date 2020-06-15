@@ -252,7 +252,8 @@ export class GameboardScene extends Phaser.Scene {
     }
 
     // update field of view
-    this.ember.map.findFOV(playerObject.container);
+    let fieldOfViewTileXYArray = playerObject.container.fov.findFOV(playerObject.container.visiblePoints);
+    this.ember.map.findAgentFieldOfView(playerObject.container, fieldOfViewTileXYArray);
   }
 
   createChests() {
@@ -361,7 +362,6 @@ export class GameboardScene extends Phaser.Scene {
     // transportObj.objectConfig.costCallback = (tileXY) => {
     //   return this.ember.map.getTileAttribute(this.board.scene, tileXY, 'sightCost');
     // };
-
     const transportContainer = this.ember.createTransport(this, transportObj);
     transportContainer.setAlpha(0);
     this.transports.add(transportContainer);

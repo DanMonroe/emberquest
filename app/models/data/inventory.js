@@ -845,7 +845,7 @@ export class InventoryItems {
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.HEAD,
         name: 'Dragon Helmet',
-        img: '/images/items/armor/helmet.png',
+        img: '/images/items/dragon/helmet.png',
         description: 'Exquisite helmet made from the scales of a fire dragon.',
         stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
         resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 30})]
@@ -861,7 +861,7 @@ export class InventoryItems {
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.BODY,
         name: 'Dragon Plate',
-        img: '/images/items/armor/body.png',
+        img: '/images/items/dragon/body.png',
         description: 'Exquisite breastplate made from the scales of a fire dragon.',
         stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
         resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 50})]
@@ -901,9 +901,9 @@ export class InventoryItems {
         // price: 550,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.GLOVES,
-        name: 'Dragon Plate',
-        img: '/images/items/armor/gloves.png',
-        description: 'Exquisite breastplate made from the scales of a fire dragon.',
+        name: 'Dragon Gloves',
+        img: '/images/items/dragon/gloves.png',
+        description: 'TODO',
         stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
         resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 50})]
       })
@@ -917,9 +917,9 @@ export class InventoryItems {
         // price: 550,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.NECK,
-        name: 'Dragon Plate',
-        img: '/images/items/armor/neck.png',
-        description: 'Exquisite breastplate made from the scales of a fire dragon.',
+        name: 'Fire Amulet',
+        img: '/images/items/dragon/neck.png',
+        description: 'TODO',
         stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
         resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 50})]
       })
@@ -932,10 +932,10 @@ export class InventoryItems {
         price: 0,
         // price: 550,
         type: constants.INVENTORY.TYPE.ARMOR,
-        bodypart: constants.INVENTORY.BODYPART.NECK,
-        name: 'Dragon Plate',
-        img: '/images/items/armor/ring.png',
-        description: 'Exquisite breastplate made from the scales of a fire dragon.',
+        bodypart: constants.INVENTORY.BODYPART.FINGERS,
+        name: 'Dragon Ring',
+        img: '/images/items/dragon/ring.png',
+        description: 'TODO',
         stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
         resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 50})]
       })
@@ -950,8 +950,8 @@ export class InventoryItems {
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.LEFT_HAND,
         name: 'Dragon Plate',
-        img: '/images/items/armor/shield.png',
-        description: 'Exquisite breastplate made from the scales of a fire dragon.',
+        img: '/images/items/dragon/shield.png',
+        description: 'TODO',
         stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
         resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 50})]
       })

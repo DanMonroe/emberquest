@@ -193,6 +193,13 @@ const constants = Object.freeze({
     }
   },
 
+  // requirements before a portal will work
+  PORTAL: {
+    REQUIRED: {
+      GETCHEST: 1
+    }
+  },
+
   SHOW_MESSAGE_WHEN: {
     DOOR_EXISTS: {value: 1, description: 'Show Only When Door Exists'}, // data: { door_id:1, tileXY: {x: 11, y: 4} }}
   },

@@ -300,10 +300,10 @@ export default class GameService extends Service {
     return transport.container;
   }
 
-  processPlayerMove(playerContainer, moveTo) {
+  processPlayerMove(playerContainer, moveTo, fieldOfViewTileXYArray) {
     this.embarkOrDisembarkTransport(playerContainer);
     this.checkForPortal(playerContainer, moveTo);
-    this.checkForAgents(playerContainer, moveTo);
+    this.checkForAgents(playerContainer, moveTo, fieldOfViewTileXYArray);
     // this.checkForSpecial(playerContainer, moveTo);
     this.gameManager.gameClock.perform(playerContainer, moveTo);
   }
@@ -331,13 +331,30 @@ export default class GameService extends Service {
     let tileIsPortal = moveTo.scene.game.ember.map.tileIsPortal(moveTo.scene, playerContainer.rexChess.tileXYZ);
 
     if (tileIsPortal) {
+
+      // does the portal require anything before it will work?
+      if (tileIsPortal.requires) {
+
+        switch (tileIsPortal.requires.id) {
+          case constants.PORTAL.REQUIRED.GETCHEST:
+            if (!this.cache.isCacheFound(tileIsPortal.requires.data.gccode)) {
+              return;
+            }
+            break;
+          default:
+            break;
+        }
+      }
+
+
       if (tileIsPortal.map === this.gameManager.scene.mapname) {
         // portal to another hex in the same map
         moveTo.scene.cameras.main.fadeOut(300);
         moveTo.scene.cameras.main.off('camerafadeoutcomplete').on('camerafadeoutcomplete', async () => {
           this.gameManager.scene.board.moveChess(playerContainer, tileIsPortal.x, tileIsPortal.y);
           moveTo.scene.game.ember.saveSceneData(moveTo.scene);
-          moveTo.scene.game.ember.map.findFOV(playerContainer);
+          let fieldOfViewTileXYArray = playerContainer.fov.findFOV(playerContainer.visiblePoints);
+          moveTo.scene.game.ember.map.findAgentFieldOfView(playerContainer, fieldOfViewTileXYArray);
           moveTo.scene.cameras.main.fadeIn(300);
         });
       } else {
@@ -415,17 +432,21 @@ export default class GameService extends Service {
     }
   }
 
-  checkForAgents(playerContainer, moveTo) {
-    console.error('remove the return in checkForAgents')
-    return;
+  checkForAgents(playerContainer, moveTo, fieldOfViewTileXYArray) {
+    // console.error('remove the return in checkForAgents')
+    // return;
     // Any agents nearby?  if so, transition them to pursue if they are aggressive
     const board = moveTo.scene.board;
 
-    let tileXYArray = playerContainer.fov.clearDebugGraphics().findFOV(playerContainer.visiblePoints);
+    // let tileXYArray = playerContainer.fov.findFOV(playerContainer.visiblePoints);
+    // let tileXYArray = playerContainer.fov.clearDebugGraphics().findFOV(playerContainer.visiblePoints);
+
 // console.log('checkForAgents - findFOV', tileXYArray);
     let tileXY;
-    for (let i = 0, cnt = tileXYArray.length; i < cnt; i++) {
-      tileXY = tileXYArray[i];
+    for (let i = 0, cnt = fieldOfViewTileXYArray.length; i < cnt; i++) {
+      tileXY = fieldOfViewTileXYArray[i];
+    // for (let i = 0, cnt = tileXYArray.length; i < cnt; i++) {
+    //   tileXY = tileXYArray[i];
       const fovShapes = this.map.getGameObjectsAtTileXY(board, tileXY, constants.SHAPE_TYPE_AGENT);
       if (fovShapes && fovShapes.length > 0) {
         fovShapes.forEach(fovShapeAgent => {

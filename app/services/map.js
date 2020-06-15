@@ -170,28 +170,28 @@ export default class MapService extends Service {
     return board;
   }
 
-  findFOV(agent) {
-    console.log('findFOV', agent)
+  findAgentFieldOfView(agent, fieldOfViewTileXYArray) {
+    // console.log('findFOV', agent)
     const board = agent.rexChess.board;
 
     const chessArray = board.tileZToChessArray(-1);
     for (let i = 0, cnt = chessArray.length; i < cnt; i++) {
       chessArray[i].destroy();
     }
-    console.time('findFOV');
-    console.time('findFOV inner');
-    console.log('agent.visiblePoints', agent.visiblePoints)
-    let tileXYArray = agent.fov.findFOV(agent.visiblePoints);
-    console.timeEnd('findFOV inner');
+    // let tileXYArray = agent.fov.findFOV(agent.visiblePoints);
+
     // let tileXYArray = agent.fov.clearDebugGraphics().findFOV(agent.visiblePoints);
     let tileXY;
     let visibleTiles = new Set();
 
     // add player tile to visibility array
-    tileXYArray.push(agent.rexChess.tileXYZ);
+    fieldOfViewTileXYArray.push(agent.rexChess.tileXYZ);
+    // tileXYArray.push(agent.rexChess.tileXYZ);
 
-    for (let i = 0, cnt = tileXYArray.length; i < cnt; i++) {
-      tileXY = tileXYArray[i];
+    for (let i = 0, cnt = fieldOfViewTileXYArray.length; i < cnt; i++) {
+    // for (let i = 0, cnt = tileXYArray.length; i < cnt; i++) {
+      tileXY = fieldOfViewTileXYArray[i];
+      // tileXY = tileXYArray[i];
 
       visibleTiles.add(`${tileXY.x}_${tileXY.y}`);
 
@@ -246,7 +246,6 @@ export default class MapService extends Service {
     // Keep track of previously seen tiles and keep all seen tiles
     board.scene.lastSeenTiles = visibleTiles;
     visibleTiles.forEach(board.scene.allSeenTiles.add, board.scene.allSeenTiles);
-console.timeEnd('findFOV');
   }
 
   // get a list of specific types with passing in a type ("Polygon", "Chest", etc)
