@@ -4,21 +4,44 @@
   </div>
 
   <div class="mapeditor">
-    <h3>Map</h3>
-    <label for="maparraytextarea">Wesnoth Input:</label>
-    <p>
+    <div class="maptitle">
+      <h3>Map</h3>
+      <label for="maparraytextarea">Wesnoth Input:</label>
+      <p>
+      <div>Map Image (no .png)</div>
       <Input @id="mapimage"  @value={{this.mapImage}} />
-    </p>
-    <p>
-      <Textarea @id="maparraytextarea" rows=20 cols=80 @value={{this.mapText}} />
-    </p>
-    <p class="btn-wrapper">
-      <button class="btn style btn-primary" {{on "click" this.generateHexes}}>Generate Hex Models</button>
-    </p>
-    <label for="outputtextarea">EmberQuest Output:</label>
-    <p>
-      <Textarea @id="outputtextarea" rows=20 cols=80 @value={{this.finalMap}} />
-    </p>
+      </p>
+    </div>
+    <div class="mapcontent">
+      <div class="mapnorth">
+        Map North<br/>
+        <Input @id="mapnorth" size="10" @value={{this.mapNorth}} />
+      </div>
+      <div class="mapwest">
+        Map West<br/>
+        <Input @id="mapwest"  size="10" @value={{this.mapWest}} />
+      </div>
+      <div class="thismap">
+        <Textarea @id="maparraytextarea" rows=20 cols=50 @value={{this.mapText}} />
+      </div>
+      <div class="mapeast">
+        Map East<br/>
+        <Input @id="mapeast"  size="10" @value={{this.mapEast}} />
+      </div>
+      <div class="mapsouth">
+        Map South<br/>
+        <Input @id="mapsouth" size="10"  @value={{this.mapSouth}} />
+      </div>
+    </div>
+    <div class="mapfooter">
+      <p class="btn-wrapper">
+        <button class="btn style btn-primary" {{on "click" this.generateHexes}}>Generate Hex Models</button>
+      </p>
+      <label for="outputtextarea">EmberQuest Output:</label>
+      <p>
+        <Textarea @id="outputtextarea" rows=20 cols=75 @value={{this.finalMap}} />
+      </p>
+    </div>
   </div>
 
 
@@ -26,17 +49,17 @@
     <h3>Saved Game</h3>
     <button class="btn style btn-primary" {{on "click" this.loadCurrentGameData}}>Load Current Game Data</button>
     <p>
-      <Textarea rows=20 cols=80 @id="currentgamedata" />
+      <Textarea rows=20 cols=50 @id="currentgamedata" />
     </p>
 
     <h3>Coords Encryption</h3>
     <label for="encryptedCoords">Encrypted</label>
     <p>
-      <Textarea @id="encryptedCoords" rows=2 cols=80 @value={{this.encryptedCoords}} />
+      <Textarea @id="encryptedCoords" rows=2 cols=50 @value={{this.encryptedCoords}} />
     </p>
     <label for="decryptedCoords">Decrypted</label>
     <p>
-      <Textarea @id="decryptedCoords" rows=2 cols=80 @value={{this.decryptedCoords}} />
+      <Textarea @id="decryptedCoords" rows=2 cols=50 @value={{this.decryptedCoords}} />
     </p>
     <p class="btn-wrapper">
       <button class="btn style btn-primary" {{on "click" this.encryptcoords}}>Encrypt</button>

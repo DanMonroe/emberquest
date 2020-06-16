@@ -13,6 +13,10 @@ export default class EditorComponent extends Component {
 
   @tracked mapText;
   @tracked mapImage;
+  @tracked mapNorth;
+  @tracked mapWest;
+  @tracked mapEast;
+  @tracked mapSouth;
   @tracked mapArray;
   @tracked hexesTextArray;
   @tracked hexRowsTextArray;
@@ -91,7 +95,10 @@ export default {
   mapUrl: '/images/maps/${this.mapImage}.png',
 
   chests: [
-    // {id: 1, x: 10, y: 3, gccode: 'GC002', gold: 20, specialActions: []}
+    // {id: 1, x: 10, y: 3, gccode: 'GC002', gold: 20, specialActions: [], inventory: [2002]}
+  ],
+
+  signs: [
   ],
 
   spawnLocations : {
@@ -125,7 +132,7 @@ export default {
         const speedCost = this.getTravelCost(terrainText);
         const sightFlags = this.getSightFlags(terrainText);
         const sightCost = this.getSightCost(terrainText);
-        const special = this.getSpecial(terrainText);
+        const special = this.getSpecial(terrainText, row, col);
         mapSource += `{'x': ${col}, 'y': ${row}, 'sightCost': ${sightCost}, 'sightFlags': ${sightFlags}, 'speedCost': ${speedCost}, 'travelFlags': ${travelFlags}, 'w': '${terrainText.replace(/\\/g,"\\\\")}', 'special': ${special} },
     `;
         col++;
@@ -179,8 +186,21 @@ export default {
     SWAMP: -0.7,
   };
 
-  getSpecial(terrain) {
+  getSpecial(terrain, row, col) {
     let special = 0;
+
+    if (row === 0 && this.mapNorth) {
+      special = `{value:constants.FLAGS.SPECIAL.PORTAL.value,map:'${this.mapNorth}',x:${col},y:48}`;
+    }
+    if (row === 49 && this.mapSouth) {
+      special = `{value:constants.FLAGS.SPECIAL.PORTAL.value,map:'${this.mapSouth}',x:${col},y:1}`;
+    }
+    if (col === 0 && this.mapWest) {
+      special = `{value:constants.FLAGS.SPECIAL.PORTAL.value,map:'${this.mapWest}',x:64,y:${row}}`;
+    }
+    if (col === 65 && this.mapEast) {
+      special = `{value:constants.FLAGS.SPECIAL.PORTAL.value,map:'${this.mapEast}',x:1,y:${row}}`;
+    }
 
     const terrainParts = this.getWesnothTerrainParts(terrain);
 
@@ -205,6 +225,7 @@ export default {
     return special;
   }
 
+  // TODO Castles need to be blocked "Kh"
   getTravelFlags(terrain) {
     let terrainFlags = 0;
 
@@ -257,6 +278,7 @@ export default {
     return terrainFlags;
   }
 
+  // TODO snowbank "Aa^DYb" needs more travel cost
   getTravelCost(terrain) {
     let terrainCost = 1;
 

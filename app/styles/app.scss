@@ -2532,13 +2532,58 @@ button {
 }
 .mapeditor {
   grid-area: mapeditor;
-  //background-color: blue;
+  //background-color: lightblue;
 }
+
 .saveeditor {
   grid-area: saveeditor;
+  margin-left: 40px;
   //background-color: yellow;
 }
 
 .padBottom10 {
   padding-bottom: 10px;
 }
+
+.mapcontent {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  //grid-template-areas:
+  //  "-        mapnorth  -"
+  //  "mapwest  thismap   mapeast"
+  //  "-        mabsouth  -";
+  //background-color: red;
+  justify-items: center;
+  align-items: center;
+}
+
+.mapnorth {
+  grid-column: 2;
+  grid-row: 1;
+  justify-items: center;
+}
+.mapwest {
+  grid-column: 1;
+  grid-row: 2;
+  //background-color: lightgreen;
+}
+.mapeast {
+  grid-column: 3;
+  grid-row: 2;
+
+  //background-color: lightgoldenrodyellow;
+}
+.mapsouth {
+  grid-column: 2;
+  grid-row: 3;
+  //justify-items: center;
+}
+.thismap {
+  grid-column: 2;
+  grid-row: 2;
+  //background-color: lightseagreen;
+}
+
