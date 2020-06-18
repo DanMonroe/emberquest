@@ -1,0 +1,188 @@
+{
+	"textures": [
+		{
+			"image": "brazier.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 216,
+				"h": 216
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "brazier-lit1.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 72,
+						"h": 72
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 72,
+						"h": 72
+					},
+					"frame": {
+						"x": 0,
+						"y": 0,
+						"w": 72,
+						"h": 72
+					}
+				},
+				{
+					"filename": "brazier-lit2.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 72,
+						"h": 72
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 72,
+						"h": 72
+					},
+					"frame": {
+						"x": 72,
+						"y": 0,
+						"w": 72,
+						"h": 72
+					}
+				},
+				{
+					"filename": "brazier-lit3.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 72,
+						"h": 72
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 72,
+						"h": 72
+					},
+					"frame": {
+						"x": 144,
+						"y": 0,
+						"w": 72,
+						"h": 72
+					}
+				},
+				{
+					"filename": "brazier-lit4.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 72,
+						"h": 72
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 72,
+						"h": 72
+					},
+					"frame": {
+						"x": 0,
+						"y": 72,
+						"w": 72,
+						"h": 72
+					}
+				},
+				{
+					"filename": "brazier-lit5.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 72,
+						"h": 72
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 72,
+						"h": 72
+					},
+					"frame": {
+						"x": 72,
+						"y": 72,
+						"w": 72,
+						"h": 72
+					}
+				},
+				{
+					"filename": "brazier-lit6.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 72,
+						"h": 72
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 72,
+						"h": 72
+					},
+					"frame": {
+						"x": 144,
+						"y": 72,
+						"w": 72,
+						"h": 72
+					}
+				},
+				{
+					"filename": "brazier-lit7.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 72,
+						"h": 72
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 72,
+						"h": 72
+					},
+					"frame": {
+						"x": 0,
+						"y": 144,
+						"w": 72,
+						"h": 72
+					}
+				},
+				{
+					"filename": "brazier-lit8.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 72,
+						"h": 72
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 72,
+						"h": 72
+					},
+					"frame": {
+						"x": 72,
+						"y": 144,
+						"w": 72,
+						"h": 72
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:9d6db0bd97cf2d4777bba27dec6150af:0f792267d6793927dad20f922743cdbe:eeefc03f10f4305780dcfb1a5f7959ce$"
+	}
+}

@@ -89,7 +89,8 @@ const constants = Object.freeze({
       WEAPON: 1,
       OTHER: 2,
       STATS: 3,
-      TRANSPORT: 4
+      TRANSPORT: 4,
+      NONDISPLAY: 5
     }
   },
 
@@ -182,7 +183,7 @@ const constants = Object.freeze({
       IMPASSABLE: {value: 8, description: 'Impassable'}
     },
     SIGHT: {
-      IMPASSABLE: {value: 1, description: 'Impassable'}
+      IMPASSABLE: {value: 128, description: 'Impassable'}
     },
     SPECIAL: {
       DOCK: {value: 1, description: 'Dock'},

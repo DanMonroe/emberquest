@@ -236,13 +236,13 @@ export default class GameManagerService extends Service {
       movingPoints: 3,   // this is sight/movement Range
       // visiblePoints: 60,   // this is sight/movement Range
       // visiblePoints: 2,   // this is sight/movement Range
-      visiblePoints: 5,   // this is sight/movement Range
+      visiblePoints: 8,   // this is sight/movement Range
       // visiblePoints: 5.1,   // this is sight/movement Range
 
       gold: 15,
 
       // health: 2,
-      health: 11,
+      health: 20,
       // maxHealth: 200,
       // healingPower: 5,
       // healingSpeed: 2500,
@@ -253,7 +253,7 @@ export default class GameManagerService extends Service {
 
       energizeSpeed : 2000,
       energizePower: 2,
-      power: 50,
+      power: 102,
       // maxPower: 50,
       id: 'player1',
       playerAttackAudio: undefined, // when ready, get from Boot scene  --- actually should get from the weapon the player is using.
@@ -268,6 +268,12 @@ export default class GameManagerService extends Service {
       costCallback:  (tileXY) => {
 
         let totalSightCost = this.ember.map.getTileAttribute(this.scene, tileXY, 'sightCost');
+
+        // can't see past this hex (but CAN see this hex)
+        if (totalSightCost === this.ember.constants.FLAGS.SIGHT.IMPASSABLE.value) {
+          return this.ember.playerContainer.fov.BLOCKER;
+        }
+
         if (this.ember.map.tileIsDoor(this.scene, tileXY)) {
           const portalSpecialAttr = this.ember.map.getTileAttribute(this.scene, tileXY, 'special');
           totalSightCost += portalSpecialAttr.sightCost;

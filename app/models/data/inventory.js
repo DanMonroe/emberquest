@@ -957,6 +957,19 @@ export class InventoryItems {
       })
     );
 
+    // Items not displayed, but shown in chest dialogs, etc.
+    items.push(
+      new InventoryItem({
+        id: 2500,
+        display: false,
+        price: 0,
+        // price: 550,
+        type: constants.INVENTORY.TYPE.NONDISPLAY,
+        name: 'North Castle Gate Key',
+        img: '/images/items/key.png'
+      })
+    );
+
 
 
 

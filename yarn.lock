@@ -5653,10 +5653,10 @@ ember-uuid@^2.1.0:
     ember-cli-babel "^7.11.1"
     ember-cli-htmlbars "^4.0.0"
 
-emberquest-map-data@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/emberquest-map-data/-/emberquest-map-data-0.1.0.tgz#11df49c7abdb396f81a16664df63c4cfd765ff32"
-  integrity sha512-oIcceeenIlQwi7HNbKlc6h/2qIaUNMeYO2eef2PbGmEVajaIVrOQrkctvlvpm5qfp8BWlB9hr0CwoOoqr00BZA==
+emberquest-map-data@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/emberquest-map-data/-/emberquest-map-data-0.2.0.tgz#28b107e42f9b1e7b88893515486aec1179525b0d"
+  integrity sha512-a40mfO1HaOvEtH0KIS1cxky1Ku/7NYLfIJXccEZy5D4hV1AGj+9eWPNkruDdwoxcy0/dI8E3N9W2MIM0KtAgxA==
 
 emoji-regex@^7.0.1:
   version "7.0.3"
@@ -8320,7 +8320,7 @@ log-symbols@^3.0.0:
   dependencies:
     chalk "^2.4.2"
 
-lokijs@^1.5.7:
+lokijs@^1.5.8:
   version "1.5.8"
   resolved "https://registry.yarnpkg.com/lokijs/-/lokijs-1.5.8.tgz#9296f288edb2147389ec692fc972c428c59179d1"
   integrity sha512-D8E3TBrY35o1ELnonp2MF8b3wKu2tVNl2TqRjvS+95oPMMe7OoIAxNY1qr+5BEZwnWn2V4ErAjVt000DonM+FA==
@@ -9271,10 +9271,10 @@ pako@~1.0.5:
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.10.tgz#4328badb5086a426aa90f541977d4955da5c9732"
   integrity sha512-0DTvPVU3ed8+HNXOu5Bs+o//Mbdj9VNQMUOe9oKCwh8l0GNwpTDMKCWbRjgtD291AWnkAgkqA/LOnQS8AmS1tw==
 
-papaparse@^4.6.3:
-  version "4.6.3"
-  resolved "https://registry.yarnpkg.com/papaparse/-/papaparse-4.6.3.tgz#742e5eaaa97fa6c7e1358d2934d8f18f44aee781"
-  integrity sha512-LRq7BrHC2kHPBYSD50aKuw/B/dGcg29omyJbKWY3KsYUZU69RKwaBHu13jGmCYBtOc4odsLCrFyk6imfyNubJQ==
+papaparse@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/papaparse/-/papaparse-5.2.0.tgz#97976a1b135c46612773029153dc64995caa3b7b"
+  integrity sha512-ylq1wgUSnagU+MKQtNeVqrPhZuMYBvOSL00DHycFTCxownF95gpLAk1HiHdUW77N8yxRq1qHXLdlIPyBSG9NSA==
 
 parallel-transform@^1.1.0:
   version "1.2.0"
@@ -9439,14 +9439,14 @@ performance-now@^2.1.0:
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
   integrity sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=
 
-phaser3-rex-plugins@^1.1.8:
-  version "1.1.8"
-  resolved "https://registry.yarnpkg.com/phaser3-rex-plugins/-/phaser3-rex-plugins-1.1.8.tgz#5d89570b4fb11d3959a7ea203192066e7ead852a"
-  integrity sha512-n6bhes2IYPPaccTbksPSawqw8bc+/2VFwTCBttSsFPDoH8MNsOp3PnUbnuJku+/E/jc5bwEkxo3Jl9/O3So4Xg==
+phaser3-rex-plugins@^1.1.19:
+  version "1.1.19"
+  resolved "https://registry.yarnpkg.com/phaser3-rex-plugins/-/phaser3-rex-plugins-1.1.19.tgz#3e43a0d95c5188002a8f4dac1efad0783d8b62a8"
+  integrity sha512-Tcp3n2wk+3Za4pnAvog3W1p8CCUNzUNfiFjTyECnKfxkwLbSkYF1+gAVuPdQq1W0a0rKqPDXjEZjdEa9v8iqlQ==
   dependencies:
     eventemitter3 "^3.1.2"
-    lokijs "^1.5.7"
-    papaparse "^4.6.3"
+    lokijs "^1.5.8"
+    papaparse "^5.2.0"
     webfontloader "^1.6.28"
 
 phaser@^3.22.0:

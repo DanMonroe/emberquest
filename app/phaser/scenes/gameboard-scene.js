@@ -251,6 +251,9 @@ export class GameboardScene extends Phaser.Scene {
       }
     }
 
+    // playerObject.container.fov.isPathVisible = playerObject.container.myIsPathVisible;
+
+
     // update field of view
     let fieldOfViewTileXYArray = playerObject.container.fov.findFOV(playerObject.container.visiblePoints);
     this.ember.map.findAgentFieldOfView(playerObject.container, fieldOfViewTileXYArray);
@@ -309,12 +312,17 @@ export class GameboardScene extends Phaser.Scene {
           // don't add door
           return;
         }
+
         let door = new Door(this, 0, 0, doorObj.texture, 1, doorObj);
         door.setAlpha(0);
 
         this.doors.add(door);
 
         this.board.addChess(door, doorObj.x, doorObj.y, this.ember.constants.TILEZ_DOORS);
+        if (doorObj.offset) {
+          door.x += doorObj.offset.x;
+          door.y += doorObj.offset.y;
+        }
 
         door.rexChess.setBlocker();
 

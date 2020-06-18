@@ -21,13 +21,15 @@ export default class ChestDialogComponent extends Component {
   @computed('cacheData.inventory.[]')
   get chestInventory() {
     const chestInventory = [];
-    this.cacheData.inventory.forEach(itemId => {
-      const item = this.inventory.getItemById(itemId);
-      if (item) {
-        chestInventory.push(item);
-        this.inventory.addInventoryFromChest(item);
-      }
-    })
+    if (this.cacheData.inventory) {
+      this.cacheData.inventory.forEach(itemId => {
+        const item = this.inventory.getItemById(itemId);
+        if (item) {
+          chestInventory.push(item);
+          this.inventory.addInventoryFromChest(item);
+        }
+      });
+    }
     return chestInventory;
   }
 

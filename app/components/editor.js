@@ -6,17 +6,25 @@ import { inject as service } from '@ember/service';
 
 export default class EditorComponent extends Component {
 
+  DIRECTIONS = {
+    NORTH: 0,
+    EAST: 1,
+    SOUTH: 2,
+    WEST: 3
+  };
+
   @service game;
   @service storage;
 
   constants = constants;
 
   @tracked mapText;
+  @tracked mapNumber;
   @tracked mapImage;
-  @tracked mapNorth;
-  @tracked mapWest;
-  @tracked mapEast;
-  @tracked mapSouth;
+  // @tracked mapNorth;
+  // @tracked mapWest;
+  // @tracked mapEast;
+  // @tracked mapSouth;
   @tracked mapArray;
   @tracked hexesTextArray;
   @tracked hexRowsTextArray;
@@ -28,6 +36,28 @@ export default class EditorComponent extends Component {
 
   @tracked currentGameData;
 
+  get mapImageName() {
+    if (!this.mapNumber) {
+      return '';
+    }
+    return `m${this.mapNumber}-min.png`;
+  }
+  set mapImageName(v) {
+    console.log('no op');
+  }
+
+  get mapNorth() {
+    return this.getPortalToMap(this.DIRECTIONS.NORTH);
+  }
+  get mapEast() {
+    return this.getPortalToMap(this.DIRECTIONS.EAST);
+  }
+  get mapSouth() {
+    return this.getPortalToMap(this.DIRECTIONS.SOUTH);
+  }
+  get mapWest() {
+    return this.getPortalToMap(this.DIRECTIONS.WEST);
+  }
 
   @action
   encryptcoords() {
@@ -165,6 +195,7 @@ export default {
     WATER: 'W',
     BRIDGE: 'B',
     FOREST: 'F',
+    KEEP: 'K',
     SNOW: 'A',
     DESERT: 'D',
     HILL: 'H',
@@ -173,13 +204,20 @@ export default {
     MOUNTAIN: 'M',
     UNWALKABLE: 'Q',
     IMPASSABLE: 'X',
-    LAVA: 'Qlf'
+    LAVA: 'Qlf',
+    PARTS: {
+      PRIMARY: {},
+      SECONDARY: {
+        ARCTIC: 'DYb'
+      }
+    }
   };
 
   SPEED = {
     FOREST: -0.35,
     HILL: -0.3,
     MOUNTAIN: -0.7,
+    ARCTIC: -0.5,
     SNOW: -0.1,
     DESERT: -0.1,
     ROAD: 0.2,
@@ -225,7 +263,6 @@ export default {
     return special;
   }
 
-  // TODO Castles need to be blocked "Kh"
   getTravelFlags(terrain) {
     let terrainFlags = 0;
 
@@ -267,6 +304,7 @@ export default {
             terrainFlags |= this.constants.FLAGS.TRAVEL.AIR.value;
         }
         break;
+      case this.WESNOTH.KEEP:
       case this.WESNOTH.IMPASSABLE:
         terrainFlags |= this.constants.FLAGS.TRAVEL.IMPASSABLE.value;
         break;
@@ -307,10 +345,23 @@ export default {
     }
 
     switch (terrainParts.secondary) {
+      case this.WESNOTH.ARCTIC:
+        terrainCost += this.SPEED.ARCTIC;
+        break;
       case this.WESNOTH.FOREST:
         terrainCost += this.SPEED.FOREST;
         break;
       default:  // regular water
+    }
+
+    if (terrainParts.terrainsParts.length > 0) {
+
+      switch (terrainParts.terrainsParts[1]) {  // secondary
+        case this.WESNOTH.PARTS.SECONDARY.ARCTIC:
+          terrainCost += this.SPEED.ARCTIC;
+          break;
+        default:
+      }
     }
 
     return Math.round(terrainCost*100)/100;
@@ -326,8 +377,10 @@ export default {
         sightCost += 4;
         break;
       case this.WESNOTH.IMPASSABLE:
-        sightCost += 6;
-        break;
+        // sightCost += 6;
+        // break;
+        sightCost = this.constants.FLAGS.SIGHT.IMPASSABLE.value;
+        return;
 
       default:
     }
@@ -337,8 +390,10 @@ export default {
         sightCost += 4;
         break;
       case this.WESNOTH.IMPASSABLE:
-        sightCost += 6;
-        break;
+        // sightCost += 6;
+        // break;
+        sightCost = this.constants.FLAGS.SIGHT.IMPASSABLE.value;
+        return;
       default:  // fly
     }
 
@@ -365,7 +420,153 @@ export default {
     const terrainParts = terrain.split('^');
     return {
       primary: (terrainParts.length >= 1) ? terrainParts[0].charAt(0) : '',
-      secondary: (terrainParts.length >= 2) ? terrainParts[1].charAt(0) : ''
+      secondary: (terrainParts.length >= 2) ? terrainParts[1].charAt(0) : '',
+      terrainsParts: terrainParts
     };
   }
+
+  getPortalToMap(direction) {
+    if (!this.mapNumber) {
+      return '';
+    }
+
+    let mapInDirection = 0;
+    switch (direction) {
+      case this.DIRECTIONS.NORTH:
+        switch (+this.mapNumber) {
+          case 13:
+            mapInDirection = 1;
+            break;
+          case 4:
+            mapInDirection = 3;
+            break;
+          case 8:
+            mapInDirection = 7;
+            break;
+          case 11:
+            mapInDirection = 10;
+            break;
+          case 2:
+            mapInDirection = 13;
+            break;
+          case 5:
+            mapInDirection = 4;
+            break;
+          case 9:
+            mapInDirection = 8;
+            break;
+          case 12:
+            mapInDirection = 11;
+            break;
+          case 6:
+            mapInDirection = 5;
+            break;
+          default: break;
+        }
+        break;
+      case this.DIRECTIONS.EAST:
+        switch (+this.mapNumber) {
+          case 1:
+            mapInDirection = 3;
+            break;
+          case 3:
+            mapInDirection = 7;
+            break;
+          case 7:
+            mapInDirection = 10;
+            break;
+          case 13:
+            mapInDirection = 4;
+            break;
+          case 4:
+            mapInDirection = 8;
+            break;
+          case 8:
+            mapInDirection = 11;
+            break;
+          case 2:
+            mapInDirection = 5;
+            break;
+          case 5:
+            mapInDirection = 9;
+            break;
+          case 9:
+            mapInDirection = 12;
+            break;
+          default: break;
+        }
+        break;
+      case this.DIRECTIONS.SOUTH:
+        switch (+this.mapNumber) {
+          case 1:
+            mapInDirection = 13;
+            break;
+          case 3:
+            mapInDirection = 4;
+            break;
+          case 7:
+            mapInDirection = 8;
+            break;
+          case 10:
+            mapInDirection = 11;
+            break;
+          case 13:
+            mapInDirection = 2;
+            break;
+          case 4:
+            mapInDirection = 5;
+            break;
+          case 8:
+            mapInDirection = 9;
+            break;
+          case 11:
+            mapInDirection = 12;
+            break;
+          case 5:
+            mapInDirection = 6;
+            break;
+          default: break;
+        }
+        break;
+      case this.DIRECTIONS.WEST:
+        switch (+this.mapNumber) {
+          case 3:
+            mapInDirection = 1;
+            break;
+          case 7:
+            mapInDirection = 3;
+            break;
+          case 10:
+            mapInDirection = 7;
+            break;
+          case 4:
+            mapInDirection = 13;
+            break;
+          case 8:
+            mapInDirection = 4;
+            break;
+          case 11:
+            mapInDirection = 8;
+            break;
+          case 5:
+            mapInDirection = 2;
+            break;
+          case 9:
+            mapInDirection = 5;
+            break;
+          case 12:
+            mapInDirection = 9;
+            break;
+          default: break;
+        }
+        break;
+      default:
+        break;
+    }
+    if (mapInDirection) {
+      return `m${mapInDirection}`;
+    }
+    return '';
+  }
+
 }

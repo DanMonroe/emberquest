@@ -1,32 +1,10 @@
-// import Phaser from 'phaser';
 import PlayerPhaserAgent from "./player-phaser-agent";
 import BasePhaserAgentContainer from "../base-phaser-agent-container";
 import {tracked} from '@glimmer/tracking';
 
 export default class PlayerContainer extends BasePhaserAgentContainer {
 
-  // scene = undefined;
-  // ember = undefined;
-
-// @tracked maxHealth;
-// @tracked health;
-// @tracked maxPower;
-// @tracked power;
-// @tracked healingSpeed = 3000;
-// @tracked healingPower = 2;
-// @tracked energizeSpeed = 2000;
-// @tracked energizePower = 2;
   @tracked boardedTransport;
-
-
-  // @task
-  // *reloadPower() {
-  //   while (this.power < this.maxPower) {
-  //     // console.log('reloadPower')
-  //     yield timeout(this.energizeSpeed);
-  //     this.power += Math.max(1, this.energizePower);
-  //   }
-  // }
 
   constructor(scene, config, agent) {
 
@@ -172,6 +150,37 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
       this.moveTo(cursors);
       this.baseUpdate();
     }
+  }
+
+  myIsPathVisible (tileXYArray, visiblePoints) {
+    debugger;
+    console.log('myIsPathVisible')
+    if (this.preTest(tileXYArray, visiblePoints) === false) {
+      return false;
+    }
+
+    if (this.costCallback === undefined) {
+      return true;
+    }
+    var myTileXYZ = this.chessData.tileXYZ;
+    var tileXY, cost;
+    for (var i = 1, cnt = tileXYArray.length; i < cnt; i++) {
+      tileXY = tileXYArray[i];
+      if (AreTileXYEqual(myTileXYZ, tileXY)) {
+        continue;
+      }
+      cost = this.getCost(tileXY, tileXYArray);
+      if (cost === BLOCKER) {
+        return false;
+      }
+      if (visiblePoints !== INFINITY) {
+        visiblePoints -= cost;
+        if (visiblePoints < 0) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
   moveTo(cursors) {

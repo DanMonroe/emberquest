@@ -60,7 +60,7 @@
     "eslint-plugin-node": "^11.0.0",
     "loader.js": "^4.7.0",
     "phaser": "^3.22.0",
-    "phaser3-rex-plugins": "^1.1.8",
+    "phaser3-rex-plugins": "^1.1.19",
     "prember": "^1.0.4",
     "prember-middleware": "^0.1.0",
     "qunit-dom": "^1.0.0",
@@ -74,7 +74,7 @@
   },
   "dependencies": {
     "confirmed": "^2.3.2",
-    "emberquest-map-data": "^0.2.0",
+    "emberquest-map-data": "^0.2.1",
     "focus-trap": "^5.1.0",
     "localforage": "^1.7.3",
     "simple-crypto-js": "^2.2.0"

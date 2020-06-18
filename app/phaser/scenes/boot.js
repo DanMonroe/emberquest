@@ -111,6 +111,9 @@ export class BootScene extends Phaser.Scene {
 
     // portals
     this.load.image('door_wooden_n', '/images/maps/portals/door-wooden-n.png');
+    this.load.image('door_iron_n', '/images/maps/portals/iron_gate_closed_n.png');
+    this.load.image('door_iron_se', '/images/maps/portals/iron_gate_closed_se.png');
+    this.load.image('door_iron_sw', '/images/maps/portals/iron_gate_closed_sw.png');
 
     this.load.image('ball', '/images/items/ballBlack_04.png');
     this.load.image('bullet', '/images/items/bullet7.png');
@@ -166,7 +169,7 @@ export class BootScene extends Phaser.Scene {
         // let data = {'map': overrideMapImage || 'intro3'};
 
         // let data = {'map': 'intro3'} // cutter ship
-        let data = {'map': overrideMapImage || 'intro'}  // default initial map
+        let data = {'map': overrideMapImage || 'castle'}  // default initial map
 
         if (gameboardData) {
 

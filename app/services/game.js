@@ -26,8 +26,9 @@ export default class GameService extends Service {
   @service storage;
   @service intl;
 
-  @tracked cameraMainZoom = 1;
-  // @tracked playerImgSrc = '/images/agents/tomster-head-classic.png';
+  // @tracked cameraMainZoom = 1;
+  @tracked cameraMainZoom = 1.4;
+  // @tracked playerImgSrc = 'd/images/agents/tomster-head-classic.png';
   @tracked playerImgSrc = '/images/agents/pirate.png';
   @tracked showHexInfo = false;
   @tracked epmModalContainerClass = '';

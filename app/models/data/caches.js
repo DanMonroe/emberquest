@@ -8,7 +8,7 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC8QAYM',
-        name: 'EmberQuest #1 - Castle Storeroom',
+        name: 'EQ #1 - Castle Storeroom',
         description: '<p>Description placeholder</p>',
         difficulty: 1.5,
         terrain: 1.5,
@@ -23,7 +23,7 @@ export class Caches {
       new Cache({
         gccode: 'GC8QB0H',
         found: false,
-        name: 'EmberQuest #2 - Ogre Covered Bridge',
+        name: 'EQ #2 - Ogre Covered Bridge',
         description: '<p>Test description</p>',
         difficulty: 1.5,
         terrain: 1.5,
@@ -36,7 +36,7 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC8QB0N',
-        name: 'EmberQuest #3',
+        name: 'EQ #3',
         description: '<p>Test description</p>',
         difficulty: 1.5,
         terrain: 1.5,
@@ -48,8 +48,8 @@ export class Caches {
 
     caches.push(
       new Cache({
-        gccode: 'GC004',
-        name: 'Hello EmberQuest Cache 3',
+        gccode: 'GC8QB0T',
+        name: 'EQ #4',
         description: '<p>Test description</p>',
         difficulty: 1.5,
         terrain: 1.5,
@@ -61,8 +61,8 @@ export class Caches {
 
     caches.push(
       new Cache({
-        gccode: 'GC005',
-        name: 'Hello EmberQuest Cache 3',
+        gccode: 'GC8QB1C',
+        name: 'EQ #5',
         description: '<p>Test description</p>',
         difficulty: 1.5,
         terrain: 1.5,
@@ -74,8 +74,383 @@ export class Caches {
 
     caches.push(
       new Cache({
-        gccode: 'GC006',
-        name: 'Hello EmberQuest Cache 3',
+        gccode: 'GC8QB1G',
+        name: 'EQ #6',
+        description: '<p>Test description</p>',
+        difficulty: 1.5,
+        terrain: 1.5,
+        foundInstructions: 'Congrats.. now do this',
+        coords: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        parking: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        cacheHint: 'test',
+        puzzleHint: 'grfg'
+      })
+    );
+
+    caches.push(
+      new Cache({
+        gccode: 'GC8QB1J',
+        name: 'EQ #7',
+        description: '<p>Test description</p>',
+        difficulty: 1.5,
+        terrain: 1.5,
+        foundInstructions: 'Congrats.. now do this',
+        coords: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        parking: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        cacheHint: 'test',
+        puzzleHint: 'grfg'
+      })
+    );
+
+    caches.push(
+      new Cache({
+        gccode: 'GC8V6V9',
+        name: 'EQ #8',
+        description: '<p>Test description</p>',
+        difficulty: 1.5,
+        terrain: 1.5,
+        foundInstructions: 'Congrats.. now do this',
+        coords: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        parking: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        cacheHint: 'test',
+        puzzleHint: 'grfg'
+      })
+    );
+
+    caches.push(
+      new Cache({
+        gccode: 'GC8V6VC',
+        name: 'EQ #9',
+        description: '<p>Test description</p>',
+        difficulty: 1.5,
+        terrain: 1.5,
+        foundInstructions: 'Congrats.. now do this',
+        coords: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        parking: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        cacheHint: 'test',
+        puzzleHint: 'grfg'
+      })
+    );
+
+    caches.push(
+      new Cache({
+        gccode: 'GC8V6VH',
+        name: 'EQ #10',
+        description: '<p>Test description</p>',
+        difficulty: 1.5,
+        terrain: 1.5,
+        foundInstructions: 'Congrats.. now do this',
+        coords: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        parking: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        cacheHint: 'test',
+        puzzleHint: 'grfg'
+      })
+    );
+
+    caches.push(
+      new Cache({
+        gccode: 'GC8V6VK',
+        name: 'EQ #11',
+        description: '<p>Test description</p>',
+        difficulty: 1.5,
+        terrain: 1.5,
+        foundInstructions: 'Congrats.. now do this',
+        coords: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        parking: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        cacheHint: 'test',
+        puzzleHint: 'grfg'
+      })
+    );
+
+    caches.push(
+      new Cache({
+        gccode: 'GC8V6VN',
+        name: 'EQ #12',
+        description: '<p>Test description</p>',
+        difficulty: 1.5,
+        terrain: 1.5,
+        foundInstructions: 'Congrats.. now do this',
+        coords: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        parking: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        cacheHint: 'test',
+        puzzleHint: 'grfg'
+      })
+    );
+
+    caches.push(
+      new Cache({
+        gccode: 'GC8V6WC',
+        name: 'EQ #13',
+        description: '<p>Test description</p>',
+        difficulty: 1.5,
+        terrain: 1.5,
+        foundInstructions: 'Congrats.. now do this',
+        coords: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        parking: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        cacheHint: 'test',
+        puzzleHint: 'grfg'
+      })
+    );
+
+    caches.push(
+      new Cache({
+        gccode: 'GC8V6WP',
+        name: 'EQ #14',
+        description: '<p>Test description</p>',
+        difficulty: 1.5,
+        terrain: 1.5,
+        foundInstructions: 'Congrats.. now do this',
+        coords: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        parking: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        cacheHint: 'test',
+        puzzleHint: 'grfg'
+      })
+    );
+
+    caches.push(
+      new Cache({
+        gccode: 'GC8V6WQ',
+        name: 'EQ #15',
+        description: '<p>Test description</p>',
+        difficulty: 1.5,
+        terrain: 1.5,
+        foundInstructions: 'Congrats.. now do this',
+        coords: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        parking: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        cacheHint: 'test',
+        puzzleHint: 'grfg'
+      })
+    );
+
+    caches.push(
+      new Cache({
+        gccode: 'GC8V6X0',
+        name: 'EQ #16',
+        description: '<p>Test description</p>',
+        difficulty: 1.5,
+        terrain: 1.5,
+        foundInstructions: 'Congrats.. now do this',
+        coords: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        parking: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        cacheHint: 'test',
+        puzzleHint: 'grfg'
+      })
+    );
+
+    caches.push(
+      new Cache({
+        gccode: 'GC8V6X3',
+        name: 'EQ #17',
+        description: '<p>Test description</p>',
+        difficulty: 1.5,
+        terrain: 1.5,
+        foundInstructions: 'Congrats.. now do this',
+        coords: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        parking: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        cacheHint: 'test',
+        puzzleHint: 'grfg'
+      })
+    );
+
+    caches.push(
+      new Cache({
+        gccode: 'GC8V6X6',
+        name: 'EQ #18',
+        description: '<p>Test description</p>',
+        difficulty: 1.5,
+        terrain: 1.5,
+        foundInstructions: 'Congrats.. now do this',
+        coords: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        parking: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        cacheHint: 'test',
+        puzzleHint: 'grfg'
+      })
+    );
+
+    caches.push(
+      new Cache({
+        gccode: 'GC8V6X7',
+        name: 'EQ #19',
+        description: '<p>Test description</p>',
+        difficulty: 1.5,
+        terrain: 1.5,
+        foundInstructions: 'Congrats.. now do this',
+        coords: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        parking: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        cacheHint: 'test',
+        puzzleHint: 'grfg'
+      })
+    );
+
+    caches.push(
+      new Cache({
+        gccode: 'GC8V6XB',
+        name: 'EQ #20',
+        description: '<p>Test description</p>',
+        difficulty: 1.5,
+        terrain: 1.5,
+        foundInstructions: 'Congrats.. now do this',
+        coords: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        parking: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        cacheHint: 'test',
+        puzzleHint: 'grfg'
+      })
+    );
+
+    caches.push(
+      new Cache({
+        gccode: 'GC8V6XC',
+        name: 'EQ #21',
+        description: '<p>Test description</p>',
+        difficulty: 1.5,
+        terrain: 1.5,
+        foundInstructions: 'Congrats.. now do this',
+        coords: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        parking: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        cacheHint: 'test',
+        puzzleHint: 'grfg'
+      })
+    );
+
+    caches.push(
+      new Cache({
+        gccode: 'GC8V6XD',
+        name: 'EQ #22',
+        description: '<p>Test description</p>',
+        difficulty: 1.5,
+        terrain: 1.5,
+        foundInstructions: 'Congrats.. now do this',
+        coords: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        parking: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        cacheHint: 'test',
+        puzzleHint: 'grfg'
+      })
+    );
+
+    caches.push(
+      new Cache({
+        gccode: 'GC8V6XE',
+        name: 'EQ #23',
+        description: '<p>Test description</p>',
+        difficulty: 1.5,
+        terrain: 1.5,
+        foundInstructions: 'Congrats.. now do this',
+        coords: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        parking: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        cacheHint: 'test',
+        puzzleHint: 'grfg'
+      })
+    );
+
+    caches.push(
+      new Cache({
+        gccode: 'GC8V6XF',
+        name: 'EQ #24',
+        description: '<p>Test description</p>',
+        difficulty: 1.5,
+        terrain: 1.5,
+        foundInstructions: 'Congrats.. now do this',
+        coords: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        parking: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        cacheHint: 'test',
+        puzzleHint: 'grfg'
+      })
+    );
+
+    caches.push(
+      new Cache({
+        gccode: 'GC8V6XJ',
+        name: 'EQ #25',
+        description: '<p>Test description</p>',
+        difficulty: 1.5,
+        terrain: 1.5,
+        foundInstructions: 'Congrats.. now do this',
+        coords: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        parking: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        cacheHint: 'test',
+        puzzleHint: 'grfg'
+      })
+    );
+
+    caches.push(
+      new Cache({
+        gccode: 'GC8V6XK',
+        name: 'EQ #26',
+        description: '<p>Test description</p>',
+        difficulty: 1.5,
+        terrain: 1.5,
+        foundInstructions: 'Congrats.. now do this',
+        coords: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        parking: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        cacheHint: 'test',
+        puzzleHint: 'grfg'
+      })
+    );
+
+    caches.push(
+      new Cache({
+        gccode: 'GC8V6XP',
+        name: 'EQ #27',
+        description: '<p>Test description</p>',
+        difficulty: 1.5,
+        terrain: 1.5,
+        foundInstructions: 'Congrats.. now do this',
+        coords: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        parking: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        cacheHint: 'test',
+        puzzleHint: 'grfg'
+      })
+    );
+
+    caches.push(
+      new Cache({
+        gccode: 'GC8V6XQ',
+        name: 'EQ #28',
+        description: '<p>Test description</p>',
+        difficulty: 1.5,
+        terrain: 1.5,
+        foundInstructions: 'Congrats.. now do this',
+        coords: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        parking: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        cacheHint: 'test',
+        puzzleHint: 'grfg'
+      })
+    );
+
+    caches.push(
+      new Cache({
+        gccode: 'GC8V6XT',
+        name: 'EQ #29',
+        description: '<p>Test description</p>',
+        difficulty: 1.5,
+        terrain: 1.5,
+        foundInstructions: 'Congrats.. now do this',
+        coords: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        parking: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        cacheHint: 'test',
+        puzzleHint: 'grfg'
+      })
+    );
+
+    caches.push(
+      new Cache({
+        gccode: 'GC8V6XW',
+        name: 'EQ #30',
+        description: '<p>Test description</p>',
+        difficulty: 1.5,
+        terrain: 1.5,
+        foundInstructions: 'Congrats.. now do this',
+        coords: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        parking: 'bdf5253f45e43a7ba987dadd5d5b7eecceb94bcac4f70c746d5ed7622b065a85BJDrjT2mNEcWLmM3t3rUtw',
+        cacheHint: 'test',
+        puzzleHint: 'grfg'
+      })
+    );
+
+    caches.push(
+      new Cache({
+        gccode: 'GC8V6XZ',
+        name: 'EQ #31 - Enchanted Ember',
         description: '<p>Test description</p>',
         difficulty: 1.5,
         terrain: 1.5,
