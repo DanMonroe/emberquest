@@ -208,7 +208,8 @@ export default {
     PARTS: {
       PRIMARY: {},
       SECONDARY: {
-        ARCTIC: 'DYb'
+        ARCTIC: 'DYb',
+        GREATTREE: 'Fet'
       }
     }
   };
@@ -354,6 +355,7 @@ export default {
       default:  // regular water
     }
 
+    // specific
     if (terrainParts.terrainsParts.length > 0) {
 
       switch (terrainParts.terrainsParts[1]) {  // secondary
@@ -395,6 +397,16 @@ export default {
         sightCost = this.constants.FLAGS.SIGHT.IMPASSABLE.value;
         return;
       default:  // fly
+    }
+
+    if (terrainParts.terrainsParts.length > 0) {
+
+      switch (terrainParts.terrainsParts[1]) {  // secondary
+        case this.WESNOTH.PARTS.SECONDARY.GREATTREE:
+          sightCost = this.constants.FLAGS.SIGHT.IMPASSABLE.value;
+          break;
+        default:
+      }
     }
 
     return sightCost;

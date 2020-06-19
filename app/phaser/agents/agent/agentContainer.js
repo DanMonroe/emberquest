@@ -217,7 +217,6 @@ export default class AgentContainer extends BasePhaserAgentContainer {
   async moveToComplete() {
     const agentContainer = arguments[0];
 
-    // console.log('agent moveToComplete', agentContainer.agent.playerConfig.texture);
     // console.log('agent moveToComplete', agentContainer.agent.playerConfig.texture, agentContainer.agent);
     agentContainer.describeAgentState();
 
@@ -500,8 +499,10 @@ console.log('      do transitionToMelee')
   }
 
   populatePatrolMoveQueue() {
-
-    if (!this.moveQueue || (this.moveQueue.path && this.moveQueue.path.length === 0)) {
+    if (!this.rexChess || !this.rexChess.board) {
+      return;
+    }
+    if (this.rexChess && this.rexChess.board && !this.moveQueue || (this.moveQueue.path && this.moveQueue.path.length === 0)) {
       // no moves.. build the next one
       const nextTargetTile = this.getNextTargetTile();
       if (nextTargetTile) {
@@ -532,8 +533,6 @@ console.log('      do transitionToMelee')
 
   @task
   *patrolTask() {
-    // console.log('patrol task -  paused', this.ember.gameManager.gamePaused)
-
     while (this.patrolEnabled === true) {
 
       if (!this.ember.gameManager.gamePaused) {
@@ -542,7 +541,6 @@ console.log('      do transitionToMelee')
 
           // grab the next waypoint
           let firstMove = this.moveQueue.path[0];
-// console.log('111 patrolTask firstMove', firstMove, this.rexChess.tileXYZ, 'this.patrol.timeout', this.patrol.timeout)
           // attempt the move
           this.moveToObject.moveTo(firstMove.x, firstMove.y);
 

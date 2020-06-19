@@ -503,19 +503,22 @@ export default class GameManagerService extends Service {
     if (enemy.agent.playerConfig.uniqueId) {
       scene.deadAgents.add(enemy.agent.playerConfig.uniqueId);
     }
+    const experienceAwarded = enemy.agent.experienceAwarded || 0;
+    const goldAwarded = enemy.agent.gold || 0;
 
     enemy.agentState = this.ember.constants.AGENTSTATE.DEAD;
     scene.ember.gameManager.spawnerService.deleteAgent(enemy);
     enemy.healthBar.destroy();
+    await enemy.cancelAllTasks();
+    this.scene.board.removeChess(enemy, null, null, null, true);
     enemy.destroy();
 
     // rewards
     // console.log('player', player, enemy.agent.baseHealth)
 
     if (shouldAwardExperience) {
-      const experienceAwarded = enemy.agent.experienceAwarded;
-      this.countXP.perform(experienceAwarded || 0);
-      this.countGems.perform(enemy.agent.gold || 0);
+      this.countXP.perform(experienceAwarded);
+      this.countGems.perform(goldAwarded);
     }
 
     // show dialog
