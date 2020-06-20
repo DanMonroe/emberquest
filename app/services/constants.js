@@ -52,7 +52,20 @@ const constants = Object.freeze({
     // HEALING_SPEED: 'healingSpeedAdj',
     // HEALING_POWER: 'healingPowerAdj',
 
-    TOTAL_BODYPARTS: 10,
+    // TOTAL_BODYPARTS: 10,
+
+    BODYPARTS: [
+      { name: "torso", part: 0, text: "Body", tooltipSide: "right" },
+      { name: "feet", part: 1, text: "Feet", tooltipSide: "right" },
+      { name: "head", part: 2, text: "Head", tooltipSide: "right" },
+      { name: "arms", part: 3, text: "Arms", tooltipSide: "left" },
+      { name: "lefthand", part: 4, text: "Left Hand", tooltipSide: "left" },
+      { name: "righthand", part: 5, text: "Right Hand", tooltipSide: "right" },
+      { name: "neck", part: 6, text: "Neck", tooltipSide: "left" },
+      { name: "fingers", part: 7, text: "Fingers", tooltipSide: "left" },
+      { name: "gloves", part: 8, text: "Gloves", tooltipSide: "right" },
+      { name: "ranged", part: 9, text: "Ranged Weapon", tooltipSide: "left" }
+    ],
 
     BODYPART: {
       BODY: 0,

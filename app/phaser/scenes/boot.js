@@ -104,9 +104,11 @@ export class BootScene extends Phaser.Scene {
     this.load.image('barque', '/images/transports/barque.png');
     this.load.image('boat', '/images/transports/boat.png');
 
-    // this.load.image('pirategalleon', '/images/agents/pirate-galleon.png');
+    // Agents
+    this.load.image('keep', '/images/agents/keep.png');
+    this.load.image('pirate', '/images/agents/pirate-galleon.png');
 
-    // portals
+    // signs
     this.load.image('signpost', '/images/maps/signpost.png');
 
     // portals
@@ -166,9 +168,7 @@ export class BootScene extends Phaser.Scene {
         const overrideMapImage = (this.game.ember.overrideMap && this.game.ember.overrideMap.map) ? this.game.ember.overrideMap.map : undefined;
 
         // let data = {'map': overrideMapImage || 'arena'};
-        // let data = {'map': overrideMapImage || 'intro3'};
 
-        // let data = {'map': 'intro3'} // cutter ship
         let data = {'map': overrideMapImage || 'castle'}  // default initial map
 
         if (gameboardData) {

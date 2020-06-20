@@ -97,9 +97,6 @@ export default class AgentPoolService extends Service {
         id: 3,
         name: 'Dog',
         texture: 'dog',
-// health: 2,
-// maxHealth: 2,
-// healingPower: 1,
         scale: 1.5,
         animeframes: {
           rest: {key: 'dog-rest', start: 1, end: 3, rate: 3, repeat: -1},
@@ -120,7 +117,76 @@ export default class AgentPoolService extends Service {
         // }
       })
     );
-  }
+
+    // Pirate
+    baseAgentclone = Object.assign({}, this.baseAgent);
+    this.agentpool.set('pirate',
+      Object.assign(baseAgentclone, {
+        id: 3,
+        name: 'Pirate',
+        texture: 'pirate',
+        scale: 1.5,
+        animeframes: {
+          // rest: {key: 'pirate-rest', start: 1, end: 3, rate: 3, repeat: -1},
+          // attack: {key: 'dog-attack', start: 4, end: 5, rate: 12}
+          // attack: {key: 'pirate-attack', start: 3, end: 5, rate: 12, delays: { frameNum: 1, delay: 300 }}
+        },
+        inventory: [
+          // {
+          //   bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{itemId: 5100, droppable: false}], // tower
+          // },
+          {
+            bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5100, droppable: false } ]
+          }
+        ]
+
+        // patrol: {
+        //   tiles: [
+        //     // {x: 13, y: 4}, {x: 13, y: 2}
+        //   ]
+        // }
+      })
+    );
+
+    // Keep
+    baseAgentclone = Object.assign({}, this.baseAgent);
+    this.agentpool.set('keep',
+      Object.assign(baseAgentclone, {
+        id: 3,
+        name: 'Keep',
+        texture: 'keep',
+        offsets: {
+          img: { x: -1, y: -20 },
+          healthbar: { x: 0, y: -55 },
+          name: { x: 0, y: -85 },
+          damage: { x: 0, y: -85 }
+        },
+        scale: 1.4,
+        animeframes: {
+          // rest: {key: 'pirate-rest', start: 1, end: 3, rate: 3, repeat: -1},
+          // attack: {key: 'dog-attack', start: 4, end: 5, rate: 12}
+          // attack: {key: 'pirate-attack', start: 3, end: 5, rate: 12, delays: { frameNum: 1, delay: 300 }}
+        },
+        inventory: [
+          {
+            bodypart: constants.INVENTORY.BODYPART.RANGED, items:
+              [
+                { itemId: 5101 }  // Tower
+              ]
+          },
+        ]
+
+        // patrol: {
+        //   tiles: [
+        //     // {x: 13, y: 4}, {x: 13, y: 2}
+        //   ]
+        // }
+      })
+    );
+
+
+  } // end of populateAgentPool
+
 
   baseAgent = {
     id: 1,
@@ -134,7 +200,7 @@ export default class AgentPoolService extends Service {
 
     scale: 1,
 
-    speed: 200,
+    speed: 100,
     sightRange: 3,   // this is sight/movement Range
     movingPoints: 3,   // this is sight/movement Range
     visiblePoints: 8,   // this is sight/movement Range

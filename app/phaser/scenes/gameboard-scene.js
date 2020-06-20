@@ -319,9 +319,9 @@ export class GameboardScene extends Phaser.Scene {
         this.doors.add(door);
 
         this.board.addChess(door, doorObj.x, doorObj.y, this.ember.constants.TILEZ_DOORS);
-        if (doorObj.offset) {
-          door.x += doorObj.offset.x;
-          door.y += doorObj.offset.y;
+        if (doorObj.offsets && doorObj.offsets.img) {
+          door.x += doorObj.offsets.img.x;
+          door.y += doorObj.offsets.img.y;
         }
 
         door.rexChess.setBlocker();
@@ -333,7 +333,7 @@ export class GameboardScene extends Phaser.Scene {
   createSigns() {
     if (this.mapData.signs) {
       this.mapData.signs.forEach(signObj => {
-        console.log('SignObj', signObj)
+        // console.log('SignObj', signObj)
         // if (doorObj.hideIfCacheFound && this.ember.cache.isCacheFound(doorObj.hideIfCacheFound)) {
         //   // don't add door
         //   return;

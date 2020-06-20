@@ -2,7 +2,7 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
 import { computed } from '@ember/object';
-import { or } from '@ember/object/computed';
+// import { or } from '@ember/object/computed';
 
 export default class ChestDialogComponent extends Component {
   @service modals;

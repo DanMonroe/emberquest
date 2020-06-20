@@ -21,6 +21,7 @@ export default class AgentContainer extends BasePhaserAgentContainer {
 
     this.agent = agent;
     this.config = config;
+    // this.showPowerBar = true;
     this.showPowerBar = false;
     this.showLevel = true;
 
@@ -83,7 +84,13 @@ export default class AgentContainer extends BasePhaserAgentContainer {
   }
 
   setupSprite() {
-    const agentSprite = this.scene.add.sprite(0,0,this.config.texture);
+    const agentSprite = this.scene.add.sprite(0, 0, this.config.texture);
+    if (this.config.offsets.img) {
+      agentSprite.x += this.config.offsets.img.x;
+      agentSprite.y += this.config.offsets.img.y;
+    }
+    // agentSprite.x += 2;
+    // agentSprite.y += -20;
     agentSprite.setScale(this.config.scale);
 
     this.add(agentSprite);
@@ -598,7 +605,7 @@ console.log('      do transitionToMelee')
 
     if(this.patrol.method === this.ember.constants.PATROLMETHOD.STATIC) {
       if (this.engagePlayer.isIdle) {
-        this.engagePlayer.perform();
+        this.engagePlayer.perform(this);
       }
     } else {
 

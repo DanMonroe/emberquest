@@ -226,11 +226,12 @@ export default class GameManagerService extends Service {
       texture: 'player',
       textureSize: { width: 42, height: 42},
       // scale: 0.1,
-      scale: 1.5,
+      scale: .15,
+      // scale: 1.5,
       face: 0,
       coneMode: 'direction',
       cone: 6,
-      speed: 200,
+      speed: 125,
       // sightRange: 30,   // this is sight/movement Range
       sightRange: 3,   // this is sight/movement Range
       movingPoints: 3,   // this is sight/movement Range

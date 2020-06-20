@@ -42,7 +42,7 @@ export class BaseAgent {
     this.energizeSpeed = config.energizeSpeed || 3000;// how fast they recharge power
     this.energizePower = config.energizePower || 1;// how much power they recharge each time
 
-    for (let i = 0; i < constants.INVENTORY.TOTAL_BODYPARTS; i++) {
+    for (let i = 0; i < constants.INVENTORY.BODYPARTS.length; i++) {
       this.equippedSlot[i] = null;
     }
 

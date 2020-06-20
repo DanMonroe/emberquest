@@ -1,6 +1,9 @@
 import { helper } from '@ember/component/helper';
 
-export default helper(function inventoryItemName([inventoryService, player, bodyPart]) {
+export default helper(function inventoryItemName([inventoryService, player, bodyPart, cssClazz]) {
   const item = inventoryService.getEquippedSlot(player, bodyPart);
-  return item ? item.name : 'Empty'
+  if (cssClazz) {
+    return item ? item.cssClazz : '';
+  }
+  return item ? item.name : 'Empty';
 });

@@ -30,6 +30,12 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
 
     this.id = config.id;
     this.config = config;
+    this.config.offsets = config.offsets || {
+      img: { x: 0, y: 0 },
+      healthbar: { x: 0, y: 0 },
+      name: { x: 0, y: 0 },
+      damage: { x: 0, y: 0 }
+    };
 
     this.showHealthBar = config.showHealthBar !== undefined ? config.showHealthBar : true;
     this.showPowerBar = config.showPowerBar;
@@ -145,14 +151,14 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
 
 
   playDamageText(amount) {
-    let damageText = this.scene.add.text(-12, -30, amount, { font: this.damageFont, color: this.damageColor, fontStyle: "strong", stroke:this.damageColor, strokeThickness: 2 });
+    let damageText = this.scene.add.text(-12 + this.config.offsets.damage.x, -30 + this.config.offsets.damage.y, amount, { font: this.damageFont, color: this.damageColor, fontStyle: "strong", stroke:this.damageColor, strokeThickness: 2 });
     damageText.setDepth(230);
     this.add(damageText);
 
     let timeline = this.scene.tweens.createTimeline();
     timeline.add({
       targets: damageText,
-      y: -100,               // '+=100'
+      y: -100 + this.config.offsets.damage.y,               // '+=100'
       ease: 'sine.inout',       // 'Cubic', 'Elastic', 'Bounce', 'Back', 'Linear'
       duration: 800,
       repeat: 0            // -1: infinity
@@ -185,15 +191,13 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
   }
 
   updateHealthBar() {
-    // console.log('updateHealthBar this', this.agent.health, this.agent.maxHealth)
-    // const healthPercentage = (this.agent.health / this.agent.maxHealth);
     let healthPercentage = this.agent.health / this.agent.maxHealth;
     healthPercentage = healthPercentage <= 1 ? healthPercentage : 1;
     this.healthBar.clear();
     this.healthBar.fillStyle(0xffffff, 0.4);
-    this.healthBar.fillRect(this.x + this.ember.constants.healthBarOffsetX, this.y + this.ember.constants.healthBarOffsetY, this.ember.constants.healthBarWidth, this.ember.constants.healthBarHeight);
+    this.healthBar.fillRect(this.x + this.ember.constants.healthBarOffsetX + this.config.offsets.healthbar.x, this.y + this.ember.constants.healthBarOffsetY+ this.config.offsets.healthbar.y, this.ember.constants.healthBarWidth, this.ember.constants.healthBarHeight);
     this.healthBar.fillStyle(healthPercentage <= this.ember.constants.healthBarColorTippingPoint ? this.ember.constants.healthBarColorDanger : this.ember.constants.healthBarColorGood, 1);
-    this.healthBar.fillRect(this.x + this.ember.constants.healthBarOffsetX, this.y + this.ember.constants.healthBarOffsetY, this.ember.constants.healthBarWidth * healthPercentage, this.ember.constants.healthBarHeight);
+    this.healthBar.fillRect(this.x + this.ember.constants.healthBarOffsetX + this.config.offsets.healthbar.x, this.y + this.ember.constants.healthBarOffsetY + this.config.offsets.healthbar.y, this.ember.constants.healthBarWidth * healthPercentage, this.ember.constants.healthBarHeight);
     // console.log('this.healthBar', this.healthBar, this.id)
 
     if (this.showPowerBar) {

@@ -16,6 +16,9 @@ export default class InventoryDialogComponent extends Component {
   @tracked currentNavCategory = this.leftNavItems[0];
   @tracked itemSelected = null;
 
+  @tracked itemSlots = [];
+  @tracked equippedItems = [];
+
   @tracked inventoryItems;
 
   @tracked showToggleablePopover = false;
@@ -39,6 +42,8 @@ export default class InventoryDialogComponent extends Component {
     // this.inventoryItems = this.modals.top._data;
     this.resetAllToUnlock();
     this.itemSelected = this.filteredItems[0];
+    this.setEquippedItems();
+    this.setItemSlots();
   }
 
   // @computed
@@ -98,6 +103,34 @@ export default class InventoryDialogComponent extends Component {
     }
   }
 
+  setEquippedItems() {
+    let equippedItems = this.game.gameManager.player.container.agent.equippedInventory.map(item => {
+      // console.log('item', item)
+      return { img: item.img, cssClazz: item.cssClazz, bodypart: item.bodypart };
+    });
+    this.equippedItems = equippedItems;
+  }
+
+  // @computed('inventoryItems')
+  setItemSlots() {
+    const itemSlots = [];
+    for (let i = 0; i < constants.INVENTORY.BODYPARTS.length; i++) {
+      const item = this.inventory.getEquippedSlot(this.game.gameManager.player, constants.INVENTORY.BODYPARTS[i].part);
+      const itemObj = {
+        equipped: item !== null,
+        name: item ? item.name : 'Empty',
+        dataSlot: constants.INVENTORY.BODYPARTS[i].name,
+        text: constants.INVENTORY.BODYPARTS[i].text,
+        img: item ? item.img : null,
+        cssClazz: item ? item.cssClazz : null,
+        tooltipSide: constants.INVENTORY.BODYPARTS[i].tooltipSide,
+        textSide: constants.INVENTORY.BODYPARTS[i].tooltipSide === "left" ? "right" : "left"
+      }
+      itemSlots.push(itemObj)
+    }
+    this.itemSlots = itemSlots;
+  }
+
   // @computed('inventoryItems', 'currentNavCategory')
   get filteredItems() {
     const filteredByCategory = this.inventoryItems.filterBy('type', this.currentNavCategory.category);
@@ -109,6 +142,8 @@ export default class InventoryDialogComponent extends Component {
     this.currentNavCategory = category;
     this.resetAllToUnlock();
     this.itemSelected = this.filteredItems[0];
+    this.setEquippedItems();
+    this.setItemSlots();
   }
 
   @action
