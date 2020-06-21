@@ -18,5 +18,36 @@
       "getchestfirst": "<p>Entering the outpost will transport you out of this maze.  However, it works only if you have first collected the nearby chest.</p>"
 
     }
+  },
+  "quotes": {
+    "q0": "Old geocachers don't die - they just get archived.",
+    "q1": "Found it!",
+    "q2": "My favorite thing is to go where I've never been.",
+    "q3": "I'm not lost, I'm Geocaching!",
+    "q4": "Keep calm and go Geocaching",
+    "q5": "Geocaching is what happens when nerds go outdoors.",
+    "q6": "Fear no cache!",
+    "q7": "The world is our playing field.",
+    "q8": "Getting lost is not a waste of time.",
+    "q9": "WARNING There are muggles on the trail today.",
+    "q10": "Have GPS, will travel.",
+    "q11": "Not all who wander are lost.",
+    "q12": "If you hide it, they will come.",
+    "q13": "DNF Happens",
+    "q14": "If a tree falls in the woods, does it turn a 5/5 into a 1/1 ?",
+    "q15": "My muggle friends just don't understand.",
+    "q16": "A cache a day keeps the doctor away.",
+    "q17": "Been there.  Found that. Signed the log.",
+    "q18": "TFTC",
+    "q19": "Lost my car but found the geocache.",
+    "q20": "What do you mean there was a dry route to reach the cache?",
+    "q21": "I search for tupperware in the woods, what do you do for fun?",
+    "q22": "Finding geocaches is like a box of chocolates; you never know what you're going to get.",
+    "q23": "Do you want to keep searching or would you like to sign the log?",
+    "q24": "Exploring my world one box at a time.",
+    "q25": "We're lost, but we're making good time.",
+    "q26": "Recalculating...",
+    "q27": "I promise. I will be back before it gets dark.",
+    "q28": "It's easy once you know where to look."
   }
 }

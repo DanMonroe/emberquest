@@ -26,25 +26,27 @@
               <span class="gem gem-30{{if this.emberGameService.gameManager.countGems.isRunning " pulse"}}"></span>
               <span class="gems-count">{{if this.emberGameService.gameManager.player.gold this.emberGameService.gameManager.player.gold " "}}</span>
           </div>
-        <button type="button" class="btn inventory" {{on "click" (fn this.showInventory)}} >
-          <EmberTooltip tooltipClass="tooltip-controls" >Inventory</EmberTooltip>
-        </button>
-        <button type="button" class="btn trophy" {{on "click" (fn this.showCaches)}}>
-          <EmberTooltip tooltipClass="tooltip-controls" >Geocaches</EmberTooltip>
-        </button>
-        <button type="button" class="btn messages" {{on "click" (fn this.showGameMessagesDialog)}} >
-          <EmberTooltip tooltipClass="tooltip-controls" >Game Messages</EmberTooltip>
-        </button>
-        <button type="button" class="btn settings" {{on "click" (fn this.showConfigDialog)}} >
-          <EmberTooltip tooltipClass="tooltip-controls" >Settings & Help</EmberTooltip>
-        </button>
-        <button type="button" class="btn empty volume" {{on "click" (fn this.adjustVolume)}} >
-          <div class="glyphicon glyphicon-volume-{{this.volumeCSSClass}}"></div>
-          <EmberTooltip tooltipClass="tooltip-controls" >Volume</EmberTooltip>
-        </button>
+          <button type="button" class="btn inventory" {{on "click" (fn this.showInventory)}} >
+            <EmberTooltip tooltipClass="tooltip-controls" >Inventory</EmberTooltip>
+          </button>
+          <button type="button" class="btn trophy" {{on "click" (fn this.showCaches)}}>
+            <EmberTooltip tooltipClass="tooltip-controls" >Geocaches</EmberTooltip>
+          </button>
+          <button type="button" class="btn messages" {{on "click" (fn this.showGameMessagesDialog)}} >
+            <EmberTooltip tooltipClass="tooltip-controls" >Game Messages</EmberTooltip>
+          </button>
+          <button type="button" class="btn settings" {{on "click" (fn this.showConfigDialog)}} >
+            <EmberTooltip tooltipClass="tooltip-controls" >Settings & Help</EmberTooltip>
+          </button>
+          <button type="button" class="btn empty volume" {{on "click" (fn this.adjustVolume)}} >
+            <div class="glyphicon glyphicon-volume-{{this.volumeCSSClass}}"></div>
+            <EmberTooltip tooltipClass="tooltip-controls" >Volume</EmberTooltip>
+          </button>
 
+        </div>
       </div>
-    </div>
+
+      <LoadingScene />
 
       <EmberPhaser
         class="board"

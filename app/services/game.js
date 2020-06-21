@@ -360,6 +360,7 @@ export default class GameService extends Service {
         });
       } else {
         this.gameManager.pauseGame(true);
+        this.gameManager.loadingNewScene = true;
 
         // cancel all patrol tasks...
         // debugger;

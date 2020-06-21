@@ -113,6 +113,7 @@ export class GameboardScene extends Phaser.Scene {
     this.boardExperiments();
     this.ember.saveSceneData(this);
 
+    this.ember.gameManager.loadingNewScene = false;
     this.ember.gameManager.pauseGame(false);
     // this.musicAudio.play();
   }

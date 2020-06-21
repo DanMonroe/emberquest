@@ -106,7 +106,108 @@
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 1120;
 }
+$gc-yellow: #fffd1e;
+$gc-green: #49af27;
+$gc-blue: #048bb4;
+$gc-red: #fe5a02;
+$gc-black: #000;
 
+$color-0: #E9A129;	// Main Primary color */
+$color-1: #FFCE7D;
+$color-2: #F9BB53;
+$color-3: #C07E0F;
+$color-4: #995F00;
+
+@keyframes colorAnimation {
+  0% {
+    background-image:
+      linear-gradient(to right, $color-0, $color-1, $color-2, $color-3, $color-4);
+  }
+  20% {
+    background-image:
+      linear-gradient(to right, $color-1, $color-2, $color-3, $color-4, $color-0);
+  }
+  40% {
+    background-image:
+      linear-gradient(to right, $color-2, $color-3, $color-4, $color-0, $color-1);
+  }
+  60% {
+    background-image:
+      linear-gradient(to right, $color-3, $color-4, $color-0, $color-1, $color-2);
+  }
+  80% {
+    background-image:
+      linear-gradient(to right, $color-4, $color-0, $color-1, $color-2, $color-3);
+  }
+}
+
+
+.loading-scene {
+
+  .background {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85vw;
+    height: 75vh;
+    background-size: cover;
+    background: url(/images/backgrounds/loading_background_blank.png) center center;
+    background-repeat: no-repeat;
+
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .dialog {
+        margin: 280px 0;
+        background: url(/images/backgrounds/loading_dialog.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 30.5vh;
+        width: 37vh;
+
+        .progress-container {
+          position: relative;
+          top: 238px;
+          left: 108px;
+          width: 262px;
+          .progress-bar {
+            height: 18px;
+            background-image: linear-gradient(to right, $color-0, $color-1, $color-2, $color-3, $color-4);
+            transition: 0.4s linear;
+            transition-property: width, background-color;
+          }
+
+          .progress-infinite .progress-bar {
+            width: 100%;
+            background-image: linear-gradient(to right, $color-0, $color-1, $color-2, $color-3, $color-4);
+            animation: colorAnimation 4s infinite;
+          }
+
+        }
+        .quote-container {
+          position: relative;
+          color: #6f4300;
+          font-size: 1.2em;
+          top: 265px;
+          left: 48px;
+          width: 380px;
+          height: 4em;
+          display: flex;
+          height: 4em;
+          .quote {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 380px;
+          }
+        }
+      }
+    }
+  }
+}
 
 
 

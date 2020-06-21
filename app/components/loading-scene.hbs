@@ -1,0 +1,21 @@
+{{#if this.gameManager.loadingNewScene}}
+  <div class="loading-scene" {{did-insert this.getQuote}}>
+    <div class="background">
+
+      <div class="container">
+        <div class="dialog">
+          <div class="progress-container">
+            <div class="progress progress-infinite">
+              <div class="progress-bar" ></div>
+            </div>
+          </div>
+          <div class="quote-container">
+            <div class="quote">
+              {{this.quote}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{{/if}}

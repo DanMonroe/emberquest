@@ -18,6 +18,7 @@ export default class GameManagerService extends Service {
   @tracked volume = 0;
 
   @tracked gamePaused = true;
+  @tracked loadingNewScene = false;
 
   counterSpeed = 1000;
   // @tracked levelStartXP;
