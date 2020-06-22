@@ -10,12 +10,12 @@
       "msg2": "<p>Another cool sign</p>",
 
       "castle1": "<p>You have found a locked gate.</p><p>Find a chest and this gate will unlock.</p>",
-
       "castle2": "<h4>Welcome To EmberQuest!</h4><p>Unfortunately, this castle has seen happier times.  Someone, or something, has stolen the Enchanted Ember that fuels the eternal flame in the brazier above you. It protected this land from creatures who threaten our peace and safety. Now they roam freely without challenge.</p><p>Return the Ember to its chamber and the treasure to your South is yours as a reward!</p><p>Be safe young traveller!</p>",
-
       "castle3": "<p>This gate will be unlocked from the outside.</p>",
 
-      "getchestfirst": "<p>Entering the outpost will transport you out of this maze.  However, it works only if you have first collected the nearby chest.</p>"
+      "getchestfirst": "<p>Entering the outpost will transport you out of this maze.  However, it works only if you have first collected the nearby chest.</p>",
+
+      "lavawarning": "<h4>Warning!</h4><p>Lava ahead, watch your step!</p>"
 
     }
   },
@@ -48,6 +48,7 @@
     "q25": "We're lost, but we're making good time.",
     "q26": "Recalculating...",
     "q27": "I promise. I will be back before it gets dark.",
-    "q28": "It's easy once you know where to look."
+    "q28": "It's easy once you know where to look.",
+    "q29": "That's an interesting idea"
   }
 }

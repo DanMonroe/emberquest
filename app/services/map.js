@@ -1,44 +1,9 @@
 import Service from '@ember/service';
 import { constants } from 'emberquest/services/constants';
-// import a1 from '../phaser/scenes/tiledata/a1';
-// import arena from '../phaser/scenes/tiledata/arena';
-// import intro from '../phaser/scenes/tiledata/intro';
-// import intro2 from '../phaser/scenes/tiledata/intro2';
-// import intro3 from '../phaser/scenes/tiledata/intro3';
-// // import cave1 from '../phaser/scenes/tiledata/cave1';
-// // import landsea from '../phaser/scenes/tiledata/landsea'
-// import play from '../phaser/scenes/tiledata/play'
-
-
-// import {play} from './../node_modules/map-data/play';
-// import {cave1} from './../node_modules/map-data/cave1';
 
 export default class MapService extends Service {
 
   constants = constants;
-
-  // getMapData(mapToLoad) {
-  //   switch (mapToLoad) {
-  //     case 'a1':
-  //       return a1;
-  //     case 'arena':
-  //       return arena;
-  //     case 'intro':
-  //       return intro;
-  //     case 'intro2':
-  //       return intro2;
-  //     case 'intro3':
-  //       return intro3;
-  //     // case 'cave1':
-  //     //   return cave1;
-  //     // case 'landsea':
-  //     //   return landsea;
-  //     case 'play':
-  //       return play;
-  //     default:
-  //       return null;
-  //   }
-  // }
 
   async getMap(mapToLoad) {
     //  Build Error:  ember-auto-import only supports dynamic import() with a string literal argument.
@@ -59,6 +24,9 @@ export default class MapService extends Service {
         break;
       case 'm4':
         result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/m4');
+        break;
+      case 'm4-cabin':
+        result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/m4-cabin');
         break;
       case 'm5':
         result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/m5');

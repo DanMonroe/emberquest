@@ -909,6 +909,7 @@ export class InventoryItems {
         bodypart: constants.INVENTORY.BODYPART.FEET,
         name: 'Dragon Boots',
         img: '/images/items/dragon/boots.png',
+        imgDoll: '/images/items/dragon/boots_doll.png',
         cssClazz: 'feet dragon',
         description: 'Exquisite boots made from the scales of a fire dragon.',
         stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
@@ -927,6 +928,7 @@ export class InventoryItems {
         bodypart: constants.INVENTORY.BODYPART.HEAD,
         name: 'Dragon Helmet',
         img: '/images/items/dragon/head.png',
+        imgDoll: '/images/items/dragon/head_doll.png',
         cssClazz: 'head dragon',
         description: 'Exquisite helmet made from the scales of a fire dragon.',
         stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
@@ -989,7 +991,7 @@ export class InventoryItems {
         bodypart: constants.INVENTORY.BODYPART.GLOVES,
         name: 'Dragon Gloves',
         img: '/images/items/dragon/gloves.png',
-        cssClazz: 'gloves dragon',
+        cssClazz: 'hide',
         description: 'TODO',
         stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
         resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 50})]
@@ -1007,7 +1009,7 @@ export class InventoryItems {
         bodypart: constants.INVENTORY.BODYPART.NECK,
         name: 'Fire Amulet',
         img: '/images/items/dragon/neck.png',
-        cssClazz: 'neck dragon',
+        cssClazz: 'hide',
         description: 'TODO',
         stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
         resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 50})]
@@ -1025,6 +1027,7 @@ export class InventoryItems {
         bodypart: constants.INVENTORY.BODYPART.FINGERS,
         name: 'Dragon Ring',
         img: '/images/items/dragon/ring.png',
+        imgDoll: '/images/items/dragon/ring_doll.png',
         cssClazz: 'fingers dragon',
         description: 'TODO',
         stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
@@ -1044,6 +1047,24 @@ export class InventoryItems {
         name: 'Dragon Plate',
         img: '/images/items/dragon/shield.png',
         cssClazz: 'shield dragon',
+        description: 'TODO',
+        stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
+        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 50})]
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: 2008,
+        owned: false,
+        display: true,
+        locked: false,
+        price: 0,
+        // price: 550,
+        type: constants.INVENTORY.TYPE.ARMOR,
+        bodypart: constants.INVENTORY.BODYPART.ARMS,
+        name: 'Dragon Bracers',
+        img: '/images/items/dragon/arms.png',
+        cssClazz: 'hide',
         description: 'TODO',
         stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
         resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 50})]

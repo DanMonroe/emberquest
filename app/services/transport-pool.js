@@ -99,7 +99,7 @@ export default class TransportPoolService extends Service {
     texture: 'cutter',
     textureSize: { width: 42, height: 42},
     scale: 1,
-    speed: 200,
+    speed: 125,
     sightRange: 3,   // this is sight/movement Range
     movingPoints: 3,   // this is sight/movement Range
     visiblePoints: 8,   // this is sight/movement Range

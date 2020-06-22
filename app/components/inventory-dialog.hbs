@@ -12,15 +12,19 @@
   <div class="inventory-list">
     <div class="pane">
       {{#if (eq this.currentNavCategory.category this.constants.INVENTORY.TYPE.STATS)}}
-        <div class="doll">
-          <img class="torso" src="/images/inventory/doll_f2.png "/>
-          <img class="hair" src="/images/inventory/hair_f2.png "/>
-          <img class="head" src="/images/inventory/head_f2.png "/>
-          <img class="thumb" src="/images/inventory/flesh_thumb_f2.png "/>
+        <div class="doll {{this.equippedItemsCSSWrapper}}">
+          <img class="base_torso" src="/images/inventory/doll_f2.png "/>
+          <img class="base_hair" src="/images/inventory/hair_f2.png "/>
+          <img class="base_head" src="/images/inventory/head_f2.png "/>
+          <img class="base_thumb" src="/images/inventory/flesh_thumb_f2.png "/>
 
           {{#each this.equippedItems as |equippedItem|}}
             {{#if (not-eq equippedItem.bodypart this.constants.INVENTORY.BODYPART.RANGED)}}
-              <img src="{{equippedItem.img}}" class="doll-image {{equippedItem.cssClazz}}">
+              {{#if equippedItem.imgDoll}}
+                <img src="{{equippedItem.imgDoll}}" class="doll-image {{equippedItem.cssClazz}}">
+              {{else}}
+                <img src="{{equippedItem.img}}" class="doll-image {{equippedItem.cssClazz}}">
+              {{/if}}
             {{/if}}
           {{/each}}
           {{#each this.itemSlots as |itemSlot|}}
@@ -36,36 +40,6 @@
               </div>
             </div>
           {{/each}}
-<!--          <div data-slot="head" class="item-slot">-->
-<!--            <div class="placeholder"><div class="itemdesc">{{!inventory-item-name this.inventory this.player this.constants.INVENTORY.BODYPART.HEAD}}<EmberTooltip @side="right">Head</EmberTooltip></div></div>-->
-<!--          </div>-->
-<!--          <div data-slot="body" class="item-slot">-->
-<!--            <div class="placeholder"><div class="itemdesc">{{!inventory-item-name this.inventory this.player this.constants.INVENTORY.BODYPART.BODY}}<EmberTooltip @side="right">Body</EmberTooltip></div></div>-->
-<!--          </div>-->
-<!--          <div data-slot="feet" class="item-slot">-->
-<!--            <div class="placeholder"><div class="itemdesc">{{!inventory-item-name this.inventory this.player this.constants.INVENTORY.BODYPART.FEET}}<EmberTooltip @side="right">Feet</EmberTooltip></div></div>-->
-<!--          </div>-->
-<!--          <div data-slot="arms" class="item-slot">-->
-<!--            <div class="placeholder"><div class="itemdesc right">{{!inventory-item-name this.inventory this.player this.constants.INVENTORY.BODYPART.ARMS}}<EmberTooltip @side="left">Arms</EmberTooltip></div></div>-->
-<!--          </div>-->
-<!--          <div data-slot="lefthand" class="item-slot">-->
-<!--            <div class="placeholder"><div class="itemdesc right">{{!inventory-item-name this.inventory this.player this.constants.INVENTORY.BODYPART.LEFT_HAND}}<EmberTooltip @side="left">Left Hand</EmberTooltip></div></div>-->
-<!--          </div>-->
-<!--          <div data-slot="righthand" class="item-slot">-->
-<!--            <div class="placeholder"><div class="itemdesc">{{!inventory-item-name this.inventory this.player this.constants.INVENTORY.BODYPART.RIGHT_HAND}}<EmberTooltip @side="right">Right Hand</EmberTooltip></div></div>-->
-<!--          </div>-->
-<!--          <div data-slot="neck" class="item-slot">-->
-<!--            <div class="placeholder"><div class="itemdesc right">{{!inventory-item-name this.inventory this.player this.constants.INVENTORY.BODYPART.NECK}}<EmberTooltip @side="left">Neck</EmberTooltip></div></div>-->
-<!--          </div>-->
-<!--          <div data-slot="fingers" class="item-slot">-->
-<!--            <div class="placeholder"><div class="itemdesc right">{{!inventory-item-name this.inventory this.player this.constants.INVENTORY.BODYPART.FINGERS}}<EmberTooltip @side="left">Fingers</EmberTooltip></div></div>-->
-<!--          </div>-->
-<!--          <div data-slot="gloves" class="item-slot">-->
-<!--            <div class="placeholder"><div class="itemdesc">{{!inventory-item-name this.inventory this.player this.constants.INVENTORY.BODYPART.GLOVES}}<EmberTooltip @side="right">Gloves</EmberTooltip></div></div>-->
-<!--          </div>-->
-<!--          <div data-slot="ranged" class="item-slot">-->
-<!--            <div class="placeholder {{!inventory-item-name this.inventory this.player this.constants.INVENTORY.BODYPART.RANGED true}}"><div class="itemdesc right">{{!inventory-item-name this.inventory this.player this.constants.INVENTORY.BODYPART.RANGED}}<EmberTooltip @side="left">Ranged Weapon</EmberTooltip></div></div>-->
-<!--          </div>-->
         </div>
       {{else}}
         <div class="scroll">

@@ -190,8 +190,7 @@ export class GameboardScene extends Phaser.Scene {
     // ]);
     console.table([
       {
-        x: allAttrs.x,
-        y: allAttrs.y,
+        tile: `  'x': ${allAttrs.x}, 'y': ${allAttrs.y}  `,
         sightCost: allAttrs.sightCost,
         sightFlags: allAttrs.sightFlags,
         speedCost: allAttrs.speedCost,

@@ -22,7 +22,7 @@ export default class MessagesService extends Service {
   }
 
 
-  numQuotes = 29;
+  numQuotes = 30;
 
   getRandomQuote() {
     return this.intl.t(`quotes.q${Math.floor(Math.random() * this.numQuotes)}`);

@@ -103,10 +103,21 @@ export default class InventoryDialogComponent extends Component {
     }
   }
 
+  get equippedItemsCSSWrapper() {
+    let cssWrapper = '';
+    this.equippedItems.forEach(item => {
+      if (cssWrapper.length > 0) {
+        cssWrapper += ' ';
+      }
+      cssWrapper += item.cssClazz;
+    });
+    return cssWrapper;
+  }
+
   setEquippedItems() {
     let equippedItems = this.game.gameManager.player.container.agent.equippedInventory.map(item => {
       // console.log('item', item)
-      return { img: item.img, cssClazz: item.cssClazz, bodypart: item.bodypart };
+      return { img: item.img, imgDoll: item.imgDoll, cssClazz: item.cssClazz, bodypart: item.bodypart };
     });
     this.equippedItems = equippedItems;
   }
@@ -122,6 +133,7 @@ export default class InventoryDialogComponent extends Component {
         dataSlot: constants.INVENTORY.BODYPARTS[i].name,
         text: constants.INVENTORY.BODYPARTS[i].text,
         img: item ? item.img : null,
+        imgDoll: item ? item.imgDoll : null,
         cssClazz: item ? item.cssClazz : null,
         tooltipSide: constants.INVENTORY.BODYPARTS[i].tooltipSide,
         textSide: constants.INVENTORY.BODYPARTS[i].tooltipSide === "left" ? "right" : "left"

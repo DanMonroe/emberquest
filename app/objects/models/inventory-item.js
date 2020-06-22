@@ -19,6 +19,7 @@ export class InventoryItem {
   bodypart;  // where the item can be equipped
 
   @tracked img;
+  @tracked imgDoll;
   @tracked projectileImg;
   @tracked velocity;
   @tracked price;

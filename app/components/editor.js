@@ -122,7 +122,7 @@ export default {
       startY: 3
   },
 
-  mapUrl: '/images/maps/${this.mapImage}.png',
+  mapUrl: '/images/maps/${this.mapImageName}.png',
 
   chests: [
     // {id: 1, x: 10, y: 3, gccode: 'GC002', gold: 20, specialActions: [], inventory: [2002]}
@@ -415,15 +415,15 @@ export default {
   getSightFlags(terrain) {
     let sightFlags = 0;
 
-    const terrainParts = this.getWesnothTerrainParts(terrain);
-
-    switch (terrainParts.primary) {
-    // switch (terrainParts.secondary) {
-      case this.WESNOTH.IMPASSABLE:
-        sightFlags |= this.constants.FLAGS.SIGHT.IMPASSABLE.value;
-        break;
-      default:
-    }
+    // const terrainParts = this.getWesnothTerrainParts(terrain);
+    //
+    // switch (terrainParts.primary) {
+    // // switch (terrainParts.secondary) {
+    //   case this.WESNOTH.IMPASSABLE:
+    //     sightFlags |= this.constants.FLAGS.SIGHT.IMPASSABLE.value;
+    //     break;
+    //   default:
+    // }
 
     return sightFlags;
   }
