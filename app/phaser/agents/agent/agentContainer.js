@@ -49,12 +49,12 @@ export default class AgentContainer extends BasePhaserAgentContainer {
       }
 
       const allattrs = this.ember.map.getTileAttribute(pathFinder.scene, targetTile);
-      let canMove = this.ember.playerHasAbilityFlag(this, this.ember.constants.FLAG_TYPE_TRAVEL, allattrs.travelFlags);
+      let canMove = this.ember.playerHasAbilityFlag(this, this.ember.constants.FLAG_TYPE_TRAVEL, allattrs.tF);
 
       if (!canMove) {
         // console.log('cant move! targetTile', targetTile, 'travelFlags', allattrs.travelFlags, 'w', allattrs.wesnoth);
       } else if ( ! this.boardedTransport) {  // don't adjust speed/power when on a transport
-        this.moveToObject.setSpeed(config.speed * allattrs.speedCost);
+        this.moveToObject.setSpeed(config.speed * allattrs.spdC);
       }
 
       return canMove;
@@ -65,7 +65,7 @@ export default class AgentContainer extends BasePhaserAgentContainer {
       pathMode: 'A*',
       blockerTest: true,
       costCallback: (curTile, targetTile, pathFinder) => {
-        const travelFlags = this.ember.map.getTileAttribute(pathFinder.chessData.board.scene, targetTile, 'travelFlags');
+        const travelFlags = this.ember.map.getTileAttribute(pathFinder.chessData.board.scene, targetTile, 'tF');
         const canMove = this.ember.playerHasAbilityFlag(this, this.ember.constants.FLAG_TYPE_TRAVEL, travelFlags);
 
         return canMove ? 1 : undefined; // undefined is a "blocker"
@@ -659,7 +659,7 @@ console.log('      do transitionToMelee')
     let canMove = false;
     if (neighborChessTile) {
       const allattrs = this.ember.map.getTileAttribute(this.scene, neighborChessTile);
-      canMove = this.ember.playerHasAbilityFlag(this, this.ember.constants.FLAG_TYPE_TRAVEL, allattrs.travelFlags);
+      canMove = this.ember.playerHasAbilityFlag(this, this.ember.constants.FLAG_TYPE_TRAVEL, allattrs.tF);
     }
 
     if (!canMove) {

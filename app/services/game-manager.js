@@ -261,15 +261,15 @@ export default class GameManagerService extends Service {
       playerAttackAudio: undefined, // when ready, get from Boot scene  --- actually should get from the weapon the player is using.
 
       flagAttributes: {
-        sightFlags: (this.storedData.storedPlayerAttrs && this.storedData.storedPlayerAttrs.sightFlags) || 0,
-        travelFlags: (this.storedData.storedPlayerAttrs && this.storedData.storedPlayerAttrs.travelFlags) || this.ember.constants.FLAGS.TRAVEL.LAND.value
+        sF: (this.storedData.storedPlayerAttrs && this.storedData.storedPlayerAttrs.sF) || 0,
+        tF: (this.storedData.storedPlayerAttrs && this.storedData.storedPlayerAttrs.tF) || this.ember.constants.FLAGS.TRAVEL.LAND.value
       },
 
       storedPlayerAttrs: this.storedData.storedPlayerAttrs,
 
       costCallback:  (tileXY) => {
 
-        let totalSightCost = this.ember.map.getTileAttribute(this.scene, tileXY, 'sightCost');
+        let totalSightCost = this.ember.map.getTileAttribute(this.scene, tileXY, 'sC');
 
         // can't see past this hex (but CAN see this hex)
         if (totalSightCost === this.ember.constants.FLAGS.SIGHT.IMPASSABLE.value) {
@@ -277,8 +277,8 @@ export default class GameManagerService extends Service {
         }
 
         if (this.ember.map.tileIsDoor(this.scene, tileXY)) {
-          const portalSpecialAttr = this.ember.map.getTileAttribute(this.scene, tileXY, 'special');
-          totalSightCost += portalSpecialAttr.sightCost;
+          const portalSpecialAttr = this.ember.map.getTileAttribute(this.scene, tileXY, 'spcl');
+          totalSightCost += portalSpecialAttr.sC;
         }
         // console.log('wesnoth', wesnoth, 'totalSightCost', totalSightCost, tileXY)
         // let wesnoth = this.ember.map.getTileAttribute(this.scene, tileXY, 'w');

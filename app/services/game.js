@@ -524,7 +524,7 @@ export default class GameService extends Service {
     if (!tileSpecialData || !tileSpecialData.showIf) {
       return true;
     }
-    // 'special': {value: constants.FLAGS.SPECIAL.MESSAGE.value, id: 1, msg:'intro.id1', repeat: true,
+    // 'spcl': {value: constants.FLAGS.SPECIAL.MESSAGE.value, id: 1, msg:'intro.id1', repeat: true,
     // showIf: {value: constants.SHOW_MESSAGE_WHEN.DOOR_EXISTS.value, data: { door_id:1, tileXY: {x: 11, y: 4} }}}
     let shapes;
     // Going to be a lot of very specific scenarios
@@ -555,9 +555,9 @@ export default class GameService extends Service {
     if (flag) {
       switch (type) {
         case this.constants.FLAG_TYPE_TRAVEL:
-          return attrs['travelFlags'] & flag;
+          return attrs['tF'] & flag;
         case this.constants.FLAG_TYPE_VISIBILITY:
-          return attrs['sightFlags'] & flag;
+          return attrs['sF'] & flag;
         default:
       }
     }
@@ -570,7 +570,7 @@ export default class GameService extends Service {
         flag = flag.value;
       }
       if(flag) {
-        player.data.get('attrs').travelFlags |= flag;
+        player.data.get('attrs').tF |= flag;
       }
     }
   }
@@ -581,7 +581,7 @@ export default class GameService extends Service {
         flag = flag.value;
       }
       if (flag) {
-        player.data.get('attrs').travelFlags &= ~flag;
+        player.data.get('attrs').tF &= ~flag;
       }
     }
   }
@@ -644,7 +644,7 @@ export default class GameService extends Service {
     switch (specialAction.value) {
       case this.constants.SPECIAL_ACTIONS.REMOVE_SIGHT_COST.value:  // data: { tileXY: {x: 11, y: 3 }}
         // find the tile, set its sightCost to 0;
-        scene.game.ember.map.getTileAttribute(scene, specialAction.data.tileXY).special.sightCost = 0;
+        scene.game.ember.map.getTileAttribute(scene, specialAction.data.tileXY).spcl.sC = 0;
         break;
       case this.constants.SPECIAL_ACTIONS.REMOVE_DOOR.value: // data: { door_id:1, tileXY: {x: 11, y: 4} }
         doorShapes = scene.game.ember.map.getGameObjectsAtTileXY(scene.board, specialAction.data.tileXY, scene.game.ember.constants.SHAPE_TYPE_DOOR);

@@ -225,8 +225,8 @@ export default class AgentPoolService extends Service {
     // levelRange: 2, +/- 2 levels from player
 
     flagAttributes: {
-      sightFlags: 0,
-      travelFlags: 2
+      sF: 0,
+      tF: 2
     },
     patrol: {
       // timeout: 200,

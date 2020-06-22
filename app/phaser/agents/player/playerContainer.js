@@ -78,7 +78,7 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
       }
 
       const allattrs = this.ember.map.getTileAttribute(pathFinder.scene, targetTile);
-      let canMove = this.ember.playerHasAbilityFlag(pathFinder.scene.player.container, this.ember.constants.FLAG_TYPE_TRAVEL, allattrs.travelFlags);
+      let canMove = this.ember.playerHasAbilityFlag(pathFinder.scene.player.container, this.ember.constants.FLAG_TYPE_TRAVEL, allattrs.tF);
 // console.log('moveableTestCallback ', targetTile)
       if (!canMove) {
         // console.log('cant move! targetTile', targetTile, 'travelFlags', allattrs.travelFlags, 'w', allattrs.wesnoth);
@@ -100,9 +100,9 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
         }
       } else if ( ! this.boardedTransport) {  // don't adjust speed/power when on a transport
 
-        this.moveToObject.setSpeed(config.speed * allattrs.speedCost);
+        this.moveToObject.setSpeed(config.speed * allattrs.spdC);
 
-        this.agent.power -= (2 - allattrs.speedCost);
+        this.agent.power -= (2 - allattrs.spdC);
 
         // if (this.power <= 2) {
         //   console.log('No power to move!')
@@ -121,7 +121,7 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
       blockerTest: true,
       costCallback: (curTile, targetTile, pathFinder) => {
         // pathFinder.gameObject is 'this'  i.e., this Player object
-        const travelFlags = this.ember.map.getTileAttribute(pathFinder.chessData.board.scene, targetTile, 'travelFlags');
+        const travelFlags = this.ember.map.getTileAttribute(pathFinder.chessData.board.scene, targetTile, 'tF');
         console.error('pathFinder costCallback', curTile, targetTile, pathFinder, travelFlags);
 
 

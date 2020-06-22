@@ -110,8 +110,8 @@ export default class TransportPoolService extends Service {
     // energizePower: 20,
     // energizeSpeed: 3000,
     flagAttributes: {
-      sightFlags: 0,
-      travelFlags: 1
+      sF: 0,
+      tF: 1
     },
 
     animeframes: {},

@@ -68,10 +68,12 @@
                     </button>
                   {{/if}}
                 {{else}}
-                  <span class="cost"><img src="/images/gem.png"><span class="big-font">{{item.price}}</span></span>
-                  <button type="button" class="btn unlock-button big-font{{if item.confirmUnlock " confirm"}}{{if (gt item.price this.game.gameManager.player.gold) " too-expensive"}}" {{on "click" (fn this.unlockItem item)}}>
-                    {{item.unlockText}}
-                  </button>
+                  {{#if item.price}}
+                    <span class="cost"><img src="/images/gem.png"><span class="big-font">{{item.price}}</span></span>
+                    <button type="button" class="btn unlock-button big-font{{if item.confirmUnlock " confirm"}}{{if (gt item.price this.game.gameManager.player.gold) " too-expensive"}}" {{on "click" (fn this.unlockItem item)}}>
+                      {{item.unlockText}}
+                    </button>
+                  {{/if}}
                 {{/if}}
               </div>
             </div>

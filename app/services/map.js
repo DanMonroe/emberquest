@@ -115,7 +115,7 @@ export default class MapService extends Service {
     board.forEachTileXY((tileXY, board) => {
 
       if(config.showHexInfo) {
-        const travelFlags = this.getTileAttribute(scene, tileXY, 'travelFlags');
+        const travelFlags = this.getTileAttribute(scene, tileXY, 'tF');
 
         const points = board.getGridPoints(tileXY.x, tileXY.y, true);
         graphics.strokePoints(points, true);
@@ -290,7 +290,7 @@ export default class MapService extends Service {
   }
 
   getTileSpecial(scene, tileXY) {
-    return this.getTileAttribute(scene, tileXY, 'special');
+    return this.getTileAttribute(scene, tileXY, 'spcl');
   }
 
   tileIsPortal(scene, tileXY) {
@@ -306,7 +306,7 @@ export default class MapService extends Service {
   }
 
   tileHasGivenSpecialAttribute(scene, tileXY, specialAttribute) {
-    const specialAttr = this.getTileAttribute(scene, tileXY, 'special');
+    const specialAttr = this.getTileAttribute(scene, tileXY, 'spcl');
     if (!specialAttr) {
       return false;
     }

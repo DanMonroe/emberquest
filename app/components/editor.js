@@ -156,6 +156,14 @@ export default {
       mapSource += `    [
         `;
 
+
+      // 'sC':  sightCost
+      // 'sF':  sightFlags
+      // 'spdC':  speedCost
+      // 'tF': travelFlags
+      // 'w':          wesnoth
+      // 'spcl':    special
+      //
       let col = 0;
       terrainRow.forEach((terrainText) => {
         const travelFlags = this.getTravelFlags(terrainText);
@@ -163,7 +171,7 @@ export default {
         const sightFlags = this.getSightFlags(terrainText);
         const sightCost = this.getSightCost(terrainText);
         const special = this.getSpecial(terrainText, row, col);
-        mapSource += `{'x': ${col}, 'y': ${row}, 'sightCost': ${sightCost}, 'sightFlags': ${sightFlags}, 'speedCost': ${speedCost}, 'travelFlags': ${travelFlags}, 'w': '${terrainText.replace(/\\/g,"\\\\")}', 'special': ${special} },
+        mapSource += `{'x': ${col}, 'y': ${row}, 'sC': ${sightCost}, 'sF': ${sightFlags}, 'spdC': ${speedCost}, 'tF': ${travelFlags}, 'w': '${terrainText.replace(/\\/g,"\\\\")}', 'spcl': ${special} },
     `;
         col++;
       });

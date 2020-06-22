@@ -903,7 +903,7 @@ export class InventoryItems {
         owned: false,
         display: true,
         locked: false,
-        price: 0,
+        price: 1,
         // price: 550,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.FEET,
@@ -922,7 +922,7 @@ export class InventoryItems {
         owned: false,
         display: true,
         locked: false,
-        price: 0,
+        price: 1,
         // price: 550,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.HEAD,
@@ -941,7 +941,7 @@ export class InventoryItems {
         owned: false,
         display: true,
         locked: false,
-        price: 0,
+        price: 1,
         // price: 550,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.BODY,
@@ -958,7 +958,7 @@ export class InventoryItems {
         id: 2003,
         owned: false,
         display: true,
-        price: 0  ,
+        price: 1,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
         name: 'Runesword',
@@ -985,7 +985,7 @@ export class InventoryItems {
         owned: false,
         display: true,
         locked: false,
-        price: 0,
+        price: 1,
         // price: 550,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.GLOVES,
@@ -1003,7 +1003,7 @@ export class InventoryItems {
         owned: false,
         display: true,
         locked: false,
-        price: 0,
+        price: 1,
         // price: 550,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.NECK,
@@ -1021,11 +1021,11 @@ export class InventoryItems {
         owned: false,
         display: true,
         locked: false,
-        price: 0,
+        price: 1,
         // price: 550,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.FINGERS,
-        name: 'Dragon Ring',
+        name: 'Dragonbone Ring',
         img: '/images/items/dragon/ring.png',
         imgDoll: '/images/items/dragon/ring_doll.png',
         cssClazz: 'fingers dragon',
@@ -1040,7 +1040,7 @@ export class InventoryItems {
         owned: false,
         display: true,
         locked: false,
-        price: 0,
+        price: 1,
         // price: 550,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.LEFT_HAND,
@@ -1058,7 +1058,7 @@ export class InventoryItems {
         owned: false,
         display: true,
         locked: false,
-        price: 0,
+        price: 1,
         // price: 550,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.ARMS,
@@ -1081,6 +1081,20 @@ export class InventoryItems {
         type: constants.INVENTORY.TYPE.NONDISPLAY,
         name: 'North Castle Gate Key',
         img: '/images/items/key.png'
+      })
+    );
+
+    // The final Ember item
+    items.push(
+      new InventoryItem({
+        id: 2600,
+        owned: false,
+        display: true,
+        type: constants.INVENTORY.TYPE.OTHER,
+        name: 'Royal Ember',
+        img: '/images/items/dragon/arms.png',
+        description: 'TODO',
+        stats: []
       })
     );
 
