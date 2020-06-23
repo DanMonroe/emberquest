@@ -175,12 +175,32 @@ export default class AgentPoolService extends Service {
               ]
           },
         ]
+      })
+    );
 
-        // patrol: {
-        //   tiles: [
-        //     // {x: 13, y: 4}, {x: 13, y: 2}
-        //   ]
-        // }
+    // Keep
+    baseAgentclone = Object.assign({}, this.baseAgent);
+    this.agentpool.set('desert_keep_2',
+      Object.assign(baseAgentclone, {
+        id: 4,
+        name: 'Desert Keep',
+        texture: 'desert_keep',
+        offsets: {
+          img: { x: -1, y: -25 },
+          healthbar: { x: 0, y: -55 },
+          name: { x: 0, y: -85 },
+          damage: { x: 0, y: -85 }
+        },
+        scale: 1.5,
+        animeframes: {},
+        inventory: [
+          {
+            bodypart: constants.INVENTORY.BODYPART.RANGED, items:
+              [
+                { itemId: 5101 }  // Tower
+              ]
+          },
+        ]
       })
     );
 

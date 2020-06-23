@@ -106,6 +106,7 @@ export class BootScene extends Phaser.Scene {
 
     // Agents
     this.load.image('keep', '/images/agents/keep.png');
+    this.load.image('desert_keep', '/images/agents/desert_keep.png');
     this.load.image('pirate', '/images/agents/pirate-galleon.png');
 
     // signs

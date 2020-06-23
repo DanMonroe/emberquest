@@ -19,6 +19,9 @@ export default class MapService extends Service {
       case 'm2':
         result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/m2');
         break;
+      case 'm2_pyramid':
+        result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/m2_pyramid');
+        break;
       case 'm3':
         result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/m3');
         break;

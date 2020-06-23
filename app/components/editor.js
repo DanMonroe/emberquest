@@ -122,7 +122,7 @@ export default {
       startY: 3
   },
 
-  mapUrl: '/images/maps/${this.mapImageName}.png',
+  mapUrl: '/images/maps/${this.mapImageName}',
 
   chests: [
     // {id: 1, x: 10, y: 3, gccode: 'GC002', gold: 20, specialActions: [], inventory: [2002]}
@@ -383,9 +383,11 @@ export default {
     const terrainParts = this.getWesnothTerrainParts(terrain);
 
     switch (terrainParts.primary) {
+      // case this.WESNOTH.MOUNTAIN:
+      //   sightCost += 4;
+      //   break;
       case this.WESNOTH.MOUNTAIN:
-        sightCost += 4;
-        break;
+      case this.WESNOTH.KEEP:
       case this.WESNOTH.IMPASSABLE:
         // sightCost += 6;
         // break;
@@ -393,6 +395,7 @@ export default {
         return;
 
       default:
+        break;
     }
 
     switch (terrainParts.secondary) {

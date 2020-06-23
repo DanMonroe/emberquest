@@ -91,6 +91,13 @@ export default class TransportPoolService extends Service {
         scale: 1.4,
       })
     );
+    this.transportpool.set('m5_1',
+      Object.assign(Object.assign({}, this.baseTransport), {
+        id: 1307,
+        texture: 'cutter',
+        scale: 1.4,
+      })
+    );
 
   }
 
