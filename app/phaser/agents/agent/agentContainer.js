@@ -106,7 +106,7 @@ export default class AgentContainer extends BasePhaserAgentContainer {
       agentSprite.y += this.config.offsets.img.y;
     }
 
-    console.log('sprite config', this.config)
+    // console.log('sprite config', this.config)
     agentSprite.setScale(this.config.scale);
 
     this.add(agentSprite);
@@ -229,7 +229,7 @@ export default class AgentContainer extends BasePhaserAgentContainer {
 // console.log('   isNeighbor', isNeighbor, 'checkAggression', agentContainer.checkAggression(agentContainer))
 
       if (isNeighbor && agentContainer.checkAggression(agentContainer)) {
-console.log('      do transitionToMelee')
+// console.log('      do transitionToMelee')
           agentContainer.transitionToMelee(agentContainer);
       } else {
         const isInLOS = agentContainer.ember.playerContainer.fov.isInLOS(agentContainer.rexChess.tileXYZ);
@@ -237,9 +237,9 @@ console.log('      do transitionToMelee')
         agentContainer.setVisibilityIfInLineOfSight(agentContainer, isInLOS);
 
         if (isInLOS) {
-          console.log('      is in LOS')
+          // console.log('      is in LOS')
           const shouldPursue = agentContainer.checkAggression(agentContainer);
-          console.warn('         >>>>> shouldPursue', shouldPursue)
+          // console.warn('         >>>>> shouldPursue', shouldPursue)
           if (shouldPursue) {
             agentContainer.transitionToPursuit();
           } else {

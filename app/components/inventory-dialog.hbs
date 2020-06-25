@@ -58,14 +58,16 @@
               <div class="item-buttons">
                 {{#if item.owned}}
                   <span class="big-font owned">Owned</span>
-                  {{#if item.equipped}}
-                    <button type="button" class="btn unequip-button big-font" {{on "click" (fn this.unequip item)}}>
-                      Unequip
-                    </button>
-                  {{else}}
-                    <button type="button" class="btn equip-button big-font" {{on "click" (fn this.equip item)}}>
-                      Equip
-                    </button>
+                  {{#if item.showEquipButton}}
+                    {{#if item.equipped}}
+                      <button type="button" class="btn unequip-button big-font" {{on "click" (fn this.unequip item)}}>
+                        Unequip
+                      </button>
+                    {{else}}
+                      <button type="button" class="btn equip-button big-font" {{on "click" (fn this.equip item)}}>
+                        Equip
+                      </button>
+                    {{/if}}
                   {{/if}}
                 {{else}}
                   {{#if item.price}}
@@ -78,6 +80,8 @@
               </div>
             </div>
           {{/if}}
+        {{else}}
+          <div class="empty">No items to display</div>
         {{/each}}
       </div>
       {{/if}}

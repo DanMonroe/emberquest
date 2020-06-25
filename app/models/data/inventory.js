@@ -1087,9 +1087,10 @@ export class InventoryItems {
     // The final Ember item
     items.push(
       new InventoryItem({
-        id: 2600,
+        id: constants.INVENTORY.ROYAL_EMBER_ID,
         owned: false,
-        display: true,
+        display: false,
+        showEquipButton: false,
         type: constants.INVENTORY.TYPE.OTHER,
         name: 'Royal Ember',
         img: '/images/items/dragon/arms.png',

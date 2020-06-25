@@ -158,6 +158,7 @@ export class BootScene extends Phaser.Scene {
   create() {
 
     this.game.ember.initializeCachesAlreadyFound();
+    this.game.ember.initializeRoyalEmberPlaced();
 
 
     this.game.ember.loadGameData("gameboard")
@@ -175,6 +176,9 @@ export class BootScene extends Phaser.Scene {
         if (gameboardData) {
 
           this.game.ember.gameData.transports = gameboardData.transports;
+          if (gameboardData.playerAttrs) {
+            this.game.ember.placedBrazier = gameboardData.playerAttrs.re;
+          }
 
           gameboardData.currentMap = overrideMapImage || gameboardData.currentMap
           const sceneData =   gameboardData.sceneData[gameboardData.currentMap] || { allSeenTiles: [], storedTransports: [], boarded: 0};

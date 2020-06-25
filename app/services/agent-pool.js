@@ -10,7 +10,7 @@ export default class AgentPoolService extends Service {
     const pool = this.getAgentPool();
     const agentConfig = pool.get(key);
     // const agentConfig = this.getAgentPool().get(key);
-    // console.log('agentConfig', key, agentConfig);
+    console.log('agentConfig', key, agentConfig);
     return agentConfig;
     // return this.getAgentPool().get(key);
   }
@@ -225,6 +225,11 @@ export default class AgentPoolService extends Service {
       Object.assign(baseAgentclone, {
         id: agentId++,
         name: 'Goliath',
+        offsets: {
+          healthbar: { x: 0, y: -25 },
+          name: { x: 0, y: -40 },
+          damage: { x: 0, y: -45 }
+        },
         animeframes: {
           rest: {key: 'goliathrest', prefix: 'cyclops/goliath/goliath-se', start: 1, end: 1, rate: 3, repeat: -1},
           attack: {key: 'goliathattack', prefix: 'cyclops/goliath/goliath-se', start: 1, end: 9, rate: 12}

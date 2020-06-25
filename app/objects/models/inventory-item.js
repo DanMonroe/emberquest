@@ -27,6 +27,7 @@ export class InventoryItem {
   @tracked display = false;
   @tracked locked;
   @tracked equipped = false;
+  @tracked showEquipButton = true;
   @tracked tileX;
   @tracked tileY;
   @tracked stats; // array of Stat objects

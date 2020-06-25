@@ -176,9 +176,11 @@ export default class MapService extends Service {
           if (fovShape.type === this.constants.SHAPE_TYPE_POLYGON) {
             fovShape.fillAlpha = this.constants.ALPHA_POLYGON_VISIBLE_TO_PLAYER;
           } else {
-            fovShape.setAlpha(this.constants.ALPHA_OBJECT_VISIBLE_TO_PLAYER);
-            if (fovShape.healthBar) {
-              fovShape.healthBar.setAlpha(this.constants.ALPHA_OBJECT_VISIBLE_TO_PLAYER);
+            if (!fovShape.getData('ignoreFOVUpdate')) {
+              fovShape.setAlpha(this.constants.ALPHA_OBJECT_VISIBLE_TO_PLAYER);
+              if (fovShape.healthBar) {
+                fovShape.healthBar.setAlpha(this.constants.ALPHA_OBJECT_VISIBLE_TO_PLAYER);
+              }
             }
           }
         });

@@ -52,7 +52,7 @@ const constants = Object.freeze({
     // HEALING_SPEED: 'healingSpeedAdj',
     // HEALING_POWER: 'healingPowerAdj',
 
-    // TOTAL_BODYPARTS: 10,
+    ROYAL_EMBER_ID: 2600,
 
     BODYPARTS: [
       { name: "torso", part: 0, text: "Body", tooltipSide: "right" },
@@ -206,7 +206,8 @@ const constants = Object.freeze({
       PORTAL: {value: 2, description: 'Portal'},
       DOOR: {value: 4, description: 'Door'},
       MESSAGE: {value: 8, description: 'Message'},
-      LAVA: {value: 16, description: 'Lava'}
+      LAVA: {value: 16, description: 'Lava'},
+      ROYALEMBER: {value: 32, description: 'Royal Ember'}
     }
   },
 
@@ -224,7 +225,8 @@ const constants = Object.freeze({
   SPECIAL_ACTIONS: {
     REMOVE_DOOR: {value: 1, description: 'Remove Door'},  // data: { door_id:1, tileXY: {x: 11, y: 4} }
     REMOVE_SIGHT_COST: {value: 2, description: 'Remove Sight Cost'},     // data: { tileXY: {x: 11, y: 3} }
-    PLAY_SOUND: {value: 3, description: 'Play Sound'}     // data: { sound: 'open_door_1' }
+    PLAY_SOUND: {value: 3, description: 'Play Sound'},     // data: { sound: 'open_door_1' }
+    FINAL_FANFAIR: {value: 4, description: 'Final Chest Found'}
   },
 
 

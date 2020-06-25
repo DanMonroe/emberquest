@@ -77,7 +77,7 @@ export default class InventoryDialogComponent extends Component {
         text: 'Transports',
         // img: '/images/icons/item-icon-accessories.png',
         clazz: 'transport',
-        category: constants.INVENTORY.TYPE.OTHER
+        category: constants.INVENTORY.TYPE.TRANSPORT
       // },
       // {
       //   text: 'Tomes',

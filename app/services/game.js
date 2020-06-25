@@ -25,6 +25,7 @@ export default class GameService extends Service {
   @service gameManager;
   @service storage;
   @service intl;
+  @service('spawner') spawnerService;
 
   // @tracked cameraMainZoom = 1;
   @tracked cameraMainZoom = 1.4;
@@ -42,6 +43,8 @@ export default class GameService extends Service {
 
   @tracked sceneData = [];
   @tracked gameData = {};
+
+  @tracked placedBrazier = false;
 
   constants = constants;
 
@@ -180,7 +183,8 @@ export default class GameService extends Service {
     Object.assign(playerAttrs, {
       'inventory': scene.player.container.agent.saveGameInventoryAttrs,
       'boardedTransport':  scene.player.container.boardedTransport ? scene.player.container.boardedTransport.id : 0,
-      'mapname': mapname
+      'mapname': mapname,
+      're': this.placedBrazier
     });
     constants.STOREDATTRS.forEach(storedObj => {
       try {
@@ -217,6 +221,10 @@ export default class GameService extends Service {
     let cipherObject = this.storage.encrypt(geocache.gccode);
     cachesData.set(geocache.gccode, cipherObject);
     await this.saveGameData('caches', cachesData);
+  }
+
+  async initializeRoyalEmberPlaced() {
+    console.log('initializeRoyalEmberPlaced')
   }
 
   async initializeCachesAlreadyFound() {
@@ -363,11 +371,12 @@ export default class GameService extends Service {
         this.gameManager.loadingNewScene = true;
 
         // cancel all patrol tasks...
-        // debugger;
         const agentContainers = this.gameManager.scene.agents.children;
         agentContainers.entries.forEach(agentContainer => {
           agentContainer.cancelAllTasks();
-        })
+        });
+
+        this.spawnerService.cancelAllSpawnerTasks();
 
         moveTo.scene.cameras.main.fade(300, 0, 0, 0);
         moveTo.scene.cameras.main.on('camerafadeoutcomplete', async () => {
@@ -495,8 +504,12 @@ export default class GameService extends Service {
         }
         break;
       case constants.FLAGS.SPECIAL.LAVA.value:
-        console.log('on lava');
-        fireDamage += 20;
+        console.log('on lava', agentContainer.agent.maxHealth, (agentContainer.agent.maxHealth * .6) );
+        // fireDamage += 20;
+        fireDamage += agentContainer.agent.maxHealth * .6;
+        break;
+      case constants.FLAGS.SPECIAL.ROYALEMBER.value:
+        this.checkForRoyalEmber(moveTo.scene);
         break;
       case constants.FLAGS.SPECIAL.PORTAL.value:
         // do nothing
@@ -518,6 +531,34 @@ export default class GameService extends Service {
       }
     }
 
+  }
+
+  checkForRoyalEmber(scene) {
+    if (this.placedBrazier) {
+      // already placed the brazier
+      return;
+    }
+    if (this.inventory.hasRoyalEmber()) {
+      this.gameManager.pauseGame(true);
+
+      let brazierSprite = scene.board.tileXYZToChess(32, 12, constants.TILEZ_SPRITES);
+      if (brazierSprite) {
+
+        // special actions
+        const specialActions = brazierSprite.getData('specialActions');
+        if (specialActions) {
+          specialActions.forEach(async(specialAction) => {
+            await this.processSpecialAction.perform(brazierSprite.scene, specialAction);
+          })
+        }
+        brazierSprite.setAlpha(this.constants.ALPHA_OBJECT_VISIBLE_TO_PLAYER);
+
+        this.placedBrazier = true;
+      }
+      this.gameManager.pauseGame(false);
+    } else {
+      // console.log('No royal ember for you')
+    }
   }
 
   shouldShowMessage(tileSpecialData, scene) {
@@ -655,6 +696,9 @@ export default class GameService extends Service {
       case this.constants.SPECIAL_ACTIONS.PLAY_SOUND.value: // data: { sound: 'open_door_1' }
         yield timeout(400);
         scene.openDoorAudio.play();
+        break;
+      case this.constants.SPECIAL_ACTIONS.FINAL_FANFAIR.value:
+        console.log('Do final fanfair ?');
         break;
       default:
         console.log('No Special Action found', specialAction);

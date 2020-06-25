@@ -131,15 +131,23 @@ export default {
   signs: [
   ],
 
+//
+// {id: 1, x: 14, y: 30, pool: [ 'bloodbat', 'dreadbat', 'goliath' ], patrol: { method: 'wander', timeout: 4000, pursuitSpeed: 2000, aggressionSpeedTimeout: 1500 }},
+//
+//  override: {health: 10, maxHealth: 10, minLevel, maxLevel, levelRange...}
+//
   spawnLocations : {
     players: [{x: 5, y: 7}], // tiles where the player may spawn
     transports: [
     ],
-    agents: {
-      spawnInterval: 3000,
-      limit: 5,
-      locations: []
-    }
+    agents: [
+      {
+        spawnInterval: 3000,
+        limit: 5,
+        locations: [],
+        // globalPool: [ 'humanoid_bandit', 'poolkey2', 'poolkey2' ]
+      }
+    ]
   },
 
   sceneTiles: [

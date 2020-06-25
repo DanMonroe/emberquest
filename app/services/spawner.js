@@ -3,7 +3,7 @@ import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { constants } from 'emberquest/services/constants';
 import { timeout } from 'ember-concurrency';
-import { restartableTask } from 'ember-concurrency-decorators';
+import { task } from 'ember-concurrency-decorators';
 import {Transport} from "../objects/models/transport";
 import {Agent} from "../objects/models/agent";
 
@@ -24,7 +24,7 @@ export default class SpawnerService extends Service {
   @tracked transportLimit = 1;
 
   @tracked agents = [];
-  @tracked agentLimit = 1;
+  @tracked agentLimit = [1];
 
 
   scene = undefined;
@@ -36,6 +36,7 @@ export default class SpawnerService extends Service {
     this.spawners = [];
     this.transports = [];
     this.agents = [];
+    this.agentLimit = [1];
 
     // Transports
     let boardedTransportId = 0;
@@ -46,14 +47,17 @@ export default class SpawnerService extends Service {
         const transportConfigFromPool = this.transportPool.findTransportById(boardedTransportId);
         // console.log('found trans obj', transportConfigFromPool);
         if (transportConfigFromPool) {
-          const location = {x: scene.ember.gameManager.storedData.gameboardData.playerTile.x, y: scene.ember.gameManager.storedData.gameboardData.playerTile.y};
+          const location = {
+            x: scene.ember.gameManager.storedData.gameboardData.playerTile.x,
+            y: scene.ember.gameManager.storedData.gameboardData.playerTile.y
+          };
           const transport = new Transport(location.x, location.y, Object.assign(location, transportConfigFromPool));
           transport.isBoardedTransport = true;
           this.addTransport(transport);
 
         }
       }
-    } catch(e) {
+    } catch (e) {
       // console.log('no boarded transport', e)
     }
 
@@ -70,7 +74,7 @@ export default class SpawnerService extends Service {
           }
         }
       })
-    } catch(e) {
+    } catch (e) {
       // console.log('no boarded transport', e)
     }
 
@@ -79,20 +83,50 @@ export default class SpawnerService extends Service {
       // this.spawners.push(constants.SPAWNER_TYPE.TRANSPORT);
       this.spawnLocations.transports.forEach(transportObj => {
         // console.log('transport', transportObj);
-        this.spawnObject(constants.SPAWNER_TYPE.TRANSPORT, transportObj);
+
+        this.spawnObject(
+          {
+            agentSpawnerIndex: 0,
+            type: constants.SPAWNER_TYPE.TRANSPORT,
+            agentLimit: 1,
+            transportObj: transportObj
+          }
+        );
+        // this.spawnObject(constants.SPAWNER_TYPE.TRANSPORT, transportObj);
       });
     }
 
-    // create agent spawners
-    if (this.spawnLocations.agents && this.spawnLocations.agents.locations.length > 0) {
-      // console.log('this.spawnLocations.agents.locations', this.spawnLocations.agents.locations)
-      this.agentLimit = this.spawnLocations.agents.limit || 1;
-      this.spawnInterval = this.spawnLocations.agents.spawnInterval || 3000;
-      this.spawners.push(constants.SPAWNER_TYPE.AGENT);
+    // create agent spawner groups
+    if (this.spawnLocations.agents && this.spawnLocations.agents.length > 0) {
+      let agentSpawnerIndex = 0;
+      this.spawnLocations.agents.forEach(agentSpawnerGroup => {
+        if (agentSpawnerGroup.locations.length > 0) {
+          this.spawners.push({
+            agentSpawnerIndex: agentSpawnerIndex++,
+            type: constants.SPAWNER_TYPE.AGENT,
+            agentLimit: agentSpawnerGroup.limit || 1,
+            spawnInterval: agentSpawnerGroup.spawnInterval || 3000
+          });
+        }
+      })
     }
+    // if (this.spawnLocations.agents && this.spawnLocations.agents.locations.length > 0) {
+    //   // console.log('this.spawnLocations.agents.locations', this.spawnLocations.agents.locations)
+    //   this.agentLimit = this.spawnLocations.agents.limit || 1;
+    //   this.spawnInterval = this.spawnLocations.agents.spawnInterval || 3000;
+    //   this.spawners.push(constants.SPAWNER_TYPE.AGENT);
+    // }
 
-    this.spawnObjects.perform();
+    // this.spawnObjects.perform();
 
+      // start all the spawners
+      this.spawners.forEach(spawnerConfig => {
+        this.spawnerTask.perform(spawnerConfig);
+      })
+  }
+
+  async cancelAllSpawnerTasks() {
+    await this.spawnerTask.cancelAll();
   }
 
   // spawn one time objects that won't respawn
@@ -127,18 +161,39 @@ export default class SpawnerService extends Service {
     }
   }
 
-  @restartableTask
-  *spawnObjects() {
-    while (this.spawners.length > 0) {
+  // @restartableTask
+  // *spawnObjects() {
+  //   while (this.spawners.length > 0) {
+  //     if (!this.scene.ember.gameManager.gamePaused) {
+  //       this.spawners.forEach(spawnerType => {
+  //         if (this.shouldSpawn(spawnerType)) {
+  //           this.spawnObject(spawnerType);
+  //         } else {
+  //           // console.log('   >> ' + spawnerType + ' - NO!! Dont spawn')
+  //         }
+  //       });
+  //       yield timeout(this.spawnInterval);
+  //     } else {
+  //       console.log('no spawn, game paused')
+  //       yield timeout(1000);
+  //     // }
+  //   }
+  // }
+
+  // Only agents for now ?
+  @task
+  *spawnerTask(spawnerConfig) {
+    while (true) {
       if (!this.scene.ember.gameManager.gamePaused) {
-        this.spawners.forEach(spawnerType => {
-          if (this.shouldSpawn(spawnerType)) {
-            this.spawnObject(spawnerType);
-          } else {
-            // console.log('   >> ' + spawnerType + ' - NO!! Dont spawn')
-          }
-        });
-        yield timeout(this.spawnInterval);
+        // console.log('should spawn? ', this.agents.length === 0 || this.agents[spawnerConfig.agentSpawnerIndex].length < spawnerConfig.agentLimit)
+        // should spawn ?
+        if ( this.agents.length === 0 || this.agents.length <= spawnerConfig.agentSpawnerIndex || this.agents[spawnerConfig.agentSpawnerIndex].length < spawnerConfig.agentLimit) {
+          this.spawnObject(spawnerConfig);
+        } else {
+          // console.log('   >>  - NO!! Dont spawn')
+        }
+
+        yield timeout(spawnerConfig.spawnInterval);
       } else {
         console.log('no spawn, game paused')
         yield timeout(1000);
@@ -146,45 +201,52 @@ export default class SpawnerService extends Service {
     }
   }
 
-  shouldSpawn(spawnerType) {
-    switch (spawnerType) {
-      case constants.SPAWNER_TYPE.AGENT:
-        if (this.spawnLocations.agents.locations.length === 0 || this.agents.length >= this.agentLimit) {
-          return false;
-        }
-        break;
-      default:
-        break;
-    }
-    return true;
-  }
+  // shouldSpawn(spawnerType) {
+  //   switch (spawnerType) {
+  //     case constants.SPAWNER_TYPE.AGENT:
+  //       if (this.spawnLocations.agents.locations.length === 0 || this.agents.length >= this.agentLimit) {
+  //         return false;
+  //       }
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  //   return true;
+  // }
 
-  spawnObject(spawnerType, objectConfig) {
+  spawnObject(spawnerConfig) {
+  // spawnObject(spawnerType, objectConfig) {
     let location, locationClone, agentConfigFromPool, transportConfigFromPool;
-    switch (spawnerType) {
+    switch (spawnerConfig.type) {
 
       case constants.SPAWNER_TYPE.TRANSPORT:
-        location = {x: objectConfig.x, y: objectConfig.y};
-        transportConfigFromPool = this.transportPool.getTransportConfig(objectConfig.poolkey);
+        location = {x: spawnerConfig.transportObj.x, y: spawnerConfig.transportObj.y};
+        transportConfigFromPool = this.transportPool.getTransportConfig(spawnerConfig.transportObj.poolkey);
         if (transportConfigFromPool) {
           this.addTransport(new Transport(location.x, location.y, Object.assign(location, transportConfigFromPool)));
         }
         break;
 
       case constants.SPAWNER_TYPE.AGENT:
-        location = this.pickRandomLocation(spawnerType);
-        agentConfigFromPool = Object.assign({}, this.pickRandomAgentFromPool(location));
-        locationClone = Object.assign({}, location);
-        if (agentConfigFromPool) {
-          if (locationClone.patrol) {
-            // assign any properties
-            Object.assign(agentConfigFromPool.patrol, locationClone.patrol)
+        location = this.pickRandomLocation(spawnerConfig);
+
+        if (location) {
+          agentConfigFromPool = Object.assign({}, this.pickRandomAgentFromPool(location, spawnerConfig));
+  console.log('agentConfigFromPool', agentConfigFromPool)
+          locationClone = Object.assign({}, location);
+          if (agentConfigFromPool) {
+            if (locationClone.patrol) {
+              // assign any properties
+              Object.assign(agentConfigFromPool.patrol, locationClone.patrol)
+            }
+            if (locationClone.override) {
+              Object.assign(agentConfigFromPool, locationClone.override)
+            }
+            const agent = new Agent(locationClone.x, locationClone.y, Object.assign(locationClone, agentConfigFromPool));
+            this.addAgent(agent, spawnerConfig);
           }
-          if (locationClone.override) {
-            Object.assign(agentConfigFromPool, locationClone.override)
-          }
-          const agent = new Agent(locationClone.x, locationClone.y, Object.assign(locationClone, agentConfigFromPool));
-          this.addAgent(agent);
+        } else {
+          console.log('no location!')
         }
         break;
 
@@ -194,15 +256,13 @@ export default class SpawnerService extends Service {
 
   }
 
-  pickRandomLocation(spawnerType) {
+  pickRandomLocation(spawnerConfig) {
     let location, invalidLocation = false;
-    switch (spawnerType) {
-      // case constants.SPAWNER_TYPE.TRANSPORT:
-      //   location = this.spawnLocations.transports.locations[Math.floor(Math.random() * this.spawnLocations.transports.locations.length)];
-      //   break;
+    switch (spawnerConfig.type) {
       case constants.SPAWNER_TYPE.AGENT:
-        location = this.spawnLocations.agents.locations[Math.floor(Math.random() * this.spawnLocations.agents.locations.length)];
-        invalidLocation = this.agents.some((obj) => {
+        location = this.spawnLocations.agents[spawnerConfig.agentSpawnerIndex].locations[Math.floor(Math.random() * this.spawnLocations.agents[spawnerConfig.agentSpawnerIndex].locations.length)];
+        // is there already an agent there?
+        invalidLocation = this.agents.length && this.agents.length > spawnerConfig.agentSpawnerIndex && this.agents[spawnerConfig.agentSpawnerIndex].some((obj) => {
           return obj.x === location.x && obj.y === location.y;
         });
         break;
@@ -211,13 +271,13 @@ export default class SpawnerService extends Service {
     }
 
     if (invalidLocation) {
-      return this.pickRandomLocation(spawnerType);
+      return this.pickRandomLocation(spawnerConfig);
     }
     return location;
   }
 
-  pickRandomAgentFromPool(location) {
-    const agentPool = location.pool || this.spawnLocations.agents.globalPool || [];
+  pickRandomAgentFromPool(location, spawnerConfig) {
+    const agentPool = location.pool || this.spawnLocations.agents[spawnerConfig.agentSpawnerIndex].globalPool || [];
     if (!agentPool) {
       return undefined;
     }
@@ -274,21 +334,31 @@ export default class SpawnerService extends Service {
     delete this.transports[transportId];
   }
 
-  addAgent(agent) {
-    // console.log('*** spawner service - add agent', agent.id, agent.x, agent.y)
-      this.agents.push(agent);
+  addAgent(agent, spawnerConfig) {
+    console.log('*** spawner service - add agent', agent.id, agent.x, agent.y, agent);
+
+      if (this.agents.length <= spawnerConfig.agentSpawnerIndex) {
+        this.agents.push([]);
+      }
+      this.agents[spawnerConfig.agentSpawnerIndex].push(agent);
       this.scene.events.emit('agentSpawned', agent);
   }
 
   deleteAgent(agentContainer) {
-    // console.log('!!! delete agent', agentContainer)
+    console.log('!!! delete agent', agentContainer)
 
-    const index = this.agents.findIndex(agentObj => {
-      return agentObj.id === agentContainer.agent.playerConfig.uuid;
-    });
-
-    if (index > -1) {
-      this.agents.splice(index, 1);
+    if (this.agents.length === 0) {
+      console.error('no agents to delete', agentContainer);
     }
+
+    this.agents.forEach((agentGroup, agentGroupIndex) => {
+      const index = agentGroup.findIndex(agentObj => {
+        return agentObj.id === agentContainer.agent.playerConfig.uuid;
+      });
+
+      if (index > -1) {
+        this.agents[agentGroupIndex].splice(index, 1);
+      }
+    });
   }
 }

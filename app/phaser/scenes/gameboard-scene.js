@@ -41,12 +41,6 @@ export class GameboardScene extends Phaser.Scene {
     this.agentprojectiles;
   }
 
-  // 'map': gameboardData.currentMap,
-  // 'storedPlayerTile': gameboardData.playerTile,
-  // 'storedPlayerAttrs': gameboardData.playerAttrs,
-  // 'allSeenTiles': sceneData.seenTiles,
-  // 'storedTransports': sceneData.transports,
-    // 'boarded': sceneData.boarded
 
   init(data){
     // console.log('gameboard init', data)
@@ -63,42 +57,17 @@ export class GameboardScene extends Phaser.Scene {
     this.lastSeenTiles = new Set();
   }
 
-  // async preload() {
   preload() {
     this.ember = this.game.ember;
 
     const loading = this.add.image(0, 0, 'wood_texture').setOrigin(0,0);
     loading.displayWidth = this.cameras.main.width;
     loading.scaleY = loading.scaleX;
-    // this.scaleX = loading.scaleX;
 
-
-
-    // this.mapData = await this.ember.map.getDynamicMapData(this.mapname);
-    // this.mapData = this.ember.map.getMapData(this.mapname);
     this.textures.remove('map');
     this.load.image('map', this.mapData.mapUrl);
 
-
-    // this.load.off('progress').on('progress', this.updateBar, {});
-    // this.load.off('fileprogress').on('fileprogress', this.updateFileProgress, {loadingText:'loadingText'});
-    // this.load.off('complete').on('complete', this.complete,{loadingText:'loadingText', thisScene: this});
-
   }
-
-  // updateBar(percentage) {
-  //   console.log('percentage', percentage)
-  // }
-  // updateFileProgress(file) {
-  //   console.log(file);
-  //   // this.loadingText.setText('Loading: ' + file.key);
-  // }
-  // complete(thisScene) {
-  //   console.log('complete thisScene.textureManager.exists(\'map\')', thisScene.textureManager.exists('map'))
-  //   thisScene.textureManager.exists('map')
-  //   // this.loadingText.setText('Enjoy!');
-  // }
-
 
   create() {
     this.configureBoard();
@@ -253,9 +222,6 @@ export class GameboardScene extends Phaser.Scene {
       }
     }
 
-    // playerObject.container.fov.isPathVisible = playerObject.container.myIsPathVisible;
-
-
     // update field of view
     let fieldOfViewTileXYArray = playerObject.container.fov.findFOV(playerObject.container.visiblePoints);
     this.ember.map.findAgentFieldOfView(playerObject.container, fieldOfViewTileXYArray);
@@ -277,20 +243,6 @@ export class GameboardScene extends Phaser.Scene {
   }
 
   spawnAgent(agentObject) {
-    // fixes a problem where spawnAgent was being called numerous times for uniques
-    // if (agentObject.uniqueId) {
-    //   const existingUnique = this.agents.children.entries.find(agentContainer => {
-    //     if (!agentContainer.agent.playerConfig) {
-    //       return false;
-    //     }
-    //     return agentObject.uniqueId === agentContainer.agent.playerConfig.uniqueId;
-    //   })
-    //   if (existingUnique) {
-    //     console.log('NOT spawning', agentObject)
-    //     return;
-    //   }
-    // }
-
     const agentContainer = this.ember.createAgent(this, agentObject);
 
     agentContainer.setAlpha(0);
@@ -311,6 +263,10 @@ export class GameboardScene extends Phaser.Scene {
       this.mapData.doors.forEach(doorObj => {
         // console.log('DoorObj', doorObj)
         if (doorObj.hideIfCacheFound && this.ember.cache.isCacheFound(doorObj.hideIfCacheFound)) {
+          // don't add door
+          return;
+        }
+        if (doorObj.hideIfRoyalEmberFound && this.storedData.storedPlayerAttrs && this.storedData.storedPlayerAttrs.re) {
           // don't add door
           return;
         }
@@ -336,10 +292,7 @@ export class GameboardScene extends Phaser.Scene {
     if (this.mapData.signs) {
       this.mapData.signs.forEach(signObj => {
         // console.log('SignObj', signObj)
-        // if (doorObj.hideIfCacheFound && this.ember.cache.isCacheFound(doorObj.hideIfCacheFound)) {
-        //   // don't add door
-        //   return;
-        // }
+
         let sign = new SignPost(this, 0, 0, signObj.texture, 1, signObj);
         sign.setAlpha(0);
 
@@ -355,7 +308,7 @@ export class GameboardScene extends Phaser.Scene {
   createSprites() {
     if (this.mapData.sprites) {
       this.mapData.sprites.forEach(spriteObj => {
-        console.log('spriteObj', spriteObj)
+        // console.log('spriteObj', spriteObj)
 
         const sprite = this.add.sprite(0, 0, spriteObj.texture, spriteObj.firstFrame);
         if (spriteObj.offsets && spriteObj.offsets.img) {
@@ -366,7 +319,7 @@ export class GameboardScene extends Phaser.Scene {
 
         let frameNames;
         let animationConfig;
-        spriteObj.animations.forEach(animation => {
+        spriteObj.animeframes.forEach(animation => {
           frameNames = this.anims.generateFrameNames(this.ember.constants.SPRITES_TEXTURE, {
             start: animation.start, end: animation.end, zeroPad: 0,
             prefix: spriteObj.prefix, suffix: '.png'
@@ -377,7 +330,17 @@ export class GameboardScene extends Phaser.Scene {
           sprite.anims.play(animation.key);
         })
 
-        // sprite.setAlpha(0);
+        if (spriteObj.ignoreFOVUpdate) {
+          sprite.setData('ignoreFOVUpdate', true);
+        }
+        if (spriteObj.specialActions) {
+          sprite.setData('specialActions', spriteObj.specialActions);
+        }
+
+        if (spriteObj.name === "brazier" && this.game.ember.placedBrazier) {
+          sprite.setData('ignoreFOVUpdate', false);
+        }
+        sprite.setAlpha(spriteObj.initialAlpha || 0);
 
         this.sprites.add(sprite);
 

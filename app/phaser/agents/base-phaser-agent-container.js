@@ -251,7 +251,7 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
 
 
      */
-// debugger;
+
     // so an agent can be configured to NOT pursue at all.
     if (agentContainer.agent.aggressionScale <= 0) {
       return false;
@@ -270,6 +270,7 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
       console.table([
         {
           'player level': this.ember.playerContainer.agent.level,
+          'name': agentContainer.agent.playerConfig.name,
           'agent level': agentContainer.agent.level,
           'lv diff': levelDiff,
           'health': healthPercentage,

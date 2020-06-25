@@ -84,4 +84,9 @@ export default class InventoryService extends Service {
     }
   }
 
+  hasRoyalEmber() {
+    const royalEmber = this.getItemById(this.constants.INVENTORY.ROYAL_EMBER_ID);
+    return royalEmber && royalEmber.owned
+  }
+
 }

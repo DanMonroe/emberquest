@@ -1628,6 +1628,13 @@ button {
   background-size: contain;
   height: 726px;
 
+  .empty {
+    color: #000;
+    font-size: 1.5em;
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+  }
   .player-gems {
     position: absolute;
     color: #0065ff;
