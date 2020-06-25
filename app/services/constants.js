@@ -150,6 +150,8 @@ const constants = Object.freeze({
   SHAPE_TYPE_ENEMY: 'Enemy',
   SHAPE_TYPE_AGENT: 'Agent',
 
+  SPRITES_TEXTURE: 'eq_sprites',
+
   FLAG_TYPE_TRAVEL: 0,
   FLAG_TYPE_VISIBILITY: 1,
 
@@ -161,6 +163,7 @@ const constants = Object.freeze({
   TILEZ_AGENTS: 6, // "layer" for agents
   TILEZ_DOORS: 7, // "layer" for doors
   TILEZ_SIGNS: 8, // "layer" for signs
+  TILEZ_SPRITES: 9, // "layer" for sprites
 
   AGENTSTATE: {
     IDLE: 0,

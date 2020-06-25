@@ -24,6 +24,7 @@ export class GameboardScene extends Phaser.Scene {
   deadAgents = new Set();
   doors = {};
   signs = {};
+  sprites = {};
 
   projectiles = {};
   agentprojectiles = {};  // hard coded extra group for emberconf
@@ -109,6 +110,7 @@ export class GameboardScene extends Phaser.Scene {
     this.createChests();
     this.createDoors();
     this.createSigns();
+    this.createSprites();
     this.createGameManager();
     this.boardExperiments();
     this.ember.saveSceneData(this);
@@ -350,6 +352,42 @@ export class GameboardScene extends Phaser.Scene {
       });
     }
   }
+  createSprites() {
+    if (this.mapData.sprites) {
+      this.mapData.sprites.forEach(spriteObj => {
+        console.log('spriteObj', spriteObj)
+
+        const sprite = this.add.sprite(0, 0, spriteObj.texture, spriteObj.firstFrame);
+        if (spriteObj.offsets && spriteObj.offsets.img) {
+          sprite.x += spriteObj.offsets.img.x;
+          sprite.y += spriteObj.offsets.img.y;
+        }
+        sprite.setScale(spriteObj.scale);
+
+        let frameNames;
+        let animationConfig;
+        spriteObj.animations.forEach(animation => {
+          frameNames = this.anims.generateFrameNames(this.ember.constants.SPRITES_TEXTURE, {
+            start: animation.start, end: animation.end, zeroPad: 0,
+            prefix: spriteObj.prefix, suffix: '.png'
+          });
+          animationConfig = Object.assign({ key: animation.key, frames: frameNames, frameRate: animation.rate, repeat: animation.repeat }, animation.config || {});
+
+          this.anims.create(animationConfig);
+          sprite.anims.play(animation.key);
+        })
+
+        // sprite.setAlpha(0);
+
+        this.sprites.add(sprite);
+
+        this.board.addChess(sprite, spriteObj.x, spriteObj.y, this.ember.constants.TILEZ_SPRITES);
+
+        sprite.rexChess.setBlocker();
+
+      });
+    }
+  }
 
   spawnTransport(transportObj) {
     if (transportObj.isBoardedTransport) {
@@ -424,6 +462,9 @@ export class GameboardScene extends Phaser.Scene {
 
     // create a signs group
     this.signs = this.physics.add.group();
+
+    // create a sprites group
+    this.sprites = this.physics.add.group();
 
     // create an agent group
     this.agents = this.physics.add.group();

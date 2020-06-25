@@ -23,15 +23,16 @@ export default class PhaserAgent extends Phaser.Physics.Arcade.Sprite {
 
     this.setDepth(14);
 
-    console.log('config', config);
-    if (config.animeframes) {
-      scene.anims.create({
-        key: 'young-ogre-rest',
-        frames: scene.anims.generateFrameNumbers('young-ogre', { start: 1, end: 4}),
-        frameRate: 3,
-        repeat: -1,
-      });
-
-    }
+    // console.error('TODO move young-ogre animations');
+    // console.log('config', config);
+    // if (config.animeframes) {
+    //   scene.anims.create({
+    //     key: 'young-ogre-rest',
+    //     frames: scene.anims.generateFrameNumbers('young-ogre', { start: 1, end: 4}),
+    //     frameRate: 3,
+    //     repeat: -1,
+    //   });
+    //
+    // }
   }
 }

@@ -105,9 +105,9 @@ export class BootScene extends Phaser.Scene {
     this.load.image('boat', '/images/transports/boat.png');
 
     // Agents
-    this.load.image('keep', '/images/agents/keep.png');
-    this.load.image('desert_keep', '/images/agents/desert_keep.png');
-    this.load.image('pirate', '/images/agents/pirate-galleon.png');
+    // this.load.image('keep', '/images/agents/keep.png');
+    // this.load.image('desert_keep', '/images/agents/desert_keep.png');
+    // this.load.image('pirate', '/images/agents/pirate-galleon.png');
 
     // signs
     this.load.image('signpost', '/images/maps/signpost.png');
@@ -128,12 +128,12 @@ export class BootScene extends Phaser.Scene {
   loadSpriteSheets() {
     this.load.spritesheet('chests', '/images/chest_sprite.png', { frameWidth: 140, frameHeight: 140 });
 
-    this.load.spritesheet('young-ogre', '/images/monsters/young-ogre.png', { frameWidth: 72, frameHeight: 72 });
-    this.load.spritesheet('spider', '/images/monsters/spider.png', { frameWidth: 72, frameHeight: 72 });
-    this.load.spritesheet('dog', '/images/monsters/dog.png', { frameWidth: 72, frameHeight: 72 });
+    // this.load.spritesheet('young-ogre', '/images/monsters/young-ogre.png', { frameWidth: 72, frameHeight: 72 });
+    // this.load.spritesheet('spider', '/images/monsters/spider.png', { frameWidth: 72, frameHeight: 72 });
+    // this.load.spritesheet('dog', '/images/monsters/dog.png', { frameWidth: 72, frameHeight: 72 });
 
 
-    // this.load.multiatlas('brazier', '/images/brazier.json', '/images');
+    this.load.multiatlas('eq_sprites', '/images/sprites/eq_sprites.json', '/images/sprites');
   }
 
   loadAudio() {

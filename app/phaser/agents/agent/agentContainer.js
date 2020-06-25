@@ -22,8 +22,9 @@ export default class AgentContainer extends BasePhaserAgentContainer {
     this.agent = agent;
     this.config = config;
     // this.showPowerBar = true;
-    this.showPowerBar = false;
-    this.showLevel = true;
+    this.showHealthBar = this.showHealthBar !== undefined ? this.showHealthBar : true;
+    this.showPowerBar = this.showPowerBar !== undefined ? this.showPowerBar : false;
+    this.showLevel = this.showLevel !== undefined ? this.showLevel : true;
 
     this.setupSprite();
 
@@ -83,14 +84,29 @@ export default class AgentContainer extends BasePhaserAgentContainer {
     this.updateHealthBar();
   }
 
+  createAnimation(animationConfig) {
+    // let frameNames = this.scene.anims.generateFrameNames(this.config.texture || this.ember.constants.SPRITES_TEXTURE,
+    let frameNames = this.scene.anims.generateFrameNames(this.ember.constants.SPRITES_TEXTURE,
+      {
+        start: animationConfig.start,
+        end: animationConfig.end,
+        zeroPad: 0,
+        prefix: animationConfig.prefix,
+        suffix: '.png'
+      });
+    let thisAnimationConfig = Object.assign({ key: animationConfig.key, frames: frameNames, frameRate: animationConfig.rate, repeat: animationConfig.repeat }, animationConfig || {});
+    // console.log('thisAnimationConfig', thisAnimationConfig)
+    this.scene.anims.create(thisAnimationConfig);
+  }
+
   setupSprite() {
-    const agentSprite = this.scene.add.sprite(0, 0, this.config.texture);
+    const agentSprite = this.scene.add.sprite(0, 0, this.config.texture || this.ember.constants.SPRITES_TEXTURE);
     if (this.config.offsets.img) {
       agentSprite.x += this.config.offsets.img.x;
       agentSprite.y += this.config.offsets.img.y;
     }
-    // agentSprite.x += 2;
-    // agentSprite.y += -20;
+
+    console.log('sprite config', this.config)
     agentSprite.setScale(this.config.scale);
 
     this.add(agentSprite);
@@ -98,39 +114,15 @@ export default class AgentContainer extends BasePhaserAgentContainer {
     this.phaserAgentSprite = agentSprite;
 
     if (this.config.animeframes) {
+
       if (this.config.animeframes.rest) {
-        this.scene.anims.create({
-          key: this.config.animeframes.rest.key,
-          frames: this.scene.anims.generateFrameNumbers(this.config.texture, { start: this.config.animeframes.rest.start, end: this.config.animeframes.rest.end}),
-          frameRate: this.config.animeframes.rest.rate,
-          repeat: this.config.animeframes.rest.repeat,
-        });
+        this.createAnimation(this.config.animeframes.rest);
       }
       if (this.config.animeframes.attack) {
-        const attackFrames = this.scene.anims.generateFrameNumbers(this.config.texture, { start: this.config.animeframes.attack.start, end: this.config.animeframes.attack.end });
-
-        if (this.config.animeframes.attack.delays) {
-          attackFrames[this.config.animeframes.attack.delays.frameNum].duration = this.config.animeframes.attack.delays.delay;
-        }
-
-        this.scene.anims.create({
-          key: this.config.animeframes.attack.key,
-          frames: attackFrames,
-          frameRate: this.config.animeframes.attack.rate
-        });
+        this.createAnimation(this.config.animeframes.attack);
       }
       if (this.config.animeframes.range) {
-        const rangeFrames = this.scene.anims.generateFrameNumbers(this.config.texture, { start: this.config.animeframes.range.start, end: this.config.animeframes.range.end });
-
-        if (this.config.animeframes.range.delays) {
-          rangeFrames[this.config.animeframes.range.delays.frameNum].duration = this.config.animeframes.range.delays.delay;
-        }
-
-        this.scene.anims.create({
-          key: this.config.animeframes.range.key,
-          frames: rangeFrames,
-          frameRate: this.config.animeframes.range.rate
-        });
+        this.createAnimation(this.config.animeframes.range);
       }
     }
 
@@ -638,7 +630,7 @@ console.log('      do transitionToMelee')
     // if (this.agentState !== this.ember.constants.AGENTSTATE.PATROL) {
     //   console.log('this.agentState !== this.ember.constants.AGENTSTATE.PATROL', this.agentState)
       this.setAgentState(this.ember.constants.AGENTSTATE.PATROL);
-      // this.agentState = this.ember.constants.AGENTSTATE.PATROL;
+    // this.agentState = this.ember.constants.AGENTSTATE.PATROL;
       if (isPresent(this.patrol.tiles.length) > 0) {
 
         this.moveQueue = {path:[]};

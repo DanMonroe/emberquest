@@ -16,7 +16,7 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
 
   // showPowerBar = true;
   showPowerBar = false;
-  showLevel = true;
+  showLevel = false;
 
   @tracked aggressionScale = 0;
 
@@ -38,6 +38,7 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
     };
 
     this.showHealthBar = config.showHealthBar !== undefined ? config.showHealthBar : true;
+    this.showLevel = config.showLevel !== undefined ? config.showLevel : true;
     this.showPowerBar = config.showPowerBar;
 
     // this.aggressionScale = config.aggressionScale ? config.aggressionScale : 0;
@@ -191,14 +192,15 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
   }
 
   updateHealthBar() {
-    let healthPercentage = this.agent.health / this.agent.maxHealth;
-    healthPercentage = healthPercentage <= 1 ? healthPercentage : 1;
-    this.healthBar.clear();
-    this.healthBar.fillStyle(0xffffff, 0.4);
-    this.healthBar.fillRect(this.x + this.ember.constants.healthBarOffsetX + this.config.offsets.healthbar.x, this.y + this.ember.constants.healthBarOffsetY+ this.config.offsets.healthbar.y, this.ember.constants.healthBarWidth, this.ember.constants.healthBarHeight);
-    this.healthBar.fillStyle(healthPercentage <= this.ember.constants.healthBarColorTippingPoint ? this.ember.constants.healthBarColorDanger : this.ember.constants.healthBarColorGood, 1);
-    this.healthBar.fillRect(this.x + this.ember.constants.healthBarOffsetX + this.config.offsets.healthbar.x, this.y + this.ember.constants.healthBarOffsetY + this.config.offsets.healthbar.y, this.ember.constants.healthBarWidth * healthPercentage, this.ember.constants.healthBarHeight);
-    // console.log('this.healthBar', this.healthBar, this.id)
+    if (this.showHealthBar) {
+      let healthPercentage = this.agent.health / this.agent.maxHealth;
+      healthPercentage = healthPercentage <= 1 ? healthPercentage : 1;
+      this.healthBar.clear();
+      this.healthBar.fillStyle(0xffffff, 0.4);
+      this.healthBar.fillRect(this.x + this.ember.constants.healthBarOffsetX + this.config.offsets.healthbar.x, this.y + this.ember.constants.healthBarOffsetY + this.config.offsets.healthbar.y, this.ember.constants.healthBarWidth, this.ember.constants.healthBarHeight);
+      this.healthBar.fillStyle(healthPercentage <= this.ember.constants.healthBarColorTippingPoint ? this.ember.constants.healthBarColorDanger : this.ember.constants.healthBarColorGood, 1);
+      this.healthBar.fillRect(this.x + this.ember.constants.healthBarOffsetX + this.config.offsets.healthbar.x, this.y + this.ember.constants.healthBarOffsetY + this.config.offsets.healthbar.y, this.ember.constants.healthBarWidth * healthPercentage, this.ember.constants.healthBarHeight);
+    }
 
     if (this.showPowerBar) {
       // const powerPercentage = (this.agent.power / this.agent.maxPower);
