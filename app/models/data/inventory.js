@@ -41,15 +41,15 @@ export class InventoryItems {
         id: weaponId++,
         owned: false,
         display: true,
-        price: 2,
+        price: 20,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
         name: 'Jagged Sword',
         img: '/images/items/weapons/sword_jagged.png',
         cssClazz: 'sword b',
-        description: 'A simple introductory sword',
+        description: 'This sword has seen better days.',
         stats: [
-          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 4}),
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 10}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
         ],
@@ -66,6 +66,7 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: weaponId++,
+        locked: true,
         owned: false,
         display: true,
         price: 2,
@@ -93,6 +94,7 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: weaponId++,
+        locked: true,
         owned: false,
         display: true,
         price: 2,
@@ -120,6 +122,7 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: weaponId++,
+        locked: true,
         owned: false,
         display: true,
         price: 2,
@@ -147,17 +150,18 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: weaponId++,
+        locked: true,
         owned: false,
         display: true,
-        price: 2,
+        price: 10,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
         name: 'Simple Axe',
         img: '/images/items/weapons/axe.png',
         cssClazz: 'axe a',
-        description: 'A simple introductory sword',
+        description: 'A simple alternative to a sword',
         stats: [
-          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 4}),
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 10}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
         ],
@@ -174,6 +178,7 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: weaponId++,
+        locked: true,
         owned: false,
         display: true,
         price: 2,
@@ -201,6 +206,7 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: weaponId++,
+        locked: true,
         owned: false,
         display: true,
         price: 2,
@@ -228,6 +234,7 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: weaponId++,
+        locked: true,
         owned: false,
         display: true,
         price: 2,
@@ -255,6 +262,7 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: weaponId++,
+        locked: true,
         owned: false,
         display: true,
         price: 2,
@@ -453,6 +461,7 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: rangedWeaponId++,
+        locked: true,
         owned: false,
         display: true,
         price: 10,
@@ -481,6 +490,7 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: rangedWeaponId++,
+        locked: true,
         owned: false,
         display: true,
         price: 10,
@@ -509,6 +519,7 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: rangedWeaponId++,
+        locked: true,
         owned: false,
         display: true,
         price: 10,
@@ -565,12 +576,13 @@ export class InventoryItems {
         img: '/images/items/armor/leather_boots.png',
         cssClazz: 'hide',
         description: 'Slightly more sturdy than leather shoes',
-        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 3})]
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 7})]
       })
     );
     items.push(
       new InventoryItem({
         id: armorId++,
+        locked: true,
         owned: false,
         display: true,
         price: 10,
@@ -586,6 +598,7 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: armorId++,
+        locked: true,
         owned: false,
         display: true,
         price: 550,
@@ -602,6 +615,7 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: armorId++,
+            locked: true,
         owned: false,
         display: true,
         price: 5,
@@ -617,6 +631,7 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: armorId++,
+        locked: true,
         owned: false,
         display: true,
         price: 5,
@@ -632,6 +647,7 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: armorId++,
+        locked: true,
         owned: false,
         display: true,
         price: 5,
@@ -647,6 +663,7 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: armorId++,
+        locked: true,
         owned: false,
         display: true,
         price: 5,
@@ -662,6 +679,7 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: armorId++,
+        locked: true,
         owned: false,
         display: true,
         price: 5,
@@ -677,6 +695,7 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: armorId++,
+        locked: true,
         owned: false,
         display: true,
         price: 5,
@@ -694,6 +713,7 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: armorId++,
+        locked: true,
         owned: false,
         display: true,
         price: 5,
@@ -702,13 +722,14 @@ export class InventoryItems {
         name: 'Fur Hat',
         img: '/images/items/armor/furhat.png',
         cssClazz: 'hide',
-        description: '',
-        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+        description: 'It will keep your ears warm',
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 5})]
       })
     );
     items.push(
       new InventoryItem({
         id: armorId++,
+        locked: true,
         owned: false,
         display: true,
         price: 5,
@@ -724,6 +745,7 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: armorId++,
+        locked: true,
         owned: false,
         display: true,
         price: 5,
@@ -769,6 +791,7 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: armorId++,
+        locked: true,
         owned: false,
         display: true,
         price: 5,
@@ -784,6 +807,7 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: armorId++,
+        locked: true,
         owned: false,
         display: true,
         price: 5,
@@ -801,6 +825,7 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: armorId++,
+        locked: false,
         owned: false,
         display: true,
         price: 5,
@@ -809,13 +834,14 @@ export class InventoryItems {
         name: 'Wooden Shield',
         img: '/images/items/armor/shield_wooden.png',
         cssClazz: 'shield a',
-        description: '',
-        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+        description: 'Small wooden shield.',
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 3})]
       })
     );
     items.push(
       new InventoryItem({
         id: armorId++,
+        locked: true,
         owned: false,
         display: true,
         price: 5,
@@ -831,6 +857,7 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: armorId++,
+        locked: true,
         owned: false,
         display: true,
         price: 5,
@@ -846,6 +873,7 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: armorId++,
+        locked: true,
         owned: false,
         display: true,
         price: 5,
@@ -861,6 +889,7 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: armorId++,
+        locked: true,
         owned: false,
         display: true,
         price: 5,
@@ -880,12 +909,15 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: otherId++,
+        owned: false,
+        display: true,
         type: constants.INVENTORY.TYPE.OTHER,
+        bodypart: constants.INVENTORY.BODYPART.FINGERS,
         name: 'Tarnished Ring',
         img: '/images/items/other/tarnishedring.png',
         cssClazz: 'hide',
-        description: '',
-        price: 30,
+        description: 'Not pretty but helpful.',
+        price: 6,
         stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 2})]
       })
     );
@@ -901,7 +933,7 @@ export class InventoryItems {
       new InventoryItem({
         id: 2000,
         owned: false,
-        display: true,
+        display: false,
         locked: false,
         price: 1,
         // price: 550,
@@ -920,7 +952,7 @@ export class InventoryItems {
       new InventoryItem({
         id: 2001,
         owned: false,
-        display: true,
+        display: false,
         locked: false,
         price: 1,
         // price: 550,
@@ -939,7 +971,7 @@ export class InventoryItems {
       new InventoryItem({
         id: 2002,
         owned: false,
-        display: true,
+        display: false,
         locked: false,
         price: 1,
         // price: 550,
@@ -957,7 +989,7 @@ export class InventoryItems {
       new InventoryItem({
         id: 2003,
         owned: false,
-        display: true,
+        display: false,
         price: 1,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
@@ -983,7 +1015,7 @@ export class InventoryItems {
       new InventoryItem({
         id: 2004,
         owned: false,
-        display: true,
+        display: false,
         locked: false,
         price: 1,
         // price: 550,
@@ -1001,7 +1033,7 @@ export class InventoryItems {
       new InventoryItem({
         id: 2005,
         owned: false,
-        display: true,
+        display: false,
         locked: false,
         price: 1,
         // price: 550,
@@ -1019,7 +1051,7 @@ export class InventoryItems {
       new InventoryItem({
         id: 2006,
         owned: false,
-        display: true,
+        display: false,
         locked: false,
         price: 1,
         // price: 550,
@@ -1038,7 +1070,7 @@ export class InventoryItems {
       new InventoryItem({
         id: 2007,
         owned: false,
-        display: true,
+        display: false,
         locked: false,
         price: 1,
         // price: 550,
@@ -1056,7 +1088,7 @@ export class InventoryItems {
       new InventoryItem({
         id: 2008,
         owned: false,
-        display: true,
+        display: false,
         locked: false,
         price: 1,
         // price: 550,

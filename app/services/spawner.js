@@ -154,7 +154,8 @@ export default class SpawnerService extends Service {
 
             const agent = new Agent(unique.x, unique.y, agentConfig);
 
-            this.addAgent(agent);
+            // this.addAgent(agent);
+            this.scene.events.emit('agentSpawned', agent);
           }
         }
       })

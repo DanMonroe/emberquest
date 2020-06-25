@@ -15,6 +15,11 @@ module.exports = function(defaults) {
     },
 
     fingerprint: {
+      include: [
+        'images/help',
+        'images/common',
+        'images/sprites'
+      ],
       exclude: [
         'images',
         'images/agents',
@@ -22,7 +27,6 @@ module.exports = function(defaults) {
         'images/common',
         'images/icons',
         'images/items',
-        'images/sprites',
         'images/items/armor',
         'images/items/other',
         'images/items/tomes',

@@ -15,7 +15,9 @@
 
       "getchestfirst": "<p>Entering the outpost will transport you out of this maze.  However, it works only if you have first collected the nearby chest.</p>",
 
-      "lavawarning": "<h4>Warning!</h4><p>Lava ahead, watch your step!</p>"
+      "lavawarning": "<h4>Warning!</h4><p>Lava ahead, watch your step!</p>",
+
+      "suitup": "<h4>Ogre Warning!</h4><p>An Ogre patrols the Northern bridge.</p><p>Be sure to look at your inventory and equip a weapon and some armor!</p>"
 
     }
   },
