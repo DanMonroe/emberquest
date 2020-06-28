@@ -29,7 +29,8 @@ const constants = Object.freeze({
     KEY: {
       REST: 0,
       ATTACK: 1,
-      RANGE: 2
+      RANGE: 2,
+      MOVE: 3
     }
   },
 
@@ -207,7 +208,8 @@ const constants = Object.freeze({
       DOOR: {value: 4, description: 'Door'},
       MESSAGE: {value: 8, description: 'Message'},
       LAVA: {value: 16, description: 'Lava'},
-      ROYALEMBER: {value: 32, description: 'Royal Ember'}
+      ROYALEMBER: {value: 32, description: 'Royal Ember'},
+      NEST: {value: 64, description: 'Nest'} // Dock for flying
     }
   },
 

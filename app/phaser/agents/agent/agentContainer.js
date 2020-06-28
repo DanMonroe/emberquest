@@ -95,7 +95,7 @@ export default class AgentContainer extends BasePhaserAgentContainer {
         suffix: '.png'
       });
     let thisAnimationConfig = Object.assign({ key: animationConfig.key, frames: frameNames, frameRate: animationConfig.rate, repeat: animationConfig.repeat }, animationConfig || {});
-    // console.log('thisAnimationConfig', thisAnimationConfig)
+    // console.log('agent thisAnimationConfig', thisAnimationConfig)
     this.scene.anims.create(thisAnimationConfig);
   }
 
@@ -114,7 +114,6 @@ export default class AgentContainer extends BasePhaserAgentContainer {
     this.phaserAgentSprite = agentSprite;
 
     if (this.config.animeframes) {
-
       if (this.config.animeframes.rest) {
         this.createAnimation(this.config.animeframes.rest);
       }

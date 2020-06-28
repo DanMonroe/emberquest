@@ -112,6 +112,15 @@ export default class EditorComponent extends Component {
     this.createFinalMap();
   }
 
+  // Note on docks and transports:
+  // Nests:  nest is tF of 4, tile to the south is large tree with tF of 2
+  // 'x': 4, 'y': 7, 'tF': 4, 'spcl': {value:constants.FLAGS.SPECIAL.NEST.value}
+  // 'x': 4, 'y': 8, 'tF': 2, 'spcl': 0
+
+  // Docks:
+  // 'tF': 2, 'w': 'Wo^Bw|r', 'spcl': {value:constants.FLAGS.SPECIAL.DOCK.value}\
+
+
   createFinalMap() {
     let mapSource = `import { constants } from './constants';
 

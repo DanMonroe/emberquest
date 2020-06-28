@@ -224,7 +224,7 @@ export default class GameService extends Service {
   }
 
   async initializeRoyalEmberPlaced() {
-    console.log('initializeRoyalEmberPlaced')
+    // console.log('initializeRoyalEmberPlaced')
   }
 
   async initializeCachesAlreadyFound() {
@@ -238,7 +238,7 @@ export default class GameService extends Service {
         if (decryptedObject === gccode) {
           const geocache = this.cache.findCache(gccode);
           if (geocache) {
-            console.log('found chest', geocache);
+            // console.log('found chest', geocache);
             geocache.found = true;
           }
         }
@@ -278,7 +278,6 @@ export default class GameService extends Service {
   }
 
   createAgent(scene, agentObject) {
-  // createAgent(scene, agentConfig) {
     let agent = new Agent(scene, agentObject.objectConfig);
 
     let existingAgent = null;
@@ -310,7 +309,7 @@ export default class GameService extends Service {
   }
 
   processPlayerMove(playerContainer, moveTo, fieldOfViewTileXYArray) {
-    this.embarkOrDisembarkTransport(playerContainer);
+    this.embarkOrDisembarkTransport(playerContainer, moveTo);
     this.checkForPortal(playerContainer, moveTo);
     this.checkForAgents(playerContainer, moveTo, fieldOfViewTileXYArray);
     // this.checkForSpecial(playerContainer, moveTo);
@@ -318,10 +317,20 @@ export default class GameService extends Service {
   }
 
 
-  embarkOrDisembarkTransport(playerContainer) {
+  embarkOrDisembarkTransport(playerContainer, moveTo) {
+    // if (playerContainer.boardedTransport && playerContainer.boardedTransport.agent.playerConfig.flagAttributes.tF === this.constants.FLAGS.TRAVEL.AIR.value) {
+    //   const currentTileIsNest = this.map.tileIsNest(moveTo.scene, playerContainer.rexChess.tileXYZ);
+    //   console.log('check for nest', currentTileIsNest)
+    //   if (currentTileIsNest) {
+    //     playerContainer.disembarkTransport = true;
+    //   }
+    // }
     if (playerContainer.disembarkTransport) {
-      this.turnOffPlayerTravelAbilityFlag(playerContainer, this.constants.FLAGS.TRAVEL.SEA);
+      this.turnOffPlayerTravelAbilityFlag(playerContainer, playerContainer.boardedTransport.agent.playerConfig.flagAttributes.tF);
+      // this.turnOffPlayerTravelAbilityFlag(playerContainer, this.constants.FLAGS.TRAVEL.SEA);
       this.turnOnPlayerTravelAbilityFlag(playerContainer, this.constants.FLAGS.TRAVEL.LAND);
+
+      playerContainer.boardedTransport.playAnimation(constants.ANIMATION.KEY.REST);
 
       playerContainer.boardedTransport = undefined;
       playerContainer.disembarkTransport = false;
@@ -329,7 +338,10 @@ export default class GameService extends Service {
       playerContainer.boardedTransport = playerContainer.transportToBoard;
 
       this.turnOffPlayerTravelAbilityFlag(playerContainer, this.constants.FLAGS.TRAVEL.LAND);
-      this.turnOnPlayerTravelAbilityFlag(playerContainer, this.constants.FLAGS.TRAVEL.SEA);
+      this.turnOnPlayerTravelAbilityFlag(playerContainer, playerContainer.transportToBoard.agent.playerConfig.flagAttributes.tF);
+      // this.turnOnPlayerTravelAbilityFlag(playerContainer, this.constants.FLAGS.TRAVEL.SEA);
+
+      playerContainer.transportToBoard.playAnimation(constants.ANIMATION.KEY.MOVE);
 
       playerContainer.embarkTransport = false;
       playerContainer.transportToBoard = undefined;
@@ -461,9 +473,9 @@ export default class GameService extends Service {
       const fovShapes = this.map.getGameObjectsAtTileXY(board, tileXY, constants.SHAPE_TYPE_AGENT);
       if (fovShapes && fovShapes.length > 0) {
         fovShapes.forEach(fovShapeAgent => {
-// console.log('fovShapeAgent', fovShapeAgent)
+
           const shouldPursue = fovShapeAgent.checkAggression(fovShapeAgent);
-// console.log('shouldPursue', shouldPursue)
+
           if (board.areNeighbors(playerContainer, fovShapeAgent)) {
             // console.log('  is neighbor')
             fovShapeAgent.transitionToMelee(fovShapeAgent);
@@ -511,6 +523,7 @@ export default class GameService extends Service {
       case constants.FLAGS.SPECIAL.ROYALEMBER.value:
         this.checkForRoyalEmber(moveTo.scene);
         break;
+      case constants.FLAGS.SPECIAL.NEST.value:
       case constants.FLAGS.SPECIAL.PORTAL.value:
         // do nothing
         break;
@@ -645,7 +658,7 @@ export default class GameService extends Service {
 
 
   async foundChest(chest) {
-    console.log('foundChest!', chest)
+    // console.log('foundChest!', chest)
     if (chest) {
       // debugger;
       this.gameManager.player.gold = +this.gameManager.player.gold + +chest.gold;
@@ -653,12 +666,22 @@ export default class GameService extends Service {
 
       // special actions
       if (chest.specialActions) {
-        console.log('special Actions:', chest.specialActions)
+        // console.log('special Actions:', chest.specialActions)
         chest.specialActions.forEach(async(specialAction) => {
           await this.processSpecialAction.perform(chest.scene, specialAction);
         })
       }
 
+      if (chest.inventory) {
+        chest.inventory.forEach(swagId => {
+          const swag = this.inventory.getItemById(swagId);
+          if (swag) {
+            swag.owned = true;
+            swag.display = true;
+            swag.locked = false;
+          }
+        })
+      }
       // get cache details
       const geocache = this.cache.findCache(chest.gccode);
       if (geocache) {

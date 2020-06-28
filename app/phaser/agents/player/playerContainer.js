@@ -79,24 +79,38 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
 
       const allattrs = this.ember.map.getTileAttribute(pathFinder.scene, targetTile);
       let canMove = this.ember.playerHasAbilityFlag(pathFinder.scene.player.container, this.ember.constants.FLAG_TYPE_TRAVEL, allattrs.tF);
-// console.log('moveableTestCallback ', targetTile)
+
+      // canMove will also be false if trying to move from sea to land or air to land
       if (!canMove) {
-        // console.log('cant move! targetTile', targetTile, 'travelFlags', allattrs.travelFlags, 'w', allattrs.wesnoth);
 
-        // is there a transport at targetTile
-        const currentTileIsDock = this.ember.map.tileIsDock(pathFinder.scene, curTile);
+        // is there a sea transport at targetTile
+        if (this.ember.map.tileIsDock(pathFinder.scene, curTile)) {
+          canMove = this.ember.map.targetTileHasTransport(pathFinder.scene, targetTile);
 
-        if (currentTileIsDock) {
+        // is there an air transport at targetTile
+        } else if (this.ember.map.tileIsNest(pathFinder.scene, targetTile)) {
           canMove = this.ember.map.targetTileHasTransport(pathFinder.scene, targetTile);
 
         } else if (this.boardedTransport) {
           // already on board a transport.. is target tile a dock?
-          const targetTileIsDock = this.ember.map.tileIsDock(pathFinder.scene, targetTile);
-          if (targetTileIsDock) {
-            this.disembarkTransport = true;
 
-            canMove = true;
+          // boardedTransport is air transport and currentTile is nest, and target tile is land, let move
+          if (this.ember.map.tileIsNest(pathFinder.scene, curTile)) {
+            const targetTileIsLand = this.ember.map.tileIsLand(pathFinder.scene, targetTile);
+            if (targetTileIsLand && this.boardedTransport.agent.playerConfig.transferAtNest) {
+              this.disembarkTransport = true;
+              canMove = true;
+            }
+            // return this.ember.map.tileIsLand(pathFinder.scene, targetTile);
+          } else {
+            const targetTileIsDock = this.ember.map.tileIsDock(pathFinder.scene, targetTile);
+
+            if (targetTileIsDock && this.boardedTransport.agent.playerConfig.transferAtDock) {
+              this.disembarkTransport = true;
+              canMove = true;
+            }
           }
+
         }
       } else if ( ! this.boardedTransport) {  // don't adjust speed/power when on a transport
 
@@ -152,36 +166,6 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
     }
   }
 
-  myIsPathVisible (tileXYArray, visiblePoints) {
-    debugger;
-    console.log('myIsPathVisible')
-    if (this.preTest(tileXYArray, visiblePoints) === false) {
-      return false;
-    }
-
-    if (this.costCallback === undefined) {
-      return true;
-    }
-    var myTileXYZ = this.chessData.tileXYZ;
-    var tileXY, cost;
-    for (var i = 1, cnt = tileXYArray.length; i < cnt; i++) {
-      tileXY = tileXYArray[i];
-      if (AreTileXYEqual(myTileXYZ, tileXY)) {
-        continue;
-      }
-      cost = this.getCost(tileXY, tileXYArray);
-      if (cost === BLOCKER) {
-        return false;
-      }
-      if (visiblePoints !== INFINITY) {
-        visiblePoints -= cost;
-        if (visiblePoints < 0) {
-          return false;
-        }
-      }
-    }
-    return true;
-  }
 
   moveTo(cursors) {
 
@@ -189,32 +173,32 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
 
       if (cursors.D.isDown) {
         this.moveToObject.moveToward(this.ember.constants.DIRECTIONS.SE);
-        if (this.boardedTransport) {
+        if (this.boardedTransport && !this.disembarkTransport) {
           this.boardedTransport.moveToObject.moveToward(this.ember.constants.DIRECTIONS.SE);
         }
       } else if (cursors.S.isDown) {
         this.moveToObject.moveToward(this.ember.constants.DIRECTIONS.S);
-        if (this.boardedTransport) {
+        if (this.boardedTransport && !this.disembarkTransport) {
           this.boardedTransport.moveToObject.moveToward(this.ember.constants.DIRECTIONS.S);
         }
       } else if (cursors.A.isDown) {
         this.moveToObject.moveToward(this.ember.constants.DIRECTIONS.SW);
-        if (this.boardedTransport) {
+        if (this.boardedTransport && !this.disembarkTransport) {
           this.boardedTransport.moveToObject.moveToward(this.ember.constants.DIRECTIONS.SW);
         }
       } else if (cursors.Q.isDown) {
         this.moveToObject.moveToward(this.ember.constants.DIRECTIONS.NW);
-        if (this.boardedTransport) {
+        if (this.boardedTransport && !this.disembarkTransport) {
           this.boardedTransport.moveToObject.moveToward(this.ember.constants.DIRECTIONS.NW);
         }
       } else if (cursors.W.isDown) {
         this.moveToObject.moveToward(this.ember.constants.DIRECTIONS.N);
-        if (this.boardedTransport) {
+        if (this.boardedTransport && !this.disembarkTransport) {
           this.boardedTransport.moveToObject.moveToward(this.ember.constants.DIRECTIONS.N);
         }
       } else if (cursors.E.isDown) {
         this.moveToObject.moveToward(this.ember.constants.DIRECTIONS.NE);
-        if (this.boardedTransport) {
+        if (this.boardedTransport && !this.disembarkTransport) {
           this.boardedTransport.moveToObject.moveToward(this.ember.constants.DIRECTIONS.NE);
         }
       }

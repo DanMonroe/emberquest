@@ -310,6 +310,15 @@ export default class MapService extends Service {
     return this.tileHasGivenSpecialAttribute(scene, tileXY, this.constants.FLAGS.SPECIAL.DOCK.value);
   }
 
+  tileIsNest(scene, tileXY) {
+    return this.tileHasGivenSpecialAttribute(scene, tileXY, this.constants.FLAGS.SPECIAL.NEST.value);
+  }
+
+  tileIsLand(scene, tileXY) {
+    const travelFlags = this.getTileAttribute(scene, tileXY, 'tF');
+    return travelFlags & this.constants.FLAGS.TRAVEL.LAND.value;
+  }
+
   tileHasGivenSpecialAttribute(scene, tileXY, specialAttribute) {
     const specialAttr = this.getTileAttribute(scene, tileXY, 'spcl');
     if (!specialAttr) {

@@ -1108,13 +1108,49 @@ export class InventoryItems {
       new InventoryItem({
         id: 2500,
         display: false,
+        showEquipButton: false,
         price: 0,
-        // price: 550,
-        type: constants.INVENTORY.TYPE.NONDISPLAY,
-        name: 'North Castle Gate Key',
-        img: '/images/items/key.png'
+        type: constants.INVENTORY.TYPE.OTHER,
+        name: 'North Gate Key',
+        img: '/images/items/key.png',
+        description: 'Grants access to the castle via the North entrance'
       })
     );
+
+    items.push(
+      new InventoryItem({
+        id: 2501,
+        display: false,
+        showEquipButton: false,
+        price: 0,
+        type: constants.INVENTORY.TYPE.OTHER,
+        name: 'South Gate Key',
+        img: '/images/items/key.png',
+        description: 'Grants access to the castle via the South entrance'
+      })
+    );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // The final Ember item
     items.push(

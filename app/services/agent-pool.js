@@ -9,10 +9,8 @@ export default class AgentPoolService extends Service {
   getAgentConfig(key) {
     const pool = this.getAgentPool();
     const agentConfig = pool.get(key);
-    // const agentConfig = this.getAgentPool().get(key);
-    console.log('agentConfig', key, agentConfig);
+
     return agentConfig;
-    // return this.getAgentPool().get(key);
   }
 
   getAgentPool() {

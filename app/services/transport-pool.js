@@ -99,11 +99,30 @@ export default class TransportPoolService extends Service {
       })
     );
 
+    this.transportpool.set('gryphon_1',
+      Object.assign(Object.assign({}, this.baseTransport), {
+        id: 1308,
+        // texture: 'griffon',
+        scale: 1.5,
+        animeframes: {
+          rest: {key: 'gryphonrest', prefix: 'gryphon/gryphon', start: 1, end: 1},
+          move: {key: 'gryphonmove', prefix: 'gryphon/gryphon-flying-', start: 1, end: 8, rate: 8, repeat: -1}
+        },
+        flagAttributes: {
+          sF: 0,
+          tF: 4
+        },
+        transferAtDock: false,
+        transferAtNest: true
+
+      })
+    );
+
   }
 
   baseTransport = {
     id: 1,
-    texture: 'cutter',
+    // texture: 'cutter',
     textureSize: { width: 42, height: 42},
     scale: 1,
     speed: 125,
@@ -114,12 +133,12 @@ export default class TransportPoolService extends Service {
     maxHealth: 20,
     power: 25,
     healingPower: 1,
-    // energizePower: 20,
-    // energizeSpeed: 3000,
     flagAttributes: {
       sF: 0,
       tF: 1
     },
+    transferAtDock: true,
+    transferAtNest: false,
 
     animeframes: {},
     audio: [{ die: '' }],

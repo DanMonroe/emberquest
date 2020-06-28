@@ -54,7 +54,6 @@ export default class SpawnerService extends Service {
           const transport = new Transport(location.x, location.y, Object.assign(location, transportConfigFromPool));
           transport.isBoardedTransport = true;
           this.addTransport(transport);
-
         }
       }
     } catch (e) {
@@ -79,8 +78,6 @@ export default class SpawnerService extends Service {
     }
 
     if (this.spawnLocations.transports && this.spawnLocations.transports.length > 0) {
-      // this.transportLimit = this.spawnLocations.transports.limit || 1;
-      // this.spawners.push(constants.SPAWNER_TYPE.TRANSPORT);
       this.spawnLocations.transports.forEach(transportObj => {
         // console.log('transport', transportObj);
 
@@ -92,7 +89,6 @@ export default class SpawnerService extends Service {
             transportObj: transportObj
           }
         );
-        // this.spawnObject(constants.SPAWNER_TYPE.TRANSPORT, transportObj);
       });
     }
 
@@ -110,19 +106,11 @@ export default class SpawnerService extends Service {
         }
       })
     }
-    // if (this.spawnLocations.agents && this.spawnLocations.agents.locations.length > 0) {
-    //   // console.log('this.spawnLocations.agents.locations', this.spawnLocations.agents.locations)
-    //   this.agentLimit = this.spawnLocations.agents.limit || 1;
-    //   this.spawnInterval = this.spawnLocations.agents.spawnInterval || 3000;
-    //   this.spawners.push(constants.SPAWNER_TYPE.AGENT);
-    // }
 
-    // this.spawnObjects.perform();
-
-      // start all the spawners
-      this.spawners.forEach(spawnerConfig => {
-        this.spawnerTask.perform(spawnerConfig);
-      })
+    // start all the spawners
+    this.spawners.forEach(spawnerConfig => {
+      this.spawnerTask.perform(spawnerConfig);
+    });
   }
 
   async cancelAllSpawnerTasks() {
@@ -162,31 +150,11 @@ export default class SpawnerService extends Service {
     }
   }
 
-  // @restartableTask
-  // *spawnObjects() {
-  //   while (this.spawners.length > 0) {
-  //     if (!this.scene.ember.gameManager.gamePaused) {
-  //       this.spawners.forEach(spawnerType => {
-  //         if (this.shouldSpawn(spawnerType)) {
-  //           this.spawnObject(spawnerType);
-  //         } else {
-  //           // console.log('   >> ' + spawnerType + ' - NO!! Dont spawn')
-  //         }
-  //       });
-  //       yield timeout(this.spawnInterval);
-  //     } else {
-  //       console.log('no spawn, game paused')
-  //       yield timeout(1000);
-  //     // }
-  //   }
-  // }
-
   // Only agents for now ?
   @task
   *spawnerTask(spawnerConfig) {
     while (true) {
       if (!this.scene.ember.gameManager.gamePaused) {
-        // console.log('should spawn? ', this.agents.length === 0 || this.agents[spawnerConfig.agentSpawnerIndex].length < spawnerConfig.agentLimit)
         // should spawn ?
         if ( this.agents.length === 0 || this.agents.length <= spawnerConfig.agentSpawnerIndex || this.agents[spawnerConfig.agentSpawnerIndex].length < spawnerConfig.agentLimit) {
           this.spawnObject(spawnerConfig);
@@ -196,27 +164,13 @@ export default class SpawnerService extends Service {
 
         yield timeout(spawnerConfig.spawnInterval);
       } else {
-        console.log('no spawn, game paused')
+        // console.log('no spawn, game paused')
         yield timeout(1000);
       }
     }
   }
 
-  // shouldSpawn(spawnerType) {
-  //   switch (spawnerType) {
-  //     case constants.SPAWNER_TYPE.AGENT:
-  //       if (this.spawnLocations.agents.locations.length === 0 || this.agents.length >= this.agentLimit) {
-  //         return false;
-  //       }
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  //   return true;
-  // }
-
   spawnObject(spawnerConfig) {
-  // spawnObject(spawnerType, objectConfig) {
     let location, locationClone, agentConfigFromPool, transportConfigFromPool;
     switch (spawnerConfig.type) {
 
@@ -233,7 +187,6 @@ export default class SpawnerService extends Service {
 
         if (location) {
           agentConfigFromPool = Object.assign({}, this.pickRandomAgentFromPool(location, spawnerConfig));
-  console.log('agentConfigFromPool', agentConfigFromPool)
           locationClone = Object.assign({}, location);
           if (agentConfigFromPool) {
             if (locationClone.patrol) {
@@ -310,9 +263,7 @@ export default class SpawnerService extends Service {
       let okToSpawn = true;
       if (!transport.isBoardedTransport && this.scene.ember.gameData && this.scene.ember.gameData.transports) {
         const savedTransportInThisSceneIndex = this.scene.ember.gameData.transports.findIndex(savedTransport => {
-          // console.log('savedTransport', savedTransport)
             return savedTransport.id === transport.objectConfig.id;
-            // return savedTransport.id === transport.objectConfig.id && savedTransport.map !== this.scene.mapname;
         });
         if (savedTransportInThisSceneIndex >= 0) {
           okToSpawn = this.scene.ember.gameData.transports[savedTransportInThisSceneIndex].map === this.scene.mapname;
@@ -336,7 +287,7 @@ export default class SpawnerService extends Service {
   }
 
   addAgent(agent, spawnerConfig) {
-    console.log('*** spawner service - add agent', agent.id, agent.x, agent.y, agent);
+    // console.log('*** spawner service - add agent', agent.id, agent.x, agent.y, agent);
 
       if (this.agents.length <= spawnerConfig.agentSpawnerIndex) {
         this.agents.push([]);

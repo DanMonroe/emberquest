@@ -1,39 +1,9 @@
-import TransportPhaserAgent from "./transport-phaser-agent";
 import BasePhaserAgentContainer from "../base-phaser-agent-container";
+import {tracked} from '@glimmer/tracking';
 
 export default class TransportContainer extends BasePhaserAgentContainer {
-// export default class TransportContainer extends Phaser.GameObjects.Container {
 
-  // scene = undefined;
-  // ember = undefined;
-
-  // @tracked maxHealth;
-  // @tracked health;
-  // @tracked maxPower;
-  // @tracked power;
-  // @tracked healingSpeed = 3000;
-  // @tracked healingPower = 2;
-  // @tracked energizeSpeed = 2000;
-  // @tracked energizePower = 2;
-
-
-  // @task
-  // *reloadHealth() {
-  //   while (this.health < this.maxHealth) {
-  //     // console.log('reloadHealth')
-  //     yield timeout(this.healingSpeed);
-  //     this.health += Math.max(1, this.healingPower);
-  //   }
-  // }
-  //
-  // @task
-  // *reloadPower() {
-  //   while (this.power < this.maxPower) {
-  //     // console.log('reloadPower')
-  //     yield timeout(this.energizeSpeed);
-  //     this.power += Math.max(1, this.energizePower);
-  //   }
-  // }
+  @tracked config;
 
   constructor(scene, config, agent) {
 
@@ -41,14 +11,17 @@ export default class TransportContainer extends BasePhaserAgentContainer {
     this.containerType = this.scene.game.ember.constants.SHAPE_TYPE_TRANSPORT;
 
 
-    // this.cachedHealthPercentage = 0;
-
     // create the tranport
-    this.transport = new TransportPhaserAgent(this.scene, config);
-    this.add(this.transport);
+    // this.transport = new TransportPhaserAgent(this.scene, config);
+    // this.add(this.transport);
 
     this.agent = agent;
-    this.phaserAgentSprite = this.transport;
+    this.config = config;
+    this.phasertransportSprite = this.transport;
+
+    this.setupSprite();
+
+    this.setData('attrs', config.flagAttributes);
 
     this.moveToObject = this.scene.rexBoard.add.moveTo(this, {
       speed: config.speed, // 400 default
@@ -74,6 +47,85 @@ export default class TransportContainer extends BasePhaserAgentContainer {
     this.createHealthBar();
     this.reloadHealth.perform();
     this.reloadPower.perform();
+  }
+
+  createAnimation(animationConfig) {
+    let frameNames = this.scene.anims.generateFrameNames(this.ember.constants.SPRITES_TEXTURE,
+      {
+        start: animationConfig.start,
+        end: animationConfig.end,
+        zeroPad: 0,
+        prefix: animationConfig.prefix,
+        suffix: '.png'
+      });
+    let thisAnimationConfig = Object.assign({ key: animationConfig.key, frames: frameNames, frameRate: animationConfig.rate, repeat: animationConfig.repeat }, animationConfig || {});
+    // console.log('transport thisAnimationConfig', thisAnimationConfig)
+    this.scene.anims.create(thisAnimationConfig);
+  }
+
+
+  setupSprite() {
+    const transportSprite = this.scene.add.sprite(0, 0, this.config.texture || this.ember.constants.SPRITES_TEXTURE);
+    if (this.config.offsets.img) {
+      transportSprite.x += this.config.offsets.img.x;
+      transportSprite.y += this.config.offsets.img.y;
+    }
+
+    // console.log('sprite config', this.config)
+    transportSprite.setScale(this.config.scale);
+
+    this.add(transportSprite);
+
+    this.phaserAgentSprite = transportSprite;
+
+    if (this.config.animeframes) {
+      if (this.config.animeframes.rest) {
+        this.createAnimation(this.config.animeframes.rest);
+      }
+      if (this.config.animeframes.move) {
+        this.createAnimation(this.config.animeframes.move);
+      }
+    }
+
+    transportSprite.on('animationcomplete',  (anim, frame) => {
+      transportSprite.emit('animationcomplete' + anim.key.replace(this.config.texture, ""), anim, frame);
+    }, transportSprite);
+
+    if (this.config.animeframes.rest) {
+      transportSprite.on('animationcomplete-rest', () => {
+      });
+    }
+    if (this.config.animeframes.move) {
+      transportSprite.on('animationcomplete-move', () => {
+        this.playAnimation(this.ember.constants.ANIMATION.KEY.REST);
+      });
+    }
+
+    // start playing the rest animation
+    // this.playAnimation(this.ember.constants.ANIMATION.KEY.MOVE);
+    this.playAnimation(this.ember.constants.ANIMATION.KEY.REST);
+  }
+
+  stopAnimation() {
+    this.phaserAgentSprite.anims.stop();
+  }
+
+  playAnimation(key) {
+    switch (key) {
+      case this.ember.constants.ANIMATION.KEY.REST:
+        // start playing the rest animation
+        if (this.config.animeframes.rest) {
+          this.phaserAgentSprite.anims.play(this.config.animeframes.rest.key);
+        }
+        break;
+      case this.ember.constants.ANIMATION.KEY.MOVE:
+        if (this.config.animeframes.move) {
+          this.phaserAgentSprite.anims.play(this.config.animeframes.move.key);
+        }
+        break;
+      default:
+        break;
+    }
   }
 
   moveToComplete(/*transport, moveTo*/) {

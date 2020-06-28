@@ -179,18 +179,15 @@ export class GameboardScene extends Phaser.Scene {
   createGameManager() {
     // this has to be before game manager setup
 
-    // this.events.on('spawnPlayer', (playerObject) => {
     this.events.off('spawnPlayer').on('spawnPlayer', (playerObject) => {
       this.spawnPlayer(playerObject);
       this.addCollisions();
     });
 
-    // this.events.on('transportSpawned', (transportObject) => {
     this.events.off('transportSpawned').on('transportSpawned', (transportObject) => {
       this.spawnTransport(transportObject);
     });
 
-    // this.events.on('agentSpawned', (agentObject) => {
     this.events.off('agentSpawned').on('agentSpawned', (agentObject) => {
       this.spawnAgent(agentObject);
     });
@@ -361,19 +358,18 @@ export class GameboardScene extends Phaser.Scene {
       }
     } else {
       const storedTransport = this.ember.findTransportFromArrayById(this.storedTransports, transportObj.objectConfig.id);
-      // console.log('spawning transport: transportObj', transportObj)
-      // console.log('storedTransport', storedTransport)
       if (storedTransport && storedTransport.tile) {
         transportObj.objectConfig.x = storedTransport.tile.x;
         transportObj.objectConfig.y = storedTransport.tile.y;
       }
     }
-    // transportObj.objectConfig.costCallback = (tileXY) => {
-    //   return this.ember.map.getTileAttribute(this.board.scene, tileXY, 'sightCost');
-    // };
     const transportContainer = this.ember.createTransport(this, transportObj);
     transportContainer.setAlpha(0);
     this.transports.add(transportContainer);
+    if (transportObj.isBoardedTransport) {
+      transportContainer.playAnimation(this.ember.constants.ANIMATION.KEY.MOVE);
+    }
+    transportContainer.setVisibility();
   }
 
   createAudio() {
@@ -465,14 +461,13 @@ export class GameboardScene extends Phaser.Scene {
     this.physics.add.overlap(this.player.container, this.chests, this.collectChest, null, this);
 
     // check for overlaps between player and transport game objects
-    this.physics.add.collider(this.player.container, this.transports, this.boardTransport, this.boardTransportProcessCallback, this);
-    // this.physics.add.overlap(this.player, this.transports, this.boardTransport, this.boardTransportProcessCallback, this);
+    this.physics.add.overlap(this.player.container, this.transports, this.boardTransport, this.boardTransportProcessCallback, this);
 
     this.physics.add.overlap(this.projectiles, this.agents, this.projectiles.enemyCollision);
     this.physics.add.overlap(this.agentprojectiles, this.player.container, this.agentprojectiles.playerCollision);
 
     // check for collisions between the doors group and the player
-    this.physics.add.collider(this.player.container, this.doors, this.doorCollision, null, this);
+    this.physics.add.overlap(this.player.container, this.doors, this.doorCollision, null, this);
 
     // check for overlaps between the player's weapon and monster game objects
     // this.physics.add.overlap(this.player.weapon, this.monsters, this.enemyOverlap, null, this);
@@ -481,14 +476,13 @@ export class GameboardScene extends Phaser.Scene {
 
   boardTransport(player, transport) {
     if (( ! player.boardedTransport) && ( ! player.embarkTransport)) {
-    // if ( ! player.boardedTransport) {
       player.embarkTransport = true;
       player.transportToBoard = transport;
     }
   }
 
-  boardTransportProcessCallback() {
-    // console.log('boardTransportProcessCallback', arguments)
+  boardTransportProcessCallback(player) {
+    return (( ! player.boardedTransport) && ( ! player.embarkTransport));
   }
 
   collectChest(player, chest) {
