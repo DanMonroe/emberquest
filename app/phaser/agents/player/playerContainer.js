@@ -77,6 +77,10 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
         return false;
       }
 
+      // inherit speed from transport
+      if(this.boardedTransport){
+        this.moveToObject.setSpeed(this.boardedTransport.config.speed);
+      }
       const allattrs = this.ember.map.getTileAttribute(pathFinder.scene, targetTile);
       let canMove = this.ember.playerHasAbilityFlag(pathFinder.scene.player.container, this.ember.constants.FLAG_TYPE_TRAVEL, allattrs.tF);
 

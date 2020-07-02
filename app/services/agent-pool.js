@@ -28,33 +28,6 @@ export default class AgentPoolService extends Service {
 
     let agentId = 1;
 
-    // // SPIDER
-    // this.agentpool.set('spider',
-    //   Object.assign(baseAgentclone, {
-    //     id: 1,
-    //     name: 'Spider',
-    //     texture: 'spider',
-    //     health: 20,
-    //     maxHealth: 20,
-    //     healingPower: 3,
-    //     // aggressionScale: 100,  // TODO need a better way to track aggression levels
-    //
-    //     animeframes: {
-    //       rest: {key: 'spider-rest', start: 1, end: 2, repeat: -1, rate: 1},
-    //       attack: {key: 'spider-attack', start: 2, end: 14, rate: 12},
-    //       range: {key: 'spider-range', start: 15, end: 21, rate: 8}
-    //     },
-    //     inventory: [
-    //       {
-    //         bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{itemId: 5001, droppable: false}],
-    //       },
-    //       {
-    //         bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5002, droppable: false } ]
-    //       }
-    //     ]
-    //   })
-    // );
-
     // YOUNG-OGRE
     baseAgentclone = Object.assign({}, this.baseAgent);
     this.agentpool.set('young-ogre',
@@ -63,7 +36,7 @@ export default class AgentPoolService extends Service {
         name: 'Young Ogre',
         scale: 1.5,
         animeframes: {
-          rest: {key: 'young-ogrerest', prefix: 'ogres/young-ogre-idle-', start: 1, end: 4, rate: 3, repeat: -1},
+          rest: {yoyo: true, key: 'young-ogrerest', prefix: 'ogres/young-ogre-idle-', start: 1, end: 4, rate: 3, repeat: -1},
           attack: {key: 'young-ogreattack', prefix: 'ogres/young-ogre-attack', start: 1, end: 5, rate: 12, delays: { frameNum: 3, delay: 300 }}
         },
         inventory: [
@@ -75,36 +48,18 @@ export default class AgentPoolService extends Service {
       })
     );
 
-    // DOG
-    baseAgentclone = Object.assign({}, this.baseAgent);
-    this.agentpool.set('dog',
-      Object.assign(baseAgentclone, {
-        id: agentId++,
-        name: 'Dog',
-        scale: 1.5,
-        animeframes: {
-          rest: {key: 'dogrest', prefix: 'dog/dog-', start: 0, end: 3, rate: 3, repeat: -1},
-          attack: {key: 'dogattack', prefix: 'dog/dog-', start: 3, end: 4, rate: 12, delays: { frameNum: 1, delay: 300 }}
-        },
-        inventory: [
-          { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items:
-            [
-              { itemId: 5003 }  // bite
-            ]},
-        ]
-      })
-    );
-
     // Pirate
     baseAgentclone = Object.assign({}, this.baseAgent);
     this.agentpool.set('pirate',
       Object.assign(baseAgentclone, {
         id: agentId++,
         name: 'Pirate',
-        // texture: 'pirate',
         scale: 1.5,
+        flagAttributes: {
+          tF: 1
+        },
         animeframes: {
-          rest: {key: 'piraterest', prefix: 'pirates/pirate-galleon', start: 1, end: 1, repeat: 0},
+          rest: {yoyo: true, key: 'piraterest', prefix: 'pirates/pirate-galleon', start: 1, end: 1, repeat: 0},
         },
         inventory: [
           {
@@ -129,7 +84,7 @@ export default class AgentPoolService extends Service {
         },
         scale: 1.4,
         animeframes: {
-          rest: {key: 'keeprest', prefix: 'keeps/keep', start: 1, end: 1, repeat: 0},
+          rest: {yoyo: true, key: 'keeprest', prefix: 'keeps/keep', start: 1, end: 1, repeat: 0},
         },
         inventory: [
           {
@@ -156,7 +111,7 @@ export default class AgentPoolService extends Service {
         },
         scale: 1.5,
         animeframes: {
-          rest: {key: 'desert_keeprest', prefix: 'keeps/desert_keep', start: 1, end: 1, repeat: 0},
+          rest: {yoyo: true, key: 'desert_keeprest', prefix: 'keeps/desert_keep', start: 1, end: 1, repeat: 0},
         },
         inventory: [
           {
@@ -175,7 +130,7 @@ export default class AgentPoolService extends Service {
         id: agentId++,
         name: 'Bat',
         animeframes: {
-          rest: {key: 'batrest', prefix: 'bats/bat-se-', start: 1, end: 5, rate: 3, repeat: -1}
+          rest: {yoyo: true, key: 'batrest', prefix: 'bats/bat-se-', start: 1, end: 5, rate: 3, repeat: -1}
         },
         inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
       })
@@ -187,7 +142,7 @@ export default class AgentPoolService extends Service {
         id: agentId++,
         name: 'Blood Bat',
         animeframes: {
-          rest: {key: 'bloodbatrest', prefix: 'bats/bloodbat-se-', start: 1, end: 5, rate: 3, repeat: -1}
+          rest: {yoyo: true, key: 'bloodbatrest', prefix: 'bats/bloodbat-se-', start: 1, end: 5, rate: 3, repeat: -1}
         },
         inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
       })
@@ -199,7 +154,7 @@ export default class AgentPoolService extends Service {
         id: agentId++,
         name: 'Dread Bat',
         animeframes: {
-          rest: {key: 'dreadbatrest', prefix: 'bats/dreadbat-se-', start: 1, end: 5, rate: 3, repeat: -1}
+          rest: {yoyo: true, key: 'dreadbatrest', prefix: 'bats/dreadbat-se-', start: 1, end: 5, rate: 3, repeat: -1}
         },
         inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
       })
@@ -211,7 +166,7 @@ export default class AgentPoolService extends Service {
         id: agentId++,
         name: 'Young Cyclop',
         animeframes: {
-          rest: {key: 'youngcycloprest', prefix: 'cyclops/youngcyclop/cyclop-', start: 1, end: 2, rate: 3, repeat: -1},
+          rest: {yoyo: true, key: 'youngcycloprest', prefix: 'cyclops/youngcyclop/cyclop-', start: 1, end: 2, rate: 3, repeat: -1},
           attack: {key: 'youngcyclopattack', prefix: 'cyclops/youngcyclop/cyclop-attack-', start: 1, end: 3, rate: 12, delays: { frameNum: 2, delay: 300 }}
         },
         inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
@@ -229,7 +184,7 @@ export default class AgentPoolService extends Service {
           damage: { x: 0, y: -45 }
         },
         animeframes: {
-          rest: {key: 'goliathrest', prefix: 'cyclops/goliath/goliath-se', start: 1, end: 1, rate: 3, repeat: -1},
+          rest: {yoyo: true, key: 'goliathrest', prefix: 'cyclops/goliath/goliath-se', start: 1, end: 1, rate: 3, repeat: -1},
           attack: {key: 'goliathattack', prefix: 'cyclops/goliath/goliath-se', start: 1, end: 9, rate: 12}
         },
         inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
@@ -242,7 +197,7 @@ export default class AgentPoolService extends Service {
         id: agentId++,
         name: 'Ancient Cyclop',
         animeframes: {
-          rest: {key: 'ancientcycloprest', prefix: 'cyclops/ancientcyclop/ancientcyclop-', start: 1, end: 1, rate: 3, repeat: -1},
+          rest: {yoyo: true, key: 'ancientcycloprest', prefix: 'cyclops/ancientcyclop/ancientcyclop-', start: 1, end: 1, rate: 3, repeat: -1},
           attack: {key: 'ancientcyclopattack', prefix: 'cyclops/ancientcyclop/ancientcyclop-attack-', start: 1, end: 2, rate: 12, delays: { frameNum: 2, delay: 300 }}
         },
         inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
@@ -255,7 +210,7 @@ export default class AgentPoolService extends Service {
         id: agentId++,
         name: 'Direwolf',
         animeframes: {
-          rest: {key: 'direwolfrest', prefix: 'direwolf/direwolf', start: 1, end: 2, rate: 3, repeat: -1},
+          rest: {yoyo: true, key: 'direwolfrest', prefix: 'direwolf/direwolf', start: 1, end: 2, rate: 3, repeat: -1},
           attack: {key: 'direwolfattack', prefix: 'direwolf/direwolf-attack-', start: 1, end: 1, rate: 12, delays: { frameNum: 1, delay: 300 }}
         },
         inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
@@ -269,7 +224,7 @@ export default class AgentPoolService extends Service {
         id: agentId++,
         name: 'Bandit',
         animeframes: {
-          rest: {key: 'humanoid_banditrest', prefix: 'humanoid/bandit/bandit', start: 1, end: 1, rate: 3, repeat: -1},
+          rest: {yoyo: true, key: 'humanoid_banditrest', prefix: 'humanoid/bandit/bandit', start: 1, end: 1, rate: 3, repeat: -1},
           attack: {key: 'humanoid_banditattack', prefix: 'humanoid/bandit/bandit-melee-', start: 1, end: 8, rate: 12, delays: { frameNum: 8, delay: 300 }}
         },
         inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
@@ -282,7 +237,7 @@ export default class AgentPoolService extends Service {
         id: agentId++,
         name: 'Outlaw',
         animeframes: {
-          rest: {key: 'humanoid_outlawrest', prefix: 'humanoid/outlaw/outlaw', start: 1, end: 1, rate: 3, repeat: -1},
+          rest: {yoyo: true, key: 'humanoid_outlawrest', prefix: 'humanoid/outlaw/outlaw', start: 1, end: 1, rate: 3, repeat: -1},
           attack: {key: 'humanoid_outlawattack', prefix: 'humanoid/outlaw/outlaw-melee-', start: 1, end: 3, rate: 12, delays: { frameNum: 3, delay: 300 }}
         },
         inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
@@ -295,7 +250,7 @@ export default class AgentPoolService extends Service {
         id: agentId++,
         name: 'Footpad',
         animeframes: {
-          rest: {key: 'humanoid_footpadrest', prefix: 'humanoid/footpad/footpad', start: 1, end: 1, rate: 3, repeat: -1},
+          rest: {yoyo: true, key: 'humanoid_footpadrest', prefix: 'humanoid/footpad/footpad', start: 1, end: 1, rate: 3, repeat: -1},
           attack: {key: 'humanoid_footpadattack', prefix: 'humanoid/footpad/footpad-melee-', start: 1, end: 4, rate: 12, delays: { frameNum: 4, delay: 300 }}
         },
         inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
@@ -308,25 +263,99 @@ export default class AgentPoolService extends Service {
         id: agentId++,
         name: 'Peasant',
         animeframes: {
-          rest: {key: 'humanoid_peasantrest', prefix: 'humanoid/peasant/peasant', start: 1, end: 1, rate: 3, repeat: -1},
+          rest: {yoyo: true, key: 'humanoid_peasantrest', prefix: 'humanoid/peasant/peasant', start: 1, end: 1, rate: 3, repeat: -1},
           attack: {key: 'humanoid_peasantattack', prefix: 'humanoid/peasant/peasant-melee-', start: 1, end: 4, rate: 12, delays: { frameNum: 4, delay: 300 }}
         },
         inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
       })
     );
 
+    // Animals
     baseAgentclone = Object.assign({}, this.baseAgent);
     this.agentpool.set('mutant_rat',
       Object.assign(baseAgentclone, {
         id: agentId++,
         name: 'Mutant Rat',
         animeframes: {
-          rest: {key: 'mutant_ratrest', prefix: 'rat/mutant-rat', start: 1, end: 1, rate: 3, repeat: -1},
+          rest: {yoyo: true, key: 'mutant_ratrest', prefix: 'rat/mutant-rat', start: 1, end: 1, rate: 3, repeat: -1},
           attack: {key: 'mutant_ratattack', prefix: 'rat/mutant-rat-attack-', start: 1, end: 7, rate: 12, delays: { frameNum: 7, delay: 300 }}
         },
         inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
       })
     );
+
+    baseAgentclone = Object.assign({}, this.baseAgent);
+    this.agentpool.set('bear',
+      Object.assign(baseAgentclone, {
+        id: agentId++,
+        name: 'Bear',
+        animeframes: {
+          rest: {yoyo: true, key: 'bear', prefix: 'animals/bear', start: 1, end: 1},
+          attack: {key: 'bear', prefix: 'animals/bear', start: 1, end: 1}
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
+      })
+    );
+
+    baseAgentclone = Object.assign({}, this.baseAgent);
+    this.agentpool.set('crab',
+      Object.assign(baseAgentclone, {
+        id: agentId++,
+        name: 'Crab',
+        animeframes: {
+          rest: {yoyo: true, key: 'crab', prefix: 'animals/crab', start: 1, end: 1},
+          attack: {key: 'crab', prefix: 'animals/crab', start: 1, end: 1}
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
+      })
+    );
+
+    baseAgentclone = Object.assign({}, this.baseAgent);
+    this.agentpool.set('dog',
+      Object.assign(baseAgentclone, {
+        id: agentId++,
+        name: 'Dog',
+        scale: 1.5,
+        animeframes: {
+          rest: {yoyo: true, key: 'dogrest', prefix: 'dog/dog-', start: 0, end: 3, rate: 3, repeat: -1},
+          attack: {key: 'dogattack', prefix: 'dog/dog-', start: 3, end: 4, rate: 12, delays: { frameNum: 1, delay: 300 }}
+        },
+        inventory: [
+          { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items:
+              [
+                { itemId: 5003 }  // bite
+              ]},
+        ]
+      })
+    );
+    baseAgentclone = Object.assign({}, this.baseAgent);
+    this.agentpool.set('direwolf',
+      Object.assign(baseAgentclone, {
+        id: agentId++,
+        name: 'Direwolf',
+        animeframes: {
+          rest: {yoyo: true, key: 'direwolf-rest', prefix: 'direwolf/direwolf', start: 1, end: 2, rate: 3, repeat: -1},
+          attack: {key: 'winged-demon-attack', prefix: 'chaos/winged-demon-attack', start: 2, end: 3, rate: 3, repeat: -1, delays: { frameNum: 2, delay: 300 }}
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
+      })
+    );
+    baseAgentclone = Object.assign({}, this.baseAgent);
+    this.agentpool.set('dog',
+      Object.assign(baseAgentclone, {
+        id: agentId++,
+        name: 'Hell Hound',
+        scale: 1.5,
+        animeframes: {
+          rest: {yoyo: true, key: 'hellhound-rest', prefix: 'dog/rabid-hound-attack', start: 3, end: 3, rate: 3, repeat: -1},
+          attack: {key: 'hellhound-attack', prefix: 'dog/rabid-hound-attack', start: 1, end: 2, rate: 7, delays: { frameNum: 2, delay: 300 }}
+        },
+        inventory: [
+          { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
+      })
+    );
+
+
 
     // Bugs
     baseAgentclone = Object.assign({}, this.baseAgent);
@@ -335,12 +364,193 @@ export default class AgentPoolService extends Service {
         id: agentId++,
         name: 'Myriapod',
         animeframes: {
-          rest: {key: 'myriapodrest', prefix: 'bugs/myriapod/myriapod-se', start: 1, end: 3, rate: 3, repeat: -1},
-          attack: {key: 'myriapodattack', prefix: 'bugs/myriapod/myriapod-attack-', start: 1, end: 2, rate: 12, delays: { frameNum: 2, delay: 300 }}
+          rest: {yoyo: true, key: 'myriapodrest', prefix: 'bugs/myriapod/myriapod-se', start: 1, end: 3, rate: 3, repeat: -1},
+          attack: {key: 'myriapodattack', prefix: 'bugs/myriapod/myriapod-attack', start: 1, end: 2, rate: 12, delays: { frameNum: 2, delay: 300 }}
         },
         inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
       })
     );
+
+    baseAgentclone = Object.assign({}, this.baseAgent);
+    this.agentpool.set('armored-myriapod',
+      Object.assign(baseAgentclone, {
+        id: agentId++,
+        name: 'Armored Myriapod',
+        animeframes: {
+          rest: {yoyo: true, key: 'armored-myriapodrest', prefix: 'bugs/armored-myriapod/armored_myriapod-se', start: 1, end: 3, rate: 3, repeat: -1},
+          attack: {key: 'armored-myriapodattack', prefix: 'bugs/armored-myriapod/armored_myriapod-attack', start: 1, end: 2, rate: 12, delays: { frameNum: 2, delay: 300 }}
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
+      })
+    );
+
+    baseAgentclone = Object.assign({}, this.baseAgent);
+    this.agentpool.set('electric-myriapod',
+      Object.assign(baseAgentclone, {
+        id: agentId++,
+        name: 'Electric Myriapod',
+        animeframes: {
+          rest: {yoyo: true, key: 'electric-myriapodrest', prefix: 'bugs/electric-myriapod/electric_myriapod-rest', start: 1, end: 2, rate: 3, repeat: -1},
+          attack: {key: 'electric-myriapodattack', prefix: 'bugs/electric-myriapod/electric_myriapod-illumination-se', start: 1, end: 8, rate: 12, delays: { frameNum: 8, delay: 300 }}
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
+      })
+    );
+
+    baseAgentclone = Object.assign({}, this.baseAgent);
+    this.agentpool.set('spider',
+      Object.assign(baseAgentclone, {
+        id: agentId++,
+        name: 'Spider',
+        animeframes: {
+          rest: {yoyo: true, key: 'spider', prefix: 'bugs/spider-little2-meelee-', start: 1, end: 3, rate: 3, repeat: -1},
+          attack: {key: 'spider', prefix: 'bugs/spider-little2-meelee-', start: 1, end: 13, rate: 7, delays: { frameNum: 13, delay: 300 }},
+          range: {key: 'spider', prefix: 'bugs/spider-little2-ranged-', start: 1, end: 7, rate: 12, delays: { frameNum: 7, delay: 300 }}
+        },
+        inventory: [
+          { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]},
+          { bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5002} ]}
+        ]
+      })
+    );
+
+    // CHAOS
+    baseAgentclone = Object.assign({}, this.baseAgent);
+    this.agentpool.set('blasphemists',
+      Object.assign(baseAgentclone, {
+        id: agentId++,
+        name: 'Blasphemists',
+        animeframes: {
+          rest: {yoyo: true, key: 'blasphemists-rest', prefix: 'chaos/blasphemists-attack', start: 1, end: 6, rate: 3, repeat: -1}
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
+      })
+    );
+
+    baseAgentclone = Object.assign({}, this.baseAgent);
+    this.agentpool.set('flappers',
+      Object.assign(baseAgentclone, {
+        id: agentId++,
+        name: 'Flappers',
+        animeframes: {
+          rest: {yoyo: true, key: 'flappers-rest', prefix: 'chaos/flappers-stand-', start: 1, end: 4, rate: 3, repeat: -1}
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
+      })
+    );
+    baseAgentclone = Object.assign({}, this.baseAgent);
+    this.agentpool.set('chaos-hero',
+      Object.assign(baseAgentclone, {
+        id: agentId++,
+        name: 'Chaos Hero',
+        animeframes: {
+          rest: {yoyo: true, key: 'hero-rest', prefix: 'chaos/hero-attack', start: 1, end: 7, rate: 3, repeat: -1}
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
+      })
+    );
+    baseAgentclone = Object.assign({}, this.baseAgent);
+    this.agentpool.set('lessor-demon',
+      Object.assign(baseAgentclone, {
+        id: agentId++,
+        name: 'Lessor Demon',
+        animeframes: {
+          rest: {yoyo: true, key: 'lessor-demon-rest', prefix: 'chaos/lessor-demon-attack', start: 1, end: 1, rate: 3, repeat: -1},
+          attack: {key: 'lessor-demon-attack', prefix: 'chaos/lessor-demon-attack', start: 1, end: 3, rate: 3, repeat: -1, delays: { frameNum: 3, delay: 300 }},
+          range: {key: 'lessor-demon-ranged', prefix: 'chaos/lessor-demon-range', start: 1, end: 4, rate: 3, repeat: -1, delays: { frameNum: 4, delay: 300 }}
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
+      })
+    );
+    baseAgentclone = Object.assign({}, this.baseAgent);
+    this.agentpool.set('winged-demon',
+      Object.assign(baseAgentclone, {
+        id: agentId++,
+        name: 'Winged Demon',
+        animeframes: {
+          rest: {yoyo: true, key: 'winged-demon-rest', prefix: 'chaos/winged-demon-fly', start: 1, end: 1, rate: 3},
+          attack: {key: 'winged-demon-attack', prefix: 'chaos/winged-demon-attack', start: 1, end: 2, rate: 3, repeat: -1, delays: { frameNum: 2, delay: 300 }},
+          range: {key: 'winged-demon-ranged', prefix: 'chaos/winged-demon-range', start: 1, end: 3, rate: 3, repeat: -1, delays: { frameNum: 3, delay: 300 }}
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
+      })
+    );
+
+    // Dwarves
+    baseAgentclone = Object.assign({}, this.baseAgent);
+    this.agentpool.set('dwarf-fighter',
+      Object.assign(baseAgentclone, {
+        id: agentId++,
+        name: 'Dwarf Fighter',
+        animeframes: {
+          rest: {yoyo: true, key: 'dwarf-fighter-rest', prefix: 'dwarves/fighter/fighter', start: 1, end: 1, rate: 3},
+          attack: {key: 'dwarf-fighter-attack', prefix: 'dwarves/fighter/fighter-se-axe', start: 1, end: 8, rate: 8, repeat: -1, delays: { frameNum: 8, delay: 300 }}
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5004 } ]}]  // axe
+      })
+    );
+    baseAgentclone = Object.assign({}, this.baseAgent);
+    this.agentpool.set('dwarf-guard',
+      Object.assign(baseAgentclone, {
+        id: agentId++,
+        name: 'Dwarf Guard',
+        animeframes: {
+          rest: {yoyo: true, key: 'dwarf-guard-rest', prefix: 'dwarves/guard/guard', start: 1, end: 1, rate: 3},
+          attack: {key: 'dwarf-guard-attack', prefix: 'dwarves/guard/guard-attack', start: 1, end: 7, rate: 8, repeat: -1, delays: { frameNum: 7, delay: 300 }}
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5004 } ]}]  // axe
+      })
+    );
+    baseAgentclone = Object.assign({}, this.baseAgent);
+    this.agentpool.set('dwarf-heavywarrior',
+      Object.assign(baseAgentclone, {
+        id: agentId++,
+        name: 'Dwarf Heavy Warrior',
+        animeframes: {
+          rest: {yoyo: true, key: 'dwarf-heavywarrior-rest', prefix: 'dwarves/heavywarrior/heavywarrior', start: 1, end: 1, rate: 3},
+          attack: {key: 'dwarf-heavywarrior-attack', prefix: 'dwarves/heavywarrior/heavywarrior-attack', start: 1, end: 2, rate: 8, repeat: -1, delays: { frameNum: 2, delay: 300 }}
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5004 } ]}]  // axe
+      })
+    );
+    baseAgentclone = Object.assign({}, this.baseAgent);
+    this.agentpool.set('dwarf-lord',
+      Object.assign(baseAgentclone, {
+        id: agentId++,
+        name: 'Dwarf Lord',
+        animeframes: {
+          rest: {yoyo: true, key: 'dwarf-lord-rest', prefix: 'dwarves/lord/lord', start: 1, end: 1, rate: 3},
+          attack: {key: 'dwarf-lord-attack', prefix: 'dwarves/lord/lord-se-axe', start: 1, end: 9, rate: 8, repeat: -1, delays: { frameNum: 9, delay: 300 }}
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5004 } ]}]  // axe
+      })
+    );
+    baseAgentclone = Object.assign({}, this.baseAgent);
+    this.agentpool.set('dwarf-warrior',
+      Object.assign(baseAgentclone, {
+        id: agentId++,
+        name: 'Dwarf Warrior',
+        animeframes: {
+          rest: {yoyo: true, key: 'dwarf-warrior-rest', prefix: 'dwarves/warrior/warrior', start: 1, end: 1, rate: 3},
+          attack: {key: 'dwarf-warrior-attack', prefix: 'dwarves/warrior/warrior-attack', start: 1, end: 2, rate: 8, repeat: -1, delays: { frameNum: 2, delay: 300 }}
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5004 } ]}]  // axe
+      })
+    );
+    baseAgentclone = Object.assign({}, this.baseAgent);
+    this.agentpool.set('dwarf-runesmith',
+      Object.assign(baseAgentclone, {
+        id: agentId++,
+        name: 'Dwarf Runesmith',
+        animeframes: {
+          rest: {yoyo: true, key: 'dwarf-runesmith-rest', prefix: 'dwarves/runesmith/runesmith', start: 1, end: 1, rate: 3},
+          attack: {key: 'dwarf-runesmith-attack', prefix: 'dwarves/runesmith/runesmith-attack-se-', start: 1, end: 10, rate: 8, repeat: -1, delays: { frameNum: 10, delay: 300 }}
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5004 } ]}]  // axe
+      })
+    );
+
+
 
 
   } // end of populateAgentPool

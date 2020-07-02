@@ -40,7 +40,8 @@ const constants = Object.freeze({
       ATTACK: 1,
       SWORD: 2,
       PLAYERDEATH: 3
-    }
+    },
+    CHEST: {key: 'pickup'}
   },
 
   // Base agent properties are derived from inventory items from the listed inventory property

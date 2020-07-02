@@ -283,7 +283,7 @@
 					}
 				},
 				{
-					"filename": "animals/Crab.png",
+					"filename": "animals/bear1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -304,7 +304,7 @@
 					}
 				},
 				{
-					"filename": "animals/bear.png",
+					"filename": "animals/crab1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -1669,7 +1669,7 @@
 					}
 				},
 				{
-					"filename": "chaos/attackers.png",
+					"filename": "chaos/attackers1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -1795,7 +1795,7 @@
 					}
 				},
 				{
-					"filename": "chaos/blasphemists.png",
+					"filename": "chaos/blasphemists-attack6.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -2026,7 +2026,7 @@
 					}
 				},
 				{
-					"filename": "chaos/hero.png",
+					"filename": "chaos/hero-attack7.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -2089,7 +2089,7 @@
 					}
 				},
 				{
-					"filename": "chaos/lesser-demon-defend.png",
+					"filename": "chaos/lesser-demon-attack3.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -2110,7 +2110,7 @@
 					}
 				},
 				{
-					"filename": "chaos/lesser-demon-range1.png",
+					"filename": "chaos/lesser-demon-defend.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -2131,7 +2131,7 @@
 					}
 				},
 				{
-					"filename": "chaos/lesser-demon-range2.png",
+					"filename": "chaos/lesser-demon-range1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -2152,7 +2152,7 @@
 					}
 				},
 				{
-					"filename": "chaos/lesser-demon-range3.png",
+					"filename": "chaos/lesser-demon-range2.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -2173,7 +2173,7 @@
 					}
 				},
 				{
-					"filename": "chaos/lesser-demon-range4.png",
+					"filename": "chaos/lesser-demon-range3.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -2194,7 +2194,7 @@
 					}
 				},
 				{
-					"filename": "chaos/lesser-demon.png",
+					"filename": "chaos/lesser-demon-range4.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -2278,7 +2278,7 @@
 					}
 				},
 				{
-					"filename": "chaos/winged-demon-fly.png",
+					"filename": "chaos/winged-demon-fly1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -2362,7 +2362,7 @@
 					}
 				},
 				{
-					"filename": "chaos/winged-demon.png",
+					"filename": "chaos/winged-demon1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -2488,7 +2488,7 @@
 					}
 				},
 				{
-					"filename": "direwolf/direwolf-attack1.png",
+					"filename": "direwolf/direwolf1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -2509,7 +2509,7 @@
 					}
 				},
 				{
-					"filename": "direwolf/direwolf1.png",
+					"filename": "direwolf/direwolf2.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -2530,7 +2530,7 @@
 					}
 				},
 				{
-					"filename": "direwolf/direwolf2.png",
+					"filename": "direwolf/direwolf3.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -2656,7 +2656,7 @@
 					}
 				},
 				{
-					"filename": "dog/hellhound.png",
+					"filename": "dog/hellhound1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -2719,7 +2719,7 @@
 					}
 				},
 				{
-					"filename": "dog/rabid-hound-defend.png",
+					"filename": "dog/rabid-hound-attack3.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -2740,7 +2740,7 @@
 					}
 				},
 				{
-					"filename": "dog/rabid-hound.png",
+					"filename": "dog/rabid-hound-defend.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -2950,7 +2950,7 @@
 					}
 				},
 				{
-					"filename": "dwarves/fighter/fighter.png",
+					"filename": "dwarves/fighter/fighter1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -2971,7 +2971,7 @@
 					}
 				},
 				{
-					"filename": "dwarves/guard/guard.png",
+					"filename": "dwarves/guard/guard1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -3034,7 +3034,7 @@
 					}
 				},
 				{
-					"filename": "dwarves/heavy-warrior/heavywarrior.png",
+					"filename": "dwarves/heavy-warrior/heavywarrior1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -3244,7 +3244,7 @@
 					}
 				},
 				{
-					"filename": "dwarves/lord/lord.png",
+					"filename": "dwarves/lord/lord1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -3370,7 +3370,7 @@
 					}
 				},
 				{
-					"filename": "dwarves/runesmith/runesmith.png",
+					"filename": "dwarves/runesmith/runesmith1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -3433,7 +3433,7 @@
 					}
 				},
 				{
-					"filename": "dwarves/warrior/warrior.png",
+					"filename": "dwarves/warrior/warrior1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -8767,7 +8767,7 @@
 					}
 				},
 				{
-					"filename": "saurians/warrior/warrior.png",
+					"filename": "saurians/warrior/warrior1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -9061,7 +9061,7 @@
 					}
 				},
 				{
-					"filename": "scorpion/sand-scuttler.png",
+					"filename": "scorpion/sand-scuttler1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -9355,7 +9355,7 @@
 					}
 				},
 				{
-					"filename": "scorpion/scorpion.png",
+					"filename": "scorpion/scorpion1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -9670,7 +9670,7 @@
 					}
 				},
 				{
-					"filename": "scorpion/scorpling.png",
+					"filename": "scorpion/scorpling1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -9691,7 +9691,7 @@
 					}
 				},
 				{
-					"filename": "sea/kraken/kraken.png",
+					"filename": "sea/kraken/kraken1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -9712,7 +9712,7 @@
 					}
 				},
 				{
-					"filename": "sea/seaserpent-old-attack.png",
+					"filename": "sea/seaserpent-old-attack1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -9733,7 +9733,7 @@
 					}
 				},
 				{
-					"filename": "sea/seaserpent-old-defend.png",
+					"filename": "sea/seaserpent-old-attack2.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -9754,7 +9754,7 @@
 					}
 				},
 				{
-					"filename": "sea/seaserpent-old.png",
+					"filename": "sea/seaserpent-old1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -9901,7 +9901,7 @@
 					}
 				},
 				{
-					"filename": "sea/young-cuttlefish/young-cuttlefish.png",
+					"filename": "sea/young-cuttlefish/young-cuttlefish1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -10594,7 +10594,7 @@
 					}
 				},
 				{
-					"filename": "skeleton/skeleton.png",
+					"filename": "skeleton/skeleton1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -10741,7 +10741,7 @@
 					}
 				},
 				{
-					"filename": "swamp/ghast.png",
+					"filename": "swamp/ghast1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -10825,7 +10825,7 @@
 					}
 				},
 				{
-					"filename": "trolls/boulderlobber.png",
+					"filename": "trolls/boulderlobber1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -10951,7 +10951,7 @@
 					}
 				},
 				{
-					"filename": "trolls/warmonger.png",
+					"filename": "trolls/warmonger1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -11014,7 +11014,7 @@
 					}
 				},
 				{
-					"filename": "woses/wose-elder.png",
+					"filename": "woses/wose-elder1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -11077,7 +11077,7 @@
 					}
 				},
 				{
-					"filename": "woses/wose-sapling.png",
+					"filename": "woses/wose-sapling1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -11203,7 +11203,7 @@
 					}
 				},
 				{
-					"filename": "woses/wose-shaman.png",
+					"filename": "woses/wose-shaman1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -11224,7 +11224,7 @@
 					}
 				},
 				{
-					"filename": "yeti/yeti.png",
+					"filename": "yeti/yeti1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -12610,7 +12610,7 @@
 					}
 				},
 				{
-					"filename": "salamanders/salamander-black/blacksalamander.png",
+					"filename": "salamanders/salamander-black/blacksalamander1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -12673,7 +12673,7 @@
 					}
 				},
 				{
-					"filename": "salamanders/salamander-blue/bluesalamander.png",
+					"filename": "salamanders/salamander-blue/bluesalamander1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -12736,7 +12736,7 @@
 					}
 				},
 				{
-					"filename": "salamanders/salamander-green/greensalamander.png",
+					"filename": "salamanders/salamander-green/greensalamander1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -12946,7 +12946,7 @@
 					}
 				},
 				{
-					"filename": "wyverns/wyvern-black/chaoswyvern-moving.png",
+					"filename": "wyverns/wyvern-black/chaoswyvern-moving1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -13051,7 +13051,7 @@
 					}
 				},
 				{
-					"filename": "wyverns/wyveryn-green/greatwyvern-moving.png",
+					"filename": "wyverns/wyveryn-green/greatwyvern-moving1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -13802,6 +13802,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:b9c7e7697365333f1cf68a06a2efcabc:978e9885bf7da1a3e3970cc54784eb74:b7b49bdbe03548a06e5e9a1da7574277$"
+		"smartupdate": "$TexturePacker:SmartUpdate:6f78f55809024cacf8fee6e4f74ae3b0:1277d5ef7e737d50d1e75e41f04a33a8:b7b49bdbe03548a06e5e9a1da7574277$"
 	}
 }

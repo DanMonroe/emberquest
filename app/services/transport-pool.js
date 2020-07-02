@@ -98,11 +98,18 @@ export default class TransportPoolService extends Service {
         scale: 1.4,
       })
     );
+    this.transportpool.set('final_1',
+      Object.assign(Object.assign({}, this.baseTransport), {
+        id: 1308,
+        texture: 'boat',  // TODO draw new boat
+        scale: 1.4,
+      })
+    );
 
     this.transportpool.set('gryphon_1',
       Object.assign(Object.assign({}, this.baseTransport), {
         id: 1308,
-        // texture: 'griffon',
+        speed: 200,
         scale: 1.5,
         animeframes: {
           rest: {key: 'gryphonrest', prefix: 'gryphon/gryphon', start: 1, end: 1},

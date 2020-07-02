@@ -373,13 +373,14 @@ export class GameboardScene extends Phaser.Scene {
   }
 
   createAudio() {
-    this.goldPickupAudio = this.sound.add('pickup', { loop: false, volume: 0.5 });
-    this.openDoorAudio = this.sound.add('open_door_1', { loop: false, volume: 0.5 });
-    // this.musicAudio = this.sound.add('music1', { loop: true, volume: 0 });
+    // this.goldPickupAudio = this.sound.add('pickup', { loop: false, volume: 0.5 });
+    // this.openDoorAudio = this.sound.add('open_door_1', { loop: false, volume: 0.5 });
 
-    this.swordMiss = this.sound.add('sword_miss', { loop: false, volume: 0.5 });
-    this.arrow = this.sound.add('arrow', { loop: false, volume: 0.4, rate: 2 });
-    // this.playerDeath = this.sound.add('playerDeath', { loop: false, volume: 0.4, rate: 2 });
+    // this.swordMiss = this.sound.add('sword_miss', { loop: false, volume: 0.5 });
+    // this.arrow = this.sound.add('arrow', { loop: false, volume: 0.4, rate: 2 });
+
+
+    // this.musicAudio = this.sound.add('music1', { loop: true, volume: 0 });
   }
 
   configureBoard() {
@@ -488,7 +489,8 @@ export class GameboardScene extends Phaser.Scene {
   collectChest(player, chest) {
     if ( ! chest.found) {
     // console.log('collect chest', arguments);
-      this.goldPickupAudio.play();
+    //   this.goldPickupAudio.play();
+      this.ember.gameManager.playSound(this.ember.constants.AUDIO.CHEST)
 
       chest.playerFoundChest();
     }

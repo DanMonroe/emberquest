@@ -128,31 +128,16 @@ export class BootScene extends Phaser.Scene {
   loadSpriteSheets() {
     this.load.spritesheet('chests', '/images/chest_sprite.png', { frameWidth: 140, frameHeight: 140 });
 
-    // this.load.spritesheet('young-ogre', '/images/monsters/young-ogre.png', { frameWidth: 72, frameHeight: 72 });
-    // this.load.spritesheet('spider', '/images/monsters/spider.png', { frameWidth: 72, frameHeight: 72 });
-    // this.load.spritesheet('dog', '/images/monsters/dog.png', { frameWidth: 72, frameHeight: 72 });
-
 
     this.load.multiatlas('eq_sprites', '/images/sprites/eq_sprites.json', '/images/sprites');
   }
 
   loadAudio() {
-    this.load.audio('open_door_1', ['/audio/sounds/open_door_1.mp3']);
-    this.load.audio('pickup', ['/audio/sounds/pickup.wav']);
 
-    this.load.audio('sword_hit', ['/audio/sounds/chink.mp3']);
-    this.load.audio('sword_miss', ['/audio/sounds/sword_miss.mp3']);
-    this.load.audio('arrow', ['/audio/sounds/arrow.mp3']);
-
+    this.load.audioSprite('eq_audio', '/audio/sounds/eq_audio.json');
 
     // this.load.audio('music1', ['/audio/music/uncharted_territory_justin_monroe.mp3']);
 
-    // this.load.audio('music1', ['/audio/warframe_ost.mp3']);
-
-    // this.load.audio('enemyDeath', ['assets/audio/EnemyDeath.wav']);
-    // this.load.audio('playerAttack', ['assets/audio/PlayerAttack.wav']);
-    // this.load.audio('playerDamage', ['assets/audio/PlayerDamage.wav']);
-    // this.load.audio('playerDeath', ['assets/audio/PlayerDeath.wav']);
   }
 
   create() {

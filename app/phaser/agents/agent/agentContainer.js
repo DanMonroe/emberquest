@@ -44,7 +44,7 @@ export default class AgentContainer extends BasePhaserAgentContainer {
     this.moveToObject.on('complete', this.moveToComplete);
 
     this.moveToObject.moveableTestCallback = (curTile, targetTile, pathFinder) => {
-
+      console.log('agent moveableTestCallback')
       if (this.moveToObject.isRunning) {
         return false;
       }
@@ -94,7 +94,7 @@ export default class AgentContainer extends BasePhaserAgentContainer {
         prefix: animationConfig.prefix,
         suffix: '.png'
       });
-    let thisAnimationConfig = Object.assign({ key: animationConfig.key, frames: frameNames, frameRate: animationConfig.rate, repeat: animationConfig.repeat }, animationConfig || {});
+    let thisAnimationConfig = Object.assign({ key: animationConfig.key, frames: frameNames, frameRate: animationConfig.rate, repeat: animationConfig.repeat, yoyo: animationConfig.yoyo || false}, animationConfig || {});
     // console.log('agent thisAnimationConfig', thisAnimationConfig)
     this.scene.anims.create(thisAnimationConfig);
   }
@@ -176,13 +176,18 @@ export default class AgentContainer extends BasePhaserAgentContainer {
   }
 
   playSound(key) {
-    switch (key) {
-      case this.ember.constants.AUDIO.KEY.ATTACK:
-        this.scene.swordMiss.play();
-        break;
-      default:
-        break;
+    console.log('agentContainer playSound', key)
+
+    if (key) {
+      this.scene.sound.playAudioSprite('eq_audio', key);
     }
+    // switch (key) {
+    //   case this.ember.constants.AUDIO.KEY.ATTACK:
+    //     // this.scene.swordMiss.play();
+    //     break;
+    //   default:
+    //     break;
+    // }
   }
 
   async cancelAllTasks() {
@@ -436,11 +441,12 @@ export default class AgentContainer extends BasePhaserAgentContainer {
           const hit = this.ember.gameManager.didAttackHit(equippedRangedWeapon, this.ember.playerContainer.agent, this.agent);
 
           // find a way to play appropriate sound
-          this.playSound(this.ember.constants.AUDIO.KEY.ARROW);
+          this.playSound(equippedRangedWeapon.audioRanged);
+          // this.playSound(this.ember.constants.AUDIO.KEY.ARROW);
 
           this.stopAnimation();
           this.playAnimation(this.ember.constants.ANIMATION.KEY.RANGE);
-          this.playSound(this.ember.constants.AUDIO.KEY.RANGE);
+          // this.playSound(this.ember.constants.AUDIO.KEY.RANGE);
 
           this.scene.agentprojectiles.fireProjectile(this.scene, this, this.ember.playerContainer.rexChess.tileXYZ, equippedRangedWeapon, hit);
 
@@ -475,7 +481,8 @@ export default class AgentContainer extends BasePhaserAgentContainer {
 
           this.stopAnimation();
           this.playAnimation(this.ember.constants.ANIMATION.KEY.ATTACK);
-          this.playSound(this.ember.constants.AUDIO.KEY.ATTACK);
+          this.playSound(hit && equippedMeleeWeapon ? equippedMeleeWeapon.audioMelee : {});
+          // this.playSound(this.ember.constants.AUDIO.KEY.ATTACK);
 
           // weapon will have speed, damage?, timeout cooldown
           this.ember.playerContainer.takeDamage(meleeAttackDamage, this.ember.playerContainer.agent, this.agent);
@@ -500,6 +507,7 @@ export default class AgentContainer extends BasePhaserAgentContainer {
     if (!this.rexChess || !this.rexChess.board) {
       return;
     }
+    console.log('populatePatrolMoveQueue', this)
     if (this.rexChess && this.rexChess.board && !this.moveQueue || (this.moveQueue.path && this.moveQueue.path.length === 0)) {
       // no moves.. build the next one
       const nextTargetTile = this.getNextTargetTile();

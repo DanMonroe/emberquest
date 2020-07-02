@@ -16,6 +16,8 @@ export default class GameManagerService extends Service {
 
   @tracked player;
   @tracked volume = 0;
+  @tracked soundEffectsVolume = 1;
+  @tracked musicEffectsVolume = 1;
 
   @tracked gamePaused = true;
   @tracked loadingNewScene = false;
@@ -122,13 +124,19 @@ export default class GameManagerService extends Service {
     }
     switch (this.volume) {
       case 0:
-        this.scene.musicAudio.setVolume(0);
+        this.soundEffectsVolume = 0;
+        this.musicEffectsVolume = 0;
+        // this.scene.musicAudio.setVolume(0);
         break;
       case 1:
-        this.scene.musicAudio.setVolume(0.3);
+        this.soundEffectsVolume = 0.5;
+        this.musicEffectsVolume = 0;
+        // this.scene.musicAudio.setVolume(0.3);
         break;
       case 2:
-        this.scene.musicAudio.setVolume(0.7);
+        this.soundEffectsVolume = 1;
+        this.musicEffectsVolume = 0;
+        // this.scene.musicAudio.setVolume(0.7);
         break;
       default:
         break;
@@ -269,21 +277,29 @@ export default class GameManagerService extends Service {
     return signPostShapes.length > 0 ? signPostShapes[0] : null;
   }
 
-  playSound(key) {
-    switch (key) {
-      case this.ember.constants.AUDIO.KEY.ATTACK:
-        break;
-      case this.ember.constants.AUDIO.KEY.ARROW:
-        this.scene.arrow.play();
-        break;
-      case this.ember.constants.AUDIO.KEY.PLAYERDEATH:
-        // this.scene.playerDeath.play();
-        break;
-      case this.ember.constants.AUDIO.KEY.SWORD:
-      default:
-        this.scene.swordMiss.play();
-        break;
+  playSound(soundObj) {
+    console.log('gameManager playSound', soundObj)
+    if (soundObj && soundObj.key) {
+      const config = Object.assign(soundObj.config || {}, {volume: this.soundEffectsVolume});
+      this.scene.sound.playAudioSprite('eq_audio', soundObj.key, config);
     }
+
+    // switch (key) {
+    //   case this.ember.constants.AUDIO.KEY.ATTACK:
+    //     break;
+    //   case this.ember.constants.AUDIO.KEY.ARROW:
+    //     console.log('arrow')
+    //     // this.scene.arrow.play();
+    //     break;
+    //   case this.ember.constants.AUDIO.KEY.PLAYERDEATH:
+    //     // this.scene.playerDeath.play();
+    //     break;
+    //   case this.ember.constants.AUDIO.KEY.SWORD:
+    //   default:
+    //     console.log('default swordMiss')
+    //     // this.scene.swordMiss.play();
+    //     break;
+    // }
   }
 
   @restartableTask
@@ -357,7 +373,8 @@ export default class GameManagerService extends Service {
           console.log('hit - melee', hit);
 
           // find a way to play appropriate sound
-          this.playSound(this.ember.constants.AUDIO.KEY.SWORD);
+          this.playSound(hit && equippedMeleeWeapon ? equippedMeleeWeapon.audioMelee : {});
+          // this.playSound(this.ember.constants.AUDIO.KEY.SWORD);
 
           const meleeAttackDamage = hit ? attacker.agent.attackDamage : 0;
 
@@ -392,7 +409,8 @@ export default class GameManagerService extends Service {
             console.log('hit - ranged', hit);
 
             // find a way to play appropriate sound
-            this.playSound(this.ember.constants.AUDIO.KEY.ARROW);
+            this.playSound(hit && equippedRangedWeapon ? equippedRangedWeapon.audioRanged : {});
+            // this.playSound(this.ember.constants.AUDIO.KEY.ARROW);
 
             this.scene.projectiles.fireProjectile(this.scene, attacker, clickedTile, equippedRangedWeapon, hit);
 

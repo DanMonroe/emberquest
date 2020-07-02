@@ -26,13 +26,17 @@ export class InventoryItems {
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
         ],
-        audio: {
-          attack: {
-            miss: {
-              name: 'sword_miss'
-            }
-          }
-        }
+        audioRanged: {key: 'throwknife'},
+        audioMelee: {key: 'chink'},
+        audioMiss: {key: 'sword_miss'}
+
+        // audio: {
+        //   attack: {
+        //     miss: {
+        //       name: {key: 'sword_miss'}
+        //     }
+        //   }
+        // }
       })
     );
 
@@ -53,13 +57,17 @@ export class InventoryItems {
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
         ],
-        audio: {
-          attack: {
-            miss: {
-              name: 'sword_miss'
-            }
-          }
-        }
+        audioRanged: {key: 'throwknife'},
+        audioMelee: {key: 'chink'},
+        audioMiss: {key: 'sword_miss'}
+
+        // audio: {
+        //   attack: {
+        //     miss: {
+        //       name: {key: 'sword_miss'}
+        //     }
+        //   }
+        // }
       })
     );
 
@@ -81,13 +89,17 @@ export class InventoryItems {
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
         ],
-        audio: {
-          attack: {
-            miss: {
-              name: 'sword_miss'
-            }
-          }
-        }
+        audioRanged: {key: 'throwknife'},
+        audioMelee: {key: 'chink'},
+        audioMiss: {key: 'sword_miss'}
+
+        // audio: {
+        //   attack: {
+        //     miss: {
+        //       name: {key: 'sword_miss'}
+        //     }
+        //   }
+        // }
       })
     );
 
@@ -109,13 +121,17 @@ export class InventoryItems {
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
         ],
-        audio: {
-          attack: {
-            miss: {
-              name: 'sword_miss'
-            }
-          }
-        }
+        audioRanged: {key: 'throwknife'},
+        audioMelee: {key: 'chink'},
+        audioMiss: {key: 'sword_miss'}
+
+        // audio: {
+        //   attack: {
+        //     miss: {
+        //       name: {key: 'sword_miss'}
+        //     }
+        //   }
+        // }
       })
     );
 
@@ -137,13 +153,17 @@ export class InventoryItems {
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
         ],
-        audio: {
-          attack: {
-            miss: {
-              name: 'sword_miss'
-            }
-          }
-        }
+        audioRanged: {key: 'throwknife'},
+        audioMelee: {key: 'chink'},
+        audioMiss: {key: 'sword_miss'}
+
+        // audio: {
+        //   attack: {
+        //     miss: {
+        //       name: {key: 'sword_miss'}
+        //     }
+        //   }
+        // }
       })
     );
 
@@ -165,13 +185,16 @@ export class InventoryItems {
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
         ],
-        audio: {
-          attack: {
-            miss: {
-              name: 'sword_miss'
-            }
-          }
-        }
+        audioRanged: {key: 'throwknife'},
+        audioMelee: {key: 'chink'},
+        audioMiss: {key: 'sword_miss'}
+        // audio: {
+        //   attack: {
+        //     miss: {
+        //       name: {key: 'sword_miss'}
+        //     }
+        //   }
+        // }
       })
     );
 
@@ -193,13 +216,16 @@ export class InventoryItems {
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
         ],
-        audio: {
-          attack: {
-            miss: {
-              name: 'sword_miss'
-            }
-          }
-        }
+        audioRanged: {key: 'throwknife'},
+        audioMelee: {key: 'chink'},
+        audioMiss: {key: 'sword_miss'}
+        // audio: {
+        //   attack: {
+        //     miss: {
+        //       name: {key: 'sword_miss'}
+        //     }
+        //   }
+        // }
       })
     );
 
@@ -221,13 +247,17 @@ export class InventoryItems {
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
         ],
-        audio: {
-          attack: {
-            miss: {
-              name: 'sword_miss'
-            }
-          }
-        }
+        audioRanged: {key: 'throwknife'},
+        audioMelee: {key: 'chink'},
+        audioMiss: {key: 'sword_miss'}
+
+        // audio: {
+        //   attack: {
+        //     miss: {
+        //       name: {key: 'sword_miss'}
+        //     }
+        //   }
+        // }
       })
     );
 
@@ -249,13 +279,17 @@ export class InventoryItems {
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
         ],
-        audio: {
-          attack: {
-            miss: {
-              name: 'sword_miss'
-            }
-          }
-        }
+        audioRanged: {key: 'throwknife'},
+        audioMelee: {key: 'chink'},
+        audioMiss: {key: 'sword_miss'}
+
+        // audio: {
+        //   attack: {
+        //     miss: {
+        //       name: {key: 'sword_miss'}
+        //     }
+        //   }
+        // }
       })
     );
 
@@ -277,13 +311,17 @@ export class InventoryItems {
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
         ],
-        audio: {
-          attack: {
-            miss: {
-              name: 'sword_miss'
-            }
-          }
-        }
+        audioRanged: {key: 'throwknife'},
+        audioMelee: {key: 'chink'},
+        audioMiss: {key: 'sword_miss'}
+
+        // audio: {
+        //   attack: {
+        //     miss: {
+        //       name: {key: 'sword_miss'}
+        //     }
+        //   }
+        // }
       })
     );
 
@@ -301,13 +339,16 @@ export class InventoryItems {
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
         ],
-        audio: {
-          attack: {
-            miss: {
-              name: 'sword_miss'
-            }
-          }
-        }
+        audioRanged: {key: 'throwknife'},
+        audioMelee: {key: 'chink'},
+        audioMiss: {key: 'sword_miss'}
+        // audio: {
+        //   attack: {
+        //     miss: {
+        //       name: {key: 'sword_miss'}
+        //     }
+        //   }
+        // }
       })
     );
     items.push(
@@ -321,13 +362,16 @@ export class InventoryItems {
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
         ],
-        audio: {
-          attack: {
-            miss: {
-              name: 'sword_miss'
-            }
-          }
-        }
+        audioRanged: {key: 'throwknife'},
+        audioMelee: {key: 'bite'},
+        audioMiss: {key: 'sword_miss'}
+        // audio: {
+        //   attack: {
+        //     miss: {
+        //       name: {key: 'sword_miss'}
+        //     }
+        //   }
+        // }
       })
     );
     items.push(
@@ -343,19 +387,23 @@ export class InventoryItems {
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.8})
         ],
-        audio: {
-          attack: {
-            miss: {
-              name: 'sword_miss'
-            }
-          }
-        }
+        audioRanged: {key: 'throwknife'},
+        audioMelee: {key: 'bite'},
+        audioMiss: {key: 'sword_miss'}
+
+        // audio: {
+        //   attack: {
+        //     miss: {
+        //       name: {key: 'sword_miss'}
+        //     }
+        //   }
+        // }
       })
     );
     items.push(
       new InventoryItem({
         id: 5003,
-        name: 'Bite',
+        name: {key: 'bite'},
         type: constants.INVENTORY.TYPE.MONSTER,
         bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
         stats: [
@@ -363,13 +411,31 @@ export class InventoryItems {
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 3}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.9})
         ],
-        audio: {
-          attack: {
-            miss: {
-              name: 'sword_miss'
-            }
-          }
-        }
+        audioRanged: {key: 'throwknife'},
+        audioMelee: {key: 'bite'},
+        audioMiss: {key: 'sword_miss'}
+        // audio: {
+        //   attack: {
+        //     miss: {
+        //       name: {key: 'sword_miss'}
+        //     }
+        //   }
+        // }
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: 5004,
+        name: {key: 'axe'},
+        type: constants.INVENTORY.TYPE.MONSTER,
+        bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 4}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 3}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.1})
+        ],
+        audioMelee: {key: 'bite'},
+        audioMiss: {key: 'sword_miss'}
       })
     );
 
@@ -379,20 +445,23 @@ export class InventoryItems {
         id: 5100,
         name: 'Ship Cannon',
         type: constants.INVENTORY.TYPE.MONSTER,
-        bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
+        bodypart: constants.INVENTORY.BODYPART.RANGED,
         projectileImg: 'ball',
         stats: [
           new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 3}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 3}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.9})
         ],
-        audio: {
-          attack: {
-            miss: {
-              name: 'sword_miss'
-            }
-          }
-        }
+        audioRanged: {key: 'cannon2', config: {volume:.4}},
+        audioMelee: {key: 'chink'},
+        audioMiss: {key: 'sword_miss'}
+        // audio: {
+        //   attack: {
+        //     miss: {
+        //       name: 'cannon1'
+        //     }
+        //   }
+        // }
       })
     );
     items.push(
@@ -416,13 +485,17 @@ export class InventoryItems {
         //   new Stat({type: constants.INVENTORY.STATS.POWER, value: 3}),
         //   new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.9})
         // ],
-        audio: {
-          attack: {
-            miss: {
-              name: 'sword_miss'
-            }
-          }
-        }
+        audioRanged: {key: 'throwknife'},
+        audioMelee: {key: 'chink'},
+        audioMiss: {key: 'arrow'}
+
+        // audio: {
+        //   attack: {
+        //     miss: {
+        //       name: {key: 'sword_miss'}
+        //     }
+        //   }
+        // }
       })
     );
 
@@ -449,13 +522,9 @@ export class InventoryItems {
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 2}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.5})
         ],
-        audio: {
-          attack: {
-            miss: {
-              name: 'sword_miss'
-            }
-          }
-        }
+        audioRanged: {key: 'throwknife'},
+        audioMelee: {key: 'chink'},
+        audioMiss: {key: 'arrow'}
       })
     );
     items.push(
@@ -478,13 +547,9 @@ export class InventoryItems {
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 2}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.5})
         ],
-        audio: {
-          attack: {
-            miss: {
-              name: 'sword_miss'
-            }
-          }
-        }
+        audioRanged: {key: 'throwknife'},
+        audioMelee: {key: 'chink'},
+        audioMiss: {key: 'arrow'}
       })
     );
     items.push(
@@ -507,13 +572,9 @@ export class InventoryItems {
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 2}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.5})
         ],
-        audio: {
-          attack: {
-            miss: {
-              name: 'sword_miss'
-            }
-          }
-        }
+        audioRanged: {key: 'throwknife'},
+        audioMelee: {key: 'chink'},
+        audioMiss: {key: 'arrow'}
       })
     );
     items.push(
@@ -536,13 +597,9 @@ export class InventoryItems {
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 2}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.5})
         ],
-        audio: {
-          attack: {
-            miss: {
-              name: 'sword_miss'
-            }
-          }
-        }
+        audioRanged: {key: 'throwknife'},
+        audioMelee: {key: 'chink'},
+        audioMiss: {key: 'arrow'}
       })
     );
 
@@ -1002,13 +1059,9 @@ export class InventoryItems {
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
         ],
-        audio: {
-          attack: {
-            miss: {
-              name: 'sword_miss'
-            }
-          }
-        }
+        audioRanged: {key: 'throwknife'},
+        audioMelee: {key: 'chink'},
+        audioMiss: {key: 'sword_miss'}
       })
     );
     items.push(

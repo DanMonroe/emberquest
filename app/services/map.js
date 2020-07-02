@@ -10,6 +10,9 @@ export default class MapService extends Service {
 
     let result;
     switch (mapToLoad) {
+      case 'final':
+        result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/final');
+        break;
       case 'castle':
         result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/castle');
         break;

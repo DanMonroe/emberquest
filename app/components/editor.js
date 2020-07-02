@@ -408,8 +408,7 @@ export default {
       case this.WESNOTH.IMPASSABLE:
         // sightCost += 6;
         // break;
-        sightCost = this.constants.FLAGS.SIGHT.IMPASSABLE.value;
-        return;
+        return this.constants.FLAGS.SIGHT.IMPASSABLE.value;
 
       default:
         break;
@@ -422,8 +421,7 @@ export default {
       case this.WESNOTH.IMPASSABLE:
         // sightCost += 6;
         // break;
-        sightCost = this.constants.FLAGS.SIGHT.IMPASSABLE.value;
-        return;
+        return this.constants.FLAGS.SIGHT.IMPASSABLE.value;
       default:  // fly
     }
 

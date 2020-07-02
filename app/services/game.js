@@ -309,7 +309,7 @@ export default class GameService extends Service {
   }
 
   processPlayerMove(playerContainer, moveTo, fieldOfViewTileXYArray) {
-    this.embarkOrDisembarkTransport(playerContainer, moveTo);
+    this.embarkOrDisembarkTransport(playerContainer);
     this.checkForPortal(playerContainer, moveTo);
     this.checkForAgents(playerContainer, moveTo, fieldOfViewTileXYArray);
     // this.checkForSpecial(playerContainer, moveTo);
@@ -317,14 +317,7 @@ export default class GameService extends Service {
   }
 
 
-  embarkOrDisembarkTransport(playerContainer, moveTo) {
-    // if (playerContainer.boardedTransport && playerContainer.boardedTransport.agent.playerConfig.flagAttributes.tF === this.constants.FLAGS.TRAVEL.AIR.value) {
-    //   const currentTileIsNest = this.map.tileIsNest(moveTo.scene, playerContainer.rexChess.tileXYZ);
-    //   console.log('check for nest', currentTileIsNest)
-    //   if (currentTileIsNest) {
-    //     playerContainer.disembarkTransport = true;
-    //   }
-    // }
+  embarkOrDisembarkTransport(playerContainer) {
     if (playerContainer.disembarkTransport) {
       this.turnOffPlayerTravelAbilityFlag(playerContainer, playerContainer.boardedTransport.agent.playerConfig.flagAttributes.tF);
       // this.turnOffPlayerTravelAbilityFlag(playerContainer, this.constants.FLAGS.TRAVEL.SEA);
@@ -517,8 +510,9 @@ export default class GameService extends Service {
         break;
       case constants.FLAGS.SPECIAL.LAVA.value:
         console.log('on lava', agentContainer.agent.maxHealth, (agentContainer.agent.maxHealth * .6) );
-        // fireDamage += 20;
-        fireDamage += agentContainer.agent.maxHealth * .6;
+        if (!agentContainer.boardedTransport) {
+          fireDamage += agentContainer.agent.maxHealth * .6;
+        }
         break;
       case constants.FLAGS.SPECIAL.ROYALEMBER.value:
         this.checkForRoyalEmber(moveTo.scene);
@@ -718,7 +712,9 @@ export default class GameService extends Service {
         break;
       case this.constants.SPECIAL_ACTIONS.PLAY_SOUND.value: // data: { sound: 'open_door_1' }
         yield timeout(400);
-        scene.openDoorAudio.play();
+        this.gameManager.playSound({key: specialAction.data.sound})
+
+        // scene.openDoorAudio.play();
         break;
       case this.constants.SPECIAL_ACTIONS.FINAL_FANFAIR.value:
         console.log('Do final fanfair ?');
