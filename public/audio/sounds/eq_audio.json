@@ -1,0 +1,95 @@
+{
+  "resources": [
+    "/audio/sounds/eq_audio.ogg",
+    "/audio/sounds/eq_audio.m4a",
+    "/audio/sounds/eq_audio.mp3",
+    "/audio/sounds/eq_audio.ac3"
+  ],
+  "spritemap": {
+    "arrow": {
+      "start": 0,
+      "end": 0.49997732426303854,
+      "loop": false
+    },
+    "bite": {
+      "start": 2,
+      "end": 2.2882766439909297,
+      "loop": false
+    },
+    "cannon1": {
+      "start": 4,
+      "end": 5.769637188208617,
+      "loop": false
+    },
+    "cannon2": {
+      "start": 7,
+      "end": 8.4640589569161,
+      "loop": false
+    },
+    "chink": {
+      "start": 10,
+      "end": 10.887777777777778,
+      "loop": false
+    },
+    "eq_audio": {
+      "start": 12,
+      "end": 81,
+      "loop": false
+    },
+    "flamestrike": {
+      "start": 82,
+      "end": 82.64655328798186,
+      "loop": false
+    },
+    "howl": {
+      "start": 84,
+      "end": 88.8649433106576,
+      "loop": false
+    },
+    "lavamud": {
+      "start": 90,
+      "end": 95.64256235827665,
+      "loop": false
+    },
+    "oceanlap": {
+      "start": 97,
+      "end": 100.78342403628118,
+      "loop": false
+    },
+    "oceansgull": {
+      "start": 102,
+      "end": 111.28836734693877,
+      "loop": false
+    },
+    "open_door_1": {
+      "start": 134,
+      "end": 135.22126984126984,
+      "loop": false
+    },
+    "roar": {
+      "start": 116,
+      "end": 117.55569160997733,
+      "loop": false
+    },
+    "sword_miss": {
+      "start": 119,
+      "end": 119.30034013605442,
+      "loop": false
+    },
+    "throwknife": {
+      "start": 121,
+      "end": 121.75657596371882,
+      "loop": false
+    },
+    "wind01": {
+      "start": 123,
+      "end": 132.0880045351474,
+      "loop": false
+    },
+    "pickup": {
+      "start": 137,
+      "end": 137.3437641723356,
+      "loop": false
+    }
+  }
+}
