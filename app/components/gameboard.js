@@ -2,16 +2,19 @@ import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import config from 'emberquest/config/environment';
-
+import localforage from 'localforage';
+import { tracked } from '@glimmer/tracking';
 import Phaser from "phaser";
 import {BootScene} from "../phaser/scenes/boot";
-// import {LoadingScene} from "../phaser/scenes/loading-scene";
 import {GameboardScene} from "../phaser/scenes/gameboard-scene";
 import rexBoardPlugin from "phaser3-rex-plugins/plugins/board-plugin";
 
 export default class GameboardComponent extends Component {
   @service('game') emberGameService;
   @service modals;
+
+  @tracked cookieConfirmed = false;
+  @tracked cookieDenied = false;
 
   config = {
     type: Phaser.AUTO,
@@ -54,14 +57,49 @@ export default class GameboardComponent extends Component {
 
     this.modals.set('modalsDuration', config.game.modalsDuration);
 
+    this.loadSettingsData();
+
     this.emberGameService.overrideMap = this.args.overrideMap;
     this.emberGameService.debug = this.args.debug;  // debug queryparam
 
     if (this.emberGameService.debug.phaserDebug) {
       this.config.physics.arcade.debug = true;
     }
+
   }
 
+  async loadSettingsData() {
+    const settingsData = await localforage.getItem('settings')
+      .catch((err) => {
+        console.error(err);
+      });
+
+    if (settingsData && settingsData.cookieConfirmed) {
+        this.cookieConfirmed = true;
+    } else {
+      console.log('no cookie for you')
+      this.cookieConfirmed = await this.showDialog('gameMessages', 'cookie-confirm-dialog');
+      this.cookieDenied = !this.cookieConfirmed;
+      console.log('result', this.cookieConfirmed)
+      if (this.cookieConfirmed) {
+        const settingsData = {
+          'cookieConfirmed' : true,
+        }
+        await this.saveGameData('settings', settingsData);
+      }
+    }
+
+    // return result;
+  }
+
+  async saveGameData(key, value) {
+    await localforage.setItem(key, value)
+      .then(() => {
+        // console.log('done saving', value)
+      }).catch((err) => {
+        console.error(err);
+      });
+  }
   get volumeCSSClass() {
     return this.emberGameService.gameManager.mutedSoundEffectsVolume ? 'off' : 'up';
     // switch (this.emberGameService.gameManager.volume) {

@@ -20,7 +20,6 @@ export default class GameManagerService extends Service {
   @tracked musicEffectsVolume = 1;
   @tracked mutedSoundEffectsVolume = false;
   @tracked mutedMusicEffectsVolume = false;
-  @tracked cookieConfirm = false;
 
   @tracked gamePaused = true;
   @tracked loadingNewScene = false;
@@ -116,7 +115,10 @@ export default class GameManagerService extends Service {
   }
 
   async saveSceneData() {
-    await this.ember.saveSceneData(this.scene);
+    debugger;
+    if (this.ember.cookieConfirmed) {
+      await this.ember.saveSceneData(this.scene);
+    }
   }
 
   toggleMuteVolume() {

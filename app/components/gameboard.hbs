@@ -4,6 +4,7 @@
     <div class="epm-modal-container {{this.emberGameService.epmModalContainerClass}}">
       <EpmModalContainer />
     </div>
+    {{#if this.cookieConfirmed}}
     <div class="header">
       <img src="/images/emberquestlogo.png" class="logo" />
       <div class="game-controls">
@@ -56,7 +57,13 @@
         @onTeardown={{fn this.teardown}}
         @ember={{this.emberGameService}}
       />
+    {{else}}
+      {{#if this.emberGameService.cookieDenied}}
+        <div>No cookie</div>
+      {{/if}}
+    {{/if}}
   </div>
+
 </div>
 
 {{#if this.emberGameService.showInfoConfirmer}}

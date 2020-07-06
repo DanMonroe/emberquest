@@ -3,7 +3,7 @@ import { tracked } from '@glimmer/tracking';
 import {get} from '@ember/object';
 import { inject as service } from '@ember/service';
 import localforage from 'localforage';
-import {task, restartableTask} from "ember-concurrency-decorators";
+import {task} from "ember-concurrency-decorators";
 import {timeout} from 'ember-concurrency';
 import Confirmer from 'confirmed';
 import { constants } from 'emberquest/services/constants';
@@ -210,21 +210,21 @@ export default class GameService extends Service {
   }
 
   async loadSettingsData() {
-    // console.log('loading settings');
+    console.log('loading settings');
     const settingsData = await this.loadGameData('settings') || {};
     if (settingsData) {
       this.gameManager.mutedSoundEffectsVolume = settingsData.mutedSoundEffectsVolume || false;
       this.gameManager.mutedMusicEffectsVolume = settingsData.mutedMusicEffectsVolume || false;
       this.gameManager.soundEffectsVolume = settingsData.soundEffectsVolume || 1;
       this.gameManager.musicEffectsVolume = settingsData.musicEffectsVolume || 1;
-      this.gameManager.cookieConfirm = settingsData.cookieConfirm || false;
+      this.cookieConfirmed = settingsData.cookieConfirmed || false;
     }
   }
 
   async saveSettingsData() {
     // console.log('saving settings');
     const settingsData = {
-      'cookieConfirm' : this.gameManager.cookieConfirm,
+      'cookieConfirmed' : this.cookieConfirmed,
       'mutedSoundEffectsVolume' : this.gameManager.mutedSoundEffectsVolume,
       'mutedMusicEffectsVolume' : this.gameManager.mutedMusicEffectsVolume,
       'soundEffectsVolume' : this.gameManager.soundEffectsVolume,

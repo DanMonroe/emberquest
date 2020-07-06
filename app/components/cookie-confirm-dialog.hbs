@@ -1,0 +1,19 @@
+<div class="gameMessagesDialog cookies">
+  <h2 class="title title-text cookies">Cookies</h2>
+  <div class="btn close-btn-x" {{on "click" (fn @close true)}}>X</div>
+  <div class="messages-body">
+    <div class="pane">
+      <div class="scroll">
+          <div class="empty">
+            <p>This website uses cookies to save your game progress.</p>
+            <p>At no time does this website send any data from your computer.</p>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <button class="btn styled btn-primary" type="button" {{on "click" (fn @close true)}}>Continue</button>
+    <button class="btn styled btn-warning" type="button" {{on "click" (fn @close false)}}>No Thanks</button>
+  </div>
+</div>
+

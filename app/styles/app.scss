@@ -2259,6 +2259,18 @@ button {
       margin: 2px;
     }
   }
+  &.cookies {
+    .footer {
+      button {
+        &.btn-primary {
+          left: 310px;
+        }
+        &.btn-warning {
+          left: 510px;
+        }
+      }
+    }
+  }
   .footer {
     position: absolute;
     bottom: 0;
@@ -2518,53 +2530,11 @@ button {
 
 .gameMessagesDialog h2.title {
   left: 265px;
+  &.cookies {
+    left: 400px;
+  }
+
 }
-
-.codeExampleDialog {
-  width: 1116px;
-  height: 856px;
-
-  .titlewrap {
-    position: relative;
-    top: 97px;
-    left: 180px;
-    width: 651px;
-    display: block;
-    text-align: center;
-
-    h2.title {
-      position: inherit;
-      display: inline-block;
-      top: 0;
-      left: 0;
-    }
-  }
- .close-btn-x {
-    top: 131px;
-    left: 861px;
-    font-size: 36px;
-  }
-
-  .body {
-    position: absolute;
-    top: 249px;
-    left: 40px;
-
-    .example {
-      height: 575px;
-      width: 1025px;
-      background-color: #282c33;
-    }
-
-
-    .code-img {
-      height: 515px;
-      display:block;
-      margin:auto;
-    }
-  }
-}
-
 
 .victoryDialog {
   margin-top: 0;

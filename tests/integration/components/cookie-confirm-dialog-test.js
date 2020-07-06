@@ -3,22 +3,22 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 
-module('Integration | Component | code-example-dialog', function(hooks) {
+module('Integration | Component | cookie-confirm-dialog', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function(assert) {
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.set('myAction', function(val) { ... });
 
-    await render(hbs`<CodeExampleDialog />`);
+    await render(hbs`<CookieConfirmDialog />`);
 
     assert.equal(this.element.textContent.trim(), '');
 
     // Template block usage:
     await render(hbs`
-      <CodeExampleDialog>
+      <CookieConfirmDialog>
         template block text
-      </CodeExampleDialog>
+      </CookieConfirmDialog>
     `);
 
     assert.equal(this.element.textContent.trim(), 'template block text');
