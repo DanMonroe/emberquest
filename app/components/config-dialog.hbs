@@ -9,7 +9,13 @@
     <div class="pane {{this.currentNavCategory.clazz}}">
       <div class="scroll">
         {{#if (eq this.currentNavCategory.text "Settings")}}
-          Settings
+          <div class="options">
+            <div id="volume-group" class="form-group slider-group">
+              <span class="glyphicon glyphicon-volume-down"></span>
+              <input type="range" min="0" step="10" max="100" value="{{this.volume}}" class="ui-slider" id="myRange" {{on "input" (fn this.setVolume this)}}>
+              <span class="glyphicon glyphicon-volume-up"></span>
+            </div>
+          </div>
         {{/if}}
         {{#if (eq this.currentNavCategory.text "Help")}}
           <Instructions />

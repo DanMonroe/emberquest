@@ -40,68 +40,110 @@ export default class TransportPoolService extends Service {
 
     // keys are originmapname_transportNumber
 
+    // this.transportpool.set('gryphon_1',
+    //   Object.assign(Object.assign({}, this.baseTransport), {
+    //     id: 1308,
+    //     speed: 200,
+    //     scale: 1.5,
+    //     animeframes: {
+    //       rest: {key: 'gryphonrest', prefix: 'gryphon/gryphon', start: 1, end: 1},
+    //       move: {key: 'gryphonmove', prefix: 'gryphon/gryphon-flying-', start: 1, end: 8, rate: 8, repeat: -1}
+    //     },
+    //     flagAttributes: {
+    //       sF: 0,
+    //       tF: 4
+    //     },
+    //     transferAtDock: false,
+    //     transferAtNest: true
+    //
+    //   })
+    // );
+
     // CUTTER
     // let baseTransportclone = Object.assign({}, this.baseTransport);
     this.transportpool.set('intro3_1',
       Object.assign(Object.assign({}, this.baseTransport), {
         id: 1,
-        texture: 'cutter',
-        scale: 1.4,
+        // texture: 'cutter',
+        scale: 1.2,
+        animeframes: {
+          rest: {key: 'intro3_1-rest', prefix: 'ships/cutter', start: 1, end: 1}
+        }
       })
     );
     this.transportpool.set('m13_1',
       Object.assign(Object.assign({}, this.baseTransport), {
         id: 1301,
-        texture: 'cutter',
-        scale: 1.4,
+        scale: 1.2,
+        animeframes: {
+          rest: {key: 'm13_1-rest', prefix: 'ships/cutter', start: 1, end: 1}
+        }
       })
     );
     this.transportpool.set('m13_2',
       Object.assign(Object.assign({}, this.baseTransport), {
         id: 1302,
-        texture: 'barque',
+        // texture: 'barque',
+        animeframes: {
+          rest: {key: 'm13_2-rest', prefix: 'ships/barque', start: 1, end: 1}
+        },
         scale: 1.4,
       })
     );
     this.transportpool.set('m13_3',
       Object.assign(Object.assign({}, this.baseTransport), {
         id: 1303,
-        texture: 'boat',
-        scale: 1.4,
+        // texture: 'boat',
+        animeframes: {
+          rest: {key: 'm13_3-rest', prefix: 'ships/boat', start: 1, end: 1}
+        },
+        scale: 1.2,
       })
     );
     this.transportpool.set('m13_4',
       Object.assign(Object.assign({}, this.baseTransport), {
         id: 1304,
-        texture: 'barque',
+        // texture: 'barque',
+        animeframes: {
+          rest: {key: 'm13_4-rest', prefix: 'ships/barque', start: 1, end: 1}
+        },
         scale: 1.4,
       })
     );
     this.transportpool.set('m13_5',
       Object.assign(Object.assign({}, this.baseTransport), {
         id: 1305,
-        texture: 'cutter',
-        scale: 1.4,
+        scale: 1.2,
+        animeframes: {
+          rest: {key: 'm13_5-rest', prefix: 'ships/cutter', start: 1, end: 1}
+        }
       })
     );
     this.transportpool.set('m13_6',
       Object.assign(Object.assign({}, this.baseTransport), {
         id: 1306,
-        texture: 'barque',
+        animeframes: {
+          rest: {key: 'm13_6-rest', prefix: 'ships/barque', start: 1, end: 1}
+        },
         scale: 1.4,
       })
     );
     this.transportpool.set('m5_1',
       Object.assign(Object.assign({}, this.baseTransport), {
         id: 1307,
-        texture: 'cutter',
-        scale: 1.4,
+        scale: 1.2,
+        animeframes: {
+          rest: {key: 'm5_1-rest', prefix: 'ships/cutter', start: 1, end: 1}
+        }
       })
     );
     this.transportpool.set('final_1',
       Object.assign(Object.assign({}, this.baseTransport), {
         id: 1308,
-        texture: 'boat',  // TODO draw new boat
+        // texture: 'boat',  // TODO draw new boat
+        animeframes: {
+          rest: {key: 'final_1-rest', prefix: 'ships/cutter', start: 1, end: 1}
+        },
         scale: 1.4,
       })
     );

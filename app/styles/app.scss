@@ -170,9 +170,9 @@ $color-4: #995F00;
 
         .progress-container {
           position: relative;
-          top: 238px;
-          left: 108px;
-          width: 262px;
+          top: 178px;
+          left: 80px;
+          width: 201px;
           .progress-bar {
             height: 18px;
             background-image: linear-gradient(to right, $color-0, $color-1, $color-2, $color-3, $color-4);
@@ -190,10 +190,10 @@ $color-4: #995F00;
         .quote-container {
           position: relative;
           color: #6f4300;
-          font-size: 1.2em;
-          top: 265px;
-          left: 48px;
-          width: 380px;
+          font-size: 1.1em;
+          top: 189px;
+          left: 41px;
+          width: 280px;
           height: 4em;
           display: flex;
           height: 4em;
@@ -2339,6 +2339,71 @@ button {
         left: 0;
       }
     }
+  }
+
+  .options {
+    display: block;
+    margin-right: 50px;
+    #volume-group {
+      position: relative;
+      width: 100%;
+      height: 25px;
+      margin: 15px 0;
+      .glyphicon-volume-down {
+        position: absolute;
+        left: 0;
+        font-size: 30px;
+        top: -2px;
+        color: #1a1512;
+      }
+      .glyphicon-volume-up {
+        position: absolute;
+        right: -10px;
+        font-size: 30px;
+        top: -2px;
+        color: #1a1512;
+      }
+      .ui-slider {
+        position: absolute;
+        left: 40px;
+        right: 40px;
+        top: 4px;
+        background-color: #f8a943;
+        border: 4px solid #1a1512;
+        height: 10px;
+        border-radius: 18px;
+
+        -webkit-appearance: none;
+        width: 430px;
+        outline: none;
+        -webkit-transition: .2s;
+        &::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          width: 28px;
+          height: 28px;
+          border-radius: 50%;
+          background: #1a1512;
+          cursor: pointer;
+        }
+
+        &::-moz-range-thumb {
+          width: 28px;
+          height: 28px;
+          border-radius: 50%;
+          background: #1a1512;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+
+  form-group {
+    font-size: 16px;
+    color: #333333;
+    padding-top: 4px;
+    padding-left: 40px;
   }
 }
 

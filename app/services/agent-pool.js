@@ -75,7 +75,7 @@ export default class AgentPoolService extends Service {
       Object.assign(baseAgentclone, {
         id: agentId++,
         name: 'Keep',
-        // texture: 'keep',
+        hasMelee: false,
         offsets: {
           img: { x: -1, y: -20 },
           healthbar: { x: 0, y: -55 },
@@ -103,6 +103,7 @@ export default class AgentPoolService extends Service {
       Object.assign(baseAgentclone, {
         id: agentId++,
         name: 'Desert Keep',
+        hasMelee: false,
         offsets: {
           img: { x: -1, y: -25 },
           healthbar: { x: 0, y: -55 },
@@ -227,7 +228,7 @@ export default class AgentPoolService extends Service {
           rest: {yoyo: true, key: 'humanoid_banditrest', prefix: 'humanoid/bandit/bandit', start: 1, end: 1, rate: 3, repeat: -1},
           attack: {key: 'humanoid_banditattack', prefix: 'humanoid/bandit/bandit-melee-', start: 1, end: 8, rate: 12, delays: { frameNum: 8, delay: 300 }}
         },
-        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5000 } ]}]  // sword
       })
     );
 
@@ -240,7 +241,7 @@ export default class AgentPoolService extends Service {
           rest: {yoyo: true, key: 'humanoid_outlawrest', prefix: 'humanoid/outlaw/outlaw', start: 1, end: 1, rate: 3, repeat: -1},
           attack: {key: 'humanoid_outlawattack', prefix: 'humanoid/outlaw/outlaw-melee-', start: 1, end: 3, rate: 12, delays: { frameNum: 3, delay: 300 }}
         },
-        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5000 } ]}]  // sword
       })
     );
 
@@ -253,7 +254,7 @@ export default class AgentPoolService extends Service {
           rest: {yoyo: true, key: 'humanoid_footpadrest', prefix: 'humanoid/footpad/footpad', start: 1, end: 1, rate: 3, repeat: -1},
           attack: {key: 'humanoid_footpadattack', prefix: 'humanoid/footpad/footpad-melee-', start: 1, end: 4, rate: 12, delays: { frameNum: 4, delay: 300 }}
         },
-        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5000 } ]}]  // sword
       })
     );
 
@@ -266,7 +267,7 @@ export default class AgentPoolService extends Service {
           rest: {yoyo: true, key: 'humanoid_peasantrest', prefix: 'humanoid/peasant/peasant', start: 1, end: 1, rate: 3, repeat: -1},
           attack: {key: 'humanoid_peasantattack', prefix: 'humanoid/peasant/peasant-melee-', start: 1, end: 4, rate: 12, delays: { frameNum: 4, delay: 300 }}
         },
-        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5000 } ]}]  // sword
       })
     );
 
@@ -318,7 +319,7 @@ export default class AgentPoolService extends Service {
         scale: 1.5,
         animeframes: {
           rest: {yoyo: true, key: 'dogrest', prefix: 'dog/dog-', start: 0, end: 3, rate: 3, repeat: -1},
-          attack: {key: 'dogattack', prefix: 'dog/dog-', start: 3, end: 4, rate: 12, delays: { frameNum: 1, delay: 300 }}
+          attack: {key: 'dogattack', prefix: 'dog/dog-', start: 3, end: 4, rate: 12, delays: { frameNum: 2, delay: 300 }}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items:
@@ -341,7 +342,7 @@ export default class AgentPoolService extends Service {
       })
     );
     baseAgentclone = Object.assign({}, this.baseAgent);
-    this.agentpool.set('dog',
+    this.agentpool.set('hellhound',
       Object.assign(baseAgentclone, {
         id: agentId++,
         name: 'Hell Hound',

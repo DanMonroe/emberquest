@@ -119,8 +119,11 @@ export default class GameService extends Service {
       'transports': sceneTransports,
       'agents': agents,
       'deadAgents': scene.deadAgents,
-      'boarded':  boardedTransportId
+      'boarded':  boardedTransportId,
+      'spawnTile': scene.spawnTile
     });
+
+    console.log('save spawnTile', scene.spawnTile)
 
     this.sceneData[mapname] = currentMapData;
 
@@ -204,6 +207,30 @@ export default class GameService extends Service {
     });
 
     await this.saveGameData('gameboard', this.gameData);
+  }
+
+  async loadSettingsData() {
+    // console.log('loading settings');
+    const settingsData = await this.loadGameData('settings') || {};
+    if (settingsData) {
+      this.gameManager.mutedSoundEffectsVolume = settingsData.mutedSoundEffectsVolume || false;
+      this.gameManager.mutedMusicEffectsVolume = settingsData.mutedMusicEffectsVolume || false;
+      this.gameManager.soundEffectsVolume = settingsData.soundEffectsVolume || 1;
+      this.gameManager.musicEffectsVolume = settingsData.musicEffectsVolume || 1;
+      this.gameManager.cookieConfirm = settingsData.cookieConfirm || false;
+    }
+  }
+
+  async saveSettingsData() {
+    // console.log('saving settings');
+    const settingsData = {
+      'cookieConfirm' : this.gameManager.cookieConfirm,
+      'mutedSoundEffectsVolume' : this.gameManager.mutedSoundEffectsVolume,
+      'mutedMusicEffectsVolume' : this.gameManager.mutedMusicEffectsVolume,
+      'soundEffectsVolume' : this.gameManager.soundEffectsVolume,
+      'musicEffectsVolume' : this.gameManager.musicEffectsVolume
+    }
+    await this.saveGameData('settings', settingsData);
   }
 
   async saveGameData(key, value) {
@@ -319,6 +346,7 @@ export default class GameService extends Service {
 
   embarkOrDisembarkTransport(playerContainer) {
     if (playerContainer.disembarkTransport) {
+console.log('disembark')
       this.turnOffPlayerTravelAbilityFlag(playerContainer, playerContainer.boardedTransport.agent.playerConfig.flagAttributes.tF);
       // this.turnOffPlayerTravelAbilityFlag(playerContainer, this.constants.FLAGS.TRAVEL.SEA);
       this.turnOnPlayerTravelAbilityFlag(playerContainer, this.constants.FLAGS.TRAVEL.LAND);
@@ -328,6 +356,7 @@ export default class GameService extends Service {
       playerContainer.boardedTransport = undefined;
       playerContainer.disembarkTransport = false;
     } else if (playerContainer.embarkTransport) {
+console.log('embark')
       playerContainer.boardedTransport = playerContainer.transportToBoard;
 
       this.turnOffPlayerTravelAbilityFlag(playerContainer, this.constants.FLAGS.TRAVEL.LAND);

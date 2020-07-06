@@ -17,7 +17,7 @@ export default class TransportContainer extends BasePhaserAgentContainer {
 
     this.agent = agent;
     this.config = config;
-    this.phasertransportSprite = this.transport;
+    // this.phasertransportSprite = this.transport;
 
     this.setupSprite();
 

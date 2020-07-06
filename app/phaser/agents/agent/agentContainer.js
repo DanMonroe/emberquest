@@ -44,7 +44,6 @@ export default class AgentContainer extends BasePhaserAgentContainer {
     this.moveToObject.on('complete', this.moveToComplete);
 
     this.moveToObject.moveableTestCallback = (curTile, targetTile, pathFinder) => {
-      console.log('agent moveableTestCallback')
       if (this.moveToObject.isRunning) {
         return false;
       }
@@ -108,7 +107,7 @@ export default class AgentContainer extends BasePhaserAgentContainer {
 
     // console.log('sprite config', this.config)
     agentSprite.setScale(this.config.scale);
-
+// debugger;
     this.add(agentSprite);
 
     this.phaserAgentSprite = agentSprite;
@@ -175,23 +174,15 @@ export default class AgentContainer extends BasePhaserAgentContainer {
     }
   }
 
-  playSound(key) {
-    console.log('agentContainer playSound', key)
-
-    if (key) {
-      this.scene.sound.playAudioSprite('eq_audio', key);
+  playSound(soundObj) {
+    if (!this.ember.gameManager.mutedSoundEffectsVolume && soundObj && soundObj.key) {
+      const config = Object.assign(soundObj.config || {}, {volume: this.ember.gameManager.soundEffectsVolume});
+      this.scene.sound.playAudioSprite('eq_audio', soundObj.key, config);
     }
-    // switch (key) {
-    //   case this.ember.constants.AUDIO.KEY.ATTACK:
-    //     // this.scene.swordMiss.play();
-    //     break;
-    //   default:
-    //     break;
-    // }
   }
 
   async cancelAllTasks() {
-    console.log('cancelling all tasks for', this.agent.playerConfig.texture)
+    // console.log('cancelling all tasks for', this.agent.playerConfig.texture)
     await this.patrolTask.cancelAll();
     await this.engagePlayer.cancelAll();
     await this.chasePlayer.cancelAll();
@@ -298,7 +289,6 @@ export default class AgentContainer extends BasePhaserAgentContainer {
       this.setAgentState(this.ember.constants.AGENTSTATE.MELEE);
     } else {
       console.log('                 ----  not neighbors.. use missile')
-      const equippedMeleeWeapon = agentContainer.agent.equippedMeleeWeapon;
       const equippedRangedWeapon = agentContainer.agent.equippedRangedWeapon;
 
       if (equippedRangedWeapon) {
@@ -345,10 +335,10 @@ export default class AgentContainer extends BasePhaserAgentContainer {
             } else {
               const shouldPursue = agentContainer.checkAggression(agentContainer);
               if (shouldPursue) {
-                console.log('meleee...  chase em')
+                // console.log('meleee...  chase em')
                 this.chasePlayer.perform();
               } else {
-                console.log('meleee...  run away')
+                // console.log('meleee...  run away')
                 this.transitionToPatrol();
               }
             }
@@ -475,14 +465,13 @@ export default class AgentContainer extends BasePhaserAgentContainer {
 
           const hit = this.ember.gameManager.didAttackHit(equippedMeleeWeapon, this.ember.playerContainer.agent, this.agent);
 
-          const meleeAttackDamage = hit ? this.agent.attackDamage : 0;
+          const meleeAttackDamage = hit ? this.agent.attackDamageDuringCombat : 0;
           // const targetsHealth = this.ember.playerContainer.agent.health;
           // console.log('meleeAttackDamage', meleeAttackDamage, 'targetsHealth', targetsHealth);
 
           this.stopAnimation();
           this.playAnimation(this.ember.constants.ANIMATION.KEY.ATTACK);
           this.playSound(hit && equippedMeleeWeapon ? equippedMeleeWeapon.audioMelee : {});
-          // this.playSound(this.ember.constants.AUDIO.KEY.ATTACK);
 
           // weapon will have speed, damage?, timeout cooldown
           this.ember.playerContainer.takeDamage(meleeAttackDamage, this.ember.playerContainer.agent, this.agent);
@@ -507,7 +496,7 @@ export default class AgentContainer extends BasePhaserAgentContainer {
     if (!this.rexChess || !this.rexChess.board) {
       return;
     }
-    console.log('populatePatrolMoveQueue', this)
+    // console.log('populatePatrolMoveQueue', this)
     if (this.rexChess && this.rexChess.board && !this.moveQueue || (this.moveQueue.path && this.moveQueue.path.length === 0)) {
       // no moves.. build the next one
       const nextTargetTile = this.getNextTargetTile();

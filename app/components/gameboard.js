@@ -63,17 +63,18 @@ export default class GameboardComponent extends Component {
   }
 
   get volumeCSSClass() {
-    switch (this.emberGameService.gameManager.volume) {
-      case 0:
-        return 'off';
-      case 1:
-        return 'down';
-      case 2:
-        return 'up';
-      default:
-        break;
-    }
-    return 'off';
+    return this.emberGameService.gameManager.mutedSoundEffectsVolume ? 'off' : 'up';
+    // switch (this.emberGameService.gameManager.volume) {
+    //   case 0:
+    //     return 'off';
+    //   case 1:
+    //     return 'down';
+    //   case 2:
+    //     return 'up';
+    //   default:
+    //     break;
+    // }
+    // return 'off';
   }
 
   @action
@@ -114,11 +115,14 @@ export default class GameboardComponent extends Component {
     await this.showDialog('caches', 'caches-dialog');
   }
 
-
   @action
-  adjustVolume() {
-    console.log('adjustVolume');
-    this.emberGameService.gameManager.adjustVolume();
+  toggleVolume() {
+    this.emberGameService.gameManager.toggleMuteVolume();
   }
+
+  // @action
+  // adjustVolume() {
+  //   this.emberGameService.gameManager.adjustVolume();
+  // }
 
 }

@@ -2,9 +2,6 @@ import { constants } from 'emberquest/services/constants';
 import { tracked } from '@glimmer/tracking';
 import { computed } from '@ember/object';
 import { A as emberArray } from '@ember/array';
-// import { InventoryItem } from 'emberquest/objects/models/inventory-item';
-// import { Stat } from 'emberquest/objects/models/stat';
-
 
 export class BaseAgent {
 
@@ -20,6 +17,8 @@ export class BaseAgent {
 
   @tracked aggressionScale = 0;
   @tracked gold = 0;
+
+  @tracked hasMelee = true;
 
   constructor(scene, config) {
     // console.log('in base-agent constructor', scene, config)
@@ -46,17 +45,6 @@ export class BaseAgent {
       this.equippedSlot[i] = null;
     }
 
-    // this.fists = new InventoryItem({
-    //   id: 8675309,
-    //   type: constants.INVENTORY.TYPE.WEAPON,
-    //   bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
-    //   name: 'Fists',
-    //   stats: [
-    //     new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 1}),
-    //     new Stat({type: constants.INVENTORY.STATS.POWER, value: 2}),
-    //     new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: .5})
-    //   ]
-    // })
   }
 
   // Main properties:
@@ -77,11 +65,15 @@ export class BaseAgent {
     return this.baseHealingPower * this.healingPowerAdj;
   }
 
-
-  // **************
+  randomIntFromInterval(min, max) { // min and max included
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
 
   @computed('inventory.@each.equipped')
   get equippedMeleeWeapon() {
+    if (!this.hasMelee) {
+      return null;
+    }
     const equippedMeleeWeapon = this.ember.inventory.getEquippedSlot(this, constants.INVENTORY.BODYPART.RIGHT_HAND);
 
     // always have your fists to use.
@@ -183,9 +175,41 @@ export class BaseAgent {
     return Math.max(1, this.getStats(constants.INVENTORY.STATS.DAMAGE));
   }
 
+  get attackDamageDuringCombat() {
+    let damage = this.attackDamage * this.level;
+    // let randomPercentageByLevel = 1 + (this.randomIntFromInterval(-25, 25) / 100);
+    let randomPercentageByLevel = 1 + (this.randomIntFromInterval(-(this.level*2), (this.level*2)) / 100);
+
+    damage *= (randomPercentageByLevel);
+
+    // if (this.randomIntFromInterval(0, 100) >= 46) {
+    if (this.randomIntFromInterval(0, 100) >= 96) {
+      damage *= 2;
+    }
+    damage = Math.ceil(damage);
+    // console.log('GET ATTACK DAMAGE', damage);
+    return Math.max(1, damage);
+
+  }
+
   @computed('inventory.@each.equipped')
   get rangedAttackDamage() {
     return this.getStats(constants.INVENTORY.STATS.RANGEDDAMAGE);
+  }
+
+  get rangedAttackDamageDuringCombat() {
+    let damage = this.rangedAttackDamage * this.level;
+
+    let randomPercentageByLevel = 1 + (this.randomIntFromInterval(-(this.level*2), (this.level*2)) / 100);
+
+    damage *= (randomPercentageByLevel);
+
+    if (this.randomIntFromInterval(0, 100) >= 96) {
+      damage *= 2;
+    }
+    damage = Math.ceil(damage);
+
+    return Math.max(1, damage);
   }
 
   @computed('inventory.@each.equipped')

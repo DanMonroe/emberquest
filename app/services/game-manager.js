@@ -18,6 +18,9 @@ export default class GameManagerService extends Service {
   @tracked volume = 0;
   @tracked soundEffectsVolume = 1;
   @tracked musicEffectsVolume = 1;
+  @tracked mutedSoundEffectsVolume = false;
+  @tracked mutedMusicEffectsVolume = false;
+  @tracked cookieConfirm = false;
 
   @tracked gamePaused = true;
   @tracked loadingNewScene = false;
@@ -116,32 +119,37 @@ export default class GameManagerService extends Service {
     await this.ember.saveSceneData(this.scene);
   }
 
-
-  adjustVolume() {
-    this.volume++;
-    if (this.volume > 2) {
-      this.volume = 0;
-    }
-    switch (this.volume) {
-      case 0:
-        this.soundEffectsVolume = 0;
-        this.musicEffectsVolume = 0;
-        // this.scene.musicAudio.setVolume(0);
-        break;
-      case 1:
-        this.soundEffectsVolume = 0.5;
-        this.musicEffectsVolume = 0;
-        // this.scene.musicAudio.setVolume(0.3);
-        break;
-      case 2:
-        this.soundEffectsVolume = 1;
-        this.musicEffectsVolume = 0;
-        // this.scene.musicAudio.setVolume(0.7);
-        break;
-      default:
-        break;
-    }
+  toggleMuteVolume() {
+    this.mutedSoundEffectsVolume = !this.mutedSoundEffectsVolume;
+    this.mutedMusicEffectsVolume = !this.mutedMusicEffectsVolume;
+    this.ember.saveSettingsData();
   }
+
+  // adjustVolume() {
+  //   this.volume++;
+  //   if (this.volume > 2) {
+  //     this.volume = 0;
+  //   }
+  //   switch (this.volume) {
+  //     case 0:
+  //       this.soundEffectsVolume = 0;
+  //       this.musicEffectsVolume = 0;
+  //       // this.scene.musicAudio.setVolume(0);
+  //       break;
+  //     case 1:
+  //       this.soundEffectsVolume = 0.5;
+  //       this.musicEffectsVolume = 0;
+  //       // this.scene.musicAudio.setVolume(0.3);
+  //       break;
+  //     case 2:
+  //       this.soundEffectsVolume = 1;
+  //       this.musicEffectsVolume = 0;
+  //       // this.scene.musicAudio.setVolume(0.7);
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // }
 
 
   setupEventListener() {
@@ -278,28 +286,15 @@ export default class GameManagerService extends Service {
   }
 
   playSound(soundObj) {
-    console.log('gameManager playSound', soundObj)
-    if (soundObj && soundObj.key) {
+    console.log('gameManager playSound', soundObj, this.soundEffectsVolume)
+    console.count('gameManager playSound')
+
+    if (!this.mutedSoundEffectsVolume && soundObj && soundObj.key) {
       const config = Object.assign(soundObj.config || {}, {volume: this.soundEffectsVolume});
+console.log('sound config', config)
       this.scene.sound.playAudioSprite('eq_audio', soundObj.key, config);
     }
 
-    // switch (key) {
-    //   case this.ember.constants.AUDIO.KEY.ATTACK:
-    //     break;
-    //   case this.ember.constants.AUDIO.KEY.ARROW:
-    //     console.log('arrow')
-    //     // this.scene.arrow.play();
-    //     break;
-    //   case this.ember.constants.AUDIO.KEY.PLAYERDEATH:
-    //     // this.scene.playerDeath.play();
-    //     break;
-    //   case this.ember.constants.AUDIO.KEY.SWORD:
-    //   default:
-    //     console.log('default swordMiss')
-    //     // this.scene.swordMiss.play();
-    //     break;
-    // }
   }
 
   @restartableTask
@@ -376,7 +371,8 @@ export default class GameManagerService extends Service {
           this.playSound(hit && equippedMeleeWeapon ? equippedMeleeWeapon.audioMelee : {});
           // this.playSound(this.ember.constants.AUDIO.KEY.SWORD);
 
-          const meleeAttackDamage = hit ? attacker.agent.attackDamage : 0;
+          const meleeAttackDamage = hit ? attacker.agent.attackDamageDuringCombat : 0;
+          // const meleeAttackDamage = hit ? attacker.agent.attackDamage : 0;
 
           // weapon will have speed, damage?, timeout cooldown
           agentToAttack.takeDamage(meleeAttackDamage, agentToAttack.agent, attacker.agent);
@@ -507,8 +503,12 @@ export default class GameManagerService extends Service {
     // TODO what penalties?  For now, heal
     playerContainer.agent.health = playerContainer.agent.baseHealth;
 
+
     this.ember.epmModalContainerClass = 'victory';
     await this.modals.open('death-dialog', {playerDead:true});
+
+    this.scene.board.moveChess(playerContainer, scene.spawnTile.x, scene.spawnTile.y);
+    this.scene.game.ember.saveSceneData(scene);
     this.pauseGame(false);
   }
 

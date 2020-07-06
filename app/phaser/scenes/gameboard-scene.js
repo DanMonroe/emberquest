@@ -25,6 +25,7 @@ export class GameboardScene extends Phaser.Scene {
   doors = {};
   signs = {};
   sprites = {};
+  spawnTile = {};
 
   projectiles = {};
   agentprojectiles = {};  // hard coded extra group for emberconf
@@ -67,6 +68,7 @@ export class GameboardScene extends Phaser.Scene {
     this.textures.remove('map');
     this.load.image('map', this.mapData.mapUrl);
 
+    this.ember.playerContainer = null;
   }
 
   create() {
@@ -106,13 +108,15 @@ export class GameboardScene extends Phaser.Scene {
       // this.ember.gameManager.countGems.perform(30)
 
 
-
       // full heal:   TODO remove
       if (pointer.event.shiftKey) {
       // if (tileXY.x < 10 && tileXY.y === 0) {
         console.log('heal', this.player);
         this.player.health = this.player.baseHealth + this.player.armorHealth;
         this.player.power = this.player.basePower + this.player.powerFromInventory;
+        // this.ember.gameManager.playSound({'key':'sword_miss'});
+      // } else {
+      //   this.ember.gameManager.playSound({'key':'pop'});
       }
     });
   }
@@ -201,8 +205,11 @@ export class GameboardScene extends Phaser.Scene {
 
   spawnPlayer(playerObject) {
     this.player = playerObject;
-    // console.log('spawnPlayer', playerObject.playerConfig.playerX, playerObject.playerConfig.playerY)
+    console.log('spawnPlayer', playerObject.playerConfig.playerX, playerObject.playerConfig.playerY)
     this.board.addChess(playerObject.container, playerObject.playerConfig.playerX, playerObject.playerConfig.playerY, this.ember.constants.TILEZ_PLAYER);
+
+    this.spawnTile = {x: playerObject.playerConfig.playerX, y: playerObject.playerConfig.playerY};
+
 
     playerObject.container.fov = this.rexBoard.add.fieldOfView(playerObject.container, playerObject.playerConfig);
 

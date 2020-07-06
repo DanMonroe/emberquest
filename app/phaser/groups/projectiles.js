@@ -24,7 +24,8 @@ export default class Projectiles extends Phaser.Physics.Arcade.Group {
       }
 
       if (attacker.agent.rangedAttackDamage) {
-        projectile.damage = attacker.agent.rangedAttackDamage;
+        projectile.damage = attacker.agent.rangedAttackDamageDuringCombat;
+        // projectile.damage = attacker.agent.rangedAttackDamage;
       }
       if (!didAttackHit) {
         projectile.damage = 0;
