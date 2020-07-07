@@ -12,6 +12,7 @@ import rexBoardPlugin from "phaser3-rex-plugins/plugins/board-plugin";
 export default class GameboardComponent extends Component {
   @service('game') emberGameService;
   @service modals;
+  @service router;
 
   @tracked cookieConfirmed = false;
   @tracked cookieDenied = false;
@@ -77,15 +78,14 @@ export default class GameboardComponent extends Component {
     if (settingsData && settingsData.cookieConfirmed) {
         this.cookieConfirmed = true;
     } else {
-      console.log('no cookie for you')
       this.cookieConfirmed = await this.showDialog('gameMessages', 'cookie-confirm-dialog');
       this.cookieDenied = !this.cookieConfirmed;
-      console.log('result', this.cookieConfirmed)
       if (this.cookieConfirmed) {
-        const settingsData = {
+        await this.saveGameData('settings', {
           'cookieConfirmed' : true,
-        }
-        await this.saveGameData('settings', settingsData);
+        });
+      } else {
+        this.router.transitionTo('index');
       }
     }
 
@@ -100,6 +100,7 @@ export default class GameboardComponent extends Component {
         console.error(err);
       });
   }
+  
   get volumeCSSClass() {
     return this.emberGameService.gameManager.mutedSoundEffectsVolume ? 'off' : 'up';
     // switch (this.emberGameService.gameManager.volume) {
