@@ -100,7 +100,7 @@ export default class GameboardComponent extends Component {
         console.error(err);
       });
   }
-  
+
   get volumeCSSClass() {
     return this.emberGameService.gameManager.mutedSoundEffectsVolume ? 'off' : 'up';
     // switch (this.emberGameService.gameManager.volume) {

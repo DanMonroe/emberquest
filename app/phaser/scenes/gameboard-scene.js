@@ -56,6 +56,11 @@ export class GameboardScene extends Phaser.Scene {
     this.deadAgents = data.sceneData ? data.sceneData.deadAgents ? new Set(data.sceneData.deadAgents) : new Set() : new Set();
 
     this.lastSeenTiles = new Set();
+
+    // save the tile where we first saw this scene.
+    if (data.spawnTile && data.spawnTile) {
+      this.spawnTile = {x: data.spawnTile.x, y: data.spawnTile.y};
+    }
   }
 
   preload() {
@@ -208,9 +213,6 @@ export class GameboardScene extends Phaser.Scene {
     console.log('spawnPlayer', playerObject.playerConfig.playerX, playerObject.playerConfig.playerY)
     this.board.addChess(playerObject.container, playerObject.playerConfig.playerX, playerObject.playerConfig.playerY, this.ember.constants.TILEZ_PLAYER);
 
-    this.spawnTile = {x: playerObject.playerConfig.playerX, y: playerObject.playerConfig.playerY};
-
-
     playerObject.container.fov = this.rexBoard.add.fieldOfView(playerObject.container, playerObject.playerConfig);
 
     playerObject.container.rexChess.setBlocker();
@@ -332,7 +334,7 @@ export class GameboardScene extends Phaser.Scene {
 
           this.anims.create(animationConfig);
           sprite.anims.play(animation.key);
-        })
+        });
 
         if (spriteObj.ignoreFOVUpdate) {
           sprite.setData('ignoreFOVUpdate', true);

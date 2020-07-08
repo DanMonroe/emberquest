@@ -174,7 +174,7 @@ export class BootScene extends Phaser.Scene {
             'overrideMap': this.game.ember.overrideMap,
             'gameboardData': gameboardData,
             'sceneData': sceneData,
-
+            'spawnTile': sceneData.spawnTile ? {x: sceneData.spawnTile.x, y: sceneData.spawnTile.y} : {},
             'storedPlayerTile': gameboardData.playerTile,
             'storedPlayerAttrs': gameboardData.playerAttrs,
             'allSeenTiles': sceneData.seenTiles,

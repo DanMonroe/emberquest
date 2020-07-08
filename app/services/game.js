@@ -426,11 +426,11 @@ console.log('embark')
                   storedTransports: [],
                   boarded: 0
                 };
-                console.log('')
-                console.log('')
-                console.error('>>>>>> portal ===> loading map', tileIsPortal.map.toUpperCase(), 'sceneData', sceneData)
-                console.log('sceneData', sceneData)
-                console.log('')
+                console.log('');
+                console.log('');
+                console.error('>>>>>> portal ===> loading map', tileIsPortal.map.toUpperCase(), 'sceneData', sceneData);
+                console.log('sceneData', sceneData);
+                console.log('');
 
                 // moveTo.scene.game.ember.gameData.transports = gameboardData.transports;
 
@@ -441,13 +441,14 @@ console.log('embark')
                   'sceneData': sceneData,
 
                   'storedPlayerTile': {x: tileIsPortal.x || 10, y: tileIsPortal.y || 10},
+                  'spawnTile': {x: tileIsPortal.x, y: tileIsPortal.y},
                   'storedPlayerAttrs': gameboardData.playerAttrs,
                   'allSeenTiles': sceneData.seenTiles,
                   'storedTransports': sceneData.transports,
                   'boarded': this.playerContainer.boardedTransport ? this.playerContainer.boardedTransport.agent.id : 0
 // 'boarded': gameboardData.playerAttrs.boardedTransport  // the id of the transport the player is on
                   // 'boarded': sceneData.boarded
-                }
+                };
                 // console.log('restarting with data', data)
                 // moveTo.scene.scene.restart(data);
 
@@ -461,17 +462,6 @@ console.log('embark')
               }
             });
 
-
-          // const sceneData = await this.loadSceneData(tileIsPortal.map)
-//         console.log('loadSceneData', sceneData);
-// debugger;
-//         moveTo.scene.scene.restart({
-//           'map': tileIsPortal.map,
-//           'storedPlayerTile': { x: tileIsPortal.x || 10, y: tileIsPortal.y || 10 },
-//           'storedPlayerAttrs': moveTo.scene.player.container.data.get('attrs'),
-//           'allSeenTiles': sceneData.seenTiles || new Set(),
-//           'storedTransports': sceneData.transports || new Set()
-//         });
         });
       }
     }

@@ -510,6 +510,9 @@ console.log('sound config', config)
     await this.modals.open('death-dialog', {playerDead:true});
 
     this.scene.board.moveChess(playerContainer, scene.spawnTile.x, scene.spawnTile.y);
+    let fieldOfViewTileXYArray = playerContainer.fov.findFOV(playerContainer.visiblePoints);
+    this.scene.game.ember.map.findAgentFieldOfView(playerContainer, fieldOfViewTileXYArray);
+
     this.scene.game.ember.saveSceneData(scene);
     this.pauseGame(false);
   }
