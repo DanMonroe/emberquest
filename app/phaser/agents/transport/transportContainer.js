@@ -32,15 +32,17 @@ export default class TransportContainer extends BasePhaserAgentContainer {
     this.moveToObject.moveableTestCallback = (curTile, targetTile, pathFinder) => {
       // console.log('transport moveTo testCallback', curTile, targetTile, pathFinder.scene.player.container.rexChess.tileXYZ)
 
-      const canMove = ( (pathFinder.scene.player.container.rexChess.tileXYZ.x === targetTile.x) &&
-        (pathFinder.scene.player.container.rexChess.tileXYZ.y === targetTile.y) );
+      // const canMove = ( (pathFinder.scene.player.container.rexChess.tileXYZ.x === targetTile.x) &&
+      //   (pathFinder.scene.player.container.rexChess.tileXYZ.y === targetTile.y) );
+      //
+      // if (this.ember.map.tileIsDock(pathFinder.scene, targetTile)) {
+      //   return false;
+      // }
+      // // console.log('transport canMove', canMove);
+      // return canMove;
 
-      if (this.ember.map.tileIsDock(pathFinder.scene, targetTile)) {
-        return false;
-      }
-      // console.log('transport canMove', canMove);
-      return canMove;
-
+      // Do we really need a test callback for a transport?  July 8, 2020
+      return true;
     };
 
 
@@ -128,8 +130,9 @@ export default class TransportContainer extends BasePhaserAgentContainer {
     }
   }
 
-  moveToComplete(/*transport, moveTo*/) {
+  async moveToComplete(transport/*, moveTo*/) {
     // console.log('moved transport')
+    transport.setVisibility();
   }
 
 }

@@ -145,6 +145,14 @@ export class BaseAgent {
     return xp;
   }
 
+  // gold award to player after a victory
+  get goldAwarded() {
+    if (this.gold === 0) {
+      return 0;
+    }
+    return Math.floor(Math.random() * (this.level * this.gold)) + this.level;
+  }
+
   sumProperty(property) {
     // return this.getStats(property);
     return this.equippedInventory.reduce((sum, item) => {

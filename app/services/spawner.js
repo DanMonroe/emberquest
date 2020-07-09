@@ -65,7 +65,7 @@ export default class SpawnerService extends Service {
       scene.ember.gameData.transports.forEach(sceneTransport => {
         if (boardedTransportId !== sceneTransport.id && sceneTransport.map === scene.mapname) {
           const transportConfigFromPool = this.transportPool.findTransportById(sceneTransport.id);
-          // console.log('found scene trans obj', transportConfigFromPool);
+          // console.log('found scene trans obj', transportConfigFromPool, sceneTransport);
           if (transportConfigFromPool) {
             const location = {x: sceneTransport.tile.x, y: sceneTransport.tile.y};
             const transport = new Transport(location.x, location.y, Object.assign(location, transportConfigFromPool));
@@ -273,7 +273,7 @@ export default class SpawnerService extends Service {
       // this.scene.ember.gameData.transports
 
       if (okToSpawn) {
-        // console.log('going to spawn transport');
+        // console.log('going to spawn transport', transport);
         this.transports.pushObject(transport);
         this.scene.events.emit('transportSpawned', transport);
       }

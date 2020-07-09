@@ -2,22 +2,27 @@
   "test": "This is bar",
   "messages": {
     "intro": {
-      "id1": "<p>You have found a locked door.</p><p>Find a chest and this door will unlock.</p>"
+      "id1": "'<p>'You have found a locked door.'</p><p>'Find a chest and this door will unlock.'</p>'"
+    },
+    "sprites": {
+      "toofar": "'<p>'You are too far away.'</p>'"
     },
     "signs": {
-      "toofar": "<p>You are too far away to read the sign.</p>",
-      "msg1": "<p>Cool sign dude</p>",
-      "msg2": "<p>Another cool sign</p>",
+      "toofar": "'<p>'You are too far away to read the sign.'</p>'",
+      "msg1": "'<p>'Cool sign dude'</p>'",
+      "msg2": "'<p>'Another cool sign'</p>'",
 
-      "castle1": "<p>You have found a locked gate.</p><p>Find a chest and this gate will unlock.</p>",
-      "castle2": "<h4>Welcome To EmberQuest!</h4><p>Unfortunately, this castle has seen happier times.  Someone, or something, has stolen the Enchanted Ember that fuels the eternal flame in the brazier above you. It protected this land from creatures who threaten our peace and safety. Now they roam freely without challenge.</p><p>Save the Land and return the Ember to its chamber.  When you do, the treasure to your South will be yours as a reward!</p><p>Be safe young traveller!</p>",
-      "castle3": "<p>This gate will be unlocked from the outside.</p>",
+      "castle1": "'<p>'You have found a locked gate.'</p><p>'Find a chest and this gate will unlock.'</p>'",
+      "castle2": "'<h4>'Welcome To EmberQuest!'</h4><p>'Unfortunately, this castle has seen happier times.  Someone, or something, has stolen the Enchanted Ember that fuels the eternal flame in the brazier above you. It protected this land from creatures who threaten our peace and safety. Now they roam freely without challenge.'</p><p>'Save the Land and return the Ember to its chamber.  When you do, the treasure to your South will be yours as a reward!'</p><p>'Be safe young traveller!'</p>'",
+      "castle3": "'<p>'This gate will be unlocked from the outside.'</p>'",
 
-      "getchestfirst": "<p>Entering the outpost will transport you out of this maze.  However, it works only if you have first collected the nearby chest.</p>",
+      "getchestfirst": "'<p>'Entering the outpost will transport you out of this maze.  However, it works only if you have first collected the nearby chest.'</p>'",
 
-      "lavawarning": "<h4>Warning!</h4><p>Lava ahead, watch your step!</p>",
+      "lavawarning": "'<h4>'Warning!'</h4><p>'Lava ahead, watch your step!'</p>'",
 
-      "suitup": "<h4>Ogre Warning!</h4><p>An Ogre patrols the Northern bridge.</p><p>Be sure to look at your inventory and equip a weapon and some armor!</p>"
+      "suitup": "'<h4>'Ogre Warning!'</h4><p>'An Ogre patrols the Northern bridge.'</p><p>'Be sure to look at your inventory and equip a weapon and some armor!'</p>'",
+
+      "final1": "'<p>'Can't walk on fire?'</p><p>'Pull lever for transport for hire.'</p>'"
 
     }
   },

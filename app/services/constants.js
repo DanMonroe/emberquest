@@ -149,6 +149,7 @@ const constants = Object.freeze({
   SHAPE_TYPE_TRANSPORT: 'Transport',
   SHAPE_TYPE_DOOR: 'Door',
   SHAPE_TYPE_SIGNPOST: 'Sign',
+  SHAPE_TYPE_SPRITE: 'Sprite',
   SHAPE_TYPE_ENEMY: 'Enemy',
   SHAPE_TYPE_AGENT: 'Agent',
 
@@ -229,7 +230,9 @@ const constants = Object.freeze({
     REMOVE_DOOR: {value: 1, description: 'Remove Door'},  // data: { door_id:1, tileXY: {x: 11, y: 4} }
     REMOVE_SIGHT_COST: {value: 2, description: 'Remove Sight Cost'},     // data: { tileXY: {x: 11, y: 3} }
     PLAY_SOUND: {value: 3, description: 'Play Sound'},     // data: { sound: 'open_door_1' }
-    FINAL_FANFAIR: {value: 4, description: 'Final Chest Found'}
+    FINAL_FANFAIR: {value: 4, description: 'Final Chest Found'},
+    PLAY_ANIMATION: {value: 5, description: 'Play Animation'},     // data: { key: 'lever-on' }
+    MOVE_TRANSPORT: {value: 6, description: 'Move Transport'}, // data: { poolkey: 'final_1', target:{ x: 38, y: 59 }}}
   },
 
 

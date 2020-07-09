@@ -18,7 +18,7 @@
     "start": "FASTBOOT_DISABLED=true ember serve --port 4400",
     "test": "npm-run-all lint:* test:*",
     "test:ember": "ember test",
-    "buildaudiosprite": "cd emberquest_work/sprites_audio && audiosprite --output eq_audio --path '/audio/sounds'  *.mp3 *.wav && cd -"
+    "audio": "cd emberquest_work/sprites_audio && audiosprite --output eq_audio --path '/audio/sounds'  *.mp3 *.wav && cp eq_audio.* ../../public/audio/sounds && cd -"
   },
   "devDependencies": {
     "@ember/optional-features": "^1.3.0",

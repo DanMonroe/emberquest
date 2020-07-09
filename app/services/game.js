@@ -346,7 +346,7 @@ export default class GameService extends Service {
 
   embarkOrDisembarkTransport(playerContainer) {
     if (playerContainer.disembarkTransport) {
-console.log('disembark')
+// console.log('disembark')
       this.turnOffPlayerTravelAbilityFlag(playerContainer, playerContainer.boardedTransport.agent.playerConfig.flagAttributes.tF);
       // this.turnOffPlayerTravelAbilityFlag(playerContainer, this.constants.FLAGS.TRAVEL.SEA);
       this.turnOnPlayerTravelAbilityFlag(playerContainer, this.constants.FLAGS.TRAVEL.LAND);
@@ -356,7 +356,7 @@ console.log('disembark')
       playerContainer.boardedTransport = undefined;
       playerContainer.disembarkTransport = false;
     } else if (playerContainer.embarkTransport) {
-console.log('embark')
+// console.log('embark')
       playerContainer.boardedTransport = playerContainer.transportToBoard;
 
       this.turnOffPlayerTravelAbilityFlag(playerContainer, this.constants.FLAGS.TRAVEL.LAND);
@@ -528,9 +528,9 @@ console.log('embark')
         }
         break;
       case constants.FLAGS.SPECIAL.LAVA.value:
-        console.log('on lava', agentContainer.agent.maxHealth, (agentContainer.agent.maxHealth * .6) );
+        console.log('on lava', agentContainer.agent.maxHealth, Math.floor(agentContainer.agent.maxHealth * .6) );
         if (!agentContainer.boardedTransport) {
-          fireDamage += agentContainer.agent.maxHealth * .6;
+          fireDamage += Math.floor(agentContainer.agent.maxHealth * .6);
         }
         break;
       case constants.FLAGS.SPECIAL.ROYALEMBER.value:
@@ -716,7 +716,7 @@ console.log('embark')
   }
 
   @task
-  *processSpecialAction(scene, specialAction) {
+  *processSpecialAction(scene, specialAction, gameObj) {
     let doorShapes;
     switch (specialAction.value) {
       case this.constants.SPECIAL_ACTIONS.REMOVE_SIGHT_COST.value:  // data: { tileXY: {x: 11, y: 3 }}
@@ -737,6 +737,33 @@ console.log('embark')
         break;
       case this.constants.SPECIAL_ACTIONS.FINAL_FANFAIR.value:
         console.log('Do final fanfair ?');
+        break;
+      case this.constants.SPECIAL_ACTIONS.PLAY_ANIMATION.value:
+        console.log('Do animation', specialAction.data.key);
+        if (gameObj.anims) {
+          gameObj.anims.play(specialAction.data.key);
+        }
+        break;
+      case this.constants.SPECIAL_ACTIONS.MOVE_TRANSPORT.value:
+        console.log('TODO Move Transport', specialAction.data);
+        const transport = scene.findTransportById(specialAction.data.transportId);
+        if (transport && specialAction.data.target) {
+          const pathToTarget = transport.pathFinder.findPath(specialAction.data.target);
+          if (pathToTarget) {
+            let moveObject = {
+              agent: transport,
+              path: pathToTarget,
+              // uuid: v4(),
+              finishedCallback: () => {
+                console.log('done moving transport')
+                // transport.populatePatrolMoveQueue();
+                transport.patrolTask.cancelAll();
+              }
+            };
+            transport.moveQueue = moveObject;
+            transport.patrolTask.perform();
+          }
+        }
         break;
       default:
         console.log('No Special Action found', specialAction);

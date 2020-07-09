@@ -26,74 +26,84 @@
       "end": 8.4640589569161,
       "loop": false
     },
-    "chink": {
+    "castle_door_lock_02": {
       "start": 10,
-      "end": 10.887777777777778,
+      "end": 12.063673469387755,
+      "loop": false
+    },
+    "chink": {
+      "start": 14,
+      "end": 14.887777777777778,
       "loop": false
     },
     "eq_audio": {
-      "start": 12,
-      "end": 223,
+      "start": 16,
+      "end": 451,
+      "loop": false
+    },
+    "finale": {
+      "start": 452,
+      "end": 467.75950113378684,
       "loop": false
     },
     "flamestrike": {
-      "start": 224,
-      "end": 224.64655328798185,
+      "start": 469,
+      "end": 469.6465532879819,
       "loop": false
     },
     "howl": {
-      "start": 226,
-      "end": 230.8649433106576,
+      "start": 471,
+      "end": 475.8649433106576,
       "loop": false
     },
     "lavamud": {
-      "start": 232,
-      "end": 237.64256235827665,
+      "start": 477,
+      "end": 482.6425623582766,
       "loop": false
     },
     "oceanlap": {
-      "start": 239,
-      "end": 242.7834240362812,
+      "start": 484,
+      "end": 487.7834240362812,
       "loop": false
     },
     "oceansgull": {
-      "start": 244,
-      "end": 253.28836734693877,
+      "start": 489,
+      "end": 498.2883673469388,
       "loop": false
     },
     "open_door_1": {
-      "start": 278,
-      "end": 279.2212698412698,
+      "start": 523,
+      "end": 524.2212698412699,
       "loop": false
     },
     "pop": {
-      "start": 258,
-      "end": 258.33598639455784,
+      "start": 503,
+      "end": 503.33598639455784,
       "loop": false
     },
     "roar": {
-      "start": 260,
-      "end": 261.5556916099773,
+      "start": 505,
+      "end": 506.5556916099773,
       "loop": false
     },
     "sword_miss": {
-      "start": 263,
-      "end": 263.30034013605444,
+      "start": 508,
+      "end": 508.30034013605444,
       "loop": false
     },
     "throwknife": {
-      "start": 265,
-      "end": 265.75657596371883,
+      "start": 510,
+      "end": 510.75657596371883,
       "loop": false
     },
     "wind01": {
-      "start": 267,
-      "end": 276.0880045351474,
+      "start": 512,
+      "end": 521.0880045351474,
       "loop": false
     },
     "pickup": {
-      "start": 281,
-      "end": 281.3437641723356,
+      "start": 526,
+      "end": 526.3437641723356,
       "loop": false
     }
   }

@@ -115,7 +115,6 @@ export default class GameManagerService extends Service {
   }
 
   async saveSceneData() {
-    debugger;
     if (this.ember.cookieConfirmed) {
       await this.ember.saveSceneData(this.scene);
     }
@@ -287,13 +286,18 @@ export default class GameManagerService extends Service {
     return signPostShapes.length > 0 ? signPostShapes[0] : null;
   }
 
+  findSpriteAtTile(tileXY) {
+    const spriteShapes = this.ember.map.getGameObjectsAtTileXY(this.scene.board, tileXY, this.ember.constants.SHAPE_TYPE_SPRITE);
+    return spriteShapes.length > 0 ? spriteShapes[0] : null;
+  }
+
   playSound(soundObj) {
     console.log('gameManager playSound', soundObj, this.soundEffectsVolume)
     console.count('gameManager playSound')
 
     if (!this.mutedSoundEffectsVolume && soundObj && soundObj.key) {
       const config = Object.assign(soundObj.config || {}, {volume: this.soundEffectsVolume});
-console.log('sound config', config)
+// console.log('sound config', config)
       this.scene.sound.playAudioSprite('eq_audio', soundObj.key, config);
     }
 
@@ -332,6 +336,24 @@ console.log('sound config', config)
         this.scene.game.ember.showInfoDialog(isNeighbor
           ? this.intl.t(`messages.signs.${signToRead.signMessageId}`)
           : this.intl.t(`messages.signs.toofar`));
+      } else {
+        const sprite = this.findSpriteAtTile(clickedTile);
+        if (sprite) {
+          console.log('found sprite', sprite);
+          const isNeighbor = this.scene.board.areNeighbors(playerContainer.rexChess.tileXYZ, sprite.rexChess.tileXYZ);
+          if (isNeighbor) {
+            const specialActions = sprite.getData('specialActions');
+            if (specialActions) {
+              specialActions.forEach(async(specialAction) => {
+                await this.scene.game.ember.processSpecialAction.perform(sprite.scene, specialAction, sprite);
+              })
+            }
+          } else {
+              this.scene.game.ember.showInfoDialog(this.intl.t(`messages.sprites.toofar`));
+          }
+
+
+        }
       }
     }
   }
@@ -467,7 +489,7 @@ console.log('sound config', config)
       scene.deadAgents.add(enemy.agent.playerConfig.uniqueId);
     }
     const experienceAwarded = enemy.agent.experienceAwarded || 0;
-    const goldAwarded = enemy.agent.gold || 0;
+    const goldAwarded = enemy.agent.goldAwarded || 0;
 
     enemy.agentState = this.ember.constants.AGENTSTATE.DEAD;
     scene.ember.gameManager.spawnerService.deleteAgent(enemy);
@@ -525,7 +547,7 @@ console.log('sound config', config)
     if (level <= constants.LEVEL_BY_EXPERIENCE.length) {
       experience = constants.LEVEL_BY_EXPERIENCE[level-1];
     } else {
-      const baseXP = constants.LEVEL_BY_EXPERIENCE[constants.LEVEL_BY_EXPERIENCE.length];
+      const baseXP = constants.LEVEL_BY_EXPERIENCE[constants.LEVEL_BY_EXPERIENCE.length - 1];
       const moreLevels = level - constants.LEVEL_BY_EXPERIENCE.length;
       const additionalXP = moreLevels * constants.LEVEL_RANGE_AFTER_12;
       experience = baseXP + additionalXP;

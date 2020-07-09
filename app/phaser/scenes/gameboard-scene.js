@@ -142,7 +142,7 @@ export class GameboardScene extends Phaser.Scene {
                 'level range': a.playerConfig.levelRange,
                 health: a.health,
                 power: a.power,
-                gold: a.gold,
+                gold: a.goldAwarded,
                 xp: a.experienceAwarded,
                 'Melee Attack': a.attackDamage,
                 'Ranged Attack': a.rangedAttackDamage
@@ -221,8 +221,9 @@ export class GameboardScene extends Phaser.Scene {
     this.cameras.main.startFollow(playerObject.container);
 
     if (this.storedBoardedTransportId > 0) {
-      const transportToBoard = this.transports.getChildren().find(transport => transport.id === this.storedBoardedTransportId);
-// console.log('transportToBoard', transportToBoard)
+      const transportToBoard = this.findTransportById(this.storedBoardedTransportId);
+      // const transportToBoard = this.transports.getChildren().find(transport => transport.id === this.storedBoardedTransportId);
+      // console.log('transportToBoard', transportToBoard)
       if (transportToBoard) {
         this.player.container.boardedTransport = transportToBoard;
       }
@@ -304,17 +305,18 @@ export class GameboardScene extends Phaser.Scene {
 
         this.signs.add(sign);
 
-        this.board.addChess(sign, signObj.x, signObj.y, this.ember.constants.TILEZ_DOORS);
+        this.board.addChess(sign, signObj.x, signObj.y, this.ember.constants.TILEZ_SIGNS);
 
         sign.rexChess.setBlocker();
 
       });
     }
   }
+
   createSprites() {
     if (this.mapData.sprites) {
       this.mapData.sprites.forEach(spriteObj => {
-        // console.log('spriteObj', spriteObj)
+        console.log('spriteObj', spriteObj)
 
         const sprite = this.add.sprite(0, 0, spriteObj.texture, spriteObj.firstFrame);
         if (spriteObj.offsets && spriteObj.offsets.img) {
@@ -322,6 +324,7 @@ export class GameboardScene extends Phaser.Scene {
           sprite.y += spriteObj.offsets.img.y;
         }
         sprite.setScale(spriteObj.scale);
+        sprite.type = this.ember.constants.SHAPE_TYPE_SPRITE;
 
         let frameNames;
         let animationConfig;
@@ -333,7 +336,9 @@ export class GameboardScene extends Phaser.Scene {
           animationConfig = Object.assign({ key: animation.key, frames: frameNames, frameRate: animation.rate, repeat: animation.repeat }, animation.config || {});
 
           this.anims.create(animationConfig);
-          sprite.anims.play(animation.key);
+          if (animation.playoncreate) {
+           sprite.anims.play(animation.key);
+          }
         });
 
         if (spriteObj.ignoreFOVUpdate) {
@@ -341,6 +346,9 @@ export class GameboardScene extends Phaser.Scene {
         }
         if (spriteObj.specialActions) {
           sprite.setData('specialActions', spriteObj.specialActions);
+        }
+        if (spriteObj.clickable) {
+          sprite.setData('clickable', true);
         }
 
         if (spriteObj.name === "brazier" && this.game.ember.placedBrazier) {
@@ -352,7 +360,9 @@ export class GameboardScene extends Phaser.Scene {
 
         this.board.addChess(sprite, spriteObj.x, spriteObj.y, this.ember.constants.TILEZ_SPRITES);
 
-        sprite.rexChess.setBlocker();
+        if (!spriteObj.walkover) {
+          sprite.rexChess.setBlocker();
+        }
 
       });
     }
@@ -374,6 +384,7 @@ export class GameboardScene extends Phaser.Scene {
     }
     const transportContainer = this.ember.createTransport(this, transportObj);
     transportContainer.setAlpha(0);
+
     this.transports.add(transportContainer);
     if (transportObj.isBoardedTransport) {
       transportContainer.playAnimation(this.ember.constants.ANIMATION.KEY.MOVE);
@@ -482,6 +493,10 @@ export class GameboardScene extends Phaser.Scene {
     // check for overlaps between the player's weapon and monster game objects
     // this.physics.add.overlap(this.player.weapon, this.monsters, this.enemyOverlap, null, this);
 
+  }
+
+  findTransportById(transportId) {
+    return this.transports.getChildren().find(transport => transport.id === transportId);
   }
 
   boardTransport(player, transport) {

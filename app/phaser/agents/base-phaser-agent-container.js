@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { tracked } from '@glimmer/tracking';
 import {timeout} from 'ember-concurrency';
 import {task} from 'ember-concurrency-decorators';
+import { v4 } from "ember-uuid";
 
 export default class BasePhaserAgentContainer extends Phaser.GameObjects.Container {
 
@@ -19,6 +20,10 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
   showLevel = false;
 
   @tracked aggressionScale = 0;
+  @tracked moveQueue = {path:[]};
+  @tracked patrolEnabled = true;
+  @tracked agentState = 0;  // IDLE
+  @tracked lastAgentState = 0;  // IDLE
 
 
   constructor(scene, config) {
@@ -51,6 +56,20 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
 
     // collide with world bounds
     // this.body.setCollideWorldBounds(true);
+
+    this.pathFinder = scene.rexBoard.add.pathFinder(this, {
+      occupiedTest: true,
+      pathMode: 'A*',
+      blockerTest: true,
+      costCallback: (curTile, targetTile, pathFinder) => {
+        const travelFlags = this.ember.map.getTileAttribute(pathFinder.chessData.board.scene, targetTile, 'tF');
+        const canMove = this.ember.playerHasAbilityFlag(this, this.ember.constants.FLAG_TYPE_TRAVEL, travelFlags);
+
+        return canMove ? 1 : undefined; // undefined is a "blocker"
+      },
+
+    });
+
 
     // add the player container to our existing scene
     this.scene.add.existing(this);
@@ -296,7 +315,6 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
     }
   }
   setVisibilityIfInLineOfSight(agentContainer, isInLOS) {
-
     agentContainer.setAlpha(isInLOS ?
       agentContainer.ember.constants.ALPHA_OBJECT_VISIBLE_TO_PLAYER :
       agentContainer.ember.constants.ALPHA_OBJECT_HIDDEN_TO_PLAYER);
@@ -305,6 +323,68 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
       agentContainer.healthBar.setAlpha(isInLOS ?
         agentContainer.ember.constants.ALPHA_OBJECT_VISIBLE_TO_PLAYER :
         agentContainer.ember.constants.ALPHA_OBJECT_HIDDEN_TO_PLAYER);
+    }
+  }
+
+  populatePatrolMoveQueue() {
+    if (!this.rexChess || !this.rexChess.board) {
+      return;
+    }
+    // console.log('populatePatrolMoveQueue', this)
+    if (this.rexChess && this.rexChess.board && !this.moveQueue || (this.moveQueue.path && this.moveQueue.path.length === 0)) {
+      // no moves.. build the next one
+      const nextTargetTile = this.getNextTargetTile();
+      if (nextTargetTile) {
+
+        const tileXYArrayPath = this.pathFinder.findPath(nextTargetTile);
+
+        if (this.ember.debug.phaserDebug) {
+          this.showMovingPath(tileXYArrayPath);
+        }
+
+        let moveObject = {
+          agent: this,
+          path: tileXYArrayPath,
+          uuid: v4(),
+          finishedCallback: () => {
+            this.populatePatrolMoveQueue();
+          }
+        };
+        this.moveQueue = moveObject;
+      } else {
+        console.log('no nextTargetTile')
+      }
+
+    } else {
+      // still have moves left
+    }
+  }
+
+  @task
+  *patrolTask() {
+    while (this.patrolEnabled === true) {
+
+      if (!this.ember.gameManager.gamePaused) {
+
+        if (this.moveQueue.path.length > 0) {
+
+          // grab the next waypoint
+          let firstMove = this.moveQueue.path[0];
+          // attempt the move
+          this.moveToObject.moveTo(firstMove.x, firstMove.y);
+
+          // we're done, remove it from the list of waypoints to go to
+          this.moveQueue.path.shift();
+
+        } else {
+          // no moves left for this object
+          if (typeof this.moveQueue.finishedCallback === 'function') {
+            this.moveQueue.finishedCallback();
+          }
+        }
+      }
+      // yield timeout(5000);
+      yield timeout((this.patrol && this.patrol.timeout) ? this.patrol.timeout : 2000);
     }
   }
 

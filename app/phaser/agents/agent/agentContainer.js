@@ -2,16 +2,11 @@ import BasePhaserAgentContainer from "../base-phaser-agent-container";
 import {task} from "ember-concurrency-decorators";
 import {timeout,waitForProperty } from "ember-concurrency";
 import {tracked} from '@glimmer/tracking';
-import { v4 } from "ember-uuid";
 import {isPresent} from '@ember/utils';
 
 export default class AgentContainer extends BasePhaserAgentContainer {
 
   currentTargetTileCounter = -1;
-  @tracked moveQueue = {path:[]};
-  @tracked patrolEnabled = true;
-  @tracked agentState = 0;  // IDLE
-  @tracked lastAgentState = 0;  // IDLE
   @tracked config;
 
   constructor(scene, config, agent) {
@@ -59,19 +54,6 @@ export default class AgentContainer extends BasePhaserAgentContainer {
 
       return canMove;
     };
-
-    this.pathFinder = scene.rexBoard.add.pathFinder(this, {
-      occupiedTest: true,
-      pathMode: 'A*',
-      blockerTest: true,
-      costCallback: (curTile, targetTile, pathFinder) => {
-        const travelFlags = this.ember.map.getTileAttribute(pathFinder.chessData.board.scene, targetTile, 'tF');
-        const canMove = this.ember.playerHasAbilityFlag(this, this.ember.constants.FLAG_TYPE_TRAVEL, travelFlags);
-
-        return canMove ? 1 : undefined; // undefined is a "blocker"
-      },
-
-    });
 
     this.createHealthBar();
     this.reloadHealth.perform();
@@ -455,7 +437,6 @@ export default class AgentContainer extends BasePhaserAgentContainer {
         // console.log('Agent Melee Attack!');
         // equippedMeleeWeapon = this.agent.equippedMeleeWeapon;
         // console.log('agent equippedMeleeWeapon', equippedMeleeWeapon.name, equippedMeleeWeapon)
-// debugger;
         if (equippedMeleeWeapon) {
           if (this.agent.power < equippedMeleeWeapon.powerUse) {
             console.warn(`Not enough power to wield ${equippedMeleeWeapon.name}`);
@@ -492,93 +473,13 @@ export default class AgentContainer extends BasePhaserAgentContainer {
     return;
   }
 
-  populatePatrolMoveQueue() {
-    if (!this.rexChess || !this.rexChess.board) {
-      return;
-    }
-    // console.log('populatePatrolMoveQueue', this)
-    if (this.rexChess && this.rexChess.board && !this.moveQueue || (this.moveQueue.path && this.moveQueue.path.length === 0)) {
-      // no moves.. build the next one
-      const nextTargetTile = this.getNextTargetTile();
-      if (nextTargetTile) {
-
-        const tileXYArrayPath = this.pathFinder.findPath(nextTargetTile);
-
-        if (this.ember.debug.phaserDebug) {
-          this.showMovingPath(tileXYArrayPath);
-        }
-
-        let moveObject = {
-          agent: this,
-          path: tileXYArrayPath,
-          uuid: v4(),
-          finishedCallback: () => {
-            this.populatePatrolMoveQueue();
-          }
-        }
-        this.moveQueue = moveObject;
-      } else {
-        console.log('no nextTargetTile')
-      }
-
-    } else {
-      // still have moves left
-    }
-  }
-
-  @task
-  *patrolTask() {
-    while (this.patrolEnabled === true) {
-
-      if (!this.ember.gameManager.gamePaused) {
-
-        if (this.moveQueue.path.length > 0) {
-
-          // grab the next waypoint
-          let firstMove = this.moveQueue.path[0];
-          // attempt the move
-          this.moveToObject.moveTo(firstMove.x, firstMove.y);
-
-          // we're done, remove it from the list of waypoints to go to
-          this.moveQueue.path.shift();
-
-        } else {
-          // no moves left for this object
-          if (typeof this.moveQueue.finishedCallback === 'function') {
-            this.moveQueue.finishedCallback();
-          }
-        }
-      }
-      // yield timeout(5000);
-      yield timeout(this.patrol.timeout || 2000);
-    }
-  }
-
-  // removeAgentFromMoveQueue(agent) {
-  //   // console.log('removeAgentFromMoveQueue', this.moveQueue);
-  //   this.moveQueue = this.moveQueue.reject((thisAgent) => {
-  //     // console.log('remove agent', thisAgent);
-  //     return agent.moveQueueId === thisAgent.uuid;
-  //     // return thisAgent.name = agent.name;
-  //   });
-  // }
-
-
   transitionToMelee(agentContainer) {
     // console.log('            transitionToMelee')
-    // console.log('transition to melee');
-    const currentState = this.agentState;
     this.setAgentState(this.ember.constants.AGENTSTATE.MELEE);
-    // if (this.engagePlayer.isIdle) {
-      this.engagePlayer.perform(agentContainer);
-      if (this.chasePlayer.isIdle) {
-        this.chasePlayer.perform();
-      }
-
-    // } else {
-      // go back to original state
-      // this.agentState = currentState;
-    // }
+    this.engagePlayer.perform(agentContainer);
+    if (this.chasePlayer.isIdle) {
+      this.chasePlayer.perform();
+    }
   }
 
   transitionToPursuit() {
@@ -675,18 +576,6 @@ export default class AgentContainer extends BasePhaserAgentContainer {
         nextTargetTile = this.patrol.tiles[this.currentTargetTileCounter];
         break;
     }
-    // if(this.patrol.method === this.ember.constants.PATROLMETHOD.RANDOM) {
-    //   //random patrol:
-    //   nextTargetTile = this.patrol.tiles[Math.floor(Math.random() * this.patrol.tiles.length)];
-    //
-    // } else {
-    //   // rolling patrol:
-    //   this.currentTargetTileCounter++;
-    //   if (this.currentTargetTileCounter >= this.patrol.tiles.length) {
-    //     this.currentTargetTileCounter = 0;
-    //   }
-    //   nextTargetTile = this.patrol.tiles[this.currentTargetTileCounter];
-    // }
     return nextTargetTile;
   }
 

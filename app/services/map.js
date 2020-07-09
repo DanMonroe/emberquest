@@ -180,9 +180,16 @@ export default class MapService extends Service {
             fovShape.fillAlpha = this.constants.ALPHA_POLYGON_VISIBLE_TO_PLAYER;
           } else {
             if (!fovShape.getData('ignoreFOVUpdate')) {
-              fovShape.setAlpha(this.constants.ALPHA_OBJECT_VISIBLE_TO_PLAYER);
-              if (fovShape.healthBar) {
-                fovShape.healthBar.setAlpha(this.constants.ALPHA_OBJECT_VISIBLE_TO_PLAYER);
+
+              if ( ! (fovShape.config && fovShape.config.hidden)) {
+
+                fovShape.setAlpha(this.constants.ALPHA_OBJECT_VISIBLE_TO_PLAYER);
+                if (fovShape.healthBar) {
+                  fovShape.healthBar.setAlpha(this.constants.ALPHA_OBJECT_VISIBLE_TO_PLAYER);
+                }
+              }
+              else {
+                console.log('hidden or no config', fovShape.config)
               }
             }
           }
