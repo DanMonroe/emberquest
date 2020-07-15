@@ -6,6 +6,26 @@ import { timeout } from 'ember-concurrency';
 import { task } from 'ember-concurrency-decorators';
 import {Transport} from "../objects/models/transport";
 import {Agent} from "../objects/models/agent";
+import { v4 } from "ember-uuid";
+// import { A as emberArray } from '@ember/array';
+
+class LocationConfig {
+  config = {};
+  uuid = v4();
+
+  constructor(config) {
+    this.config = config;
+  }
+}
+
+class AgentConfig {
+  config = {};
+  uuid = v4();
+
+  constructor(config) {
+    this.config = config;
+  }
+}
 
 export default class SpawnerService extends Service {
 
@@ -24,6 +44,7 @@ export default class SpawnerService extends Service {
   @tracked transportLimit = 1;
 
   @tracked agents = [];
+  // @tracked agents = emberArray([]);
   @tracked agentLimit = [1];
 
 
@@ -100,7 +121,8 @@ export default class SpawnerService extends Service {
           this.spawners.push({
             agentSpawnerIndex: agentSpawnerIndex++,
             type: constants.SPAWNER_TYPE.AGENT,
-            agentLimit: agentSpawnerGroup.limit || 1,
+            agentLimit: agentSpawnerGroup.locations.length || 1,
+            // agentLimit: agentSpawnerGroup.limit || 1,
             spawnInterval: agentSpawnerGroup.spawnInterval || 3000
           });
         }
@@ -170,8 +192,45 @@ export default class SpawnerService extends Service {
     }
   }
 
+  spawnAgent(spawnerConfig) {
+    try {
+      const location = this.pickRandomLocation(spawnerConfig);
+
+      if (location) {
+
+        const randomAgentFromPoolConfig = this.pickRandomAgentFromPool(location.config, spawnerConfig)
+
+        // check any overriding properties from the map file spawner location and copy over base agent config
+        if (location.config.patrol) {
+          // assign any properties
+          // this object.assign is affecting other agents' patrol values
+          // Object.assign(randomAgentFromPoolConfig.config.patrol, location.config.patrol)
+          const newPatrolConfig = Object.assign({}, randomAgentFromPoolConfig.config.patrol, location.config.patrol);
+          randomAgentFromPoolConfig.config.patrol = newPatrolConfig;
+        }
+
+        if (location.config.override) {
+          // assign any properties
+          const newConfig = Object.assign({}, randomAgentFromPoolConfig.config, location.config.override);
+          randomAgentFromPoolConfig.config = newConfig;
+          // Object.assign(randomAgentFromPoolConfig.config, location.config.override)
+        }
+
+        const agent = new Agent(location.config.x, location.config.y, randomAgentFromPoolConfig.config);
+        // const agent = new Agent(location.config.x, location.config.y, Object.assign(locationClone, agentConfigFromPool));
+
+        this.addAgent(agent, spawnerConfig.agentSpawnerIndex);
+
+      } // if we picked random spawn location
+
+
+    } catch (err) {
+      console.error('Error spawning agent', err);
+    }
+  }
+
   spawnObject(spawnerConfig) {
-    let location, locationClone, agentConfigFromPool, transportConfigFromPool;
+    let location, transportConfigFromPool;
     switch (spawnerConfig.type) {
 
       case constants.SPAWNER_TYPE.TRANSPORT:
@@ -183,26 +242,62 @@ export default class SpawnerService extends Service {
         break;
 
       case constants.SPAWNER_TYPE.AGENT:
-        location = this.pickRandomLocation(spawnerConfig);
-
-        if (location) {
-          agentConfigFromPool = Object.assign({}, this.pickRandomAgentFromPool(location, spawnerConfig));
-          locationClone = Object.assign({}, location);
-          if (agentConfigFromPool) {
-            if (locationClone.patrol) {
-              // assign any properties
-              Object.assign(agentConfigFromPool.patrol, locationClone.patrol)
-            }
-            if (locationClone.override) {
-              Object.assign(agentConfigFromPool, locationClone.override)
-            }
-            const agent = new Agent(locationClone.x, locationClone.y, Object.assign(locationClone, agentConfigFromPool));
-            this.addAgent(agent, spawnerConfig);
-          }
-        } else {
-          console.log('no location!')
-        }
+        this.spawnAgent(spawnerConfig);
         break;
+//         location = this.pickRandomLocation(spawnerConfig);
+//
+//         if (location) {
+// console.group('spawner spawnObject', location)
+//           // this.agents.forEach(agent => {
+//           //   console.log('  0', agent[0].objectConfig.name, agent[0].objectConfig.patrol)
+//           // })
+//
+//           agentConfigFromPool = Object.assign({}, this.pickRandomAgentFromPool(location, spawnerConfig));
+//
+//
+//           // locationClone = new AgentConfig(location);
+//           locationClone = Object.assign({}, location);
+//
+//           console.log('             >>>>>>> - locationClone', locationClone, 'agentConfigFromPool', agentConfigFromPool)
+//
+//
+//           if (agentConfigFromPool) {
+//
+// this.agents.forEach(agent => {
+//   console.log('     0 - 3', agent[0].objectConfig.name, agent[0].objectConfig.patrol)
+// })
+//
+//             // if (locationClone.config.patrol) {
+//             if (locationClone.patrol) {
+// // console.log('       0 - locationClone.patrol', locationClone.patrol, 'agentConfigFromPool', agentConfigFromPool)
+//
+//               // assign any properties
+//               // Object.assign(agentConfigFromPool.patrol, locationClone.config.patrol)
+//               Object.assign(agentConfigFromPool.patrol, locationClone.patrol)
+//             }
+//
+//
+// this.agents.forEach(agent => {
+//   // console.log('     0 - 4', agent[0].objectConfig.name, agent[0].objectConfig.patrol, locationClone.config.patrol)
+//   console.log('     0 - 4', agent[0].objectConfig.name, agent[0].objectConfig.patrol, locationClone.patrol)
+// })
+//             if (locationClone.override) {
+//               // Object.assign(agentConfigFromPool, locationClone.config.override)
+//               Object.assign(agentConfigFromPool, locationClone.override)
+//             }
+//
+//             // const agent = new Agent(locationClone.config.x, locationClone.config.y, Object.assign(locationClone.config, agentConfigFromPool));
+//             const agent = new Agent(locationClone.x, locationClone.y, Object.assign(locationClone, agentConfigFromPool));
+//
+//             this.addAgent(agent, spawnerConfig);
+//             // this.addAgent(agent, Object.freeze(spawnerConfig));
+//
+//             console.groupEnd()
+//           }
+//         } else {
+//           console.log('no location!')
+//         }
+//         break;
 
       default:
         break;
@@ -227,7 +322,9 @@ export default class SpawnerService extends Service {
     if (invalidLocation) {
       return this.pickRandomLocation(spawnerConfig);
     }
-    return location;
+    // console.log('random location', location)
+    return new LocationConfig(location);
+    // return location;
   }
 
   pickRandomAgentFromPool(location, spawnerConfig) {
@@ -244,7 +341,8 @@ export default class SpawnerService extends Service {
 
     const agentConfig = this.agentPool.getAgentConfig(agentKey);
 
-    return agentConfig;
+    return new AgentConfig(agentConfig);
+    // return agentConfig;
   }
 
   findTransportByObjectConfigId(id) {
@@ -286,13 +384,14 @@ export default class SpawnerService extends Service {
     delete this.transports[transportId];
   }
 
-  addAgent(agent, spawnerConfig) {
+  addAgent(agent, agentSpawnerIndex) {
     // console.log('*** spawner service - add agent', agent.id, agent.x, agent.y, agent);
 
-      if (this.agents.length <= spawnerConfig.agentSpawnerIndex) {
+      if (this.agents.length <= agentSpawnerIndex) {
+        // this.agents.pushObject(emberArray([]));
         this.agents.push([]);
       }
-      this.agents[spawnerConfig.agentSpawnerIndex].push(agent);
+      this.agents[agentSpawnerIndex].push(agent);
       this.scene.events.emit('agentSpawned', agent);
   }
 

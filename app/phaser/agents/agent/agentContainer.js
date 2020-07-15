@@ -3,6 +3,7 @@ import {task} from "ember-concurrency-decorators";
 import {timeout,waitForProperty } from "ember-concurrency";
 import {tracked} from '@glimmer/tracking';
 import {isPresent} from '@ember/utils';
+import {v4} from "ember-uuid";
 
 export default class AgentContainer extends BasePhaserAgentContainer {
 
@@ -138,16 +139,19 @@ export default class AgentContainer extends BasePhaserAgentContainer {
       case this.ember.constants.ANIMATION.KEY.REST:
         // start playing the rest animation
         if (this.config.animeframes.rest) {
+          this.stopAnimation();
           this.phaserAgentSprite.anims.play(this.config.animeframes.rest.key);
         }
         break;
       case this.ember.constants.ANIMATION.KEY.ATTACK:
         if (this.config.animeframes.attack) {
+          this.stopAnimation();
           this.phaserAgentSprite.anims.play(this.config.animeframes.attack.key);
         }
         break;
       case this.ember.constants.ANIMATION.KEY.RANGE:
         if (this.config.animeframes.range) {
+          this.stopAnimation();
           this.phaserAgentSprite.anims.play(this.config.animeframes.range.key);
         }
         break;
@@ -416,7 +420,6 @@ export default class AgentContainer extends BasePhaserAgentContainer {
           this.playSound(equippedRangedWeapon.audioRanged);
           // this.playSound(this.ember.constants.AUDIO.KEY.ARROW);
 
-          this.stopAnimation();
           this.playAnimation(this.ember.constants.ANIMATION.KEY.RANGE);
           // this.playSound(this.ember.constants.AUDIO.KEY.RANGE);
 
@@ -450,7 +453,6 @@ export default class AgentContainer extends BasePhaserAgentContainer {
           // const targetsHealth = this.ember.playerContainer.agent.health;
           // console.log('meleeAttackDamage', meleeAttackDamage, 'targetsHealth', targetsHealth);
 
-          this.stopAnimation();
           this.playAnimation(this.ember.constants.ANIMATION.KEY.ATTACK);
           this.playSound(hit && equippedMeleeWeapon ? equippedMeleeWeapon.audioMelee : {});
 
@@ -561,6 +563,7 @@ export default class AgentContainer extends BasePhaserAgentContainer {
 
     switch (this.patrol.method) {
       case this.ember.constants.PATROLMETHOD.RANDOM:
+// console.log('getNextTargetTile - Random');
         nextTargetTile = this.patrol.tiles[Math.floor(Math.random() * this.patrol.tiles.length)];
         break;
       case this.ember.constants.PATROLMETHOD.WANDER:

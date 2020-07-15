@@ -30,18 +30,20 @@ export default class TransportContainer extends BasePhaserAgentContainer {
     this.moveToObject.on('complete', this.moveToComplete);
 
     this.moveToObject.moveableTestCallback = (curTile, targetTile, pathFinder) => {
-      // console.log('transport moveTo testCallback', curTile, targetTile, pathFinder.scene.player.container.rexChess.tileXYZ)
+      // console.log('transport moveTo testCallback', this, curTile, targetTile, pathFinder.scene.player.container.rexChess.tileXYZ)
 
-      // const canMove = ( (pathFinder.scene.player.container.rexChess.tileXYZ.x === targetTile.x) &&
-      //   (pathFinder.scene.player.container.rexChess.tileXYZ.y === targetTile.y) );
-      //
-      // if (this.ember.map.tileIsDock(pathFinder.scene, targetTile)) {
-      //   return false;
-      // }
-      // // console.log('transport canMove', canMove);
-      // return canMove;
+      if (pathFinder.scene.player.container.boardedTransport && (pathFinder.scene.player.container.boardedTransport.id === this.config.id)) {
+        const canMove = ( (pathFinder.scene.player.container.rexChess.tileXYZ.x === targetTile.x) &&
+          (pathFinder.scene.player.container.rexChess.tileXYZ.y === targetTile.y) );
 
-      // Do we really need a test callback for a transport?  July 8, 2020
+        if (this.ember.map.tileIsDock(pathFinder.scene, targetTile)) {
+          return false;
+        }
+        // console.log('transport canMove', canMove);
+        return canMove;
+      }
+
+      // Do we really need a test callback for a transport?  July 8, 2020  - yes, when player is on board
       return true;
     };
 

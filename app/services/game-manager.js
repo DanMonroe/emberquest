@@ -126,32 +126,6 @@ export default class GameManagerService extends Service {
     this.ember.saveSettingsData();
   }
 
-  // adjustVolume() {
-  //   this.volume++;
-  //   if (this.volume > 2) {
-  //     this.volume = 0;
-  //   }
-  //   switch (this.volume) {
-  //     case 0:
-  //       this.soundEffectsVolume = 0;
-  //       this.musicEffectsVolume = 0;
-  //       // this.scene.musicAudio.setVolume(0);
-  //       break;
-  //     case 1:
-  //       this.soundEffectsVolume = 0.5;
-  //       this.musicEffectsVolume = 0;
-  //       // this.scene.musicAudio.setVolume(0.3);
-  //       break;
-  //     case 2:
-  //       this.soundEffectsVolume = 1;
-  //       this.musicEffectsVolume = 0;
-  //       // this.scene.musicAudio.setVolume(0.7);
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  // }
-
 
   setupEventListener() {
     this.scene.events.on('pickUpChest', (chestId, playerId) => {
@@ -226,7 +200,12 @@ export default class GameManagerService extends Service {
         sF: (this.storedData.storedPlayerAttrs && this.storedData.storedPlayerAttrs.sF) || 0,
         tF: (this.storedData.storedPlayerAttrs && this.storedData.storedPlayerAttrs.tF) || this.ember.constants.FLAGS.TRAVEL.LAND.value
       },
-
+      offsets: {
+        img: { x: 0, y: 0 },
+        healthbar: { x: 0, y: 0 },
+        name: { x: 0, y: 0 },
+        damage: { x: 0, y: 0 }
+      },
       storedPlayerAttrs: this.storedData.storedPlayerAttrs,
 
       costCallback:  (tileXY) => {

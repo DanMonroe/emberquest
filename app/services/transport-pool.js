@@ -140,12 +140,12 @@ export default class TransportPoolService extends Service {
     this.transportpool.set('final_1',
       Object.assign(Object.assign({}, this.baseTransport), {
         id: 1308,
-        // texture: 'boat',  // TODO draw new boat
+        // speed: 500,
         speed: 50,
         animeframes: {
-          rest: {key: 'final_1-rest', prefix: 'ships/cutter', start: 1, end: 1}
+          rest: {key: 'final_1-rest', prefix: 'ships/lava_boat', start: 1, end: 1}
         },
-        scale: 1.4,
+        scale: .45,
         hidden: false
       })
     );

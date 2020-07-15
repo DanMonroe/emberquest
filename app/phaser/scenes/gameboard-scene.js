@@ -144,6 +144,7 @@ export class GameboardScene extends Phaser.Scene {
                 power: a.power,
                 gold: a.goldAwarded,
                 xp: a.experienceAwarded,
+                'patrol': a.playerConfig.patrol.method,
                 'Melee Attack': a.attackDamage,
                 'Ranged Attack': a.rangedAttackDamage
               }

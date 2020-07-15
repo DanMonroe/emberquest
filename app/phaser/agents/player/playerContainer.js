@@ -60,6 +60,10 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
     this.phaserAgentSprite = this.player;
     // this.agent = new Player
 
+    if (config.debug.override.speed) {
+      config.speed = +config.debug.override.speed;
+    }
+
     this.moveToObject = this.scene.rexBoard.add.moveTo(this, {
       speed: config.speed, // 400 default
       occupiedTest: true,

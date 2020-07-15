@@ -438,6 +438,18 @@ export class InventoryItems {
         audioMiss: {key: 'sword_miss'}
       })
     );
+    items.push(
+      new InventoryItem({
+        id: 5005,
+        name: {key: 'monsterfireresistance'},
+        type: constants.INVENTORY.TYPE.MONSTER,
+        bodypart: constants.INVENTORY.BODYPART.FINGERS,
+        stats: [],
+        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 100})],
+        // audioMelee: {key: 'bite'},
+        // audioMiss: {key: 'sword_miss'}
+      })
+    );
 
     // Monster Ranged
     items.push(

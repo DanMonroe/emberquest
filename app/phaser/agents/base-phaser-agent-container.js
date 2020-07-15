@@ -283,7 +283,8 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
     const aggressionTimesHealthPercentage = agentContainer.agent.aggressionScale * healthPercentage;
     // console.warn('      final', aggressionTimesHealthPercentage - levelDiff);
 
-    if (true) {
+    if (false) {
+    // if (true) {
 
       console.log('%c Aggression', 'color: red; font-size: 16px; margin: 15px 0 0 0;');
       console.table([

@@ -44,30 +44,40 @@ export class Agent extends BaseAgent {
     let min = 1;
     let max = 1;
 
-    if (this.playerConfig.minLevel !== 0) {
-      // console.log('minLevel', this.playerConfig.minLevel)
-      min = this.playerConfig.minLevel;
-    }
-    if (this.playerConfig.maxLevel !== 0) {
-      // console.log('maxLevel', this.playerConfig.maxLevel)
-      max = this.playerConfig.maxLevel;
-      if (max < min) {
-        max = min;
+    if (this.playerConfig.levelsFromPlayer) { // can set agent o be always N levels from player  either higher or lower
+      this.level = this.ember.playerContainer.agent.level + this.playerConfig.levelsFromPlayer;
+      if (this.level < 1) {
+        this.level = 1;
+      }
+    } else {
+      if (this.playerConfig.minLevel !== 0) {
+        // console.log('minLevel', this.playerConfig.minLevel)
+        min = this.playerConfig.minLevel;
+      }
+      if (this.playerConfig.maxLevel !== 0) {
+        // console.log('maxLevel', this.playerConfig.maxLevel)
+        max = this.playerConfig.maxLevel;
+        if (max < min) {
+          max = min;
+        }
+      }
+      if (this.playerConfig.levelRange !== 0) {
+        min = Math.max(1, this.ember.playerContainer.agent.level - this.playerConfig.levelRange);
+        max = this.ember.playerContainer.agent.level + this.playerConfig.levelRange;
+      }
+
+      if (min !== max) {
+        const newLevel = this.ember.randomIntFromInterval(min, max);
+        this.level = newLevel;
+        // this.health = this.baseHealth;
+        // this.power = this.basePower;
+      } else {
+        // if min, use min, else same as player
+        this.level = min || this.playerConfig.level || this.ember.playerContainer.agent.level;
       }
     }
-    if (this.playerConfig.levelRange !== 0) {
-      min = Math.max(1, this.ember.playerContainer.agent.level - this.playerConfig.levelRange);
-      max = this.ember.playerContainer.agent.level + this.playerConfig.levelRange;
-    }
-    if (min !== max) {
-      const newLevel = this.ember.randomIntFromInterval(min, max);
-      this.level = newLevel;
-      this.health = this.baseHealth;
-      this.power = this.basePower;
-    } else {
-      // same as player
-      this.level = this.playerConfig.level || this.ember.playerContainer.agent.level;
-    }
+    this.health = this.baseHealth;
+    this.power = this.basePower;
 
     // show level
     if (this.container.showLevel) {

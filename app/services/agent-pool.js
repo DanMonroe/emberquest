@@ -142,10 +142,17 @@ export default class AgentPoolService extends Service {
       Object.assign(baseAgentclone, {
         id: agentId++,
         name: 'Blood Bat',
+        flagAttributes: {
+          sF: 0,
+          tF: 3
+        },
         animeframes: {
           rest: {yoyo: true, key: 'bloodbatrest', prefix: 'bats/bloodbat-se-', start: 1, end: 5, rate: 3, repeat: -1}
         },
-        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
+        inventory: [
+          { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ] },   // bite
+          { bodypart: constants.INVENTORY.BODYPART.FINGERS, items: [{ itemId: 5005 } ] }       // 100 fire resistance
+        ]
       })
     );
 
@@ -200,19 +207,6 @@ export default class AgentPoolService extends Service {
         animeframes: {
           rest: {yoyo: true, key: 'ancientcycloprest', prefix: 'cyclops/ancientcyclop/ancientcyclop-', start: 1, end: 1, rate: 3, repeat: -1},
           attack: {key: 'ancientcyclopattack', prefix: 'cyclops/ancientcyclop/ancientcyclop-attack-', start: 1, end: 2, rate: 12, delays: { frameNum: 2, delay: 300 }}
-        },
-        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
-      })
-    );
-
-    baseAgentclone = Object.assign({}, this.baseAgent);
-    this.agentpool.set('direwolf',
-      Object.assign(baseAgentclone, {
-        id: agentId++,
-        name: 'Direwolf',
-        animeframes: {
-          rest: {yoyo: true, key: 'direwolfrest', prefix: 'direwolf/direwolf', start: 1, end: 2, rate: 3, repeat: -1},
-          attack: {key: 'direwolfattack', prefix: 'direwolf/direwolf-attack-', start: 1, end: 1, rate: 12, delays: { frameNum: 1, delay: 300 }}
         },
         inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
       })
@@ -336,7 +330,7 @@ export default class AgentPoolService extends Service {
         name: 'Direwolf',
         animeframes: {
           rest: {yoyo: true, key: 'direwolf-rest', prefix: 'direwolf/direwolf', start: 1, end: 2, rate: 3, repeat: -1},
-          attack: {key: 'winged-demon-attack', prefix: 'chaos/winged-demon-attack', start: 2, end: 3, rate: 3, repeat: -1, delays: { frameNum: 2, delay: 300 }}
+          attack: {key: 'direwolf-attack', prefix: 'direwolf/direwolf', start: 2, end: 3, rate: 3, repeat: -1, delays: { frameNum: 2, delay: 300 }}
         },
         inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
       })
@@ -468,12 +462,19 @@ export default class AgentPoolService extends Service {
       Object.assign(baseAgentclone, {
         id: agentId++,
         name: 'Winged Demon',
+        flagAttributes: {
+          sF: 0,
+          tF: 3
+        },
         animeframes: {
           rest: {yoyo: true, key: 'winged-demon-rest', prefix: 'chaos/winged-demon-fly', start: 1, end: 1, rate: 3},
           attack: {key: 'winged-demon-attack', prefix: 'chaos/winged-demon-attack', start: 1, end: 2, rate: 3, repeat: -1, delays: { frameNum: 2, delay: 300 }},
           range: {key: 'winged-demon-ranged', prefix: 'chaos/winged-demon-range', start: 1, end: 3, rate: 3, repeat: -1, delays: { frameNum: 3, delay: 300 }}
         },
-        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
+        inventory: [
+          { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]},
+          { bodypart: constants.INVENTORY.BODYPART.FINGERS, items: [{ itemId: 5005 } ] }
+          ]  // bite
       })
     );
 
@@ -574,9 +575,7 @@ export default class AgentPoolService extends Service {
     sightRange: 3,   // this is sight/movement Range
     movingPoints: 3,   // this is sight/movement Range
     visiblePoints: 8,   // this is sight/movement Range
-// health: 2,
-// maxHealth: 22,
-// healingPower: 1,
+
     health: 20,
     maxHealth: 20,
     power: 25,
@@ -587,7 +586,6 @@ export default class AgentPoolService extends Service {
     // aggressionScale: 3,
     aggressionScale: 5,
 
-    // xpGain: 15,
     gold: 1,
     // either a specific level, or a level range relative to the players
     level: 1,
@@ -598,6 +596,12 @@ export default class AgentPoolService extends Service {
       sF: 0,
       tF: 2
     },
+    offsets: {
+      img: { x: 0, y: 0 },
+      healthbar: { x: 0, y: 0 },
+      name: { x: 0, y: 0 },
+      damage: { x: 0, y: 0 }
+    },
     patrol: {
       // timeout: 200,
       timeout: 2000,
@@ -605,8 +609,7 @@ export default class AgentPoolService extends Service {
       aggressionSpeedTimeout: 2000,
       // aggressionTimeout: 1000,  // delay time in between aggression turns
       method: 'random',
-      tiles: [
-        // {x: 13, y: 4}, {x: 13, y: 2}
+      tiles: [ // {x: 13, y: 4}, {x: 13, y: 2}
       ]
     },
     // Inventory: arrays containing inventory item arrays of

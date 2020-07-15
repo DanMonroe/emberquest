@@ -27,14 +27,16 @@
                         {{/if}}
                         <span class="terrainDifficulty"><span>Terrain:</span>{{geocache.terrain}}<span>Difficulty:</span>{{geocache.difficulty}}</span>
                       </div>
-                      <div class="coords">
-                        <span class="label">Parking:</span>
-                        {{#if geocache.found}}
-                            <span>{{decrypt this.storage geocache.parking}}</span>
-                        {{else}}
-                            <span>Unknown</span>
-                        {{/if}}
-                      </div>
+                      {{#if geocache.parking}}
+                        <div class="coords">
+                          <span class="label">Parking:</span>
+                          {{#if geocache.found}}
+                              <span>{{decrypt this.storage geocache.parking}}</span>
+                          {{else}}
+                              <span>Unknown</span>
+                          {{/if}}
+                        </div>
+                      {{/if}}
                       <div class="hints">
                         {{#if geocache.puzzleHint}}
                           <div>

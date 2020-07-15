@@ -123,7 +123,7 @@ export default class GameService extends Service {
       'spawnTile': scene.spawnTile
     });
 
-    console.log('save spawnTile', scene.spawnTile)
+    // console.log('save spawnTile', scene.spawnTile)
 
     this.sceneData[mapname] = currentMapData;
 
@@ -528,9 +528,9 @@ export default class GameService extends Service {
         }
         break;
       case constants.FLAGS.SPECIAL.LAVA.value:
-        console.log('on lava', agentContainer.agent.maxHealth, Math.floor(agentContainer.agent.maxHealth * .6) );
+        console.log('on lava', agentContainer.agent.maxHealth, Math.floor(agentContainer.agent.maxHealth * .9) + 10 );
         if (!agentContainer.boardedTransport) {
-          fireDamage += Math.floor(agentContainer.agent.maxHealth * .6);
+          fireDamage += Math.floor(agentContainer.agent.maxHealth * .9) + 10;
         }
         break;
       case constants.FLAGS.SPECIAL.ROYALEMBER.value:
