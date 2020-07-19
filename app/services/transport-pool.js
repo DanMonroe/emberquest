@@ -169,6 +169,24 @@ export default class TransportPoolService extends Service {
       })
     );
 
+    //Ice Breaker
+    this.transportpool.set('m7_1',
+      Object.assign(Object.assign({}, this.baseTransport), {
+        id: 1310,
+        scale: 1.2,
+        animeframes: {
+          rest: {key: 'm7_1-rest', prefix: 'ships/rhinoreme-', start: 1, end: 1},
+          move: {key: 'm7_1-move', prefix: 'ships/rhinoreme-', start: 1, end: 3}
+        },
+        flagAttributes: {
+          sF: 0,
+          tF: 17  // sea and ice
+        }
+
+      })
+    );
+
+
   }
 
   baseTransport = {

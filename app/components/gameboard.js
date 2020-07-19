@@ -8,6 +8,7 @@ import Phaser from "phaser";
 import {BootScene} from "../phaser/scenes/boot";
 import {GameboardScene} from "../phaser/scenes/gameboard-scene";
 import rexBoardPlugin from "phaser3-rex-plugins/plugins/board-plugin";
+// import {reads} from '@ember/object/computed';
 
 export default class GameboardComponent extends Component {
   @service('game') emberGameService;
@@ -16,6 +17,8 @@ export default class GameboardComponent extends Component {
 
   @tracked cookieConfirmed = false;
   @tracked cookieDenied = false;
+
+  // @reads ("emberGameService.playerContainer.scene.game.hasFocus") gameHasFocus;
 
   config = {
     type: Phaser.AUTO,

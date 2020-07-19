@@ -149,8 +149,10 @@ $color-4: #995F00;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 85vw;
-    height: 75vh;
+    width: 100vw;
+    height: 100vh;
+    //width: 85vw;
+    //height: 75vh;
     background-size: cover;
     background: url(/images/backgrounds/loading_background_blank.png) center center;
     background-repeat: no-repeat;
@@ -159,20 +161,20 @@ $color-4: #995F00;
       display: flex;
       align-items: center;
       justify-content: center;
+      height: 100vh;
 
       .dialog {
-        margin: 280px 0;
-        background: url(/images/backgrounds/loading_dialog.png);
-        background-repeat: no-repeat;
-        background-size: cover;
-        height: 30.5vh;
-        width: 37vh;
-
+        position: relative;
+        vertical-align: middle;
+        img {
+          text-align:center;
+          display:block;
+        }
         .progress-container {
-          position: relative;
-          top: 178px;
-          left: 80px;
-          width: 201px;
+          position: absolute;
+          top: 221px;
+          left: 100px;
+          width: 246px;
           .progress-bar {
             height: 18px;
             background-image: linear-gradient(to right, $color-0, $color-1, $color-2, $color-3, $color-4);
@@ -188,19 +190,13 @@ $color-4: #995F00;
 
         }
         .quote-container {
-          position: relative;
+          position: absolute;
           color: #6f4300;
           font-size: 1.1em;
-          top: 189px;
-          left: 41px;
-          width: 280px;
-          height: 4em;
-          display: flex;
+          top: 281px;
+          left: 48px;
           height: 4em;
           .quote {
-            display: flex;
-            align-items: center;
-            justify-content: center;
             width: 380px;
           }
         }

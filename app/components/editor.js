@@ -244,7 +244,7 @@ export default {
     HILL: -0.3,
     MOUNTAIN: -0.7,
     ARCTIC: -0.5,
-    SNOW: -0.1,
+    SNOW: -0.2,
     DESERT: -0.1,
     ROAD: 0.2,
     SWAMP: -0.7,
@@ -335,8 +335,15 @@ export default {
         terrainFlags |= this.constants.FLAGS.TRAVEL.IMPASSABLE.value;
         break;
       default:
-        terrainFlags |= this.constants.FLAGS.TRAVEL.LAND.value;
-        terrainFlags |= this.constants.FLAGS.TRAVEL.AIR.value;
+        switch (terrainParts.secondary) {
+          case this.WESNOTH.UNWALKABLE:
+            terrainFlags |= this.constants.FLAGS.TRAVEL.AIR.value;
+            break;
+          default:
+            terrainFlags |= this.constants.FLAGS.TRAVEL.LAND.value;
+            terrainFlags |= this.constants.FLAGS.TRAVEL.AIR.value;
+            break;
+        }
     }
 
     return terrainFlags;
@@ -381,9 +388,9 @@ export default {
     }
 
     // specific
-    if (terrainParts.terrainsParts.length > 0) {
+    if (terrainParts.terrainParts.length > 0) {
 
-      switch (terrainParts.terrainsParts[1]) {  // secondary
+      switch (terrainParts.terrainParts[1]) {  // secondary
         case this.WESNOTH.PARTS.SECONDARY.ARCTIC:
           terrainCost += this.SPEED.ARCTIC;
           break;
@@ -425,9 +432,9 @@ export default {
       default:  // fly
     }
 
-    if (terrainParts.terrainsParts.length > 0) {
+    if (terrainParts.terrainParts.length > 0) {
 
-      switch (terrainParts.terrainsParts[1]) {  // secondary
+      switch (terrainParts.terrainParts[1]) {  // secondary
         case this.WESNOTH.PARTS.SECONDARY.GREATTREE:
           sightCost = this.constants.FLAGS.SIGHT.IMPASSABLE.value;
           break;
@@ -459,7 +466,7 @@ export default {
     return {
       primary: (terrainParts.length >= 1) ? terrainParts[0].charAt(0) : '',
       secondary: (terrainParts.length >= 2) ? terrainParts[1].charAt(0) : '',
-      terrainsParts: terrainParts
+      terrainParts: terrainParts
     };
   }
 

@@ -25,12 +25,13 @@ export default class GameService extends Service {
   @service gameManager;
   @service storage;
   @service intl;
+  @service messages;
   @service('spawner') spawnerService;
 
   // @tracked cameraMainZoom = 1;
   @tracked cameraMainZoom = 1.4;
   @tracked playerImgSrc = '/images/agents/avatar.png';
-  // @tracked playerImgSrc = '/images/agents/pirate.png';
+
   @tracked showHexInfo = false;
   @tracked epmModalContainerClass = '';
 
@@ -46,21 +47,27 @@ export default class GameService extends Service {
 
   @tracked placedBrazier = false;
 
+  // @reads('gameManager.game.hasFocus') gameHasFocus;
+
   constants = constants;
 
-  showInfoDialog(message) {
+  showInfoDialog(message, trackMessage = false, messageId) {
 
     this.showInfoPrompt = message;
     new Confirmer(showInfoConfirmer => {
       this.gameManager.pauseGame(true);
       this.showInfoConfirmer = showInfoConfirmer
     })
-      .onConfirmed(async () => {
-      })
-      .onDone(() => {
-        this.showInfoConfirmer = null;
-        this.gameManager.pauseGame(false);
-      });
+    .onConfirmed(async () => {
+    })
+    .onDone(() => {
+      this.showInfoConfirmer = null;
+      this.gameManager.pauseGame(false);
+    });
+
+    if (trackMessage && messageId) {
+      this.messages.addMessage(messageId, message);
+    }
   }
 
 
@@ -331,7 +338,7 @@ export default class GameService extends Service {
   createTransport(scene, transportConfig) {
     const transport = new Transport(scene, transportConfig.objectConfig);
     scene.board.addChess(transport.container, transportConfig.objectConfig.x, transportConfig.objectConfig.y, this.constants.TILEZ_TRANSPORTS);
-
+    transport.container.setDepth(scene.ember.constants.TILEZ_TRANSPORTS)
     return transport.container;
   }
 
@@ -381,6 +388,13 @@ export default class GameService extends Service {
         switch (tileIsPortal.requires.id) {
           case constants.PORTAL.REQUIRED.GETCHEST:
             if (!this.cache.isCacheFound(tileIsPortal.requires.data.gccode)) {
+              return;
+            }
+            break;
+          case constants.PORTAL.REQUIRED.UNMOUNTED:
+            console.log('playerContainer.boardedTransport', playerContainer.boardedTransport)
+            if (playerContainer.boardedTransport && playerContainer.boardedTransport.agent.playerConfig.id === constants.AGENTS.GRYPHON) {
+              moveTo.scene.game.ember.showInfoDialog(this.intl.t(`messages.unmount-gryphon`), true, constants.MESSAGEIDS.UNMOUNT_GRYPHON_FOR_PORTAL);
               return;
             }
             break;
@@ -673,6 +687,29 @@ export default class GameService extends Service {
   async foundChest(chest) {
     // console.log('foundChest!', chest)
     if (chest) {
+
+      if (chest.requires) {
+        switch (chest.requires.id) {
+          case this.constants.CHESTS.REQUIRED.UNMOUNTED:
+            if (chest.mountMessageDisplayed) {
+              return; // don't show message again
+            }
+            if (this.gameManager.player.container.boardedTransport && this.gameManager.player.container.boardedTransport.agent.playerConfig.id === constants.AGENTS.GRYPHON) {
+              this.showInfoDialog(this.intl.t(`messages.unmount-gryphon-for-chest`), true, constants.MESSAGEIDS.UNMOUNT_GRYPHON_FOR_CHEST);
+              chest.mountMessageDisplayed = true;
+              return;
+            }
+            break;
+          default:
+            break;
+        }
+      }
+
+      this.gameManager.playSound(this.constants.AUDIO.CHEST)
+
+      chest.found = !chest.found;
+      chest.setFrame(chest.found ? 0 : 1);
+
       // debugger;
       this.gameManager.player.gold = +this.gameManager.player.gold + +chest.gold;
       // chest.gold = 0;

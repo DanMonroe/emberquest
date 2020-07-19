@@ -139,7 +139,7 @@ export class Caches {
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
-        coords: 'b5cf277e9c87bfe6386b925f63b7389d41eda021391e1ade9290780843af4b48OhFXpqiPLDjoBMDOkpKw1SDxPtyFwRslhPE6vkuqRWQ=',
+        coords: 'c7b6d7b96d2af158b16bd9ea91df05c398e451d1bc1977652d3393332ed7a7b2ZBltnwW/oo7uAzg0OYxFXmrI1gMQI55fRGRdHD1bX9Q=',
         parking: '',
         cacheHint: 'test',
         puzzleHint: 'grfg'
@@ -269,7 +269,7 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC8V6X7',
-        name: 'EmberQuest #19',
+        name: 'EmberQuest #19 - LPC in the Woods',
         description: '<p>Test description</p>',
         difficulty: 1.5,
         terrain: 1.5,
@@ -284,7 +284,7 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC8V6XB',
-        name: 'EmberQuest #20',
+        name: 'EmberQuest #20 - Autumn Retreat',
         description: '<p>Test description</p>',
         difficulty: 1.5,
         terrain: 1.5,
@@ -359,7 +359,7 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC8QB0N',
-        name: 'EmberQuest #25',
+        name: 'EmberQuest #25 - Deserted Island',
         description: '<p>Test description</p>',
         difficulty: 1.5,
         terrain: 1.5,

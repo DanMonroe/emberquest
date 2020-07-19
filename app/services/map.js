@@ -338,10 +338,28 @@ export default class MapService extends Service {
     return ((specialAttr.value & specialAttribute) === specialAttribute) ? specialAttr : undefined;
   }
 
+  tileIsGreatTree(scene, tileXY) {
+    const wesnothTerrain = this.getTileAttribute(scene, tileXY, 'w');
+    if (!wesnothTerrain) {
+      return false;
+    }
+    const terrainObj = this.getWesnothTerrainParts(wesnothTerrain);
+    return terrainObj.terrainParts.length > 1 && (terrainObj.terrainParts[1].startsWith('Fet') || terrainObj.terrainParts[1].startsWith('FYa'));
+  }
+
   // return the transport
   targetTileHasTransport(scene, tileXY) {
     const fovShapes = this.getGameObjectsAtTileXY(scene.board, tileXY, this.constants.SHAPE_TYPE_TRANSPORT);
     return (fovShapes && fovShapes.length > 0) ? fovShapes[0] : undefined;
+  }
+
+  getWesnothTerrainParts(terrain) {
+    const terrainParts = terrain.split('^');
+    return {
+      primary: (terrainParts.length >= 1) ? terrainParts[0].charAt(0) : '',
+      secondary: (terrainParts.length >= 2) ? terrainParts[1].charAt(0) : '',
+      terrainParts: terrainParts
+    };
   }
 
 }

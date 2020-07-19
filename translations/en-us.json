@@ -1,5 +1,4 @@
 {
-  "test": "This is bar",
   "messages": {
     "intro": {
       "id1": "'<p>'You have found a locked door.'</p><p>'Find a chest and this door will unlock.'</p>'"
@@ -9,8 +8,6 @@
     },
     "signs": {
       "toofar": "'<p>'You are too far away to read the sign.'</p>'",
-      "msg1": "'<p>'Cool sign dude'</p>'",
-      "msg2": "'<p>'Another cool sign'</p>'",
 
       "castle1": "'<p>'You have found a locked gate.'</p><p>'Find a chest and this gate will unlock.'</p>'",
       "castle2": "'<h4>'Welcome To EmberQuest!'</h4><p>'Unfortunately, this castle has seen happier times.  Someone, or something, has stolen the Enchanted Ember that fuels the eternal flame in the brazier above you. It protected this land from creatures who threaten our peace and safety. Now they roam freely without challenge.'</p><p>'Save the Land and return the Ember to its chamber.  When you do, the treasure to your South will be yours as a reward!'</p><p>'Be safe young traveller!'</p>'",
@@ -22,9 +19,12 @@
 
       "suitup": "'<h4>'Ogre Warning!'</h4><p>'An Ogre patrols the Northern bridge.'</p><p>'Be sure to look at your inventory and equip a weapon and some armor!'</p>'",
 
-      "final1": "'<p>'Can't walk on fire?'</p><p>'Pull lever for transport for hire.'</p>'"
+      "final1": "'<p>'Can't walk on fire?'</p><p>'Pull lever for transport for hire.'</p>'",
 
-    }
+      "mountgryphon": "'<h4>'To the Skies!'</h4><p>'Climb the tree and onto the Gryphon to mount.'</p><p>'Land on a nest and climb down the tree to unmount.'</p>'"
+    },
+    "unmount-gryphon": "'<p>'Gryphons must stay within the Highlands.'</p><p>'Find a nest to dismount and then you may travel unrestricted.'</p>'",
+    "unmount-gryphon-for-chest": "'<p>'You can't grab a chest while flying.'</p>'"
   },
   "quotes": {
     "q0": "Old geocachers don't die - they just get archived.",

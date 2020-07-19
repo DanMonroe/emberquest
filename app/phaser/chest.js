@@ -14,6 +14,8 @@ export default class Chest extends Phaser.Physics.Arcade.Image {
     this.coords = chestObj.coords;
     this.gccode = chestObj.gccode;
     this.specialActions = chestObj.specialActions;
+    this.requires = chestObj.requires;    // anything required in order to pick chest up?
+    this.mountMessageDisplayed = false;    // keep track if they already tried to get the chest while mounted
 
     // previously found?
     this.found = this.scene.ember.cache.isCacheFound(this.gccode);
@@ -35,8 +37,8 @@ export default class Chest extends Phaser.Physics.Arcade.Image {
   playerFoundChest() {
     // console.log('player found chest', this);
 
-    this.found = !this.found;
-    this.setFrame(this.found ? 0 : 1);
+    // this.found = !this.found;
+    // this.setFrame(this.found ? 0 : 1);
 
     this.scene.ember.foundChest(this);
   }

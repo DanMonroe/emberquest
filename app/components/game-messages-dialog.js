@@ -14,7 +14,7 @@ export default class GameMessagesDialogComponent extends Component {
   constructor() {
     super(...arguments);
     this.messageList = this.messages.getMessageList();
-    console.log('messageList', this.messageList)
+    // console.log('messageList', this.messageList)
 
   }
 

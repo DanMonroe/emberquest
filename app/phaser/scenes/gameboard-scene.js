@@ -269,7 +269,7 @@ export class GameboardScene extends Phaser.Scene {
   createDoors() {
     if (this.mapData.doors) {
       this.mapData.doors.forEach(doorObj => {
-        // console.log('DoorObj', doorObj)
+        console.log('DoorObj', doorObj)
         if (doorObj.hideIfCacheFound && this.ember.cache.isCacheFound(doorObj.hideIfCacheFound)) {
           // don't add door
           return;
@@ -513,9 +513,7 @@ export class GameboardScene extends Phaser.Scene {
 
   collectChest(player, chest) {
     if ( ! chest.found) {
-    // console.log('collect chest', arguments);
-    //   this.goldPickupAudio.play();
-      this.ember.gameManager.playSound(this.ember.constants.AUDIO.CHEST)
+      // this.ember.gameManager.playSound(this.ember.constants.AUDIO.CHEST)
 
       chest.playerFoundChest();
     }

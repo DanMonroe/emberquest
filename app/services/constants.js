@@ -159,14 +159,14 @@ const constants = Object.freeze({
   FLAG_TYPE_VISIBILITY: 1,
 
   TILEZ_PLAYER: 100, // "layer" for player
-  TILEZ_FOG: 2,    // "layer" for fog of war
-  TILEZ_CHESTS: 3,    // "layer" for chests
-  TILEZ_MONSTERS: 4,    // "layer" for monsters
-  TILEZ_TRANSPORTS: 5, // "layer" for transports
-  TILEZ_AGENTS: 6, // "layer" for agents
-  TILEZ_DOORS: 7, // "layer" for doors
-  TILEZ_SIGNS: 8, // "layer" for signs
-  TILEZ_SPRITES: 9, // "layer" for sprites
+  TILEZ_CHESTS: 10,    // "layer" for chests
+  TILEZ_FOG: 20,    // "layer" for fog of war
+  TILEZ_MONSTERS: 30,    // "layer" for monsters
+  TILEZ_TRANSPORTS: 40, // "layer" for transports
+  TILEZ_AGENTS: 50, // "layer" for agents
+  TILEZ_DOORS: 60, // "layer" for doors
+  TILEZ_SIGNS: 80, // "layer" for signs
+  TILEZ_SPRITES: 90, // "layer" for sprites
 
   AGENTSTATE: {
     IDLE: 0,
@@ -199,7 +199,8 @@ const constants = Object.freeze({
       SEA: {value: 1, description: 'Travel by Sea'},
       LAND: {value: 2, description: 'Travel by Land'},
       AIR: {value: 4, description: 'Travel by Air'},
-      IMPASSABLE: {value: 8, description: 'Impassable'}
+      IMPASSABLE: {value: 8, description: 'Impassable'},
+      ICE: {value: 16, description: 'Ice Breaker'}
     },
     SIGHT: {
       IMPASSABLE: {value: 128, description: 'Impassable'}
@@ -218,8 +219,26 @@ const constants = Object.freeze({
   // requirements before a portal will work
   PORTAL: {
     REQUIRED: {
-      GETCHEST: 1
+      GETCHEST: 1,  // must have specific chest first
+      UNMOUNTED: 2  // cant be mounted
     }
+  },
+
+  // requirements before a chest can be picked up
+  CHESTS: {
+    REQUIRED: {
+      UNMOUNTED: 1  // cant be mounted
+    }
+  },
+
+  // specific agent IDs
+  AGENTS: {
+    GRYPHON: 1309
+  },
+
+  MESSAGEIDS: {
+    UNMOUNT_GRYPHON_FOR_PORTAL: 4000,
+    UNMOUNT_GRYPHON_FOR_CHEST: 4001
   },
 
   SHOW_MESSAGE_WHEN: {

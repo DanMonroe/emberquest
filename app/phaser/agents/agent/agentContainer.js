@@ -545,18 +545,25 @@ export default class AgentContainer extends BasePhaserAgentContainer {
     // }
   }
 
-  getRandomNeighborTile() {
-    const neighborChessTile = this.rexChess.board.getTileXYAtDirection(this.rexChess.tileXYZ, this.ember.randomIntFromInterval(0, 5), 3);
-    let canMove = false;
-    if (neighborChessTile) {
-      const allattrs = this.ember.map.getTileAttribute(this.scene, neighborChessTile);
-      canMove = this.ember.playerHasAbilityFlag(this, this.ember.constants.FLAG_TYPE_TRAVEL, allattrs.tF);
-    }
+  getRandomNeighborTile(callcount = 0) {
+    if (callcount < 25) {
 
-    if (!canMove) {
-      return this.getRandomNeighborTile()
+      const neighborChessTile = this.rexChess.board.getTileXYAtDirection(this.rexChess.tileXYZ, this.ember.randomIntFromInterval(0, 5), this.ember.randomIntFromInterval(1, 3));
+      let canMove = false;
+      if (neighborChessTile) {
+        const allattrs = this.ember.map.getTileAttribute(this.scene, neighborChessTile);
+        canMove = this.ember.playerHasAbilityFlag(this, this.ember.constants.FLAG_TYPE_TRAVEL, allattrs.tF);
+      }
+
+      if (!canMove) {
+        return this.getRandomNeighborTile(callcount + 1)
+      }
+      return neighborChessTile;
+    } else {
+      console.log('callcount exceeded')
+      callcount = 0;
+      return this.rexChess.tileXYZ;
     }
-    return neighborChessTile;
   }
   getNextTargetTile() {
     let nextTargetTile;

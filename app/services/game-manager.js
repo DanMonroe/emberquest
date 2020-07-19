@@ -271,13 +271,15 @@ export default class GameManagerService extends Service {
   }
 
   playSound(soundObj) {
-    console.log('gameManager playSound', soundObj, this.soundEffectsVolume)
-    console.count('gameManager playSound')
+    if (!this.gamePaused) {
+      console.log('gameManager playSound', soundObj, this.soundEffectsVolume)
+      console.count('gameManager playSound')
 
-    if (!this.mutedSoundEffectsVolume && soundObj && soundObj.key) {
-      const config = Object.assign(soundObj.config || {}, {volume: this.soundEffectsVolume});
-// console.log('sound config', config)
-      this.scene.sound.playAudioSprite('eq_audio', soundObj.key, config);
+      if (!this.mutedSoundEffectsVolume && soundObj && soundObj.key) {
+        const config = Object.assign(soundObj.config || {}, {volume: this.soundEffectsVolume});
+  // console.log('sound config', config)
+        this.scene.sound.playAudioSprite('eq_audio', soundObj.key, config);
+      }
     }
 
   }

@@ -97,19 +97,20 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
 
         // is there an air transport at targetTile
         } else if (this.ember.map.tileIsNest(pathFinder.scene, targetTile)) {
-          canMove = this.ember.map.targetTileHasTransport(pathFinder.scene, targetTile);
+          const targetTileHasTransport = this.ember.map.targetTileHasTransport(pathFinder.scene, targetTile);
+          const currentTileIsGreatTree = this.ember.map.tileIsGreatTree(pathFinder.scene, curTile);
+          canMove = targetTileHasTransport && currentTileIsGreatTree;
 
         } else if (this.boardedTransport) {
           // already on board a transport.. is target tile a dock?
 
-          // boardedTransport is air transport and currentTile is nest, and target tile is land, let move
+          // boardedTransport is air transport and currentTile is nest, and target tile is tree, let move
           if (this.ember.map.tileIsNest(pathFinder.scene, curTile)) {
-            const targetTileIsLand = this.ember.map.tileIsLand(pathFinder.scene, targetTile);
-            if (targetTileIsLand && this.boardedTransport.agent.playerConfig.transferAtNest) {
+            const targetTileIsGreatTree = this.ember.map.tileIsGreatTree(pathFinder.scene, targetTile);
+            if (targetTileIsGreatTree && this.boardedTransport.agent.playerConfig.transferAtNest) {
               this.disembarkTransport = true;
               canMove = true;
             }
-            // return this.ember.map.tileIsLand(pathFinder.scene, targetTile);
           } else {
             const targetTileIsDock = this.ember.map.tileIsDock(pathFinder.scene, targetTile);
 
@@ -130,6 +131,12 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
         //   console.log('No power to move!')
         //   canMove = false;
         // }
+      } else if (this.ember.map.tileIsNest(pathFinder.scene, curTile)) {  // Disembark Gryphon?  can move and they are on a transport and on a nest
+        const targetTileIsGreatTree = this.ember.map.tileIsGreatTree(pathFinder.scene, targetTile);
+
+        if (targetTileIsGreatTree && this.boardedTransport.agent.playerConfig.transferAtNest) {
+          this.disembarkTransport = true;
+        }
       }
 
       return canMove;
