@@ -15,6 +15,22 @@ export default class ConfigDialogComponent extends Component {
   @tracked currentNavCategory = this.leftNavItems[0];
   @tracked volume = this.gameManager.soundEffectsVolume * 100;
 
+  @tracked faqList = [];
+
+  constructor() {
+    super(...arguments);
+    this.buildFAQ();
+  }
+
+  buildFAQ() {
+    this.faqList = [];
+    this.faqList.push({
+      id: 1,
+      title: 'Will there be more answers here?',
+      content: 'Yes'
+    });
+  }
+
   setVolume(self, event) {
       self.volume = +event.target.value;
       self.gameManager.soundEffectsVolume = self.volume / 100;
@@ -38,6 +54,10 @@ export default class ConfigDialogComponent extends Component {
       {
         text: 'Help',
         clazz: 'help'
+      },
+      {
+        text: 'FAQ',
+        clazz: 'faq'
       },
       {
         text: 'Credits',

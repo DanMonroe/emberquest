@@ -11,7 +11,6 @@ export default class CachesDialogComponent extends Component {
   constructor() {
     super(...arguments);
     this.cacheList = this.cache.getCaches();
-// console.log('cacheList', this.cacheList)
   }
 
   togglePuzzleHint(cache) {

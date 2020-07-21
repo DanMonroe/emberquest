@@ -264,23 +264,23 @@ export default class AgentContainer extends BasePhaserAgentContainer {
   @task
   // @restartableTask
   *engagePlayer(agentContainer) {
-    console.log('               engagePlayer')
+    // console.log('               engagePlayer')
 // console.log('engage player', agentContainer.agent.playerConfig.texture, this.agentState)
     this.attack.cancelAll();
     this.chasePlayer.cancelAll();
     this.patrolTask.cancelAll();
 
-    if (agentContainer.scene.board.areNeighbors(agentContainer.rexChess.tileXYZ, agentContainer.ember.playerContainer.rexChess.tileXYZ)) {
-      console.log('                 ----  neighbors.. use melee')
+    if (agentContainer.agent.hasMelee && agentContainer.scene.board.areNeighbors(agentContainer.rexChess.tileXYZ, agentContainer.ember.playerContainer.rexChess.tileXYZ)) {
+      // console.log('                 ----  neighbors.. use melee')
       this.setAgentState(this.ember.constants.AGENTSTATE.MELEE);
     } else {
-      console.log('                 ----  not neighbors.. use missile')
+      // console.log('                 ----  not neighbors.. use missile')
       const equippedRangedWeapon = agentContainer.agent.equippedRangedWeapon;
 
       if (equippedRangedWeapon) {
-        console.log('                    got ranged weapon..go ahead and shoot')
+        // console.log('                    got ranged weapon..go ahead and shoot')
       } else {
-        console.log('                    no ranged weapon..use melee or chase?')
+        // console.log('                    no ranged weapon..use melee or chase?')
         // this.agentState = this.ember.constants.AGENTSTATE.MISSILE;
         // this.setAgentState(this.ember.constants.AGENTSTATE.MISSILE);
         this.chasePlayer.perform();

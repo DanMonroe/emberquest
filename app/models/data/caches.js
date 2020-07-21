@@ -35,7 +35,7 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC8V6X3',
-        name: 'EmberQuest #3',
+        name: 'EmberQuest #3 - The Traphagen Meadow',
         description: '<p>Test description</p>',
         difficulty: 1.5,
         terrain: 1.5,
@@ -104,7 +104,7 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC8QB1J',
-        name: 'EmberQuest #8',
+        name: 'EmberQuest #8 - Bushwacking Relief',
         description: '<p>Test description</p>',
         difficulty: 1.5,
         terrain: 1.5,
@@ -119,7 +119,7 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC8V6X0',
-        name: 'EmberQuest #9',
+        name: 'EmberQuest #9 - Cabin by the Lake',
         description: '<p>Test description</p>',
         difficulty: 1.5,
         terrain: 1.5,
@@ -134,7 +134,7 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC8V6VH',
-        name: 'EmberQuest #10',
+        name: 'EmberQuest #10 - Did you see that?',
         description: '<p>Test description</p>',
         difficulty: 1.5,
         terrain: 1.5,
@@ -149,7 +149,7 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC8QB1C',
-        name: 'EmberQuest #11',
+        name: 'EmberQuest #11 - Beach to Nowhere?',
         description: '<p>Test description</p>',
         difficulty: 1.5,
         terrain: 1.5,
@@ -164,7 +164,7 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC8V6WP',
-        name: 'EmberQuest #12',
+        name: 'EmberQuest #12 - Ships and Bridges',
         description: '<p>Test description</p>',
         difficulty: 1.5,
         terrain: 1.5,
@@ -179,7 +179,7 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC8QB0H',
-        name: 'EmberQuest #13',
+        name: 'EmberQuest #13 - Desert Gold',
         description: '<p>Test description</p>',
         difficulty: 1.5,
         terrain: 1.5,
@@ -194,7 +194,7 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC8V6VN',
-        name: 'EmberQuest #14',
+        name: 'EmberQuest #14 - Desert Dead End',
         description: '<p>Test description</p>',
         difficulty: 1.5,
         terrain: 1.5,
@@ -224,7 +224,7 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC8V6WC',
-        name: 'EmberQuest #16',
+        name: 'EmberQuest #16 - To the Skies!',
         description: '<p>Test description</p>',
         difficulty: 1.5,
         terrain: 1.5,
@@ -239,7 +239,7 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC8V6XJ',
-        name: 'EmberQuest #17',
+        name: 'EmberQuest #17 - Highland Cache',
         description: '<p>Test description</p>',
         difficulty: 1.5,
         terrain: 1.5,
@@ -359,7 +359,7 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC8QB0N',
-        name: 'EmberQuest #25 - Deserted Island',
+        name: 'EmberQuest #25 - Castle Island',
         description: '<p>Test description</p>',
         difficulty: 1.5,
         terrain: 1.5,
@@ -374,7 +374,7 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC8V6XK',
-        name: 'EmberQuest #26',
+        name: 'EmberQuest #26 - Lost Ember Pyramid',
         description: '<p>Test description</p>',
         difficulty: 1.5,
         terrain: 1.5,

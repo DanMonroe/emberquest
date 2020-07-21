@@ -186,6 +186,25 @@ export default class TransportPoolService extends Service {
       })
     );
 
+    this.transportpool.set('m12_1',
+      Object.assign(Object.assign({}, this.baseTransport), {
+        id: 1311,
+        scale: 1.2,
+        animeframes: {
+          rest: {key: 'm12_1-rest', prefix: 'ships/swampboat', start: 1, end: 1}
+        }
+      })
+    );
+    this.transportpool.set('m12_2',
+      Object.assign(Object.assign({}, this.baseTransport), {
+        id: 1312,
+        scale: 1.2,
+        animeframes: {
+          rest: {key: 'm12_2-rest', prefix: 'ships/frigate', start: 1, end: 1}
+        }
+      })
+    );
+
 
   }
 

@@ -9,7 +9,9 @@
     <div class="pane {{this.currentNavCategory.clazz}}">
       <div class="scroll">
         {{#if (eq this.currentNavCategory.text "Settings")}}
+          <h3>Options</h3>
           <div class="options">
+            <h4>Sound Effects Volume</h4>
             <div id="volume-group" class="form-group slider-group">
               <span class="glyphicon glyphicon-volume-down"></span>
               <input type="range" min="0" step="10" max="100" value="{{this.volume}}" class="ui-slider" id="myRange" {{on "input" (fn this.setVolume this)}}>
@@ -20,8 +22,32 @@
         {{#if (eq this.currentNavCategory.text "Help")}}
           <Instructions />
         {{/if}}
+        {{#if (eq this.currentNavCategory.text "FAQ")}}
+          <h3>Frequently Asked Questions</h3>
+          <div class="faqlist">
+          {{#each this.faqList as |faq|}}
+            <div class="wrapper">
+              <div class="faq">
+                <input type="checkbox" id="togglefaq{{faq.id}}" class="toggle" />
+                <label class="title" for="togglefaq{{faq.id}}">
+                  <div class="name">{{faq.title}}</div>
+                  <div class="more">More Info</div>
+                </label>
+                <div class="content">
+                  <div class="faqAnswer">
+                    {{{faq.content}}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {{/each}}
+          </div>
+        {{/if}}
         {{#if (eq this.currentNavCategory.text "Credits")}}
-          Credits
+          <h3>Credits</h3>
+          <div class="credits">
+            <span class="title">Author:</span><span>GeoCacher TeamMonroes</span>
+          </div>
         {{/if}}
       </div>
     </div>

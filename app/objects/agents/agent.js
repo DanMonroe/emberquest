@@ -79,6 +79,11 @@ export class Agent extends BaseAgent {
     this.health = this.baseHealth;
     this.power = this.basePower;
 
+    // only ranged (no fists)
+    if (this.playerConfig.hasMelee === false) {
+      this.hasMelee = false;
+    }
+
     // show level
     if (this.container.showLevel) {
       // console.log('adding level', this.level);

@@ -334,8 +334,12 @@ a {
     display: block;
     width: 75vw;
   }
-  a {
+  a, .author {
     color: #ff9f00;
+  }
+  .author {
+    font-weight: 400;
+    display: inline-block;
   }
 }
 
@@ -2284,6 +2288,7 @@ button {
 }
 .configDialog {
   background-image: url("/images/backgrounds/game-menu-background.png");
+
   .footer {
     button {
       left: 50px;
@@ -2331,7 +2336,7 @@ button {
     height: 474px;
     width: 569px;
     .pane {
-      &.help {
+      &.help, &.faq {
         @include scrolling-pane;
       }
 
@@ -2406,6 +2411,119 @@ button {
     }
   }
 
+  .faqlist {
+    position: absolute;
+    top: 65px;
+    left: 0px;
+    height: 410px;
+    width: 532px;
+
+      .wrapper {
+        position: relative;
+        padding-bottom: 15px;
+        color: #000;
+
+        .faq {
+          background-color: lightgrey;
+          border: 1px solid #999;
+          box-shadow: 3px 3px 6px #33333333, -3px 3px 6px #33333333;
+        }
+
+        .faq {
+          min-height: 50px;
+
+          .toggle {
+            display: none;
+          }
+
+          .toggle:checked {
+            & + .title + .content {
+              max-height: 500px;
+            }
+
+            & + .title:before {
+              transform: rotate(90deg) !important;
+            }
+          }
+
+          .title {
+            display: block;
+            cursor: pointer;
+          }
+
+          .content {
+            clear: both;
+            max-height: 0;
+            overflow: hidden;
+            margin-bottom: 10px;
+
+            p {
+              margin: 0;
+              padding: 0.5em 1em 1em 0;
+            }
+
+            .faqAnswer {
+              margin: 5px 0 0 15px;
+              font-size: 0.9em;
+              line-height: 1.5;
+            }
+          }
+
+          .title,
+          .content {
+            backface-visibility: hidden;
+            transform: translateZ(0);
+            transition: all 0.75s;
+          }
+
+          .title {
+            padding: 15px;
+            display: block;
+            font-weight: bold;
+          }
+
+          .title:after, .title:before {
+            content: '';
+            position: absolute;
+            right: 1.25em;
+            top: 1.05em;
+            width: 2px;
+            height: 0.75em;
+            background-color: #000;
+            transition: all 0.5s;
+          }
+
+          .title:after {
+            transform: rotate(90deg);
+          }
+
+          .name {
+            float: left;
+            display: inline-block;
+            color: #9c611e;
+            font-size: 18px;
+            max-width: 420px;
+          }
+
+          .more {
+            float: right;
+            margin: 0 20px 0 0;
+            font-size: 12px;
+            color: #5e4126;
+          }
+        }
+      }
+  }
+
+  .credits {
+    .title {
+      width: 80px;
+      font-weight: 600;
+      text-align: end;
+      display: inline-block;
+      margin-right: 10px;
+    }
+  }
 
   form-group {
     font-size: 16px;

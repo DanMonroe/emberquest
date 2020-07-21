@@ -54,12 +54,47 @@ export default class AgentPoolService extends Service {
       Object.assign(baseAgentclone, {
         id: agentId++,
         name: 'Pirate',
-        scale: 1.5,
+        hasMelee: false,
+        scale: 1.6,
+        offsets: {
+          healthbar: { x: 0, y: -20 },
+          name: { x: 0, y: -35 },
+          damage: { x: 0, y: -55 }
+        },
+
         flagAttributes: {
           tF: 1
         },
         animeframes: {
-          rest: {yoyo: true, key: 'piraterest', prefix: 'pirates/pirate-galleon', start: 1, end: 1, repeat: 0},
+          rest: {key: 'piraterest', prefix: 'ships/pirate-galleon', start: 1, end: 1, repeat: 0},  // yoyo: true,
+        },
+        inventory: [
+          {
+            bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5100, droppable: false } ]
+          }
+        ]
+      })
+    );
+
+    // Ghost ship
+    baseAgentclone = Object.assign({}, this.baseAgent);
+    this.agentpool.set('ghost-ship',
+      Object.assign(baseAgentclone, {
+        id: agentId++,
+        name: 'Ghost Ship',
+        hasMelee: false,
+        scale: 1.7,
+        offsets: {
+          healthbar: { x: 0, y: -20 },
+          name: { x: 0, y: -35 },
+          damage: { x: 0, y: -55 }
+        },
+
+        flagAttributes: {
+          tF: 1
+        },
+        animeframes: {
+          rest: {key: 'ghost-ship-rest', prefix: 'ships/ghost-ship-', start: 1, end: 3, rate: 4, repeat: -1},
         },
         inventory: [
           {

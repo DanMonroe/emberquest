@@ -460,7 +460,7 @@ export class InventoryItems {
         bodypart: constants.INVENTORY.BODYPART.RANGED,
         projectileImg: 'ball',
         stats: [
-          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 3}),
+          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 3}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 3}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.9})
         ],
