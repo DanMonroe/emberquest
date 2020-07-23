@@ -53,7 +53,6 @@ export default class GameManagerService extends Service {
     this.scene = scene;
     this.ember = scene.ember;
     this.storedData = scene.storedData;
-
     this.setupEventListener();
     this.setupSpawners();
     this.spawnPlayer();
@@ -112,6 +111,7 @@ export default class GameManagerService extends Service {
 
   pauseGame(paused) {
     this.gamePaused = paused;
+    this.scene.game.paused = paused;
   }
 
   async saveSceneData() {

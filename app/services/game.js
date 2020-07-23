@@ -41,6 +41,7 @@ export default class GameService extends Service {
   @tracked showInfoCancel = "";
   @tracked showInfoConfirm = "OK";
   @tracked showInfoConfirmer = null;
+  @tracked showPausedConfirmer = null;
 
   @tracked sceneData = [];
   @tracked gameData = {};
@@ -70,10 +71,25 @@ export default class GameService extends Service {
     }
   }
 
+  closePausedDialog() {
+    this.showPausedConfirmer = null;
+  }
+  showPausedDialog() {
+
+    new Confirmer(showPausedConfirmer => {
+      this.showPausedConfirmer = showPausedConfirmer
+    })
+    .onConfirmed(async () => {
+    })
+    .onDone(() => {
+      this.showPausedConfirmer = null;
+    });
+
+  }
+
 
 
   async saveSceneData(scene) {
-
     // SCENE ATTRIBUTES
     //
     const mapname = scene.mapname;

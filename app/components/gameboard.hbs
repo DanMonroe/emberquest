@@ -81,3 +81,18 @@
   }}
   />
 {{/if}}
+
+{{#if this.emberGameService.showPausedConfirmer}}
+  <ToElsewhere
+        @named={{"modal"}}
+        @send={{hash body=(component "confirmation-dialog"
+        header="Paused"
+        prompt="<p>EmberQuest is currently paused.</p>"
+        confirmationText="Continue"
+        onConfirm=(action emberGameService.showPausedConfirmer.confirm)
+        onCancel=(action emberGameService.showPausedConfirmer.cancel)
+  )
+     onOutsideClick=(action (mut emberGameService.showPausedConfirmer) null)
+  }}
+  />
+{{/if}}

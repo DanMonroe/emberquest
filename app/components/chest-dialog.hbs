@@ -18,15 +18,14 @@
             <span class="gems-count big-font">{{this.cacheData.gold}} Gems</span>
           </div>
         {{/if}}
+        <ul>
         {{#each this.chestInventory as |item|}}
-          <div class="item-wrapper">
-            <div class="item-img-wrapper">
-              <img src="{{item.img}}" class="item-img">
-              <img src="{{item.img}}" class="item-shadow">
-            </div>
-            <div class="item-name"><strong class="big-font">{{item.name}}</strong></div>
-          </div>
+          <li class="item-wrapper-two">
+            <img src="{{item.img}}" class="item-img-two {{item.cssClazz}}">
+            <div class="item-name-two"><strong class="big-font">{{item.name}}</strong></div>
+          </li>
         {{/each}}
+        </ul>
       </div>
     {{/if}}
   </div>

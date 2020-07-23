@@ -36,7 +36,7 @@ export class Caches {
       new Cache({
         gccode: 'GC8V6X3',
         name: 'EmberQuest #3 - The Traphagen Meadow',
-        description: '<p>Test description</p>',
+        description: '<p>What a pleasant meadow to hike through on a cool Spring day.  Too bad there are reports of various outlaws in the area to ruin your day. </p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -49,7 +49,7 @@ export class Caches {
       new Cache({
         gccode: 'GC8QB0T',
         name: 'EmberQuest #4',
-        description: '<p>Test description</p>',
+        description: '<p></p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -62,7 +62,7 @@ export class Caches {
       new Cache({
         gccode: 'GC8V6VK',
         name: 'EmberQuest #5',
-        description: '<p>Test description</p>',
+        description: '<p></p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -75,7 +75,7 @@ export class Caches {
       new Cache({
         gccode: 'GC8QB1G',
         name: 'EmberQuest #6',
-        description: '<p>Test description</p>',
+        description: '<p></p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -90,7 +90,7 @@ export class Caches {
       new Cache({
         gccode: 'GC8V6VC',
         name: 'EmberQuest #7',
-        description: '<p>Test description</p>',
+        description: '<p></p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -105,7 +105,7 @@ export class Caches {
       new Cache({
         gccode: 'GC8QB1J',
         name: 'EmberQuest #8 - Bushwacking Relief',
-        description: '<p>Test description</p>',
+        description: '<p>The forest is thick in this area.  Thankfully there is a break in the bush to rest your feet and mend your scratched forearms.</p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -120,7 +120,7 @@ export class Caches {
       new Cache({
         gccode: 'GC8V6X0',
         name: 'EmberQuest #9 - Cabin by the Lake',
-        description: '<p>Test description</p>',
+        description: '<p>Lost in the Meadow?  Maybe someone in that cabin by the lake can help.  I sure hope they are friendly.</p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -135,7 +135,7 @@ export class Caches {
       new Cache({
         gccode: 'GC8V6VH',
         name: 'EmberQuest #10 - Did you see that?',
-        description: '<p>Test description</p>',
+        description: '<p>Cruising around the sea it can be easy to miss small passageways in the rock. Be sure to pay attention to the coastline.</p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -150,7 +150,7 @@ export class Caches {
       new Cache({
         gccode: 'GC8QB1C',
         name: 'EmberQuest #11 - Beach to Nowhere?',
-        description: '<p>Test description</p>',
+        description: '<p>That’s a long way to walk on a lonely beach. I hope it’s worth it in the end.</p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -165,7 +165,7 @@ export class Caches {
       new Cache({
         gccode: 'GC8V6WP',
         name: 'EmberQuest #12 - Ships and Bridges',
-        description: '<p>Test description</p>',
+        description: '<p>Enjoy this game of Ships and Bridges where you guess which ships and/or bridges will reward you with the prize.</p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -180,7 +180,7 @@ export class Caches {
       new Cache({
         gccode: 'GC8QB0H',
         name: 'EmberQuest #13 - Desert Gold',
-        description: '<p>Test description</p>',
+        description: '<p>Hidden deep within the desert, this keep hosts fine food, drink, and wealth. Unfortunately, the local residents won’t give up their gold easily.  </p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -195,7 +195,7 @@ export class Caches {
       new Cache({
         gccode: 'GC8V6VN',
         name: 'EmberQuest #14 - Desert Dead End',
-        description: '<p>Test description</p>',
+        description: '<p>You shouldn’t always trust online maps; sometimes they send you awry.</p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -210,7 +210,7 @@ export class Caches {
       new Cache({
         gccode: 'GC8V6WQ',
         name: 'EmberQuest #15',
-        description: '<p>Test description</p>',
+        description: '<p></p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -225,7 +225,7 @@ export class Caches {
       new Cache({
         gccode: 'GC8V6WC',
         name: 'EmberQuest #16 - To the Skies!',
-        description: '<p>Test description</p>',
+        description: '<p>If you are willing to try new adventures, then this is your chance!  Not many people get the opportunity to experience what you’ll need to reach this ‘T5’ cache.  </p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -240,7 +240,7 @@ export class Caches {
       new Cache({
         gccode: 'GC8V6XJ',
         name: 'EmberQuest #17 - Highland Cache',
-        description: '<p>Test description</p>',
+        description: '<p>This is a nice easy cache in the Western mountains of the Highlands.  Even at this altitude, you can still hear the echoes of the nearby sea.</p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -254,8 +254,8 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC8V6X6',
-        name: 'EmberQuest #18',
-        description: '<p>Test description</p>',
+        name: 'EmberQuest #18 - Brrr',
+        description: '<p>You should have packed your jacket.  It gets cold high in the hills, especially with the fresh snowfall recently.</p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -269,8 +269,8 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC8V6X7',
-        name: 'EmberQuest #19 - LPC in the Woods',
-        description: '<p>Test description</p>',
+        name: 'EmberQuest #19 - LPC',
+        description: '<p>It’s everyone’s favorite type of hide, right? A LPC in the Woods!?</p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -285,7 +285,7 @@ export class Caches {
       new Cache({
         gccode: 'GC8V6XB',
         name: 'EmberQuest #20 - Autumn Retreat',
-        description: '<p>Test description</p>',
+        description: '<p>The Royal Family often travel to this far away island retreat enjoying the fall colors along their journey.</p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -299,8 +299,8 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC8V6XC',
-        name: 'EmberQuest #21',
-        description: '<p>Test description</p>',
+        name: 'EmberQuest #21 - Unnatural Snowdrift',
+        description: '<p>It appears someone tried to hide a chest but the snow they used has melted away revealing the treasure.</p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -314,8 +314,8 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC8V6XD',
-        name: 'EmberQuest #22',
-        description: '<p>Test description</p>',
+        name: 'EmberQuest #22 - Perseverance',
+        description: '<p>At the end of a very long journey, you shall be rewarded with jewels and treasure!</p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -329,8 +329,8 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC8V6XE',
-        name: 'EmberQuest #23',
-        description: '<p>Test description</p>',
+        name: 'EmberQuest #23 - Skull Island',
+        description: '<p>Pirates have buried a treasure chest somewhere on their Skull Island. Get past the pirates and search the island to find the prize.</p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -344,8 +344,8 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC8V6XF',
-        name: 'EmberQuest #24',
-        description: '<p>Test description</p>',
+        name: 'EmberQuest #24 - Skull Brains',
+        description: '<p>An old chest lies in the quagmire of the head of Skull Island. Put your waders on or those boots will be soaked.</p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -360,7 +360,7 @@ export class Caches {
       new Cache({
         gccode: 'GC8QB0N',
         name: 'EmberQuest #25 - Castle Island',
-        description: '<p>Test description</p>',
+        description: '<p>Welcome to the Castle’s private island in the North.  The huntsmen have taken care of all the wild animals on the island so no worries while you bask in the sun.</p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -375,7 +375,7 @@ export class Caches {
       new Cache({
         gccode: 'GC8V6XK',
         name: 'EmberQuest #26 - Lost Ember Pyramid',
-        description: '<p>Test description</p>',
+        description: '<p>Leave it to a geocacher to find the legendary lost Ember Pyramid!  Enter quietly as to not awaken the residents resting peacefully.</p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -390,7 +390,7 @@ export class Caches {
       new Cache({
         gccode: 'GC8V6XP',
         name: 'EmberQuest #27',
-        description: '<p>Test description</p>',
+        description: '<p></p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -405,7 +405,7 @@ export class Caches {
       new Cache({
         gccode: 'GC8V6XQ',
         name: 'EmberQuest #28',
-        description: '<p>Test description</p>',
+        description: '<p></p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -420,7 +420,7 @@ export class Caches {
       new Cache({
         gccode: 'GC8V6XT',
         name: 'EmberQuest #29',
-        description: '<p>Test description</p>',
+        description: '<p></p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -435,7 +435,7 @@ export class Caches {
       new Cache({
         gccode: 'GC8V6XW',
         name: 'EmberQuest #30',
-        description: '<p>Test description</p>',
+        description: '<p></p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -450,7 +450,7 @@ export class Caches {
       new Cache({
         gccode: 'GC8V6XZ',
         name: 'EmberQuest #31 - Enchanted Ember',
-        description: '<p>Test description</p>',
+        description: '<p></p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',

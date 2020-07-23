@@ -1176,6 +1176,7 @@ export class InventoryItems {
         showEquipButton: false,
         price: 0,
         type: constants.INVENTORY.TYPE.OTHER,
+        cssClazz: 'key',
         name: 'North Gate Key',
         img: '/images/items/key.png',
         description: 'Grants access to the castle via the North entrance'
@@ -1189,12 +1190,44 @@ export class InventoryItems {
         showEquipButton: false,
         price: 0,
         type: constants.INVENTORY.TYPE.OTHER,
+        cssClazz: 'key',
         name: 'South Gate Key',
         img: '/images/items/key.png',
         description: 'Grants access to the castle via the South entrance'
       })
     );
 
+    items.push(
+      new InventoryItem({
+        id: 2502,
+        display: false,
+        showEquipButton: false,
+        price: 0,
+        type: constants.INVENTORY.TYPE.OTHER,
+        cssClazz: 'tome',
+
+        name: 'Marauder Report',
+        img: '/images/items/tomes/scroll.png',
+        description: '<p>They raided during the night when the Watch was wary.</p><p>Unfortunately, those guarding the Royal Ember were caught by surprise and quickly dispatched.</p><p>They stole the artifact and began raiding the remainder of the castle.</p><p>The thieves with the Ember were last seen riding South toward the volcanic island.</p><p>However, I was able to reach the armory before the rest of their crew could loot the cache of arms.</p><p>Specifically, the Legendary Dragon Armor.</p>I quickly dispatched squires to hide the pieces throughout the land.</p><p>If they were able to control the power of the armor, they would be unstoppable.</p><p>Hopefully, a young Hero will come and recover the pieces.</p><p>Finally, they may be and to rescue the Royal Ember, and save the land!</p>',
+        stats: []
+      })
+    );
+
+    items.push(
+      new InventoryItem({
+        id: 2503,
+        display: false,
+        showEquipButton: false,
+        price: 0,
+        type: constants.INVENTORY.TYPE.OTHER,
+        cssClazz: 'tome',
+
+        name: 'Dragon Armor Tome',
+        img: '/images/items/tomes/tome.png',
+        description: '<h3>Legendary Dragon Armor</h3><p>A set of armor and a magical Sword were forged from the parts of the Ancient Red Dragon that once ruled this land.</p><p>Nine separate pieces form the complete set.</p><p>When worn together, it is rumored that the bearer can withstand the heat of a full force dragon\'s breath without harm to the bearer.</p><p>Anything less than a complete set, and they would surely parish</p>',
+        stats: []
+      })
+    );
 
 
 
@@ -1221,12 +1254,13 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: constants.INVENTORY.ROYAL_EMBER_ID,
-        owned: false,
-        display: false,
+        owned: true,
+        display: true,
         showEquipButton: false,
         type: constants.INVENTORY.TYPE.OTHER,
+        cssClazz: 'dragonember',
         name: 'Royal Ember',
-        img: '/images/items/dragon/arms.png',
+        img: '/images/items/other/dragonember.png',
         description: 'TODO',
         stats: []
       })

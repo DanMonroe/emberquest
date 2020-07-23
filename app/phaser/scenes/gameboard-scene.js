@@ -206,6 +206,18 @@ export class GameboardScene extends Phaser.Scene {
       this.ember.gameManager.processClickedTile(tileXY, this.board.tileXYToChessArray(tileXY.x, tileXY.y), this.player.container);
     });
 
+    this.game.events.off('blur').on('blur', () => {
+      this.game.paused = true;
+      this.game.ember.gameManager.gamePaused = true;
+      this.game.ember.showPausedDialog();
+    })
+
+    this.game.events.off('focus').on('focus', () => {
+      this.game.paused = false;
+      this.game.ember.gameManager.gamePaused = false;
+      this.game.ember.closePausedDialog();
+    })
+
     this.game.ember.gameManager.setup(this);
   }
 
@@ -528,6 +540,9 @@ export class GameboardScene extends Phaser.Scene {
   }
 
   update() {
+    if (this.game.paused) {
+      return;
+    }
     // console.log('agents', this.agents)
     if (this.player) this.player.container.update(this.cursors);
     if (this.agents.children) {
