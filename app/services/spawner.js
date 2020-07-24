@@ -121,8 +121,8 @@ export default class SpawnerService extends Service {
           this.spawners.push({
             agentSpawnerIndex: agentSpawnerIndex++,
             type: constants.SPAWNER_TYPE.AGENT,
-            agentLimit: agentSpawnerGroup.locations.length || 1,
-            // agentLimit: agentSpawnerGroup.limit || 1,
+            // agentLimit: agentSpawnerGroup.locations.length || 1,
+            agentLimit: agentSpawnerGroup.limit || 1,
             spawnInterval: agentSpawnerGroup.spawnInterval || 3000
           });
         }
@@ -215,7 +215,7 @@ export default class SpawnerService extends Service {
           randomAgentFromPoolConfig.config = newConfig;
           // Object.assign(randomAgentFromPoolConfig.config, location.config.override)
         }
-
+        console.log('randomAgentFromPoolConfig.config', randomAgentFromPoolConfig.config)
         const agent = new Agent(location.config.x, location.config.y, randomAgentFromPoolConfig.config);
         // const agent = new Agent(location.config.x, location.config.y, Object.assign(locationClone, agentConfigFromPool));
 

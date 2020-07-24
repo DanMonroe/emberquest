@@ -20,11 +20,8 @@ export default class EditorComponent extends Component {
 
   @tracked mapText;
   @tracked mapNumber;
+  @tracked mapDisplayName;
   @tracked mapImage;
-  // @tracked mapNorth;
-  // @tracked mapWest;
-  // @tracked mapEast;
-  // @tracked mapSouth;
   @tracked mapArray;
   @tracked hexesTextArray;
   @tracked hexRowsTextArray;
@@ -132,6 +129,9 @@ export default {
   },
 
   mapUrl: '/images/maps/${this.mapImageName}',
+
+  mapDisplayName: '${this.mapDisplayName}',
+  showMapDisplayName: true,
 
   chests: [
     // {id: 1, x: 10, y: 3, gccode: 'GC002', gold: 20, specialActions: [], inventory: [2002]}

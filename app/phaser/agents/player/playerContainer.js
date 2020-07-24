@@ -151,7 +151,7 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
       costCallback: (curTile, targetTile, pathFinder) => {
         // pathFinder.gameObject is 'this'  i.e., this Player object
         const travelFlags = this.ember.map.getTileAttribute(pathFinder.chessData.board.scene, targetTile, 'tF');
-        console.error('pathFinder costCallback', curTile, targetTile, pathFinder, travelFlags);
+        // console.error('pathFinder costCallback', curTile, targetTile, pathFinder, travelFlags);
 
 
         return travelFlags ? 100 : 0;

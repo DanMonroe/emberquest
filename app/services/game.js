@@ -233,7 +233,7 @@ export default class GameService extends Service {
   }
 
   async loadSettingsData() {
-    console.log('loading settings');
+    // console.log('loading settings');
     const settingsData = await this.loadGameData('settings') || {};
     if (settingsData) {
       this.gameManager.mutedSoundEffectsVolume = settingsData.mutedSoundEffectsVolume || false;
@@ -359,7 +359,7 @@ export default class GameService extends Service {
   }
 
   processPlayerMove(playerContainer, moveTo, fieldOfViewTileXYArray) {
-    this.embarkOrDisembarkTransport(playerContainer);
+    this.embarkOrDisembarkTransport(playerContainer, moveTo);
     this.checkForPortal(playerContainer, moveTo);
     this.checkForAgents(playerContainer, moveTo, fieldOfViewTileXYArray);
     // this.checkForSpecial(playerContainer, moveTo);
@@ -367,7 +367,7 @@ export default class GameService extends Service {
   }
 
 
-  embarkOrDisembarkTransport(playerContainer) {
+  embarkOrDisembarkTransport(playerContainer, moveTo) {
     if (playerContainer.disembarkTransport) {
 // console.log('disembark')
       this.turnOffPlayerTravelAbilityFlag(playerContainer, playerContainer.boardedTransport.agent.playerConfig.flagAttributes.tF);
@@ -378,6 +378,7 @@ export default class GameService extends Service {
 
       playerContainer.boardedTransport = undefined;
       playerContainer.disembarkTransport = false;
+      this.setSpawnTile(playerContainer);
     } else if (playerContainer.embarkTransport) {
 // console.log('embark')
       playerContainer.boardedTransport = playerContainer.transportToBoard;
@@ -390,7 +391,12 @@ export default class GameService extends Service {
 
       playerContainer.embarkTransport = false;
       playerContainer.transportToBoard = undefined;
+      this.setSpawnTile(playerContainer);
     }
+  }
+
+  setSpawnTile(playerContainer) {
+    playerContainer.scene.spawnTile = {x:playerContainer.rexChess.tileXYZ.x, y:playerContainer.rexChess.tileXYZ.y, sF: playerContainer.data.get('attrs').sF, tF: playerContainer.data.get('attrs').tF}
   }
 
   checkForPortal(playerContainer, moveTo) {
@@ -444,7 +450,6 @@ export default class GameService extends Service {
 
         moveTo.scene.cameras.main.fade(300, 0, 0, 0);
         moveTo.scene.cameras.main.on('camerafadeoutcomplete', async () => {
-
           // const gameData = await this.loadGameData('gameboard')
           this.loadGameData('gameboard')
             .then(gameboardData => {
@@ -470,8 +475,8 @@ export default class GameService extends Service {
                   'gameboardData': gameboardData,
                   'sceneData': sceneData,
 
-                  'storedPlayerTile': {x: tileIsPortal.x || 10, y: tileIsPortal.y || 10},
-                  'spawnTile': {x: tileIsPortal.x, y: tileIsPortal.y},
+                  'storedPlayerTile': {x: tileIsPortal.x, y: tileIsPortal.y},
+                  'spawnTile': {x: tileIsPortal.x, y: tileIsPortal.y, sF: gameboardData.playerAttrs.sF || 0, tF: gameboardData.playerAttrs.tF || 2},
                   'storedPlayerAttrs': gameboardData.playerAttrs,
                   'allSeenTiles': sceneData.seenTiles,
                   'storedTransports': sceneData.transports,
@@ -483,7 +488,7 @@ export default class GameService extends Service {
                 // moveTo.scene.scene.restart(data);
 
                 this.map.getDynamicMapData(data.map).then(mapData => {
-                  // console.log('mapData', mapData);
+                  console.log('mapData', mapData);
                   data.mapData = mapData;
 
                   moveTo.scene.scene.start('gameboard', data);
@@ -568,6 +573,7 @@ export default class GameService extends Service {
         break;
       case constants.FLAGS.SPECIAL.NEST.value:
       case constants.FLAGS.SPECIAL.PORTAL.value:
+      case constants.FLAGS.SPECIAL.DOCK.value:
         // do nothing
         break;
       default:

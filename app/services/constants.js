@@ -30,7 +30,8 @@ const constants = Object.freeze({
       REST: 0,
       ATTACK: 1,
       RANGE: 2,
-      MOVE: 3
+      MOVE: 3,
+      DEATH: 4
     }
   },
 

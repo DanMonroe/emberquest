@@ -23,22 +23,51 @@ module.exports = function(environment) {
     },
 
     game: {
-      // startingMapIndex: 1,
-      // // startingMapIndex: 2,
-      // enableGameSounds: false,
-      // gameClockEnabled: false,
       modalsDuration: 600,  // transition time for drop down modals
-      // transport: {
-      //   moveQueueEnabled: true,
-      // },
-      // board: {
-      //   showTileGraphics: true,
-      //   showTileHexInfo: false,
-      //   showDebugLayer: false,
-      //   showScrollRectangle: false,
-      //   showFieldOfViewLayer: true,
-      //   pathFindingDebug: false
-      // }
+      pauseOnBlur: true,
+
+      playerConfig: {
+        // playerX: playerTile.x,
+        // playerY: playerTile.y,
+        texture: 'player',
+        textureSize: { width: 42, height: 42},
+        scale: .15,
+        face: 0,
+        coneMode: 'direction',
+        cone: 6,
+        speed: 125,
+        sightRange: 3,   // this is sight/movement Range
+        movingPoints: 3,   // this is sight/movement Range
+        visiblePoints: 5,   // this is sight/movement Range
+
+        gold: 15,
+        health: 20,
+        baseHealingPower: 2,
+        baseHealingSpeed: 2500,
+        energizeSpeed : 2000,
+        energizePower: 2,
+        power: 102,
+        id: 'player1',
+        // playerAttackAudio: undefined, // when ready, get from Boot scene  --- actually should get from the weapon the player is using.
+
+        // flagAttributes: {
+        //   sF: (this.storedData.storedPlayerAttrs && this.storedData.storedPlayerAttrs.sF) || 0,
+        //   tF: (this.storedData.storedPlayerAttrs && this.storedData.storedPlayerAttrs.tF) || this.ember.constants.FLAGS.TRAVEL.LAND.value
+        // },
+        offsets: {
+          img: { x: 0, y: 0 },
+          healthbar: { x: 0, y: 0 },
+          name: { x: 0, y: 0 },
+          damage: { x: 0, y: 0 }
+        },
+        // storedPlayerAttrs: this.storedData.storedPlayerAttrs,
+
+        // debug: {
+        //   // graphics: this.add.graphics().setDepth(10),
+        //   log: false,
+        //   override: this.ember.debug || {level:null,gold:null}
+        // }
+      }
     }
   };
 
@@ -52,6 +81,9 @@ module.exports = function(environment) {
     ENV['ember-cli-mirage'] = {
       enabled: false
     };
+
+    ENV.game.pauseOnBlur = false;
+    ENV.game.playerConfig.speed = 500;
   }
 
   if (environment === 'test') {

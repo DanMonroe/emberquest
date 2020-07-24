@@ -5,7 +5,7 @@ import { tracked } from '@glimmer/tracking';
 import { timeout } from 'ember-concurrency';
 import { task, enqueueTask, restartableTask } from 'ember-concurrency-decorators';
 import { constants } from 'emberquest/services/constants';
-
+import config from 'emberquest/config/environment';
 
 export default class GameManagerService extends Service {
   @service('spawner') spawnerService;
@@ -31,6 +31,8 @@ export default class GameManagerService extends Service {
   @tracked xpGainedCounter = 0;
   @tracked gemsGainedCounter = 0;
   @tracked xpTotal = 20;
+  @tracked mapDisplayName = '';
+  @tracked showMapDisplayName = true;
 
   scene = undefined;
   ember = undefined;
@@ -53,6 +55,8 @@ export default class GameManagerService extends Service {
     this.scene = scene;
     this.ember = scene.ember;
     this.storedData = scene.storedData;
+    this.mapDisplayName = scene.mapData.mapDisplayName;
+    this.showMapDisplayName = scene.mapData.showMapDisplayName;
     this.setupEventListener();
     this.setupSpawners();
     this.spawnPlayer();
@@ -61,6 +65,13 @@ export default class GameManagerService extends Service {
     this.gameClock.perform();
   }
 
+  get getMapDisplayName() {
+    if (this.showMapDisplayName) {
+      return this.mapDisplayName;
+    } else {
+      return '';
+    }
+  }
   get levelStartXP() {
     return this.player ? this.getExperienceFromLevel(this.player.level) : 0;
   }
@@ -158,94 +169,147 @@ export default class GameManagerService extends Service {
       }
     }
 
-    this.playerConfig = {
-      playerX: playerTile.x,
-      playerY: playerTile.y,
-      texture: 'player',
-      textureSize: { width: 42, height: 42},
-      // scale: 0.1,
-      scale: .15,
-      // scale: 1.5,
-      face: 0,
-      coneMode: 'direction',
-      cone: 6,
-      speed: 125,
-      // sightRange: 30,   // this is sight/movement Range
-      sightRange: 3,   // this is sight/movement Range
-      movingPoints: 3,   // this is sight/movement Range
-      // visiblePoints: 8,   // this is sight/movement Range
-      visiblePoints: 5,   // this is sight/movement Range
-      // visiblePoints: 5.1,   // this is sight/movement Range
+    const combinedPlayerConfig = Object.assign({}, config.game.playerConfig,
+      {
+        playerX: playerTile.x,
+        playerY: playerTile.y,
+        // playerAttackAudio: undefined, // when ready, get from Boot scene  --- actually should get from the weapon the player is using.
 
-      gold: 15,
+        flagAttributes: {
+          sF: (this.storedData.storedPlayerAttrs && this.storedData.storedPlayerAttrs.sF) || 0,
+          tF: (this.storedData.storedPlayerAttrs && this.storedData.storedPlayerAttrs.tF) || this.ember.constants.FLAGS.TRAVEL.LAND.value
+        },
+        storedPlayerAttrs: this.storedData.storedPlayerAttrs,
 
-      // health: 2,
-      health: 20,
-      // maxHealth: 200,
-      // healingPower: 5,
-      // healingSpeed: 2500,
+        costCallback:  (tileXY) => {
 
-      baseHealingPower: 2,
-      baseHealingSpeed: 2500,
+          let totalSightCost = this.ember.map.getTileAttribute(this.scene, tileXY, 'sC');
 
+          // can't see past this hex (but CAN see this hex)
+          if (totalSightCost === this.ember.constants.FLAGS.SIGHT.IMPASSABLE.value) {
+            return this.ember.playerContainer.fov.BLOCKER;
+          }
 
-      energizeSpeed : 2000,
-      energizePower: 2,
-      power: 102,
-      // maxPower: 50,
-      id: 'player1',
-      playerAttackAudio: undefined, // when ready, get from Boot scene  --- actually should get from the weapon the player is using.
-
-      flagAttributes: {
-        sF: (this.storedData.storedPlayerAttrs && this.storedData.storedPlayerAttrs.sF) || 0,
-        tF: (this.storedData.storedPlayerAttrs && this.storedData.storedPlayerAttrs.tF) || this.ember.constants.FLAGS.TRAVEL.LAND.value
-      },
-      offsets: {
-        img: { x: 0, y: 0 },
-        healthbar: { x: 0, y: 0 },
-        name: { x: 0, y: 0 },
-        damage: { x: 0, y: 0 }
-      },
-      storedPlayerAttrs: this.storedData.storedPlayerAttrs,
-
-      costCallback:  (tileXY) => {
-
-        let totalSightCost = this.ember.map.getTileAttribute(this.scene, tileXY, 'sC');
-
-        // can't see past this hex (but CAN see this hex)
-        if (totalSightCost === this.ember.constants.FLAGS.SIGHT.IMPASSABLE.value) {
-          return this.ember.playerContainer.fov.BLOCKER;
-        }
-
-        if (this.ember.map.tileIsDoor(this.scene, tileXY)) {
-          const portalSpecialAttr = this.ember.map.getTileAttribute(this.scene, tileXY, 'spcl');
-          totalSightCost += portalSpecialAttr.sC;
-        }
-        // console.log('wesnoth', wesnoth, 'totalSightCost', totalSightCost, tileXY)
-        // let wesnoth = this.ember.map.getTileAttribute(this.scene, tileXY, 'w');
-        // if (wesnoth === 'Md') {
-        //   console.log('Mountain');
+          if (this.ember.map.tileIsDoor(this.scene, tileXY)) {
+            const portalSpecialAttr = this.ember.map.getTileAttribute(this.scene, tileXY, 'spcl');
+            totalSightCost += portalSpecialAttr.sC;
+          }
+          // console.log('wesnoth', wesnoth, 'totalSightCost', totalSightCost, tileXY)
+          // let wesnoth = this.ember.map.getTileAttribute(this.scene, tileXY, 'w');
+          // if (wesnoth === 'Md') {
+          //   console.log('Mountain');
           // return null;
           // totalSightCost += 10;
-        // }
-        return totalSightCost;
-      },
-      preTestCallback: (tileXYArray) => {
-        // console.log('preTestCallback', tileXYArray, visiblePoints, fieldOfView)
+          // }
+          return totalSightCost;
+        },
+        preTestCallback: (tileXYArray) => {
+          // console.log('preTestCallback', tileXYArray, visiblePoints, fieldOfView)
 
-        // Limit sight range tp player's sightRange
-        // array includes player hex so add one
-        // return tileXYArray.length <= (this.playerConfig.sightRange + 1);
-        return tileXYArray.length <= (this.player.container.sightRange + 1);
-        // return tileXYArray.length <= (this.player.sightRange + 1);
-      },
+          // Limit sight range tp player's sightRange
+          // array includes player hex so add one
+          // return tileXYArray.length <= (this.playerConfig.sightRange + 1);
+          return tileXYArray.length <= (this.player.container.sightRange + 1);
+          // return tileXYArray.length <= (this.player.sightRange + 1);
+        },
 
-      debug: {
-        // graphics: this.add.graphics().setDepth(10),
-        log: false,
-        override: this.ember.debug || {level:null,gold:null}
-      }
-    };
+        debug: {
+          // graphics: this.add.graphics().setDepth(10),
+          log: false,
+          override: this.ember.debug || {level:null,gold:null}
+        }
+      });
+
+    this.playerConfig = combinedPlayerConfig;
+
+    // this.playerConfig = {
+    //   playerX: playerTile.x,
+    //   playerY: playerTile.y,
+    //   texture: 'player',
+    //   textureSize: { width: 42, height: 42},
+    //   // scale: 0.1,
+    //   scale: .15,
+    //   // scale: 1.5,
+    //   face: 0,
+    //   coneMode: 'direction',
+    //   cone: 6,
+    //   speed: 125,
+    //   // sightRange: 30,   // this is sight/movement Range
+    //   sightRange: 3,   // this is sight/movement Range
+    //   movingPoints: 3,   // this is sight/movement Range
+    //   // visiblePoints: 8,   // this is sight/movement Range
+    //   visiblePoints: 5,   // this is sight/movement Range
+    //   // visiblePoints: 5.1,   // this is sight/movement Range
+    //
+    //   gold: 15,
+    //
+    //   // health: 2,
+    //   health: 20,
+    //   // maxHealth: 200,
+    //   // healingPower: 5,
+    //   // healingSpeed: 2500,
+    //
+    //   baseHealingPower: 2,
+    //   baseHealingSpeed: 2500,
+    //
+    //
+    //   energizeSpeed : 2000,
+    //   energizePower: 2,
+    //   power: 102,
+    //   // maxPower: 50,
+    //   id: 'player1',
+    //   playerAttackAudio: undefined, // when ready, get from Boot scene  --- actually should get from the weapon the player is using.
+    //
+    //   flagAttributes: {
+    //     sF: (this.storedData.storedPlayerAttrs && this.storedData.storedPlayerAttrs.sF) || 0,
+    //     tF: (this.storedData.storedPlayerAttrs && this.storedData.storedPlayerAttrs.tF) || this.ember.constants.FLAGS.TRAVEL.LAND.value
+    //   },
+    //   offsets: {
+    //     img: { x: 0, y: 0 },
+    //     healthbar: { x: 0, y: 0 },
+    //     name: { x: 0, y: 0 },
+    //     damage: { x: 0, y: 0 }
+    //   },
+    //   storedPlayerAttrs: this.storedData.storedPlayerAttrs,
+    //
+    //   costCallback:  (tileXY) => {
+    //
+    //     let totalSightCost = this.ember.map.getTileAttribute(this.scene, tileXY, 'sC');
+    //
+    //     // can't see past this hex (but CAN see this hex)
+    //     if (totalSightCost === this.ember.constants.FLAGS.SIGHT.IMPASSABLE.value) {
+    //       return this.ember.playerContainer.fov.BLOCKER;
+    //     }
+    //
+    //     if (this.ember.map.tileIsDoor(this.scene, tileXY)) {
+    //       const portalSpecialAttr = this.ember.map.getTileAttribute(this.scene, tileXY, 'spcl');
+    //       totalSightCost += portalSpecialAttr.sC;
+    //     }
+    //     // console.log('wesnoth', wesnoth, 'totalSightCost', totalSightCost, tileXY)
+    //     // let wesnoth = this.ember.map.getTileAttribute(this.scene, tileXY, 'w');
+    //     // if (wesnoth === 'Md') {
+    //     //   console.log('Mountain');
+    //       // return null;
+    //       // totalSightCost += 10;
+    //     // }
+    //     return totalSightCost;
+    //   },
+    //   preTestCallback: (tileXYArray) => {
+    //     // console.log('preTestCallback', tileXYArray, visiblePoints, fieldOfView)
+    //
+    //     // Limit sight range tp player's sightRange
+    //     // array includes player hex so add one
+    //     // return tileXYArray.length <= (this.playerConfig.sightRange + 1);
+    //     return tileXYArray.length <= (this.player.container.sightRange + 1);
+    //     // return tileXYArray.length <= (this.player.sightRange + 1);
+    //   },
+    //
+    //   debug: {
+    //     // graphics: this.add.graphics().setDepth(10),
+    //     log: false,
+    //     override: this.ember.debug || {level:null,gold:null}
+    //   }
+    // };
 
 
     this.player = new Player(this.scene, this.playerConfig);
@@ -270,8 +334,8 @@ export default class GameManagerService extends Service {
     return spriteShapes.length > 0 ? spriteShapes[0] : null;
   }
 
-  playSound(soundObj) {
-    if (!this.gamePaused) {
+  playSound(soundObj, forcePlay) {
+    if (forcePlay || !this.gamePaused) {
       console.log('gameManager playSound', soundObj, this.soundEffectsVolume)
       console.count('gameManager playSound')
 
@@ -513,6 +577,10 @@ export default class GameManagerService extends Service {
     await this.modals.open('death-dialog', {playerDead:true});
 
     this.scene.board.moveChess(playerContainer, scene.spawnTile.x, scene.spawnTile.y);
+    if(playerContainer.boardedTransport){  // move the transport too
+      this.scene.board.moveChess(playerContainer.boardedTransport, scene.spawnTile.x, scene.spawnTile.y);
+    }
+
     let fieldOfViewTileXYArray = playerContainer.fov.findFOV(playerContainer.visiblePoints);
     this.scene.game.ember.map.findAgentFieldOfView(playerContainer, fieldOfViewTileXYArray);
 

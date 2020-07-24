@@ -30,14 +30,7 @@ export class InventoryItems {
         audioMelee: {key: 'chink'},
         audioMiss: {key: 'sword_miss'}
 
-        // audio: {
-        //   attack: {
-        //     miss: {
-        //       name: {key: 'sword_miss'}
-        //     }
-        //   }
-        // }
-      })
+})
     );
 
     items.push(
@@ -61,14 +54,7 @@ export class InventoryItems {
         audioMelee: {key: 'chink'},
         audioMiss: {key: 'sword_miss'}
 
-        // audio: {
-        //   attack: {
-        //     miss: {
-        //       name: {key: 'sword_miss'}
-        //     }
-        //   }
-        // }
-      })
+})
     );
 
     items.push(
@@ -93,14 +79,7 @@ export class InventoryItems {
         audioMelee: {key: 'chink'},
         audioMiss: {key: 'sword_miss'}
 
-        // audio: {
-        //   attack: {
-        //     miss: {
-        //       name: {key: 'sword_miss'}
-        //     }
-        //   }
-        // }
-      })
+})
     );
 
     items.push(
@@ -125,14 +104,7 @@ export class InventoryItems {
         audioMelee: {key: 'chink'},
         audioMiss: {key: 'sword_miss'}
 
-        // audio: {
-        //   attack: {
-        //     miss: {
-        //       name: {key: 'sword_miss'}
-        //     }
-        //   }
-        // }
-      })
+})
     );
 
     items.push(
@@ -157,14 +129,7 @@ export class InventoryItems {
         audioMelee: {key: 'chink'},
         audioMiss: {key: 'sword_miss'}
 
-        // audio: {
-        //   attack: {
-        //     miss: {
-        //       name: {key: 'sword_miss'}
-        //     }
-        //   }
-        // }
-      })
+})
     );
 
     items.push(
@@ -188,14 +153,7 @@ export class InventoryItems {
         audioRanged: {key: 'throwknife'},
         audioMelee: {key: 'chink'},
         audioMiss: {key: 'sword_miss'}
-        // audio: {
-        //   attack: {
-        //     miss: {
-        //       name: {key: 'sword_miss'}
-        //     }
-        //   }
-        // }
-      })
+})
     );
 
     items.push(
@@ -219,14 +177,7 @@ export class InventoryItems {
         audioRanged: {key: 'throwknife'},
         audioMelee: {key: 'chink'},
         audioMiss: {key: 'sword_miss'}
-        // audio: {
-        //   attack: {
-        //     miss: {
-        //       name: {key: 'sword_miss'}
-        //     }
-        //   }
-        // }
-      })
+})
     );
 
     items.push(
@@ -251,14 +202,7 @@ export class InventoryItems {
         audioMelee: {key: 'chink'},
         audioMiss: {key: 'sword_miss'}
 
-        // audio: {
-        //   attack: {
-        //     miss: {
-        //       name: {key: 'sword_miss'}
-        //     }
-        //   }
-        // }
-      })
+})
     );
 
     items.push(
@@ -283,14 +227,7 @@ export class InventoryItems {
         audioMelee: {key: 'chink'},
         audioMiss: {key: 'sword_miss'}
 
-        // audio: {
-        //   attack: {
-        //     miss: {
-        //       name: {key: 'sword_miss'}
-        //     }
-        //   }
-        // }
-      })
+})
     );
 
     items.push(
@@ -315,14 +252,7 @@ export class InventoryItems {
         audioMelee: {key: 'chink'},
         audioMiss: {key: 'sword_miss'}
 
-        // audio: {
-        //   attack: {
-        //     miss: {
-        //       name: {key: 'sword_miss'}
-        //     }
-        //   }
-        // }
-      })
+})
     );
 
 
@@ -331,7 +261,7 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: 5000,
-        name: 'Simple Sword',
+        name: 'Simple Sword',// TODO fix?
         type: constants.INVENTORY.TYPE.MONSTER,
         bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
         stats: [
@@ -342,19 +272,12 @@ export class InventoryItems {
         audioRanged: {key: 'throwknife'},
         audioMelee: {key: 'chink'},
         audioMiss: {key: 'sword_miss'}
-        // audio: {
-        //   attack: {
-        //     miss: {
-        //       name: {key: 'sword_miss'}
-        //     }
-        //   }
-        // }
-      })
+})
     );
     items.push(
       new InventoryItem({
         id: 5001,
-        name: 'Spider Fang',
+        name: 'Spider Fang',// TODO fix?
         type: constants.INVENTORY.TYPE.MONSTER,
         bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
         stats: [
@@ -365,19 +288,12 @@ export class InventoryItems {
         audioRanged: {key: 'throwknife'},
         audioMelee: {key: 'bite'},
         audioMiss: {key: 'sword_miss'}
-        // audio: {
-        //   attack: {
-        //     miss: {
-        //       name: {key: 'sword_miss'}
-        //     }
-        //   }
-        // }
-      })
+})
     );
     items.push(
       new InventoryItem({
         id: 5002,
-        name: 'Spider Web',
+        name: 'Spider Web', // TODO fix?
         type: constants.INVENTORY.TYPE.MONSTER,
         bodypart: constants.INVENTORY.BODYPART.RANGED,
         projectileImg: 'ball',
@@ -391,13 +307,6 @@ export class InventoryItems {
         audioMelee: {key: 'bite'},
         audioMiss: {key: 'sword_miss'}
 
-        // audio: {
-        //   attack: {
-        //     miss: {
-        //       name: {key: 'sword_miss'}
-        //     }
-        //   }
-        // }
       })
     );
     items.push(
@@ -409,19 +318,12 @@ export class InventoryItems {
         stats: [
           new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 3}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 3}),
-          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.9})
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
         ],
         audioRanged: {key: 'throwknife'},
         audioMelee: {key: 'bite'},
         audioMiss: {key: 'sword_miss'}
-        // audio: {
-        //   attack: {
-        //     miss: {
-        //       name: {key: 'sword_miss'}
-        //     }
-        //   }
-        // }
-      })
+})
     );
     items.push(
       new InventoryItem({
@@ -450,12 +352,62 @@ export class InventoryItems {
         // audioMiss: {key: 'sword_miss'}
       })
     );
+    items.push(
+      new InventoryItem({
+        id: 5006,
+        name: {key: 'branch'},
+        type: constants.INVENTORY.TYPE.MONSTER,
+        bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 5}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 3}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.3})
+        ],
+        // audioMelee: {key: 'bite'},
+        audioMiss: {key: 'sword_miss'}
+      })
+    );
+
+    items.push(
+      new InventoryItem({
+        id: 5007,
+        name: {key: 'flame'},
+        type: constants.INVENTORY.TYPE.MONSTER,
+        bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 5}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 3}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.3})
+        ],
+        audioMelee: {key: 'flamestrike'},
+        audioMiss: {key: 'sword_miss'}
+      })
+    );
+
+    items.push(
+      new InventoryItem({
+        id: 5008,
+        name: {key: 'punch'},
+        type: constants.INVENTORY.TYPE.MONSTER,
+        bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 5}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 3}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.3})
+        ],
+        audioMelee: {key: 'punch'},
+        audioMiss: {key: 'sword_miss'}
+      })
+    );
+
+
+
 
     // Monster Ranged
     items.push(
       new InventoryItem({
         id: 5100,
-        name: 'Ship Cannon',
+        name: 'Ship Cannon',// TODO fix?
         type: constants.INVENTORY.TYPE.MONSTER,
         bodypart: constants.INVENTORY.BODYPART.RANGED,
         projectileImg: 'ball',
@@ -479,7 +431,7 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: 5101,
-        name: 'Tower',
+        name: 'Tower',// TODO fix?
         type: constants.INVENTORY.TYPE.MONSTER,
         bodypart: constants.INVENTORY.BODYPART.RANGED,
         projectileImg: 'ball',
@@ -501,13 +453,40 @@ export class InventoryItems {
         audioMelee: {key: 'chink'},
         audioMiss: {key: 'arrow'}
 
-        // audio: {
-        //   attack: {
-        //     miss: {
-        //       name: {key: 'sword_miss'}
-        //     }
-        //   }
-        // }
+})
+    );
+    items.push(
+      new InventoryItem({
+        id: 5102,
+        name: {key: 'flamerange'},
+        type: constants.INVENTORY.TYPE.MONSTER,
+        bodypart: constants.INVENTORY.BODYPART.RANGED,
+        projectileImg: 'ball',
+        projectileScale: 0.4,
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 3}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.8})
+        ],
+        audioRanged: {key: 'fireball'},
+        audioMiss: {key: 'sword_miss'}
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: 5103,
+        name: {key: 'bow'},
+        type: constants.INVENTORY.TYPE.MONSTER,
+        bodypart: constants.INVENTORY.BODYPART.RANGED,
+        projectileImg: 'ball',
+        projectileScale: 0.4,
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 3}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.8})
+        ],
+        audioRanged: {key: 'arrow'},
+        audioMiss: {key: 'sword_miss'}
       })
     );
 

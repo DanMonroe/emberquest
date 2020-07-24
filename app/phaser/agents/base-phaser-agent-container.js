@@ -60,12 +60,17 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
     this.pathFinder = scene.rexBoard.add.pathFinder(this, {
       occupiedTest: true,
       pathMode: 'A*',
+      weight: 100,
       blockerTest: true,
       costCallback: (curTile, targetTile, pathFinder) => {
         const travelFlags = this.ember.map.getTileAttribute(pathFinder.chessData.board.scene, targetTile, 'tF');
+        const speedCost = this.ember.map.getTileAttribute(pathFinder.chessData.board.scene, targetTile, 'spdC');
         const canMove = this.ember.playerHasAbilityFlag(this, this.ember.constants.FLAG_TYPE_TRAVEL, travelFlags);
+  // console.log('speedCost', speedCost, targetTile)
+        return canMove ? speedCost : undefined; // undefined is a "blocker"
+        // return canMove ? 1 : undefined; // undefined is a "blocker"
 
-        return canMove ? 1 : undefined; // undefined is a "blocker"
+        // TODO experiment with returning the spdC speed cost instead?
       },
 
     });

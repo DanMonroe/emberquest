@@ -105,6 +105,9 @@ export default class AgentContainer extends BasePhaserAgentContainer {
       if (this.config.animeframes.range) {
         this.createAnimation(this.config.animeframes.range);
       }
+      if (this.config.animeframes.death) {
+        this.createAnimation(this.config.animeframes.death);
+      }
     }
 
     agentSprite.on('animationcomplete',  (anim, frame) => {
@@ -122,6 +125,11 @@ export default class AgentContainer extends BasePhaserAgentContainer {
     }
     if (this.config.animeframes.range) {
       agentSprite.on('animationcomplete-range', () => {
+        this.playAnimation(this.ember.constants.ANIMATION.KEY.REST);
+      });
+    }
+    if (this.config.animeframes.death) {
+      agentSprite.on('animationcomplete-death', () => {
         this.playAnimation(this.ember.constants.ANIMATION.KEY.REST);
       });
     }
@@ -153,6 +161,12 @@ export default class AgentContainer extends BasePhaserAgentContainer {
         if (this.config.animeframes.range) {
           this.stopAnimation();
           this.phaserAgentSprite.anims.play(this.config.animeframes.range.key);
+        }
+        break;
+      case this.ember.constants.ANIMATION.KEY.DEATH:
+        if (this.config.animeframes.death) {
+          this.stopAnimation();
+          this.phaserAgentSprite.anims.play(this.config.animeframes.death.key);
         }
         break;
       default:
@@ -432,14 +446,12 @@ export default class AgentContainer extends BasePhaserAgentContainer {
             yield timeout(this.ember.constants.BASE_ATTACK_TIMEOUT); // cooldown
           }
 
-        } else {
-
         }
         break;
       case this.ember.constants.AGENTSTATE.MELEE:
         // console.log('Agent Melee Attack!');
         // equippedMeleeWeapon = this.agent.equippedMeleeWeapon;
-        // console.log('agent equippedMeleeWeapon', equippedMeleeWeapon.name, equippedMeleeWeapon)
+        // console.log('agent equippedMeleeWeapon', equippedMeleeWeapon.name, equippedMeleeWeapon.attackSpeed, equippedMeleeWeapon)
         if (equippedMeleeWeapon) {
           if (this.agent.power < equippedMeleeWeapon.powerUse) {
             console.warn(`Not enough power to wield ${equippedMeleeWeapon.name}`);

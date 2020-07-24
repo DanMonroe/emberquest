@@ -4,11 +4,14 @@ import Door from '../door';
 import Projectiles from '../groups/projectiles';
 import Projectile from "../groups/projectile";
 import SignPost from "../signpost";
+import config from 'emberquest/config/environment';
 
 export class GameboardScene extends Phaser.Scene {
 
   ember = undefined;
   mapData = undefined;
+  mapDisplayName = undefined;
+  showMapDisplayName = true;
   lastSeenTiles = new Set();
   allSeenTiles = new Set();
 
@@ -46,6 +49,8 @@ export class GameboardScene extends Phaser.Scene {
   init(data){
     // console.log('gameboard init', data)
     this.mapname = data.map;
+    this.mapDisplayName = data.mapData.mapDisplayName;
+    this.showMapDisplayName = data.mapData.showMapDisplayName;
     this.mapData = data.mapData;
     this.storedData = data;
     this.storedPlayerTile = data.storedPlayerTile;
@@ -59,7 +64,7 @@ export class GameboardScene extends Phaser.Scene {
 
     // save the tile where we first saw this scene.
     if (data.spawnTile && data.spawnTile) {
-      this.spawnTile = {x: data.spawnTile.x, y: data.spawnTile.y};
+      this.spawnTile = {x: data.spawnTile.x, y: data.spawnTile.y, sF: data.storedPlayerAttrs.sF || 0, tF: data.storedPlayerAttrs.tF || 2};  // 2 LAND
     }
   }
 
@@ -206,24 +211,27 @@ export class GameboardScene extends Phaser.Scene {
       this.ember.gameManager.processClickedTile(tileXY, this.board.tileXYToChessArray(tileXY.x, tileXY.y), this.player.container);
     });
 
-    this.game.events.off('blur').on('blur', () => {
-      this.game.paused = true;
-      this.game.ember.gameManager.gamePaused = true;
-      this.game.ember.showPausedDialog();
-    })
+    if (config.game.pauseOnBlur) {
 
-    this.game.events.off('focus').on('focus', () => {
-      this.game.paused = false;
-      this.game.ember.gameManager.gamePaused = false;
-      this.game.ember.closePausedDialog();
-    })
+      this.game.events.off('blur').on('blur', () => {
+        this.game.paused = true;
+        this.game.ember.gameManager.gamePaused = true;
+        this.game.ember.showPausedDialog();
+      });
+
+      this.game.events.off('focus').on('focus', () => {
+        this.game.paused = false;
+        this.game.ember.gameManager.gamePaused = false;
+        this.game.ember.closePausedDialog();
+      });
+    }
 
     this.game.ember.gameManager.setup(this);
   }
 
   spawnPlayer(playerObject) {
     this.player = playerObject;
-    console.log('spawnPlayer', playerObject.playerConfig.playerX, playerObject.playerConfig.playerY)
+    // console.log('spawnPlayer', playerObject.playerConfig.playerX, playerObject.playerConfig.playerY)
     this.board.addChess(playerObject.container, playerObject.playerConfig.playerX, playerObject.playerConfig.playerY, this.ember.constants.TILEZ_PLAYER);
 
     playerObject.container.fov = this.rexBoard.add.fieldOfView(playerObject.container, playerObject.playerConfig);
@@ -281,7 +289,7 @@ export class GameboardScene extends Phaser.Scene {
   createDoors() {
     if (this.mapData.doors) {
       this.mapData.doors.forEach(doorObj => {
-        console.log('DoorObj', doorObj)
+        // console.log('DoorObj', doorObj)
         if (doorObj.hideIfCacheFound && this.ember.cache.isCacheFound(doorObj.hideIfCacheFound)) {
           // don't add door
           return;
@@ -329,7 +337,7 @@ export class GameboardScene extends Phaser.Scene {
   createSprites() {
     if (this.mapData.sprites) {
       this.mapData.sprites.forEach(spriteObj => {
-        console.log('spriteObj', spriteObj)
+        // console.log('spriteObj', spriteObj)
 
         const sprite = this.add.sprite(0, 0, spriteObj.texture, spriteObj.firstFrame);
         if (spriteObj.offsets && spriteObj.offsets.img) {

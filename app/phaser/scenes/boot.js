@@ -163,7 +163,7 @@ export class BootScene extends Phaser.Scene {
 
           this.game.ember.gameData.transports = gameboardData.transports;
           if (gameboardData.playerAttrs) {
-            this.game.ember.placedBrazier = gameboardData.playerAttrs.re;
+            this.game.ember.placedBrazier = gameboardData.playerAttrs.re;  // Royal Ember
           }
 
           gameboardData.currentMap = overrideMapImage || gameboardData.currentMap
@@ -174,7 +174,7 @@ export class BootScene extends Phaser.Scene {
             'overrideMap': this.game.ember.overrideMap,
             'gameboardData': gameboardData,
             'sceneData': sceneData,
-            'spawnTile': sceneData.spawnTile ? {x: sceneData.spawnTile.x, y: sceneData.spawnTile.y} : {},
+            'spawnTile': sceneData.spawnTile ? {x: sceneData.spawnTile.x, y: sceneData.spawnTile.y, sF: gameboardData.playerAttrs.sF, tF: gameboardData.playerAttrs.tF } : {},
             'storedPlayerTile': gameboardData.playerTile,
             'storedPlayerAttrs': gameboardData.playerAttrs,
             'allSeenTiles': sceneData.seenTiles,
@@ -190,7 +190,7 @@ export class BootScene extends Phaser.Scene {
         try {
 
           this.game.ember.map.getDynamicMapData(data.map).then(mapData => {
-            // console.log('mapData', mapData);
+            // console.log('mapData (boot)', mapData);
             data.mapData = mapData;
 
             this.scene.start('gameboard', data);

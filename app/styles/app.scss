@@ -355,6 +355,17 @@ a {
     width: 340px;
     margin-top: -26px;
   }
+  .mapDisplayName {
+    font-size: 28px;
+    font-weight: 700;
+    display: inline-flex;
+    vertical-align: super;
+    color: white;
+    margin-right: 15px;
+    text-shadow: 0px 2px 1px black, 0px -2px 1px black, -2px 0px 1px black, 2px 0px 1px black;
+    font-family: "Open Sans Condensed", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-variant: small-caps;
+  }
 }
 .board {
   height: 100vh;
@@ -2330,6 +2341,7 @@ button {
   background-image: url("/images/backgrounds/game-menu-background.png");
 
   .footer {
+    width: 130px;
     button {
       left: 50px;
     }
@@ -2472,6 +2484,9 @@ button {
         .faq {
           min-height: 50px;
 
+          a {
+            color: #9c611e;
+          }
           .toggle {
             display: none;
           }
@@ -2503,7 +2518,7 @@ button {
             }
 
             .faqAnswer {
-              margin: 5px 0 0 15px;
+              margin: 5px 15px 0 15px;
               font-size: 0.9em;
               line-height: 1.5;
             }
@@ -2526,7 +2541,7 @@ button {
             content: '';
             position: absolute;
             right: 1.25em;
-            top: 1.05em;
+            top: 1.35em;
             width: 2px;
             height: 0.75em;
             background-color: #000;
@@ -2542,12 +2557,12 @@ button {
             display: inline-block;
             color: #9c611e;
             font-size: 18px;
-            max-width: 420px;
+            max-width: 410px;
           }
 
           .more {
             float: right;
-            margin: 0 20px 0 0;
+            margin: 5px 20px 0 0;
             font-size: 12px;
             color: #5e4126;
           }
