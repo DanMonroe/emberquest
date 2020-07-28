@@ -455,6 +455,7 @@ export class InventoryItems {
 
 })
     );
+
     items.push(
       new InventoryItem({
         id: 5102,
@@ -463,6 +464,12 @@ export class InventoryItems {
         bodypart: constants.INVENTORY.BODYPART.RANGED,
         projectileImg: 'ball',
         projectileScale: 0.4,
+
+        velocity: 225,
+        animeframes: [
+          { type: 'range', key: 'bone-skull', config: {prefix: 'missiles/bone-skul-', start: 1, end: 4, rate: 8, repeat: -1} }
+        ],
+
         stats: [
           new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 3}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
@@ -489,6 +496,52 @@ export class InventoryItems {
         audioMiss: {key: 'sword_miss'}
       })
     );
+    items.push(
+      new InventoryItem({
+        id: 5104,
+        name: {key: 'hatchet'},
+        type: constants.INVENTORY.TYPE.MONSTER,
+        bodypart: constants.INVENTORY.BODYPART.RANGED,
+        // projectileImg: 'ball',
+        // projectileScale: 0.4,
+
+        velocity: 225,
+        animeframes: [
+          { type: 'range', key: 'hatchet', config: {prefix: 'missiles/hatchet-', start: 1, end: 4, rate: 8, repeat: -1} }
+        ],
+
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 3}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.8})
+        ],
+        audioRanged: {key: 'fireball'},
+        audioMiss: {key: 'sword_miss'}
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: 5105,
+        name: {key: 'hatchet'},
+        type: constants.INVENTORY.TYPE.MONSTER,
+        bodypart: constants.INVENTORY.BODYPART.RANGED,
+        // projectileImg: 'ball',
+        // projectileScale: 0.4,
+
+        velocity: 225,
+        animeframes: [
+          { type: 'range', key: 'spear', config: {prefix: 'missiles/spear', start: 1, end: 1} }
+        ],
+
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 3}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.8})
+        ],
+        audioRanged: {key: 'fireball'},
+        audioMiss: {key: 'sword_miss'}
+      })
+    );
 
 
 
@@ -504,14 +557,17 @@ export class InventoryItems {
         bodypart: constants.INVENTORY.BODYPART.RANGED,
         name: 'Bow',
         img: '/images/items/weapons/bow.png',
-        projectileImg: 'missile',
-        // velocity: 350, // 300 default
+        // projectileImg: 'missile',
+        velocity: 350, // 300 default
         cssClazz: 'ranged a',
         description: 'Modest range and damage; it\'s the beginner bow.',
         stats: [
           new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 3}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 2}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.5})
+        ],
+        animeframes: [
+          { type: 'range', key: 'missile', config: {prefix: 'missiles/missile', start: 1, end: 1} }
         ],
         audioRanged: {key: 'throwknife'},
         audioMelee: {key: 'chink'},
@@ -529,7 +585,7 @@ export class InventoryItems {
         bodypart: constants.INVENTORY.BODYPART.RANGED,
         name: 'Enhanced Bow',
         img: '/images/items/weapons/bow2.png',
-        projectileImg: 'missile',
+        // projectileImg: 'missile',
         // velocity: 350, // 300 default
         cssClazz: 'ranged b',
         description: 'Modest range and damage; it\'s the beginner crossbow.',
@@ -538,6 +594,10 @@ export class InventoryItems {
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 2}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.5})
         ],
+        animeframes: [
+          { type: 'range', key: 'missle', config: {prefix: 'missiles/missile', start: 1, end: 1} }
+        ],
+
         audioRanged: {key: 'throwknife'},
         audioMelee: {key: 'chink'},
         audioMiss: {key: 'arrow'}
@@ -554,7 +614,7 @@ export class InventoryItems {
         bodypart: constants.INVENTORY.BODYPART.RANGED,
         name: 'Crossbow',
         img: '/images/items/weapons/crossbow.png',
-        projectileImg: 'missile',
+        // projectileImg: 'missile',
         // velocity: 350, // 300 default
         cssClazz: 'ranged c',
         description: 'Modest range and damage; it\'s the beginner crossbow.',
@@ -562,6 +622,9 @@ export class InventoryItems {
           new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 3}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 2}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.5})
+        ],
+        animeframes: [
+          { type: 'range', key: 'missile', config: {prefix: 'missiles/missile', start: 1, end: 1} }
         ],
         audioRanged: {key: 'throwknife'},
         audioMelee: {key: 'chink'},
@@ -579,7 +642,7 @@ export class InventoryItems {
         bodypart: constants.INVENTORY.BODYPART.RANGED,
         name: 'Triple Bolt',
         img: '/images/items/weapons/boltsplitter.png',
-        projectileImg: 'missile',
+        // projectileImg: 'missile',
         // velocity: 350, // 300 default
         cssClazz: 'ranged d',
         description: 'Modest range and damage; it\'s the beginner crossbow.',
@@ -587,6 +650,9 @@ export class InventoryItems {
           new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 15}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 2}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.5})
+        ],
+        animeframes: [
+          { type: 'range', key: 'missile', config: {prefix: 'missiles/missile', start: 1, end: 1} }
         ],
         audioRanged: {key: 'throwknife'},
         audioMelee: {key: 'chink'},
@@ -1208,6 +1274,65 @@ export class InventoryItems {
       })
     );
 
+    // Specials
+    items.push(
+      new InventoryItem({
+        id: 4050,
+        name: {key: 'whirlpool'},
+        display: false,
+        showEquipButton: false,
+        price: 0,
+        reportDamage: false,
+        type: constants.INVENTORY.TYPE.OTHER,
+        cssClazz: 'whirlpool',
+        bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 0}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 0})
+        ],
+        specialActions: [
+          {value: constants.SPECIAL_ACTIONS.WHIRLPOOL_IN.value, data: { target:{ x: 36, y: 36 } } }
+        ],
+        audioMelee: {key: 'whirlpool'}
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: 4051,
+        name: {key: 'whirlpoolinner'},
+        display: false,
+        showEquipButton: false,
+        price: 0,
+        reportDamage: false,
+        type: constants.INVENTORY.TYPE.OTHER,
+        cssClazz: 'whirlpool',
+        bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 0}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 0})
+        ],
+        specialActions: [
+          {value: constants.SPECIAL_ACTIONS.WHIRLPOOL_OUT.value, data: { target:{ x: 20, y: 40 } } }
+        ],
+        audioMelee: {key: 'whirlpool'}
+      })
+    );
+
+    items.push(
+      new InventoryItem({
+        id: 4052,
+        name: {key: 'waterhelm'},
+        display: false,
+        showEquipButton: false,
+        cssClazz: 'waterhelm',
+        type: constants.INVENTORY.TYPE.OTHER,
+        bodypart: constants.INVENTORY.BODYPART.HEAD,
+        stats: [],
+        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.WATER, value: 100})],
+        // audioMelee: {key: 'bite'},
+        // audioMiss: {key: 'sword_miss'}
+      })
+    );
 
 
 

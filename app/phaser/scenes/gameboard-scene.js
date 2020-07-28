@@ -257,16 +257,10 @@ export class GameboardScene extends Phaser.Scene {
 
   createChests() {
     // console.log('create Chests.  mapdata', this.mapData)
-
     if (this.mapData.chests) {
       this.mapData.chests.forEach(chestObj => {
-        let chest = new Chest(this, 0, 0, 'chests', 1, chestObj);
-        chest.setAlpha(0);
-
-        this.chests.add(chest);
-        this.board.addChess(chest, chestObj.x, chestObj.y, this.ember.constants.TILEZ_CHESTS);
-
-      })
+        new Chest(this, chestObj);
+      });
     }
   }
 
@@ -481,13 +475,28 @@ export class GameboardScene extends Phaser.Scene {
       classType: Projectile
     });
     this.agentprojectiles = new Projectiles(this.physics.world, this, {
-      frameQuantity: 3,
-      key: 'ball',
+      // frameQuantity: 3,
+      key: this.ember.constants.SPRITES_TEXTURE,
+      // key: 'ball',
       active: false,
       visible: false,
-      setScale: { x: 0.1},
+      // setScale: { x: 0.1},
       classType: Projectile
     });
+  }
+
+  createAnimation(animationConfig) {
+// console.log('createAnimation', animationConfig)
+    let frameNames = this.anims.generateFrameNames(this.ember.constants.SPRITES_TEXTURE,
+      {
+        start: animationConfig.start,
+        end: animationConfig.end,
+        zeroPad: 0,
+        prefix: animationConfig.prefix,
+        suffix: '.png'
+      });
+    let thisAnimationConfig = Object.assign({ key: animationConfig.key, frames: frameNames, frameRate: animationConfig.rate, repeat: animationConfig.repeat, yoyo: animationConfig.yoyo || false}, animationConfig || {});
+    this.anims.create(thisAnimationConfig);
   }
 
   createInput() {
@@ -532,10 +541,9 @@ export class GameboardScene extends Phaser.Scene {
   }
 
   collectChest(player, chest) {
-    if ( ! chest.found) {
+    if ( ! chest.emberObj.found) {
       // this.ember.gameManager.playSound(this.ember.constants.AUDIO.CHEST)
-
-      chest.playerFoundChest();
+      chest.emberObj.playerFoundChest();
     }
   }
 

@@ -121,7 +121,7 @@ export class BootScene extends Phaser.Scene {
     this.load.image('ball', '/images/items/ballBlack_04.png');
     this.load.image('bullet', '/images/items/bullet7.png');
 
-    this.load.image('missile', '/images/items/missile-n.png');
+    // this.load.image('missile', '/images/items/missile-n.png');
 
   }
 

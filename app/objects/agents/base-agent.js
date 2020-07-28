@@ -82,10 +82,8 @@ export class BaseAgent {
 
   @computed('inventory.@each.equipped')
   get equippedRangedWeapon() {
-    const equippedRangedWeapon = this.ember.inventory.getEquippedSlot(this, constants.INVENTORY.BODYPART.RANGED);
-
     // no default ranged weapon, so just return what is in left hand.
-    return equippedRangedWeapon;
+    return this.ember.inventory.getEquippedSlot(this, constants.INVENTORY.BODYPART.RANGED);
   }
 
   @computed('inventory.@each.equipped')
@@ -273,29 +271,6 @@ export class BaseAgent {
     }
   }
 
-  // @computed('inventory.@each.equipped')
-  // get inventoryByFireResistance() {
-  //   console.log('inventoryByFireResistance this.equippedInventory', this.equippedInventory)
-  //     return this.equippedInventory.filter(item => {
-  //       if (!item.resistance || item.resistance.length === 0) {
-  //         return false;
-  //
-  //       }
-  //       return item.resistance.some(resistance => resistance.type === constants.INVENTORY.RESISTANCE.FIRE);
-  //     });
-  // }
-  //
-  // @computed('inventory.@each.equipped')
-  // get inventoryByColdResistance() {
-  //   console.log('inventoryByColdResistance this.equippedInventory', this.equippedInventory)
-  //     return this.equippedInventory.filter(item => {
-  //       if (!item.resistance || item.resistance.length === 0) {
-  //         return false;
-  //
-  //       }
-  //       return item.resistance.some(resistance => resistance.type === constants.INVENTORY.RESISTANCE.COLD);
-  //     });
-  // }
   getInventoryByResistance(type) {
     switch (type) {
       case constants.INVENTORY.RESISTANCE.FIRE:
@@ -306,6 +281,14 @@ export class BaseAgent {
           }
           return item.resistance.some(resistance => resistance.type === constants.INVENTORY.RESISTANCE.FIRE);
         });
+      case constants.INVENTORY.RESISTANCE.WATER:
+        return this.equippedInventory.filter(item => {
+          if (!item.resistance || item.resistance.length === 0) {
+            return false;
+
+          }
+          return item.resistance.some(resistance => resistance.type === constants.INVENTORY.RESISTANCE.WATER);
+        });
       case constants.INVENTORY.RESISTANCE.COLD:
         return this.equippedInventory.filter(item => {
           if (!item.resistance || item.resistance.length === 0) {
@@ -315,6 +298,7 @@ export class BaseAgent {
           return item.resistance.some(resistance => resistance.type === constants.INVENTORY.RESISTANCE.COLD);
         });
       default:
+        console.error('Add inventory by resistance case')
         return [];
     }
   }
@@ -367,40 +351,12 @@ export class BaseAgent {
     return total;
   }
 
-  // getResistance(type) {
-  //   let totalResistance = 0;
-  //   let inventoryByResistance;
-  //   switch (type) {
-  //     case constants.INVENTORY.RESISTANCE.FIRE:
-  //       console.log('fire')
-  //       inventoryByResistance = this.inventoryByFireResistance;
-  //       break;
-  //     case constants.INVENTORY.RESISTANCE.COLD:
-  //       console.log('cold')
-  //       inventoryByResistance = this.inventoryByColdResistance;
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  //
-  //   console.log('inventoryByResistance', inventoryByResistance)
-  //   totalResistance += inventoryByResistance.reduce((sum, { resistance } ) => {
-  //     // totalResistance += this.getInventoryByResistance(type).reduce((sum, { resistance } ) => {
-  //     let subtotal_resistance = resistance.reduce((subsum, subresistance ) => {
-  //       return subresistance.type === type ? subsum + subresistance.value : subsum;
-  //     }, 0); // start with 0
-  //
-  //     return sum + subtotal_resistance;
-  //   }, 0); // start with 0
-  //
-  //   console.log('===totalResistance', totalResistance)
-  //   return totalResistance > 100 ? 100 : totalResistance;
-  // }
   getResistance(type) {
     let totalResistance = 0;
     switch (type) {
       case constants.INVENTORY.RESISTANCE.FIRE:
       case constants.INVENTORY.RESISTANCE.COLD:
+      case constants.INVENTORY.RESISTANCE.WATER:
         // sum all inventory items, and each resistance object in that item.
         totalResistance += this.getInventoryByResistance(type).reduce((sum, { resistance } ) => {
           let subtotal_resistance = resistance.reduce((subsum, subresistance ) => {
@@ -411,6 +367,7 @@ export class BaseAgent {
         }, 0); // start with 0
         break;
       default:
+        console.error('Add resistance case')
         break;
     }
     return totalResistance > 100 ? 100 : totalResistance;

@@ -49,7 +49,7 @@ export class Caches {
       new Cache({
         gccode: 'GC8QB0T',
         name: 'EmberQuest #4',
-        description: '<p></p>',
+        description: '<p>The Southern Merfolk have created a seemingly impenetrable fortress in the Sea of Misdirection. Find a way inside to further your quest.</p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -62,7 +62,7 @@ export class Caches {
       new Cache({
         gccode: 'GC8V6VK',
         name: 'EmberQuest #5',
-        description: '<p></p>',
+        description: '<p>Hold your breath while traversing the hidden paradise of the Merfolk. Survive a rogue wave and you’ll soon have the chest in your hands.</p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',

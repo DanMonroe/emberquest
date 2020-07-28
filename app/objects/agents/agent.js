@@ -21,9 +21,7 @@ export class Agent extends BaseAgent {
     this.playerConfig.inventory.forEach(bodypart => {
       if (isPresent(bodypart.items)) {
         const item = this.pickRandomItem(bodypart.items);
-
         const gameInventoryItem = inventoryItems.findBy('id', item.itemId);
-
 
         if (gameInventoryItem) {
           // gameInventoryItem.owned = true;
@@ -44,7 +42,7 @@ export class Agent extends BaseAgent {
     let min = 1;
     let max = 1;
 
-    if (this.playerConfig.levelsFromPlayer) { // can set agent o be always N levels from player  either higher or lower
+    if (this.playerConfig.levelsFromPlayer !== undefined) { // can set agent o be always N levels from player  either higher or lower
       this.level = this.ember.playerContainer.agent.level + this.playerConfig.levelsFromPlayer;
       if (this.level < 1) {
         this.level = 1;

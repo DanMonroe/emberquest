@@ -55,7 +55,7 @@ const constants = Object.freeze({
     // HEALING_SPEED: 'healingSpeedAdj',
     // HEALING_POWER: 'healingPowerAdj',
 
-    ROYAL_EMBER_ID: 2600,
+    ROYAL_EMBER_ID: 12600,
 
     BODYPARTS: [
       { name: "torso", part: 0, text: "Body", tooltipSide: "right" },
@@ -97,7 +97,8 @@ const constants = Object.freeze({
 
     RESISTANCE: {
       FIRE: 0,
-      COLD: 1
+      COLD: 1,
+      WATER: 2
     },
 
     TYPE: {
@@ -151,6 +152,7 @@ const constants = Object.freeze({
   SHAPE_TYPE_DOOR: 'Door',
   SHAPE_TYPE_SIGNPOST: 'Sign',
   SHAPE_TYPE_SPRITE: 'Sprite',
+  SHAPE_TYPE_CHEST: 'Chest',
   SHAPE_TYPE_ENEMY: 'Enemy',
   SHAPE_TYPE_AGENT: 'Agent',
 
@@ -213,7 +215,8 @@ const constants = Object.freeze({
       MESSAGE: {value: 8, description: 'Message'},
       LAVA: {value: 16, description: 'Lava'},
       ROYALEMBER: {value: 32, description: 'Royal Ember'},
-      NEST: {value: 64, description: 'Nest'} // Dock for flying
+      NEST: {value: 64, description: 'Nest'}, // Dock for flying
+      DROWN: {value: 128, description: 'Drown'},
     }
   },
 
@@ -253,6 +256,9 @@ const constants = Object.freeze({
     FINAL_FANFAIR: {value: 4, description: 'Final Chest Found'},
     PLAY_ANIMATION: {value: 5, description: 'Play Animation'},     // data: { key: 'lever-on' }
     MOVE_TRANSPORT: {value: 6, description: 'Move Transport'}, // data: { poolkey: 'final_1', target:{ x: 38, y: 59 }}}
+    WHIRLPOOL_IN: {value: 7, description: 'Whirlpool into castle'}, // data: { target:{ x: 36, y: 36 }}}
+    WHIRLPOOL_OUT: {value: 8, description: 'Whirlpool out of castle'}, // data: { target:{ x: 36, y: 36 }}}
+    GET_CHEST: {value: 9, description: 'Pick up chest'},
   },
 
 

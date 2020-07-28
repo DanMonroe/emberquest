@@ -1,11 +1,18 @@
-import Phaser from 'phaser';
 
-export default class Chest extends Phaser.Physics.Arcade.Image {
-// export default class Chest extends Phaser.Physics.Arcade.Sprite {
+export default class Chest {
 
-  constructor(scene, x, y, key, frame, chestObj) {
+  defaultSpriteConfig = {
+    name: 'chest',
+    prefix: 'items/chest',
+    animeframes: [
+      {key: 'chest-closed', prefix: 'items/chest', start: 1, end: 1},
+      {key: 'chest-open', prefix: 'items/chest', start: 2, end: 2}
+    ],
+    scale: .3
+  }
 
-    super(scene, x, y, key, frame);
+
+  constructor(scene, chestObj) {
     this.scene = scene; // the scene this game object will be added to
 
     this.id = chestObj.id;
@@ -20,26 +27,74 @@ export default class Chest extends Phaser.Physics.Arcade.Image {
     // previously found?
     this.found = this.scene.ember.cache.isCacheFound(this.gccode);
 
-    this.setFrame(this.found ? 0 : 1);
+    this.createSprite(chestObj);
+  }
 
-    // enable physics
-    this.scene.physics.world.enable(this);
+  createSprite(chestObj) {
+    if (!chestObj.spriteConfig) {
+      chestObj.spriteConfig = Object.assign({}, this.defaultSpriteConfig);
+    }
+    const chest = this.scene.add.sprite(chestObj.x, chestObj.y, this.scene.ember.constants.SPRITES_TEXTURE);
+    // const chest = this.scene.add.sprite(chestObj.x, chestObj.y, this.scene.ember.constants.SPRITES_TEXTURE, chestObj.firstFrame);
 
-    // add the player to our existing scene
+    // if (chestObj.spriteConfig.offsets && chestObj.spriteConfig.offsets.img) {
+    //   chest.x += chestObj.spriteConfig.offsets.img.x;
+    //   chest.y += chestObj.spriteConfig.offsets.img.y;
+    // }
+    chest.setScale(chestObj.spriteConfig.scale);
+    chest.type = this.scene.ember.constants.SHAPE_TYPE_CHEST;
 
-    this.scene.add.existing(this);
-    // scale the chest game object
-    this.setScale(.3);
+    this.animKeys = [];
+    let frameNames;
+    let animationConfig;
+    chestObj.spriteConfig.animeframes.forEach(animation => {
+      frameNames = this.scene.anims.generateFrameNames(this.scene.ember.constants.SPRITES_TEXTURE, {
+        start: animation.start, end: animation.end, zeroPad: 0,
+        prefix: chestObj.spriteConfig.prefix, suffix: '.png'
+      });
+      animationConfig = Object.assign({ key: animation.key, frames: frameNames, frameRate: animation.rate, repeat: animation.repeat }, animation.config || {});
 
-    this.setDepth(this.scene.ember.constants.TILEZ_CHESTS);
+      this.scene.anims.create(animationConfig);
+      // if (animation.playoncreate) {
+      //   chest.anims.play(animation.key);
+      // }
+      this.animKeys.push(animation.key);
+    });
+
+    if (chestObj.ignoreFOVUpdate) {
+      chest.setData('ignoreFOVUpdate', true);
+    }
+    if (chestObj.specialActions) {
+      chest.setData('specialActions', chestObj.specialActions);
+    }
+    if (chestObj.clickable) {
+      chest.setData('clickable', true);
+    }
+
+    this.sprite = chest;
+
+    this.sprite.setAlpha(0)
+
+    this.sprite.emberObj = this;  // so we can get to base attrs
+
+    this.scene.chests.add(this.sprite);
+
+    chest.setAlpha(chestObj.initialAlpha || 0);
+    this.scene.board.addChess(chest, chestObj.x, chestObj.y, this.scene.ember.constants.TILEZ_CHESTS);
+
+    chest.anims.play(this.found ? this.animKeys[1] : this.animKeys[0]);
+
+    this.sprite.body.setSize(20,20);
+
+    this.scene.add.existing(this.sprite);
+
+    this.sprite.setDepth(this.scene.ember.constants.TILEZ_CHESTS);
+
+
   }
 
   playerFoundChest() {
     // console.log('player found chest', this);
-
-    // this.found = !this.found;
-    // this.setFrame(this.found ? 0 : 1);
-
     this.scene.ember.foundChest(this);
   }
 }

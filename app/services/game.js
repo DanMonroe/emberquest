@@ -399,6 +399,21 @@ export default class GameService extends Service {
     playerContainer.scene.spawnTile = {x:playerContainer.rexChess.tileXYZ.x, y:playerContainer.rexChess.tileXYZ.y, sF: playerContainer.data.get('attrs').sF, tF: playerContainer.data.get('attrs').tF}
   }
 
+  teleportInMap(scene, playerContainer, targetTile) {
+    scene.cameras.main.fadeOut(300);
+    scene.cameras.main.off('camerafadeoutcomplete').on('camerafadeoutcomplete', async () => {
+      this.gameManager.scene.board.moveChess(playerContainer, targetTile.x, targetTile.y);
+      if (playerContainer.boardedTransport) {
+        this.gameManager.scene.board.moveChess(playerContainer.boardedTransport, targetTile.x, targetTile.y);
+      }
+      scene.game.ember.saveSceneData(scene);
+      let fieldOfViewTileXYArray = playerContainer.fov.findFOV(playerContainer.visiblePoints);
+      scene.game.ember.map.findAgentFieldOfView(playerContainer, fieldOfViewTileXYArray);
+      scene.cameras.main.fadeIn(300);
+    });
+
+  }
+
   checkForPortal(playerContainer, moveTo) {
     let tileIsPortal = moveTo.scene.game.ember.map.tileIsPortal(moveTo.scene, playerContainer.rexChess.tileXYZ);
 
@@ -428,14 +443,15 @@ export default class GameService extends Service {
 
       if (tileIsPortal.map === this.gameManager.scene.mapname) {
         // portal to another hex in the same map
-        moveTo.scene.cameras.main.fadeOut(300);
-        moveTo.scene.cameras.main.off('camerafadeoutcomplete').on('camerafadeoutcomplete', async () => {
-          this.gameManager.scene.board.moveChess(playerContainer, tileIsPortal.x, tileIsPortal.y);
-          moveTo.scene.game.ember.saveSceneData(moveTo.scene);
-          let fieldOfViewTileXYArray = playerContainer.fov.findFOV(playerContainer.visiblePoints);
-          moveTo.scene.game.ember.map.findAgentFieldOfView(playerContainer, fieldOfViewTileXYArray);
-          moveTo.scene.cameras.main.fadeIn(300);
-        });
+        this.teleportInMap(moveTo.scene, playerContainer, tileIsPortal);
+        // moveTo.scene.cameras.main.fadeOut(300);
+        // moveTo.scene.cameras.main.off('camerafadeoutcomplete').on('camerafadeoutcomplete', async () => {
+        //   this.gameManager.scene.board.moveChess(playerContainer, tileIsPortal.x, tileIsPortal.y);
+        //   moveTo.scene.game.ember.saveSceneData(moveTo.scene);
+        //   let fieldOfViewTileXYArray = playerContainer.fov.findFOV(playerContainer.visiblePoints);
+        //   moveTo.scene.game.ember.map.findAgentFieldOfView(playerContainer, fieldOfViewTileXYArray);
+        //   moveTo.scene.cameras.main.fadeIn(300);
+        // });
       } else {
         this.gameManager.pauseGame(true);
         this.gameManager.loadingNewScene = true;
@@ -552,8 +568,7 @@ export default class GameService extends Service {
       return;
     }
     let fireDamage = 0;
-    let fireResistance = 0;
-    // console.log(`Special Tile at x:${agentContainer.rexChess.tileXYZ.x} y:${agentContainer.rexChess.tileXYZ.y}`, specialTile)
+    let waterDamage = 0;
     switch (specialTile.value) {
       case constants.FLAGS.SPECIAL.MESSAGE.value:
         if (agentContainer.isPlayer) {
@@ -567,6 +582,10 @@ export default class GameService extends Service {
         if (!agentContainer.boardedTransport) {
           fireDamage += Math.floor(agentContainer.agent.maxHealth * .9) + 10;
         }
+        break;
+      case constants.FLAGS.SPECIAL.DROWN.value:
+        console.log('on drowning water', agentContainer.agent.maxHealth, Math.floor(agentContainer.agent.maxHealth * .9) + 10 );
+        waterDamage += Math.floor(agentContainer.agent.maxHealth * .9) + 10;
         break;
       case constants.FLAGS.SPECIAL.ROYALEMBER.value:
         this.checkForRoyalEmber(moveTo.scene);
@@ -583,16 +602,30 @@ export default class GameService extends Service {
 
     // check for any special damage
     if (fireDamage) {
-      fireResistance = agentContainer.agent.getResistance(constants.INVENTORY.RESISTANCE.FIRE);
-      if (fireResistance) {
-        fireDamage -= (fireDamage * (fireResistance / 100));
-      }
+      this.processSpecialDamage(fireDamage, agentContainer.agent.getResistance(constants.INVENTORY.RESISTANCE.FIRE), agentContainer);
+      // fireResistance = agentContainer.agent.getResistance(constants.INVENTORY.RESISTANCE.FIRE);
+      // if (fireResistance) {
+      //   fireDamage -= (fireDamage * (fireResistance / 100));
+      // }
+      //
+      // if (fireDamage > 0) {
+      //     agentContainer.takeDamage(fireDamage, agentContainer.agent, null, false);
+      // }
+    }
+    if (waterDamage) {
+      this.processSpecialDamage(waterDamage, agentContainer.agent.getResistance(constants.INVENTORY.RESISTANCE.WATER), agentContainer);
+    }
+  }
 
-      if (fireDamage > 0) {
-          agentContainer.takeDamage(fireDamage, agentContainer.agent, null, false);
-      }
+  processSpecialDamage(damage, resistance, agentContainer) {
+    if (resistance) {
+      damage -= (damage * (resistance / 100));
     }
 
+    if (damage > 0) {
+      agentContainer.takeDamage(1, agentContainer.agent, null, false);
+      // agentContainer.takeDamage(damage, agentContainer.agent, null, false);
+    }
   }
 
   checkForRoyalEmber(scene) {
@@ -730,7 +763,11 @@ export default class GameService extends Service {
       this.gameManager.playSound(this.constants.AUDIO.CHEST)
 
       chest.found = !chest.found;
-      chest.setFrame(chest.found ? 0 : 1);
+
+      chest.sprite.anims.play(chest.animKeys[1]);
+
+      // chest.setFrame(chest.found ? 0 : 1);
+      // chest.setFrame(chest.found ? chest.openFrameIndex : chest.closedFrameIndex);
 
       // debugger;
       this.gameManager.player.gold = +this.gameManager.player.gold + +chest.gold;
@@ -776,7 +813,7 @@ export default class GameService extends Service {
 
   @task
   *processSpecialAction(scene, specialAction, gameObj) {
-    let doorShapes;
+    let doorShapes, transport;
     switch (specialAction.value) {
       case this.constants.SPECIAL_ACTIONS.REMOVE_SIGHT_COST.value:  // data: { tileXY: {x: 11, y: 3 }}
         // find the tile, set its sightCost to 0;
@@ -787,6 +824,11 @@ export default class GameService extends Service {
         if (doorShapes && doorShapes.length) {
           doorShapes[0].makeInactive();
         }
+        break;
+      case this.constants.SPECIAL_ACTIONS.GET_CHEST.value:
+        debugger;
+        yield timeout(1);
+
         break;
       case this.constants.SPECIAL_ACTIONS.PLAY_SOUND.value: // data: { sound: 'open_door_1' }
         yield timeout(400);
@@ -803,9 +845,9 @@ export default class GameService extends Service {
           gameObj.anims.play(specialAction.data.key);
         }
         break;
-      case this.constants.SPECIAL_ACTIONS.MOVE_TRANSPORT.value:
-        console.log('TODO Move Transport', specialAction.data);
-        const transport = scene.findTransportById(specialAction.data.transportId);
+      case this.constants.SPECIAL_ACTIONS.MOVE_TRANSPORT.value:   // lava boat
+        // console.log('TODO Move Transport', specialAction.data);
+        transport = scene.findTransportById(specialAction.data.transportId);
         if (transport && specialAction.data.target) {
           const pathToTarget = transport.pathFinder.findPath(specialAction.data.target);
           if (pathToTarget) {

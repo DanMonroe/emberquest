@@ -66,20 +66,19 @@ export default class AgentContainer extends BasePhaserAgentContainer {
     this.updateHealthBar();
   }
 
-  createAnimation(animationConfig) {
-    // let frameNames = this.scene.anims.generateFrameNames(this.config.texture || this.ember.constants.SPRITES_TEXTURE,
-    let frameNames = this.scene.anims.generateFrameNames(this.ember.constants.SPRITES_TEXTURE,
-      {
-        start: animationConfig.start,
-        end: animationConfig.end,
-        zeroPad: 0,
-        prefix: animationConfig.prefix,
-        suffix: '.png'
-      });
-    let thisAnimationConfig = Object.assign({ key: animationConfig.key, frames: frameNames, frameRate: animationConfig.rate, repeat: animationConfig.repeat, yoyo: animationConfig.yoyo || false}, animationConfig || {});
-    // console.log('agent thisAnimationConfig', thisAnimationConfig)
-    this.scene.anims.create(thisAnimationConfig);
-  }
+  // createAnimation(animationConfig) {
+  //   let frameNames = this.scene.anims.generateFrameNames(this.ember.constants.SPRITES_TEXTURE,
+  //     {
+  //       start: animationConfig.start,
+  //       end: animationConfig.end,
+  //       zeroPad: 0,
+  //       prefix: animationConfig.prefix,
+  //       suffix: '.png'
+  //     });
+  //   let thisAnimationConfig = Object.assign({ key: animationConfig.key, frames: frameNames, frameRate: animationConfig.rate, repeat: animationConfig.repeat, yoyo: animationConfig.yoyo || false}, animationConfig || {});
+  //   // console.log('agent thisAnimationConfig', thisAnimationConfig)
+  //   this.scene.anims.create(thisAnimationConfig);
+  // }
 
   setupSprite() {
     const agentSprite = this.scene.add.sprite(0, 0, this.config.texture || this.ember.constants.SPRITES_TEXTURE);
@@ -97,16 +96,16 @@ export default class AgentContainer extends BasePhaserAgentContainer {
 
     if (this.config.animeframes) {
       if (this.config.animeframes.rest) {
-        this.createAnimation(this.config.animeframes.rest);
+        this.scene.createAnimation(this.config.animeframes.rest);
       }
       if (this.config.animeframes.attack) {
-        this.createAnimation(this.config.animeframes.attack);
+        this.scene.createAnimation(this.config.animeframes.attack);
       }
       if (this.config.animeframes.range) {
-        this.createAnimation(this.config.animeframes.range);
+        this.scene.createAnimation(this.config.animeframes.range);
       }
       if (this.config.animeframes.death) {
-        this.createAnimation(this.config.animeframes.death);
+        this.scene.createAnimation(this.config.animeframes.death);
       }
     }
 
@@ -198,7 +197,7 @@ export default class AgentContainer extends BasePhaserAgentContainer {
       case this.ember.constants.AGENTSTATE.PATROL:
         yield timeout(agentContainer.patrol.timeout || 2000);
         break;
-      case this.ember.constants.AGENTSTATE.PURSUIT:
+      case this.ember.constants.AGENTSTATE.PURSUE:
         yield timeout(agentContainer.patrol.aggressionSpeedTimeout || 1500);
         break;
       default:
@@ -221,8 +220,6 @@ export default class AgentContainer extends BasePhaserAgentContainer {
     if (agentContainer.rexChess.tileXYZ) {
       const isNeighbor = agentContainer.scene.board.areNeighbors(agentContainer.rexChess.tileXYZ, agentContainer.ember.playerContainer.rexChess.tileXYZ);
 
-// console.log('   isNeighbor', isNeighbor, 'checkAggression', agentContainer.checkAggression(agentContainer))
-
       if (isNeighbor && agentContainer.checkAggression(agentContainer)) {
 // console.log('      do transitionToMelee')
           agentContainer.transitionToMelee(agentContainer);
@@ -230,11 +227,12 @@ export default class AgentContainer extends BasePhaserAgentContainer {
         const isInLOS = agentContainer.ember.playerContainer.fov.isInLOS(agentContainer.rexChess.tileXYZ);
 
         agentContainer.setVisibilityIfInLineOfSight(agentContainer, isInLOS);
+if (true) {  // TODO remove
 
         if (isInLOS) {
-          // console.log('      is in LOS')
+
           const shouldPursue = agentContainer.checkAggression(agentContainer);
-          // console.warn('         >>>>> shouldPursue', shouldPursue)
+
           if (shouldPursue) {
             agentContainer.transitionToPursuit();
           } else {
@@ -242,6 +240,7 @@ export default class AgentContainer extends BasePhaserAgentContainer {
             agentContainer.transitionToPatrol();
           }
         }
+}
       }
     }
 
@@ -418,24 +417,17 @@ export default class AgentContainer extends BasePhaserAgentContainer {
     switch (this.agentState) {
       case this.ember.constants.AGENTSTATE.PURSUE:
       case this.ember.constants.AGENTSTATE.MISSILE:
-// console.log('Agent Ranged Attack!');
         if (!this.ember.playerContainer.fov.isInLOS(this.rexChess.tileXYZ)) {
-// yield timeout(5000);
           return;
         }
 
-        // equippedRangedWeapon = this.agent.equippedRangedWeapon;
         // console.log('agent equippedRangedWeapon', equippedRangedWeapon)
         if (equippedRangedWeapon && this.ember.gameManager.hasEnoughPowerToUseItem(equippedRangedWeapon, this.agent)) {
 
           const hit = this.ember.gameManager.didAttackHit(equippedRangedWeapon, this.ember.playerContainer.agent, this.agent);
 
-          // find a way to play appropriate sound
           this.playSound(equippedRangedWeapon.audioRanged);
-          // this.playSound(this.ember.constants.AUDIO.KEY.ARROW);
-
           this.playAnimation(this.ember.constants.ANIMATION.KEY.RANGE);
-          // this.playSound(this.ember.constants.AUDIO.KEY.RANGE);
 
           this.scene.agentprojectiles.fireProjectile(this.scene, this, this.ember.playerContainer.rexChess.tileXYZ, equippedRangedWeapon, hit);
 
@@ -449,8 +441,6 @@ export default class AgentContainer extends BasePhaserAgentContainer {
         }
         break;
       case this.ember.constants.AGENTSTATE.MELEE:
-        // console.log('Agent Melee Attack!');
-        // equippedMeleeWeapon = this.agent.equippedMeleeWeapon;
         // console.log('agent equippedMeleeWeapon', equippedMeleeWeapon.name, equippedMeleeWeapon.attackSpeed, equippedMeleeWeapon)
         if (equippedMeleeWeapon) {
           if (this.agent.power < equippedMeleeWeapon.powerUse) {
@@ -462,16 +452,22 @@ export default class AgentContainer extends BasePhaserAgentContainer {
           const hit = this.ember.gameManager.didAttackHit(equippedMeleeWeapon, this.ember.playerContainer.agent, this.agent);
 
           const meleeAttackDamage = hit ? this.agent.attackDamageDuringCombat : 0;
-          // const targetsHealth = this.ember.playerContainer.agent.health;
           // console.log('meleeAttackDamage', meleeAttackDamage, 'targetsHealth', targetsHealth);
 
           this.playAnimation(this.ember.constants.ANIMATION.KEY.ATTACK);
           this.playSound(hit && equippedMeleeWeapon ? equippedMeleeWeapon.audioMelee : {});
 
           // weapon will have speed, damage?, timeout cooldown
-          this.ember.playerContainer.takeDamage(meleeAttackDamage, this.ember.playerContainer.agent, this.agent);
+          this.ember.playerContainer.takeDamage(meleeAttackDamage, this.ember.playerContainer.agent, this.agent, true, equippedMeleeWeapon);
 
           if (equippedMeleeWeapon) {
+            if (hit && equippedMeleeWeapon.specialActions) {
+              equippedMeleeWeapon.specialActions.forEach((specialAction) => {
+                  this.ember.gameManager.processInventoryItemSpecialAction(specialAction, this.scene, this.ember.playerContainer, this);
+                })
+
+            }
+
             // console.log('melee timeout', equippedMeleeWeapon.attackSpeed, this.agent)
             yield timeout(equippedMeleeWeapon.attackSpeed); // cooldown
             this.agent.power -= equippedMeleeWeapon.powerUse;
@@ -538,7 +534,7 @@ export default class AgentContainer extends BasePhaserAgentContainer {
     //   console.log('no engagePlayer tasks running')
     // }
 
-    // if (this.agentState !== this.ember.constants.AGENTSTATE.PATROL) {
+    if (this.agentState !== this.ember.constants.AGENTSTATE.PATROL) {
     //   console.log('this.agentState !== this.ember.constants.AGENTSTATE.PATROL', this.agentState)
       this.setAgentState(this.ember.constants.AGENTSTATE.PATROL);
     // this.agentState = this.ember.constants.AGENTSTATE.PATROL;
@@ -554,7 +550,7 @@ export default class AgentContainer extends BasePhaserAgentContainer {
     // } else {
     //   console.log('this.agentState === this.ember.constants.AGENTSTATE.PATROL', this.agentState)
     //
-    // }
+    }
   }
 
   getRandomNeighborTile(callcount = 0) {

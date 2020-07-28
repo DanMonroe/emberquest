@@ -28,6 +28,51 @@ export default class AgentPoolService extends Service {
 
     let agentId = 1;
 
+    baseAgentclone = Object.assign({}, this.baseAgent);
+    this.agentpool.set('whirlpool',
+      Object.assign(baseAgentclone, {
+        id: agentId++,
+        name: 'Whirlpool',
+        scale: 1.5,
+        showHealthBar: false,
+        showLevel: false,
+        flagAttributes: {
+          tF: 1
+        },
+        animeframes: {
+          rest: {key: 'whirlpool-rest', prefix: 'items/whirlpool', start: 1, end: 12, rate: 5, repeat: -1}
+        },
+        inventory: [
+          { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items:
+            [
+              { itemId: 4050 }  // whirlpool
+            ]}
+          ]
+      })
+    );
+    baseAgentclone = Object.assign({}, this.baseAgent);
+    this.agentpool.set('whirlpoolinner',
+      Object.assign(baseAgentclone, {
+        id: agentId++,
+        name: 'Whirlpool',
+        scale: 1.5,
+        showHealthBar: false,
+        showLevel: false,
+        flagAttributes: {
+          tF: 1
+        },
+        animeframes: {
+          rest: {key: 'whirlpool-rest', prefix: 'items/whirlpool', start: 1, end: 12, rate: 5, repeat: -1}
+        },
+        inventory: [
+          { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items:
+            [
+              { itemId: 4051 }  // whirlpool
+            ]}
+          ]
+      })
+    );
+
     // YOUNG-OGRE
     baseAgentclone = Object.assign({}, this.baseAgent);
     this.agentpool.set('young-ogre',
@@ -522,6 +567,66 @@ export default class AgentPoolService extends Service {
 
     // Animals
     baseAgentclone = Object.assign({}, this.baseAgent);
+    this.agentpool.set('owl',
+      Object.assign(baseAgentclone, {
+        id: agentId++,
+        name: 'Owl',
+        flagAttributes: {
+          sF: 0,
+          tF: 3
+        },
+        animeframes: {
+          rest: {key: 'owl-rest', prefix: 'animals/owl-s', start: 0, end: 5, rate: 3},
+          attack: {key: 'owl-attack', prefix: 'animals/owl-s', start: 0, end: 5, rate: 7}
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
+      })
+    );
+
+    baseAgentclone = Object.assign({}, this.baseAgent);
+    this.agentpool.set('great-owl',
+      Object.assign(baseAgentclone, {
+        id: agentId++,
+        name: 'Great-Owl',
+        flagAttributes: {
+          sF: 0,
+          tF: 3
+        },
+        animeframes: {
+          rest: {key: 'great-owl-rest', prefix: 'animals/great-owl-s', start: 0, end: 4, rate: 3},
+          attack: {key: 'great-owl-attack', prefix: 'animals/great-owl-s', start: 0, end: 4, rate: 7}
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
+      })
+    );
+
+    baseAgentclone = Object.assign({}, this.baseAgent);
+    this.agentpool.set('weasadillo',
+      Object.assign(baseAgentclone, {
+        id: agentId++,
+        name: 'Weasadillo',
+        animeframes: {
+          rest: {yoyo: true, key: 'weasadillo-rest', prefix: 'animals/weasadillo-m', start: 1, end: 2, rate: 1},
+          attack: {key: 'weasadillo-attack', prefix: 'animals/weasadillo-t', start: 1, end: 7, rate: 8}
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
+      })
+    );
+
+    baseAgentclone = Object.assign({}, this.baseAgent);
+    this.agentpool.set('white-rabbit',
+      Object.assign(baseAgentclone, {
+        id: agentId++,
+        name: 'White Rabbit',
+        animeframes: {
+          rest: {yoyo: true, key: 'white-rabbit-rest', prefix: 'animals/rabbit+white-attack', start: 1, end: 1},
+          attack: {key: 'white-rabbit-attack', prefix: 'animals/rabbit+white-attack', start: 1, end: 3, rate: 6}
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
+      })
+    );
+
+    baseAgentclone = Object.assign({}, this.baseAgent);
     this.agentpool.set('mutant_rat',
       Object.assign(baseAgentclone, {
         id: agentId++,
@@ -902,7 +1007,7 @@ export default class AgentPoolService extends Service {
         id: agentId++,
         name: 'Rogue Wave',
         animeframes: {
-          rest: {yoyo: true, key: 'elemental-wave-rest', prefix: 'elementals/tidal/tidal', start: 1, end: 3, rate: 1},
+          rest: {yoyo: true, key: 'elemental-wave-rest', prefix: 'elementals/tidal/tidal-', start: 1, end: 3, rate: 1},
           attack: {key: 'elemental-wave-attack', prefix: 'elementals/tidal/tidal-attack', start: 1, end: 1}
           // attack: {key: 'elemental-golem-attack', prefix: 'elementals/golem/golem-attack', start: 1, end: 1, rate: 3, delays: { frameNum: 2, delay: 300 }}
           // range: {key: 'elemental-firewisp-range', prefix: 'elementals/firewisp/firewisp-range', start: 1, end: 2, rate: 3, delays: { frameNum: 2, delay: 300 }}
@@ -910,6 +1015,7 @@ export default class AgentPoolService extends Service {
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5008 } ]},
+          { bodypart: constants.INVENTORY.BODYPART.HEAD, items: [{ itemId: 4052 } ]}
         ]  // axe
       })
     );
@@ -1029,7 +1135,7 @@ export default class AgentPoolService extends Service {
         name: 'Skeleton',
         animeframes: {
           rest: {yoyo: true, key: 'skeleton-rest', prefix: 'skeleton/skeleton', start: 1, end: 1},
-          attack: {key: 'skeleton-attack', prefix: 'skeleton/skeleton-se-melee-', start: 1, end: 10, rate: 8},
+          attack: {key: 'skeleton-attack', prefix: 'skeleton/skeleton-se-melee', start: 1, end: 10, rate: 8},
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5001 } ]},
@@ -1050,7 +1156,8 @@ export default class AgentPoolService extends Service {
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]},
-          { bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5102} ]}
+          { bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5105} ]}
+          // { bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5102} ]}
         ]
       })
     );
@@ -1095,7 +1202,7 @@ export default class AgentPoolService extends Service {
         name: 'Zombie Wose',
         animeframes: {
           rest: {yoyo: true, key: 'zombie-wose-rest', prefix: 'ghosts/zombie-wose', start: 1, end: 1},
-          attack: {key: 'zombie-wose-attack', prefix: 'ghosts/zombie-wose-attack-', start: 1, end: 2, rate: 2},
+          attack: {key: 'zombie-wose-attack', prefix: 'ghosts/zombie-wose-attack', start: 1, end: 2, rate: 2},
           // attack: {key: 'elemental-golem-attack', prefix: 'elementals/golem/golem-attack', start: 1, end: 1, rate: 3, delays: { frameNum: 2, delay: 300 }}
           // range: {key: 'lich-range', prefix: 'ghosts/lich-magic-', start: 1, end: 3, rate: 6}
           // death: {key: 'elemental-firewisp-death', prefix: 'elementals/firewisp/firewisp-death', start: 1, end: 6, rate: 8, delays: { frameNum: 6, delay: 300 }}
@@ -1169,6 +1276,7 @@ export default class AgentPoolService extends Service {
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5000 } ]},
+          { bodypart: constants.INVENTORY.BODYPART.HEAD, items: [{ itemId: 4052 } ]}
         ]  // axe
       })
     );
@@ -1186,6 +1294,7 @@ export default class AgentPoolService extends Service {
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5000 } ]},
+          { bodypart: constants.INVENTORY.BODYPART.HEAD, items: [{ itemId: 4052 } ]}
         ]  // axe
       })
     );

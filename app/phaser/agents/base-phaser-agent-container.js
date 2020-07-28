@@ -60,15 +60,21 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
     this.pathFinder = scene.rexBoard.add.pathFinder(this, {
       occupiedTest: true,
       pathMode: 'A*',
-      weight: 100,
+      // shuffleNeighbors: true,
+      // weight: 100,
       blockerTest: true,
       costCallback: (curTile, targetTile, pathFinder) => {
         const travelFlags = this.ember.map.getTileAttribute(pathFinder.chessData.board.scene, targetTile, 'tF');
         const speedCost = this.ember.map.getTileAttribute(pathFinder.chessData.board.scene, targetTile, 'spdC');
         const canMove = this.ember.playerHasAbilityFlag(this, this.ember.constants.FLAG_TYPE_TRAVEL, travelFlags);
-  // console.log('speedCost', speedCost, targetTile)
-        return canMove ? speedCost : undefined; // undefined is a "blocker"
-        // return canMove ? 1 : undefined; // undefined is a "blocker"
+
+        // console.log('speedCost', speedCost, targetTile, targetTile.pathCost, targetTile.preNodesCost)
+
+        return canMove ? 100 - speedCost : undefined; // undefined is a "blocker"
+        // return canMove ? -1 * ( speedCost ) : undefined; // undefined is a "blocker"
+        // return canMove ? 20 - speedCost : undefined; // undefined is a "blocker"
+
+        // original:  return canMove ? 1 : undefined; // undefined is a "blocker"
 
         // TODO experiment with returning the spdC speed cost instead?
       },
@@ -94,7 +100,7 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
   // agentAttacking can have bonus Adjustments in the inventory
   // that adjust base damage.
   // likewise, agent taking damage can have resistance to lower damage
-  async takeDamage(baseDamage, agentTakingDamage, agentAttacking, awardExperience = true) {
+  async takeDamage(baseDamage, agentTakingDamage, agentAttacking, awardExperience = true, weaponDoingDamage) {
   // async takeDamage(sourceWeapon, agentTakingDamage) {
     if (this.ember.gameManager.gamePaused) { return }
 
@@ -104,7 +110,9 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
       agentTakingDamage.health = 0;   // TODO // why sometimes NaN ?
     }
     agentTakingDamage.health -= baseDamage;
-    agentTakingDamage.container.playDamageText(baseDamage ? baseDamage : 'Miss');
+    if (weaponDoingDamage && weaponDoingDamage.reportDamage) {
+      agentTakingDamage.container.playDamageText(baseDamage ? baseDamage : 'Miss');
+    }
 
     if (agentTakingDamage.container.phaserAgentSprite) {
 
@@ -154,25 +162,25 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
     }
   }
 
-  @task
-  *fireWeapon(agent, weapon, startTileXYZ, radian) {
-    debugger;
-    if (this.ember.gameManager.gamePaused) { return }
-
-    this.scene.agentprojectiles.fireProjectile(startTileXYZ, radian);
-
-    // this.game.sound.playSound(weapon.sound);
-
-    // if (agent.type === this.game.constants.AGENTTYPES.PLAYER) {
-    //   // if (whoFiredType === BaseAgent.AGENTTYPES.PLAYER) {
-    //   this.updatePowerBar(agent);
-    // }
-    // if(agent.currentPower < 100 && agent.reloadPower.isIdle) {
-    //   agent.reloadPower.perform(weapon);
-    // }
-
-    return yield timeout(weapon.fireDelay);
-  }
+  // @task
+  // *fireWeapon(agent, weapon, startTileXYZ, radian) {
+  //   debugger;
+  //   if (this.ember.gameManager.gamePaused) { return }
+  //
+  //   this.scene.agentprojectiles.fireProjectile(startTileXYZ, radian);
+  //
+  //   // this.game.sound.playSound(weapon.sound);
+  //
+  //   // if (agent.type === this.game.constants.AGENTTYPES.PLAYER) {
+  //   //   // if (whoFiredType === BaseAgent.AGENTTYPES.PLAYER) {
+  //   //   this.updatePowerBar(agent);
+  //   // }
+  //   // if(agent.currentPower < 100 && agent.reloadPower.isIdle) {
+  //   //   agent.reloadPower.perform(weapon);
+  //   // }
+  //
+  //   return yield timeout(weapon.fireDelay);
+  // }
 
 
   playDamageText(amount) {
@@ -343,6 +351,10 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
       if (nextTargetTile) {
 
         const tileXYArrayPath = this.pathFinder.findPath(nextTargetTile);
+        // const tileXYArrayPath = this.pathFinder.findPath(nextTargetTile, undefined, false);
+        // const tileXYArrayPath = this.pathFinder.findPath(nextTargetTile, 6000, false);
+        // const tileXYArrayPath = this.pathFinder.getPath(nextTargetTile);
+        // console.log('patrol path', tileXYArrayPath)
 
         if (this.ember.debug.phaserDebug) {
           this.showMovingPath(tileXYArrayPath);

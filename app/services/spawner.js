@@ -143,7 +143,7 @@ export default class SpawnerService extends Service {
   spawnUniques() {
     if (this.uniques && this.uniques.agents && this.uniques.agents.length > 0) {
       this.uniques.agents.forEach(unique => {
-        const agentConfig = this.agentPool.getAgentConfig(unique.agentKey);
+        let agentConfig = this.agentPool.getAgentConfig(unique.agentKey);
         // console.log('unique agentConfig ', agentConfig)
 
         if (agentConfig) {
@@ -153,10 +153,15 @@ export default class SpawnerService extends Service {
 
             if (unique.patrol) {
               // assign any properties
-              Object.assign(agentConfig.patrol, unique.patrol)
+              agentConfig.patrol = Object.assign({}, agentConfig.patrol, unique.patrol);
+              // randomAgentFromPoolConfig.config.patrol = newPatrolConfig;
+
+              // Object.assign(agentConfig.patrol, unique.patrol)
             }
-            if (agentConfig.override) {
-              Object.assign(agentConfig, unique.override);
+            if (unique.override) {
+            // if (agentConfig.override) {
+              agentConfig = Object.assign({}, agentConfig, unique.override);
+              // Object.assign(agentConfig, unique.override);
             }
 
 
@@ -215,7 +220,7 @@ export default class SpawnerService extends Service {
           randomAgentFromPoolConfig.config = newConfig;
           // Object.assign(randomAgentFromPoolConfig.config, location.config.override)
         }
-        console.log('randomAgentFromPoolConfig.config', randomAgentFromPoolConfig.config)
+        // console.log('randomAgentFromPoolConfig.config', randomAgentFromPoolConfig.config)
         const agent = new Agent(location.config.x, location.config.y, randomAgentFromPoolConfig.config);
         // const agent = new Agent(location.config.x, location.config.y, Object.assign(locationClone, agentConfigFromPool));
 

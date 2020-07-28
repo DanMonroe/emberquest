@@ -15,13 +15,23 @@ export default class Projectiles extends Phaser.Physics.Arcade.Group {
 
       const radians = scene.board.angleBetween(attacker.rexChess.tileXYZ, targetTile);
 
-      // change the image
-      if (weapon.projectileImg && projectile.texture.key !== weapon.projectileImg) {
-        projectile.setTexture(weapon.projectileImg);
-        if (weapon.projectileScale) {
-          // projectile.setTexture(weapon.projectileScale);
-        }
-      }
+      // if (weapon.animeframes && weapon.animeframes.length > 0) {
+      //   let key = `${weapon.animeframes[0].key}-inventory-${weapon.animeframes[0].type}`;
+      //   projectile.anims.load(key);
+      //   projectile.play(key);
+      // } else {
+        // change the image
+
+
+      // if (weapon.projectileImg && projectile.texture.key !== weapon.projectileImg) {
+      //   projectile.setTexture(weapon.projectileImg);
+        // if (weapon.projectileScale) {
+        //   // projectile.setTexture(weapon.projectileScale);
+        // }
+      // }
+
+
+      // }
 
       if (attacker.agent.rangedAttackDamage) {
         projectile.damage = attacker.agent.rangedAttackDamageDuringCombat;

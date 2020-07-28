@@ -21,7 +21,10 @@ export class InventoryItem {
   @tracked img;
   @tracked imgDoll;
   @tracked projectileImg;
-  @tracked velocity;
+  velocity;
+  animeframes;
+  reportDamage = true;
+  // @tracked velocity;
   @tracked price;
   @tracked owned = false;
   @tracked display = false;
@@ -38,6 +41,9 @@ export class InventoryItem {
 
   constructor(config) {
     // this.id = config.id;
+    // let newConfig = Object.assign({}, this, config);
+    // // console.log('newConfig', newConfig)
+    // Object.assign(this, newConfig);
     Object.assign(this, config);
   }
 

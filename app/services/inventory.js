@@ -34,6 +34,20 @@ export default class InventoryService extends Service {
     return this.inventoryItems;
   }
 
+  getInventoryAnimations() {
+      let anims = [];
+      let itemsWithAnimations = this.getInventoryItems().filter(inventoryItem => {
+        return inventoryItem.animeframes && inventoryItem.animeframes.length > 0;
+      });
+      itemsWithAnimations.forEach(item => {
+        item.animeframes.forEach(animConfig => {
+          // console.log('animConfig', animConfig)
+          anims.push(animConfig);
+        })
+      })
+      return anims;
+  }
+
   getItemById(id) {
     let item = this.getInventoryItems().find(inventoryItem => {
       return inventoryItem.id === id;

@@ -61,8 +61,26 @@ export default class GameManagerService extends Service {
     this.setupSpawners();
     this.spawnPlayer();
     this.setupUniques();
+    this.createInventoryAnimations();
     this.pauseGame(false);
     this.gameClock.perform();
+  }
+
+  createInventoryAnimations() {
+    let animations = this.inventory.getInventoryAnimations();
+    // console.log('animations', animations);
+    animations.forEach(animation => {
+      const sprite = this.scene.add.sprite(0, 0, constants.SPRITES_TEXTURE);
+
+      if (animation.config.scale) {
+        sprite.setScale(animation.config.scale);
+      }
+
+      this.scene.sprites.add(sprite);
+
+      animation.config.key = `${animation.key}-inventory-${animation.type}`;  // key = 'bone-skull-inventory-range'
+      this.scene.createAnimation(animation.config);
+    })
   }
 
   get getMapDisplayName() {
@@ -491,6 +509,24 @@ export default class GameManagerService extends Service {
     // } else {
     //   console.log('No agent to attack')
     // }
+  }
+
+  processInventoryItemSpecialAction(specialAction, scene, agentToAttackContainer, attackerContainer) {
+    console.log('processInventoryItemSpecialAction')
+    switch (specialAction.value) {
+      case this.ember.constants.SPECIAL_ACTIONS.WHIRLPOOL_IN.value:
+      case this.ember.constants.SPECIAL_ACTIONS.WHIRLPOOL_OUT.value:
+        console.log('whirpool');
+        if (agentToAttackContainer.boardedTransport) {
+          scene.ember.teleportInMap(scene, agentToAttackContainer, specialAction.data.target);
+        } else {
+          console.log('dont teleport player on land!')
+        }
+        break;
+      default:
+        console.log('No Special Action found', specialAction);
+        break;
+    }
   }
 
   didAttackHit(inventoryItem, agentToAttack, attacker) {

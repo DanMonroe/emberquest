@@ -53,19 +53,19 @@ export default class TransportContainer extends BasePhaserAgentContainer {
     this.reloadPower.perform();
   }
 
-  createAnimation(animationConfig) {
-    let frameNames = this.scene.anims.generateFrameNames(this.ember.constants.SPRITES_TEXTURE,
-      {
-        start: animationConfig.start,
-        end: animationConfig.end,
-        zeroPad: 0,
-        prefix: animationConfig.prefix,
-        suffix: '.png'
-      });
-    let thisAnimationConfig = Object.assign({ key: animationConfig.key, frames: frameNames, frameRate: animationConfig.rate, repeat: animationConfig.repeat }, animationConfig || {});
-    // console.log('transport thisAnimationConfig', thisAnimationConfig)
-    this.scene.anims.create(thisAnimationConfig);
-  }
+  // createAnimation(animationConfig) {
+  //   let frameNames = this.scene.anims.generateFrameNames(this.ember.constants.SPRITES_TEXTURE,
+  //     {
+  //       start: animationConfig.start,
+  //       end: animationConfig.end,
+  //       zeroPad: 0,
+  //       prefix: animationConfig.prefix,
+  //       suffix: '.png'
+  //     });
+  //   let thisAnimationConfig = Object.assign({ key: animationConfig.key, frames: frameNames, frameRate: animationConfig.rate, repeat: animationConfig.repeat }, animationConfig || {});
+  //   // console.log('transport thisAnimationConfig', thisAnimationConfig)
+  //   this.scene.anims.create(thisAnimationConfig);
+  // }
 
 
   setupSprite() {
@@ -84,10 +84,10 @@ export default class TransportContainer extends BasePhaserAgentContainer {
 
     if (this.config.animeframes) {
       if (this.config.animeframes.rest) {
-        this.createAnimation(this.config.animeframes.rest);
+        this.scene.createAnimation(this.config.animeframes.rest);
       }
       if (this.config.animeframes.move) {
-        this.createAnimation(this.config.animeframes.move);
+        this.scene.createAnimation(this.config.animeframes.move);
       }
     }
 
