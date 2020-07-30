@@ -341,6 +341,9 @@ export class GameboardScene extends Phaser.Scene {
         sprite.setScale(spriteObj.scale);
         sprite.type = this.ember.constants.SHAPE_TYPE_SPRITE;
 
+        if (spriteObj.name) {
+          sprite.setName(spriteObj.name);
+        }
         let frameNames;
         let animationConfig;
         spriteObj.animeframes.forEach(animation => {
@@ -366,6 +369,11 @@ export class GameboardScene extends Phaser.Scene {
           sprite.setData('clickable', true);
         }
 
+        if (spriteObj.properties) {
+          spriteObj.properties.forEach(prop => {
+            sprite.setData(prop.key, prop.value);
+          });
+        }
         if (spriteObj.name === "brazier" && this.game.ember.placedBrazier) {
           sprite.setData('ignoreFOVUpdate', false);
         }
@@ -553,6 +561,19 @@ export class GameboardScene extends Phaser.Scene {
     //   console.log('doorCollision', player, door);
     //   door.touched = true;
     // }
+  }
+
+  getSpriteByName(name) {
+    console.log('this.sprites', this.sprites)
+    let spriteToReturn = undefined;
+    if (name) {
+      this.sprites.getChildren().forEach(child => {
+        if (child.name === name) {
+          spriteToReturn = child;
+        }
+      });
+    }
+    return spriteToReturn;
   }
 
   update() {

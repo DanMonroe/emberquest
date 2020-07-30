@@ -151,8 +151,8 @@ export default {
     ],
     agents: [
       {
-        spawnInterval: 3000,
-        limit: 5,
+        spawnInterval: 20000,
+        limit: 1,
         locations: [],
         // globalPool: [ 'humanoid_bandit', 'poolkey2', 'poolkey2' ]
       }

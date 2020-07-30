@@ -48,7 +48,7 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC8QB0T',
-        name: 'EmberQuest #4',
+        name: 'EmberQuest #4 - Impenatrable',
         description: '<p>The Southern Merfolk have created a seemingly impenetrable fortress in the Sea of Misdirection. Find a way inside to further your quest.</p>',
         difficulty: 1.5,
         terrain: 1.5,
@@ -61,7 +61,7 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC8V6VK',
-        name: 'EmberQuest #5',
+        name: 'EmberQuest #5 - Submariner',
         description: '<p>Hold your breath while traversing the hidden paradise of the Merfolk. Survive a rogue wave and you’ll soon have the chest in your hands.</p>',
         difficulty: 1.5,
         terrain: 1.5,
@@ -74,8 +74,8 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC8QB1G',
-        name: 'EmberQuest #6',
-        description: '<p></p>',
+        name: 'EmberQuest #6 - Haunted Cash',
+        description: '<p>A questionable fire burned down a village and killed the corrupt chief. The villagers were surprised to find he had taken all their cash to his grave.</p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -388,7 +388,7 @@ export class Caches {
 
     caches.push(
       new Cache({
-        gccode: 'GC8V6XP',
+        gccode: 'GC8V6XP - Cave of Arrrrgh',
         name: 'EmberQuest #27',
         description: '<p></p>',
         difficulty: 1.5,

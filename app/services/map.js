@@ -13,11 +13,20 @@ export default class MapService extends Service {
       case 'final':
         result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/final');
         break;
+      case 'cave1':
+        result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/cave1');
+        break;
       case 'castle':
         result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/castle');
         break;
       case 'cemetery':
         result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/cemetery');
+        break;
+      case 'icecave':
+        result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/icecave');
+        break;
+      case 'igloo':
+        result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/igloo');
         break;
       case 'm1':
         result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/m1');
@@ -30,6 +39,12 @@ export default class MapService extends Service {
         break;
       case 'm3':
         result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/m3');
+        break;
+      case 'm3-hut':
+        result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/m3-hut');
+        break;
+      case 'm3-hut-cave':
+        result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/m3-hut-cave');
         break;
       case 'm4':
         result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/m4');
@@ -66,6 +81,9 @@ export default class MapService extends Service {
         break;
       case 'm13':
         result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/m13');
+        break;
+      case 'smallcabin':
+        result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/smallcabin');
         break;
       case 'arena':
         result = await import(/* webpackChunkName: "chunkName" */ 'emberquest-map-data/tiledata/arena');

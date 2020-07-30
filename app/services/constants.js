@@ -224,7 +224,8 @@ const constants = Object.freeze({
   PORTAL: {
     REQUIRED: {
       GETCHEST: 1,  // must have specific chest first
-      UNMOUNTED: 2  // cant be mounted
+      UNMOUNTED: 2,  // cant be mounted
+      TRAPDOOROPEN: 3  //
     }
   },
 
@@ -259,6 +260,8 @@ const constants = Object.freeze({
     WHIRLPOOL_IN: {value: 7, description: 'Whirlpool into castle'}, // data: { target:{ x: 36, y: 36 }}}
     WHIRLPOOL_OUT: {value: 8, description: 'Whirlpool out of castle'}, // data: { target:{ x: 36, y: 36 }}}
     GET_CHEST: {value: 9, description: 'Pick up chest'},
+    TOGGLE_PROPERTY: {value: 10, description: 'Toggle sprite property on or off'},
+    PLAY_DEPENDANT_ANIMATION: {value: 11, description: 'Play animation based on sprite property on or off'}
   },
 
 

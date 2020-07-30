@@ -758,9 +758,9 @@ export default class AgentPoolService extends Service {
         id: agentId++,
         name: 'Spider',
         animeframes: {
-          rest: {yoyo: true, key: 'spider', prefix: 'bugs/spider-little2-meelee-', start: 1, end: 3, rate: 3, repeat: -1},
-          attack: {key: 'spider', prefix: 'bugs/spider-little2-meelee-', start: 1, end: 13, rate: 7, delays: { frameNum: 13, delay: 300 }},
-          range: {key: 'spider', prefix: 'bugs/spider-little2-ranged-', start: 1, end: 7, rate: 12, delays: { frameNum: 7, delay: 300 }}
+          rest: {yoyo: true, key: 'spider-rest', prefix: 'bugs/spider-little2-melee-', start: 1, end: 3, rate: 3, repeat: -1},
+          attack: {key: 'spider-attack', prefix: 'bugs/spider-little2-melee-', start: 1, end: 13, rate: 7, delays: { frameNum: 13, delay: 300 }},
+          range: {key: 'spider-range', prefix: 'bugs/spider-little2-ranged-', start: 1, end: 7, rate: 12, delays: { frameNum: 7, delay: 300 }}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]},
@@ -882,7 +882,7 @@ export default class AgentPoolService extends Service {
         name: 'Dwarf Guard',
         animeframes: {
           rest: {yoyo: true, key: 'dwarf-guard-rest', prefix: 'dwarves/guard/guard', start: 1, end: 1, rate: 3},
-          attack: {key: 'dwarf-guard-attack', prefix: 'dwarves/guard/guard-attack', start: 1, end: 7, rate: 8, repeat: -1, delays: { frameNum: 7, delay: 300 }}
+          attack: {key: 'dwarf-guard-attack', prefix: 'dwarves/guard/guard-attack-', start: 1, end: 7, rate: 8, repeat: -1, delays: { frameNum: 7, delay: 300 }}
         },
         inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5004 } ]}]  // axe
       })
@@ -893,8 +893,8 @@ export default class AgentPoolService extends Service {
         id: agentId++,
         name: 'Dwarf Heavy Warrior',
         animeframes: {
-          rest: {yoyo: true, key: 'dwarf-heavywarrior-rest', prefix: 'dwarves/heavywarrior/heavywarrior', start: 1, end: 1, rate: 3},
-          attack: {key: 'dwarf-heavywarrior-attack', prefix: 'dwarves/heavywarrior/heavywarrior-attack', start: 1, end: 2, rate: 8, repeat: -1, delays: { frameNum: 2, delay: 300 }}
+          rest: {yoyo: true, key: 'dwarf-heavywarrior-rest', prefix: 'dwarves/heavy-warrior/heavywarrior', start: 1, end: 1, rate: 3},
+          attack: {key: 'dwarf-heavywarrior-attack', prefix: 'dwarves/heavy-warrior/heavywarrior-attack', start: 1, end: 2, rate: 8, repeat: -1, delays: { frameNum: 2, delay: 300 }}
         },
         inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5004 } ]}]  // axe
       })
@@ -932,7 +932,9 @@ export default class AgentPoolService extends Service {
           rest: {yoyo: true, key: 'dwarf-runesmith-rest', prefix: 'dwarves/runesmith/runesmith', start: 1, end: 1, rate: 3},
           attack: {key: 'dwarf-runesmith-attack', prefix: 'dwarves/runesmith/runesmith-attack-se-', start: 1, end: 10, rate: 8, repeat: -1, delays: { frameNum: 10, delay: 300 }}
         },
-        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5004 } ]}]  // axe
+        inventory: [
+          { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5004 } ]}
+        ]// axe
       })
     );
 
@@ -1683,7 +1685,7 @@ export default class AgentPoolService extends Service {
         name: 'Yeti',
         animeframes: {
           rest: {yoyo: true, key: 'yeti-rest', prefix: 'yeti/yeti', start: 1, end: 1},
-          attack: {key: 'yeti-attack', prefix: 'yeti/yeti-attack', start: 1, end: 2, rate: 3},
+          attack: {yoyo:true, key: 'yeti-attack', prefix: 'yeti/yeti-attack', start: 1, end: 2, rate: 3},
           // range: {key: 'boulder-lobber-range', prefix: 'trolls/boulderlobber-attack-ranged', start: 1, end: 2, rate: 2}
         },
         inventory: [

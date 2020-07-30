@@ -416,6 +416,7 @@ export default class GameService extends Service {
 
   checkForPortal(playerContainer, moveTo) {
     let tileIsPortal = moveTo.scene.game.ember.map.tileIsPortal(moveTo.scene, playerContainer.rexChess.tileXYZ);
+    let requiredSprite = undefined
 
     if (tileIsPortal) {
 
@@ -428,8 +429,14 @@ export default class GameService extends Service {
               return;
             }
             break;
+          case constants.PORTAL.REQUIRED.TRAPDOOROPEN:
+            requiredSprite = moveTo.scene.getSpriteByName(tileIsPortal.requires.data.sprite);
+            if (requiredSprite && !requiredSprite.getData(tileIsPortal.requires.data.property)) {
+              return;
+            }
+            break;
           case constants.PORTAL.REQUIRED.UNMOUNTED:
-            console.log('playerContainer.boardedTransport', playerContainer.boardedTransport)
+            // console.log('playerContainer.boardedTransport', playerContainer.boardedTransport)
             if (playerContainer.boardedTransport && playerContainer.boardedTransport.agent.playerConfig.id === constants.AGENTS.GRYPHON) {
               moveTo.scene.game.ember.showInfoDialog(this.intl.t(`messages.unmount-gryphon`), true, constants.MESSAGEIDS.UNMOUNT_GRYPHON_FOR_PORTAL);
               return;
@@ -813,7 +820,7 @@ export default class GameService extends Service {
 
   @task
   *processSpecialAction(scene, specialAction, gameObj) {
-    let doorShapes, transport;
+    let doorShapes, transport, currentValue;
     switch (specialAction.value) {
       case this.constants.SPECIAL_ACTIONS.REMOVE_SIGHT_COST.value:  // data: { tileXY: {x: 11, y: 3 }}
         // find the tile, set its sightCost to 0;
@@ -839,8 +846,35 @@ export default class GameService extends Service {
       case this.constants.SPECIAL_ACTIONS.FINAL_FANFAIR.value:
         console.log('Do final fanfair ?');
         break;
+      case this.constants.SPECIAL_ACTIONS.TOGGLE_PROPERTY.value:
+        if (specialAction.data.spritesToToggle) { // example usage: m3-hut.js
+          const numSprites = specialAction.data.spritesToToggle.length;
+          for (let i = 0; i < numSprites; i++) {
+            const spriteToToggle = scene.getSpriteByName(specialAction.data.spritesToToggle[i]);
+            // console.log('spriteToToggle', spriteToToggle)
+            if (spriteToToggle) {
+              const currentValue = spriteToToggle.getData(specialAction.data.property);
+              spriteToToggle.setData(specialAction.data.property, !currentValue);
+            }
+          }
+        }
+        break;
+      case this.constants.SPECIAL_ACTIONS.PLAY_DEPENDANT_ANIMATION.value:
+        currentValue = gameObj.getData(specialAction.data.property);
+        if (currentValue !== undefined && specialAction.data.sprites) {  // example usage: m3-hut.js
+          const numSprites = specialAction.data.sprites.length;
+          for (let i = 0; i < numSprites; i++) {
+            const spriteToPlay = scene.getSpriteByName(specialAction.data.sprites[i]);
+            if (spriteToPlay) {
+              spriteToPlay.anims.stop();
+              spriteToPlay.anims.load( currentValue ? specialAction.data.keyOn : specialAction.data.keyOff);
+              spriteToPlay.anims.play( currentValue ? specialAction.data.keyOn : specialAction.data.keyOff);
+            }
+          }
+        }
+        break;
       case this.constants.SPECIAL_ACTIONS.PLAY_ANIMATION.value:
-        console.log('Do animation', specialAction.data.key);
+        // console.log('Do animation', specialAction.data.key);
         if (gameObj.anims) {
           gameObj.anims.play(specialAction.data.key);
         }

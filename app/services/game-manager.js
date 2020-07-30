@@ -402,7 +402,7 @@ export default class GameManagerService extends Service {
       } else {
         const sprite = this.findSpriteAtTile(clickedTile);
         if (sprite) {
-          console.log('found sprite', sprite);
+          // console.log('found sprite', sprite);
           const isNeighbor = this.scene.board.areNeighbors(playerContainer.rexChess.tileXYZ, sprite.rexChess.tileXYZ);
           if (isNeighbor) {
             const specialActions = sprite.getData('specialActions');
