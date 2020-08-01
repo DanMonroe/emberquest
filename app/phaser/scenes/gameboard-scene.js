@@ -117,6 +117,7 @@ export class GameboardScene extends Phaser.Scene {
       // this.ember.gameManager.countXP.perform(20)
       // this.ember.gameManager.countGems.perform(30)
 
+      console.log('pointer.event', pointer.event)
 
       // full heal:   TODO remove
       if (pointer.event.shiftKey) {
@@ -127,6 +128,10 @@ export class GameboardScene extends Phaser.Scene {
         // this.ember.gameManager.playSound({'key':'sword_miss'});
       // } else {
       //   this.ember.gameManager.playSound({'key':'pop'});
+      }
+      if (pointer.event.altKey && pointer.event.metaKey) {  // command alt
+        console.log('teleport', this.player);
+        this.game.ember.teleportInMap(this, this.ember.playerContainer, tileXY);
       }
     });
   }

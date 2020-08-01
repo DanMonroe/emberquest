@@ -37,13 +37,6 @@ export class BootScene extends Phaser.Scene {
     this.offsetY = (loading.displayHeight / 2) - (43 * this.scaleX);
     this.barWidth = (246.476733143399793 * this.scaleX);
     this.barHeight = (20 * this.scaleX);
-    // console.log('this.offsetX = ', this.offsetX)
-    // console.log('this.offsetY = ', this.offsetY)
-    // console.log('this.barWidth = ', this.barWidth)
-    // console.log('this.barHeight = ', this.barHeight)
-    // console.log('loading.displayWidth = ', loading.displayWidth)
-    // console.log('loading.displayHeight = ', loading.displayHeight)
-
 
     // https://gamedevacademy.org/creating-a-preloading-screen-in-phaser-3/
 
@@ -103,11 +96,6 @@ export class BootScene extends Phaser.Scene {
     this.load.image('cutter', '/images/transports/cutter.png');
     this.load.image('barque', '/images/transports/barque.png');
     this.load.image('boat', '/images/transports/boat.png');
-
-    // Agents
-    // this.load.image('keep', '/images/agents/keep.png');
-    // this.load.image('desert_keep', '/images/agents/desert_keep.png');
-    // this.load.image('pirate', '/images/agents/pirate-galleon.png');
 
     // signs
     this.load.image('signpost', '/images/maps/signpost.png');

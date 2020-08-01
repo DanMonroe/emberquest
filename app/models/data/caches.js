@@ -89,8 +89,8 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC8V6VC',
-        name: 'EmberQuest #7',
-        description: '<p></p>',
+        name: 'EmberQuest #7 - Are we there Yeti?',
+        description: '<p>A legendary beast allegedly lives in an icy cave somewhere in the Frostwood Mountains. A long journey awaits you.</p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -209,8 +209,8 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC8V6WQ',
-        name: 'EmberQuest #15',
-        description: '<p></p>',
+        name: 'EmberQuest #15 - Subterranean',
+        description: '<p>Below the surface of the Island of Death lies a lava filled cavern. A chest awaits those who are brave enough to explore. You may need a ride if you are not prepared for the heat.</p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -404,8 +404,8 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC8V6XQ',
-        name: 'EmberQuest #28',
-        description: '<p></p>',
+        name: 'EmberQuest #28 - It\'s a Trap!',
+        description: '<p>A residents of a small Dwarven hut in the Scarstone Mountains holds a secret.  Beware!</p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -419,8 +419,8 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC8V6XT',
-        name: 'EmberQuest #29',
-        description: '<p></p>',
+        name: 'EmberQuest #29 - Top of the World',
+        description: '<p>Through the blizzard at sea, you can barely make out a small island to the North.  Surely no person has stepped foot in that tundra!</p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -434,8 +434,8 @@ export class Caches {
     caches.push(
       new Cache({
         gccode: 'GC8V6XW',
-        name: 'EmberQuest #30',
-        description: '<p></p>',
+        name: 'EmberQuest #30 - Tight Quarters',
+        description: '<p>Not much to look at but it provides a nice place to put your feet up after a long hike in the woods.</p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
@@ -450,7 +450,7 @@ export class Caches {
       new Cache({
         gccode: 'GC8V6XZ',
         name: 'EmberQuest #31 - Enchanted Ember',
-        description: '<p></p>',
+        description: '<p>Congratulations for reigniting the eternal flame!  The final treasure is yours to keep. Farewell adventurer!</p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',

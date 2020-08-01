@@ -158,7 +158,7 @@ export default class GameManagerService extends Service {
 
   setupEventListener() {
     this.scene.events.on('pickUpChest', (chestId, playerId) => {
-      console.log('pickUpChest', chestId, playerId);
+      // console.log('pickUpChest', chestId, playerId)
     });
   }
 

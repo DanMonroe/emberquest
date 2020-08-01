@@ -44,8 +44,10 @@ module.exports = function(environment) {
         health: 20,
         baseHealingPower: 2,
         baseHealingSpeed: 2500,
-        energizeSpeed : 2000,
-        energizePower: 2,
+        baseEnergizeSpeed : 2000,
+        baseEnergizePower: 2,
+        // energizeSpeed : 2000,
+        // energizePower: 2,
         power: 102,
         id: 'player1',
         // playerAttackAudio: undefined, // when ready, get from Boot scene  --- actually should get from the weapon the player is using.

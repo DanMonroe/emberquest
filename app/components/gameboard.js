@@ -8,7 +8,9 @@ import Phaser from "phaser";
 import {BootScene} from "../phaser/scenes/boot";
 import {GameboardScene} from "../phaser/scenes/gameboard-scene";
 import rexBoardPlugin from "phaser3-rex-plugins/plugins/board-plugin";
-// import {reads} from '@ember/object/computed';
+import { timeout } from 'ember-concurrency';
+import { task } from 'ember-concurrency-decorators';
+
 
 export default class GameboardComponent extends Component {
   @service('game') emberGameService;
@@ -162,9 +164,35 @@ export default class GameboardComponent extends Component {
     this.emberGameService.gameManager.toggleMuteVolume();
   }
 
-  // @action
-  // adjustVolume() {
-  //   this.emberGameService.gameManager.adjustVolume();
-  // }
+  @action
+  zoomCamera(direction) {
+    // this.emberGameService.gameManager.zoomCamera(direction);
+      console.log('zoom', direction, 'current', this.emberGameService.gameManager.scene.cameras.main.zoom);
+      // this.emberGameService.gameManager.scene.cameras.main.zoom += direction;
+
+      // original zoom: this.ember.cameraMainZoom;
+
+  }
+
+  @task
+  *incrementZoomBy(incrementAmount) {
+    if (incrementAmount === 0) {
+      this.emberGameService.gameManager.scene.cameras.main.zoom = this.emberGameService.gameManager.ember.cameraMainZoom;
+      return;
+    }
+
+    let speed = 200;
+    while (true) {
+      let newValue = this.emberGameService.gameManager.scene.cameras.main.zoom + incrementAmount;
+      if (newValue >= 0.2 && newValue < 4) {
+
+        this.emberGameService.gameManager.scene.cameras.main.zoom = newValue;
+        // console.log('this.emberGameService.gameManager.scene.cameras.main.zoom', this.emberGameService.gameManager.scene.cameras.main.zoom)
+
+      }
+      yield timeout(speed);
+      speed = Math.max(50, speed * 0.8);
+    }
+  }
 
 }

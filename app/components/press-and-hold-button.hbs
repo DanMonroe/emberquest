@@ -1,0 +1,4 @@
+<button type="button" class="{{@btnClass}}" {{on "mousedown" (fn @press @incAmount)}} {{on "mouseup" (fn @release)}} >
+  <div class="{{@iconClass}}"></div>
+  <EmberTooltip tooltipClass="tooltip-controls" >{{@tooltip}}</EmberTooltip>
+</button>

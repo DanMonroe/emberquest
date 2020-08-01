@@ -29,6 +29,7 @@ export class InventoryItem {
   @tracked owned = false;
   @tracked display = false;
   @tracked locked;
+  requiredLevel = 1000;
   @tracked equipped = false;
   @tracked showEquipButton = true;
   @tracked tileX;
@@ -63,5 +64,9 @@ export class InventoryItem {
 
   findStat(type) {
     return this.stats.findBy('type', type);
+  }
+
+  get resistanceItemsToShow() {
+    return this.resistance ? this.resistance.filter(item => item.show) : [];
   }
 }

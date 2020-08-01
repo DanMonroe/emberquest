@@ -526,10 +526,24 @@ a {
   }
   &.empty {
     background-position: -280px 0px;
+    color: #efb149;
     &.volume {
-      color: white;
       font-size: 30px;
-      margin-left: 30px;
+      margin-left: 5px;
+    }
+    &.zoom {
+      padding: 15px;
+      .glyphicon {
+        top: -5px;
+        left: -5px;
+      }
+    }
+    &.zoomout, &.reset, &.zoomin {
+      font-size: 20px;
+      margin-left: 5px;
+    }
+    &.zoomout {
+      margin-left: 40px;
     }
   }
 }
@@ -782,6 +796,9 @@ button {
           transform: rotate(-32deg);
           z-index: 25;
         }
+        &.waterhelm .base_hair {
+          display: none;
+        }
       }
       .doll.head.dragon .base_hair {
         display: none;
@@ -913,6 +930,12 @@ button {
             width: 67px;
             z-index: 20;
           }
+          &.waterhelm {
+            top: 87px;
+            left: 151px;
+            width: 93px;
+            z-index: 20;
+          }
         }
         &.fingers {
           &.dragon {
@@ -934,7 +957,7 @@ button {
         &.shield {
           top: 112px;
           left: 120px;
-          z-index: 17;
+          z-index: 27;
           width: 150px;
           &.a, &.b, &.c {
             top: 196px;
@@ -1058,6 +1081,9 @@ button {
           top: -10px;
           transform: rotate(-32deg);
           z-index: 25;
+        }
+        &.waterhelm .base_hair {
+          display: none;
         }
       }
       .doll.head.dragon .base_hair {
@@ -1196,6 +1222,12 @@ button {
             width: 100px;
             z-index: 20;
           }
+          &.waterhelm {
+            top: 52px;
+            left: 222px;
+            width: 131px;
+            z-index: 20;
+          }
         }
         &.fingers {
           &.dragon {
@@ -1218,7 +1250,7 @@ button {
         &.shield {
           top: 112px;
           left: 120px;
-          z-index: 17;
+          z-index: 27;
           width: 150px;
           &.a, &.b, &.c {
             top: 196px;
@@ -2134,7 +2166,18 @@ button {
           width: 110px;
           height: 110px;
         }
-
+        .required-level {
+          position: absolute;
+          left: 0;
+          right: 5px;
+          top: 70px;
+          font-size: 15px;
+          line-height: 20px;
+          text-transform: uppercase;
+          font-weight: bold;
+          z-index: 2;
+          color: #555;
+        }
         .item-buttons {
           width: 188px;
           display: inline-block;

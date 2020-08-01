@@ -49,6 +49,7 @@
               <span class="glyphicon glyphicon-lock bolder"></span>
               <span class="glyphicon glyphicon-lock"></span>
               <img class="item-silhouette" src="{{item.img}}">
+              <div class="required-level"><div>Level</div><div>{{item.requiredLevel}}</div></div>
               <span class="big-font locked">Locked</span>
             </div>
           {{else}}
@@ -115,12 +116,12 @@
             <div class="val">{{this.game.gameManager.player.container.agent.rangedAttackDamage}}</div>
           </div>
 
-          {{#if this.game.gameManager.player.container.agent.attackSpeedAdj}}
-            <div class="stat">
-              <div class="label">Attack Speed:</div>
-              <div class="val">{{this.game.gameManager.player.container.agent.attackSpeedAdjRounded}} x</div>
-            </div>
-          {{/if}}
+          {{!#if this.game.gameManager.player.container.agent.attackSpeedAdj}}
+<!--            <div class="stat">-->
+<!--              <div class="label">Attack Speed:</div>-->
+<!--              <div class="val">{{!this.game.gameManager.player.container.agent.attackSpeedAdjRounded}} x</div>-->
+<!--            </div>-->
+          {{!/if}}
           {{#if this.game.gameManager.player.container.agent.moveSpeedAdj}}
             <div class="stat">
               <div class="label">Move Speed:</div>
@@ -137,6 +138,18 @@
             <div class="stat">
               <div class="label">Healing Power:</div>
               <div class="val">{{this.game.gameManager.player.container.agent.healingPowerAdj}} x</div>
+            </div>
+          {{/if}}
+          {{#if this.game.gameManager.player.container.agent.energizeSpeedAdj}}
+            <div class="stat">
+              <div class="label">Resting Speed:</div>
+              <div class="val">{{this.game.gameManager.player.container.agent.energizeSpeedAdj}} x</div>
+            </div>
+          {{/if}}
+          {{#if this.game.gameManager.player.container.agent.energizePowerAdj}}
+            <div class="stat">
+              <div class="label">Resting Power:</div>
+              <div class="val">{{this.game.gameManager.player.container.agent.energizePowerAdj}} x</div>
             </div>
           {{/if}}
           {{#if (or this.fireResistance this.coldResistance)}}
@@ -192,13 +205,12 @@
                 </div>
               {{/if}}
 
-
-              {{#if (gte this.itemSelected.resistance.length 0)}}
+              {{#if this.itemSelected.resistanceItemsToShow}}
                 <div class="resistance">
                   <h3 class="big-font">
                     Resistance Granted
                   </h3>
-                  {{#each this.itemSelected.resistance as |resistance|}}
+                  {{#each this.itemSelected.resistanceItemsToShow as |resistance|}}
                     <p>
                       <strong>{{resistance.getTitle}}</strong>
                       <span class="spr">:</span>

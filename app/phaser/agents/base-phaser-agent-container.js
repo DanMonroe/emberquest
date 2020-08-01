@@ -106,7 +106,8 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
 
     // console.log('take Damage', sourceWeapon);
     if (isNaN(agentTakingDamage.health) === true) {
-      debugger;
+      // debugger;
+      console.error('isNaN(agentTakingDamage.health)', agentTakingDamage);
       agentTakingDamage.health = 0;   // TODO // why sometimes NaN ?
     }
     agentTakingDamage.health -= baseDamage;
@@ -143,9 +144,13 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
     while (true) {
       if (!this.ember.gameManager.gamePaused) {
         if (this.agent.health < this.agent.maxHealth) {
+          // console.log('this.agent.healingPower', this.agent.healingPower)
           this.agent.health += Math.max(1, this.agent.healingPower);
         }
       }
+  // if (this.config.id === "player1") {
+    // console.log('this.agent.healingSpeed', this.agent.healingSpeed, this.agent.health, this.agent.maxHealth);
+  // }
       yield timeout(this.agent.healingSpeed);
     }
   }
@@ -158,6 +163,9 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
           this.agent.power += Math.max(1, this.agent.energizePower);
         }
       }
+      // if (this.config.id === "player1") {
+      //   console.log('this.agent.energizeSpeed', this.agent.energizeSpeed, 'this.agent.energizePower', this.agent.energizePower, this.agent.power, this.agent.maxPower);
+      // }
       yield timeout(this.agent.energizeSpeed);
     }
   }

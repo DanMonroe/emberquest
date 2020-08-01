@@ -7,8 +7,6 @@ export class BaseAgent {
 
   @tracked health;
   @tracked power;
-  @tracked energizeSpeed = 2000;
-  @tracked energizePower = 2;
 
   @tracked inventory = emberArray([]);
   equippedSlot = [];
@@ -38,8 +36,8 @@ export class BaseAgent {
 
     this.baseHealingPower = config.baseHealingPower || 2;
     this.baseHealingSpeed = config.baseHealingSpeed || 2000;  // how fast they heal
-    this.energizeSpeed = config.energizeSpeed || 3000;// how fast they recharge power
-    this.energizePower = config.energizePower || 1;// how much power they recharge each time
+    this.baseEnergizeSpeed = config.baseEnergizeSpeed || 2000;// how fast they recharge power
+    this.baseEnergizePower = config.baseEnergizePower || 1;// how much power they recharge each time
 
     for (let i = 0; i < constants.INVENTORY.BODYPARTS.length; i++) {
       this.equippedSlot[i] = null;
@@ -58,11 +56,21 @@ export class BaseAgent {
   }
 
   get healingSpeed() {
-    return this.baseHealingSpeed * this.healingSpeedAdj;
+    return this.baseHealingSpeed / this.healingSpeedAdj;  // timeout, so less is more, so divide
+    // return this.baseHealingSpeed * this.healingSpeedAdj;
   }
 
   get healingPower() {
     return this.baseHealingPower * this.healingPowerAdj;
+  }
+
+  get energizeSpeed() {
+    return this.baseEnergizeSpeed / this.energizeSpeedAdj;  // timeout, so less is more, so divide
+    // return this.baseHealingSpeed * this.healingSpeedAdj;
+  }
+
+  get energizePower() {
+    return this.baseEnergizePower * this.energizePowerAdj;
   }
 
   randomIntFromInterval(min, max) { // min and max included
@@ -253,12 +261,25 @@ export class BaseAgent {
 
   @computed('inventory.@each.equipped')
   get healingSpeedAdj() {
+    // console.log('healingSpeedAdj', +parseFloat((this.getStats(constants.INVENTORY.STATS.HEALINGSPEEDADJ)).toFixed(constants.FLOATING_POINT_PRECISION_4)) + 1, this)
     return +parseFloat((this.getStats(constants.INVENTORY.STATS.HEALINGSPEEDADJ)).toFixed(constants.FLOATING_POINT_PRECISION_4)) + 1;
+  }
+
+  @computed('inventory.@each.equipped')
+  get energizeSpeedAdj() {
+    // console.log('healingSpeedAdj', +parseFloat((this.getStats(constants.INVENTORY.STATS.ENERGIZESPEEDADJ)).toFixed(constants.FLOATING_POINT_PRECISION_4)) + 1, this)
+    return +parseFloat((this.getStats(constants.INVENTORY.STATS.ENERGIZESPEEDADJ)).toFixed(constants.FLOATING_POINT_PRECISION_4)) + 1;
   }
 
   @computed('inventory.@each.equipped')
   get healingPowerAdj() {
     return +parseFloat((this.getStats(constants.INVENTORY.STATS.HEALINGPOWERADJ)).toFixed(constants.FLOATING_POINT_PRECISION_4)) + 1;
+  }
+
+  @computed('inventory.@each.equipped')
+  get energizePowerAdj() {
+    // console.log('energizePowerAdj', +parseFloat((this.getStats(constants.INVENTORY.STATS.ENERGIZEPOWERADJ)).toFixed(constants.FLOATING_POINT_PRECISION_4)) + 1, this)
+    return +parseFloat((this.getStats(constants.INVENTORY.STATS.ENERGIZEPOWERADJ)).toFixed(constants.FLOATING_POINT_PRECISION_4)) + 1;
   }
 
   getInventoryByType(type, equippedOnly = true) {
@@ -312,6 +333,8 @@ export class BaseAgent {
       case constants.INVENTORY.STATS.ATTACKSPEED:
       case constants.INVENTORY.STATS.HEALINGSPEEDADJ:
       case constants.INVENTORY.STATS.HEALINGPOWERADJ:
+      case constants.INVENTORY.STATS.ENERGIZESPEEDADJ:
+      case constants.INVENTORY.STATS.ENERGIZEPOWERADJ:
         return this.equippedInventory.filter(item => {
           if (!item.stats || item.stats.length === 0) {
             return false;
@@ -335,6 +358,8 @@ export class BaseAgent {
       case constants.INVENTORY.STATS.ATTACKSPEED:
       case constants.INVENTORY.STATS.HEALINGSPEEDADJ:
       case constants.INVENTORY.STATS.HEALINGPOWERADJ:
+      case constants.INVENTORY.STATS.ENERGIZESPEEDADJ:
+      case constants.INVENTORY.STATS.ENERGIZEPOWERADJ:
 
         // sum all inventory items, and each stat object in that item.
         total += this.getInventoryByStat(type).reduce((sum, { stats } ) => {

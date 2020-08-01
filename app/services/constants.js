@@ -93,6 +93,8 @@ const constants = Object.freeze({
       HEALINGSPEEDADJ: 6,
       HEALINGPOWERADJ: 7,
       ACCURACY: 8,
+      ENERGIZESPEEDADJ: 9,
+      ENERGIZEPOWERADJ: 10
     },
 
     RESISTANCE: {

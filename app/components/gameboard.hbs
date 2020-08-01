@@ -41,6 +41,30 @@
           <button type="button" class="btn settings" {{on "click" (fn this.showConfigDialog)}} >
             <EmberTooltip tooltipClass="tooltip-controls" >Settings & Help</EmberTooltip>
           </button>
+        <PressAndHoldButton
+                @btnClass={{"btn empty zoom zoomout"}}
+                @iconClass={{"glyphicon glyphicon-zoom-out"}}
+                @tooltip={{"Zoom Out"}}
+                @incAmount={{-0.1}}
+                @press={{perform this.incrementZoomBy}}
+                @release={{cancel-all this.incrementZoomBy}}
+          />
+        <PressAndHoldButton
+                @btnClass={{"btn empty zoom reset"}}
+                @iconClass={{"glyphicon glyphicon-refresh"}}
+                @tooltip={{"Reset Zoom"}}
+                @incAmount={{0}}
+                @press={{perform this.incrementZoomBy}}
+                @release={{cancel-all this.incrementZoomBy}}
+          />
+        <PressAndHoldButton
+                @btnClass={{"btn empty zoom zoomin"}}
+                @iconClass={{"glyphicon glyphicon-zoom-in"}}
+                @tooltip={{"Zoom In"}}
+                @incAmount={{0.1}}
+                @press={{perform this.incrementZoomBy}}
+                @release={{cancel-all this.incrementZoomBy}}
+          />
           <button type="button" class="btn empty volume" {{on "click" (fn this.toggleVolume)}} >
             <div class="glyphicon glyphicon-volume-{{this.volumeCSSClass}}"></div>
             <EmberTooltip tooltipClass="tooltip-controls" >Volume</EmberTooltip>

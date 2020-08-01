@@ -13,6 +13,7 @@ export class InventoryItems {
       new InventoryItem({
         id: weaponId++,
         owned: false,
+        requiredLevel: 1,
         display: true,
         price: 2,
         type: constants.INVENTORY.TYPE.WEAPON,
@@ -37,8 +38,9 @@ export class InventoryItems {
       new InventoryItem({
         id: weaponId++,
         owned: false,
+        requiredLevel: 3,
         display: true,
-        price: 20,
+        price: 25,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
         name: 'Jagged Sword',
@@ -46,9 +48,9 @@ export class InventoryItems {
         cssClazz: 'sword b',
         description: 'This sword has seen better days.',
         stats: [
-          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 10}),
-          new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
-          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 8}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 7}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.25})
         ],
         audioRanged: {key: 'throwknife'},
         audioMelee: {key: 'chink'},
@@ -60,10 +62,10 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: weaponId++,
-        locked: true,
         owned: false,
         display: true,
-        price: 2,
+        requiredLevel: 6,
+        price: 200,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
         name: 'Sword',
@@ -71,9 +73,9 @@ export class InventoryItems {
         cssClazz: 'sword c',
         description: 'A simple introductory sword',
         stats: [
-          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 4}),
-          new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
-          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 14}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 10}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.25})
         ],
         audioRanged: {key: 'throwknife'},
         audioMelee: {key: 'chink'},
@@ -85,10 +87,10 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: weaponId++,
-        locked: true,
         owned: false,
         display: true,
-        price: 2,
+        price: 400,
+        requiredLevel: 10,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
         name: 'Claymore',
@@ -96,8 +98,8 @@ export class InventoryItems {
         cssClazz: 'sword d',
         description: 'A simple introductory sword',
         stats: [
-          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 4}),
-          new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 25}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 15}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
         ],
         audioRanged: {key: 'throwknife'},
@@ -110,10 +112,10 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: weaponId++,
-        locked: true,
         owned: false,
         display: true,
-        price: 2,
+        requiredLevel: 14,
+        price: 1200,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
         name: 'Katana',
@@ -121,9 +123,9 @@ export class InventoryItems {
         cssClazz: 'sword e',
         description: 'A simple introductory sword',
         stats: [
-          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 4}),
-          new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
-          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 35}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 12}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1})
         ],
         audioRanged: {key: 'throwknife'},
         audioMelee: {key: 'chink'},
@@ -135,10 +137,10 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: weaponId++,
-        locked: true,
         owned: false,
         display: true,
-        price: 10,
+        requiredLevel: 2,
+        price: 20,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
         name: 'Simple Axe',
@@ -147,7 +149,7 @@ export class InventoryItems {
         description: 'A simple alternative to a sword',
         stats: [
           new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 10}),
-          new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 7}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
         ],
         audioRanged: {key: 'throwknife'},
@@ -159,10 +161,10 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: weaponId++,
-        locked: true,
         owned: false,
         display: true,
-        price: 2,
+        requiredLevel: 6,
+        price: 250,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
         name: 'Axe',
@@ -170,9 +172,9 @@ export class InventoryItems {
         cssClazz: 'axe b',
         description: 'A simple introductory sword',
         stats: [
-          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 4}),
-          new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
-          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 20}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 9}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.25})
         ],
         audioRanged: {key: 'throwknife'},
         audioMelee: {key: 'chink'},
@@ -183,10 +185,10 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: weaponId++,
-        locked: true,
         owned: false,
         display: true,
-        price: 2,
+        requiredLevel: 11,
+        price: 800,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
         name: 'Battle Axe',
@@ -194,9 +196,9 @@ export class InventoryItems {
         cssClazz: 'axe c',
         description: 'A simple introductory sword',
         stats: [
-          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 4}),
-          new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
-          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 20}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 35}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.25})
         ],
         audioRanged: {key: 'throwknife'},
         audioMelee: {key: 'chink'},
@@ -208,20 +210,20 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: weaponId++,
-        locked: true,
         owned: false,
         display: true,
-        price: 2,
+        requiredLevel: 2,
+        price: 15,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
         name: 'Simple Hammer',
         img: '/images/items/weapons/hammer.png',
         cssClazz: 'hammer a',
-        description: 'A simple introductory sword',
+        description: 'Ugh, Geocacher Smash',
         stats: [
-          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 4}),
-          new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
-          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 7}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 7}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 2})
         ],
         audioRanged: {key: 'throwknife'},
         audioMelee: {key: 'chink'},
@@ -233,10 +235,10 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: weaponId++,
-        locked: true,
         owned: false,
         display: true,
-        price: 2,
+        requiredLevel: 6,
+        price: 200,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
         name: 'Hammer',
@@ -244,9 +246,9 @@ export class InventoryItems {
         cssClazz: 'hammer b',
         description: 'A simple introductory sword',
         stats: [
-          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 4}),
-          new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
-          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 20}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 15}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 2})
         ],
         audioRanged: {key: 'throwknife'},
         audioMelee: {key: 'chink'},
@@ -418,7 +420,11 @@ export class InventoryItems {
         ],
         audioRanged: {key: 'cannon2', config: {volume:.4}},
         audioMelee: {key: 'chink'},
-        audioMiss: {key: 'sword_miss'}
+        audioMiss: {key: 'sword_miss'},
+        animeframes: [
+          { type: 'range', key: 'cannonball', config: {prefix: 'missiles/stone', start: 1, end: 1} }
+        ],
+
         // audio: {
         //   attack: {
         //     miss: {
@@ -440,6 +446,9 @@ export class InventoryItems {
           new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 30}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.6})
+        ],
+        animeframes: [
+          { type: 'range', key: 'cannonball', config: {prefix: 'missiles/stone', start: 1, end: 1} }
         ],
 
 
@@ -492,6 +501,10 @@ export class InventoryItems {
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.8})
         ],
+        animeframes: [
+          { type: 'range', key: 'missile', config: {prefix: 'missiles/missile', start: 1, end: 1} }
+        ],
+
         audioRanged: {key: 'arrow'},
         audioMiss: {key: 'sword_miss'}
       })
@@ -522,7 +535,7 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: 5105,
-        name: {key: 'hatchet'},
+        name: {key: 'spear'},
         type: constants.INVENTORY.TYPE.MONSTER,
         bodypart: constants.INVENTORY.BODYPART.RANGED,
         // projectileImg: 'ball',
@@ -553,6 +566,7 @@ export class InventoryItems {
         owned: false,
         display: true,
         price: 10,
+        requiredLevel: 2,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RANGED,
         name: 'Bow',
@@ -564,7 +578,7 @@ export class InventoryItems {
         stats: [
           new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 3}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 2}),
-          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.5})
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.85})
         ],
         animeframes: [
           { type: 'range', key: 'missile', config: {prefix: 'missiles/missile', start: 1, end: 1} }
@@ -577,10 +591,10 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: rangedWeaponId++,
-        locked: true,
         owned: false,
         display: true,
-        price: 10,
+        price: 350,
+        requiredLevel: 8,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RANGED,
         name: 'Enhanced Bow',
@@ -590,9 +604,9 @@ export class InventoryItems {
         cssClazz: 'ranged b',
         description: 'Modest range and damage; it\'s the beginner crossbow.',
         stats: [
-          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 3}),
-          new Stat({type: constants.INVENTORY.STATS.POWER, value: 2}),
-          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.5})
+          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 10}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 6}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1})
         ],
         animeframes: [
           { type: 'range', key: 'missle', config: {prefix: 'missiles/missile', start: 1, end: 1} }
@@ -606,10 +620,10 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: rangedWeaponId++,
-        locked: true,
         owned: false,
         display: true,
-        price: 10,
+        price: 200,
+        requiredLevel: 4,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RANGED,
         name: 'Crossbow',
@@ -619,9 +633,9 @@ export class InventoryItems {
         cssClazz: 'ranged c',
         description: 'Modest range and damage; it\'s the beginner crossbow.',
         stats: [
-          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 3}),
-          new Stat({type: constants.INVENTORY.STATS.POWER, value: 2}),
-          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.5})
+          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 5}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 3}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.85})
         ],
         animeframes: [
           { type: 'range', key: 'missile', config: {prefix: 'missiles/missile', start: 1, end: 1} }
@@ -634,10 +648,10 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: rangedWeaponId++,
-        locked: true,
         owned: false,
         display: true,
-        price: 10,
+        price: 600,
+        requiredLevel: 11,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RANGED,
         name: 'Triple Bolt',
@@ -647,9 +661,9 @@ export class InventoryItems {
         cssClazz: 'ranged d',
         description: 'Modest range and damage; it\'s the beginner crossbow.',
         stats: [
-          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 15}),
-          new Stat({type: constants.INVENTORY.STATS.POWER, value: 2}),
-          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.5})
+          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 25}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 15}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.75})
         ],
         animeframes: [
           { type: 'range', key: 'missile', config: {prefix: 'missiles/missile', start: 1, end: 1} }
@@ -668,7 +682,8 @@ export class InventoryItems {
         id: armorId++,
         owned: false,
         display: true,
-        price: 3,
+        price: 5,
+        requiredLevel: 1,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.FEET,
         name: 'Leather Shoes',
@@ -683,120 +698,122 @@ export class InventoryItems {
         id: armorId++,
         owned: false,
         display: true,
-        price: 3,
+        price: 30,
+        requiredLevel: 3,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.FEET,
         name: 'Leather Boots',
         img: '/images/items/armor/leather_boots.png',
         cssClazz: 'hide',
         description: 'Slightly more sturdy than leather shoes',
-        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 7})]
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 10})]
       })
     );
     items.push(
       new InventoryItem({
         id: armorId++,
-        locked: true,
         owned: false,
         display: true,
-        price: 10,
+        price: 100,
+        requiredLevel: 6,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.FEET,
         name: 'Reinforced Boots',
         img: '/images/items/armor/boots_reinforced.png',
         cssClazz: 'hide',
         description: '',
-        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 8})]
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 30})]
       })
     );
     items.push(
       new InventoryItem({
         id: armorId++,
-        locked: true,
         owned: false,
         display: true,
         price: 550,
+        requiredLevel: 10,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.FEET,
         name: 'Steel Toed Boots',
         img: '/images/items/armor/boots_steeltoed.png',
         cssClazz: 'hide',
         description: 'Fine leather boots with steel toe protection',
-        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 75})]
       })
     );
 
     items.push(
       new InventoryItem({
         id: armorId++,
-            locked: true,
         owned: false,
         display: true,
         price: 5,
+        requiredLevel: 1,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.BODY,
         name: 'Robe',
         img: '/images/items/armor/robe.png',
         cssClazz: 'torso f',
         description: '',
-        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 5})]
       })
     );
     items.push(
       new InventoryItem({
         id: armorId++,
-        locked: true,
         owned: false,
         display: true,
-        price: 5,
+        price: 15,
+        requiredLevel: 2,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.BODY,
         name: 'Tailored Robe',
         img: '/images/items/armor/robe_tailored.png',
         cssClazz: 'torso g',
         description: '',
-        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 10})]
       })
     );
     items.push(
       new InventoryItem({
         id: armorId++,
-        locked: true,
         owned: false,
         display: true,
-        price: 5,
+        price: 140,
+        requiredLevel: 6,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.BODY,
         name: 'Magic Robe',
         img: '/images/items/armor/robe_magic.png',
         cssClazz: 'torso h',
         description: '',
-        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.75})]
       })
     );
     items.push(
       new InventoryItem({
         id: armorId++,
-        locked: true,
         owned: false,
         display: true,
-        price: 5,
+        price: 60,
+        requiredLevel: 4,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.BODY,
         name: 'Leather',
         img: '/images/items/armor/leather_breastplate.png',
         cssClazz: 'torso j',
         description: '',
-        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 20})]
       })
     );
     items.push(
       new InventoryItem({
         id: armorId++,
-        locked: true,
         owned: false,
         display: true,
-        price: 5,
+        price: 110,
+        requiredLevel: 6,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.BODY,
         name: 'Iron Breastplate',
@@ -809,17 +826,17 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: armorId++,
-        locked: true,
         owned: false,
         display: true,
-        price: 5,
+        price: 350,
+        requiredLevel: 9,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.BODY,
         name: 'Steel Breastplate',
         img: '/images/items/armor/steel_breastplate.png',
         cssClazz: 'torso m',
         description: '',
-        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 70})]
       })
     );
 
@@ -827,111 +844,81 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: armorId++,
-        locked: true,
         owned: false,
         display: true,
         price: 5,
+        requiredLevel: 1,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.HEAD,
         name: 'Fur Hat',
         img: '/images/items/armor/furhat.png',
         cssClazz: 'hide',
         description: 'It will keep your ears warm',
-        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 5})]
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 2})]
       })
     );
     items.push(
       new InventoryItem({
         id: armorId++,
-        locked: true,
         owned: false,
         display: true,
-        price: 5,
+        price: 20,
+        requiredLevel: 2,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.HEAD,
         name: 'Floppy Hat',
         img: '/images/items/armor/hat_floppy.png',
         cssClazz: 'hide',
         description: '',
-        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 7})]
       })
     );
     items.push(
       new InventoryItem({
         id: armorId++,
-        locked: true,
         owned: false,
         display: true,
-        price: 5,
+        price: 105,
+        requiredLevel: 5,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.HEAD,
         name: 'Magic Hat',
         img: '/images/items/armor/hat_magic.png',
         cssClazz: 'hide',
         description: '',
-        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 40})]
       })
     );
-    // items.push(
-    //   new InventoryItem({
-    //     id: armorId++,
-    //     owned: false,
-    //     display: true,
-    //     price: 5,
-    //     type: constants.INVENTORY.TYPE.ARMOR,
-    //     bodypart: constants.INVENTORY.BODYPART.HEAD,
-    //     name: 'Helmet',
-    //     img: '/images/items/armor/helmet.png',
-    //     cssClazz: 'hide',
-    //     description: '',
-    //     stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
-    //   })
-    // );
-    // items.push(
-    //   new InventoryItem({
-    //     id: armorId++,
-    //     owned: false,
-    //     display: true,
-    //     price: 5,
-    //     type: constants.INVENTORY.TYPE.ARMOR,
-    //     bodypart: constants.INVENTORY.BODYPART.HEAD,
-    //     name: 'Spiked Helmet',
-    //     img: '/images/items/armor/helmet2.png',
-    //     cssClazz: 'hide',
-    //     description: '',
-    //     stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
-    //   })
-    // );
     items.push(
       new InventoryItem({
         id: armorId++,
-        locked: true,
         owned: false,
         display: true,
-        price: 5,
+        price: 90,
+        requiredLevel: 6,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.HEAD,
         name: 'Iron Helmet',
         img: '/images/items/armor/iron_helmet2.png',
         cssClazz: 'hide',
         description: '',
-        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 30})]
       })
     );
     items.push(
       new InventoryItem({
         id: armorId++,
-        locked: true,
         owned: false,
         display: true,
-        price: 5,
+        price: 130,
+        requiredLevel: 7,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.HEAD,
         name: 'Steel Helmet',
         img: '/images/items/armor/steel_helmet.png',
         cssClazz: 'hide',
         description: '',
-        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 40})]
       })
     );
 
@@ -942,81 +929,88 @@ export class InventoryItems {
         locked: false,
         owned: false,
         display: true,
-        price: 5,
+        price: 15,
+        requiredLevel: 2,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.LEFT_HAND,
         name: 'Wooden Shield',
         img: '/images/items/armor/shield_wooden.png',
         cssClazz: 'shield a',
         description: 'Small wooden shield.',
-        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 3})]
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 8})]
       })
     );
     items.push(
       new InventoryItem({
         id: armorId++,
-        locked: true,
         owned: false,
         display: true,
-        price: 5,
+        price: 25,
+        requiredLevel: 4,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.LEFT_HAND,
         name: 'Crude Spike Shield',
         img: '/images/items/armor/crude_spike_shield.png',
         cssClazz: 'shield b',
         description: '',
-        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 16})]
       })
     );
     items.push(
       new InventoryItem({
         id: armorId++,
-        locked: true,
         owned: false,
         display: true,
-        price: 5,
+        price: 125,
+        requiredLevel: 6,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.LEFT_HAND,
         name: 'Iron Shield',
         img: '/images/items/armor/iron_shield.png',
         cssClazz: 'shield c',
         description: '',
-        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 40})]
       })
     );
     items.push(
       new InventoryItem({
         id: armorId++,
-        locked: true,
         owned: false,
         display: true,
-        price: 5,
+        price: 300,
+        requiredLevel: 9,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.LEFT_HAND,
         name: 'Steel Shield',
         img: '/images/items/armor/steel_shield.png',
         cssClazz: 'shield d',
         description: '',
-        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 75})]
       })
     );
     items.push(
       new InventoryItem({
         id: armorId++,
-        locked: true,
         owned: false,
         display: true,
-        price: 5,
+        price: 1000,
+        requiredLevel: 12,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.LEFT_HAND,
         name: 'Royal Shield',
         img: '/images/items/armor/steel_shield_3.png',
         cssClazz: 'shield e',
         description: '',
-        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 25})]
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 125})]
       })
     );
 
+
+    // Stats:
+    // HEALINGSPEEDADJ   .25 is 1.25x speed
+    // HEALINGPOWERADJ
+    // ENERGIZESPEEDADJ
+    // ENERGIZEPOWERADJ
 
     // Other
     let otherId = 1001;
@@ -1025,14 +1019,63 @@ export class InventoryItems {
         id: otherId++,
         owned: false,
         display: true,
+        price: 6,
+        requiredLevel: 2,
         type: constants.INVENTORY.TYPE.OTHER,
         bodypart: constants.INVENTORY.BODYPART.FINGERS,
         name: 'Tarnished Ring',
         img: '/images/items/other/tarnishedring.png',
         cssClazz: 'hide',
         description: 'Not pretty but helpful.',
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 4})]
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: otherId++,
+        owned: false,
+        display: true,
         price: 6,
-        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 2})]
+        requiredLevel: 6,
+        type: constants.INVENTORY.TYPE.OTHER,
+        bodypart: constants.INVENTORY.BODYPART.FINGERS,
+        name: 'Ring of Protection',
+        img: '/images/items/other/ring5.png',
+        cssClazz: 'hide',
+        description: '',
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 40})]
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: otherId++,
+        owned: false,
+        display: true,
+        price: 1500,
+        requiredLevel: 8,
+        type: constants.INVENTORY.TYPE.OTHER,
+        bodypart: constants.INVENTORY.BODYPART.FINGERS,
+        name: 'Regeneration Ring',
+        img: '/images/items/other/ring7.png',
+        cssClazz: 'hide',
+        description: 'Bestows accelerated healing to the bearer.',
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALINGSPEEDADJ, value: .5})]
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: otherId++,
+        owned: false,
+        display: true,
+        price: 1150,
+        requiredLevel: 5,
+        type: constants.INVENTORY.TYPE.OTHER,
+        bodypart: constants.INVENTORY.BODYPART.NECK,
+        name: 'Power Amulet',
+        img: '/images/items/other/amuletblue.png',
+        cssClazz: 'hide',
+        description: '',
+        stats: [new Stat({type: constants.INVENTORY.STATS.ENERGIZESPEEDADJ, value: .5})]
       })
     );
 
@@ -1048,7 +1091,7 @@ export class InventoryItems {
         id: 2000,
         owned: false,
         display: false,
-        locked: false,
+        requiredLevel: 1,
         price: 1,
         // price: 550,
         type: constants.INVENTORY.TYPE.ARMOR,
@@ -1058,8 +1101,8 @@ export class InventoryItems {
         imgDoll: '/images/items/dragon/boots_doll.png',
         cssClazz: 'feet dragon',
         description: 'Exquisite boots made from the scales of a fire dragon.',
-        stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
-        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 20})]
+        stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 75})],
+        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 10})]
       })
     );
     items.push(
@@ -1067,7 +1110,7 @@ export class InventoryItems {
         id: 2001,
         owned: false,
         display: false,
-        locked: false,
+        requiredLevel: 1,
         price: 1,
         // price: 550,
         type: constants.INVENTORY.TYPE.ARMOR,
@@ -1078,7 +1121,7 @@ export class InventoryItems {
         cssClazz: 'head dragon',
         description: 'Exquisite helmet made from the scales of a fire dragon.',
         stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
-        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 30})]
+        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 10})]
       })
     );
     items.push(
@@ -1086,17 +1129,16 @@ export class InventoryItems {
         id: 2002,
         owned: false,
         display: false,
-        locked: false,
+        requiredLevel: 1,
         price: 1,
-        // price: 550,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.BODY,
         name: 'Dragon Plate',
         img: '/images/items/dragon/body.png',
         cssClazz: 'torso dragon',
         description: 'Exquisite breastplate made from the scales of a fire dragon.',
-        stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
-        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 50})]
+        stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 100})],
+        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 10})]
       })
     );
     items.push(
@@ -1104,6 +1146,7 @@ export class InventoryItems {
         id: 2003,
         owned: false,
         display: false,
+        requiredLevel: 1,
         price: 1,
         type: constants.INVENTORY.TYPE.WEAPON,
         bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
@@ -1112,10 +1155,11 @@ export class InventoryItems {
         cssClazz: 'sword dragon',
         description: 'A simple introductory sword',
         stats: [
-          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 40}),
-          new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
-          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 50}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 16}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.25})
         ],
+        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 10})],
         audioRanged: {key: 'throwknife'},
         audioMelee: {key: 'chink'},
         audioMiss: {key: 'sword_miss'}
@@ -1126,7 +1170,7 @@ export class InventoryItems {
         id: 2004,
         owned: false,
         display: false,
-        locked: false,
+        requiredLevel: 1,
         price: 1,
         // price: 550,
         type: constants.INVENTORY.TYPE.ARMOR,
@@ -1134,9 +1178,9 @@ export class InventoryItems {
         name: 'Dragon Gloves',
         img: '/images/items/dragon/gloves.png',
         cssClazz: 'hide',
-        description: 'TODO',
-        stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
-        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 50})]
+        description: '',
+        stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 30})],
+        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 10})]
       })
     );
     items.push(
@@ -1144,7 +1188,7 @@ export class InventoryItems {
         id: 2005,
         owned: false,
         display: false,
-        locked: false,
+        requiredLevel: 1,
         price: 1,
         // price: 550,
         type: constants.INVENTORY.TYPE.ARMOR,
@@ -1152,9 +1196,9 @@ export class InventoryItems {
         name: 'Fire Amulet',
         img: '/images/items/dragon/neck.png',
         cssClazz: 'hide',
-        description: 'TODO',
-        stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
-        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 50})]
+        description: '',
+        stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 25})],
+        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 10})]
       })
     );
     items.push(
@@ -1162,7 +1206,7 @@ export class InventoryItems {
         id: 2006,
         owned: false,
         display: false,
-        locked: false,
+        requiredLevel: 1,
         price: 1,
         // price: 550,
         type: constants.INVENTORY.TYPE.ARMOR,
@@ -1171,9 +1215,9 @@ export class InventoryItems {
         img: '/images/items/dragon/ring.png',
         imgDoll: '/images/items/dragon/ring_doll.png',
         cssClazz: 'fingers dragon',
-        description: 'TODO',
-        stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
-        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 50})]
+        description: '',
+        stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 25})],
+        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 10})]
       })
     );
     items.push(
@@ -1181,17 +1225,17 @@ export class InventoryItems {
         id: 2007,
         owned: false,
         display: false,
-        locked: false,
+        requiredLevel: 1,
         price: 1,
         // price: 550,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.LEFT_HAND,
-        name: 'Dragon Plate',
+        name: 'Dragonscale Shield',
         img: '/images/items/dragon/shield.png',
         cssClazz: 'shield dragon',
-        description: 'TODO',
-        stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
-        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 50})]
+        description: '',
+        stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 150})],
+        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 20})]
       })
     );
     items.push(
@@ -1199,17 +1243,17 @@ export class InventoryItems {
         id: 2008,
         owned: false,
         display: false,
-        locked: false,
-        price: 1,
+        requiredLevel: 1,
+        price: 0,
         // price: 550,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.ARMS,
         name: 'Dragon Bracers',
         img: '/images/items/dragon/arms.png',
         cssClazz: 'hide',
-        description: 'TODO',
-        stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 50})],
-        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 50})]
+        description: '',
+        stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 20})],
+        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 10})]
       })
     );
 
@@ -1218,6 +1262,7 @@ export class InventoryItems {
       new InventoryItem({
         id: 2500,
         display: false,
+        requiredLevel: 1,
         showEquipButton: false,
         price: 0,
         type: constants.INVENTORY.TYPE.OTHER,
@@ -1232,6 +1277,7 @@ export class InventoryItems {
       new InventoryItem({
         id: 2501,
         display: false,
+        requiredLevel: 1,
         showEquipButton: false,
         price: 0,
         type: constants.INVENTORY.TYPE.OTHER,
@@ -1246,6 +1292,7 @@ export class InventoryItems {
       new InventoryItem({
         id: 2502,
         display: false,
+        requiredLevel: 1,
         showEquipButton: false,
         price: 0,
         type: constants.INVENTORY.TYPE.OTHER,
@@ -1262,6 +1309,7 @@ export class InventoryItems {
       new InventoryItem({
         id: 2503,
         display: false,
+        requiredLevel: 1,
         showEquipButton: false,
         price: 0,
         type: constants.INVENTORY.TYPE.OTHER,
@@ -1280,6 +1328,7 @@ export class InventoryItems {
         id: 4050,
         name: {key: 'whirlpool'},
         display: false,
+        requiredLevel: 1,
         showEquipButton: false,
         price: 0,
         reportDamage: false,
@@ -1301,6 +1350,7 @@ export class InventoryItems {
         id: 4051,
         name: {key: 'whirlpoolinner'},
         display: false,
+        requiredLevel: 1,
         showEquipButton: false,
         price: 0,
         reportDamage: false,
@@ -1321,14 +1371,20 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: 4052,
-        name: {key: 'waterhelm'},
+        name: 'Waterhelm',
         display: false,
-        showEquipButton: false,
-        cssClazz: 'waterhelm',
+        requiredLevel: 1,
+        price: 0,
+        owned: false,
+        showEquipButton: true,
+        description: '<p>Provides the bearer the ability to breath underwater to explore to the depths of the sea.</p><p>The creatures you\'ll discover may not take kindly to visitors.</p>',
+        cssClazz: 'head waterhelm',
         type: constants.INVENTORY.TYPE.OTHER,
         bodypart: constants.INVENTORY.BODYPART.HEAD,
-        stats: [],
-        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.WATER, value: 100})],
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 35})],
+        img: '/images/items/armor/breathing_helmet.png',
+        imgDoll: '/images/items/armor/breathing_helmet_doll.png',
+        resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.WATER, value: 100, show: false})],
         // audioMelee: {key: 'bite'},
         // audioMiss: {key: 'sword_miss'}
       })
@@ -1358,14 +1414,15 @@ export class InventoryItems {
     items.push(
       new InventoryItem({
         id: constants.INVENTORY.ROYAL_EMBER_ID,
-        owned: true,
-        display: true,
+        owned: false,
+        display: false,
+        requiredLevel: 1,
         showEquipButton: false,
         type: constants.INVENTORY.TYPE.OTHER,
         cssClazz: 'dragonember',
         name: 'Royal Ember',
         img: '/images/items/other/dragonember.png',
-        description: 'TODO',
+        description: '<p>The heart of the Eternal Flame.</p>',
         stats: []
       })
     );

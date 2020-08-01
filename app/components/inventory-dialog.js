@@ -72,12 +72,12 @@ export default class InventoryDialogComponent extends Component {
         img: '/images/icons/item-icon-accessories.png',
         clazz: 'other',
         category: constants.INVENTORY.TYPE.OTHER
-      },
-      {
-        text: 'Transports',
-        // img: '/images/icons/item-icon-accessories.png',
-        clazz: 'transport',
-        category: constants.INVENTORY.TYPE.TRANSPORT
+      // },
+      // {
+      //   text: 'Transports',
+      //   // img: '/images/icons/item-icon-accessories.png',
+      //   clazz: 'transport',
+      //   category: constants.INVENTORY.TYPE.TRANSPORT
       // },
       // {
       //   text: 'Tomes',
@@ -116,7 +116,6 @@ export default class InventoryDialogComponent extends Component {
 
   setEquippedItems() {
     let equippedItems = this.game.gameManager.player.container.agent.equippedInventory.map(item => {
-      // console.log('item', item)
       return { img: item.img, imgDoll: item.imgDoll, cssClazz: item.cssClazz, bodypart: item.bodypart };
     });
     this.equippedItems = equippedItems;
@@ -146,7 +145,12 @@ export default class InventoryDialogComponent extends Component {
   // @computed('inventoryItems', 'currentNavCategory')
   get filteredItems() {
     const filteredByCategory = this.inventoryItems.filterBy('type', this.currentNavCategory.category);
-    return filteredByCategory.sortBy('listorder');
+    const itemsWithLocked = filteredByCategory.map(item => {
+      item.locked = item.requiredLevel > this.game.gameManager.player.level;
+      // requiredLevel: item ? item.requiredLevel : null,
+      return item;
+    });
+    return itemsWithLocked.sortBy('listorder');
   }
 
   @action
