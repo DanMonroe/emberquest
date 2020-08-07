@@ -44,7 +44,8 @@ export class Player extends BaseAgent {
       constants.STOREDATTRS.forEach(storedObj => {
         try {
 // console.log('load ', storedObj.key, storedObj.attr, get(this, storedObj.attr), this.ember.storage.decrypt(get(this, `playerConfig.storedPlayerAttrs.${storedObj.key}`)));
-          set(this, storedObj.attr, +(this.ember.storage.decrypt(get(this, `playerConfig.storedPlayerAttrs.${storedObj.key}`))));
+          const storedAttrValue = +(this.ember.storage.decrypt(get(this, `playerConfig.storedPlayerAttrs.${storedObj.key}`)));
+          set(this, storedObj.attr, isNaN(storedAttrValue) ? storedObj.default : storedAttrValue);
         } catch (e) {
           console.error(e);
           set(this, storedObj.attr, storedObj.default || 0);

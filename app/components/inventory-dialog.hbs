@@ -13,10 +13,10 @@
     <div class="pane">
       {{#if (eq this.currentNavCategory.category this.constants.INVENTORY.TYPE.STATS)}}
         <div class="doll {{this.equippedItemsCSSWrapper}}">
-          <img class="base_torso" src="/images/inventory/doll_f2.png "/>
-          <img class="base_hair" src="/images/inventory/hair_f2.png "/>
-          <img class="base_head" src="/images/inventory/head_f2.png "/>
-          <img class="base_thumb" src="/images/inventory/flesh_thumb_f2.png "/>
+          <img class="base_torso" src="/images/inventory/doll_f2.png"/>
+          <img class="base_hair" src="/images/inventory/hair_f2.png"/>
+          <img class="base_head" src="/images/inventory/head_f2.png"/>
+          <img class="base_thumb" src="/images/inventory/flesh_thumb_f2.png"/>
 
           {{#each this.equippedItems as |equippedItem|}}
             {{#if (not-eq equippedItem.bodypart this.constants.INVENTORY.BODYPART.RANGED)}}
@@ -205,6 +205,11 @@
                 </div>
               {{/if}}
 
+              {{#if this.itemSelected.worldmap}}
+                <div class="worldmapBtn">
+                  <button class="btn styled btn-primary" type="button" {{on "click" (fn this.worldmap this.itemSelected)}}>Larger View</button>
+                </div>
+              {{/if}}
               {{#if this.itemSelected.resistanceItemsToShow}}
                 <div class="resistance">
                   <h3 class="big-font">
@@ -236,16 +241,18 @@
   <ToElsewhere
       @named={{"modal"}}
       @send={{hash body=(component "confirmation-dialog"
-      header="Equipment swap"
-      prompt=this.swapEquipmentMessage
-      prompt2=this.swapEquipmentMessage2
+      clazz=this.confirmClass
+      header=this.confirmHeader
+      prompt=this.confirmMessage
+      prompt2=this.confirmMessage2
 
-      cancelText="Cancel"
-      confirmationText="OK"
+      cancelText=this.cancelText
+      confirmationText=this.confirmText
       onConfirm=(action swapEquipmentConfirmer.confirm)
       onCancel=(action swapEquipmentConfirmer.cancel)
   )
      onOutsideClick=(action (mut swapEquipmentConfirmer) null)
+     clazz=this.confirmClass
   }}
   />
 {{/if}}

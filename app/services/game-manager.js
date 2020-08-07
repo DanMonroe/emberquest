@@ -21,6 +21,10 @@ export default class GameManagerService extends Service {
   @tracked mutedSoundEffectsVolume = false;
   @tracked mutedMusicEffectsVolume = false;
 
+  // stats
+  @tracked deathCount = 0;
+  @tracked killCount = 0;
+
   @tracked gamePaused = true;
   @tracked loadingNewScene = false;
 
@@ -62,8 +66,15 @@ export default class GameManagerService extends Service {
     this.spawnPlayer();
     this.setupUniques();
     this.createInventoryAnimations();
+    this.playSceneMusic();
     this.pauseGame(false);
     this.gameClock.perform();
+  }
+
+  playSceneMusic() {
+    if (!this.mutedMusicEffectsVolume && this.scene.mapData.sceneMusic && this.scene.mapData.sceneMusic.key) {
+      this.scene.sound.playAudioSprite('eq_audio', this.scene.mapData.sceneMusic.key, Object.assign({}, {volume: this.musicEffectsVolume}, this.scene.mapData.sceneMusic.config));
+    }
   }
 
   createInventoryAnimations() {
@@ -71,6 +82,8 @@ export default class GameManagerService extends Service {
     // console.log('animations', animations);
     animations.forEach(animation => {
       const sprite = this.scene.add.sprite(0, 0, constants.SPRITES_TEXTURE);
+
+      animation.config.showOnStart = true;  // makes it visible when played.
 
       if (animation.config.scale) {
         sprite.setScale(animation.config.scale);
@@ -352,13 +365,13 @@ export default class GameManagerService extends Service {
     return spriteShapes.length > 0 ? spriteShapes[0] : null;
   }
 
-  playSound(soundObj, forcePlay) {
+  playSound(soundObj, forcePlay, volume) {
     if (forcePlay || !this.gamePaused) {
-      console.log('gameManager playSound', soundObj, this.soundEffectsVolume)
-      console.count('gameManager playSound')
+      // console.log('gameManager playSound', soundObj, this.soundEffectsVolume)
+      // console.count('gameManager playSound')
 
       if (!this.mutedSoundEffectsVolume && soundObj && soundObj.key) {
-        const config = Object.assign(soundObj.config || {}, {volume: this.soundEffectsVolume});
+        const config = Object.assign(soundObj.config || {}, {volume: volume ? volume : this.soundEffectsVolume});
   // console.log('sound config', config)
         this.scene.sound.playAudioSprite('eq_audio', soundObj.key, config);
       }
@@ -462,7 +475,14 @@ export default class GameManagerService extends Service {
           // const meleeAttackDamage = hit ? attacker.agent.attackDamage : 0;
 
           // weapon will have speed, damage?, timeout cooldown
-          agentToAttack.takeDamage(meleeAttackDamage, agentToAttack.agent, attacker.agent);
+          const takeDamageOptions = {
+            baseDamage: meleeAttackDamage,
+            agentTakingDamage: agentToAttack.agent,
+            agentAttacking: attacker.agent,
+            killedBy: attacker.agent.playerConfig.name
+          }
+
+          agentToAttack.takeDamage(takeDamageOptions);
 
           if (equippedMeleeWeapon) {
             yield timeout(equippedMeleeWeapon.attackSpeed); // cooldown
@@ -583,6 +603,7 @@ export default class GameManagerService extends Service {
     // console.log('player', player, enemy.agent.baseHealth)
 
     if (shouldAwardExperience) {
+      console.log('experienceAwarded', experienceAwarded,'goldAwarded', goldAwarded)
       this.countXP.perform(experienceAwarded);
       this.countGems.perform(goldAwarded);
     }
@@ -597,10 +618,14 @@ export default class GameManagerService extends Service {
 
     await this.saveSceneData();
 
+    this.killCount++;
+    await this.ember.savePlayerStats();
+
+
     this.pauseGame(false);
   }
 
-  async playerDied(playerContainer, scene) {
+  async playerDied({playerContainer, scene, deathDetails} = {}) {
     // debugger;
     this.pauseGame(true);
     // this.playSound(this.ember.constants.AUDIO.KEY.PLAYERDEATH);
@@ -608,9 +633,11 @@ export default class GameManagerService extends Service {
     // TODO what penalties?  For now, heal
     playerContainer.agent.health = playerContainer.agent.baseHealth;
 
+    this.deathCount++;
+    await this.ember.savePlayerStats();
 
-    this.ember.epmModalContainerClass = 'victory';
-    await this.modals.open('death-dialog', {playerDead:true});
+    this.ember.epmModalContainerClass = 'death';
+    await this.modals.open('death-dialog', {playerDead:true, deathDetails:deathDetails});
 
     this.scene.board.moveChess(playerContainer, scene.spawnTile.x, scene.spawnTile.y);
     if(playerContainer.boardedTransport){  // move the transport too

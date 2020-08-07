@@ -10,40 +10,33 @@
     </div>
     <div class="modal-body">
 
-      <div id="victory-text" class="nodisplay">&nbsp;</div>
-      <div class="level-feedback">&nbsp;</div>
+      <div id="victory-text-bg">
+        <div class="victory-text-wrapper">
+          <div class="title">Congratulations!</div>
+          <p>You have found all the geocache chests in EmberQuest!</p>
+          <p>I hope you enjoyed playing the online portion and finding the physical caches.</p>
+          <p>I would love to hear any feedback you may have about the game.</p>
+          <p>If you would like to add a favorite point, please add it to GC8QAYM, EmberQuest #1 - Castle Storeroom.  Thanks!</p>
+          <p class="text-center"><img src="/images/hr.png" class="hr"></p>
+          <p>Game Statistics</p>
+          <div class="stat">
+            <div class="label">Number of times your avatar died:</div>
+            <div class="val">{{this.game.gameManager.deathCount}}</div>
+          </div>
+          <div class="stat">
+            <div class="label">Number of enemies vanquished:</div>
+            <div class="val">{{this.game.gameManager.killCount}}</div>
+          </div>
 
-      <div data-animate="" class="achievement-panel earned">
-        <div class="achievement-rewards">
-          <div class="reward-panel numerical xp">
-            <div class="reward-image-container show{{if this.countXP.isRunning " pulse"}}"><img src="/images/victory/reward_icon_xp.png" class=""></div>
-            <div class="reward-text">+{{this.xpGainedCounter}}</div>
-          </div>
-          <div class="reward-panel numerical gems pulse">
-            <div class="reward-image-container show{{if this.countGems.isRunning " pulse"}}"><img src="/images/victory/reward_icon_gems.png" class=""></div>
-            <div class="reward-text">+{{this.gemsGainedCounter}}</div>
-          </div>
         </div>
       </div>
+
 
     </div>
 
 
 
     <div class="modal-footer">
-      <div id="totals">
-        <div id="xp-wrapper" class="total-wrapper">
-          <div id="xp-total" class="total-count">{{this.xpGainedCounter}}</div>
-          <div class="total-label rtl-allowed"><span class="spr">XP Gained</span> - <span class="spl spr">Level </span> <span class="level"> {{this.params.player.level}}</span></div>
-          <div class="xp-bar-outer">
-            <div class="xp-bar-total" style="width: {{this.xpTotal}}%;"></div>
-          </div>
-        </div>
-        <div id="gem-wrapper" class="total-wrapper">
-          <div id="gem-total" class="total-count">{{this.gemsGainedCounter}}</div>
-          <div class="total-label">Gems Gained</div>
-        </div>
-      </div>
       <div class="next-level-buttons">
         <button class="btn styled btn-green" type="button" {{on "click" (fn @close true)}}>Continue</button>
       </div>

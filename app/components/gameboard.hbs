@@ -8,14 +8,13 @@
     <div class="header">
       <img src="/images/emberquestlogo.png" class="logo" />
 
-
       <div class="game-controls">
           <div class="mapDisplayName">{{this.emberGameService.gameManager.getMapDisplayName}}</div>
           <div class="xp-wrapper">
               <span class="xp xp-30{{if this.emberGameService.gameManager.countXP.isRunning " pulse"}}"></span>
               <div class="xp-bar">
                 <div class="level">
-                    Level {{if this.emberGameService.gameManager.player this.emberGameService.gameManager.player.level "1"}}
+                  Level {{if this.emberGameService.gameManager.player this.emberGameService.gameManager.player.level "1"}}
                 </div>
                 <div class="xp-bar-outer">
                   <div class="xp-bar-total" style="width: {{this.emberGameService.gameManager.xpTotalPercentage}}%;"></div>

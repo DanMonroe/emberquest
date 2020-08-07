@@ -13,6 +13,7 @@ export default class ConfigDialogComponent extends Component {
 
   @tracked currentNavCategory = this.leftNavItems[0];
   @tracked volume = this.gameManager.soundEffectsVolume * 100;
+  @tracked musicVolume = this.gameManager.musicEffectsVolume * 100;
 
   @tracked faqList = [];
 
@@ -60,7 +61,14 @@ export default class ConfigDialogComponent extends Component {
       self.volume = +event.target.value;
       self.gameManager.soundEffectsVolume = self.volume / 100;
       // self.gameManager.playSound({key:'sword_miss'});
-      self.gameManager.playSound({key:'pop'}, true);
+      self.gameManager.playSound({key:'pop'}, true, self.gameManager.soundEffectsVolume);
+      self.saveSettingsData.perform(self);
+  }
+
+  setMusicVolume(self, event) {
+      self.musicVolume = +event.target.value;
+      self.gameManager.musicEffectsVolume = self.musicVolume / 100;
+      self.gameManager.playSound({key:'pop'}, true, self.gameManager.musicEffectsVolume);
       self.saveSettingsData.perform(self);
   }
 

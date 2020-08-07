@@ -101,6 +101,10 @@
 
   }
 }
+.worldmap-large .elsewhere-modal-dialog {
+  width: 637px;
+  padding: 52px 20px 61px 20px;
+}
 
 .ember-modal-overlay.translucent {
   background-color: rgba(0, 0, 0, 0.7);
@@ -705,14 +709,19 @@ button {
       transform: translate(-50%, -50%);
     }
   }
-  &.victory {
+  &.victory, &.death {
     position: relative;
     background-color: none;
     background-clip: padding-box;
     outline: none;
     .epm-modal {
-      top: 245px;
+      top: 385px;
       transform: translate(-50%, -50%);
+    }
+  }
+  &.death {
+    .epm-modal {
+      top: 325px;
     }
   }
 }
@@ -2026,6 +2035,16 @@ button {
       .item-description {
         margin: 20px 0;
         font-size: 1.3em;
+
+        .worldmap {
+          width: 295px;
+        }
+      }
+      .worldmapBtn {
+        text-align: center;
+        button {
+          margin-bottom: 20px;
+        }
       }
 
       .item-addon {
@@ -2264,7 +2283,7 @@ button {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.victoryDialog {
+.victoryDialog, .deathDialog {
 
   .background_wrapper {
     width: 750px;
@@ -2748,7 +2767,7 @@ button {
 
 }
 
-.victoryDialog {
+.victoryDialog, .deathDialog {
   margin-top: 0;
   padding-top: 0;
   width: 750px;
@@ -2810,16 +2829,20 @@ button {
       height: 450px;
       .message-wrapper {
         position: absolute;
-        bottom: 67px;
-        right: 188px;
+        display: inline-flex;
+        bottom: 86px;
+        left: 178px;
+        width: 400px;
+        height: 158px;
+
+        .paper {
           background:  url("/images/backgrounds/popover_border_background.png") no-repeat;
-          background-size: contain  ;
-          width: 314px;
-          height: 101px;
-        .message {
-          font-size: 30px;
-          color: #000;
-          margin: 30px 23px;
+          background-size: contain;
+          .message {
+            font-size: 30px;
+            color: #000;
+            margin: 38px 27px;
+          }
         }
       }
     }
@@ -3073,18 +3096,33 @@ button {
     font-family: "Open Sans Condensed", "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-shadow: black 2px 2px 0, black -2px -2px 0, black 2px -2px 0, black -2px 2px 0, black 2px 0px 0, black 0px -2px 0, black -2px 0px 0, black 0px 2px 0;
   }
+  #victory-text-bg {
+    background-image: url("/images/backgrounds/popover_background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 570px;
+    width: 715px;
+    color: #000;
+    font-size: 1.3em;
+  }
+  .victory-text-wrapper {
+    padding: 40px;
+    .title {
+      text-align: center;
+      z-index: 1;
+      margin: 10px;
+      font-size: 24px;
+      color: #fcc935;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-family: "Open Sans Condensed", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      text-shadow: black 2px 2px 0, black -2px -2px 0, black 2px -2px 0, black -2px 2px 0, black 2px 0px 0, black 0px -2px 0, black -2px 0px 0, black 0px 2px 0;
+    }
+
+  }
+
   .level-feedback {
     height: 20px;
-  }
-  .level-title {
-    z-index: 1;
-    margin: 10px;
-    font-size: 24px;
-    color: #fcc935;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-family: "Open Sans Condensed", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    text-shadow: black 2px 2px 0, black -2px -2px 0, black 2px -2px 0, black -2px 2px 0, black 2px 0px 0, black 0px -2px 0, black -2px 0px 0, black 0px 2px 0;
   }
   .level-name {
     z-index: 1;
@@ -3096,9 +3134,15 @@ button {
     font-family: "Open Sans Condensed", "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-shadow: black 2px 2px 0, black -2px -2px 0, black 2px -2px 0, black -2px 2px 0, black 2px 0px 0, black 0px -2px 0, black -2px 0px 0, black 0px 2px 0;
   }
-
-
 }
+
+.deathDialog {
+  & .modal-header {
+    top: -225px;
+  }
+}
+
+
 @-webkit-keyframes rewardPulse {
   from {
     max-width: 56px;
@@ -3337,3 +3381,6 @@ button {
   //background-color: lightseagreen;
 }
 
+.text-center {
+  text-align: center;
+}

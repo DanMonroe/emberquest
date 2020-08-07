@@ -458,7 +458,16 @@ if (true) {  // TODO remove
           this.playSound(hit && equippedMeleeWeapon ? equippedMeleeWeapon.audioMelee : {});
 
           // weapon will have speed, damage?, timeout cooldown
-          this.ember.playerContainer.takeDamage(meleeAttackDamage, this.ember.playerContainer.agent, this.agent, true, equippedMeleeWeapon);
+          const takeDamageOptions = {
+            baseDamage: meleeAttackDamage,
+            agentTakingDamage: this.ember.playerContainer.agent,
+            agentAttacking: this.agent,
+            awardExperience: true,
+            weaponDoingDamage: equippedMeleeWeapon,
+            killedBy: `a ${this.agent.playerConfig.name}`
+          }
+          console.log('takeDamageOptions', takeDamageOptions)
+          this.ember.playerContainer.takeDamage(takeDamageOptions);
 
           if (equippedMeleeWeapon) {
             if (hit && equippedMeleeWeapon.specialActions) {
@@ -600,22 +609,20 @@ if (true) {  // TODO remove
   _markers = [];
 
   showMovingPath = (tileXYArray) => {
-    // console.log('showMovingPath', tileXYArray)
     this.hideMovingPath();
-    var tileXY, worldXY;
-    var scene = this.scene,
-      board = this.rexChess.board;
+    let tileXY, worldXY;
+    let scene = this.scene;
+    let board = this.rexChess.board;
     for (var i = 0, cnt = tileXYArray.length; i < cnt; i++) {
       tileXY = tileXYArray[i];
       worldXY = board.tileXYToWorldXY(tileXY.x, tileXY.y, true);
-      var text = scene.add.text(worldXY.x, worldXY.y, tileXY.cost)
-        .setOrigin(0.5);
+      const text = scene.add.text(worldXY.x, worldXY.y, Math.floor(tileXY.cost)).setOrigin(0.5);
       this._markers.push(text);
     }
   }
 
   hideMovingPath = () => {
-    for (var i = 0, cnt = this._markers.length; i < cnt; i++) {
+    for (let i = 0, cnt = this._markers.length; i < cnt; i++) {
       this._markers[i].destroy();
     }
     this._markers.length = 0;

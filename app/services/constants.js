@@ -9,7 +9,7 @@ const constants = Object.freeze({
     { key: 'xp', attr: 'experience', default: 0 },
     { key: 'health', attr: 'health', default: 10 },
     { key: 'power', attr: 'power', default: 10 },
-    { key: 'gold', attr: 'gold', default: 0 }
+    { key: 'gold', attr: 'gold', default: 15 }
   ],
 
   CACHE: {
@@ -121,7 +121,8 @@ const constants = Object.freeze({
   HEALTH_PER_LEVEL: 20,
   HEALTH_BONUS_PER_LEVEL: 1.2,
 
-  LEVEL_BY_EXPERIENCE: [0,50,70,85,300,400,900,2700,6500,14000,23000,34000,48000,64000,85000,100000],
+  LEVEL_BY_EXPERIENCE: [0,100,250,500,900,1500,2800,5000,9000,14000,23000,34000,48000,64000,85000,100000],
+  // LEVEL_BY_EXPERIENCE: [0,50,70,85,300,400,900,2700,6500,14000,23000,34000,48000,64000,85000,100000],
   LEVEL_RANGE_AFTER_12:25000,
 
   COLORS: {

@@ -100,8 +100,7 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
   // agentAttacking can have bonus Adjustments in the inventory
   // that adjust base damage.
   // likewise, agent taking damage can have resistance to lower damage
-  async takeDamage(baseDamage, agentTakingDamage, agentAttacking, awardExperience = true, weaponDoingDamage) {
-  // async takeDamage(sourceWeapon, agentTakingDamage) {
+  async takeDamage({baseDamage, agentTakingDamage, agentAttacking, awardExperience = true, weaponDoingDamage, killedBy = ''} = {}) {
     if (this.ember.gameManager.gamePaused) { return }
 
     // console.log('take Damage', sourceWeapon);
@@ -131,8 +130,11 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
 
       if (agentTakingDamage.health <= 0) {
         if (this.isPlayer) {
-          this.ember.gameManager.playerDied(agentTakingDamage.container, this.scene);
+          this.ember.gameManager.playerDied({playerContainer: agentTakingDamage.container, scene:this.scene, deathDetails:{killedBy: killedBy}});
         } else {
+          if (this.ember.debug.phaserDebug) {
+            this.hideMovingPath();
+          }
           this.ember.gameManager.enemyDied(agentTakingDamage.container, agentAttacking, this.scene, awardExperience);
         }
       }

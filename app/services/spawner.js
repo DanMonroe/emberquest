@@ -249,61 +249,6 @@ export default class SpawnerService extends Service {
       case constants.SPAWNER_TYPE.AGENT:
         this.spawnAgent(spawnerConfig);
         break;
-//         location = this.pickRandomLocation(spawnerConfig);
-//
-//         if (location) {
-// console.group('spawner spawnObject', location)
-//           // this.agents.forEach(agent => {
-//           //   console.log('  0', agent[0].objectConfig.name, agent[0].objectConfig.patrol)
-//           // })
-//
-//           agentConfigFromPool = Object.assign({}, this.pickRandomAgentFromPool(location, spawnerConfig));
-//
-//
-//           // locationClone = new AgentConfig(location);
-//           locationClone = Object.assign({}, location);
-//
-//           console.log('             >>>>>>> - locationClone', locationClone, 'agentConfigFromPool', agentConfigFromPool)
-//
-//
-//           if (agentConfigFromPool) {
-//
-// this.agents.forEach(agent => {
-//   console.log('     0 - 3', agent[0].objectConfig.name, agent[0].objectConfig.patrol)
-// })
-//
-//             // if (locationClone.config.patrol) {
-//             if (locationClone.patrol) {
-// // console.log('       0 - locationClone.patrol', locationClone.patrol, 'agentConfigFromPool', agentConfigFromPool)
-//
-//               // assign any properties
-//               // Object.assign(agentConfigFromPool.patrol, locationClone.config.patrol)
-//               Object.assign(agentConfigFromPool.patrol, locationClone.patrol)
-//             }
-//
-//
-// this.agents.forEach(agent => {
-//   // console.log('     0 - 4', agent[0].objectConfig.name, agent[0].objectConfig.patrol, locationClone.config.patrol)
-//   console.log('     0 - 4', agent[0].objectConfig.name, agent[0].objectConfig.patrol, locationClone.patrol)
-// })
-//             if (locationClone.override) {
-//               // Object.assign(agentConfigFromPool, locationClone.config.override)
-//               Object.assign(agentConfigFromPool, locationClone.override)
-//             }
-//
-//             // const agent = new Agent(locationClone.config.x, locationClone.config.y, Object.assign(locationClone.config, agentConfigFromPool));
-//             const agent = new Agent(locationClone.x, locationClone.y, Object.assign(locationClone, agentConfigFromPool));
-//
-//             this.addAgent(agent, spawnerConfig);
-//             // this.addAgent(agent, Object.freeze(spawnerConfig));
-//
-//             console.groupEnd()
-//           }
-//         } else {
-//           console.log('no location!')
-//         }
-//         break;
-
       default:
         break;
     }
@@ -401,7 +346,7 @@ export default class SpawnerService extends Service {
   }
 
   deleteAgent(agentContainer) {
-    console.log('!!! delete agent', agentContainer)
+    // console.log('!!! delete agent', agentContainer)
 
     if (this.agents.length === 0) {
       console.error('no agents to delete', agentContainer);

@@ -1,4 +1,4 @@
-<div class="victoryDialog">
+<div class="deathDialog">
   <div class="background_wrapper death">
     <div class="btn close-btn-x" {{on "click" (fn @close true)}}>X</div>
 
@@ -11,12 +11,12 @@
 
       <div class="modal-body">
 
-
-
         <div class="message-wrapper">
-          <div class="message">
-            You have failed!
+          <div class="paper">
+            <div class="message">
+              You have been killed by {{this.deathDetails.killedBy}}
 
+            </div>
           </div>
         </div>
 

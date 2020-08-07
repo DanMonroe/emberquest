@@ -53,7 +53,7 @@ export class GameboardScene extends Phaser.Scene {
     this.showMapDisplayName = data.mapData.showMapDisplayName;
     this.mapData = data.mapData;
     this.storedData = data;
-    this.storedPlayerTile = data.storedPlayerTile;
+    this.storedPlayerTile = data.storedPlayerTile || data.mapData.spawnLocations.players[0];
     this.allSeenTiles = data.allSeenTiles ? new Set(data.allSeenTiles) : new Set();
     this.storedTransports = data.storedTransports || [];
     this.storedPlayerAttrs = data.storedPlayerAttrs || {};
@@ -109,6 +109,12 @@ export class GameboardScene extends Phaser.Scene {
 
       this.consoleLogReport(tileXY);
 
+      // this.ember.epmModalContainerClass = 'victory';
+      // this.ember.modals.open('victory-dialog', {
+      // });
+
+
+
       // this.ember.showInfoDialog(`
       //       <p>Makes it easy to inject the Phaser game framework into your Ember application.</p>
       //   `);
@@ -117,7 +123,7 @@ export class GameboardScene extends Phaser.Scene {
       // this.ember.gameManager.countXP.perform(20)
       // this.ember.gameManager.countGems.perform(30)
 
-      console.log('pointer.event', pointer.event)
+      // console.log('pointer.event', pointer.event)
 
       // full heal:   TODO remove
       if (pointer.event.shiftKey) {

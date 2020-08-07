@@ -229,7 +229,13 @@ export default class GameService extends Service {
       sceneData: this.sceneData
     });
 
-    await this.saveGameData('gameboard', this.gameData);
+    // await this.saveGameData('gameboard', this.gameData);  // remove this
+
+    await this.saveGameData('currentMap', mapname);
+    await this.saveGameData('playerAttrs', playerAttrs);
+    await this.saveGameData('transports', allTransportsArray);
+    await this.saveGameData('sceneData', this.sceneData);
+    await this.saveGameData('playerTile', scene.player.container.rexChess.tileXYZ);
   }
 
   async loadSettingsData() {
@@ -254,6 +260,24 @@ export default class GameService extends Service {
       'musicEffectsVolume' : this.gameManager.musicEffectsVolume
     }
     await this.saveGameData('settings', settingsData);
+  }
+
+  async loadPlayerStats() {
+    // console.log('loading stats');
+    const statsData = await this.loadGameData('gamestats') || {};
+    if (statsData) {
+      this.gameManager.deathCount = statsData.deathCount || 0;
+      this.gameManager.killCount = statsData.killCount || 0;
+    }
+  }
+
+  async savePlayerStats() {
+    // console.log('saving settings');
+    const statsData = {
+      'deathCount' : this.gameManager.deathCount,
+      'killCount' : this.gameManager.killCount
+    }
+    await this.saveGameData('gamestats', statsData);
   }
 
   async saveGameData(key, value) {
@@ -451,14 +475,6 @@ export default class GameService extends Service {
       if (tileIsPortal.map === this.gameManager.scene.mapname) {
         // portal to another hex in the same map
         this.teleportInMap(moveTo.scene, playerContainer, tileIsPortal);
-        // moveTo.scene.cameras.main.fadeOut(300);
-        // moveTo.scene.cameras.main.off('camerafadeoutcomplete').on('camerafadeoutcomplete', async () => {
-        //   this.gameManager.scene.board.moveChess(playerContainer, tileIsPortal.x, tileIsPortal.y);
-        //   moveTo.scene.game.ember.saveSceneData(moveTo.scene);
-        //   let fieldOfViewTileXYArray = playerContainer.fov.findFOV(playerContainer.visiblePoints);
-        //   moveTo.scene.game.ember.map.findAgentFieldOfView(playerContainer, fieldOfViewTileXYArray);
-        //   moveTo.scene.cameras.main.fadeIn(300);
-        // });
       } else {
         this.gameManager.pauseGame(true);
         this.gameManager.loadingNewScene = true;
@@ -473,52 +489,90 @@ export default class GameService extends Service {
 
         moveTo.scene.cameras.main.fade(300, 0, 0, 0);
         moveTo.scene.cameras.main.on('camerafadeoutcomplete', async () => {
+
+          // let currentMap = await this.game.ember.loadGameData('currentMap');
+          let playerAttrs = await this.loadGameData('playerAttrs');
+          // let transports = await this.game.ember.loadGameData('transports');
+          let sceneData = await this.loadGameData('sceneData');
+          // let playerTile = await this.game.ember.loadGameData('playerTile');
+
+          const sceneDataForMap = sceneData[tileIsPortal.map] || {
+            allSeenTiles: [],
+            storedTransports: [],
+            boarded: 0
+          };
+          console.log('');
+          console.log('');
+          console.error('>>>>>> portal ===> loading map', tileIsPortal.map.toUpperCase(), 'sceneDataForMap', sceneDataForMap);
+          // console.log('sceneDataForMap', sceneDataForMap);
+          console.log('');
+          let data = {
+            'map': tileIsPortal.map,
+
+            // 'gameboardData': gameboardData,
+            'sceneData': sceneData,
+
+            'storedPlayerTile': {x: tileIsPortal.x, y: tileIsPortal.y},
+            'spawnTile': {x: tileIsPortal.x, y: tileIsPortal.y, sF: playerAttrs.sF || 0, tF: playerAttrs.tF || 2},
+            'storedPlayerAttrs': playerAttrs,
+            'allSeenTiles': sceneDataForMap.seenTiles,
+            'storedTransports': sceneDataForMap.transports,
+            'boarded': this.playerContainer.boardedTransport ? this.playerContainer.boardedTransport.agent.id : 0
+          };
+          this.map.getDynamicMapData(data.map).then(mapData => {
+            // console.log('mapData', mapData);
+            data.mapData = mapData;
+
+            moveTo.scene.scene.start('gameboard', data);
+          });
+
+
           // const gameData = await this.loadGameData('gameboard')
-          this.loadGameData('gameboard')
-            .then(gameboardData => {
-              // console.log('>> portal gameboardData', gameboardData);
-
-              if (gameboardData) {
-                const sceneData = gameboardData.sceneData[tileIsPortal.map] || {
-                  allSeenTiles: [],
-                  storedTransports: [],
-                  boarded: 0
-                };
-                console.log('');
-                console.log('');
-                console.error('>>>>>> portal ===> loading map', tileIsPortal.map.toUpperCase(), 'sceneData', sceneData);
-                console.log('sceneData', sceneData);
-                console.log('');
-
-                // moveTo.scene.game.ember.gameData.transports = gameboardData.transports;
-
-                let data = {
-                  'map': tileIsPortal.map,
-
-                  'gameboardData': gameboardData,
-                  'sceneData': sceneData,
-
-                  'storedPlayerTile': {x: tileIsPortal.x, y: tileIsPortal.y},
-                  'spawnTile': {x: tileIsPortal.x, y: tileIsPortal.y, sF: gameboardData.playerAttrs.sF || 0, tF: gameboardData.playerAttrs.tF || 2},
-                  'storedPlayerAttrs': gameboardData.playerAttrs,
-                  'allSeenTiles': sceneData.seenTiles,
-                  'storedTransports': sceneData.transports,
-                  'boarded': this.playerContainer.boardedTransport ? this.playerContainer.boardedTransport.agent.id : 0
-// 'boarded': gameboardData.playerAttrs.boardedTransport  // the id of the transport the player is on
-                  // 'boarded': sceneData.boarded
-                };
-                // console.log('restarting with data', data)
-                // moveTo.scene.scene.restart(data);
-
-                this.map.getDynamicMapData(data.map).then(mapData => {
-                  console.log('mapData', mapData);
-                  data.mapData = mapData;
-
-                  moveTo.scene.scene.start('gameboard', data);
-                });
-
-              }
-            });
+//           this.loadGameData('gameboard')
+//             .then(gameboardData => {
+//               // console.log('>> portal gameboardData', gameboardData);
+//
+//               if (gameboardData) {
+//                 const sceneData = gameboardData.sceneData[tileIsPortal.map] || {
+//                   allSeenTiles: [],
+//                   storedTransports: [],
+//                   boarded: 0
+//                 };
+//                 console.log('');
+//                 console.log('');
+//                 console.error('>>>>>> portal ===> loading map', tileIsPortal.map.toUpperCase(), 'sceneData', sceneData);
+//                 console.log('sceneData', sceneData);
+//                 console.log('');
+//
+//                 // moveTo.scene.game.ember.gameData.transports = gameboardData.transports;
+//
+//                 let data = {
+//                   'map': tileIsPortal.map,
+//
+//                   'gameboardData': gameboardData,
+//                   'sceneData': sceneData,
+//
+//                   'storedPlayerTile': {x: tileIsPortal.x, y: tileIsPortal.y},
+//                   'spawnTile': {x: tileIsPortal.x, y: tileIsPortal.y, sF: gameboardData.playerAttrs.sF || 0, tF: gameboardData.playerAttrs.tF || 2},
+//                   'storedPlayerAttrs': gameboardData.playerAttrs,
+//                   'allSeenTiles': sceneData.seenTiles,
+//                   'storedTransports': sceneData.transports,
+//                   'boarded': this.playerContainer.boardedTransport ? this.playerContainer.boardedTransport.agent.id : 0
+// // 'boarded': gameboardData.playerAttrs.boardedTransport  // the id of the transport the player is on
+//                   // 'boarded': sceneData.boarded
+//                 };
+//                 // console.log('restarting with data', data)
+//                 // moveTo.scene.scene.restart(data);
+//
+//                 this.map.getDynamicMapData(data.map).then(mapData => {
+//                   // console.log('mapData', mapData);
+//                   data.mapData = mapData;
+//
+//                   moveTo.scene.scene.start('gameboard', data);
+//                 });
+//
+//               }
+//             });
 
         });
       }
@@ -609,29 +663,29 @@ export default class GameService extends Service {
 
     // check for any special damage
     if (fireDamage) {
-      this.processSpecialDamage(fireDamage, agentContainer.agent.getResistance(constants.INVENTORY.RESISTANCE.FIRE), agentContainer);
-      // fireResistance = agentContainer.agent.getResistance(constants.INVENTORY.RESISTANCE.FIRE);
-      // if (fireResistance) {
-      //   fireDamage -= (fireDamage * (fireResistance / 100));
-      // }
-      //
-      // if (fireDamage > 0) {
-      //     agentContainer.takeDamage(fireDamage, agentContainer.agent, null, false);
-      // }
+      this.processSpecialDamage(fireDamage, agentContainer.agent.getResistance(constants.INVENTORY.RESISTANCE.FIRE), agentContainer, 'Fire');
     }
     if (waterDamage) {
-      this.processSpecialDamage(waterDamage, agentContainer.agent.getResistance(constants.INVENTORY.RESISTANCE.WATER), agentContainer);
+      this.processSpecialDamage(waterDamage, agentContainer.agent.getResistance(constants.INVENTORY.RESISTANCE.WATER), agentContainer, 'Water');
     }
   }
 
-  processSpecialDamage(damage, resistance, agentContainer) {
+  processSpecialDamage(damage, resistance, agentContainer, killedBy) {
     if (resistance) {
       damage -= (damage * (resistance / 100));
     }
 
     if (damage > 0) {
-      agentContainer.takeDamage(1, agentContainer.agent, null, false);
-      // agentContainer.takeDamage(damage, agentContainer.agent, null, false);
+      // agentContainer.takeDamage(1, agentContainer.agent, null, false);
+      const takeDamageOptions = {
+        baseDamage: damage,
+        agentTakingDamage: agentContainer.agent,
+        agentAttacking: null,
+        awardExperience: false,
+        killedBy: killedBy
+      }
+
+      agentContainer.takeDamage(takeDamageOptions);
     }
   }
 
@@ -801,9 +855,12 @@ export default class GameService extends Service {
       // get cache details
       const geocache = this.cache.findCache(chest.gccode);
       if (geocache) {
+        geocache.found = true;
+        await this.saveCacheFound(geocache);
+
         // show found it modal
         this.epmModalContainerClass = 'chest';
-        this.modals.open('chest-dialog', {
+        await this.modals.open('chest-dialog', {
           coords:geocache.coords,
           parking:geocache.parking,
           gccode:geocache.gccode,
@@ -811,8 +868,22 @@ export default class GameService extends Service {
           gold:chest.gold,
         });
 
-        geocache.found = true;
-        await this.saveCacheFound(geocache);
+        // geocache.found = true;
+        // await this.saveCacheFound(geocache);
+
+        // all chest found?  Show Victory
+        if (this.cache.allCachesFound) {
+          console.log('show victory')
+          this.gameManager.pauseGame(true);
+          this.epmModalContainerClass = 'victory';
+          await this.modals.open('victory-dialog', {
+            player: {
+              level: 1
+            }
+          });
+          this.gameManager.pauseGame(false);
+
+        }
       }
 
     }

@@ -555,6 +555,29 @@ export class InventoryItems {
         audioMiss: {key: 'sword_miss'}
       })
     );
+    items.push(
+      new InventoryItem({
+        id: 5106,
+        name: {key: 'web'},
+        type: constants.INVENTORY.TYPE.MONSTER,
+        bodypart: constants.INVENTORY.BODYPART.RANGED,
+        // projectileImg: 'ball',
+        // projectileScale: 0.4,
+
+        velocity: 225,
+        animeframes: [
+          { type: 'range', key: 'web', config: {prefix: 'missiles/web', start: 1, end: 1} }
+        ],
+
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 3}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.8})
+        ],
+        audioRanged: {key: 'fireball'},
+        audioMiss: {key: 'sword_miss'}
+      })
+    );
 
 
 
@@ -609,7 +632,7 @@ export class InventoryItems {
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1})
         ],
         animeframes: [
-          { type: 'range', key: 'missle', config: {prefix: 'missiles/missile', start: 1, end: 1} }
+          { type: 'range', key: 'missile', config: {prefix: 'missiles/missile', start: 1, end: 1} }
         ],
 
         audioRanged: {key: 'throwknife'},
@@ -1300,7 +1323,7 @@ export class InventoryItems {
 
         name: 'Marauder Report',
         img: '/images/items/tomes/scroll.png',
-        description: '<p>They raided during the night when the Watch was wary.</p><p>Unfortunately, those guarding the Royal Ember were caught by surprise and quickly dispatched.</p><p>They stole the artifact and began raiding the remainder of the castle.</p><p>The thieves with the Ember were last seen riding South toward the volcanic island.</p><p>However, I was able to reach the armory before the rest of their crew could loot the cache of arms.</p><p>Specifically, the Legendary Dragon Armor.</p>I quickly dispatched squires to hide the pieces throughout the land.</p><p>If they were able to control the power of the armor, they would be unstoppable.</p><p>Hopefully, a young Hero will come and recover the pieces.</p><p>Finally, they may be and to rescue the Royal Ember, and save the land!</p>',
+        description: '<p>They raided during the night when the Watch was wary.</p><p>Unfortunately, those guarding the Royal Ember were caught by surprise and quickly dispatched.</p><p>They stole the artifact and began raiding the remainder of the castle.</p><p>The thieves with the Ember were last seen riding South toward the volcanic island.</p><p>However, I was able to reach the armory before the rest of their crew could loot the cache of arms.</p><p>Specifically, the Legendary Dragon Armor.</p>I quickly dispatched squires to hide the pieces throughout the land.</p><p>If they were able to control the power of the armor, they would be unstoppable.</p><p>Hopefully, a young Hero will come and recover the pieces.</p><p>Finally, they may be able to rescue the Royal Ember, and save the land!</p>',
         stats: []
       })
     );
@@ -1314,13 +1337,31 @@ export class InventoryItems {
         price: 0,
         type: constants.INVENTORY.TYPE.OTHER,
         cssClazz: 'tome',
-
         name: 'Dragon Armor Tome',
         img: '/images/items/tomes/tome.png',
         description: '<h3>Legendary Dragon Armor</h3><p>A set of armor and a magical Sword were forged from the parts of the Ancient Red Dragon that once ruled this land.</p><p>Nine separate pieces form the complete set.</p><p>When worn together, it is rumored that the bearer can withstand the heat of a full force dragon\'s breath without harm to the bearer.</p><p>Anything less than a complete set, and they would surely parish</p>',
         stats: []
       })
     );
+
+    items.push(
+      new InventoryItem({
+        id: 2504,
+        display: false,
+        requiredLevel: 1,
+        showEquipButton: false,
+        price: 0,
+        type: constants.INVENTORY.TYPE.OTHER,
+        cssClazz: 'tome',
+        worldmap: true,
+
+        name: 'World Map Sketch',
+        img: '/images/items/tomes/scroll.png',
+        description: '<p>A hastily drawn sketch of the known world.</p><img class="worldmap" src="/images/maps/worldmap_scroll.png" />',
+        stats: []
+      })
+    );
+
 
     // Specials
     items.push(

@@ -48,23 +48,29 @@ export class Agent extends BaseAgent {
         this.level = 1;
       }
     } else {
-      if (this.playerConfig.minLevel !== 0) {
+      if (this.playerConfig.minLevel) {
+      // if (this.playerConfig.minLevel !== 0) {
         // console.log('minLevel', this.playerConfig.minLevel)
         min = this.playerConfig.minLevel;
       }
-      if (this.playerConfig.maxLevel !== 0) {
+      if (this.playerConfig.maxLevel) {
+      // if (this.playerConfig.maxLevel !== 0) {
         // console.log('maxLevel', this.playerConfig.maxLevel)
         max = this.playerConfig.maxLevel;
         if (max < min) {
           max = min;
         }
       }
-      if (this.playerConfig.levelRange !== 0) {
+      if (this.playerConfig.levelRange) {
+      // if (this.playerConfig.levelRange !== 0) {
         min = Math.max(1, this.ember.playerContainer.agent.level - this.playerConfig.levelRange);
         max = this.ember.playerContainer.agent.level + this.playerConfig.levelRange;
       }
 
       if (min !== max) {
+        if (min > max) {
+          max = min + 5;
+        }
         const newLevel = this.ember.randomIntFromInterval(min, max);
         this.level = newLevel;
         // this.health = this.baseHealth;

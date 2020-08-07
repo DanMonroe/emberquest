@@ -614,6 +614,19 @@ export default class AgentPoolService extends Service {
     );
 
     baseAgentclone = Object.assign({}, this.baseAgent);
+    this.agentpool.set('rabbit',
+      Object.assign(baseAgentclone, {
+        id: agentId++,
+        name: 'Rabbit',
+        animeframes: {
+          rest: {yoyo: true, key: 'rabbit-rest', prefix: 'animals/rabbit-attack', start: 1, end: 1},
+          attack: {key: 'rabbit-attack', prefix: 'animals/rabbit-attack', start: 1, end: 3, rate: 6}
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
+      })
+    );
+
+    baseAgentclone = Object.assign({}, this.baseAgent);
     this.agentpool.set('white-rabbit',
       Object.assign(baseAgentclone, {
         id: agentId++,
@@ -764,7 +777,7 @@ export default class AgentPoolService extends Service {
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]},
-          { bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5002} ]}
+          { bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5106} ]}
         ]
       })
     );
@@ -1790,12 +1803,10 @@ export default class AgentPoolService extends Service {
       damage: { x: 0, y: 0 }
     },
     patrol: {
-      // timeout: 200,
-      timeout: 2000,
-      pursuitSpeed: 1500,
+      timeout: 4000,
+      pursuitSpeed: 2000,
       aggressionSpeedTimeout: 2000,
-      // aggressionTimeout: 1000,  // delay time in between aggression turns
-      method: 'random',
+      method: 'wander',
       tiles: [ // {x: 13, y: 4}, {x: 13, y: 2}
       ]
     },

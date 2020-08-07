@@ -25,8 +25,12 @@ export default class InventoryDialogComponent extends Component {
   @tracked popoverTarget = '';
 
   @tracked swapEquipmentConfirmer = null;
-  @tracked swapEquipmentMessage;
-  @tracked swapEquipmentMessage2;
+  @tracked confirmClass;
+  @tracked confirmHeader;
+  @tracked confirmMessage;
+  @tracked confirmMessage2;
+  @tracked cancelText;
+  @tracked confirmText;
 
   items = undefined;
 
@@ -150,7 +154,7 @@ export default class InventoryDialogComponent extends Component {
       // requiredLevel: item ? item.requiredLevel : null,
       return item;
     });
-    return itemsWithLocked.sortBy('listorder');
+    return itemsWithLocked.sortBy('requiredLevel');
   }
 
   @action
@@ -175,8 +179,11 @@ export default class InventoryDialogComponent extends Component {
       await this.game.gameManager.saveSceneData();
     } else {
 
-    this.swapEquipmentMessage = `You already have ${equippedSlotItem.name} equipped for your ${this.inventory.getBodyPartDescription(equippedSlotItem.bodypart)}.`;
-    this.swapEquipmentMessage2 = `Do you want to exchange it with ${item.name}?`;
+      this.confirmHeader = "Equipment swap";
+      this.confirmMessage = `You already have ${equippedSlotItem.name} equipped for your ${this.inventory.getBodyPartDescription(equippedSlotItem.bodypart)}.`;
+      this.confirmMessage2 = `Do you want to exchange it with ${item.name}?`;
+      this.confirmText="OK"
+      this.cancelText="Cancel"
 
       new Confirmer(swapEquipmentConfirmer => this.swapEquipmentConfirmer = swapEquipmentConfirmer)
         .onConfirmed(async () => {
@@ -209,6 +216,21 @@ export default class InventoryDialogComponent extends Component {
     } else {
       console.log('cant buy')
     }
+  }
+
+  @action
+  worldmap() {
+    this.confirmClass = "worldmap-large"
+    this.confirmHeader = undefined;
+    this.confirmMessage = '<img class="worldmap" src="/images/maps/worldmap_scroll.png" />';
+    this.confirmMessage2 = undefined;
+    this.confirmText="Close"
+    this.cancelText=undefined
+
+    new Confirmer(swapEquipmentConfirmer => this.swapEquipmentConfirmer = swapEquipmentConfirmer)
+      .onDone(() => {
+        this.swapEquipmentConfirmer = null
+      });
   }
 
 }
