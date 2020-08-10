@@ -427,14 +427,16 @@ console.log('isBoardedTransport', transportObj, this.storedPlayerTile)
   }
 
   createAudio() {
-    // this.goldPickupAudio = this.sound.add('pickup', { loop: false, volume: 0.5 });
-    // this.openDoorAudio = this.sound.add('open_door_1', { loop: false, volume: 0.5 });
-
-    // this.swordMiss = this.sound.add('sword_miss', { loop: false, volume: 0.5 });
-    // this.arrow = this.sound.add('arrow', { loop: false, volume: 0.4, rate: 2 });
-
-
-    // this.musicAudio = this.sound.add('music1', { loop: true, volume: 0 });
+    let soundEffects = this.sound.addAudioSprite('eq_audio', {
+      mute: this.ember.gameManager.mutedSoundEffectsVolume,
+      volume: this.ember.gameManager.soundEffectsVolume
+    });
+    let musicEffects = this.sound.addAudioSprite('eq_music', {
+      mute: this.ember.gameManager.mutedMusicEffectsVolume,
+      volume: this.ember.gameManager.musicEffectsVolume
+    });
+    this.ember.gameManager.soundEffects = soundEffects;
+    this.ember.gameManager.musicEffects = musicEffects;
   }
 
   configureBoard() {

@@ -20,6 +20,8 @@ export default class GameManagerService extends Service {
   @tracked musicEffectsVolume = 1;
   @tracked mutedSoundEffectsVolume = false;
   @tracked mutedMusicEffectsVolume = false;
+  @tracked soundEffects;
+  @tracked musicEffects;
 
   // stats
   @tracked deathCount = 0;
@@ -73,7 +75,7 @@ export default class GameManagerService extends Service {
 
   playSceneMusic() {
     if (!this.mutedMusicEffectsVolume && this.scene.mapData.sceneMusic && this.scene.mapData.sceneMusic.key) {
-      this.scene.sound.playAudioSprite('eq_audio', this.scene.mapData.sceneMusic.key, Object.assign({}, {volume: this.musicEffectsVolume}, this.scene.mapData.sceneMusic.config));
+      this.scene.ember.gameManager.musicEffects.play(this.scene.mapData.sceneMusic.key, Object.assign({mute: false}, {volume: this.musicEffectsVolume}, this.scene.mapData.sceneMusic.config));
     }
   }
 
@@ -165,6 +167,8 @@ export default class GameManagerService extends Service {
   toggleMuteVolume() {
     this.mutedSoundEffectsVolume = !this.mutedSoundEffectsVolume;
     this.mutedMusicEffectsVolume = !this.mutedMusicEffectsVolume;
+    this.ember.gameManager.soundEffects.setMute(this.mutedSoundEffectsVolume);
+    this.ember.gameManager.musicEffects.setMute(this.mutedMusicEffectsVolume);
     this.ember.saveSettingsData();
   }
 
@@ -371,9 +375,10 @@ export default class GameManagerService extends Service {
       // console.count('gameManager playSound')
 
       if (!this.mutedSoundEffectsVolume && soundObj && soundObj.key) {
-        const config = Object.assign(soundObj.config || {}, {volume: volume ? volume : this.soundEffectsVolume});
-  // console.log('sound config', config)
-        this.scene.sound.playAudioSprite('eq_audio', soundObj.key, config);
+        const config = Object.assign(soundObj.config || {mute: false}, {mute: false, volume: volume ? volume : this.soundEffectsVolume});
+  console.log('sound config', config)
+        // this.scene.sound.playAudioSprite('eq_audio', soundObj.key, config);
+        this.scene.ember.gameManager.soundEffects.play(soundObj.key, config);
       }
     }
 

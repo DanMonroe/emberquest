@@ -18,7 +18,8 @@
     "start": "FASTBOOT_DISABLED=true ember serve --port 4400",
     "test": "npm-run-all lint:* test:*",
     "test:ember": "ember test",
-    "audio": "cd emberquest_work/sprites_audio && audiosprite --output eq_audio --path '/audio/sounds'  *.mp3 *.wav && cp eq_audio.* ../../public/audio/sounds && cd -"
+    "audio": "cd emberquest_work/sprites_audio && audiosprite --output eq_audio --path '/audio/sounds'  *.mp3 *.wav && cp eq_audio.* ../../public/audio/sounds && cd -",
+    "music": "cd emberquest_work/sprites_music && audiosprite --output eq_music --path '/audio/music'  *.mp3 *.wav && cp eq_music.* ../../public/audio/music && cd -"
   },
   "devDependencies": {
     "@ember/optional-features": "^1.3.0",

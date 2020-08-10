@@ -123,6 +123,7 @@ export class BootScene extends Phaser.Scene {
   loadAudio() {
     // TODO two separate sprites?   sound effects and scene music
     this.load.audioSprite('eq_audio', '/audio/sounds/eq_audio.json');
+    this.load.audioSprite('eq_music', '/audio/music/eq_music.json');
 
     // this.load.audio('music1', ['/audio/music/uncharted_territory_justin_monroe.mp3']);
 

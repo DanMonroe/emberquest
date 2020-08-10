@@ -109,17 +109,6 @@ export default class GameboardComponent extends Component {
 
   get volumeCSSClass() {
     return this.emberGameService.gameManager.mutedSoundEffectsVolume ? 'off' : 'up';
-    // switch (this.emberGameService.gameManager.volume) {
-    //   case 0:
-    //     return 'off';
-    //   case 1:
-    //     return 'down';
-    //   case 2:
-    //     return 'up';
-    //   default:
-    //     break;
-    // }
-    // return 'off';
   }
 
   @action

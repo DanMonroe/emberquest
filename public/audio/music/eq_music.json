@@ -1,0 +1,20 @@
+{
+  "resources": [
+    "/audio/music/eq_music.ogg",
+    "/audio/music/eq_music.m4a",
+    "/audio/music/eq_music.mp3",
+    "/audio/music/eq_music.ac3"
+  ],
+  "spritemap": {
+    "eq_music": {
+      "start": 0,
+      "end": 310,
+      "loop": false
+    },
+    "lavamud": {
+      "start": 311,
+      "end": 316.6425623582766,
+      "loop": false
+    }
+  }
+}

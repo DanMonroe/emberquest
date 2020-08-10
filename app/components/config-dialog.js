@@ -60,7 +60,7 @@ export default class ConfigDialogComponent extends Component {
   setVolume(self, event) {
       self.volume = +event.target.value;
       self.gameManager.soundEffectsVolume = self.volume / 100;
-      // self.gameManager.playSound({key:'sword_miss'});
+      self.gameManager.soundEffects.setVolume(self.gameManager.soundEffectsVolume);
       self.gameManager.playSound({key:'pop'}, true, self.gameManager.soundEffectsVolume);
       self.saveSettingsData.perform(self);
   }
@@ -68,6 +68,7 @@ export default class ConfigDialogComponent extends Component {
   setMusicVolume(self, event) {
       self.musicVolume = +event.target.value;
       self.gameManager.musicEffectsVolume = self.musicVolume / 100;
+      self.gameManager.musicEffects.setVolume(self.gameManager.musicEffectsVolume);
       self.gameManager.playSound({key:'pop'}, true, self.gameManager.musicEffectsVolume);
       self.saveSettingsData.perform(self);
   }

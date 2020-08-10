@@ -195,8 +195,9 @@ export default class AgentContainer extends BasePhaserAgentContainer {
 
   playSound(soundObj) {
     if (!this.ember.gameManager.mutedSoundEffectsVolume && soundObj && soundObj.key) {
-      const config = Object.assign(soundObj.config || {}, {volume: this.ember.gameManager.soundEffectsVolume});
-      this.scene.sound.playAudioSprite('eq_audio', soundObj.key, config);
+      const config = Object.assign(soundObj.config || {mute: false}, {volume: this.ember.gameManager.soundEffectsVolume});
+      // this.scene.sound.playAudioSprite('eq_audio', soundObj.key, config);
+      this.scene.ember.gameManager.soundEffects.play(soundObj.key, config);
     }
   }
 
