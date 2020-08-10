@@ -62,15 +62,18 @@ export default class SpawnerService extends Service {
     // Transports
     let boardedTransportId = 0;
     try {
-      boardedTransportId = scene.ember.gameManager.storedData.gameboardData.playerAttrs.boardedTransport;
+      boardedTransportId = scene.ember.gameManager.storedData.storedPlayerAttrs.boardedTransport;
+      // boardedTransportId = scene.ember.gameManager.storedData.gameboardData.playerAttrs.boardedTransport;
       // console.log('boardedTransportId', boardedTransportId)
       if (boardedTransportId) {
         const transportConfigFromPool = this.transportPool.findTransportById(boardedTransportId);
         // console.log('found trans obj', transportConfigFromPool);
         if (transportConfigFromPool) {
           const location = {
-            x: scene.ember.gameManager.storedData.gameboardData.playerTile.x,
-            y: scene.ember.gameManager.storedData.gameboardData.playerTile.y
+            x: scene.ember.gameManager.storedData.storedPlayerTile.x,
+            y: scene.ember.gameManager.storedData.storedPlayerTile.y
+            // x: scene.ember.gameManager.storedData.gameboardData.playerTile.x,
+            // y: scene.ember.gameManager.storedData.gameboardData.playerTile.y
           };
           const transport = new Transport(location.x, location.y, Object.assign(location, transportConfigFromPool));
           transport.isBoardedTransport = true;
@@ -100,7 +103,7 @@ export default class SpawnerService extends Service {
 
     if (this.spawnLocations.transports && this.spawnLocations.transports.length > 0) {
       this.spawnLocations.transports.forEach(transportObj => {
-        // console.log('transport', transportObj);
+  // console.log('transport', transportObj);
 
         this.spawnObject(
           {

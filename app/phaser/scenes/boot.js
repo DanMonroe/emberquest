@@ -144,16 +144,20 @@ export class BootScene extends Phaser.Scene {
 
     const overrideMapImage = (this.game.ember.overrideMap && this.game.ember.overrideMap.map) ? this.game.ember.overrideMap.map : undefined;
 
+    if (overrideMapImage) {
+      currentMap = overrideMapImage;
+    }
     let newData = {
       map: overrideMapImage || 'castle',        // default initial map
       overrideMap: this.game.ember.overrideMap
-    }
+    };
 
     this.game.ember.gameData.transports = transports || [];
 
     if (playerAttrs) {
       this.game.ember.placedBrazier = playerAttrs.re;  // Royal Ember
       newData.storedPlayerAttrs = playerAttrs;
+      // newData.playerAttrs = playerAttrs;
       newData.boarded = playerAttrs.boardedTransport;
     }
     if (currentMap) {
@@ -173,10 +177,10 @@ export class BootScene extends Phaser.Scene {
       newData.sceneData = sceneDataForMap;
       newData.allSeenTiles = sceneDataForMap.seenTiles;
       newData.storedTransports = sceneDataForMap.transports;  // keeps track of transports in one scene
-      newData.spawnTile = sceneDataForMap.spawnTile ? {x: sceneDataForMap.spawnTile.x, y: sceneDataForMap.spawnTile.y, sF: playerAttrs.sF, tF: playerAttrs.tF } : {};
+      newData.spawnTile = sceneDataForMap.spawnTile?.x ? {x: sceneDataForMap.spawnTile.x, y: sceneDataForMap.spawnTile.y, sF: playerAttrs.sF, tF: playerAttrs.tF } : {};
     }
 
-    console.log('newData', newData);
+    // console.log('newData', newData);
 
     //         // TODO:  If you update what is loaded here, also update checkForPortal in game.js
 

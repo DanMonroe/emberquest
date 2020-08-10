@@ -142,34 +142,54 @@ export default class AgentContainer extends BasePhaserAgentContainer {
   }
 
   playAnimation(key) {
-    switch (key) {
-      case this.ember.constants.ANIMATION.KEY.REST:
-        // start playing the rest animation
-        if (this.config.animeframes.rest) {
-          this.stopAnimation();
-          this.phaserAgentSprite.anims.play(this.config.animeframes.rest.key);
-        }
-        break;
-      case this.ember.constants.ANIMATION.KEY.ATTACK:
-        if (this.config.animeframes.attack) {
-          this.stopAnimation();
-          this.phaserAgentSprite.anims.play(this.config.animeframes.attack.key);
-        }
-        break;
-      case this.ember.constants.ANIMATION.KEY.RANGE:
-        if (this.config.animeframes.range) {
-          this.stopAnimation();
-          this.phaserAgentSprite.anims.play(this.config.animeframes.range.key);
-        }
-        break;
-      case this.ember.constants.ANIMATION.KEY.DEATH:
-        if (this.config.animeframes.death) {
-          this.stopAnimation();
-          this.phaserAgentSprite.anims.play(this.config.animeframes.death.key);
-        }
-        break;
-      default:
-        break;
+    try {
+      switch (key) {
+        case this.ember.constants.ANIMATION.KEY.REST:
+          // start playing the rest animation
+          if (this.config.animeframes.rest) {
+            this.stopAnimation();
+            this.phaserAgentSprite.anims.play(this.config.animeframes.rest.key);
+          }
+          break;
+        case this.ember.constants.ANIMATION.KEY.ATTACK:
+          if (this.config.animeframes.attack) {
+            this.stopAnimation();
+            this.phaserAgentSprite.anims.play(this.config.animeframes.attack.key);
+          }
+          break;
+        case this.ember.constants.ANIMATION.KEY.RANGE:
+          if (this.config.animeframes.range) {
+            this.stopAnimation();
+            this.phaserAgentSprite.anims.play(this.config.animeframes.range.key);
+          }
+          break;
+        case this.ember.constants.ANIMATION.KEY.DEATH:
+          if (this.config.animeframes.death) {
+            this.stopAnimation();
+            this.phaserAgentSprite.anims.play(this.config.animeframes.death.key);
+          }
+          break;
+        default:
+          break;
+      }
+    } catch (e) {
+      switch (key) {
+        case this.ember.constants.ANIMATION.KEY.REST:
+            console.error('Exception playing rest animation.', this.config.animeframes.rest.key, e);
+          break;
+        case this.ember.constants.ANIMATION.KEY.ATTACK:
+            console.error('Exception playing attack animation.', this.config.animeframes.attack.key, e);
+          break;
+        case this.ember.constants.ANIMATION.KEY.RANGE:
+            console.error('Exception playing range animation.', this.config.animeframes.range.key, e);
+          break;
+        case this.ember.constants.ANIMATION.KEY.DEATH:
+            console.error('Exception playing death animation.', this.config.animeframes.death.key, e);
+          break;
+        default:
+            console.error('Exception playing unknown animation.', key, e);
+          break;
+      }
     }
   }
 
@@ -466,7 +486,7 @@ if (true) {  // TODO remove
             weaponDoingDamage: equippedMeleeWeapon,
             killedBy: `a ${this.agent.playerConfig.name}`
           }
-          console.log('takeDamageOptions', takeDamageOptions)
+          // console.log('takeDamageOptions', takeDamageOptions);
           this.ember.playerContainer.takeDamage(takeDamageOptions);
 
           if (equippedMeleeWeapon) {
@@ -483,12 +503,12 @@ if (true) {  // TODO remove
           } else {
             yield timeout(this.ember.constants.BASE_ATTACK_TIMEOUT); // cooldown
           }
-
         }
 
         break;
       default:
     }
+    this.playAnimation(this.ember.constants.ANIMATION.KEY.REST);
     return;
   }
 

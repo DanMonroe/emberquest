@@ -14,20 +14,26 @@
         <div class="victory-text-wrapper">
           <div class="title">Congratulations!</div>
           <p>You have found all the geocache chests in EmberQuest!</p>
-          <p>I hope you enjoyed playing the online portion and finding the physical caches.</p>
+          <p>I hope you enjoyed playing the online portion. Good luck finding the physical caches.</p>
           <p>I would love to hear any feedback you may have about the game.</p>
           <p>If you would like to add a favorite point, please add it to GC8QAYM, EmberQuest #1 - Castle Storeroom.  Thanks!</p>
           <p class="text-center"><img src="/images/hr.png" class="hr"></p>
-          <p>Game Statistics</p>
-          <div class="stat">
-            <div class="label">Number of times your avatar died:</div>
-            <div class="val">{{this.game.gameManager.deathCount}}</div>
-          </div>
-          <div class="stat">
+          <div class="stats">
+              <div class="label">Number of times your avatar died:</div>
+              <div class="val">{{this.game.gameManager.deathCount}}</div>
+
             <div class="label">Number of enemies vanquished:</div>
             <div class="val">{{this.game.gameManager.killCount}}</div>
-          </div>
 
+            <div class="label">Player Level:</div>
+            <div class="val">{{this.game.gameManager.player.level}}</div>
+
+            <div class="label">Player Experience:</div>
+            <div class="val">{{this.game.gameManager.player.experience}}</div>
+
+            <div class="label">Gems:</div>
+            <div class="val">{{this.game.gameManager.player.gold}}</div>
+          </div>
         </div>
       </div>
 

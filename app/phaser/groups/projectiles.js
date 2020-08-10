@@ -20,6 +20,7 @@ export default class Projectiles extends Phaser.Physics.Arcade.Group {
       if (!didAttackHit) {
         projectile.damage = 0;
       }
+      projectile.setData('attacker', attacker);
 
       projectile.fire(attacker, radians, weapon);
     } else {
@@ -40,7 +41,6 @@ export default class Projectiles extends Phaser.Physics.Arcade.Group {
       agentTakingDamage: enemy.agent,
       agentAttacking: projectile.scene.player
     }
-
     enemy.takeDamage(takeDamageOptions);
   }
 
@@ -51,11 +51,15 @@ export default class Projectiles extends Phaser.Physics.Arcade.Group {
     projectile.setVelocity(0);
     projectile.disableBody();
     // console.log('player.takeDamage', projectile)
+
+
     const takeDamageOptions = {
       baseDamage: projectile.damage,
       agentTakingDamage: player.agent,
-      killedBy: projectile.name
+      killedBy: `a ${projectile.getData('attacker').config.name}`
     }
+
+    // console.log('projectile takeDamageOptions', takeDamageOptions);
 
     player.takeDamage(takeDamageOptions);
   }

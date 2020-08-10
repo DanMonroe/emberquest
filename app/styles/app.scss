@@ -1993,11 +1993,11 @@ button {
         text-align: right;
         margin-right: 5px;
         color: #5d4934;
-        width: 47%;
+        width: 66%;
         white-space: nowrap;
       }
       .stat {
-        width: 47%;
+        width: 29%;
         margin-left: 5px;
         display: inline-block;
         text-align: left;
@@ -3135,7 +3135,23 @@ button {
     text-shadow: black 2px 2px 0, black -2px -2px 0, black 2px -2px 0, black -2px 2px 0, black 2px 0px 0, black 0px -2px 0, black -2px 0px 0, black 0px 2px 0;
   }
 }
+.victoryDialog {
+  .stats {
+    display: grid;
+    grid-template-columns: 320px 50px;
+    grid-template-rows: 1fr 1fr;
+    grid-column-gap: 20px;
+    grid-row-gap: 15px;
 
+    .label {
+      text-align: end;
+    }
+
+    .val {
+    }
+
+  }
+}
 .deathDialog {
   & .modal-header {
     top: -225px;

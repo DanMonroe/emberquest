@@ -20,6 +20,7 @@ export default class Projectile extends Phaser.Physics.Arcade.Sprite {
     this.setRotation(radians);
 
     this.enableBody();
+    this.body.setSize(20,20);
 
     if (weapon.animeframes && weapon.animeframes.length > 0) {
       let key = `${weapon.animeframes[0].key}-inventory-${weapon.animeframes[0].type}`;

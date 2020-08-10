@@ -401,6 +401,21 @@ export class InventoryItems {
         audioMiss: {key: 'sword_miss'}
       })
     );
+    items.push(
+      new InventoryItem({
+        id: 5009,
+        name: {key: 'wind'},
+        type: constants.INVENTORY.TYPE.MONSTER,
+        bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 6}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 3}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.1})
+        ],
+        audioMelee: {key: 'wind01'},
+        // audioMiss: {key: 'sword_miss'}
+      })
+    );
 
 
 

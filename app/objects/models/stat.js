@@ -21,6 +21,14 @@ export class Stat {
         return 'Ranged Damage';
       case constants.INVENTORY.STATS.HEALTH:
         return 'Health';
+      case constants.INVENTORY.STATS.HEALINGSPEEDADJ:
+        return 'Regain Health Amount';
+      case constants.INVENTORY.STATS.HEALINGPOWERADJ:
+        return 'Regain Health Speed';
+      case constants.INVENTORY.STATS.ENERGIZEPOWERADJ:
+        return 'Regain Power Amount';
+      case constants.INVENTORY.STATS.ENERGIZESPEEDADJ:
+        return 'Regain Power Speed';
       default:
         console.log('unmapped stat title', this);
         return '';
@@ -33,10 +41,15 @@ export class Stat {
       case constants.INVENTORY.STATS.DAMAGE:
       case constants.INVENTORY.STATS.RANGEDDAMAGE:
       case constants.INVENTORY.STATS.POWER:
-        return this.value;
+      case constants.INVENTORY.STATS.ENERGIZEPOWERADJ:
+      case constants.INVENTORY.STATS.ENERGIZESPEEDADJ:
+      case constants.INVENTORY.STATS.HEALINGSPEEDADJ:
+      case constants.INVENTORY.STATS.HEALINGPOWERADJ:
       case constants.INVENTORY.STATS.ATTACKSPEED:
-        speed = (+parseFloat((this.value / 1000).toFixed(1)));
-        return `${speed} seconds`
+        return this.value;
+      // case constants.INVENTORY.STATS.ATTACKSPEED:
+      //   speed = (+parseFloat((this.value / 1000).toFixed(1)));
+      //   return `${speed} seconds`
       case constants.INVENTORY.STATS.HEALTH:
         return `+${this.value}`;
       default:

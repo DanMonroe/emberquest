@@ -37,7 +37,7 @@ export default class ChestDialogComponent extends Component {
     super(...arguments);
 
     this.cacheData = this.modals.top._data;
-    console.log('this.cacheData', this.cacheData)
+    // console.log('this.cacheData', this.cacheData)
     this.decryptedCacheCoords = this.game.decryptCacheCoordinates(this.cacheData.coords);
     if (this.cacheData.parking) {
       this.decryptedParkingCoords = this.game.decryptCacheCoordinates(this.cacheData.parking);

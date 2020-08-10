@@ -41,7 +41,8 @@ export class Caches {
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
         coords: '60a5931b6bdca21fab2949c7705cd801a7e7887995d757d98f8db6f4c74b0f21LmhwX+77/ORd0Tgrv7gocPWIl0FSsUpwoA8SObSlxUg=',
-        parking: ''
+        parking: '',
+        cacheHint: 'Small lock-n-lock on ground.',
       })
     );
 
@@ -81,7 +82,7 @@ export class Caches {
         foundInstructions: 'Congrats.. now do this',
         coords: '3df7396f6125e393a9daab75608b225457948c8298c0fac42cc7d9deb1e567dd7ChJZXywkLLcaluiArKW11XVDzcr+KnnouYEJ4Uy7Ew=',
         parking: '',
-        cacheHint: 'test',
+        cacheHint: '',
         puzzleHint: 'grfg'
       })
     );
@@ -212,7 +213,7 @@ export class Caches {
         name: 'EmberQuest #15 - Subterranean',
         description: '<p>Below the surface of the Island of Death lies a lava filled cavern. A chest awaits those who are brave enough to explore. You may need a ride if you are not prepared for the heat.</p>',
         difficulty: 1.5,
-        terrain: 1.5,
+        terrain: 2,
         foundInstructions: 'Congrats.. now do this',
         coords: 'a0960d0398de791fbe4f9102994e0ba767bb8f26cfe493e0bc8d66afb05ba170QHrC7D0ndsu2OHzWe3JIpS9bZvvdHrA4/EKwN/OIsX0=',
         parking: '',
@@ -231,7 +232,7 @@ export class Caches {
         foundInstructions: 'Congrats.. now do this',
         coords: 'c831f92dbb8f76efd00f7032cd8c43f55f821ebb55070fb13319c1e4a2b1ade2Qx5ctVo0JCQGLT97tARwarZnEIXQuwRpEhzaN3k19hY=',
         parking: '',
-        cacheHint: 'test',
+        cacheHint: 'Use trailhead, then short 10 foot bushwhack to GZ. Cache is a preform about waist level.',
         puzzleHint: 'grfg'
       })
     );
@@ -261,7 +262,7 @@ export class Caches {
         foundInstructions: 'Congrats.. now do this',
         coords: 'a2b8690049db6acda585e6c3bb5384213c9b425d3dfb55578febae1143782852Sf0+Pg560LoZ3ZzC9hstY93J+zSkKeWXGNuDcftAIyA=',
         parking: '',
-        cacheHint: 'test',
+        cacheHint: '6 feet off trail and about eye level. Bison tube behind tree.',
         puzzleHint: 'grfg'
       })
     );
@@ -306,7 +307,7 @@ export class Caches {
         foundInstructions: 'Congrats.. now do this',
         coords: '58c2e7aca8b642bd34cd78289efbf78acf3fd84aba5a8d6cd3307189b24b8056dhmsls2GK9W1EZPeT3I3LDLi4DtonbeArFfK4f3twuU=',
         parking: '',
-        cacheHint: 'test',
+        cacheHint: 'Bison tube 7 feet above ground level.',
         puzzleHint: 'grfg'
       })
     );
@@ -366,7 +367,7 @@ export class Caches {
         foundInstructions: 'Congrats.. now do this',
         coords: '4bdd49b352ce4b6a4d7c9a3f35bc4fbe65b10a952f2044042fc2978766e8201erNkajuUlrzOEzLeJcyylGO6KLbNKeC+z8cREz45p/M4=',
         parking: '',
-        cacheHint: 'test',
+        cacheHint: 'Unnatural pile of sticks.',
         puzzleHint: 'grfg'
       })
     );
@@ -396,7 +397,7 @@ export class Caches {
         foundInstructions: 'Congrats.. now do this',
         coords: '6eaa5b44be4364532d820e2c9cd0339237c11ded4ee3473a60afdf739af937a4kiQNRDKJcNW7tc3NrvqFjo/lLfX1BWWkqReaq6ad2H0=',
         parking: '',
-        cacheHint: 'test',
+        cacheHint: 'John Freshwater. Matchstick container in stone wall behind loose rock.',
         puzzleHint: 'grfg'
       })
     );
@@ -426,7 +427,7 @@ export class Caches {
         foundInstructions: 'Congrats.. now do this',
         coords: '4adcb36ea3feb75cb547ce726efedcd95e718a99c5a5c936c3af81819a3168abyxUq+bmXysGgzQdmThgBS8FdtsXe0RB9JrFS0xb9PaE=',
         parking: '',
-        cacheHint: 'test',
+        cacheHint: 'John Beard. Hanging from tree.',
         puzzleHint: 'grfg'
       })
     );

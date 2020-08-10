@@ -241,7 +241,7 @@ const constants = Object.freeze({
 
   // specific agent IDs
   AGENTS: {
-    GRYPHON: 1309
+    GRYPHON: 9902
   },
 
   MESSAGEIDS: {
@@ -264,7 +264,8 @@ const constants = Object.freeze({
     WHIRLPOOL_OUT: {value: 8, description: 'Whirlpool out of castle'}, // data: { target:{ x: 36, y: 36 }}}
     GET_CHEST: {value: 9, description: 'Pick up chest'},
     TOGGLE_PROPERTY: {value: 10, description: 'Toggle sprite property on or off'},
-    PLAY_DEPENDANT_ANIMATION: {value: 11, description: 'Play animation based on sprite property on or off'}
+    PLAY_DEPENDANT_ANIMATION: {value: 11, description: 'Play animation based on sprite property on or off'},
+    READ_SIGN: {value: 12, description: 'Read sign'}
   },
 
 

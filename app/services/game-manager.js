@@ -532,11 +532,11 @@ export default class GameManagerService extends Service {
   }
 
   processInventoryItemSpecialAction(specialAction, scene, agentToAttackContainer, attackerContainer) {
-    console.log('processInventoryItemSpecialAction')
+    // console.log('processInventoryItemSpecialAction')
     switch (specialAction.value) {
       case this.ember.constants.SPECIAL_ACTIONS.WHIRLPOOL_IN.value:
       case this.ember.constants.SPECIAL_ACTIONS.WHIRLPOOL_OUT.value:
-        console.log('whirpool');
+        // console.log('whirpool');
         if (agentToAttackContainer.boardedTransport) {
           scene.ember.teleportInMap(scene, agentToAttackContainer, specialAction.data.target);
         } else {

@@ -17,11 +17,17 @@
 
       "lavawarning": "'<h4>'Warning!'</h4><p>'Lava ahead, watch your step!'</p>'",
 
+      "swimwarning": "'<h4>'Warning!'</h4><p>'Strong Undertow. Ensure you are equipped to handle the water.'</p>'",
+
+      "directions": "'<p><b>'Island of Death'</b>' - Southwest'</p><p><b>'Castle'</b>' - Northeast'</p><p><b>'Sea of Misdirection'</b>' - Southeast'</p>'",
+
       "suitup": "'<h4>'Ogre Warning!'</h4><p>'An Ogre patrols the Northern bridge.'</p><p>'Be sure to look at your inventory and equip a weapon and some armor!'</p>'",
 
       "final1": "'<p>'Can't walk on fire?'</p><p>'Pull lever for transport for hire.'</p>'",
 
-      "mountgryphon": "'<h4>'To the Skies!'</h4><p>'Climb the tree and onto the Gryphon to mount.'</p><p>'Land on a nest and climb down the tree to unmount.'</p>'"
+      "mountgryphon": "'<h4>'To the Skies!'</h4><p>'Climb the tree and onto the Gryphon to mount.'</p><p>'Land on a nest and climb down the tree to unmount.'</p>'",
+
+      "snowyhideaway": "'<p>'With the recent raids, we have moved the house treasure and buried it in snow in the mountains to the North.'</p><p>'We have guards protecting our treasure night and day.'</p>'"
     },
     "unmount-gryphon": "'<p>'Gryphons must stay within the Highlands.'</p><p>'Find a nest to dismount and then you may travel unrestricted.'</p>'",
     "unmount-gryphon-for-chest": "'<p>'You can't grab a chest while flying.'</p>'"

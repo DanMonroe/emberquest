@@ -339,7 +339,7 @@ export default class AgentPoolService extends Service {
         name: 'Peasant',
         animeframes: {
           rest: {yoyo: true, key: 'humanoid_peasantrest', prefix: 'humanoid/peasant/peasant', start: 1, end: 1, rate: 3, repeat: -1},
-          attack: {key: 'humanoid_peasantattack', prefix: 'humanoid/peasant/peasant-melee-', start: 1, end: 4, rate: 12, delays: { frameNum: 4, delay: 300 }}
+          attack: {key: 'humanoid_peasantattack', prefix: 'humanoid/peasant/peasant-attack', start: 1, end: 4, rate: 12, delays: { frameNum: 4, delay: 300 }}
         },
         inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5000 } ]}]  // sword
       })
@@ -353,9 +353,6 @@ export default class AgentPoolService extends Service {
         animeframes: {
           rest: {yoyo: true, key: 'camelmaster-rest', prefix: 'humanoid/camelmaster/camelmaster', start: 1, end: 1},
           attack: {key: 'camelmaster-attack', prefix: 'humanoid/camelmaster/camelmaster-attack-', start: 1, end: 4, rate: 7},
-          // attack: {key: 'elemental-golem-attack', prefix: 'elementals/golem/golem-attack', start: 1, end: 1, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // range: {key: 'lich-range', prefix: 'ghosts/lich-magic-', start: 1, end: 3, rate: 6}
-          // death: {key: 'elemental-firewisp-death', prefix: 'elementals/firewisp/firewisp-death', start: 1, end: 6, rate: 8, delays: { frameNum: 6, delay: 300 }}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5000 } ]}
@@ -371,9 +368,6 @@ export default class AgentPoolService extends Service {
         animeframes: {
           rest: {yoyo: true, key: 'camelrider-rest', prefix: 'humanoid/camelrider/camelrider', start: 1, end: 1},
           attack: {key: 'camelrider-attack', prefix: 'humanoid/camelrider/camelrider-attack-', start: 1, end: 4, rate: 7},
-          // attack: {key: 'elemental-golem-attack', prefix: 'elementals/golem/golem-attack', start: 1, end: 1, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // range: {key: 'lich-range', prefix: 'ghosts/lich-magic-', start: 1, end: 3, rate: 6}
-          // death: {key: 'elemental-firewisp-death', prefix: 'elementals/firewisp/firewisp-death', start: 1, end: 6, rate: 8, delays: { frameNum: 6, delay: 300 }}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5000 } ]}
@@ -389,9 +383,6 @@ export default class AgentPoolService extends Service {
         animeframes: {
           rest: {yoyo: true, key: 'fencer-rest', prefix: 'humanoid/fencer/fencer', start: 1, end: 1},
           attack: {key: 'fencer-attack', prefix: 'humanoid/fencer/fencer-attack-', start: 1, end: 9, rate: 8},
-          // attack: {key: 'elemental-golem-attack', prefix: 'elementals/golem/golem-attack', start: 1, end: 1, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // range: {key: 'lich-range', prefix: 'ghosts/lich-magic-', start: 1, end: 3, rate: 6}
-          // death: {key: 'elemental-firewisp-death', prefix: 'elementals/firewisp/firewisp-death', start: 1, end: 6, rate: 8, delays: { frameNum: 6, delay: 300 }}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5000 } ]}
@@ -407,9 +398,6 @@ export default class AgentPoolService extends Service {
         animeframes: {
           rest: {yoyo: true, key: 'fireslicer-rest', prefix: 'humanoid/fireslicer/fireslicer', start: 1, end: 3, rate: 4},
           attack: {key: 'fireslicer-attack', prefix: 'humanoid/fireslicer/fireslicer-attack1-', start: 2, end: 4, rate: 5},
-          // attack: {key: 'elemental-golem-attack', prefix: 'elementals/golem/golem-attack', start: 1, end: 1, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // range: {key: 'lich-range', prefix: 'ghosts/lich-magic-', start: 1, end: 3, rate: 6}
-          // death: {key: 'elemental-firewisp-death', prefix: 'elementals/firewisp/firewisp-death', start: 1, end: 6, rate: 8, delays: { frameNum: 6, delay: 300 }}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5007 } ]}
@@ -539,8 +527,6 @@ export default class AgentPoolService extends Service {
         name: 'Black Hydra',
         animeframes: {
           rest: {yoyo: true, key: 'hydra-black-rest', prefix: 'hydras/hydra-black/chaoshydra', start: 1, end: 3, rate: 3}
-          // attack: {key: 'wizard-attack', prefix: 'humanoid/wizard/wizard-attack', start: 1, end: 5, rate: 7}
-          // range: {key: 'general-range', prefix: 'humanoid/general/general-crossbow-attack', start: 1, end: 2, rate: 2}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5004 } ]}
@@ -555,8 +541,6 @@ export default class AgentPoolService extends Service {
         name: 'Green Hydra',
         animeframes: {
           rest: {yoyo: true, key: 'hydra-green-rest', prefix: 'hydras/hydra-green/hydra', start: 1, end: 3, rate: 3}
-          // attack: {key: 'wizard-attack', prefix: 'humanoid/wizard/wizard-attack', start: 1, end: 5, rate: 7}
-          // range: {key: 'general-range', prefix: 'humanoid/general/general-crossbow-attack', start: 1, end: 2, rate: 2}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5004 } ]}
@@ -640,13 +624,13 @@ export default class AgentPoolService extends Service {
     );
 
     baseAgentclone = Object.assign({}, this.baseAgent);
-    this.agentpool.set('mutant_rat',
+    this.agentpool.set('mutant-rat',
       Object.assign(baseAgentclone, {
         id: agentId++,
         name: 'Mutant Rat',
         animeframes: {
-          rest: {yoyo: true, key: 'mutant_ratrest', prefix: 'rat/mutant-rat', start: 1, end: 1, rate: 3, repeat: -1},
-          attack: {key: 'mutant_ratattack', prefix: 'rat/mutant-rat-attack-', start: 1, end: 7, rate: 12, delays: { frameNum: 7, delay: 300 }}
+          rest: {yoyo: true, key: 'mutant-ratrest', prefix: 'rat/mutant-rat', start: 1, end: 1, rate: 3, repeat: -1},
+          attack: {key: 'mutant-ratattack', prefix: 'rat/mutant-rat-attack-', start: 1, end: 7, rate: 12, delays: { frameNum: 7, delay: 300 }}
         },
         inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
       })
@@ -864,9 +848,6 @@ export default class AgentPoolService extends Service {
         animeframes: {
           rest: {yoyo: true, key: 'icecrab-rest', prefix: 'elementals/icecrab/icecrab', start: 1, end: 1, rate: 1},
           attack: {key: 'icecrab-attack', prefix: 'elementals/icecrab/icecrab-attack', start: 1, end: 1}
-          // attack: {key: 'elemental-golem-attack', prefix: 'elementals/golem/elemental-golem-attack', start: 1, end: 1, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // range: {key: 'elemental-firewisp-range', prefix: 'elementals/firewisp/elemental-firewisp-range', start: 1, end: 2, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // death: {key: 'elemental-firewisp-death', prefix: 'elementals/firewisp/elemental-firewisp-death', start: 1, end: 6, rate: 8, delays: { frameNum: 6, delay: 300 }}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]},
@@ -971,10 +952,8 @@ export default class AgentPoolService extends Service {
         id: agentId++,
         name: 'Fire Wisp',
         animeframes: {
-          rest: {yoyo: true, key: 'elemental-firewisp-rest', prefix: 'elementals/firewisp/Gfirewisp', start: 1, end: 1, rate: 3},
-          range: {key: 'elemental-firewisp-range', prefix: 'elementals/firewisp/firewisp-range', start: 1, end: 2, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // attack: {key: 'elemental-firewisp-attack', prefix: 'elementals/firewisp/firewisp-attack', start: 1, end: 2, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // death: {key: 'elemental-firewisp-death', prefix: 'elementals/firewisp/firewisp-death', start: 1, end: 6, rate: 8, delays: { frameNum: 6, delay: 300 }}
+          rest: {yoyo: true, key: 'elemental-firewisp-rest', prefix: 'elementals/firewisp/firewisp', start: 1, end: 1, rate: 3},
+          range: {key: 'elemental-firewisp-range', prefix: 'elementals/firewisp/firewisp-ranged', start: 1, end: 2, rate: 3, delays: { frameNum: 2, delay: 300 }}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5007 } ]},
@@ -990,9 +969,6 @@ export default class AgentPoolService extends Service {
         animeframes: {
           rest: {yoyo: true, key: 'elemental-golem-rest', prefix: 'elementals/golem/golem', start: 1, end: 2, rate: 1},
           attack: {key: 'elemental-golem-attack', prefix: 'elementals/golem/golem-attack', start: 1, end: 1}
-          // attack: {key: 'elemental-golem-attack', prefix: 'elementals/golem/golem-attack', start: 1, end: 1, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // range: {key: 'elemental-firewisp-range', prefix: 'elementals/firewisp/firewisp-range', start: 1, end: 2, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // death: {key: 'elemental-firewisp-death', prefix: 'elementals/firewisp/firewisp-death', start: 1, end: 6, rate: 8, delays: { frameNum: 6, delay: 300 }}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5008 } ]},
@@ -1005,11 +981,8 @@ export default class AgentPoolService extends Service {
         id: agentId++,
         name: 'Genie',
         animeframes: {
-          rest: {yoyo: true, key: 'elemental-genie-rest', prefix: 'elementals/sylph/sylph', start: 1, end: 3, rate: 1},
+          rest: {yoyo: true, key: 'elemental-genie-rest', prefix: 'elementals/sylph/sylph-', start: 1, end: 3, rate: 1},
           attack: {key: 'elemental-genie-attack', prefix: 'elementals/sylph/sylph-attack', start: 1, end: 1}
-          // attack: {key: 'elemental-golem-attack', prefix: 'elementals/golem/golem-attack', start: 1, end: 1, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // range: {key: 'elemental-firewisp-range', prefix: 'elementals/firewisp/firewisp-range', start: 1, end: 2, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // death: {key: 'elemental-firewisp-death', prefix: 'elementals/firewisp/firewisp-death', start: 1, end: 6, rate: 8, delays: { frameNum: 6, delay: 300 }}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5008 } ]},
@@ -1021,16 +994,32 @@ export default class AgentPoolService extends Service {
       Object.assign(baseAgentclone, {
         id: agentId++,
         name: 'Rogue Wave',
+        flagAttributes: {
+          tF: 1
+        },
         animeframes: {
           rest: {yoyo: true, key: 'elemental-wave-rest', prefix: 'elementals/tidal/tidal-', start: 1, end: 3, rate: 1},
           attack: {key: 'elemental-wave-attack', prefix: 'elementals/tidal/tidal-attack', start: 1, end: 1}
-          // attack: {key: 'elemental-golem-attack', prefix: 'elementals/golem/golem-attack', start: 1, end: 1, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // range: {key: 'elemental-firewisp-range', prefix: 'elementals/firewisp/firewisp-range', start: 1, end: 2, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // death: {key: 'elemental-firewisp-death', prefix: 'elementals/firewisp/firewisp-death', start: 1, end: 6, rate: 8, delays: { frameNum: 6, delay: 300 }}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5008 } ]},
           { bodypart: constants.INVENTORY.BODYPART.HEAD, items: [{ itemId: 4052 } ]}
+        ]  // axe
+      })
+    );
+    baseAgentclone = Object.assign({}, this.baseAgent);
+    this.agentpool.set('dustdevil',
+      Object.assign(baseAgentclone, {
+        id: agentId++,
+        name: 'Dustdevil',
+        flagAttributes: {
+          tF: 3
+        },
+        animeframes: {
+          rest: {key: 'dustdevil-rest', prefix: 'elementals/dust-devil', start: 1, end: 1},
+        },
+        inventory: [
+          { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5009 } ]}  // wind
         ]  // axe
       })
     );
@@ -1042,9 +1031,6 @@ export default class AgentPoolService extends Service {
         animeframes: {
           rest: {yoyo: true, key: 'elemental-vine-beast-rest', prefix: 'elementals/vine-beast/vine-beast', start: 1, end: 2, rate: 1},
           attack: {key: 'elemental-vine-beast-attack', prefix: 'elementals/vine-beast/vine-beast-attack', start: 1, end: 1}
-          // attack: {key: 'elemental-golem-attack', prefix: 'elementals/golem/golem-attack', start: 1, end: 1, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // range: {key: 'elemental-firewisp-range', prefix: 'elementals/firewisp/firewisp-range', start: 1, end: 2, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // death: {key: 'elemental-firewisp-death', prefix: 'elementals/firewisp/firewisp-death', start: 1, end: 6, rate: 8, delays: { frameNum: 6, delay: 300 }}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]},
@@ -1061,9 +1047,6 @@ export default class AgentPoolService extends Service {
         animeframes: {
           rest: {yoyo: true, key: 'elf-fighter-rest', prefix: 'elves/fighter/fighter', start: 1, end: 1, rate: 1},
           attack: {key: 'elf-fighter-attack', prefix: 'elves/fighter/fighter-melee-', start: 1, end: 2}
-          // attack: {key: 'elemental-golem-attack', prefix: 'elementals/golem/golem-attack', start: 1, end: 1, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // range: {key: 'elemental-firewisp-range', prefix: 'elementals/firewisp/firewisp-range', start: 1, end: 2, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // death: {key: 'elemental-firewisp-death', prefix: 'elementals/firewisp/firewisp-death', start: 1, end: 6, rate: 8, delays: { frameNum: 6, delay: 300 }}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5000 } ]},
@@ -1078,9 +1061,7 @@ export default class AgentPoolService extends Service {
         animeframes: {
           rest: {yoyo: true, key: 'elf-archer-rest', prefix: 'elves/hunter/hunter', start: 1, end: 1, rate: 1},
           attack: {key: 'elf-archer-attack', prefix: 'elves/hunter/hunter-sword-', start: 1, end: 4, rate: 5},
-          // attack: {key: 'elemental-golem-attack', prefix: 'elementals/golem/golem-attack', start: 1, end: 1, rate: 3, delays: { frameNum: 2, delay: 300 }}
           range: {key: 'elf-archer-range', prefix: 'elves/hunter/hunter-ranged-', start: 1, end: 4, rate: 3}
-          // death: {key: 'elemental-firewisp-death', prefix: 'elementals/firewisp/firewisp-death', start: 1, end: 6, rate: 8, delays: { frameNum: 6, delay: 300 }}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5000 } ]},
@@ -1097,9 +1078,6 @@ export default class AgentPoolService extends Service {
         animeframes: {
           rest: {yoyo: true, key: 'young-eyestalk-rest', prefix: 'eyestalks/young-eyestalk/young-eyestalk', start: 1, end: 1, rate: 1},
           attack: {key: 'young-eyestalk-attack', prefix: 'eyestalks/young-eyestalk/young-eyestalk-attack-', start: 1, end: 2, rate: 3},
-          // attack: {key: 'elemental-golem-attack', prefix: 'elementals/golem/golem-attack', start: 1, end: 1, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // range: {key: 'elf-archer-range', prefix: 'elves/hunter/hunter-ranged-', start: 1, end: 4, rate: 3}
-          // death: {key: 'elemental-firewisp-death', prefix: 'elementals/firewisp/firewisp-death', start: 1, end: 6, rate: 8, delays: { frameNum: 6, delay: 300 }}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}
@@ -1114,9 +1092,6 @@ export default class AgentPoolService extends Service {
         animeframes: {
           rest: {yoyo: true, key: 'eyestalk-rest', prefix: 'eyestalks/eyestalk/full-grown-eyestalk', start: 1, end: 1, rate: 1},
           attack: {key: 'eyestalk-attack', prefix: 'eyestalks/eyestalk/full-grown-eyestalk-attack-', start: 1, end: 2, rate: 3},
-          // attack: {key: 'elemental-golem-attack', prefix: 'elementals/golem/golem-attack', start: 1, end: 1, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // range: {key: 'elf-archer-range', prefix: 'elves/hunter/hunter-ranged-', start: 1, end: 4, rate: 3}
-          // death: {key: 'elemental-firewisp-death', prefix: 'elementals/firewisp/firewisp-death', start: 1, end: 6, rate: 8, delays: { frameNum: 6, delay: 300 }}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}
@@ -1133,9 +1108,6 @@ export default class AgentPoolService extends Service {
         animeframes: {
           rest: {yoyo: true, key: 'ghost-rest', prefix: 'ghosts/ghost-s-', start: 1, end: 3, rate: 3},
           attack: {key: 'ghost-attack', prefix: 'ghosts/ghost-s-attack-', start: 1, end: 3, rate: 6},
-          // attack: {key: 'elemental-golem-attack', prefix: 'elementals/golem/golem-attack', start: 1, end: 1, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // range: {key: 'elf-archer-range', prefix: 'elves/hunter/hunter-ranged-', start: 1, end: 4, rate: 3}
-          // death: {key: 'elemental-firewisp-death', prefix: 'elementals/firewisp/firewisp-death', start: 1, end: 6, rate: 8, delays: { frameNum: 6, delay: 300 }}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}
@@ -1165,9 +1137,7 @@ export default class AgentPoolService extends Service {
         animeframes: {
           rest: {yoyo: true, key: 'lich-rest', prefix: 'ghosts/lich', start: 1, end: 1},
           attack: {key: 'lich-attack', prefix: 'ghosts/lich-melee-', start: 1, end: 2, rate: 2},
-          // attack: {key: 'elemental-golem-attack', prefix: 'elementals/golem/golem-attack', start: 1, end: 1, rate: 3, delays: { frameNum: 2, delay: 300 }}
           range: {key: 'lich-range', prefix: 'ghosts/lich-magic-', start: 1, end: 3, rate: 6}
-          // death: {key: 'elemental-firewisp-death', prefix: 'elementals/firewisp/firewisp-death', start: 1, end: 6, rate: 8, delays: { frameNum: 6, delay: 300 }}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]},
@@ -1184,9 +1154,6 @@ export default class AgentPoolService extends Service {
         animeframes: {
           rest: {yoyo: true, key: 'shadow-rest', prefix: 'ghosts/shadow-s-', start: 1, end: 3, rate: 2},
           attack: {key: 'shadow-attack', prefix: 'ghosts/shadow-s-attack-', start: 1, end: 6, rate: 6},
-          // attack: {key: 'elemental-golem-attack', prefix: 'elementals/golem/golem-attack', start: 1, end: 1, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // range: {key: 'elf-archer-range', prefix: 'elves/hunter/hunter-ranged-', start: 1, end: 4, rate: 3}
-          // death: {key: 'elemental-firewisp-death', prefix: 'elementals/firewisp/firewisp-death', start: 1, end: 6, rate: 8, delays: { frameNum: 6, delay: 300 }}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5000 } ]}
@@ -1201,9 +1168,6 @@ export default class AgentPoolService extends Service {
         animeframes: {
           rest: {yoyo: true, key: 'wraith-rest', prefix: 'ghosts/wraith-s-', start: 1, end: 4, rate: 3},
           attack: {key: 'wraith-attack', prefix: 'ghosts/wraith-s-attack-', start: 1, end: 5, rate: 6},
-          // attack: {key: 'elemental-golem-attack', prefix: 'elementals/golem/golem-attack', start: 1, end: 1, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // range: {key: 'lich-range', prefix: 'ghosts/lich-magic-', start: 1, end: 3, rate: 6}
-          // death: {key: 'elemental-firewisp-death', prefix: 'elementals/firewisp/firewisp-death', start: 1, end: 6, rate: 8, delays: { frameNum: 6, delay: 300 }}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5000 } ]}
@@ -1218,9 +1182,6 @@ export default class AgentPoolService extends Service {
         animeframes: {
           rest: {yoyo: true, key: 'zombie-wose-rest', prefix: 'ghosts/zombie-wose', start: 1, end: 1},
           attack: {key: 'zombie-wose-attack', prefix: 'ghosts/zombie-wose-attack', start: 1, end: 2, rate: 2},
-          // attack: {key: 'elemental-golem-attack', prefix: 'elementals/golem/golem-attack', start: 1, end: 1, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // range: {key: 'lich-range', prefix: 'ghosts/lich-magic-', start: 1, end: 3, rate: 6}
-          // death: {key: 'elemental-firewisp-death', prefix: 'elementals/firewisp/firewisp-death', start: 1, end: 6, rate: 8, delays: { frameNum: 6, delay: 300 }}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5000 } ]}
@@ -1236,9 +1197,6 @@ export default class AgentPoolService extends Service {
         animeframes: {
           rest: {yoyo: true, key: 'goblin-impaler-rest', prefix: 'goblins/impalar/goblin-impaler', start: 1, end: 1},
           attack: {key: 'goblin-impaler-attack', prefix: 'goblins/impalar/goblin-impaler-attack-se-', start: 1, end: 2, rate: 2},
-          // attack: {key: 'elemental-golem-attack', prefix: 'elementals/golem/golem-attack', start: 1, end: 1, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // range: {key: 'lich-range', prefix: 'ghosts/lich-magic-', start: 1, end: 3, rate: 6}
-          // death: {key: 'elemental-firewisp-death', prefix: 'elementals/firewisp/firewisp-death', start: 1, end: 6, rate: 8, delays: { frameNum: 6, delay: 300 }}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5000 } ]}
@@ -1253,9 +1211,6 @@ export default class AgentPoolService extends Service {
         animeframes: {
           rest: {yoyo: true, key: 'goblin-rider-rest', prefix: 'goblins/wolf-rider/wolf-rider', start: 1, end: 2, rate: 1},
           attack: {key: 'goblin-rider-attack', prefix: 'goblins/wolf-rider/wolf-rider-attack', start: 1, end: 2, rate: 2},
-          // attack: {key: 'elemental-golem-attack', prefix: 'elementals/golem/golem-attack', start: 1, end: 1, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // range: {key: 'lich-range', prefix: 'ghosts/lich-magic-', start: 1, end: 3, rate: 6}
-          // death: {key: 'elemental-firewisp-death', prefix: 'elementals/firewisp/firewisp-death', start: 1, end: 6, rate: 8, delays: { frameNum: 6, delay: 300 }}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5000 } ]}
@@ -1282,12 +1237,12 @@ export default class AgentPoolService extends Service {
       Object.assign(baseAgentclone, {
         id: agentId++,
         name: 'Merfolk Fighter',
+        flagAttributes: {
+          tF: 1
+        },
         animeframes: {
           rest: {yoyo: true, key: 'merfolk-fighter-rest', prefix: 'merfolk/fighter/fighter', start: 1, end: 1, rate: 1},
           attack: {key: 'merfolk-fighter-attack', prefix: 'merfolk/fighter/fighter-attack-', start: 1, end: 6, rate: 5}
-          // attack: {key: 'elemental-golem-attack', prefix: 'elementals/golem/golem-attack', start: 1, end: 1, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // range: {key: 'elemental-firewisp-range', prefix: 'elementals/firewisp/firewisp-range', start: 1, end: 2, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // death: {key: 'elemental-firewisp-death', prefix: 'elementals/firewisp/firewisp-death', start: 1, end: 6, rate: 8, delays: { frameNum: 6, delay: 300 }}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5000 } ]},
@@ -1300,12 +1255,13 @@ export default class AgentPoolService extends Service {
       Object.assign(baseAgentclone, {
         id: agentId++,
         name: 'Merfolk Siren',
+        flagAttributes: {
+          tF: 1
+        },
+
         animeframes: {
           rest: {yoyo: true, key: 'merfolk-siren-rest', prefix: 'merfolk/siren/siren', start: 1, end: 1, rate: 1},
           attack: {key: 'merfolk-siren-attack', prefix: 'merfolk/siren/siren-magic-', start: 1, end: 2, rate: 2}
-          // attack: {key: 'elemental-golem-attack', prefix: 'elementals/golem/golem-attack', start: 1, end: 1, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // range: {key: 'elemental-firewisp-range', prefix: 'elementals/firewisp/firewisp-range', start: 1, end: 2, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // death: {key: 'elemental-firewisp-death', prefix: 'elementals/firewisp/firewisp-death', start: 1, end: 6, rate: 8, delays: { frameNum: 6, delay: 300 }}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5000 } ]},
@@ -1321,9 +1277,6 @@ export default class AgentPoolService extends Service {
         animeframes: {
           rest: {yoyo: true, key: 'mudcrawler-rest', prefix: 'mudcrawler/mudcrawler', start: 1, end: 1, rate: 1},
           attack: {key: 'mudcrawler-attack', prefix: 'mudcrawler/mudcrawler-attack-', start: 1, end: 5, rate: 4}
-          // attack: {key: 'elemental-golem-attack', prefix: 'elementals/golem/golem-attack', start: 1, end: 1, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // range: {key: 'elemental-firewisp-range', prefix: 'elementals/firewisp/firewisp-range', start: 1, end: 2, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // death: {key: 'elemental-firewisp-death', prefix: 'elementals/firewisp/firewisp-death', start: 1, end: 6, rate: 8, delays: { frameNum: 6, delay: 300 }}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]},
@@ -1337,10 +1290,7 @@ export default class AgentPoolService extends Service {
         name: 'Giant Mud Crawler',
         animeframes: {
           rest: {yoyo: true, key: 'giant-mudcrawler-rest', prefix: 'mudcrawler/giant-mudcrawler', start: 1, end: 1, rate: 1},
-          attack: {key: 'giant-mudcrawler-attack', prefix: 'mudcrawler/giant-mudcrawler-attack-', start: 1, end: 11, rate: 4}
-          // attack: {key: 'elemental-golem-attack', prefix: 'elementals/golem/golem-attack', start: 1, end: 1, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // range: {key: 'elemental-firewisp-range', prefix: 'elementals/firewisp/firewisp-range', start: 1, end: 2, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // death: {key: 'elemental-firewisp-death', prefix: 'elementals/firewisp/firewisp-death', start: 1, end: 6, rate: 8, delays: { frameNum: 6, delay: 300 }}
+          attack: {key: 'giant-mudcrawler-attack', prefix: 'mudcrawler/giant-mudcrawler-attack', start: 1, end: 11, rate: 4}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]},
@@ -1352,12 +1302,12 @@ export default class AgentPoolService extends Service {
       Object.assign(baseAgentclone, {
         id: agentId++,
         name: 'Young Piranha',
+        flagAttributes: {
+          tF: 1
+        },
+
         animeframes: {
           rest: {yoyo: true, key: 'young-piranha-rest', prefix: 'piranha/1/piranha1-', start: 1, end: 3, rate: 4},
-          // attack: {key: 'young-piranha-attack', prefix: 'mudcrawler/giant-mudcrawler-attack-', start: 1, end: 11, rate: 4}
-          // attack: {key: 'elemental-golem-attack', prefix: 'elementals/golem/golem-attack', start: 1, end: 1, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // range: {key: 'elemental-firewisp-range', prefix: 'elementals/firewisp/firewisp-range', start: 1, end: 2, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // death: {key: 'elemental-firewisp-death', prefix: 'elementals/firewisp/firewisp-death', start: 1, end: 6, rate: 8, delays: { frameNum: 6, delay: 300 }}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]},
@@ -1369,12 +1319,12 @@ export default class AgentPoolService extends Service {
       Object.assign(baseAgentclone, {
         id: agentId++,
         name: 'Piranha',
+        flagAttributes: {
+          tF: 1
+        },
+
         animeframes: {
           rest: {yoyo: true, key: 'piranha-rest', prefix: 'piranha/2/piranha2-', start: 1, end: 3, rate: 4},
-          // attack: {key: 'young-piranha-attack', prefix: 'mudcrawler/giant-mudcrawler-attack-', start: 1, end: 11, rate: 4}
-          // attack: {key: 'elemental-golem-attack', prefix: 'elementals/golem/golem-attack', start: 1, end: 1, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // range: {key: 'elemental-firewisp-range', prefix: 'elementals/firewisp/firewisp-range', start: 1, end: 2, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // death: {key: 'elemental-firewisp-death', prefix: 'elementals/firewisp/firewisp-death', start: 1, end: 6, rate: 8, delays: { frameNum: 6, delay: 300 }}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]},
@@ -1386,12 +1336,12 @@ export default class AgentPoolService extends Service {
       Object.assign(baseAgentclone, {
         id: agentId++,
         name: 'Giant Piranha',
+        flagAttributes: {
+          tF: 1
+        },
+
         animeframes: {
           rest: {yoyo: true, key: 'giant-piranha-rest', prefix: 'piranha/3/piranha3-', start: 1, end: 3, rate: 4},
-          // attack: {key: 'young-piranha-attack', prefix: 'mudcrawler/giant-mudcrawler-attack-', start: 1, end: 11, rate: 4}
-          // attack: {key: 'elemental-golem-attack', prefix: 'elementals/golem/golem-attack', start: 1, end: 1, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // range: {key: 'elemental-firewisp-range', prefix: 'elementals/firewisp/firewisp-range', start: 1, end: 2, rate: 3, delays: { frameNum: 2, delay: 300 }}
-          // death: {key: 'elemental-firewisp-death', prefix: 'elementals/firewisp/firewisp-death', start: 1, end: 6, rate: 8, delays: { frameNum: 6, delay: 300 }}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]},
@@ -1406,7 +1356,7 @@ export default class AgentPoolService extends Service {
         name: 'Black Salamander',
         animeframes: {
           rest: {yoyo: true, key: 'black-salamander-rest', prefix: 'salamanders/salamander-black/blacksalamander', start: 1, end: 1},
-          attack: {key: 'black-salamander-attack', prefix: 'salamanders/salamander-black/blacksalamander-attack-', start: 1, end: 6, rate: 5}
+          attack: {key: 'black-salamander-attack', prefix: 'salamanders/salamander-black/blacksalamander-attack', start: 1, end: 6, rate: 5}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5000 } ]},
@@ -1420,7 +1370,7 @@ export default class AgentPoolService extends Service {
         name: 'Blue Salamander',
         animeframes: {
           rest: {yoyo: true, key: 'blue-salamander-rest', prefix: 'salamanders/salamander-blue/bluesalamander', start: 1, end: 1},
-          attack: {key: 'blue-salamander-attack', prefix: 'salamanders/salamander-blue/bluesalamander-attack-', start: 1, end: 2, rate: 2}
+          attack: {key: 'blue-salamander-attack', prefix: 'salamanders/salamander-blue/bluesalamander-attack', start: 1, end: 2, rate: 2}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5000 } ]},
@@ -1434,7 +1384,7 @@ export default class AgentPoolService extends Service {
         name: 'Green Salamander',
         animeframes: {
           rest: {yoyo: true, key: 'green-salamander-rest', prefix: 'salamanders/salamander-green/greensalamander', start: 1, end: 1},
-          attack: {key: 'green-salamander-attack', prefix: 'salamanders/salamander-green/greensalamander-attack-', start: 1, end: 2, rate: 2}
+          attack: {key: 'green-salamander-attack', prefix: 'salamanders/salamander-green/greensalamander-attack', start: 1, end: 2, rate: 2}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5000 } ]},
@@ -1449,7 +1399,7 @@ export default class AgentPoolService extends Service {
         name: 'Red Salamander',
         animeframes: {
           rest: {yoyo: true, key: 'red-salamander-rest', prefix: 'salamanders/salamander-red/redsalamander', start: 1, end: 3, rate: 2},
-          attack: {key: 'red-salamander-attack', prefix: 'salamanders/salamander-red/redsalamander-attack-', start: 1, end: 4, rate: 5}
+          attack: {key: 'red-salamander-attack', prefix: 'salamanders/salamander-red/redsalamander-attack', start: 1, end: 4, rate: 5}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5000 } ]},
@@ -1510,8 +1460,8 @@ export default class AgentPoolService extends Service {
         id: agentId++,
         name: 'Scorpling',
         animeframes: {
-          rest: {yoyo: true, key: 'scorpling-rest', prefix: 'scorpion/scorpling-sting-', start: 1, end: 2, rate: 2},
-          attack: {key: 'scorpling-attack', prefix: 'scorpion/scorpling-pincer-', start: 1, end: 7, rate: 5}
+          rest: {yoyo: true, key: 'scorpling-rest', prefix: 'scorpion/scorpling-sting', start: 1, end: 2, rate: 2},
+          attack: {key: 'scorpling-attack', prefix: 'scorpion/scorpling-pincer', start: 1, end: 7, rate: 5}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5001 } ]},
@@ -1525,6 +1475,9 @@ export default class AgentPoolService extends Service {
       Object.assign(baseAgentclone, {
         id: agentId++,
         name: 'Deep Tentacle',
+        flagAttributes: {
+          tF: 1
+        },
         animeframes: {
           rest: {yoyo: true, key: 'tentacle-rest', prefix: 'sea/deep-tentacle/deep-tentacle-melee-s-', start: 1, end: 2, rate: 1},
           attack: {key: 'tentacle-attack', prefix: 'sea/deep-tentacle/deep-tentacle-melee-s-', start: 1, end: 6, rate: 4},
@@ -1540,6 +1493,9 @@ export default class AgentPoolService extends Service {
       Object.assign(baseAgentclone, {
         id: agentId++,
         name: 'Kraken',
+        flagAttributes: {
+          tF: 1
+        },
         animeframes: {
           rest: {yoyo: true, key: 'kraken-rest', prefix: 'sea/kraken/kraken', start: 1, end: 1},
           attack: {key: 'kraken-attack', prefix: 'sea/kraken/kraken-tentacle-', start: 1, end: 3, rate: 4},
@@ -1555,6 +1511,9 @@ export default class AgentPoolService extends Service {
       Object.assign(baseAgentclone, {
         id: agentId++,
         name: 'Sea Serpent',
+        flagAttributes: {
+          tF: 1
+        },
         animeframes: {
           rest: {yoyo: true, key: 'seaserpent-rest', prefix: 'sea/seaserpent-old', start: 1, end: 1},
           attack: {key: 'seaserpent-attack', prefix: 'sea/seaserpent-old-attack', start: 1, end: 2, rate: 4},
@@ -1570,6 +1529,9 @@ export default class AgentPoolService extends Service {
       Object.assign(baseAgentclone, {
         id: agentId++,
         name: 'Young Cuttlefish',
+        flagAttributes: {
+          tF: 1
+        },
         animeframes: {
           rest: {yoyo: true, key: 'young-cuttlefish-rest', prefix: 'sea/young-cuttlefish/young-cuttlefish', start: 1, end: 1},
           attack: {key: 'young-cuttlefish-attack', prefix: 'sea/young-cuttlefish/young-cuttlefish-melee-', start: 1, end: 6, rate: 6},
@@ -1620,7 +1582,6 @@ export default class AgentPoolService extends Service {
         name: 'Boulder Lobber',
         animeframes: {
           rest: {yoyo: true, key: 'boulder-lobber-rest', prefix: 'trolls/boulderlobber', start: 1, end: 1},
-          // attack: {key: 'boulder-lobber-attack', prefix: 'trolls/boulderlobber-attack-ranged', start: 1, end: 2, rate: 2},
           range: {key: 'boulder-lobber-range', prefix: 'trolls/boulderlobber-attack-ranged', start: 1, end: 2, rate: 2}
         },
         inventory: [
@@ -1638,7 +1599,6 @@ export default class AgentPoolService extends Service {
         animeframes: {
           rest: {yoyo: true, key: 'warmonger-rest', prefix: 'trolls/warmonger', start: 1, end: 1},
           attack: {key: 'warmonger-attack', prefix: 'trolls/warmonger-attack-', start: 1, end: 4, rate: 5},
-          // range: {key: 'boulder-lobber-range', prefix: 'trolls/boulderlobber-attack-ranged', start: 1, end: 2, rate: 2}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5008 } ]},
@@ -1679,8 +1639,8 @@ export default class AgentPoolService extends Service {
           tF: 3
         },
         animeframes: {
-          rest: {yoyo: true, key: 'wyvern-green-rest', prefix: 'wyverns/wyvern-green/greatwyvern-moving', start: 1, end: 3, rate: 2},
-          attack: {key: 'wyvern-green-attack', prefix: 'wyverns/wyvern-green/greatwyvern-attack', start: 1, end: 2, rate: 2},
+          rest: {yoyo: true, key: 'wyvern-green-rest', prefix: 'wyverns/wyveryn-green/greatwyvern-moving', start: 1, end: 3, rate: 2},
+          attack: {key: 'wyvern-green-attack', prefix: 'wyverns/wyveryn-green/greatwyvern-attack', start: 1, end: 2, rate: 2},
           // range: {key: 'boulder-lobber-range', prefix: 'trolls/boulderlobber-attack-ranged', start: 1, end: 2, rate: 2}
         },
         inventory: [

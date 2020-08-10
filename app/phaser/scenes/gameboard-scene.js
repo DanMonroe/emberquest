@@ -404,7 +404,7 @@ export class GameboardScene extends Phaser.Scene {
 
   spawnTransport(transportObj) {
     if (transportObj.isBoardedTransport) {
-      // console.log('isBoardedTransport', transportObj, this.storedPlayerTile)
+console.log('isBoardedTransport', transportObj, this.storedPlayerTile)
       if (this.storedPlayerTile) {
         transportObj.objectConfig.x = this.storedPlayerTile.x;
         transportObj.objectConfig.y = this.storedPlayerTile.y;

@@ -96,14 +96,23 @@ export default class GameService extends Service {
 
     const currentMapData = this.sceneData[mapname] || {};
 
-    this.gameData = await this.loadGameData('gameboard');
-    // console.log('___ saveSceneData this.gameData', this.gameData)
-    if (!this.gameData) {
-      this.gameData = { 'currentMap': mapname, sceneData: [] };
+    this.gameData.currentMap = mapname;
+    let sceneData = await this.loadGameData('sceneData');
+    if (sceneData) {
+      this.gameData.sceneData = sceneData;
     } else {
-      this.gameData.currentMap = mapname;
+      this.gameData.sceneData = [];
     }
     this.sceneData = this.gameData.sceneData;
+
+    // this.gameData = await this.loadGameData('gameboard');
+    // // console.log('___ saveSceneData this.gameData', this.gameData)
+    // if (!this.gameData) {
+    //   this.gameData = { 'currentMap': mapname, sceneData: [] };
+    // } else {
+    //   this.gameData.currentMap = mapname;
+    // }
+    // this.sceneData = this.gameData.sceneData;
 
     const sceneTransports = [];
     if (scene.transports.children) {
@@ -490,11 +499,13 @@ export default class GameService extends Service {
         moveTo.scene.cameras.main.fade(300, 0, 0, 0);
         moveTo.scene.cameras.main.on('camerafadeoutcomplete', async () => {
 
-          // let currentMap = await this.game.ember.loadGameData('currentMap');
+          // let currentMap = await this.loadGameData('currentMap');
           let playerAttrs = await this.loadGameData('playerAttrs');
-          // let transports = await this.game.ember.loadGameData('transports');
           let sceneData = await this.loadGameData('sceneData');
-          // let playerTile = await this.game.ember.loadGameData('playerTile');
+          // let playerTile = await this.loadGameData('playerTile');
+
+          let transports = await this.loadGameData('transports');
+          // moveTo.scene.game.ember.gameData.transports = transports || [];
 
           const sceneDataForMap = sceneData[tileIsPortal.map] || {
             allSeenTiles: [],
@@ -504,7 +515,7 @@ export default class GameService extends Service {
           console.log('');
           console.log('');
           console.error('>>>>>> portal ===> loading map', tileIsPortal.map.toUpperCase(), 'sceneDataForMap', sceneDataForMap);
-          // console.log('sceneDataForMap', sceneDataForMap);
+console.log('sceneDataForMap', sceneDataForMap);
           console.log('');
           let data = {
             'map': tileIsPortal.map,
@@ -516,7 +527,8 @@ export default class GameService extends Service {
             'spawnTile': {x: tileIsPortal.x, y: tileIsPortal.y, sF: playerAttrs.sF || 0, tF: playerAttrs.tF || 2},
             'storedPlayerAttrs': playerAttrs,
             'allSeenTiles': sceneDataForMap.seenTiles,
-            'storedTransports': sceneDataForMap.transports,
+            'storedTransports': transports || [],
+            // 'storedTransports': sceneDataForMap.transports,
             'boarded': this.playerContainer.boardedTransport ? this.playerContainer.boardedTransport.agent.id : 0
           };
           this.map.getDynamicMapData(data.map).then(mapData => {
@@ -916,6 +928,9 @@ export default class GameService extends Service {
         break;
       case this.constants.SPECIAL_ACTIONS.FINAL_FANFAIR.value:
         console.log('Do final fanfair ?');
+        break;
+      case this.constants.SPECIAL_ACTIONS.READ_SIGN.value:
+        scene.game.ember.showInfoDialog(this.intl.t(`messages.signs.${specialAction.data.signMessageId}`));
         break;
       case this.constants.SPECIAL_ACTIONS.TOGGLE_PROPERTY.value:
         if (specialAction.data.spritesToToggle) { // example usage: m3-hut.js

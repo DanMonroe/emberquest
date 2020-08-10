@@ -32,7 +32,7 @@ export default class CacheService extends Service {
     if (!this.caches) {
       return false;
     }
-    return true;
-    // return this.getCaches().isEvery('found');
+    // return true;
+    return this.getCaches().isEvery('found');
   }
 }
