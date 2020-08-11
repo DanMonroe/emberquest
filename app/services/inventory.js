@@ -98,9 +98,13 @@ export default class InventoryService extends Service {
     }
   }
 
-  hasRoyalEmber() {
-    const royalEmber = this.getItemById(this.constants.INVENTORY.ROYAL_EMBER_ID);
-    return royalEmber && royalEmber.owned
+  hasRoyalEmber(inventoryToCheck) {
+    if (inventoryToCheck) {  // used to check inventory before player has been created
+      return inventoryToCheck.findBy('id', this.constants.INVENTORY.ROYAL_EMBER_ID)
+    } else {
+      const royalEmber = this.getItemById(this.constants.INVENTORY.ROYAL_EMBER_ID);
+      return royalEmber && royalEmber.owned
+    }
   }
 
 }

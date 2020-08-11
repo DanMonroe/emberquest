@@ -85,7 +85,7 @@ module.exports = function(environment) {
     };
 
     ENV.game.pauseOnBlur = false;
-    ENV.game.playerConfig.speed = 500;
+    // ENV.game.playerConfig.speed = 500;
   }
 
   if (environment === 'test') {

@@ -123,7 +123,9 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
         }
       } else if ( ! this.boardedTransport) {  // don't adjust speed/power when on a transport
 
-        this.moveToObject.setSpeed(config.speed * allattrs.spdC);
+        // console.log('speed', this.agent.moveSpeed(config.speed * allattrs.spdC), config.speed, allattrs.spdC, this.agent.moveSpeedAdj)
+        this.moveToObject.setSpeed(this.agent.moveSpeed(config.speed * allattrs.spdC));
+        // this.moveToObject.setSpeed((config.speed * allattrs.spdC) * this.agent.moveSpeed);
 
         this.agent.power -= (2 - allattrs.spdC);
 

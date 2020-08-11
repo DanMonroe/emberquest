@@ -189,7 +189,10 @@ export default class SpawnerService extends Service {
         if ( this.agents.length === 0 || this.agents.length <= spawnerConfig.agentSpawnerIndex || this.agents[spawnerConfig.agentSpawnerIndex].length < spawnerConfig.agentLimit) {
           this.spawnObject(spawnerConfig);
         } else {
-          // console.log('   >>  - NO!! Dont spawn')
+          // if (this.agents[spawnerConfig.agentSpawnerIndex].length === spawnerConfig.agentLimit) {
+          //   console.log('   >>  spawner limit at max for index', spawnerConfig.agentSpawnerIndex)
+          //
+          // }
         }
 
         yield timeout(spawnerConfig.spawnInterval);
@@ -262,6 +265,15 @@ export default class SpawnerService extends Service {
     let location, invalidLocation = false;
     switch (spawnerConfig.type) {
       case constants.SPAWNER_TYPE.AGENT:
+
+        // if (true) {
+        //   console.group('Locations')
+        //   this.spawnLocations.agents[spawnerConfig.agentSpawnerIndex].locations.forEach(location => {
+        //     console.log('location', location)
+        //   })
+        //   console.groupEnd();
+        // }
+
         location = this.spawnLocations.agents[spawnerConfig.agentSpawnerIndex].locations[Math.floor(Math.random() * this.spawnLocations.agents[spawnerConfig.agentSpawnerIndex].locations.length)];
         // is there already an agent there?
         invalidLocation = this.agents.length && this.agents.length > spawnerConfig.agentSpawnerIndex && this.agents[spawnerConfig.agentSpawnerIndex].some((obj) => {
@@ -285,6 +297,13 @@ export default class SpawnerService extends Service {
     if (!agentPool) {
       return undefined;
     }
+
+    // if (true) {
+    //   agentPool.forEach(agent => {
+    //     console.log('agent', agent)
+    //   })
+    // }
+
     const agentKey = agentPool[Math.floor(Math.random() * agentPool.length)];
     // console.log('         >>  pick random agent', agentKey);
 
@@ -293,6 +312,10 @@ export default class SpawnerService extends Service {
     }
 
     const agentConfig = this.agentPool.getAgentConfig(agentKey);
+    if (!agentConfig) {
+      console.error('No agent config for', agentKey)
+      return undefined;
+    }
 
     return new AgentConfig(agentConfig);
     // return agentConfig;

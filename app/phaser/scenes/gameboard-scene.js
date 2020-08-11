@@ -343,59 +343,69 @@ export class GameboardScene extends Phaser.Scene {
     if (this.mapData.sprites) {
       this.mapData.sprites.forEach(spriteObj => {
         // console.log('spriteObj', spriteObj)
+        if ((spriteObj.id === this.ember.constants.INVENTORY.ROYAL_EMBER_ID) && this.ember.inventory.hasRoyalEmber(this.storedPlayerAttrs.inventory)) {
+          // already has the royal ember  - don't place
+        } else {
 
-        const sprite = this.add.sprite(0, 0, spriteObj.texture, spriteObj.firstFrame);
-        if (spriteObj.offsets && spriteObj.offsets.img) {
-          sprite.x += spriteObj.offsets.img.x;
-          sprite.y += spriteObj.offsets.img.y;
-        }
-        sprite.setScale(spriteObj.scale);
-        sprite.type = this.ember.constants.SHAPE_TYPE_SPRITE;
-
-        if (spriteObj.name) {
-          sprite.setName(spriteObj.name);
-        }
-        let frameNames;
-        let animationConfig;
-        spriteObj.animeframes.forEach(animation => {
-          frameNames = this.anims.generateFrameNames(this.ember.constants.SPRITES_TEXTURE, {
-            start: animation.start, end: animation.end, zeroPad: 0,
-            prefix: spriteObj.prefix, suffix: '.png'
-          });
-          animationConfig = Object.assign({ key: animation.key, frames: frameNames, frameRate: animation.rate, repeat: animation.repeat }, animation.config || {});
-
-          this.anims.create(animationConfig);
-          if (animation.playoncreate) {
-           sprite.anims.play(animation.key);
+          const sprite = this.add.sprite(0, 0, spriteObj.texture, spriteObj.firstFrame);
+          if (spriteObj.offsets && spriteObj.offsets.img) {
+            sprite.x += spriteObj.offsets.img.x;
+            sprite.y += spriteObj.offsets.img.y;
           }
-        });
+          sprite.setScale(spriteObj.scale);
+          sprite.type = this.ember.constants.SHAPE_TYPE_SPRITE;
 
-        if (spriteObj.ignoreFOVUpdate) {
-          sprite.setData('ignoreFOVUpdate', true);
-        }
-        if (spriteObj.specialActions) {
-          sprite.setData('specialActions', spriteObj.specialActions);
-        }
-        if (spriteObj.clickable) {
-          sprite.setData('clickable', true);
-        }
+          if (spriteObj.name) {
+            sprite.setName(spriteObj.name);
+          }
+          let frameNames;
+          let animationConfig;
+          spriteObj.animeframes.forEach(animation => {
+            frameNames = this.anims.generateFrameNames(this.ember.constants.SPRITES_TEXTURE, {
+              start: animation.start, end: animation.end, zeroPad: 0,
+              prefix: spriteObj.prefix, suffix: '.png'
+            });
+            animationConfig = Object.assign({
+              key: animation.key,
+              frames: frameNames,
+              frameRate: animation.rate,
+              repeat: animation.repeat
+            }, animation.config || {});
 
-        if (spriteObj.properties) {
-          spriteObj.properties.forEach(prop => {
-            sprite.setData(prop.key, prop.value);
+            this.anims.create(animationConfig);
+            if (animation.playoncreate) {
+              sprite.anims.play(animation.key);
+            }
           });
-        }
-        if (spriteObj.name === "brazier" && this.game.ember.placedBrazier) {
-          sprite.setData('ignoreFOVUpdate', false);
-        }
-        sprite.setAlpha(spriteObj.initialAlpha || 0);
 
-        this.sprites.add(sprite);
+          if (spriteObj.ignoreFOVUpdate) {
+            sprite.setData('ignoreFOVUpdate', true);
+          }
+          if (spriteObj.specialActions) {
+            sprite.setData('specialActions', spriteObj.specialActions);
+          }
+          if (spriteObj.clickable) {
+            sprite.setData('clickable', true);
+          }
 
-        this.board.addChess(sprite, spriteObj.x, spriteObj.y, this.ember.constants.TILEZ_SPRITES);
+          if (spriteObj.properties) {
+            spriteObj.properties.forEach(prop => {
+              sprite.setData(prop.key, prop.value);
+            });
+          }
+          if (spriteObj.name === "brazier" && this.game.ember.placedBrazier) {
+            sprite.setData('ignoreFOVUpdate', false);
+          }
+          sprite.setAlpha(spriteObj.initialAlpha || 0);
 
-        if (!spriteObj.walkover) {
-          sprite.rexChess.setBlocker();
+          this.sprites.add(sprite);
+
+          this.board.addChess(sprite, spriteObj.x, spriteObj.y, this.ember.constants.TILEZ_SPRITES);
+
+          if (!spriteObj.walkover) {
+            sprite.rexChess.setBlocker();
+          }
+
         }
 
       });
@@ -404,7 +414,7 @@ export class GameboardScene extends Phaser.Scene {
 
   spawnTransport(transportObj) {
     if (transportObj.isBoardedTransport) {
-console.log('isBoardedTransport', transportObj, this.storedPlayerTile)
+// console.log('isBoardedTransport', transportObj, this.storedPlayerTile)
       if (this.storedPlayerTile) {
         transportObj.objectConfig.x = this.storedPlayerTile.x;
         transportObj.objectConfig.y = this.storedPlayerTile.y;
@@ -577,7 +587,7 @@ console.log('isBoardedTransport', transportObj, this.storedPlayerTile)
   }
 
   getSpriteByName(name) {
-    console.log('this.sprites', this.sprites)
+    // console.log('this.sprites', this.sprites)
     let spriteToReturn = undefined;
     if (name) {
       this.sprites.getChildren().forEach(child => {

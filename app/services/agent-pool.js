@@ -210,6 +210,10 @@ export default class AgentPoolService extends Service {
       Object.assign(baseAgentclone, {
         id: agentId++,
         name: 'Bat',
+        flagAttributes: {
+          sF: 0,
+          tF: 3
+        },
         animeframes: {
           rest: {yoyo: true, key: 'batrest', prefix: 'bats/bat-se-', start: 1, end: 5, rate: 3, repeat: -1}
         },
@@ -784,10 +788,16 @@ export default class AgentPoolService extends Service {
       Object.assign(baseAgentclone, {
         id: agentId++,
         name: 'Flappers',
+        flagAttributes: {
+          sF: 0,
+          tF: 3
+        },
         animeframes: {
           rest: {yoyo: true, key: 'flappers-rest', prefix: 'chaos/flappers-stand-', start: 1, end: 4, rate: 3, repeat: -1}
         },
-        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]},
+          { bodypart: constants.INVENTORY.BODYPART.FINGERS, items: [{ itemId: 5005 }] }
+          ]// bite
       })
     );
     baseAgentclone = Object.assign({}, this.baseAgent);
@@ -802,18 +812,19 @@ export default class AgentPoolService extends Service {
       })
     );
     baseAgentclone = Object.assign({}, this.baseAgent);
-    this.agentpool.set('lessor-demon',
+    this.agentpool.set('lesser-demon',
       Object.assign(baseAgentclone, {
         id: agentId++,
-        name: 'Lessor Demon',
+        name: 'Lesser Demon',
         animeframes: {
-          rest: {yoyo: true, key: 'lessor-demon-rest', prefix: 'chaos/lessor-demon-attack', start: 1, end: 1, rate: 3, repeat: -1},
-          attack: {key: 'lessor-demon-attack', prefix: 'chaos/lessor-demon-attack', start: 1, end: 3, rate: 3, repeat: -1, delays: { frameNum: 3, delay: 300 }},
-          range: {key: 'lessor-demon-ranged', prefix: 'chaos/lessor-demon-range', start: 1, end: 4, rate: 3, repeat: -1, delays: { frameNum: 4, delay: 300 }}
+          rest: {yoyo: true, key: 'lesser-demon-rest', prefix: 'chaos/lesser-demon-attack', start: 1, end: 1, rate: 3, repeat: -1},
+          attack: {key: 'lesser-demon-attack', prefix: 'chaos/lesser-demon-attack', start: 1, end: 3, rate: 3, repeat: -1, delays: { frameNum: 3, delay: 300 }},
+          range: {key: 'lesser-demon-ranged', prefix: 'chaos/lesser-demon-range', start: 1, end: 4, rate: 3, repeat: -1, delays: { frameNum: 4, delay: 300 }}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]},
-          { bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5002} ]}
+          { bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5002} ]},
+          { bodypart: constants.INVENTORY.BODYPART.FINGERS, items: [{ itemId: 5005 }] }
           ]  // bite
       })
     );
@@ -833,7 +844,8 @@ export default class AgentPoolService extends Service {
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5007 } ]},
-          { bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5102} ]}
+          { bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5102} ]},
+          { bodypart: constants.INVENTORY.BODYPART.FINGERS, items: [{ itemId: 5005 }] }
 
         ]  // bite
       })
@@ -943,7 +955,8 @@ export default class AgentPoolService extends Service {
           attack: {key: 'elemental-fireghost-attack', prefix: 'elementals/fireghost/fireghost-attack', start: 1, end: 2, rate: 3, delays: { frameNum: 2, delay: 300 }},
           death: {key: 'elemental-fireghost-death', prefix: 'elementals/fireghost/fireghost-death', start: 1, end: 6, rate: 8, delays: { frameNum: 6, delay: 300 }}
         },
-        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5004 } ]}]  // axe
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5004 } ]},
+          { bodypart: constants.INVENTORY.BODYPART.FINGERS, items: [{ itemId: 5005 }] }]  // axe
       })
     );
     baseAgentclone = Object.assign({}, this.baseAgent);
@@ -957,7 +970,8 @@ export default class AgentPoolService extends Service {
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5007 } ]},
-          { bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5102} ]}
+          { bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5102} ]},
+          { bodypart: constants.INVENTORY.BODYPART.FINGERS, items: [{ itemId: 5005 }] }
         ]  // axe
       })
     );
@@ -1195,8 +1209,8 @@ export default class AgentPoolService extends Service {
         id: agentId++,
         name: 'Goblin',
         animeframes: {
-          rest: {yoyo: true, key: 'goblin-impaler-rest', prefix: 'goblins/impalar/goblin-impaler', start: 1, end: 1},
-          attack: {key: 'goblin-impaler-attack', prefix: 'goblins/impalar/goblin-impaler-attack-se-', start: 1, end: 2, rate: 2},
+          rest: {yoyo: true, key: 'goblin-impaler-rest', prefix: 'goblins/impaler/impaler', start: 1, end: 1},
+          attack: {key: 'goblin-impaler-attack', prefix: 'goblins/impaler/goblin-impaler-attack-se-', start: 1, end: 2, rate: 2},
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5000 } ]}
@@ -1624,6 +1638,7 @@ export default class AgentPoolService extends Service {
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5008 } ]},
+          { bodypart: constants.INVENTORY.BODYPART.FINGERS, items: [{ itemId: 5005 }] }
           // { bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5101} ]}
         ]  // axe
       })
@@ -1645,7 +1660,7 @@ export default class AgentPoolService extends Service {
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5008 } ]},
-          // { bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5101} ]}
+          { bodypart: constants.INVENTORY.BODYPART.FINGERS, items: [{ itemId: 5005 }] }
         ]  // axe
       })
     );

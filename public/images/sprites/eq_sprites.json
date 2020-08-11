@@ -12835,7 +12835,7 @@
 					}
 				},
 				{
-					"filename": "sharman/shaman-1.png",
+					"filename": "shaman/shaman-1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -12860,7 +12860,7 @@
 					}
 				},
 				{
-					"filename": "sharman/shaman-2.png",
+					"filename": "shaman/shaman-2.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -12885,7 +12885,7 @@
 					}
 				},
 				{
-					"filename": "sharman/shaman-3.png",
+					"filename": "shaman/shaman-3.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -12910,7 +12910,7 @@
 					}
 				},
 				{
-					"filename": "sharman/shaman-magic-1.png",
+					"filename": "shaman/shaman-magic-1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -12935,7 +12935,7 @@
 					}
 				},
 				{
-					"filename": "sharman/shaman-magic-2.png",
+					"filename": "shaman/shaman-magic-2.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -12960,7 +12960,7 @@
 					}
 				},
 				{
-					"filename": "sharman/shaman-magic-3.png",
+					"filename": "shaman/shaman-magic-3.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -12985,7 +12985,7 @@
 					}
 				},
 				{
-					"filename": "sharman/sharman-warlock/trollwarlock-4.png",
+					"filename": "shaman/sharman-warlock/trollwarlock-4.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -13010,7 +13010,7 @@
 					}
 				},
 				{
-					"filename": "sharman/sharman-warlock/trollwarlock-5.png",
+					"filename": "shaman/sharman-warlock/trollwarlock-5.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -13035,7 +13035,7 @@
 					}
 				},
 				{
-					"filename": "sharman/sharman-warlock/trollwarlock-6.png",
+					"filename": "shaman/sharman-warlock/trollwarlock-6.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -14585,7 +14585,7 @@
 					}
 				},
 				{
-					"filename": "sharman/sharman-warlock/trollwarlock-1.png",
+					"filename": "shaman/sharman-warlock/trollwarlock-1.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -14610,7 +14610,7 @@
 					}
 				},
 				{
-					"filename": "sharman/sharman-warlock/trollwarlock-2.png",
+					"filename": "shaman/sharman-warlock/trollwarlock-2.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -14635,7 +14635,7 @@
 					}
 				},
 				{
-					"filename": "sharman/sharman-warlock/trollwarlock-3.png",
+					"filename": "shaman/sharman-warlock/trollwarlock-3.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -18226,6 +18226,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:d9120a19dea12dec4f366af38c23d8bf:13ece63e483df302ba106d183e097b0c:b7b49bdbe03548a06e5e9a1da7574277$"
+		"smartupdate": "$TexturePacker:SmartUpdate:d6948b82fd643800fa1aa879ef2abc19:13ece63e483df302ba106d183e097b0c:b7b49bdbe03548a06e5e9a1da7574277$"
 	}
 }

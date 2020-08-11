@@ -69,6 +69,12 @@ export class BaseAgent {
     // return this.baseHealingSpeed * this.healingSpeedAdj;
   }
 
+  moveSpeed(baseSpeed) {
+    // base speed is the agent speed * the tile attribute speed cost
+    return baseSpeed * this.moveSpeedAdj;  // setSpeed, more is faster
+    // return this.baseHealingSpeed * this.healingSpeedAdj;
+  }
+
   get energizePower() {
     return this.baseEnergizePower * this.energizePowerAdj;
   }
@@ -172,6 +178,13 @@ export class BaseAgent {
     // console.log('   new inventory', this.inventory)
   }
 
+  removeInventory(item) {
+    // console.log('removing inventory', item)
+    // console.log('   current inventory', this.inventory)
+    this.inventory = this.inventory.without(item);
+    // console.log('   new inventory', this.inventory)
+  }
+
   // could combine this with unequip but I think having them separate for now is better understood
   equipItem(item) {
     item.equipped = true;
@@ -256,7 +269,9 @@ export class BaseAgent {
 
   @computed('inventory.@each.equipped')
   get moveSpeedAdj() {
+    // console.log('get moveSpeedAdj', this.getStats(constants.INVENTORY.STATS.MOVESPEED), +parseFloat((this.getStats(constants.INVENTORY.STATS.MOVESPEED)).toFixed(constants.FLOATING_POINT_PRECISION_4)) + 1)
     return +parseFloat((this.getStats(constants.INVENTORY.STATS.MOVESPEED)).toFixed(constants.FLOATING_POINT_PRECISION_4)) + 1;
+    // return +parseFloat((this.getStats(constants.INVENTORY.STATS.MOVESPEED)).toFixed(constants.FLOATING_POINT_PRECISION_4)) + 1;
   }
 
   @computed('inventory.@each.equipped')

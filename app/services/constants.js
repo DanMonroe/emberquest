@@ -265,7 +265,8 @@ const constants = Object.freeze({
     GET_CHEST: {value: 9, description: 'Pick up chest'},
     TOGGLE_PROPERTY: {value: 10, description: 'Toggle sprite property on or off'},
     PLAY_DEPENDANT_ANIMATION: {value: 11, description: 'Play animation based on sprite property on or off'},
-    READ_SIGN: {value: 12, description: 'Read sign'}
+    READ_SIGN: {value: 12, description: 'Read sign'},
+    PICKUP_ROYAL_EMBER: {value: 13, description: 'Pickup Rpyal Ember'}
   },
 
 

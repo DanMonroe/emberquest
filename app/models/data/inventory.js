@@ -1139,7 +1139,10 @@ export class InventoryItems {
         imgDoll: '/images/items/dragon/boots_doll.png',
         cssClazz: 'feet dragon',
         description: 'Exquisite boots made from the scales of a fire dragon.',
-        stats: [new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 75})],
+        stats: [
+          new Stat({ type: constants.INVENTORY.STATS.HEALTH, value: 75}),
+          new Stat({ type: constants.INVENTORY.STATS.MOVESPEED, value: .25})
+        ],
         resistance: [new Resistance({type: constants.INVENTORY.RESISTANCE.FIRE, value: 10})]
       })
     );
@@ -1282,7 +1285,7 @@ export class InventoryItems {
         owned: false,
         display: false,
         requiredLevel: 1,
-        price: 0,
+        price: 1,
         // price: 550,
         type: constants.INVENTORY.TYPE.ARMOR,
         bodypart: constants.INVENTORY.BODYPART.ARMS,

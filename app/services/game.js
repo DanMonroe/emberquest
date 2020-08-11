@@ -651,13 +651,15 @@ console.log('sceneDataForMap', sceneDataForMap);
         }
         break;
       case constants.FLAGS.SPECIAL.LAVA.value:
-        console.log('on lava', agentContainer.agent.maxHealth, Math.floor(agentContainer.agent.maxHealth * .9) + 10 );
         if (!agentContainer.boardedTransport) {
-          fireDamage += Math.floor(agentContainer.agent.maxHealth * .9) + 10;
+          // fireDamage += agentContainer.agent.maxHealth + 10;
+          // fireDamage += Math.floor(agentContainer.agent.maxHealth * .9) + 10;
+          fireDamage += Math.floor(agentContainer.agent.maxHealth * 10) + 10;
+          // console.log('on lava', agentContainer.agent.maxHealth, Math.floor(agentContainer.agent.maxHealth * 10) + 10 );
         }
         break;
       case constants.FLAGS.SPECIAL.DROWN.value:
-        console.log('on drowning water', agentContainer.agent.maxHealth, Math.floor(agentContainer.agent.maxHealth * .9) + 10 );
+        // console.log('on drowning water', agentContainer.agent.maxHealth, Math.floor(agentContainer.agent.maxHealth * .9) + 10 );
         waterDamage += Math.floor(agentContainer.agent.maxHealth * .9) + 10;
         break;
       case constants.FLAGS.SPECIAL.ROYALEMBER.value:
@@ -722,6 +724,14 @@ console.log('sceneDataForMap', sceneDataForMap);
         brazierSprite.setAlpha(this.constants.ALPHA_OBJECT_VISIBLE_TO_PLAYER);
 
         this.placedBrazier = true;
+
+        const inventoryRoyalEmber = this.inventory.getItemById(this.constants.INVENTORY.ROYAL_EMBER_ID);
+        if (inventoryRoyalEmber) {
+          inventoryRoyalEmber.owned = false;
+          inventoryRoyalEmber.display = false;
+          this.gameManager.player.container.agent.removeInventory(inventoryRoyalEmber);
+        }
+
       }
       this.gameManager.pauseGame(false);
     } else {
@@ -903,7 +913,7 @@ console.log('sceneDataForMap', sceneDataForMap);
 
   @task
   *processSpecialAction(scene, specialAction, gameObj) {
-    let doorShapes, transport, currentValue;
+    let doorShapes, transport, currentValue, royalEmber;
     switch (specialAction.value) {
       case this.constants.SPECIAL_ACTIONS.REMOVE_SIGHT_COST.value:  // data: { tileXY: {x: 11, y: 3 }}
         // find the tile, set its sightCost to 0;
@@ -928,6 +938,21 @@ console.log('sceneDataForMap', sceneDataForMap);
         break;
       case this.constants.SPECIAL_ACTIONS.FINAL_FANFAIR.value:
         console.log('Do final fanfair ?');
+        break;
+      case this.constants.SPECIAL_ACTIONS.PICKUP_ROYAL_EMBER.value:
+        // console.log('Pickup royal ember');
+        if (!this.inventory.hasRoyalEmber()) {
+          royalEmber = this.inventory.getItemById(this.constants.INVENTORY.ROYAL_EMBER_ID);
+          if (royalEmber) {
+            gameObj.setAlpha(this.constants.ALPHA_OBJECT_HIDDEN_TO_PLAYER);
+            gameObj.setVisible(false);
+            gameObj.setActive(false);
+            this.inventory.addInventoryFromChest(royalEmber);
+          } else {
+            console.warn('should have found royal ember')
+          }
+        }
+
         break;
       case this.constants.SPECIAL_ACTIONS.READ_SIGN.value:
         scene.game.ember.showInfoDialog(this.intl.t(`messages.signs.${specialAction.data.signMessageId}`));
