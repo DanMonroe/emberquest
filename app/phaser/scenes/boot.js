@@ -93,9 +93,6 @@ export class BootScene extends Phaser.Scene {
 
   loadImages() {
     this.load.image('player', this.ember.playerImgSrc);
-    this.load.image('cutter', '/images/transports/cutter.png');
-    this.load.image('barque', '/images/transports/barque.png');
-    this.load.image('boat', '/images/transports/boat.png');
 
     // signs
     this.load.image('signpost', '/images/maps/signpost.png');
@@ -106,16 +103,10 @@ export class BootScene extends Phaser.Scene {
     this.load.image('door_iron_se', '/images/maps/portals/iron_gate_closed_se.png');
     this.load.image('door_iron_sw', '/images/maps/portals/iron_gate_closed_sw.png');
 
-    this.load.image('ball', '/images/items/ballBlack_04.png');
-    this.load.image('bullet', '/images/items/bullet7.png');
-
-    // this.load.image('missile', '/images/items/missile-n.png');
-
   }
 
   loadSpriteSheets() {
     this.load.spritesheet('chests', '/images/chest_sprite.png', { frameWidth: 140, frameHeight: 140 });
-
 
     this.load.multiatlas('eq_sprites', '/images/sprites/eq_sprites.json', '/images/sprites');
   }
@@ -124,9 +115,6 @@ export class BootScene extends Phaser.Scene {
     // TODO two separate sprites?   sound effects and scene music
     this.load.audioSprite('eq_audio', '/audio/sounds/eq_audio.json');
     this.load.audioSprite('eq_music', '/audio/music/eq_music.json');
-
-    // this.load.audio('music1', ['/audio/music/uncharted_territory_justin_monroe.mp3']);
-
   }
 
   async create() {

@@ -491,7 +491,7 @@ export class InventoryItems {
 
         velocity: 225,
         animeframes: [
-          { type: 'range', key: 'bone-skull', config: {prefix: 'missiles/bone-skul-', start: 1, end: 4, rate: 8, repeat: -1} }
+          { type: 'range', key: 'flamerange', config: {prefix: 'missiles/fireball', start: 1, end: 2, rate: 8, repeat: -1} }
         ],
 
         stats: [
@@ -593,7 +593,29 @@ export class InventoryItems {
         audioMiss: {key: 'sword_miss'}
       })
     );
+    items.push(
+      new InventoryItem({
+        id: 5107,
+        name: {key: 'bola'},
+        type: constants.INVENTORY.TYPE.MONSTER,
+        bodypart: constants.INVENTORY.BODYPART.RANGED,
+        projectileImg: 'ball',
+        projectileScale: 0.4,
 
+        velocity: 225,
+        animeframes: [
+          { type: 'range', key: 'bola', config: {prefix: 'missiles/stone', start: 1, end: 1} }
+        ],
+
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 3}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 4}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.7})
+        ],
+        audioRanged: {key: 'fireball'},
+        audioMiss: {key: 'sword_miss'}
+      })
+    );
 
 
     // Ranged Weapons

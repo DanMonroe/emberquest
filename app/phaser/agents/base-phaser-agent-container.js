@@ -59,16 +59,18 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
 
     this.pathFinder = scene.rexBoard.add.pathFinder(this, {
       occupiedTest: true,
-      pathMode: 'A*',
+      pathMode: 'A*-random',
+      // pathMode: 'A*',
       // shuffleNeighbors: true,
       // weight: 100,
+      cacheCost: false,
       blockerTest: true,
       costCallback: (curTile, targetTile, pathFinder) => {
         const travelFlags = this.ember.map.getTileAttribute(pathFinder.chessData.board.scene, targetTile, 'tF');
         const speedCost = this.ember.map.getTileAttribute(pathFinder.chessData.board.scene, targetTile, 'spdC');
         const canMove = this.ember.playerHasAbilityFlag(this, this.ember.constants.FLAG_TYPE_TRAVEL, travelFlags);
 
-        // console.log('speedCost', speedCost, targetTile, targetTile.pathCost, targetTile.preNodesCost)
+        // console.log('speedCost', speedCost, curTile, curTile.preNodes.length, targetTile, targetTile.preNodes.length, targetTile.pathCost, targetTile.preNodesCost)
 
         return canMove ? 100 - speedCost : undefined; // undefined is a "blocker"
         // return canMove ? -1 * ( speedCost ) : undefined; // undefined is a "blocker"
@@ -251,9 +253,9 @@ export default class BasePhaserAgentContainer extends Phaser.GameObjects.Contain
 
       this.powerBar.clear();
       this.powerBar.fillStyle(0xffffff, 0.4);
-      this.powerBar.fillRect(this.x + this.ember.constants.powerBarOffsetX, this.y + this.ember.constants.powerBarOffsetY, this.ember.constants.powerBarWidth, this.ember.constants.powerBarHeight);
+      this.powerBar.fillRect(this.x + this.ember.constants.powerBarOffsetX + this.config.offsets.powerbar.x, this.y + this.ember.constants.powerBarOffsetY + this.config.offsets.powerbar.y, this.ember.constants.powerBarWidth, this.ember.constants.powerBarHeight);
       this.powerBar.fillStyle(this.ember.constants.powerBarColor, 1);
-      this.powerBar.fillRect(this.x + this.ember.constants.powerBarOffsetX, this.y + this.ember.constants.powerBarOffsetY, this.ember.constants.powerBarWidth * powerPercentage, this.ember.constants.powerBarHeight);
+      this.powerBar.fillRect(this.x + this.ember.constants.powerBarOffsetX + this.config.offsets.powerbar.x, this.y + this.ember.constants.powerBarOffsetY + this.config.offsets.powerbar.y, this.ember.constants.powerBarWidth * powerPercentage, this.ember.constants.powerBarHeight);
     }
   }
 

@@ -276,6 +276,7 @@ export class GameboardScene extends Phaser.Scene {
   }
 
   spawnAgent(agentObject) {
+    // console.log('spawn', agentObject)
     const agentContainer = this.ember.createAgent(this, agentObject);
 
     agentContainer.setAlpha(0);

@@ -109,6 +109,38 @@ export default class MapService extends Service {
     return result.default;
   }
 
+  mapSelectionObjects = [
+    { map: 'final', name: 'Final' },
+    { map: 'cave1', name: 'Cave' },
+    { map: 'castle', name: 'Castle' },
+    { map: 'cemetery', name: 'Cemetery' },
+    { map: 'icecave', name: 'Ice cave' },
+    { map: 'igloo', name: 'Igloo' },
+    { map: 'm1', name: 'The Highlands (m1)' },
+    { map: 'm2', name: 'Desolate Mountains' },
+    { map: 'm2_pyramid', name: 'Pyramid' },
+    { map: 'm3', name: 'Scarstone Mountains' },
+    { map: 'm3-hut', name: 'Scarstone Mountains Hut' },
+    { map: 'm3-hut-cave', name: 'Scarstone Mountains Cave' },
+    { map: 'm4', name: 'The Meadows' },
+    { map: 'm4-cabin', name: 'The Meadows Cabin' },
+    { map: 'm5', name: 'Silverwood Forest' },
+    { map: 'm6', name: 'Island of Death' },
+    { map: 'm7', name: 'Icewilde' },
+    { map: 'm8', name: 'Embattled Cliffs' },
+    { map: 'm8-cabin', name: 'Embattled Cliffs Cabin' },
+    { map: 'm9', name: 'Sea of Misdirection' },
+    { map: 'm9-castle', name: 'Sea of Misdirection Castle' },
+    { map: 'm10', name: 'Frostwood' },
+    { map: 'm11', name: 'Ember Forest' },
+    { map: 'm12', name: 'Pirate Bay' },
+    { map: 'm13', name: 'Wandering Islands' },
+    { map: 'smallcabin', name: 'Tight Quarters Cabin' },
+    { map: 'arena', name: 'Arena' },
+    { map: 'intro', name: 'Intro' },
+    { map: 'intro2', name: 'Intro 2' }
+  ];
+
   async getDynamicMapData(mapToLoad) {
     let map = await this.getMap(mapToLoad);
     return map;

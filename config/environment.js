@@ -25,11 +25,13 @@ module.exports = function(environment) {
     game: {
       modalsDuration: 600,  // transition time for drop down modals
       pauseOnBlur: true,
+      showAgentSelector: false,
 
       playerConfig: {
         // playerX: playerTile.x,
         // playerY: playerTile.y,
         texture: 'player',
+        spriteTexture: 'avatar',
         textureSize: { width: 42, height: 42},
         scale: .15,
         face: 0,
@@ -58,9 +60,10 @@ module.exports = function(environment) {
         // },
         offsets: {
           img: { x: 0, y: 0 },
-          healthbar: { x: 0, y: 0 },
+          healthbar: { x: 0, y: -10 },
+          powerbar: { x: 0, y: -10 },
           name: { x: 0, y: 0 },
-          damage: { x: 0, y: 0 }
+          damage: { x: 0, y: -35 }
         },
         // storedPlayerAttrs: this.storedData.storedPlayerAttrs,
 
@@ -85,7 +88,10 @@ module.exports = function(environment) {
     };
 
     ENV.game.pauseOnBlur = false;
-    // ENV.game.playerConfig.speed = 500;
+    ENV.game.playerConfig.speed = 300;
+
+    ENV.game.showAgentSelector = true;
+
   }
 
   if (environment === 'test') {

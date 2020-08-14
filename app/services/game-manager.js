@@ -16,8 +16,8 @@ export default class GameManagerService extends Service {
 
   @tracked player;
   @tracked volume = 0;
-  @tracked soundEffectsVolume = 1;
-  @tracked musicEffectsVolume = 1;
+  @tracked soundEffectsVolume = 0.3;
+  @tracked musicEffectsVolume = 0.3;
   @tracked mutedSoundEffectsVolume = false;
   @tracked mutedMusicEffectsVolume = false;
   @tracked soundEffects;
@@ -63,6 +63,7 @@ export default class GameManagerService extends Service {
     this.storedData = scene.storedData;
     this.mapDisplayName = scene.mapData.mapDisplayName;
     this.showMapDisplayName = scene.mapData.showMapDisplayName;
+    this.ember.showAgentSelector = config.game.showAgentSelector;
     this.setupEventListener();
     this.setupSpawners();
     this.spawnPlayer();
@@ -75,6 +76,7 @@ export default class GameManagerService extends Service {
 
   playSceneMusic() {
     if (!this.mutedMusicEffectsVolume && this.scene.mapData.sceneMusic && this.scene.mapData.sceneMusic.key) {
+      this.scene.ember.gameManager.musicEffects.stop();
       this.scene.ember.gameManager.musicEffects.play(this.scene.mapData.sceneMusic.key, Object.assign({mute: false}, {volume: this.musicEffectsVolume}, this.scene.mapData.sceneMusic.config));
     }
   }
@@ -241,11 +243,10 @@ export default class GameManagerService extends Service {
         preTestCallback: (tileXYArray) => {
           // console.log('preTestCallback', tileXYArray, visiblePoints, fieldOfView)
 
-          // Limit sight range tp player's sightRange
+          // Limit sight range to player's sightRange
           // array includes player hex so add one
-          // return tileXYArray.length <= (this.playerConfig.sightRange + 1);
+          // return tileXYArray.length <= (this.player.container.sightRange + 10);
           return tileXYArray.length <= (this.player.container.sightRange + 1);
-          // return tileXYArray.length <= (this.player.sightRange + 1);
         },
 
         debug: {
@@ -256,96 +257,6 @@ export default class GameManagerService extends Service {
       });
 
     this.playerConfig = combinedPlayerConfig;
-
-    // this.playerConfig = {
-    //   playerX: playerTile.x,
-    //   playerY: playerTile.y,
-    //   texture: 'player',
-    //   textureSize: { width: 42, height: 42},
-    //   // scale: 0.1,
-    //   scale: .15,
-    //   // scale: 1.5,
-    //   face: 0,
-    //   coneMode: 'direction',
-    //   cone: 6,
-    //   speed: 125,
-    //   // sightRange: 30,   // this is sight/movement Range
-    //   sightRange: 3,   // this is sight/movement Range
-    //   movingPoints: 3,   // this is sight/movement Range
-    //   // visiblePoints: 8,   // this is sight/movement Range
-    //   visiblePoints: 5,   // this is sight/movement Range
-    //   // visiblePoints: 5.1,   // this is sight/movement Range
-    //
-    //   gold: 15,
-    //
-    //   // health: 2,
-    //   health: 20,
-    //   // maxHealth: 200,
-    //   // healingPower: 5,
-    //   // healingSpeed: 2500,
-    //
-    //   baseHealingPower: 2,
-    //   baseHealingSpeed: 2500,
-    //
-    //
-    //   energizeSpeed : 2000,
-    //   energizePower: 2,
-    //   power: 102,
-    //   // maxPower: 50,
-    //   id: 'player1',
-    //   playerAttackAudio: undefined, // when ready, get from Boot scene  --- actually should get from the weapon the player is using.
-    //
-    //   flagAttributes: {
-    //     sF: (this.storedData.storedPlayerAttrs && this.storedData.storedPlayerAttrs.sF) || 0,
-    //     tF: (this.storedData.storedPlayerAttrs && this.storedData.storedPlayerAttrs.tF) || this.ember.constants.FLAGS.TRAVEL.LAND.value
-    //   },
-    //   offsets: {
-    //     img: { x: 0, y: 0 },
-    //     healthbar: { x: 0, y: 0 },
-    //     name: { x: 0, y: 0 },
-    //     damage: { x: 0, y: 0 }
-    //   },
-    //   storedPlayerAttrs: this.storedData.storedPlayerAttrs,
-    //
-    //   costCallback:  (tileXY) => {
-    //
-    //     let totalSightCost = this.ember.map.getTileAttribute(this.scene, tileXY, 'sC');
-    //
-    //     // can't see past this hex (but CAN see this hex)
-    //     if (totalSightCost === this.ember.constants.FLAGS.SIGHT.IMPASSABLE.value) {
-    //       return this.ember.playerContainer.fov.BLOCKER;
-    //     }
-    //
-    //     if (this.ember.map.tileIsDoor(this.scene, tileXY)) {
-    //       const portalSpecialAttr = this.ember.map.getTileAttribute(this.scene, tileXY, 'spcl');
-    //       totalSightCost += portalSpecialAttr.sC;
-    //     }
-    //     // console.log('wesnoth', wesnoth, 'totalSightCost', totalSightCost, tileXY)
-    //     // let wesnoth = this.ember.map.getTileAttribute(this.scene, tileXY, 'w');
-    //     // if (wesnoth === 'Md') {
-    //     //   console.log('Mountain');
-    //       // return null;
-    //       // totalSightCost += 10;
-    //     // }
-    //     return totalSightCost;
-    //   },
-    //   preTestCallback: (tileXYArray) => {
-    //     // console.log('preTestCallback', tileXYArray, visiblePoints, fieldOfView)
-    //
-    //     // Limit sight range tp player's sightRange
-    //     // array includes player hex so add one
-    //     // return tileXYArray.length <= (this.playerConfig.sightRange + 1);
-    //     return tileXYArray.length <= (this.player.container.sightRange + 1);
-    //     // return tileXYArray.length <= (this.player.sightRange + 1);
-    //   },
-    //
-    //   debug: {
-    //     // graphics: this.add.graphics().setDepth(10),
-    //     log: false,
-    //     override: this.ember.debug || {level:null,gold:null}
-    //   }
-    // };
-
 
     this.player = new Player(this.scene, this.playerConfig);
     this.players[this.player.id] = this.player;
@@ -376,7 +287,7 @@ export default class GameManagerService extends Service {
 
       if (!this.mutedSoundEffectsVolume && soundObj && soundObj.key) {
         const config = Object.assign(soundObj.config || {mute: false}, {mute: false, volume: volume ? volume : this.soundEffectsVolume});
-  console.log('sound config', config)
+        // console.log('sound config', config)
         // this.scene.sound.playAudioSprite('eq_audio', soundObj.key, config);
         this.scene.ember.gameManager.soundEffects.play(soundObj.key, config);
       }
@@ -455,10 +366,12 @@ export default class GameManagerService extends Service {
     // const agentToAttack = this.findAgentAtTile(clickedTile);
     // if (agentToAttack) {
 
-      const isNeighbor = this.scene.board.areNeighbors(attacker.rexChess.tileXYZ, agentToAttack.rexChess.tileXYZ);
-      // console.log('isNeighbor', isNeighbor)
+      // const isNeighbor = this.scene.board.areNeighbors(attacker.rexChess.tileXYZ, agentToAttack.rexChess.tileXYZ);
+      const neighborDirection = this.scene.board.getNeighborChessDirection(attacker.rexChess.tileXYZ, agentToAttack.rexChess.tileXYZ);
+      console.log('neighborDirection', neighborDirection)
 
-      if (isNeighbor) {
+      if (neighborDirection) {
+      // if (isNeighbor) {
         // Melee
         // console.log('Melee Attack!');
 
@@ -468,6 +381,11 @@ export default class GameManagerService extends Service {
         // console.log('equippedMeleeWeapon', equippedMeleeWeapon.name, equippedMeleeWeapon)
 
         if (equippedMeleeWeapon && this.hasEnoughPowerToUseItem(equippedMeleeWeapon, attacker.agent)) {
+
+          if (attacker.isPlayer) {
+            attacker.playAnimation(neighborDirection === 2 || neighborDirection === 3 ?
+              this.ember.constants.ANIMATION.KEY.WESTATTACK : this.ember.constants.ANIMATION.KEY.ATTACK);
+          }
 
           const hit = this.didAttackHit(equippedMeleeWeapon, agentToAttack.agent, attacker.agent);
           console.log('hit - melee', hit);

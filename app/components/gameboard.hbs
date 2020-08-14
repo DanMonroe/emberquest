@@ -9,6 +9,30 @@
       <img src="/images/emberquestlogo.png" class="logo" />
 
       <div class="game-controls">
+        {{#if this.emberGameService.showAgentSelector}}
+          <div class="testSpawnerControls">
+            <button class="btn btn-blue" {{on "click" (fn this.teleport)}}>Teleport</button>
+            <div class="mapSelector">
+              <select {{on "change" this.setTestMap}}>
+                {{#each this.emberGameService.map.mapSelectionObjects as |testMap|}}
+                  <option value="{{testMap.map}}">{{testMap.name}}</option>
+                {{/each}}
+              </select>
+            </div>
+            <div class="agentSelector">
+              <select {{on "change" this.setTestAgent}}>
+                {{#each this.testAgents as |testAgent|}}
+                  <option value="{{testAgent.key}}">{{testAgent.name}}</option>
+                {{/each}}
+              </select>
+            </div>
+            <label for="testSpawnerX">X</label>
+            <Input type=number @id="testSpawnerX" @value={{this.testSpawnerX}} />
+            <label for="testSpawnerY">Y</label>
+            <Input type=number @id="testSpawnerY" @value={{this.testSpawnerY}} />
+            <button class="btn btn-blue" {{on "click" (fn this.spawnTestAgent)}}>Spawn</button>
+          </div>
+        {{/if}}
           <div class="mapDisplayName">{{this.emberGameService.gameManager.getMapDisplayName}}</div>
           <div class="xp-wrapper">
               <span class="xp xp-30{{if this.emberGameService.gameManager.countXP.isRunning " pulse"}}"></span>

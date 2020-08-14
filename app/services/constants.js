@@ -31,7 +31,12 @@ const constants = Object.freeze({
       ATTACK: 1,
       RANGE: 2,
       MOVE: 3,
-      DEATH: 4
+      DEATH: 4,
+      NORTH: 5,
+      SOUTH: 6,
+      EAST: 7,
+      WEST: 8,
+      WESTATTACK: 9
     }
   },
 

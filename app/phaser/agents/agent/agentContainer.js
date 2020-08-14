@@ -3,7 +3,6 @@ import {task} from "ember-concurrency-decorators";
 import {timeout,waitForProperty } from "ember-concurrency";
 import {tracked} from '@glimmer/tracking';
 import {isPresent} from '@ember/utils';
-import {v4} from "ember-uuid";
 
 export default class AgentContainer extends BasePhaserAgentContainer {
 

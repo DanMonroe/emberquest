@@ -1,10 +1,10 @@
-import PlayerPhaserAgent from "./player-phaser-agent";
 import BasePhaserAgentContainer from "../base-phaser-agent-container";
 import {tracked} from '@glimmer/tracking';
 
 export default class PlayerContainer extends BasePhaserAgentContainer {
 
   @tracked boardedTransport;
+  @tracked config;
 
   constructor(scene, config, agent) {
 
@@ -12,13 +12,13 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
 
     super(scene, config);
 
+    this.config = config;
     this.scene = scene;
     this.board = scene.board;
     this.ember = this.scene.game.ember;
     this.containerType = this.scene.game.ember.constants.SHAPE_TYPE_PLAYER;
 
     this.id = config.id;
-    this.playerAttacking = false;
 
     this.isPlayer = true;
     this.showPowerBar = true;
@@ -30,6 +30,8 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
     this.showPowerBar = true;
 
     this.cachedHealthPercentage = 0;
+
+    this.setupSprite();
 
     // set a size on the container
     this.setSize(config.textureSize.width, config.textureSize.height);
@@ -46,19 +48,19 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
     // this.body.setCollideWorldBounds(true);
 
     // add the player container to our existing scene
-    this.scene.add.existing(this);
+    // this.scene.add.existing(this);
 
     // have the camera follow the player
     this.scene.cameras.main.startFollow(this);
 
 
     // create the player
-    this.player = new PlayerPhaserAgent(this.scene, config);
-    this.add(this.player);
-    this.setDepth(this.ember.constants.TILEZ_PLAYER);
+    // this.player = new PlayerPhaserAgent(this.scene, config);
+    // this.add(this.player);
 
-    this.phaserAgentSprite = this.player;
-    // this.agent = new Player
+    // this.setDepth(this.ember.constants.TILEZ_PLAYER);
+
+    // this.phaserplayerSprite = this.player;
 
     if (config.debug.override.speed) {
       config.speed = +config.debug.override.speed;
@@ -124,8 +126,10 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
       } else if ( ! this.boardedTransport) {  // don't adjust speed/power when on a transport
 
         // console.log('speed', this.agent.moveSpeed(config.speed * allattrs.spdC), config.speed, allattrs.spdC, this.agent.moveSpeedAdj)
-        this.moveToObject.setSpeed(this.agent.moveSpeed(config.speed * allattrs.spdC));
         // this.moveToObject.setSpeed((config.speed * allattrs.spdC) * this.agent.moveSpeed);
+
+        // this.moveToObject.setSpeed(100);
+        this.moveToObject.setSpeed(this.agent.moveSpeed(config.speed * allattrs.spdC));
 
         this.agent.power -= (2 - allattrs.spdC);
 
@@ -176,6 +180,173 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
     this.reloadPower.perform();
   }
 
+  setupSprite() {
+
+    let spriteConfig = {
+      animeframes: {
+        rest: {yoyo: true, key: 'avatar-rest', playoncreate: true, prefix: 'avatar/avatar_s', start: 1, end: 2, rate: 4, repeat: -1},
+        north: {yoyo: true, key: 'avatar-north', prefix: 'avatar/avatar_n', start: 1, end: 3, rate: 6, repeat: 1},
+        south: {yoyo: true, key: 'avatar-south', prefix: 'avatar/avatar_s', start: 1, end: 3, rate: 6, repeat: 1},
+        east: {yoyo: true, key: 'avatar-east', prefix: 'avatar/avatar_e', start: 1, end: 3, rate: 6, repeat: 1},
+        west: {yoyo: true, key: 'avatar-west', prefix: 'avatar/avatar_e', start: 1, end: 3, rate: 6, repeat: 1},
+        attack: {yoyo: true, key: 'avatar-attack', prefix: 'avatar/avatar_attack', start: 1, end: 4, rate: 16, repeat: 0}
+      },
+      textureSize: {width: 42, height: 42},
+      firstFrame: 'avatar/avatar_s1.png',
+      offsets: {
+        img: {x: 10, y: 0}
+      },
+      scale: .3,
+    }
+
+    this.spriteConfig = spriteConfig;
+
+
+
+    const playerSprite = this.scene.add.sprite(0, 0, this.ember.constants.SPRITES_TEXTURE);
+    if (this.spriteConfig.offsets.img) {
+      playerSprite.x += this.spriteConfig.offsets.img.x;
+      playerSprite.y += this.spriteConfig.offsets.img.y;
+
+      this.spriteConfig.originalX = playerSprite.x;
+      this.spriteConfig.originalY = playerSprite.y;
+    }
+
+    playerSprite.setScale(this.spriteConfig.scale);
+
+    this.add(playerSprite);
+
+    this.phaserAgentSprite = playerSprite;
+
+    this.setDepth(this.ember.constants.TILEZ_PLAYER);
+
+    if (this.spriteConfig.animeframes) {
+      if (this.spriteConfig.animeframes.rest) {
+        this.scene.createAnimation(this.spriteConfig.animeframes.rest);
+      }
+      if (this.spriteConfig.animeframes.attack) {
+        this.scene.createAnimation(this.spriteConfig.animeframes.attack);
+      }
+      if (this.spriteConfig.animeframes.north) {
+        this.scene.createAnimation(this.spriteConfig.animeframes.north);
+      }
+      if (this.spriteConfig.animeframes.south) {
+        this.scene.createAnimation(this.spriteConfig.animeframes.south);
+      }
+      if (this.spriteConfig.animeframes.east) {
+        this.scene.createAnimation(this.spriteConfig.animeframes.east);
+      }
+      if (this.spriteConfig.animeframes.west) {
+        this.scene.createAnimation(this.spriteConfig.animeframes.west);
+      }
+    }
+
+    // start playing the rest animation
+    this.playAnimation(this.ember.constants.ANIMATION.KEY.REST);
+  }
+
+  stopAnimation() {
+    this.phaserAgentSprite.anims.stop();
+  }
+
+  lastAnimationKey = '';
+
+  playAnimation(key) {
+    try {
+      switch (key) {
+        case this.ember.constants.ANIMATION.KEY.REST:
+          // start playing the rest animation
+          if (this.spriteConfig.animeframes.rest) {
+            this.phaserAgentSprite.setX(this.spriteConfig.originalX);
+            this.phaserAgentSprite.setFlipX(false);
+            // this.stopAnimation();
+            this.lastAnimationKey = this.spriteConfig.animeframes.rest.key;
+            this.phaserAgentSprite.anims.play(this.spriteConfig.animeframes.rest.key);
+          }
+          break;
+        case this.ember.constants.ANIMATION.KEY.ATTACK:
+          if (this.spriteConfig.animeframes.attack) {
+            this.phaserAgentSprite.setX(this.spriteConfig.originalX);
+            this.phaserAgentSprite.setFlipX(false);
+            // this.stopAnimation();
+            this.lastAnimationKey = this.spriteConfig.animeframes.attack.key + 'east';
+            this.phaserAgentSprite.anims.play(this.spriteConfig.animeframes.attack.key);
+          }
+          break;
+        case this.ember.constants.ANIMATION.KEY.WESTATTACK:
+          if (this.spriteConfig.animeframes.attack) {
+            // this.stopAnimation();
+            this.phaserAgentSprite.setX(-this.spriteConfig.offsets.img.x);
+            this.phaserAgentSprite.setFlipX(true);
+            this.lastAnimationKey = this.spriteConfig.animeframes.attack.key + 'west';
+            this.phaserAgentSprite.anims.play(this.spriteConfig.animeframes.attack.key);
+          }
+          break;
+        case this.ember.constants.ANIMATION.KEY.NORTH:
+          if (this.spriteConfig.animeframes.north && (this.lastAnimationKey !== 'avatar-north' || !this.phaserAgentSprite.anims.isPlaying)) {
+            this.phaserAgentSprite.setX(this.spriteConfig.originalX);
+            this.phaserAgentSprite.setFlipX(false);
+            // this.stopAnimation();
+            this.lastAnimationKey = this.spriteConfig.animeframes.north.key;
+            this.phaserAgentSprite.anims.play(this.spriteConfig.animeframes.north.key);
+          }
+          break;
+        case this.ember.constants.ANIMATION.KEY.SOUTH:
+          if (this.spriteConfig.animeframes.south && (this.lastAnimationKey !== 'avatar-south' || !this.phaserAgentSprite.anims.isPlaying)) {
+            this.phaserAgentSprite.setX(this.spriteConfig.originalX);
+            this.phaserAgentSprite.setFlipX(false);
+            // this.stopAnimation();
+            this.lastAnimationKey = this.spriteConfig.animeframes.south.key;
+            this.phaserAgentSprite.anims.play(this.spriteConfig.animeframes.south.key);
+          }
+          break;
+        case this.ember.constants.ANIMATION.KEY.EAST:
+          if (this.spriteConfig.animeframes.east && (this.lastAnimationKey !== 'avatar-east' || !this.phaserAgentSprite.anims.isPlaying)) {
+            this.phaserAgentSprite.setX(this.spriteConfig.originalX);
+            this.phaserAgentSprite.setFlipX(false);
+            this.lastAnimationKey = this.spriteConfig.animeframes.east.key;
+            this.phaserAgentSprite.anims.play(this.spriteConfig.animeframes.east.key);
+          }
+          break;
+        case this.ember.constants.ANIMATION.KEY.WEST:
+          if (this.spriteConfig.animeframes.west && (this.lastAnimationKey !== 'avatar-west' || !this.phaserAgentSprite.anims.isPlaying)) {
+            // this.stopAnimation();
+            this.phaserAgentSprite.setX(-this.spriteConfig.offsets.img.x);
+            this.phaserAgentSprite.setFlipX(true);
+            this.lastAnimationKey = this.spriteConfig.animeframes.west.key;
+            this.phaserAgentSprite.anims.play(this.spriteConfig.animeframes.west.key);
+          }
+          break;
+        default:
+          break;
+      }
+    } catch (e) {
+      switch (key) {
+        case this.ember.constants.ANIMATION.KEY.REST:
+          console.error('Exception playing rest animation.', this.spriteConfig.animeframes.rest.key, e);
+          break;
+        case this.ember.constants.ANIMATION.KEY.ATTACK:
+          console.error('Exception playing attack animation.', this.spriteConfig.animeframes.attack.key, e);
+          break;
+        case this.ember.constants.ANIMATION.KEY.NORTH:
+          console.error('Exception playing north animation.', this.spriteConfig.animeframes.north.key, e);
+          break;
+        case this.ember.constants.ANIMATION.KEY.SOUTH:
+          console.error('Exception playing south animation.', this.spriteConfig.animeframes.south.key, e);
+          break;
+        case this.ember.constants.ANIMATION.KEY.EAST:
+          console.error('Exception playing easy animation.', this.spriteConfig.animeframes.east.key, e);
+          break;
+        case this.ember.constants.ANIMATION.KEY.WEST:
+          console.error('Exception playing west animation.', this.spriteConfig.animeframes.west.key, e);
+          break;
+        default:
+          console.error('Exception playing unknown player animation.', key, e);
+          break;
+      }
+    }
+  }
+
   update(cursors) {
     if (!this.ember.gameManager.gamePaused) {
       this.moveTo(cursors);
@@ -189,31 +360,37 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
     if (!this.moveToObject.isRunning) {
 
       if (cursors.D.isDown) {
+        this.playAnimation(this.ember.constants.ANIMATION.KEY.EAST);
         this.moveToObject.moveToward(this.ember.constants.DIRECTIONS.SE);
         if (this.boardedTransport && !this.disembarkTransport) {
           this.boardedTransport.moveToObject.moveToward(this.ember.constants.DIRECTIONS.SE);
         }
       } else if (cursors.S.isDown) {
+        this.playAnimation(this.ember.constants.ANIMATION.KEY.SOUTH);
         this.moveToObject.moveToward(this.ember.constants.DIRECTIONS.S);
         if (this.boardedTransport && !this.disembarkTransport) {
           this.boardedTransport.moveToObject.moveToward(this.ember.constants.DIRECTIONS.S);
         }
       } else if (cursors.A.isDown) {
+        this.playAnimation(this.ember.constants.ANIMATION.KEY.WEST);
         this.moveToObject.moveToward(this.ember.constants.DIRECTIONS.SW);
         if (this.boardedTransport && !this.disembarkTransport) {
           this.boardedTransport.moveToObject.moveToward(this.ember.constants.DIRECTIONS.SW);
         }
       } else if (cursors.Q.isDown) {
+        this.playAnimation(this.ember.constants.ANIMATION.KEY.WEST);
         this.moveToObject.moveToward(this.ember.constants.DIRECTIONS.NW);
         if (this.boardedTransport && !this.disembarkTransport) {
           this.boardedTransport.moveToObject.moveToward(this.ember.constants.DIRECTIONS.NW);
         }
       } else if (cursors.W.isDown) {
+        this.playAnimation(this.ember.constants.ANIMATION.KEY.NORTH);
         this.moveToObject.moveToward(this.ember.constants.DIRECTIONS.N);
         if (this.boardedTransport && !this.disembarkTransport) {
           this.boardedTransport.moveToObject.moveToward(this.ember.constants.DIRECTIONS.N);
         }
       } else if (cursors.E.isDown) {
+        this.playAnimation(this.ember.constants.ANIMATION.KEY.EAST);
         this.moveToObject.moveToward(this.ember.constants.DIRECTIONS.NE);
         if (this.boardedTransport && !this.disembarkTransport) {
           this.boardedTransport.moveToObject.moveToward(this.ember.constants.DIRECTIONS.NE);

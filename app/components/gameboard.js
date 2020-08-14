@@ -1,5 +1,6 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
+import { reads } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import config from 'emberquest/config/environment';
 import localforage from 'localforage';
@@ -10,7 +11,7 @@ import {GameboardScene} from "../phaser/scenes/gameboard-scene";
 import rexBoardPlugin from "phaser3-rex-plugins/plugins/board-plugin";
 import { timeout } from 'ember-concurrency';
 import { task } from 'ember-concurrency-decorators';
-
+import {Agent} from "../objects/models/agent";
 
 export default class GameboardComponent extends Component {
   @service('game') emberGameService;
@@ -19,8 +20,6 @@ export default class GameboardComponent extends Component {
 
   @tracked cookieConfirmed = false;
   @tracked cookieDenied = false;
-
-  // @reads ("emberGameService.playerContainer.scene.game.hasFocus") gameHasFocus;
 
   config = {
     type: Phaser.AUTO,
@@ -57,6 +56,10 @@ export default class GameboardComponent extends Component {
     pixelArt: true
   };
 
+  testSpawnerX = 1;
+  testSpawnerY = 1;
+  @tracked testAgents;
+  @reads('config.game.showAgentSelector') showAgentSelector;
 
   constructor() {
     super(...arguments);
@@ -73,6 +76,9 @@ export default class GameboardComponent extends Component {
       this.config.physics.arcade.debug = true;
     }
 
+    // if (this.showAgentSelector) {
+      this.testAgents = this.emberGameService.agentsToSelect();
+    // }
   }
 
   async loadSettingsData() {
@@ -109,6 +115,52 @@ export default class GameboardComponent extends Component {
 
   get volumeCSSClass() {
     return this.emberGameService.gameManager.mutedSoundEffectsVolume ? 'off' : 'up';
+  }
+
+  @tracked selectedTestAgent = '';
+  @tracked selectedTestMap = '';
+
+  @action
+  teleport() {
+    console.log('teleporting', this.selectedTestMap, this.testSpawnerX, this.testSpawnerY)
+    // targetTile needs .map, .x, .y
+    let targetTile = {
+      map: this.selectedTestMap,
+      x: this.testSpawnerX,
+      y: this.testSpawnerY
+    }
+    this.emberGameService.teleport(this.emberGameService.gameManager.scene.player.container, this.emberGameService.gameManager.scene, targetTile);
+    // let fieldOfViewTileXYArray = this.emberGameService.gameManager.scene.player.container.fov.findFOV(this.emberGameService.gameManager.scene.player.container.visiblePoints);
+    // this.emberGameService.gameManager.scene.game.ember.map.findAgentFieldOfView(this.emberGameService.gameManager.scene.player.container, fieldOfViewTileXYArray);
+
+  }
+
+
+  @action
+  spawnTestAgent() {
+    console.log('spawning', this.selectedTestAgent, this.testSpawnerX, this.testSpawnerY)
+    let agentConfig = this.emberGameService.agentPool.getAgentConfig(this.selectedTestAgent);
+    agentConfig = Object.assign({}, agentConfig, {
+      testAgentId: 1337,
+      patrol: {
+        method: 'wander',
+        tiles: []
+      }
+    });
+    console.log('agentConfig', agentConfig)
+    const agent = new Agent(+this.testSpawnerX, +this.testSpawnerY, agentConfig);
+    console.log('agent', agent)
+    this.emberGameService.gameManager.scene.events.emit('agentSpawned', agent);
+  }
+
+  @action
+  setTestAgent(evt) {
+    this.selectedTestAgent = evt.target.value;
+  }
+
+  @action
+  setTestMap(evt) {
+    this.selectedTestMap = evt.target.value;
   }
 
   @action

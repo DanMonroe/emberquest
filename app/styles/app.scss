@@ -359,6 +359,25 @@ a {
     width: 340px;
     margin-top: -26px;
   }
+  .testSpawnerControls {
+    display: inline-flex;
+    vertical-align: top;
+    margin-top: 15px;
+    label, button, select {
+      margin: 5px;
+    }
+    button {
+      color: #fff;
+      width: 60px;
+      height: 30px;
+      padding: 2px;
+      margin-top: 0;
+    }
+    input[type="number"] {
+      height: 24px;
+      width: 30px
+    }
+  }
   .mapDisplayName {
     font-size: 28px;
     font-weight: 700;

@@ -463,8 +463,8 @@ export default class AgentPoolService extends Service {
         id: agentId++,
         name: 'Horseman',
         animeframes: {
-          rest: {yoyo: true, key: 'horseman-rest', prefix: 'humanoid/horseman/general', start: 1, end: 1},
-          attack: {key: 'horseman-attack', prefix: 'humanoid/horseman/horseman-se-attack', start: 1, end: 12, rate: 7}
+          rest: {key: 'horseman-rest', prefix: 'humanoid/horesman/horseman', start: 1, end: 1},
+          attack: {key: 'horseman-attack', prefix: 'humanoid/horesman/horseman-se-attack', start: 1, end: 12, rate: 7}
           // range: {key: 'general-range', prefix: 'humanoid/general/general-crossbow-attack', start: 1, end: 2, rate: 2}
         },
         inventory: [
@@ -514,7 +514,7 @@ export default class AgentPoolService extends Service {
         name: 'Wizard',
         animeframes: {
           rest: {yoyo: true, key: 'wizard-rest', prefix: 'humanoid/wizard/wizard', start: 1, end: 1},
-          attack: {key: 'wizard-attack', prefix: 'humanoid/wizard/wizard-attack', start: 1, end: 5, rate: 7}
+          attack: {key: 'wizard-attack', prefix: 'humanoid/wizard/wizard-attack-', start: 1, end: 5, rate: 7}
           // range: {key: 'general-range', prefix: 'humanoid/general/general-crossbow-attack', start: 1, end: 2, rate: 2}
         },
         inventory: [
@@ -823,7 +823,7 @@ export default class AgentPoolService extends Service {
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]},
-          { bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5002} ]},
+          { bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5102} ]},
           { bodypart: constants.INVENTORY.BODYPART.FINGERS, items: [{ itemId: 5005 }] }
           ]  // bite
       })
@@ -956,7 +956,9 @@ export default class AgentPoolService extends Service {
           death: {key: 'elemental-fireghost-death', prefix: 'elementals/fireghost/fireghost-death', start: 1, end: 6, rate: 8, delays: { frameNum: 6, delay: 300 }}
         },
         inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5004 } ]},
-          { bodypart: constants.INVENTORY.BODYPART.FINGERS, items: [{ itemId: 5005 }] }]  // axe
+          { bodypart: constants.INVENTORY.BODYPART.FINGERS, items: [{ itemId: 5005 }] },
+          { bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5102} ]}
+          ]  // axe
       })
     );
     baseAgentclone = Object.assign({}, this.baseAgent);
@@ -1079,7 +1081,7 @@ export default class AgentPoolService extends Service {
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5000 } ]},
-          { bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5103} ]}
+          { bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5107} ]}
         ]  // axe
       })
     );
@@ -1155,8 +1157,8 @@ export default class AgentPoolService extends Service {
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]},
-          { bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5105} ]}
-          // { bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5102} ]}
+          // { bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5104} ]}
+          { bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5102} ]}
         ]
       })
     );
@@ -1210,7 +1212,7 @@ export default class AgentPoolService extends Service {
         name: 'Goblin',
         animeframes: {
           rest: {yoyo: true, key: 'goblin-impaler-rest', prefix: 'goblins/impaler/impaler', start: 1, end: 1},
-          attack: {key: 'goblin-impaler-attack', prefix: 'goblins/impaler/goblin-impaler-attack-se-', start: 1, end: 2, rate: 2},
+          attack: {key: 'goblin-impaler-attack', prefix: 'goblins/impaler/impaler-attack-se-', start: 1, end: 2, rate: 2},
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5000 } ]}
@@ -1417,6 +1419,7 @@ export default class AgentPoolService extends Service {
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5000 } ]},
+          { bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5102} ]}
         ]  // axe
       })
     );
@@ -1565,9 +1568,11 @@ export default class AgentPoolService extends Service {
         animeframes: {
           rest: {yoyo: true, key: 'shaman-rest', prefix: 'shaman/shaman-', start: 1, end: 3, rate: 4},
           attack: {key: 'shaman-attack', prefix: 'shaman/shaman-magic-', start: 1, end: 3, rate: 5},
+          range: {key: 'shaman-range', prefix: 'shaman/shaman-magic-', start: 1, end: 3, rate: 5}
         },
         inventory: [
           { bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5007 } ]},
+          { bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5102} ]}
         ]  // axe
       })
     );
