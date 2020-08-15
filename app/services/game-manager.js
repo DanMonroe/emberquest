@@ -370,7 +370,6 @@ export default class GameManagerService extends Service {
 
       // const isNeighbor = this.scene.board.areNeighbors(attacker.rexChess.tileXYZ, agentToAttack.rexChess.tileXYZ);
       const neighborDirection = this.scene.board.getNeighborChessDirection(attacker.rexChess.tileXYZ, agentToAttack.rexChess.tileXYZ);
-      console.log('neighborDirection', neighborDirection)
 
       if (neighborDirection) {
       // if (isNeighbor) {
