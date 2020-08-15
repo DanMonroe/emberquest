@@ -1,5 +1,7 @@
 {
   "messages": {
+    "nopower": "'<p>'You don't have enough power to wield {weaponname}'</p><p>'Ensure your blue power bar is sufficient prior to battle.'</p>'",
+    "nomovepower": "'<p>'You don't have enough power to move and will need to rest briefly.'</p><p>'Hopefully you are in a safe location.'</p>'",
     "intro": {
       "id1": "'<p>'You have found a locked door.'</p><p>'Find a chest and this door will unlock.'</p>'"
     },

@@ -58,6 +58,7 @@ export class GameboardScene extends Phaser.Scene {
     this.storedTransports = data.storedTransports || [];
     this.storedPlayerAttrs = data.storedPlayerAttrs || {};
     this.storedBoardedTransportId = data.boarded || 0;
+    // this.deadAgents = data.sceneData ? data.sceneData[this.mapname] && data.sceneData[this.mapname].deadAgents ? new Set(data.sceneData[this.mapname].deadAgents) : new Set() : new Set();
     this.deadAgents = data.sceneData ? data.sceneData.deadAgents ? new Set(data.sceneData.deadAgents) : new Set() : new Set();
 
     this.lastSeenTiles = new Set();
@@ -238,6 +239,13 @@ export class GameboardScene extends Phaser.Scene {
 
   spawnPlayer(playerObject) {
     this.player = playerObject;
+
+    // reload some power when they change scenes and are low on power
+    if (this.ember.gameManager.loadingNewScene) {
+      if (this.player.power < (this.player.maxPower / 2)) {
+        this.player.power = Math.floor((this.player.maxPower / 2));
+      }
+    }
     // console.log('spawnPlayer', playerObject.playerConfig.playerX, playerObject.playerConfig.playerY)
     this.board.addChess(playerObject.container, playerObject.playerConfig.playerX, playerObject.playerConfig.playerY, this.ember.constants.TILEZ_PLAYER);
 

@@ -79,7 +79,17 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
 // TODO  Take this out or the player can move anywhere
 // return true;
 
-      if (this.moveToObject.isRunning || this.agent.power <= 1) {
+      if (this.moveToObject.isRunning) {
+        return false;
+      }
+      if (this.agent.power <= 1) {
+        if (!this.ember.gameManager.noMovePowerWarned) {
+          this.ember.gameManager.messages.addMessage('nomovepower', this.ember.gameManager.intl.t('messages.nomovepower'));
+          pathFinder.scene.game.ember.showInfoDialog(this.ember.gameManager.intl.t('messages.nomovepower'));
+          this.ember.gameManager.noMovePowerWarned = true;
+          this.ember.saveSettingsData();
+        }
+
         return false;
       }
 

@@ -127,7 +127,7 @@
         onConfirm=(action emberGameService.showInfoConfirmer.confirm)
         onCancel=(action emberGameService.showInfoConfirmer.cancel)
   )
-     onOutsideClick=(action (mut emberGameService.showInfoConfirmer) null)
+     onOutsideClick=(action emberGameService.showInfoConfirmer.cancel)
   }}
   />
 {{/if}}

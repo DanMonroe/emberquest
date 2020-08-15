@@ -263,6 +263,8 @@ export default class GameService extends Service {
       this.gameManager.mutedMusicEffectsVolume = settingsData.mutedMusicEffectsVolume || false;
       this.gameManager.soundEffectsVolume = settingsData.soundEffectsVolume || 0.3;
       this.gameManager.musicEffectsVolume = settingsData.musicEffectsVolume || 0.2;
+      this.gameManager.noPowerWarned = settingsData.noPowerWarned || false;
+      this.gameManager.noMovePowerWarned = settingsData.noMovePowerWarned || false;
       this.cookieConfirmed = settingsData.cookieConfirmed || false;
     }
   }
@@ -274,7 +276,9 @@ export default class GameService extends Service {
       'mutedSoundEffectsVolume' : this.gameManager.mutedSoundEffectsVolume,
       'mutedMusicEffectsVolume' : this.gameManager.mutedMusicEffectsVolume,
       'soundEffectsVolume' : this.gameManager.soundEffectsVolume,
-      'musicEffectsVolume' : this.gameManager.musicEffectsVolume
+      'musicEffectsVolume' : this.gameManager.musicEffectsVolume,
+      'noPowerWarned' : this.gameManager.noPowerWarned,
+      'noMovePowerWarned' : this.gameManager.noMovePowerWarned
     }
     await this.saveGameData('settings', settingsData);
   }
@@ -459,6 +463,8 @@ export default class GameService extends Service {
 
   // targetTile needs .map, .x, .y
   teleport(playerContainer, scene, targetTile) {
+      scene.ember.gameManager.musicEffects.stop();
+
       let requiredSprite = undefined
 
       // does the portal require anything before it will work?
@@ -529,7 +535,8 @@ export default class GameService extends Service {
             'map': targetTile.map,
 
             // 'gameboardData': gameboardData,
-            'sceneData': sceneData,
+            'sceneData': sceneDataForMap,
+            // 'sceneData': sceneData,
 
             'storedPlayerTile': {x: targetTile.x, y: targetTile.y},
             'spawnTile': {x: targetTile.x, y: targetTile.y, sF: playerAttrs.sF || 0, tF: playerAttrs.tF || 2},
@@ -896,7 +903,7 @@ export default class GameService extends Service {
         }
         break;
       case this.constants.SPECIAL_ACTIONS.GET_CHEST.value:
-        debugger;
+        // debugger;
         yield timeout(1);
 
         break;

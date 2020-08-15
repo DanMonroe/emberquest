@@ -181,6 +181,7 @@ export class BootScene extends Phaser.Scene {
         this.scene.start('gameboard', newData);
       });
     } catch (error) {
+      console.error(error)
       debugger;
     }
 

@@ -22,6 +22,8 @@ export default class GameManagerService extends Service {
   @tracked mutedMusicEffectsVolume = false;
   @tracked soundEffects;
   @tracked musicEffects;
+  @tracked noPowerWarned = false; // show waring first time no power to wield
+  @tracked noMovePowerWarned = false; // show waring first time no power to move
 
   // stats
   @tracked deathCount = 0;
@@ -75,8 +77,8 @@ export default class GameManagerService extends Service {
   }
 
   playSceneMusic() {
+    this.scene.ember.gameManager.musicEffects.stop();
     if (!this.mutedMusicEffectsVolume && this.scene.mapData.sceneMusic && this.scene.mapData.sceneMusic.key) {
-      this.scene.ember.gameManager.musicEffects.stop();
       this.scene.ember.gameManager.musicEffects.play(this.scene.mapData.sceneMusic.key, Object.assign({mute: false}, {volume: this.musicEffectsVolume}, this.scene.mapData.sceneMusic.config));
     }
   }
@@ -371,7 +373,7 @@ export default class GameManagerService extends Service {
       // const isNeighbor = this.scene.board.areNeighbors(attacker.rexChess.tileXYZ, agentToAttack.rexChess.tileXYZ);
       const neighborDirection = this.scene.board.getNeighborChessDirection(attacker.rexChess.tileXYZ, agentToAttack.rexChess.tileXYZ);
 
-      if (neighborDirection) {
+      if (neighborDirection !== undefined || neighborDirection !== null) {
       // if (isNeighbor) {
         // Melee
         // console.log('Melee Attack!');
@@ -389,7 +391,7 @@ export default class GameManagerService extends Service {
           }
 
           const hit = this.didAttackHit(equippedMeleeWeapon, agentToAttack.agent, attacker.agent);
-          console.log('hit - melee', hit);
+          // console.log('hit - melee', hit);
 
           // find a way to play appropriate sound
           this.playSound(hit && equippedMeleeWeapon ? equippedMeleeWeapon.audioMelee : {});
@@ -419,7 +421,7 @@ export default class GameManagerService extends Service {
 
       } else {
         // Ranged attack
-        console.log('Ranged Attack!');
+        // console.log('Ranged Attack!');
 
         // get attackers weapon (in right hand?)
         const equippedRangedWeapon = attacker.agent.equippedRangedWeapon;
@@ -433,7 +435,7 @@ export default class GameManagerService extends Service {
             // ok to fire projectile
 
             const hit = this.didAttackHit(equippedRangedWeapon, agentToAttack.agent, attacker.agent);
-            console.log('hit - ranged', hit);
+            // console.log('hit - ranged', hit);
 
             // find a way to play appropriate sound
             this.playSound(hit && equippedRangedWeapon ? equippedRangedWeapon.audioRanged : {});
@@ -499,7 +501,12 @@ export default class GameManagerService extends Service {
       return true;
     }
     if (wieldingAgent.power < inventoryItem.powerUse) {
-      console.warn(`Not enough power to wield ${inventoryItem.name}`);  // TODO tell the user?
+      if (!this.noPowerWarned) {
+        this.messages.addMessage('nopower', this.intl.t(`messages.nopower`, {weaponname: inventoryItem.name}));
+        this.scene.game.ember.showInfoDialog(this.intl.t(`messages.nopower`, {weaponname: inventoryItem.name}));
+        this.noPowerWarned = true;
+        this.scene.game.ember.saveSettingsData();
+      }
       return false;
     }
     return true;
@@ -527,7 +534,7 @@ export default class GameManagerService extends Service {
     // console.log('player', player, enemy.agent.baseHealth)
 
     if (shouldAwardExperience) {
-      console.log('experienceAwarded', experienceAwarded,'goldAwarded', goldAwarded)
+      // console.log('experienceAwarded', experienceAwarded,'goldAwarded', goldAwarded)
       this.countXP.perform(experienceAwarded);
       this.countGems.perform(goldAwarded);
     }
