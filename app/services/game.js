@@ -261,8 +261,8 @@ export default class GameService extends Service {
     if (settingsData) {
       this.gameManager.mutedSoundEffectsVolume = settingsData.mutedSoundEffectsVolume || false;
       this.gameManager.mutedMusicEffectsVolume = settingsData.mutedMusicEffectsVolume || false;
-      this.gameManager.soundEffectsVolume = settingsData.soundEffectsVolume || 1;
-      this.gameManager.musicEffectsVolume = settingsData.musicEffectsVolume || 1;
+      this.gameManager.soundEffectsVolume = settingsData.soundEffectsVolume || 0.3;
+      this.gameManager.musicEffectsVolume = settingsData.musicEffectsVolume || 0.2;
       this.cookieConfirmed = settingsData.cookieConfirmed || false;
     }
   }
@@ -520,11 +520,11 @@ export default class GameService extends Service {
             storedTransports: [],
             boarded: 0
           };
-          console.log('');
-          console.log('');
-          console.error('>>>>>> portal ===> loading map', targetTile.map.toUpperCase(), 'sceneDataForMap', sceneDataForMap);
-          console.log('sceneDataForMap', sceneDataForMap);
-          console.log('');
+          // console.log('');
+          // console.log('');
+          // console.error('>>>>>> portal ===> loading map', targetTile.map.toUpperCase(), 'sceneDataForMap', sceneDataForMap);
+          // console.log('sceneDataForMap', sceneDataForMap);
+          // console.log('');
           let data = {
             'map': targetTile.map,
 
@@ -540,7 +540,7 @@ export default class GameService extends Service {
             'boarded': this.playerContainer.boardedTransport ? this.playerContainer.boardedTransport.agent.id : 0
           };
           this.map.getDynamicMapData(data.map).then(mapData => {
-            console.log('mapData', mapData);
+            // console.log('mapData', mapData);
             data.mapData = mapData;
 
             scene.scene.start('gameboard', data);
@@ -802,7 +802,6 @@ export default class GameService extends Service {
             break;
         }
       }
-      this.gameManager.pauseGame(true);
 
       this.gameManager.playSound(this.constants.AUDIO.CHEST)
 
@@ -820,7 +819,7 @@ export default class GameService extends Service {
       // special actions
       if (chest.specialActions) {
         // console.log('special Actions:', chest.specialActions)
-        chest.specialActions.forEach(async(specialAction) => {
+        chest.specialActions.forEach(async (specialAction) => {
           await this.processSpecialAction.perform(chest.scene, specialAction);
         })
       }
@@ -840,6 +839,8 @@ export default class GameService extends Service {
       if (geocache) {
         geocache.found = true;
         await this.saveCacheFound(geocache);
+
+        this.gameManager.pauseGame(true);  // has to be after playSound
 
         // show found it modal
         this.epmModalContainerClass = 'chest';
@@ -876,7 +877,7 @@ export default class GameService extends Service {
 
   @task
   *processSpecialAction(scene, specialAction, gameObj) {
-    let doorShapes, transport, currentValue, royalEmber;
+    let doorShapes, signShapes, transport, currentValue, royalEmber;
     switch (specialAction.value) {
       case this.constants.SPECIAL_ACTIONS.REMOVE_SIGHT_COST.value:  // data: { tileXY: {x: 11, y: 3 }}
         // find the tile, set its sightCost to 0;
@@ -886,6 +887,12 @@ export default class GameService extends Service {
         doorShapes = scene.game.ember.map.getGameObjectsAtTileXY(scene.board, specialAction.data.tileXY, scene.game.ember.constants.SHAPE_TYPE_DOOR);
         if (doorShapes && doorShapes.length) {
           doorShapes[0].makeInactive();
+        }
+        break;
+      case this.constants.SPECIAL_ACTIONS.REMOVE_SIGNPOST.value: // data: { sign_id:1, tileXY: {x: 11, y: 4} }
+        signShapes = scene.game.ember.map.getGameObjectsAtTileXY(scene.board, specialAction.data.tileXY, scene.game.ember.constants.SHAPE_TYPE_SIGNPOST);
+        if (signShapes && signShapes.length) {
+          signShapes[0].makeInactive();
         }
         break;
       case this.constants.SPECIAL_ACTIONS.GET_CHEST.value:

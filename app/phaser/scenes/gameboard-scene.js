@@ -104,29 +104,24 @@ export class GameboardScene extends Phaser.Scene {
   boardExperiments() {
     // just a place to try new stuff out
 
+    // ALT = tile log report
+    // ALT / Shift = Heal
+    // ALT / Command = teleport
+
     // click end tileXY to get info in console
     this.board.on('tiledown',  (pointer, tileXY) => {
+      // console.log('pointer.event', pointer.event)
 
-      this.consoleLogReport(tileXY);
+      if (pointer.event.altKey) {
+        this.consoleLogReport(tileXY);
+      }
 
       // this.ember.epmModalContainerClass = 'victory';
       // this.ember.modals.open('victory-dialog', {
       // });
 
-
-
-      // this.ember.showInfoDialog(`
-      //       <p>Makes it easy to inject the Phaser game framework into your Ember application.</p>
-      //   `);
-
-
-      // this.ember.gameManager.countXP.perform(20)
-      // this.ember.gameManager.countGems.perform(30)
-
-      // console.log('pointer.event', pointer.event)
-
       // full heal:   TODO remove
-      if (pointer.event.shiftKey) {
+      if (pointer.event.shiftKey && pointer.event.altKey) {
       // if (tileXY.x < 10 && tileXY.y === 0) {
         console.log('heal', this.player);
         this.player.health = this.player.baseHealth + this.player.armorHealth;
@@ -135,6 +130,7 @@ export class GameboardScene extends Phaser.Scene {
       // } else {
       //   this.ember.gameManager.playSound({'key':'pop'});
       }
+
       if (pointer.event.altKey && pointer.event.metaKey) {  // command alt
         console.log('teleport', this.player);
         this.game.ember.teleportInMap(this, this.ember.playerContainer, tileXY);
@@ -326,6 +322,11 @@ export class GameboardScene extends Phaser.Scene {
     if (this.mapData.signs) {
       this.mapData.signs.forEach(signObj => {
         // console.log('SignObj', signObj)
+
+        if (signObj.hideIfCacheFound && this.ember.cache.isCacheFound(signObj.hideIfCacheFound)) {
+          // don't add sign
+          return;
+        }
 
         let sign = new SignPost(this, 0, 0, signObj.texture, 1, signObj);
         sign.setAlpha(0);

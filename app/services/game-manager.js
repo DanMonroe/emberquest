@@ -17,7 +17,7 @@ export default class GameManagerService extends Service {
   @tracked player;
   @tracked volume = 0;
   @tracked soundEffectsVolume = 0.3;
-  @tracked musicEffectsVolume = 0.3;
+  @tracked musicEffectsVolume = 0.2;
   @tracked mutedSoundEffectsVolume = false;
   @tracked mutedMusicEffectsVolume = false;
   @tracked soundEffects;
@@ -157,7 +157,9 @@ export default class GameManagerService extends Service {
 
   pauseGame(paused) {
     this.gamePaused = paused;
-    this.scene.game.paused = paused;
+    if (this.scene) {
+      this.scene.game.paused = paused;
+    }
   }
 
   async saveSceneData() {
