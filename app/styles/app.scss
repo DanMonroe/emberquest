@@ -2421,6 +2421,28 @@ button {
 .configDialog {
   background-image: url("/images/backgrounds/game-menu-background.png");
 
+  .credits, .credit-links {
+    padding-right: 35px;
+    .title {
+      width: 80px;
+      font-weight: 600;
+      text-align: end;
+      display: inline-block;
+      margin-right: 10px;
+    }
+  }
+
+  .credit-links {
+    .title {
+      width: inherit;
+      font-weight: 600;
+      margin-right: 10px;
+      padding: 10px 0;
+      a {
+        color: #9c611e;
+      }
+    }
+  }
   .footer {
     width: 130px;
     button {
@@ -2651,15 +2673,6 @@ button {
       }
   }
 
-  .credits {
-    .title {
-      width: 80px;
-      font-weight: 600;
-      text-align: end;
-      display: inline-block;
-      margin-right: 10px;
-    }
-  }
 
   form-group {
     font-size: 16px;
@@ -2726,8 +2739,10 @@ button {
   }
   .btn {
     @include game-control-btn;
-    &.empty.volume {
-      margin-left: 0;
+    &.empty {
+      &.volume, &.zoom {
+        margin-left: 0;
+      }
     }
   }
   section {
