@@ -21,7 +21,7 @@
                       <div class="coords">
                         <span class="label">Cache Coordinates:</span>
                         {{#if geocache.found}}
-                            <span>No Spoilers until Publishing!{{!decrypt this.storage geocache.coords}}</span>
+                            <span>{{decrypt this.storage geocache.coords}}</span>
                         {{else}}
                             <span>Unknown</span>
                         {{/if}}
