@@ -113,6 +113,14 @@ export class GameboardScene extends Phaser.Scene {
     this.board.on('tiledown',  (pointer, tileXY) => {
       // console.log('pointer.event', pointer.event)
 
+//       let specialAction = {value: this.ember.constants.SPECIAL_ACTIONS.TOGGLE_PROPERTY.value, data: { property: 'isOpen', spritesToToggle: ['singletent', 'hiddensign'], keyOn: 'trapdoorlever-on', keyOff: 'trapdoorlever-on' }};
+//       this.ember.processSpecialAction.perform(this, specialAction);
+//
+//       let chest = this.chests.getChildren()[2];
+//       this.ember.processSpecialAction.perform(this, {value: this.ember.constants.SPECIAL_ACTIONS.PLAY_DEPENDANT_ANIMATION.value, data: { sprites: ['singletent'], property: 'isOpen', keyOn: 'singletent-open', keyOff: 'singletent-closed' }}, chest);
+//       this.ember.processSpecialAction.perform(this, {value: this.ember.constants.SPECIAL_ACTIONS.PLAY_DEPENDANT_ANIMATION.value, data: { sprites: ['hiddensign'], property: 'isOpen', keyOn: 'hiddensign-open', keyOff: 'hiddensign-closed' }}, chest);
+// return;
+
       if (pointer.event.altKey) {
         this.consoleLogReport(tileXY);
       }
@@ -383,6 +391,35 @@ export class GameboardScene extends Phaser.Scene {
             }, animation.config || {});
 
             this.anims.create(animationConfig);
+
+            // this should set the correct frame to play on create based on if a cache has been found (map13, tent and sign)
+            if (animation.cacheFoundProperties) {
+              const cacheFound = this.ember.cache.isCacheFound(animation.cacheFoundProperties.cache);
+              if (cacheFound) {
+                if (animation.cacheFoundProperties.found) {
+                  if (animation.cacheFoundProperties.found.playoncreate) {
+                    animation.playoncreate = animation.cacheFoundProperties.found.playoncreate;
+                  }
+                }
+                if (animation.cacheFoundProperties.found.properties) {
+                    animation.cacheFoundProperties.found.properties.forEach(prop => {
+                      sprite.setData(prop.key, prop.value);
+                    });
+                }
+              } else {
+                if (animation.cacheFoundProperties.notFound) {
+                  if (animation.cacheFoundProperties.notFound.playoncreate) {
+                    animation.playoncreate = animation.cacheFoundProperties.notFound.playoncreate;
+                  }
+                  if (animation.cacheFoundProperties.notFound.properties) {
+                    animation.cacheFoundProperties.notFound.properties.forEach(prop => {
+                      sprite.setData(prop.key, prop.value);
+                    });
+                  }
+                }
+              }
+            }
+
             if (animation.playoncreate) {
               sprite.anims.play(animation.key);
             }
@@ -582,7 +619,8 @@ export class GameboardScene extends Phaser.Scene {
   }
 
   collectChest(player, chest) {
-    if ( ! chest.emberObj.found) {
+    let test = false;
+    if ( test || ! chest.emberObj.found) {
       // this.ember.gameManager.playSound(this.ember.constants.AUDIO.CHEST)
       chest.emberObj.playerFoundChest();
     }

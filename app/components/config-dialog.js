@@ -42,6 +42,11 @@ export default class ConfigDialogComponent extends Component {
     });
     this.faqList.push({
       id: faqId++,
+      title: 'The enemies are too easy or too hard!',
+      content: 'It is very possible that the gameplay may be a little unbalanced at first.  If you find an area that is too easy or hard, please send an email to \'emberquestgeocache@gmail.com\' and describe what map you are on (from the top of the page), your level, what enemies you are having trouble with, and any other info you may have; your inventory for example.  I\'ll adjust the area if needed.'
+    });
+    this.faqList.push({
+      id: faqId++,
       title: 'I found a cache in the game but I forgot to write down the coordinates.  Where are the coordinates?',
       content: 'The cache listing dialog, or the trophy icon at the top, will show you the real physical coordinates for each cache you have found in the game.'
     });

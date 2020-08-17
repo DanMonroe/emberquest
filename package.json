@@ -79,7 +79,7 @@
   },
   "dependencies": {
     "confirmed": "^2.3.2",
-    "emberquest-map-data": "^0.3.4",
+    "emberquest-map-data": "^0.3.5",
     "focus-trap": "^5.1.0",
     "localforage": "^1.7.3",
     "simple-crypto-js": "2.2.0"

@@ -326,6 +326,9 @@ export default class GameService extends Service {
     const cachesData = await this.loadGameData('caches') || new Map();
     if (cachesData) {
 
+    // TODO delete
+    // cachesData.delete('GC8V6WP')
+
       cachesData.forEach((encryptedhash, gccode) => {
         // console.log(`${gccode}: ${encryptedhash}`);
         const decryptedObject = this.storage.decrypt(encryptedhash);
@@ -827,7 +830,7 @@ export default class GameService extends Service {
       if (chest.specialActions) {
         // console.log('special Actions:', chest.specialActions)
         chest.specialActions.forEach(async (specialAction) => {
-          await this.processSpecialAction.perform(chest.scene, specialAction);
+          await this.processSpecialAction.perform(chest.scene, specialAction, chest.sprite);
         })
       }
 
@@ -942,7 +945,9 @@ export default class GameService extends Service {
             // console.log('spriteToToggle', spriteToToggle)
             if (spriteToToggle) {
               const currentValue = spriteToToggle.getData(specialAction.data.property);
+console.log('spriteToToggle before', spriteToToggle, currentValue);
               spriteToToggle.setData(specialAction.data.property, !currentValue);
+console.log('spriteToToggle after', spriteToToggle, spriteToToggle.getData(specialAction.data.property));
             }
           }
         }

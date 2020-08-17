@@ -37,7 +37,7 @@ export class BaseAgent {
     this.baseHealingPower = config.baseHealingPower || 2;
     this.baseHealingSpeed = config.baseHealingSpeed || 2000;  // how fast they heal
     this.baseEnergizeSpeed = config.baseEnergizeSpeed || 2000;// how fast they recharge power
-    this.baseEnergizePower = config.baseEnergizePower || 1;// how much power they recharge each time
+    this.baseEnergizePower = config.baseEnergizePower || 2.5;// how much power they recharge each time
 
     for (let i = 0; i < constants.INVENTORY.BODYPARTS.length; i++) {
       this.equippedSlot[i] = null;
@@ -65,6 +65,7 @@ export class BaseAgent {
   }
 
   get energizeSpeed() {
+    // console.log('this.baseEnergizeSpeed / this.energizeSpeedAdj', this.baseEnergizeSpeed , this.energizeSpeedAdj, this.baseEnergizeSpeed / this.energizeSpeedAdj )
     return this.baseEnergizeSpeed / this.energizeSpeedAdj;  // timeout, so less is more, so divide
     // return this.baseHealingSpeed * this.healingSpeedAdj;
   }
@@ -174,6 +175,7 @@ export class BaseAgent {
 
   addInventory(item) {
     // console.log('adding inventory', item)
+    this.inventory = this.inventory.without(item);
     this.inventory.pushObject(item);
     // console.log('   new inventory', this.inventory)
   }

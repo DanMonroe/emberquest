@@ -16,6 +16,7 @@
       "castle3": "'<p>'This gate will be unlocked from the outside.'</p>'",
 
       "getchestfirst": "'<p>'Entering the outpost will transport you out of this maze.  However, it works only if you have first collected the nearby chest.'</p>'",
+      "transportbacktoisland": "'<p>'There is a secret passage to the center of the islands in the nearby tent.'</p>'",
 
       "lavawarning": "'<h4>'Warning!'</h4><p>'Lava ahead, watch your step!'</p>'",
 

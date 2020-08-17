@@ -335,20 +335,20 @@ export default class GameManagerService extends Service {
       } else {
         const sprite = this.findSpriteAtTile(clickedTile);
         if (sprite) {
-          // console.log('found sprite', sprite);
-          const isNeighbor = this.scene.board.areNeighbors(playerContainer.rexChess.tileXYZ, sprite.rexChess.tileXYZ);
-          if (isNeighbor) {
-            const specialActions = sprite.getData('specialActions');
-            if (specialActions) {
-              specialActions.forEach(async(specialAction) => {
-                await this.scene.game.ember.processSpecialAction.perform(sprite.scene, specialAction, sprite);
-              })
+          const shouldProcess = sprite.getData('shouldProcess');
+          if (shouldProcess === undefined || shouldProcess === true) {
+            const isNeighbor = this.scene.board.areNeighbors(playerContainer.rexChess.tileXYZ, sprite.rexChess.tileXYZ);
+            if (isNeighbor) {
+              const specialActions = sprite.getData('specialActions');
+              if (specialActions) {
+                specialActions.forEach(async(specialAction) => {
+                  await this.scene.game.ember.processSpecialAction.perform(sprite.scene, specialAction, sprite);
+                })
+              }
+            } else {
+                this.scene.game.ember.showInfoDialog(this.intl.t(`messages.sprites.toofar`));
             }
-          } else {
-              this.scene.game.ember.showInfoDialog(this.intl.t(`messages.sprites.toofar`));
           }
-
-
         }
       }
     }
@@ -373,7 +373,7 @@ export default class GameManagerService extends Service {
       // const isNeighbor = this.scene.board.areNeighbors(attacker.rexChess.tileXYZ, agentToAttack.rexChess.tileXYZ);
       const neighborDirection = this.scene.board.getNeighborChessDirection(attacker.rexChess.tileXYZ, agentToAttack.rexChess.tileXYZ);
 
-      if (neighborDirection !== undefined || neighborDirection !== null) {
+      if (neighborDirection !== null) {
       // if (isNeighbor) {
         // Melee
         // console.log('Melee Attack!');

@@ -279,7 +279,7 @@ export default class AgentPoolService extends Service {
           rest: {yoyo: true, key: 'goliathrest', prefix: 'cyclops/goliath/goliath-se', start: 1, end: 1, rate: 3, repeat: -1},
           attack: {key: 'goliathattack', prefix: 'cyclops/goliath/goliath-se', start: 1, end: 9, rate: 12}
         },
-        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5003 } ]}]  // bite
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND, items: [{ itemId: 5010 } ]}]  // tree
       })
     );
 

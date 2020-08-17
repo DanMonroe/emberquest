@@ -71,6 +71,12 @@ export default class Chest {
       chest.setData('clickable', true);
     }
 
+    if (chestObj.properties) {
+      chestObj.properties.forEach(prop => {
+        chest.setData(prop.key, prop.value);
+      });
+    }
+
     this.sprite = chest;
 
     this.sprite.setAlpha(0)

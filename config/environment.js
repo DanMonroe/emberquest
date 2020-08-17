@@ -44,13 +44,13 @@ module.exports = function(environment) {
 
         gold: 15,
         health: 20,
-        baseHealingPower: 2,
-        baseHealingSpeed: 2500,
+        baseHealingPower: 2.5,
+        baseHealingSpeed: 2000,
         baseEnergizeSpeed : 2000,
-        baseEnergizePower: 2,
+        baseEnergizePower: 2.5,
         // energizeSpeed : 2000,
         // energizePower: 2,
-        power: 102,
+        power: 100,
         id: 'player1',
         // playerAttackAudio: undefined, // when ready, get from Boot scene  --- actually should get from the weapon the player is using.
 
@@ -88,7 +88,7 @@ module.exports = function(environment) {
     };
 
     ENV.game.pauseOnBlur = false;
-    ENV.game.playerConfig.speed = 300;
+    // ENV.game.playerConfig.speed = 300;
 
     ENV.game.showAgentSelector = true;
 

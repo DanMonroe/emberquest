@@ -71,7 +71,7 @@ export class InventoryItems {
         name: 'Sword',
         img: '/images/items/weapons/sword4.png',
         cssClazz: 'sword c',
-        description: 'A simple introductory sword',
+        description: '',
         stats: [
           new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 14}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 10}),
@@ -96,7 +96,7 @@ export class InventoryItems {
         name: 'Claymore',
         img: '/images/items/weapons/claymore.png',
         cssClazz: 'sword d',
-        description: 'A simple introductory sword',
+        description: '',
         stats: [
           new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 25}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 15}),
@@ -121,7 +121,7 @@ export class InventoryItems {
         name: 'Katana',
         img: '/images/items/weapons/katana.png',
         cssClazz: 'sword e',
-        description: 'A simple introductory sword',
+        description: '',
         stats: [
           new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 35}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 12}),
@@ -170,7 +170,7 @@ export class InventoryItems {
         name: 'Axe',
         img: '/images/items/weapons/axe2.png',
         cssClazz: 'axe b',
-        description: 'A simple introductory sword',
+        description: '',
         stats: [
           new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 20}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 9}),
@@ -194,7 +194,7 @@ export class InventoryItems {
         name: 'Battle Axe',
         img: '/images/items/weapons/battleaxe.png',
         cssClazz: 'axe c',
-        description: 'A simple introductory sword',
+        description: '',
         stats: [
           new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 20}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 35}),
@@ -244,7 +244,7 @@ export class InventoryItems {
         name: 'Hammer',
         img: '/images/items/weapons/hammer2.png',
         cssClazz: 'hammer b',
-        description: 'A simple introductory sword',
+        description: '',
         stats: [
           new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 20}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 15}),
@@ -325,7 +325,7 @@ export class InventoryItems {
         audioRanged: {key: 'throwknife'},
         audioMelee: {key: 'bite'},
         audioMiss: {key: 'sword_miss'}
-})
+      })
     );
     items.push(
       new InventoryItem({
@@ -414,6 +414,21 @@ export class InventoryItems {
         ],
         audioMelee: {key: 'wind01'},
         // audioMiss: {key: 'sword_miss'}
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: 5010,
+        name: {key: 'goliathtree'},
+        type: constants.INVENTORY.TYPE.MONSTER,
+        bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 10}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 3}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.5})
+        ],
+        audioMelee: {key: 'goliathtree'},
+        audioMiss: {key: 'sword_miss'}
       })
     );
 
@@ -662,7 +677,7 @@ export class InventoryItems {
         // projectileImg: 'missile',
         // velocity: 350, // 300 default
         cssClazz: 'ranged b',
-        description: 'Modest range and damage; it\'s the beginner crossbow.',
+        description: 'An enhanced bow with enhanced damage.  You know, it\'s enhanced.',
         stats: [
           new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 10}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 6}),
@@ -719,7 +734,7 @@ export class InventoryItems {
         // projectileImg: 'missile',
         // velocity: 350, // 300 default
         cssClazz: 'ranged d',
-        description: 'Modest range and damage; it\'s the beginner crossbow.',
+        description: 'A triple action crossbow feared by all.',
         stats: [
           new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 25}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 15}),
@@ -801,6 +816,7 @@ export class InventoryItems {
         stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 75})]
       })
     );
+
 
     items.push(
       new InventoryItem({
@@ -1064,6 +1080,94 @@ export class InventoryItems {
         stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 125})]
       })
     );
+    items.push(
+      new InventoryItem({
+        id: armorId++,
+        owned: false,
+        display: true,
+        price: 2,
+        requiredLevel: 1,
+        type: constants.INVENTORY.TYPE.ARMOR,
+        bodypart: constants.INVENTORY.BODYPART.GLOVES,
+        name: 'Working Gloves',
+        img: '/images/items/armor/gloves1.png',
+        cssClazz: 'hide',
+        description: 'They probably won\'t prevent thorns from sticking in your hands.',
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 2})]
+      })
+    );
+
+    items.push(
+      new InventoryItem({
+        id: armorId++,
+        owned: false,
+        display: true,
+        price: 40,
+        requiredLevel: 4,
+        type: constants.INVENTORY.TYPE.ARMOR,
+        bodypart: constants.INVENTORY.BODYPART.GLOVES,
+        name: 'Working Gloves',
+        img: '/images/items/armor/gloves2.png',
+        cssClazz: 'hide',
+        description: '',
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 7})]
+      })
+    );
+
+    items.push(
+      new InventoryItem({
+        id: armorId++,
+        owned: false,
+        display: true,
+        price: 150,
+        requiredLevel: 6,
+        type: constants.INVENTORY.TYPE.ARMOR,
+        bodypart: constants.INVENTORY.BODYPART.GLOVES,
+        name: 'Tailored Gloves',
+        img: '/images/items/armor/gloves3.png',
+        cssClazz: 'hide',
+        description: 'Especially fitted to your hands for a comfortable fit.',
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 15})]
+      })
+    );
+
+
+    items.push(
+      new InventoryItem({
+        id: armorId++,
+        owned: false,
+        display: true,
+        price: 125,
+        requiredLevel: 4,
+        type: constants.INVENTORY.TYPE.ARMOR,
+        bodypart: constants.INVENTORY.BODYPART.ARMS,
+        name: 'Gauntlets',
+        img: '/images/items/armor/arms4.png',
+        cssClazz: 'hide',
+        description: '',
+        stats: [new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 15})]
+      })
+    );
+
+    items.push(
+      new InventoryItem({
+        id: armorId++,
+        owned: false,
+        display: true,
+        price: 1250,
+        requiredLevel: 8,
+        type: constants.INVENTORY.TYPE.ARMOR,
+        bodypart: constants.INVENTORY.BODYPART.ARMS,
+        name: 'Gauntlets of Power',
+        img: '/images/items/armor/arms3.png',
+        cssClazz: 'hide',
+        description: 'When you don these gauntlets, you feel like you\'re energized and ready to explore',
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.HEALTH, value: 40}),
+          new Stat({type: constants.INVENTORY.STATS.ENERGIZEPOWERADJ, value: .25})
+        ]
+      })
+    );
 
 
     // Stats:
@@ -1071,6 +1175,7 @@ export class InventoryItems {
     // HEALINGPOWERADJ
     // ENERGIZESPEEDADJ
     // ENERGIZEPOWERADJ
+
 
     // Other
     let otherId = 1001;
@@ -1095,7 +1200,7 @@ export class InventoryItems {
         id: otherId++,
         owned: false,
         display: true,
-        price: 6,
+        price: 400,
         requiredLevel: 6,
         type: constants.INVENTORY.TYPE.OTHER,
         bodypart: constants.INVENTORY.BODYPART.FINGERS,
@@ -1216,7 +1321,7 @@ export class InventoryItems {
         name: 'Runesword',
         img: '/images/items/dragon/sword.png',
         cssClazz: 'sword dragon',
-        description: 'A simple introductory sword',
+        description: 'The legendary sword imbued with magical runes. It is laborious to wield but the power it yields is worth it.',
         stats: [
           new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 50}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 16}),
@@ -1272,7 +1377,7 @@ export class InventoryItems {
         requiredLevel: 1,
         price: 1,
         // price: 550,
-        type: constants.INVENTORY.TYPE.ARMOR,
+        type: constants.INVENTORY.TYPE.OTHER,
         bodypart: constants.INVENTORY.BODYPART.FINGERS,
         name: 'Dragonbone Ring',
         img: '/images/items/dragon/ring.png',

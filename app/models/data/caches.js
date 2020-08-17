@@ -386,8 +386,8 @@ export class Caches {
 
     caches.push(
       new Cache({
-        gccode: 'GC8V6XP - Cave of Arrrrgh',
-        name: 'EmberQuest #27',
+        gccode: 'GC8V6XP',
+        name: 'EmberQuest #27 - Cave of Arrrrgh',
         description: '<p>Named for the last utterance of anyone who ever saw it, the cave is home to an unknown inhabitant. But first, you must face its guardian beast!</p>',
         difficulty: 1.5,
         terrain: 1.5,
