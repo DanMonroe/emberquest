@@ -33,6 +33,8 @@ export default class EditorComponent extends Component {
 
   @tracked currentGameData;
 
+  @tracked fixCommand = '{ "command": "teleport", "map": "m13", "x": 1, "y": 2 }';
+
   get mapImageName() {
     if (!this.mapNumber) {
       return '';
@@ -67,6 +69,15 @@ export default class EditorComponent extends Component {
     const decrypted = this.storage.decrypt(this.encryptedCoords);
     this.decryptedCoords = decrypted;
   }
+
+  @action
+  generateFixEncryption() {
+    const encryptedFix = this.storage.encrypt(this.fixCommand.trim());
+
+    // document.getElementById('fixcommandencrypted').value = this.fixCommand;
+    document.getElementById('fixcommandencrypted').value = encryptedFix;
+  }
+
 
   @action
   loadCurrentGameData() {

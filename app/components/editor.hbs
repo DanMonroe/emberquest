@@ -51,10 +51,13 @@
 
 
   <div class="saveeditor">
-    <h3>Saved Game</h3>
-    <button class="btn style btn-primary" {{on "click" this.loadCurrentGameData}}>Load Current Game Data</button>
+    <h3>Fix Command Obj</h3>
+    <button class="btn style btn-primary" {{on "click" this.generateFixEncryption}}>Generate Fix</button>
     <p>
-      <Textarea rows=20 cols=50 @id="currentgamedata" />
+      <Textarea rows=10 cols=50 @id="fixcommand" @value={{{this.fixCommand}}} />
+    </p>
+    <p>
+      <Textarea rows=10 cols=50 @id="fixcommandencrypted" />
     </p>
 
     <h3>Coords Encryption</h3>

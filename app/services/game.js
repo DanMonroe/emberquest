@@ -886,6 +886,37 @@ export default class GameService extends Service {
   }
 
   @task
+  *fixItTask(command) {
+    if(!command) {
+      return;
+    }
+    try {
+      const decryptedCommand = this.storage.decrypt(command.trim());
+      const parsedCommand = JSON.parse(decryptedCommand);
+      // console.log('decrypted', decryptedCommand)
+      // console.log('parsed', parsedCommand);
+
+      let targetTile;
+      switch (parsedCommand.command) {
+        case constants.FIXIT.TELEPORT:
+          targetTile = {
+            map: parsedCommand.map,
+            x: parsedCommand.x,
+            y: parsedCommand.y
+          }
+          this.teleport(this.gameManager.scene.player.container, this.gameManager.scene, targetTile);
+          break;
+        default:
+          console.error('No command found');
+      }
+
+    } catch(error) {
+      console.error(error);
+    }
+    yield timeout(1);
+  }
+
+  @task
   *processSpecialAction(scene, specialAction, gameObj) {
     let doorShapes, signShapes, transport, currentValue, royalEmber;
     switch (specialAction.value) {

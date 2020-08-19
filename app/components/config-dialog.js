@@ -10,12 +10,15 @@ export default class ConfigDialogComponent extends Component {
 
   @service gameManager;
   @service game;
+  @service storage;
 
   @tracked currentNavCategory = this.leftNavItems[0];
   @tracked volume = this.gameManager.soundEffectsVolume * 100;
   @tracked musicVolume = this.gameManager.musicEffectsVolume * 100;
 
   @tracked faqList = [];
+
+  @tracked fixCommand = '';
 
   constructor() {
     super(...arguments);
@@ -85,7 +88,7 @@ export default class ConfigDialogComponent extends Component {
   }
 
   get leftNavItems() {
-    return [
+    let leftNavItems = [
       {
         text: 'Settings',
         clazz: 'settings'
@@ -103,6 +106,24 @@ export default class ConfigDialogComponent extends Component {
         clazz: 'credits'
       }
     ];
+
+    if (this.game.debug.selfhelp) {
+      leftNavItems.push(
+        {
+          text: 'Self Help',
+          clazz: 'selfhelp'
+        }
+      );
+    }
+    return leftNavItems;
+  }
+
+  @action
+  async runfix() {
+    await this.game.fixItTask.perform(this.fixCommand);
+    if (this.args.close) {
+      this.args.close();
+    }
   }
 
   @action

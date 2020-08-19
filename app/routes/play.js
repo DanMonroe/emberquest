@@ -13,7 +13,8 @@ export default class PlayRoute extends Route {
           phaserDebug: params.debug,
           level: params.level,
           gold: params.gold,
-          speed: params.speed
+          speed: params.speed,
+          selfhelp: params.selfhelp
         }
       }
     }

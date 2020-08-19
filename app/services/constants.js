@@ -276,6 +276,9 @@ const constants = Object.freeze({
     REMOVE_SIGNPOST: {value: 14, description: 'Remove Sign'}
   },
 
+  FIXIT: {
+    TELEPORT: 'teleport'
+  },
 
   levelIndicatorOffsetX: -35,
   levelIndicatorOffsetY: -70,

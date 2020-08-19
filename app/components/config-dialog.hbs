@@ -28,6 +28,20 @@
         {{#if (eq this.currentNavCategory.text "Help")}}
           <Instructions />
         {{/if}}
+        {{#if (eq this.currentNavCategory.text "Self Help")}}
+          <div class="selfhelp-wrapper">
+            <h3>Self Help</h3>
+            <p>
+              If you are here, than something has gone awry.  Follow the instructions sent to you and click the 'Fix It' button.
+            </p>
+            <p>
+              <Textarea @value={{fixCommand}} />
+            </p>
+            <p>
+              <button class="btn styled btn-primary" type="button" {{on "click" (fn this.runfix)}}>Fix It</button>
+            </p>
+          </div>
+        {{/if}}
         {{#if (eq this.currentNavCategory.text "FAQ")}}
           <h3>Frequently Asked Questions</h3>
           <div class="faqlist">
