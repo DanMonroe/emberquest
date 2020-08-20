@@ -14,9 +14,18 @@ export default class Projectiles extends Phaser.Physics.Arcade.Group {
 
       const radians = scene.board.angleBetween(attacker.rexChess.tileXYZ, targetTile);
 
-      if (attacker.agent.rangedAttackDamage) {
-        projectile.damage = attacker.agent.rangedAttackDamageDuringCombat;
+      projectile.damage = 0;
+
+      let rangedAttackDamage = 0;
+      if (attacker.agent?.container?.boardedTransport) {
+        rangedAttackDamage = attacker.agent.container.boardedTransport.agent.rangedAttackDamage;
+      } else {
+        rangedAttackDamage = attacker.agent.rangedAttackDamage;
       }
+      if (rangedAttackDamage) {
+        projectile.damage = attacker.agent.rangedAttackDamageDuringCombat(rangedAttackDamage);
+      }
+
       if (!didAttackHit) {
         projectile.damage = 0;
       }

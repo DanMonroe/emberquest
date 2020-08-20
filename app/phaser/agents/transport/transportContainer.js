@@ -10,14 +10,8 @@ export default class TransportContainer extends BasePhaserAgentContainer {
     super(scene, config);
     this.containerType = this.scene.game.ember.constants.SHAPE_TYPE_TRANSPORT;
 
-
-    // create the tranport
-    // this.transport = new TransportPhaserAgent(this.scene, config);
-    // this.add(this.transport);
-
     this.agent = agent;
     this.config = config;
-    // this.phasertransportSprite = this.transport;
 
     this.setupSprite();
 

@@ -14,7 +14,8 @@ export default class PlayRoute extends Route {
           level: params.level,
           gold: params.gold,
           speed: params.speed,
-          selfhelp: params.selfhelp
+          selfhelp: params.selfhelp,
+          resetcache: params.resetcache
         }
       }
     }

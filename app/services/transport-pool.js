@@ -1,6 +1,6 @@
 import Service from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-// import { constants } from 'emberquest/services/constants';
+import { constants } from 'emberquest/services/constants';
 
 export default class TransportPoolService extends Service {
 
@@ -68,7 +68,8 @@ export default class TransportPoolService extends Service {
         scale: 1.2,
         animeframes: {
           rest: {key: 'intro3_1-rest', prefix: 'ships/cutter', start: 1, end: 1}
-        }
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5303 } ]}]
       })
     );
 
@@ -78,7 +79,7 @@ export default class TransportPoolService extends Service {
         scale: 1.2,
         animeframes: {
           rest: {key: 'm1_1-rest', prefix: 'ships/frigate', start: 1, end: 1}
-        }
+        },inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5301 } ]}]
       })
     );
     this.transportpool.set('m1_2',
@@ -87,7 +88,8 @@ export default class TransportPoolService extends Service {
         scale: 1.2,
         animeframes: {
           rest: {key: 'm1-2-rest', prefix: 'ships/frigate', start: 1, end: 1}
-        }
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5301 } ]}]
       })
     );
 
@@ -100,17 +102,19 @@ export default class TransportPoolService extends Service {
         speed: 200,
         animeframes: {
           rest: {key: 'm2_1-rest', prefix: 'ships/caravel', start: 1, end: 1}
-        }
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5300 } ]}]
       })
     );
     this.transportpool.set('m2_2',
       Object.assign(Object.assign({}, this.baseTransport), {
         id: 202,
-        scale: 1.2,
+        scale: 1.5,
         // speed: 350,
         animeframes: {
-          rest: {key: 'm2_2-rest', prefix: 'ships/carrack', start: 1, end: 1}
-        }
+          rest: {key: 'm2_2-rest', prefix: 'ships/galleon', start: 1, end: 1}
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5302 } ]}]
       })
     );
     this.transportpool.set('m5_1',
@@ -120,7 +124,9 @@ export default class TransportPoolService extends Service {
 // speed: 600,
         animeframes: {
           rest: {key: 'm5_1-rest', prefix: 'ships/sailboat', start: 1, end: 1}
-        }
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5300 } ]}]
+
       })
     );
     this.transportpool.set('m5_2',
@@ -130,7 +136,9 @@ export default class TransportPoolService extends Service {
         speed: 200,
         animeframes: {
           rest: {key: 'm5_2-rest', prefix: 'ships/corvette', start: 1, end: 1}
-        }
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5300 } ]}]
+
       })
     );
     this.transportpool.set('m9_1',
@@ -139,7 +147,9 @@ export default class TransportPoolService extends Service {
         scale: 1.2,
         animeframes: {
           rest: {key: 'm9_1-rest', prefix: 'ships/galley', start: 1, end: 1}
-        }
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5300 } ]}]
+
       })
     );
     this.transportpool.set('m9_2',
@@ -148,7 +158,9 @@ export default class TransportPoolService extends Service {
         scale: 1.2,
         animeframes: {
           rest: {key: 'm9-2-rest', prefix: 'ships/frigate', start: 1, end: 1}
-        }
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5301 } ]}]
+
       })
     );
 
@@ -158,7 +170,9 @@ export default class TransportPoolService extends Service {
         scale: 1.2,
         animeframes: {
           rest: {key: 'm10_1-rest', prefix: 'ships/galley', start: 1, end: 1}
-        }
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5300 } ]}]
+
       })
     );
     this.transportpool.set('m10_2',
@@ -166,8 +180,10 @@ export default class TransportPoolService extends Service {
         id: 1002,
         scale: 1.2,
         animeframes: {
-          rest: {key: 'm10-2-rest', prefix: 'ships/frigate', start: 1, end: 1}
-        }
+          rest: {key: 'm10-2-rest', prefix: 'ships/galleon', start: 1, end: 1}
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5302 } ]}]
+
       })
     );
 
@@ -177,7 +193,9 @@ export default class TransportPoolService extends Service {
         scale: 1.2,
         animeframes: {
           rest: {key: 'm11_1-rest', prefix: 'ships/gunboat', start: 1, end: 1}
-        }
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5300 } ]}]
+
       })
     );
     this.transportpool.set('m11_2',
@@ -187,7 +205,9 @@ export default class TransportPoolService extends Service {
         speed: 90,
         animeframes: {
           rest: {key: 'm11-2-rest', prefix: 'ships/boat', start: 1, end: 1}
-        }
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5303 } ]}]
+
       })
     );
 
@@ -197,7 +217,8 @@ export default class TransportPoolService extends Service {
         scale: 1.2,
         animeframes: {
           rest: {key: 'm12_1-rest', prefix: 'ships/swampboat', start: 1, end: 1}
-        }
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5300 } ]}]
       })
     );
     this.transportpool.set('m12_2',
@@ -206,7 +227,8 @@ export default class TransportPoolService extends Service {
         scale: 1.2,
         animeframes: {
           rest: {key: 'm12_2-rest', prefix: 'ships/frigate', start: 1, end: 1}
-        }
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5301 } ]}]
       })
     );
     this.transportpool.set('m12_3',
@@ -215,7 +237,8 @@ export default class TransportPoolService extends Service {
         scale: 1.2,
         animeframes: {
           rest: {key: 'm12_3-rest', prefix: 'ships/frigate', start: 1, end: 1}
-        }
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5301 } ]}]
       })
     );
 
@@ -226,7 +249,8 @@ export default class TransportPoolService extends Service {
         scale: 1.2,
         animeframes: {
           rest: {key: 'm13_1-rest', prefix: 'ships/cutter', start: 1, end: 1}
-        }
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5303 } ]}]
       })
     );
     this.transportpool.set('m13_2',
@@ -236,6 +260,7 @@ export default class TransportPoolService extends Service {
         animeframes: {
           rest: {key: 'm13_2-rest', prefix: 'ships/barque', start: 1, end: 1}
         },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5300 } ]}],
         scale: 1.4,
       })
     );
@@ -247,6 +272,7 @@ export default class TransportPoolService extends Service {
           rest: {key: 'm13_3-rest', prefix: 'ships/boat', start: 1, end: 1}
         },
         scale: 1.2,
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5303 } ]}]
       })
     );
     this.transportpool.set('m13_4',
@@ -257,6 +283,7 @@ export default class TransportPoolService extends Service {
           rest: {key: 'm13_4-rest', prefix: 'ships/barque', start: 1, end: 1}
         },
         scale: 1.4,
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5300 } ]}]
       })
     );
     this.transportpool.set('m13_5',
@@ -265,7 +292,8 @@ export default class TransportPoolService extends Service {
         scale: 1.2,
         animeframes: {
           rest: {key: 'm13_5-rest', prefix: 'ships/cutter', start: 1, end: 1}
-        }
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5303 } ]}]
       })
     );
     this.transportpool.set('m13_6',
@@ -275,6 +303,7 @@ export default class TransportPoolService extends Service {
           rest: {key: 'm13_6-rest', prefix: 'ships/barque', start: 1, end: 1}
         },
         scale: 1.4,
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5300 } ]}]
       })
     );
 
@@ -287,7 +316,8 @@ export default class TransportPoolService extends Service {
           rest: {key: 'final_1-rest', prefix: 'ships/lava_boat', start: 1, end: 1}
         },
         scale: .45,
-        hidden: false
+        hidden: false,
+        inventory: []
       })
     );
 
@@ -305,8 +335,8 @@ export default class TransportPoolService extends Service {
           tF: 4
         },
         transferAtDock: false,
-        transferAtNest: true
-
+        transferAtNest: true,
+        inventory: []
       })
     );
 
@@ -322,8 +352,8 @@ export default class TransportPoolService extends Service {
         flagAttributes: {
           sF: 0,
           tF: 17  // sea and ice
-        }
-
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5300 } ]}]
       })
     );
 

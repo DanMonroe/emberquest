@@ -431,6 +431,21 @@ export class InventoryItems {
         audioMiss: {key: 'sword_miss'}
       })
     );
+    items.push(
+      new InventoryItem({
+        id: 5011,
+        name: {key: 'ghastroar'},
+        type: constants.INVENTORY.TYPE.MONSTER,
+        bodypart: constants.INVENTORY.BODYPART.RIGHT_HAND,
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.DAMAGE, value: 5}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 3}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 1.3})
+        ],
+        audioMelee: {key: 'roar'},
+        audioMiss: {key: 'sword_miss'}
+      })
+    );
 
 
 
@@ -473,9 +488,9 @@ export class InventoryItems {
         projectileImg: 'ball',
         projectileScale: 0.3,
         stats: [
-          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 30}),
+          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 10}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 5}),
-          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.6})
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.8})
         ],
         animeframes: [
           { type: 'range', key: 'cannonball', config: {prefix: 'missiles/stone', start: 1, end: 1} }
@@ -632,6 +647,88 @@ export class InventoryItems {
       })
     );
 
+    items.push(
+      new InventoryItem({
+        id: 5300,
+        name: 'Ship Cannon',
+        type: constants.INVENTORY.TYPE.MONSTER,
+        bodypart: constants.INVENTORY.BODYPART.RANGED,
+        projectileImg: 'ball',
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 3}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 3}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.9})
+        ],
+        audioRanged: {key: 'cannon1', config: {volume:.4}},
+        audioMiss: {key: 'sword_miss'},
+        animeframes: [
+          { type: 'range', key: 'cannonball', config: {prefix: 'missiles/stone', start: 1, end: 1} }
+        ],
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: 5301,
+        name: 'Ship Cannon',
+        type: constants.INVENTORY.TYPE.MONSTER,
+        bodypart: constants.INVENTORY.BODYPART.RANGED,
+        projectileImg: 'ball',
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 5}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 3}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.9})
+        ],
+        audioRanged: {key: 'cannon2', config: {volume:.2}},
+        audioMiss: {key: 'sword_miss'},
+        animeframes: [
+          { type: 'range', key: 'cannonball', config: {prefix: 'missiles/stone', start: 1, end: 1} }
+        ]
+
+      })
+    );
+    items.push(
+      new InventoryItem({
+        id: 5302,
+        name: 'Ship Cannon',
+        type: constants.INVENTORY.TYPE.MONSTER,
+        bodypart: constants.INVENTORY.BODYPART.RANGED,
+        projectileImg: 'ball',
+        projectileScale: 1.2,
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 12}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 3}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 2})
+        ],
+        audioRanged: {key: 'cannon5', config: {volume:.7}},
+        audioMiss: {key: 'sword_miss'},
+        animeframes: [
+          { type: 'range', key: 'cannonball', config: {prefix: 'missiles/stone-large', start: 1, end: 1} }
+        ]
+
+      })
+    );
+
+    items.push(
+      new InventoryItem({
+        id: 5303,
+        name: 'Ship Cannon',
+        type: constants.INVENTORY.TYPE.MONSTER,
+        bodypart: constants.INVENTORY.BODYPART.RANGED,
+        projectileImg: 'ball',
+        projectileScale: 1.1,
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 2}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 3}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 2})
+        ],
+        audioRanged: {key: 'smallcannon', config: {volume:.7}},
+        audioMiss: {key: 'sword_miss'},
+        animeframes: [
+          { type: 'range', key: 'cannonball', config: {prefix: 'missiles/stone', start: 1, end: 1} }
+        ]
+
+      })
+    );
 
     // Ranged Weapons
     let rangedWeaponId = 250;

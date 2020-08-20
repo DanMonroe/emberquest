@@ -326,8 +326,10 @@ export default class GameService extends Service {
     const cachesData = await this.loadGameData('caches') || new Map();
     if (cachesData) {
 
-    // TODO delete
-    // cachesData.delete('GC8V6WP')
+      // Delete a found cache from cookie
+      if (this.debug.resetcache) {
+        cachesData.delete(this.debug.resetcache)
+      }
 
       cachesData.forEach((encryptedhash, gccode) => {
         // console.log(`${gccode}: ${encryptedhash}`);
@@ -799,13 +801,15 @@ export default class GameService extends Service {
       if (chest.requires) {
         switch (chest.requires.id) {
           case this.constants.CHESTS.REQUIRED.UNMOUNTED:
-            if (chest.mountMessageDisplayed) {
-              return; // don't show message again
-            }
-            if (this.gameManager.player.container.boardedTransport && this.gameManager.player.container.boardedTransport.agent.playerConfig.id === constants.AGENTS.GRYPHON) {
-              this.showInfoDialog(this.intl.t(`messages.unmount-gryphon-for-chest`), true, constants.MESSAGEIDS.UNMOUNT_GRYPHON_FOR_CHEST);
-              chest.mountMessageDisplayed = true;
-              return;
+            if (this.gameManager.player.container.boardedTransport) {
+              if (chest.mountMessageDisplayed) {
+                return; // don't show message again
+              }
+              if (this.gameManager.player.container.boardedTransport.agent.playerConfig.id === constants.AGENTS.GRYPHON) {
+                this.showInfoDialog(this.intl.t(`messages.unmount-gryphon-for-chest`), true, constants.MESSAGEIDS.UNMOUNT_GRYPHON_FOR_CHEST);
+                chest.mountMessageDisplayed = true;
+                return;
+              }
             }
             break;
           default:

@@ -359,27 +359,32 @@ export default class GameManagerService extends Service {
     drop:true,
     maxConcurrency: 1
   })
-  // *attack(clickedTile, clickedShape, attacker) {
   *attack(clickedTile, agentToAttack, attacker) {
-    // console.log('attack', clickedTile, clickedShape, 'by', attacker);
 
     if (this.gamePaused) {
       return;
     }
 
-    // const agentToAttack = this.findAgentAtTile(clickedTile);
-    // if (agentToAttack) {
+
+    // If on a transport, only use
+    let equippedMeleeWeapon, equippedRangedWeapon;
+    if (attacker.boardedTransport && attacker.boardedTransport.agent.equippedRangedWeapon) {
+      equippedRangedWeapon = attacker.boardedTransport.agent.equippedRangedWeapon;
+    } else {
+      equippedMeleeWeapon = attacker.agent.equippedMeleeWeapon;
+      equippedRangedWeapon = attacker.agent.equippedRangedWeapon;
+    }
 
       // const isNeighbor = this.scene.board.areNeighbors(attacker.rexChess.tileXYZ, agentToAttack.rexChess.tileXYZ);
       const neighborDirection = this.scene.board.getNeighborChessDirection(attacker.rexChess.tileXYZ, agentToAttack.rexChess.tileXYZ);
 
-      if (neighborDirection !== null) {
+      if (!attacker.boardedTransport && neighborDirection !== null) {
       // if (isNeighbor) {
         // Melee
         // console.log('Melee Attack!');
 
         // get attackers weapon (in right hand?)
-        const equippedMeleeWeapon = attacker.agent.equippedMeleeWeapon;
+        // const equippedMeleeWeapon = attacker.agent.equippedMeleeWeapon;
 
         // console.log('equippedMeleeWeapon', equippedMeleeWeapon.name, equippedMeleeWeapon)
 
@@ -424,7 +429,7 @@ export default class GameManagerService extends Service {
         // console.log('Ranged Attack!');
 
         // get attackers weapon (in right hand?)
-        const equippedRangedWeapon = attacker.agent.equippedRangedWeapon;
+        // const equippedRangedWeapon = attacker.agent.equippedRangedWeapon;
 
 // console.log('game-manager - equippedRangedWeapon', equippedRangedWeapon)
         if (equippedRangedWeapon && this.hasEnoughPowerToUseItem(equippedRangedWeapon, attacker.agent)) {

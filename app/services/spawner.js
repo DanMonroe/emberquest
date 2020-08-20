@@ -72,8 +72,6 @@ export default class SpawnerService extends Service {
           const location = {
             x: scene.ember.gameManager.storedData.storedPlayerTile.x,
             y: scene.ember.gameManager.storedData.storedPlayerTile.y
-            // x: scene.ember.gameManager.storedData.gameboardData.playerTile.x,
-            // y: scene.ember.gameManager.storedData.gameboardData.playerTile.y
           };
           const transport = new Transport(location.x, location.y, Object.assign(location, transportConfigFromPool));
           transport.isBoardedTransport = true;

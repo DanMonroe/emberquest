@@ -226,8 +226,9 @@ export class BaseAgent {
     return this.getStats(constants.INVENTORY.STATS.RANGEDDAMAGE);
   }
 
-  get rangedAttackDamageDuringCombat() {
-    let damage = this.rangedAttackDamage * this.level;
+  rangedAttackDamageDuringCombat(rangedAttackDamage) {
+    let damage = rangedAttackDamage * this.level;
+    // let damage = this.rangedAttackDamage * this.level;
 
     let randomPercentageByLevel = 1 + (this.randomIntFromInterval(-(this.level*2), (this.level*2)) / 100);
 

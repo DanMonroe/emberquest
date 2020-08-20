@@ -26,89 +26,99 @@
       "end": 8.4640589569161,
       "loop": false
     },
-    "castle_door_lock_02": {
+    "cannon5": {
       "start": 10,
-      "end": 12.063673469387755,
+      "end": 13.303061224489795,
+      "loop": false
+    },
+    "castle_door_lock_02": {
+      "start": 15,
+      "end": 17.063673469387755,
       "loop": false
     },
     "chink": {
-      "start": 14,
-      "end": 14.887777777777778,
+      "start": 19,
+      "end": 19.887777777777778,
       "loop": false
     },
     "finale": {
-      "start": 16,
-      "end": 31.75950113378685,
+      "start": 21,
+      "end": 36.75950113378685,
       "loop": false
     },
     "fireball": {
-      "start": 33,
-      "end": 34.724104308390025,
+      "start": 38,
+      "end": 39.724104308390025,
       "loop": false
     },
     "flamestrike": {
-      "start": 36,
-      "end": 36.64655328798186,
+      "start": 41,
+      "end": 41.64655328798186,
       "loop": false
     },
     "howl": {
-      "start": 38,
-      "end": 42.864943310657594,
+      "start": 43,
+      "end": 47.864943310657594,
       "loop": false
     },
     "oceanlap": {
-      "start": 44,
-      "end": 47.783424036281176,
+      "start": 49,
+      "end": 52.783424036281176,
       "loop": false
     },
     "oceansgull": {
-      "start": 49,
-      "end": 58.28836734693878,
+      "start": 54,
+      "end": 63.28836734693878,
       "loop": false
     },
     "open_door_1": {
-      "start": 85,
-      "end": 86.22126984126984,
+      "start": 92,
+      "end": 93.22126984126984,
       "loop": false
     },
     "pop": {
-      "start": 63,
-      "end": 63.33598639455782,
+      "start": 68,
+      "end": 68.33598639455782,
       "loop": false
     },
     "punch": {
-      "start": 65,
-      "end": 65.3018820861678,
+      "start": 70,
+      "end": 70.3018820861678,
       "loop": false
     },
     "roar": {
-      "start": 67,
-      "end": 68.55569160997733,
+      "start": 72,
+      "end": 73.55569160997733,
+      "loop": false
+    },
+    "smallcannon": {
+      "start": 75,
+      "end": 75.5375283446712,
       "loop": false
     },
     "sword_miss": {
-      "start": 70,
-      "end": 70.30034013605442,
+      "start": 77,
+      "end": 77.30034013605442,
       "loop": false
     },
     "throwknife": {
-      "start": 72,
-      "end": 72.75657596371882,
+      "start": 79,
+      "end": 79.75657596371882,
       "loop": false
     },
     "wind01": {
-      "start": 74,
-      "end": 83.08800453514739,
+      "start": 81,
+      "end": 90.08800453514739,
       "loop": false
     },
     "pickup": {
-      "start": 88,
-      "end": 88.3437641723356,
+      "start": 95,
+      "end": 95.3437641723356,
       "loop": false
     },
     "goliathtree": {
-      "start": 90,
-      "end": 90.47310657596371,
+      "start": 97,
+      "end": 97.47310657596371,
       "loop": false
     }
   }
