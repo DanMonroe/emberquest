@@ -67,7 +67,7 @@ export class Caches {
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
-        coords: '57505916be56ad08aa5339f96b68e97d96542a3daadd498b9ae393c86e31f39bzlA33vpNUJo1ok2HsfgxbRubQu4Xx75/cunBS9ZjIYo=',
+        coords: 'cdc8751dc1eaaade48c33a06942d789ca7890679435ea8cb6f2f178f493e7ac2LNTLp+hfZ6mETB5O3b/c2LqBVCMiLco3f9/h/aNzTIU=',
         puzzleHint: ''
       })
     );
@@ -139,7 +139,7 @@ export class Caches {
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
-        coords: 'c7b6d7b96d2af158b16bd9ea91df05c398e451d1bc1977652d3393332ed7a7b2ZBltnwW/oo7uAzg0OYxFXmrI1gMQI55fRGRdHD1bX9Q=',
+        coords: 'ab69788b68fdde2db7f2615e48e96285645d2cc848ee7f8a2ec3e970566be1cbF02ITnLzPM0Os1NBxthSq166IYj8o+B6Q1F1Iv4NowU=',
         puzzleHint: '',
 
 
@@ -361,7 +361,7 @@ export class Caches {
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
-        coords: '4bdd49b352ce4b6a4d7c9a3f35bc4fbe65b10a952f2044042fc2978766e8201erNkajuUlrzOEzLeJcyylGO6KLbNKeC+z8cREz45p/M4=',
+        coords: '90fdc28aa692d70f463ddcccb4caebf5c8796f28575e5ef168a9b52ac10c12b5vQrr0HtkQFXShCrtvae1AR56oLct1meH34pbDS97mmg=',
         puzzleHint: '',
         cacheHint: 'Haangheny cvyr bs fgvpxf.', // 'Unnatural pile of sticks.',
 
