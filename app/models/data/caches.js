@@ -211,12 +211,10 @@ export class Caches {
         name: 'EmberQuest #15 - Subterranean',
         description: '<p>Below the surface of the Island of Death lies a lava filled cavern. A chest awaits those who are brave enough to explore. You may need a ride if you are not prepared for the heat.</p>',
         difficulty: 1.5,
-        terrain: 2,
+        terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
-        coords: 'a0960d0398de791fbe4f9102994e0ba767bb8f26cfe493e0bc8d66afb05ba170QHrC7D0ndsu2OHzWe3JIpS9bZvvdHrA4/EKwN/OIsX0=',
-        puzzleHint: '',
-
-
+        coords: 'ae643d26346da66fa8998fe7aedc8490d092dc7c3d29ff683c596ed0447de51di2AzdigwHdQmS66xGFcrm+VYNPjuLMBCdWxFMAcN8nw=',
+        puzzleHint: ''
       })
     );
 
