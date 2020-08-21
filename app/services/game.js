@@ -683,6 +683,7 @@ export default class GameService extends Service {
     if (this.inventory.hasRoyalEmber()) {
       this.gameManager.pauseGame(true);
 
+      // add the brazier flame
       let brazierSprite = scene.board.tileXYZToChess(32, 12, constants.TILEZ_SPRITES);
       if (brazierSprite) {
 
@@ -703,9 +704,22 @@ export default class GameService extends Service {
           inventoryRoyalEmber.display = false;
           this.gameManager.player.container.agent.removeInventory(inventoryRoyalEmber);
         }
-
       }
+
+      // remove the gate:
+      // {value: constants.SPECIAL_ACTIONS.REMOVE_DOOR.value, data: { door_id:4, tileXY: {x: 26, y: 15} }},
+      let doorShapes = scene.game.ember.map.getGameObjectsAtTileXY(scene.board, {x: 26, y: 15}, scene.game.ember.constants.SHAPE_TYPE_DOOR);
+      if (doorShapes && doorShapes.length) {
+        doorShapes[0].makeInactive();
+      }
+
       this.gameManager.pauseGame(false);
+
+      // play sound  (cant be paused
+      // {value: constants.SPECIAL_ACTIONS.PLAY_SOUND.value, data: { sound: 'open_door_1' }}
+      this.gameManager.playSound({key: 'open_door_1'})
+
+
     } else {
       // console.log('No royal ember for you')
     }
@@ -947,12 +961,13 @@ export default class GameService extends Service {
         break;
       case this.constants.SPECIAL_ACTIONS.PLAY_SOUND.value: // data: { sound: 'open_door_1' }
         yield timeout(400);
-        this.gameManager.playSound({key: specialAction.data.sound})
+        this.gameManager.playSound({key: specialAction.data.sound}, specialAction.data.forcePlay, specialAction.data.volume)
 
         // scene.openDoorAudio.play();
         break;
       case this.constants.SPECIAL_ACTIONS.FINAL_FANFAIR.value:
-        console.log('Do final fanfair ?');
+        // wait for found chest sound to play...
+        yield timeout(1200);
         break;
       case this.constants.SPECIAL_ACTIONS.PICKUP_ROYAL_EMBER.value:
         // console.log('Pickup royal ember');
@@ -980,9 +995,9 @@ export default class GameService extends Service {
             // console.log('spriteToToggle', spriteToToggle)
             if (spriteToToggle) {
               const currentValue = spriteToToggle.getData(specialAction.data.property);
-console.log('spriteToToggle before', spriteToToggle, currentValue);
+// console.log('spriteToToggle before', spriteToToggle, currentValue);
               spriteToToggle.setData(specialAction.data.property, !currentValue);
-console.log('spriteToToggle after', spriteToToggle, spriteToToggle.getData(specialAction.data.property));
+// console.log('spriteToToggle after', spriteToToggle, spriteToToggle.getData(specialAction.data.property));
             }
           }
         }

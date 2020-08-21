@@ -286,8 +286,6 @@ export default class GameManagerService extends Service {
 
   playSound(soundObj, forcePlay, volume) {
     if (forcePlay || !this.gamePaused) {
-      // console.log('gameManager playSound', soundObj, this.soundEffectsVolume)
-      // console.count('gameManager playSound')
 
       if (!this.mutedSoundEffectsVolume && soundObj && soundObj.key) {
         const config = Object.assign(soundObj.config || {mute: false}, {mute: false, volume: volume ? volume : this.soundEffectsVolume});
