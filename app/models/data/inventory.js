@@ -655,7 +655,7 @@ export class InventoryItems {
         bodypart: constants.INVENTORY.BODYPART.RANGED,
         projectileImg: 'ball',
         stats: [
-          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 3}),
+          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 5}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 3}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.9})
         ],
@@ -674,7 +674,7 @@ export class InventoryItems {
         bodypart: constants.INVENTORY.BODYPART.RANGED,
         projectileImg: 'ball',
         stats: [
-          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 5}),
+          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 10}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 3}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.9})
         ],
@@ -695,7 +695,7 @@ export class InventoryItems {
         projectileImg: 'ball',
         projectileScale: 1.2,
         stats: [
-          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 12}),
+          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 20}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 3}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 2})
         ],
@@ -717,7 +717,7 @@ export class InventoryItems {
         projectileImg: 'ball',
         projectileScale: 1.1,
         stats: [
-          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 2}),
+          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 3}),
           new Stat({type: constants.INVENTORY.STATS.POWER, value: 3}),
           new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 2})
         ],

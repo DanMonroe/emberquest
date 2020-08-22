@@ -13,37 +13,27 @@
     },
     "birds_chirping": {
       "start": 7,
-      "end": 137.02739229024942,
-      "loop": false
-    },
-    "hills": {
-      "start": 139,
-      "end": 279.4038095238095,
+      "end": 28.758548752834468,
       "loop": false
     },
     "horror": {
-      "start": 281,
-      "end": 409.00580498866213,
+      "start": 30,
+      "end": 63.50639455782313,
       "loop": false
     },
     "kingdom_of_hope": {
-      "start": 411,
-      "end": 458.55156462585035,
+      "start": 65,
+      "end": 112.55156462585035,
       "loop": false
     },
     "moleman": {
-      "start": 460,
-      "end": 572.087074829932,
+      "start": 114,
+      "end": 226.08997732426303,
       "loop": false
     },
     "skullisland": {
-      "start": 574,
-      "end": 641.0751927437642,
-      "loop": false
-    },
-    "snowfall": {
-      "start": 643,
-      "end": 909.2733786848073,
+      "start": 228,
+      "end": 295.0751927437642,
       "loop": false
     }
   }
