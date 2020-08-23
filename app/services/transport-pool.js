@@ -317,7 +317,7 @@ export default class TransportPoolService extends Service {
         },
         scale: .45,
         hidden: false,
-        inventory: []
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5302 } ]}]
       })
     );
 
