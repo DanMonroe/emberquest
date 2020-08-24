@@ -446,7 +446,7 @@ export class Caches {
       new Cache({
         gccode: 'GC8V6XZ',
         name: 'EmberQuest #31 - Enchanted Ember',
-        description: '<p>Congratulations for reigniting the eternal flame!  The final treasure is yours to keep. Farewell adventurer!</p>',
+        description: '<p>Congratulations for reigniting the eternal flame!  The final treasure is yours to keep. Farewell adventurer!</p><p>After you have found all 31 chests in the game, EmberQuest will show you your game statistics.  It may be interesting for you to upload a screenshot of them to the cache page to compare with other adventurers.</p><p></p>',
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',

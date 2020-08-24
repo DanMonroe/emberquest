@@ -32,7 +32,13 @@
           <div class="selfhelp-wrapper">
             <h3>Self Help</h3>
             <p>
-              If you are here, than something has gone awry.  Follow the instructions sent to you and click the 'Fix It' button.
+              Is your Avatar stuck and can't move?  You can try to "Go Back" one move by clicking the button below.
+            </p>
+            <p>
+              <button class="btn styled btn-primary" type="button" {{on "click" (fn this.goback)}}>Go Back</button>
+            </p>
+            <p>
+              If that doesn't work and you are still stuck, send an email to 'emberquestgeocache@gmail.com' along with a screenshot of where you are stuck.  I'll send you a "Fix" command.  Paste that command below and click the 'Fix It' button.
             </p>
             <p>
               <Textarea @value={{fixCommand}} />

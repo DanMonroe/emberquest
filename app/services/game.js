@@ -246,13 +246,19 @@ export default class GameService extends Service {
       sceneData: this.sceneData
     });
 
-    // await this.saveGameData('gameboard', this.gameData);  // remove this
+    let previousTile = await this.loadGameData('playerTile');
+    if (previousTile) {
+      const previousTileObject = Object.assign({boardedTransport: playerAttrs.boardedTransport}, previousTile);
+      if(previousTileObject.x !== scene.player.container.rexChess.tileXYZ.x || previousTileObject.y !== scene.player.container.rexChess.tileXYZ.y) {
+        await this.saveGameData('previousTile', previousTileObject);
+      }
+    }
 
     await this.saveGameData('currentMap', mapname);
     await this.saveGameData('playerAttrs', playerAttrs);
     await this.saveGameData('transports', allTransportsArray);
     await this.saveGameData('sceneData', this.sceneData);
-    await this.saveGameData('playerTile', scene.player.container.rexChess.tileXYZ);
+    await this.saveGameData('playerTile', Object.assign({mapname: mapname}, scene.player.container.rexChess.tileXYZ));
   }
 
   async loadSettingsData() {
@@ -900,6 +906,19 @@ export default class GameService extends Service {
         }
       }
 
+    }
+  }
+
+  @task
+  *gobackTask() {
+    let previousTile = yield this.loadGameData('previousTile');
+    if (previousTile) {
+      let targetTile = {
+        map: previousTile.mapname,
+        x: previousTile.x,
+        y: previousTile.y
+      }
+      this.teleport(this.gameManager.scene.player.container, this.gameManager.scene, targetTile);
     }
   }
 

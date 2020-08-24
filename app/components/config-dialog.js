@@ -35,8 +35,8 @@ export default class ConfigDialogComponent extends Component {
     });
     this.faqList.push({
       id: faqId++,
-      title: 'May Avatar is stuck and can\'t move!  What can I do?',
-      content: 'Try refreshing your browser so the game will reload.  If that doesn\'t help, send me a message.'
+      title: 'My Avatar is stuck and can\'t move!  What can I do?',
+      content: 'Try refreshing your browser so the game will reload.  If that doesn\'t help, try following the tips in the \'Self Help\' tab on the left side of this dialog.'
     });
     this.faqList.push({
       id: faqId++,
@@ -107,7 +107,7 @@ export default class ConfigDialogComponent extends Component {
       }
     ];
 
-    if (this.game.debug.selfhelp) {
+    if (true || this.game.debug.selfhelp) {
       leftNavItems.push(
         {
           text: 'Self Help',
@@ -116,6 +116,14 @@ export default class ConfigDialogComponent extends Component {
       );
     }
     return leftNavItems;
+  }
+
+  @action
+  async goback() {
+    await this.game.gobackTask.perform();
+    if (this.args.close) {
+      this.args.close();
+    }
   }
 
   @action
