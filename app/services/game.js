@@ -1,6 +1,7 @@
 import Service from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import {get} from '@ember/object';
+import { htmlSafe } from '@ember/template';
 import { inject as service } from '@ember/service';
 import localforage from 'localforage';
 import {task} from "ember-concurrency-decorators";
@@ -751,6 +752,32 @@ export default class GameService extends Service {
         break;
     }
     return true;
+  }
+
+  createTeleportCommand(mapname, tileXY) {
+    console.log('');
+    console.log(`%c Command`, 'color: blue; font-size: 16px; margin: 15px 0 0 0;')
+    console.log('');
+
+    let teleportCommand = `{ "command": "teleport", "map": "${mapname}", "x": ${tileXY.x}, "y": ${tileXY.y} }`;
+    const encryptedFix = this.storage.encrypt(teleportCommand);
+    const message = htmlSafe(`Open the settings drop down dialog (the gearbox) and click the "Self Help" tab on the left side.
+Copy/Paste the following characters into the white box, then click the "Fix It" button.
+
+${encryptedFix}
+
+That should move you to a place where you can continue the game.
+
+Have fun!
+Dan`);
+    console.log(teleportCommand);
+    console.log(encryptedFix);
+    console.log(message.string);
+
+    // this.ember.showInfoDialog(encryptedFix);
+    // this.showInfoDialog(message);
+    console.log('');
+
   }
 
   playerHasAbilityFlag(playerObj, type, flag) {

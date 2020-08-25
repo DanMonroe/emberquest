@@ -108,6 +108,7 @@ export class GameboardScene extends Phaser.Scene {
     // ALT = tile log report
     // ALT / Shift = Heal
     // ALT / Command = teleport
+    // Ctrl / Shift = generate teleport command
 
     // click end tileXY to get info in console
     this.board.on('tiledown',  (pointer, tileXY) => {
@@ -125,7 +126,12 @@ export class GameboardScene extends Phaser.Scene {
         this.consoleLogReport(tileXY);
       }
 
-      // this.ember.epmModalContainerClass = 'victory';
+      if (pointer.event.ctrlKey && pointer.event.shiftKey) {
+        this.ember.createTeleportCommand(this.mapname, tileXY);
+      }
+
+
+        // this.ember.epmModalContainerClass = 'victory';
       // this.ember.modals.open('victory-dialog', {
       // });
 
@@ -171,7 +177,7 @@ export class GameboardScene extends Phaser.Scene {
               }
             ]);
             console.log(tileObj);
-            console.log('')
+            console.log('');
           break;
         default:
           break;
@@ -202,9 +208,10 @@ export class GameboardScene extends Phaser.Scene {
       }
     ]);
     // console.log(allAttrs);
-    console.log('')
+    console.log('');
+    console.log(`%c${this.ember.describePlayerFlags(this.player.container)}`, 'color: purple; font-size: 16px; margin: 15px 0 0 0;')
+    console.log('');
 
-    console.log(`%c${this.ember.describePlayerFlags(this.player.container)}`, 'color: puple; font-size: 16px; margin: 15px 0 0 0;')
   }
 
   createGameManager() {
