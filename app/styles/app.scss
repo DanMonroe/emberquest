@@ -2146,7 +2146,7 @@ button {
         padding: 10px;
         height: 176px;
         float: left;
-        background: url("/images/item-box-background.png");
+        background: url("/images/backgrounds/item-box-background.png");
         margin: 4px;
         text-align: center;
         position: relative;
@@ -2173,7 +2173,7 @@ button {
           }
         }
         &.selected {
-          background: url("/images/item-box-background-selected.png");
+          background: url("/images/backgrounds/item-box-background-selected.png");
         }
         .locked {
           height: 41px;
