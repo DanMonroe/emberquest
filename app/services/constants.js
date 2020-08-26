@@ -277,7 +277,8 @@ const constants = Object.freeze({
   },
 
   FIXIT: {
-    TELEPORT: 'teleport'
+    TELEPORT: 'teleport',
+    TRAVELFLAGS: 'travelflags'
   },
 
   levelIndicatorOffsetX: -35,

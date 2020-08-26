@@ -54,10 +54,13 @@
     <h3>Fix Command Obj</h3>
     <button class="btn style btn-primary" {{on "click" this.generateFixEncryption}}>Generate Fix</button>
     <p>
-      <Textarea rows=10 cols=50 @id="fixcommand" @value={{{this.fixCommand}}} />
+      <Textarea rows=5 cols=90 @id="fixcommand" @value={{{this.fixCommand}}} />
     </p>
     <p>
-      <Textarea rows=10 cols=50 @id="fixcommandencrypted" />
+      <div>'{ "command": "teleport", "map": "m13", "x": 1, "y": 2, "transportId": 0, "tF": 1 (sea) / 2 (land) }'</div>
+    </p>
+    <p>
+      <Textarea rows=10 cols=30 @id="fixcommandencrypted" />
     </p>
 
     <h3>Coords Encryption</h3>

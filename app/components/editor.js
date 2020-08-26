@@ -33,7 +33,7 @@ export default class EditorComponent extends Component {
 
   @tracked currentGameData;
 
-  @tracked fixCommand = '{ "command": "teleport", "map": "m13", "x": 1, "y": 2 }';
+  @tracked fixCommand = '{ "command": "teleport", "map": "m13", "x": 1, "y": 2, "transportId": 0, "tF": 2 }';
 
   get mapImageName() {
     if (!this.mapNumber) {

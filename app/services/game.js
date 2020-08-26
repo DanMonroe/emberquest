@@ -164,7 +164,7 @@ export default class GameService extends Service {
       'spawnTile': scene.spawnTile
     });
 
-    // console.log('save spawnTile', scene.spawnTile)
+    // console.log('save spawnTile', scene.spawnTile, 'boardedTransport', boardedTransportId)
 
     this.sceneData[mapname] = currentMapData;
 
@@ -514,6 +514,8 @@ export default class GameService extends Service {
         this.gameManager.pauseGame(true);
         this.gameManager.loadingNewScene = true;
 
+        scene.game.ember.saveSceneData(scene);
+        
         // cancel all patrol tasks...
         const agentContainers = this.gameManager.scene.agents.children;
         agentContainers.entries.forEach(agentContainer => {
@@ -556,7 +558,7 @@ export default class GameService extends Service {
             'allSeenTiles': sceneDataForMap.seenTiles,
             'storedTransports': transports || [],
             // 'storedTransports': sceneDataForMap.transports,
-            'boarded': this.playerContainer.boardedTransport ? this.playerContainer.boardedTransport.agent.id : 0
+            'boarded': this.playerContainer.boardedTransport?.agent?.id ? this.playerContainer.boardedTransport.agent.id : 0
           };
           this.map.getDynamicMapData(data.map).then(mapData => {
             // console.log('mapData', mapData);
@@ -969,6 +971,15 @@ Dan`);
             y: parsedCommand.y
           }
           this.teleport(this.gameManager.scene.player.container, this.gameManager.scene, targetTile);
+          if (parsedCommand.tF !== undefined) {
+            this.gameManager.scene.player.container.data.get('attrs').tF = parsedCommand.tF
+          }
+          if (parsedCommand.transportId !== undefined) {
+            const transport = this.gameManager.scene.findTransportById(parsedCommand.transportId)
+            if (transport) {
+              this.gameManager.scene.player.container.boardedTransport = transport;
+            }
+          }
           break;
         default:
           console.error('No command found');

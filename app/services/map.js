@@ -135,7 +135,7 @@ export default class MapService extends Service {
     { map: 'm11', name: 'Ember Forest (m11)' },
     { map: 'm12', name: 'Pirate Bay (m12)' },
     { map: 'm13', name: 'Wandering Islands (m13)' },
-    { map: 'smallcabin', name: 'Tight Quarters Cabin' },
+    { map: 'smallcabin', name: 'Tight Quarters Cabin (m10-cabin)' },
     { map: 'arena', name: 'Arena' },
     { map: 'intro', name: 'Intro' },
     { map: 'intro2', name: 'Intro 2' }

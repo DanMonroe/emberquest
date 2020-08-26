@@ -358,6 +358,62 @@ export default class TransportPoolService extends Service {
     );
 
 
+    this.transportpool.set('s_1',
+      Object.assign(Object.assign({}, this.baseTransport), {
+        id: 8001,
+        scale: 1.2,
+        speed: 90,
+        animeframes: {
+          rest: {key: 's_1-rest', prefix: 'ships/boat', start: 1, end: 1}
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5303 } ]}]
+      })
+    );
+    this.transportpool.set('s_2',
+      Object.assign(Object.assign({}, this.baseTransport), {
+        id: 8002,
+        scale: 1.2,
+        speed: 90,
+        animeframes: {
+          rest: {key: 's_2-rest', prefix: 'ships/boat', start: 1, end: 1}
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5303 } ]}]
+      })
+    );
+    this.transportpool.set('s_3',
+      Object.assign(Object.assign({}, this.baseTransport), {
+        id: 8003,
+        scale: 1.2,
+        speed: 90,
+        animeframes: {
+          rest: {key: 's_3-rest', prefix: 'ships/boat', start: 1, end: 1}
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5303 } ]}]
+      })
+    );
+    this.transportpool.set('s_4',
+      Object.assign(Object.assign({}, this.baseTransport), {
+        id: 8004,
+        scale: 1.2,
+        speed: 90,
+        animeframes: {
+          rest: {key: 's_4-rest', prefix: 'ships/boat', start: 1, end: 1}
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5303 } ]}]
+      })
+    );
+    this.transportpool.set('s_5',
+      Object.assign(Object.assign({}, this.baseTransport), {
+        id: 8005,
+        scale: 1.2,
+        speed: 90,
+        animeframes: {
+          rest: {key: 's_5-rest', prefix: 'ships/boat', start: 1, end: 1}
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5303 } ]}]
+      })
+    );
+
 
   }
 
