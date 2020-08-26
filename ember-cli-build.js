@@ -18,10 +18,7 @@ module.exports = function(defaults) {
       include: [
         'images/help',
         'images/common',
-        'images/sprites'
-      ],
-      exclude: [
-        'images',
+        'images/sprites',
         'images/agents',
         'images/backgrounds',
         'images/common',
@@ -33,7 +30,11 @@ module.exports = function(defaults) {
         'images/items/weapons',
         'images/maps',
         'images/monsters',
-        'images/transports',
+        'images/transports'
+      ],
+      exclude: [
+        'images',
+        'raw'
       ]
     }
 
