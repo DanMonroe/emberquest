@@ -32,10 +32,11 @@
           <div class="selfhelp-wrapper">
             <h3>Self Help</h3>
             <p>
-              Is your Avatar stuck and can't move?  You can try to "Go Back" one move by clicking the button below.
+              Is your Avatar stuck and can't move?  You can try to "Go Back" one move by clicking the button below. You can also teleport to the Castle.
             </p>
             <p>
               <button class="btn styled btn-primary" type="button" {{on "click" (fn this.goback)}}>Go Back</button>
+              <button class="btn styled btn-primary" type="button" {{on "click" (fn this.castleTeleport)}}>Go to the Castle</button>
             </p>
             <p>
               If that doesn't work and you are still stuck, send an email to 'emberquestgeocache@gmail.com' along with a screenshot of where you are stuck.  I'll send you a "Fix" command.  Paste that command below and click the 'Fix It' button.

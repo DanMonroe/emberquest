@@ -135,6 +135,14 @@ export default class ConfigDialogComponent extends Component {
   }
 
   @action
+  async castleTeleport() {
+    await this.game.fixItTask.perform(this.game.constants.CASTLE_TELEPORT);
+    if (this.args.close) {
+      this.args.close();
+    }
+  }
+
+  @action
   pickCategory(category) {
     this.currentNavCategory = category;
   }

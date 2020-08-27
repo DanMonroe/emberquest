@@ -50,6 +50,8 @@ const constants = Object.freeze({
     CHEST: {key: 'pickup'}
   },
 
+  CASTLE_TELEPORT: "c59035a0541bf946a90387e5b3a7e9889095da2aa583caa53589f276ac1743b7tKJTcbiPlQOLSzSHwkuFCU1iKZiDkPkS9z95D1HiJ/Lp3G9EwjxF3JT/Z1Y3v5Meh0SpZCMUh9dfqgaKKmYoTiRF2MJDVSm1bxxNj+kEefxCbxU2SSXxtc1Y0kWvuUDW",
+
   // Base agent properties are derived from inventory items from the listed inventory property
   INVENTORY: {
     // DAMAGE: 'damage',
@@ -61,6 +63,7 @@ const constants = Object.freeze({
     // HEALING_POWER: 'healingPowerAdj',
 
     ROYAL_EMBER_ID: 12600,
+
 
     BODYPARTS: [
       { name: "torso", part: 0, text: "Body", tooltipSide: "right" },

@@ -515,7 +515,7 @@ export default class GameService extends Service {
         this.gameManager.loadingNewScene = true;
 
         scene.game.ember.saveSceneData(scene);
-        
+
         // cancel all patrol tasks...
         const agentContainers = this.gameManager.scene.agents.children;
         agentContainers.entries.forEach(agentContainer => {
@@ -978,6 +978,8 @@ Dan`);
             const transport = this.gameManager.scene.findTransportById(parsedCommand.transportId)
             if (transport) {
               this.gameManager.scene.player.container.boardedTransport = transport;
+            } else {
+              this.gameManager.scene.player.container.boardedTransport = undefined;
             }
           }
           break;
