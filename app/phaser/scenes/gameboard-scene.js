@@ -76,8 +76,13 @@ export class GameboardScene extends Phaser.Scene {
     loading.displayWidth = this.cameras.main.width;
     loading.scaleY = loading.scaleX;
 
-    this.textures.remove('map');
-    this.load.image('map', this.mapData.mapUrl);
+// console.log('this.textures', this.textures)
+    const mapTexture = this.textures.get(`map_${this.mapData.mapKey}`);
+    if (mapTexture.key === undefined || mapTexture.key === '__MISSING') {
+      this.load.image(`map_${this.mapData.mapKey}`, this.mapData.mapUrl);
+    }
+    // this.textures.remove('map');
+    // this.load.image('map', this.mapData.mapUrl);
 
     this.ember.playerContainer = null;
   }
@@ -261,7 +266,7 @@ export class GameboardScene extends Phaser.Scene {
         this.player.power = Math.floor((this.player.maxPower / 2));
       }
     }
-    // console.log('spawnPlayer', playerObject.playerConfig.playerX, playerObject.playerConfig.playerY)
+    // console.error('spawnPlayer', playerObject.playerConfig.playerX, playerObject.playerConfig.playerY)
     this.board.addChess(playerObject.container, playerObject.playerConfig.playerX, playerObject.playerConfig.playerY, this.ember.constants.TILEZ_PLAYER);
 
     playerObject.container.fov = this.rexBoard.add.fieldOfView(playerObject.container, playerObject.playerConfig);
@@ -274,7 +279,7 @@ export class GameboardScene extends Phaser.Scene {
     if (this.storedBoardedTransportId > 0) {
       const transportToBoard = this.findTransportById(this.storedBoardedTransportId);
       // const transportToBoard = this.transports.getChildren().find(transport => transport.id === this.storedBoardedTransportId);
-      // console.log('transportToBoard', transportToBoard)
+      // console.error('transportToBoard', transportToBoard)
       if (transportToBoard) {
         this.player.container.boardedTransport = transportToBoard;
       }
@@ -506,7 +511,8 @@ export class GameboardScene extends Phaser.Scene {
   configureBoard() {
     this.cameras.main.zoom = this.ember.cameraMainZoom;
 
-    this.map = this.add.image(0, 0, 'map');
+    this.map = this.add.image(0, 0, `map_${this.mapData.mapKey}`);
+    // this.map = this.add.image(0, 0, 'map');
     this.map.setOrigin(0,0);
 
     // don't go out of the map

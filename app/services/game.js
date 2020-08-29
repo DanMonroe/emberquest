@@ -563,6 +563,7 @@ export default class GameService extends Service {
           this.map.getDynamicMapData(data.map).then(mapData => {
             // console.log('mapData', mapData);
             data.mapData = mapData;
+            data.mapData.mapKey = data.map;
 
             scene.scene.start('gameboard', data);
           });

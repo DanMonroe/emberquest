@@ -106,7 +106,7 @@ export class BootScene extends Phaser.Scene {
   }
 
   loadSpriteSheets() {
-    this.load.spritesheet('chests', '/images/chest_sprite.png', { frameWidth: 140, frameHeight: 140 });
+    // this.load.spritesheet('chests', '/images/chest_sprite.png', { frameWidth: 140, frameHeight: 140 });
 
     this.load.multiatlas('eq_sprites', '/images/sprites/eq_sprites.json', '/images/sprites');
   }
@@ -177,6 +177,7 @@ export class BootScene extends Phaser.Scene {
       this.game.ember.map.getDynamicMapData(newData.map).then(mapData => {
         // console.log('mapData (boot)', mapData);
         newData.mapData = mapData;
+        newData.mapData.mapKey = newData.map;
 
         this.scene.start('gameboard', newData);
       });
