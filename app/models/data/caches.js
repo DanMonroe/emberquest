@@ -41,8 +41,8 @@ export class Caches {
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
         coords: '60a5931b6bdca21fab2949c7705cd801a7e7887995d757d98f8db6f4c74b0f21LmhwX+77/ORd0Tgrv7gocPWIl0FSsUpwoA8SObSlxUg=',
-        puzzleHint: 'Gur Zrnqbjf',
-        cacheHint: 'Fznyy ybpx-a-ybpx ba tebhaq.', // 'Small lock-n-lock on ground.',
+        puzzleHint: 'The Meadows',
+        cacheHint: 'Small lock-n-lock on ground', // 'Small lock-n-lock on ground.',
       })
     );
 
@@ -111,7 +111,7 @@ export class Caches {
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
         coords: 'c5143707a93a5bc1b1c716d9d1a069da98790b2c41a0c02dcbe5b5b0bced2e8549xjRhqwzRNL1XcBpdDye1b5NF+OMp3b0LOq6OqNiIA=',
-        puzzleHint: 'N evire cbvagf gur jnl guebhtu gur sberfg sebz gur zrnqbj.'
+        puzzleHint: 'A river points the way through the forest from the meadow.'
 
       })
     );
@@ -155,7 +155,7 @@ export class Caches {
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
         coords: '4b1044243d319abc30676d3049cf6f4894e682669b5d1ff339733508580eecb2SyVGJDnaLq9WNw1qBXyWHL9k4sqRulYZF3mf0Rgz/vo=',
-        puzzleHint: 'Abg nyy znmrf unir bayl bar raqvat.',
+        puzzleHint: 'Not all mazes have only one ending.',
 
 
       })
@@ -185,7 +185,7 @@ export class Caches {
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
         coords: 'c846ce3b34b2f0d2cb37dcc26593b3e43ce80e2e6470a657a8b020844b1f7b73/WqpjP8t7aB3XNxPNxsHiNQ4enzF6etrqUIxBGK3iA8=',
-        puzzleHint: 'Pnfgyrf va gur fnaq'
+        puzzleHint: 'Castles in the sand'
 
       })
     );
@@ -199,7 +199,7 @@ export class Caches {
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
         coords: '31972210cd5e4233388b71a45db1ff3d42c3649d55d7ea4e4108a0f04d397131mz6CJj8ZqocwdxpEzq4SWXZWMIBTU0U4E4MCrMvIvKo=',
-        puzzleHint: 'Vg jvyy gnxr sberire gb trg nyy gur fnaq bhg bs lbhe fubrf.',
+        puzzleHint: 'It will take forever to get all the sand out of your shoes.',
 
 
       })
@@ -227,8 +227,8 @@ export class Caches {
         terrain: 2.5,
         foundInstructions: 'Congrats.. now do this',
         coords: 'c831f92dbb8f76efd00f7032cd8c43f55f821ebb55070fb13319c1e4a2b1ade2Qx5ctVo0JCQGLT97tARwarZnEIXQuwRpEhzaN3k19hY=',
-        puzzleHint: 'Vafvqr gur Uvtuynaqf',
-        cacheHint: 'Hfr genvyurnq, gura fubeg 10 sbbg ohfujunpx gb TM. Pnpur vf n cersbez nobhg jnvfg yriry.', // 'Use trailhead, then short 10 foot bushwhack to GZ. Cache is a preform about waist level.',
+        puzzleHint: 'Inside the Highlands',
+        cacheHint: 'Use trailhead, then short 10 foot bushwhack to GZ.', // 'Use trailhead, then short 10 foot bushwhack to GZ.',
 
       })
     );
@@ -257,8 +257,8 @@ export class Caches {
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
         coords: 'a2b8690049db6acda585e6c3bb5384213c9b425d3dfb55578febae1143782852Sf0+Pg560LoZ3ZzC9hstY93J+zSkKeWXGNuDcftAIyA=',
-        puzzleHint: 'Fgbar genvy va gur Rzonggyrq Pyvssf',
-        cacheHint: '6 srrg bss genvy naq nobhg rlr yriry. Ovfba ghor oruvaq gerr.', // '6 feet off trail and about eye level. Bison tube behind tree.',
+        puzzleHint: 'Stone trail in the Embattled Cliffs',
+        cacheHint: '6 feet off trail and about eye level. Bison tube behind tree.', // '6 feet off trail and about eye level. Bison tube behind tree.',
 
       })
     );
@@ -301,9 +301,9 @@ export class Caches {
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
-        coords: '58c2e7aca8b642bd34cd78289efbf78acf3fd84aba5a8d6cd3307189b24b8056dhmsls2GK9W1EZPeT3I3LDLi4DtonbeArFfK4f3twuU=',
-        puzzleHint: 'Sne Abegurnfg',
-        cacheHint: 'Ovfba ghor 7 srrg nobir tebhaq yriry.', // 'Bison tube 7 feet above ground level.',
+        coords: 'b74ee8c653a06993a90b02438fc9d49accd9fbe6ab36b83a48601941b1a197d1UR7JJLVND9b9wvfpnKcW0btPlT8MavOGGOpgM5SGjG0=',
+        puzzleHint: 'Far Northeast',
+        cacheHint: 'Not under snow, but under small rock.', // 'Bison tube 7 feet above ground level.',
 
       })
     );
@@ -317,7 +317,7 @@ export class Caches {
         terrain: 2,
         foundInstructions: 'Congrats.. now do this',
         coords: '3efccf064286c8d1c39e95513bf51d094fb3b4ff41ad04116c9575c4c1839dacCeZ6FpoF1PA5DW0vYckM7LL0JmuO0kRsP5TD16R/JuY=',
-        puzzleHint: 'G5',
+        puzzleHint: 'Terrain 5',
 
 
       })
@@ -363,7 +363,7 @@ export class Caches {
         foundInstructions: 'Congrats.. now do this',
         coords: '90fdc28aa692d70f463ddcccb4caebf5c8796f28575e5ef168a9b52ac10c12b5vQrr0HtkQFXShCrtvae1AR56oLct1meH34pbDS97mmg=',
         puzzleHint: '',
-        cacheHint: 'Haangheny cvyr bs fgvpxf.', // 'Unnatural pile of sticks.',
+        cacheHint: 'Unnatural pile of sticks.', // 'Unnatural pile of sticks.',
 
       })
     );
@@ -377,7 +377,7 @@ export class Caches {
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
         coords: '970ee0d56736879747b74cbb34d937f0a8771e154929694cd047ffe6ca091fc4C/5NqckkJ9F8tVDZcU4Bcs/Gf55c/28b06MZoPy0J+A=',
-        puzzleHint: 'Vs lbh jrer n Cunenbu, jurer jbhyq lbh uvqr n pnpur?'
+        puzzleHint: 'If you were a Pharaoh, where would you hide a cache?'
 
       })
     );
@@ -391,8 +391,8 @@ export class Caches {
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
         coords: '6eaa5b44be4364532d820e2c9cd0339237c11ded4ee3473a60afdf739af937a4kiQNRDKJcNW7tc3NrvqFjo/lLfX1BWWkqReaq6ad2H0=',
-        puzzleHint: 'N Ubyl Unaq Teranqr jba\'g uryc lbh guvf gvzr.',
-        cacheHint: 'Wbua Serfujngre. Zngpufgvpx pbagnvare va fgbar jnyy oruvaq ybbfr ebpx.', //'John Freshwater. Matchstick container in stone wall behind loose rock.',
+        puzzleHint: 'A Holy Hand Grenade won\'t help you this time.',
+        cacheHint: 'John Freshwater. Matchstick container in stone wall behind loose rock.', //'John Freshwater. Matchstick container in stone wall behind loose rock.',
 
       })
     );
@@ -422,7 +422,7 @@ export class Caches {
         foundInstructions: 'Congrats.. now do this',
         coords: '4adcb36ea3feb75cb547ce726efedcd95e718a99c5a5c936c3af81819a3168abyxUq+bmXysGgzQdmThgBS8FdtsXe0RB9JrFS0xb9PaE=',
         puzzleHint: '',
-        cacheHint: 'Wbua Orneq. Unatvat sebz gerr.', // 'John Beard. Hanging from tree.',
+        cacheHint: 'John Beard. Hanging from tree.allf', // 'John Beard. Hanging from tree.',
 
       })
     );

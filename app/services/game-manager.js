@@ -311,7 +311,7 @@ export default class GameManagerService extends Service {
     }
   }
 
-  processClickedTile(clickedTile, clickedShape, playerContainer) {
+  async processClickedTile(clickedTile, clickedShape, playerContainer) {
     // console.log('attack', clickedTile, clickedShape, 'by', attacker);
 
     const agentToAttack = this.findAgentAtTile(clickedTile);
@@ -324,12 +324,27 @@ export default class GameManagerService extends Service {
       const signToRead = this.findSignPostAtTile(clickedTile);
       if (signToRead) {
         const isNeighbor = this.scene.board.areNeighbors(playerContainer.rexChess.tileXYZ, signToRead.rexChess.tileXYZ);
-        if (isNeighbor) {
-          this.messages.addMessage(signToRead.signMessageId, this.intl.t(`messages.signs.${signToRead.signMessageId}`));
+
+        if (signToRead.signMessageId === 'showStats' && isNeighbor && this.ember.cache.allCachesFound) {
+          this.pauseGame(true);
+
+          this.ember.epmModalContainerClass = 'victory';
+          await this.ember.modals.open('victory-dialog', {
+            player: {
+              level: 1
+            }
+          });
+          this.pauseGame(true);
+
+
+        } else {
+          if (isNeighbor) {
+            this.messages.addMessage(signToRead.signMessageId, this.intl.t(`messages.signs.${signToRead.signMessageId}`));
+          }
+          this.scene.game.ember.showInfoDialog(isNeighbor
+            ? this.intl.t(`messages.signs.${signToRead.signMessageId}`)
+            : this.intl.t(`messages.signs.toofar`));
         }
-        this.scene.game.ember.showInfoDialog(isNeighbor
-          ? this.intl.t(`messages.signs.${signToRead.signMessageId}`)
-          : this.intl.t(`messages.signs.toofar`));
       } else {
         const sprite = this.findSpriteAtTile(clickedTile);
         if (sprite) {

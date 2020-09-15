@@ -14,6 +14,7 @@
       "castle1": "'<p>'You have found a locked gate.'</p><p>'Find a chest and this gate will unlock.'</p>'",
       "castle2": "'<h4>'Welcome To EmberQuest!'</h4><p>'Unfortunately, this castle has seen happier times.  Someone, or something, has stolen the Enchanted Ember that fuels the eternal flame in the brazier above you. It protected this land from creatures who threaten our peace and safety. Now they roam freely without challenge.'</p><p>'Save the Land and return the Ember to its chamber.  When you do, the treasure to your Southwest will be yours as a reward!'</p><p>'Be safe young traveller!'</p>'",
       "castle3": "'<p>'This gate will be unlocked from the outside.'</p>'",
+      "showStats": "'<p>'When you have found all the chests in EmberQuest, this sign will display your final stats.'</p>'",
 
       "getchestfirst": "'<p>'Entering the outpost will transport you out of this maze.  However, it works only if you have first collected the nearby chest.'</p>'",
       "transportbacktoisland": "'<p>'There is a secret passage to the center of the islands in the nearby tent.'</p>'",

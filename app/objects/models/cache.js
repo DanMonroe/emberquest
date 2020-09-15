@@ -29,10 +29,10 @@ export class Cache {
   }
 
   get getCacheHint() {
-    return this.cacheHintDecrypted ? this.rot13(this.cacheHint) : this.cacheHint;
+    return this.cacheHintDecrypted ? this.cacheHint : this.rot13(this.cacheHint);
   }
   get getPuzzleHint() {
-    return this.puzzleHintDecrypted ? this.rot13(this.puzzleHint) : this.puzzleHint;
+    return this.puzzleHintDecrypted ? this.puzzleHint : this.rot13(this.puzzleHint);
   }
 
   rot13(text) {
