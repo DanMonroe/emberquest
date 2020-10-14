@@ -9,7 +9,7 @@
       <img src="/images/emberquestlogo.png" class="logo" />
 
       <div class="game-controls">
-        {{#if this.emberGameService.showAgentSelector}}
+        {{#if (or this.emberGameService.showAgentSelector this.emberGameService.thisIsDan)}}
           <div class="testSpawnerControls">
             <button class="btn btn-blue" {{on "click" (fn this.teleport)}}>Teleport</button>
             <div class="mapSelector">
