@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
-import { reads } from '@ember/object/computed';
+import { or, reads } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import config from 'emberquest/config/environment';
 import localforage from 'localforage';
@@ -59,7 +59,9 @@ export default class GameboardComponent extends Component {
   testSpawnerX = 1;
   testSpawnerY = 1;
   @tracked testAgents;
-  @reads('config.game.showAgentSelector') showAgentSelector;
+  @reads('config.game.showAgentSelector') configShowAgentSelector;
+  @or('configShowAgentSelector', 'thisIsDan') showAgentSelector;
+  thisIsDan = false;
 
   constructor() {
     super(...arguments);

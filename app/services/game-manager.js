@@ -66,6 +66,7 @@ export default class GameManagerService extends Service {
     this.mapDisplayName = scene.mapData.mapDisplayName;
     this.showMapDisplayName = scene.mapData.showMapDisplayName;
     this.ember.showAgentSelector = config.game.showAgentSelector;
+    this.ember.thisIsDan = this.ember.debug.thisIsDan;
     this.setupEventListener();
     this.setupSpawners();
     this.spawnPlayer();

@@ -4,7 +4,6 @@
   <div class="caches-body">
     <div class="pane">
       <div class="scroll">
-
         {{#each this.cacheList as |geocache|}}
           <div class="wrapper">
             <div class="cache">
@@ -20,7 +19,7 @@
                     <div class="cacheInfo">
                       <div class="coords">
                         <span class="label">Cache Coordinates:</span>
-                        {{#if geocache.found}}
+                        {{#if (or geocache.found this.game.thisIsDan)}}
                             <span>{{decrypt this.storage geocache.coords}}</span>
                         {{else}}
                             <span>Unknown</span>
@@ -30,7 +29,7 @@
                       {{#if geocache.parking}}
                         <div class="coords">
                           <span class="label">Parking:</span>
-                          {{#if geocache.found}}
+                          {{#if (or geocache.found this.game.thisIsDan)}}
                               <span>{{decrypt this.storage geocache.parking}}</span>
                           {{else}}
                               <span>Unknown</span>

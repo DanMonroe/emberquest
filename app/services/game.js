@@ -35,6 +35,7 @@ export default class GameService extends Service {
   @tracked playerImgSrc = '/images/agents/avatar.png';
 
   @tracked showAgentSelector = false;
+  @tracked thisIsDan = false; // 'dan' on the query param
   @tracked showHexInfo = false;
   @tracked epmModalContainerClass = '';
 

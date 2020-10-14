@@ -5,6 +5,7 @@ import { tracked } from '@glimmer/tracking';
 export default class CachesDialogComponent extends Component {
   @service cache;
   @service storage;
+  @service game;
 
   @tracked cacheList;
 
