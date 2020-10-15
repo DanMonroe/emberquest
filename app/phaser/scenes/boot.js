@@ -186,64 +186,7 @@ export class BootScene extends Phaser.Scene {
       debugger;
     }
 
-    //  'gameboardData': gameboardData,  ??
 
-//     this.game.ember.loadGameData("gameboard")
-//       .then(gameboardData => {
-//         // console.log('gameboardData', gameboardData);
-//
-//         // TODO:  If you update what is loaded here, also update checkForPortal in game.js
-//
-//         const overrideMapImage = (this.game.ember.overrideMap && this.game.ember.overrideMap.map) ? this.game.ember.overrideMap.map : undefined;
-//
-//         // let data = {'map': overrideMapImage || 'arena'};
-//
-//         let data = {'map': overrideMapImage || 'castle'}  // default initial map
-//
-//         if (gameboardData) {
-//
-//           this.game.ember.gameData.transports = gameboardData.transports;
-//           if (gameboardData.playerAttrs) {
-//             this.game.ember.placedBrazier = gameboardData.playerAttrs.re;  // Royal Ember
-//           }
-//
-//           gameboardData.currentMap = overrideMapImage || gameboardData.currentMap
-//           const sceneData =   gameboardData.sceneData[gameboardData.currentMap] || { allSeenTiles: [], storedTransports: [], boarded: 0};
-// // console.log('sceneData', sceneData)
-//           data = {
-//             'map': gameboardData.currentMap,
-//             'overrideMap': this.game.ember.overrideMap,
-//             'gameboardData': gameboardData,
-//             'sceneData': sceneData,
-//             'spawnTile': sceneData.spawnTile ? {x: sceneData.spawnTile.x, y: sceneData.spawnTile.y, sF: gameboardData.playerAttrs.sF, tF: gameboardData.playerAttrs.tF } : {},
-//             'storedPlayerTile': gameboardData.playerTile,
-//             'storedPlayerAttrs': gameboardData.playerAttrs,
-//             'allSeenTiles': sceneData.seenTiles,
-//             'storedTransports': sceneData.transports, // keeps track of transports in one scene
-//             'boarded': gameboardData.playerAttrs.boardedTransport  // the id of the transport the player is on
-//             // 'boarded': this.playerContainer.boardedTransport ? this.playerContainer.boardedTransport.agent.id : 0
-//
-//           }
-//         }
-//
-//         console.log('data', data);
-//
-//         try {
-//
-//           this.game.ember.map.getDynamicMapData(data.map).then(mapData => {
-//             // console.log('mapData (boot)', mapData);
-//             data.mapData = mapData;
-//
-//             this.scene.start('gameboard', data);
-//           });
-//         } catch (error) {
-//           debugger;
-//         }
-//
-//
-//
-//         // this.scene.start('gameboard',  data);
-//       });
   }
 
 }

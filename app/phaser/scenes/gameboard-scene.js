@@ -76,7 +76,6 @@ export class GameboardScene extends Phaser.Scene {
     loading.displayWidth = this.cameras.main.width;
     loading.scaleY = loading.scaleX;
 
-// console.log('this.textures', this.textures)
     const mapTexture = this.textures.get(`map_${this.mapData.mapKey}`);
     if (mapTexture.key === undefined || mapTexture.key === '__MISSING') {
       this.load.image(`map_${this.mapData.mapKey}`, this.mapData.mapUrl);
@@ -118,14 +117,6 @@ export class GameboardScene extends Phaser.Scene {
     // click end tileXY to get info in console
     this.board.on('tiledown',  (pointer, tileXY) => {
       // console.log('pointer.event', pointer.event)
-
-//       let specialAction = {value: this.ember.constants.SPECIAL_ACTIONS.TOGGLE_PROPERTY.value, data: { property: 'isOpen', spritesToToggle: ['singletent', 'hiddensign'], keyOn: 'trapdoorlever-on', keyOff: 'trapdoorlever-on' }};
-//       this.ember.processSpecialAction.perform(this, specialAction);
-//
-//       let chest = this.chests.getChildren()[2];
-//       this.ember.processSpecialAction.perform(this, {value: this.ember.constants.SPECIAL_ACTIONS.PLAY_DEPENDANT_ANIMATION.value, data: { sprites: ['singletent'], property: 'isOpen', keyOn: 'singletent-open', keyOff: 'singletent-closed' }}, chest);
-//       this.ember.processSpecialAction.perform(this, {value: this.ember.constants.SPECIAL_ACTIONS.PLAY_DEPENDANT_ANIMATION.value, data: { sprites: ['hiddensign'], property: 'isOpen', keyOn: 'hiddensign-open', keyOff: 'hiddensign-closed' }}, chest);
-// return;
 
       if (pointer.event.altKey) {
         this.consoleLogReport(tileXY);
@@ -192,15 +183,7 @@ export class GameboardScene extends Phaser.Scene {
     // Tile info
     const allAttrs = this.ember.map.getTileAttribute(this, tileXY);
     console.log(`%c Map: ${this.mapname.toUpperCase()} - Tile Info:`, 'color: yellow; font-size: 16px; margin: 15px 0 0 0;')
-    // console.table([
-    //   {
-    //     texture: a.playerConfig.texture,
-    //     level: a.level,
-    //     health: a.health,
-    //     power: a.power,
-    //     gold: a.gold
-    //   }
-    // ]);
+
     console.table([
       {
         tile: `  'x': ${allAttrs.x}, 'y': ${allAttrs.y}  `,
@@ -640,11 +623,6 @@ export class GameboardScene extends Phaser.Scene {
   }
 
   doorCollision(/*player, door*/) {
-    // debugger;
-    // if ( ! door.touched) {
-    //   console.log('doorCollision', player, door);
-    //   door.touched = true;
-    // }
   }
 
   getSpriteByName(name) {
