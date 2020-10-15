@@ -5807,10 +5807,10 @@ ember-uuid@^2.1.0:
     ember-cli-babel "^7.11.1"
     ember-cli-htmlbars "^4.0.0"
 
-emberquest-map-data@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/emberquest-map-data/-/emberquest-map-data-0.3.1.tgz#d09cc055daa7ae64787a47baf1645d498c021644"
-  integrity sha512-1DsjCxqNlVOT9Vk7gYCHPxNThizB/tbhbQtCqEM0AoIwxroit4qmsBPZuIG9iKda9cqni4NHYJRhcNLyRL/SBg==
+emberquest-map-data@^0.3.9:
+  version "0.3.9"
+  resolved "https://registry.yarnpkg.com/emberquest-map-data/-/emberquest-map-data-0.3.9.tgz#50ec3e3a375aa1132fa61d6577c6a729e81510ec"
+  integrity sha512-wcIGbBStQmnAkfYduNeMA4wWw1W3f4mBWabC4faOR1Ufyen/SBgMgmjXy9+9xQUWQlwxHNesACNt85Eaew8JsQ==
 
 emoji-regex@^7.0.1:
   version "7.0.3"
