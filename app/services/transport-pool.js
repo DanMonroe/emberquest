@@ -40,24 +40,6 @@ export default class TransportPoolService extends Service {
 
     // keys are originmapname_transportNumber
 
-    // this.transportpool.set('gryphon_1',
-    //   Object.assign(Object.assign({}, this.baseTransport), {
-    //     id: 1308,
-    //     speed: 200,
-    //     scale: 1.5,
-    //     animeframes: {
-    //       rest: {key: 'gryphonrest', prefix: 'gryphon/gryphon', start: 1, end: 1},
-    //       move: {key: 'gryphonmove', prefix: 'gryphon/gryphon-flying-', start: 1, end: 8, rate: 8, repeat: -1}
-    //     },
-    //     flagAttributes: {
-    //       sF: 0,
-    //       tF: 4
-    //     },
-    //     transferAtDock: false,
-    //     transferAtNest: true
-    //
-    //   })
-    // );
 
     // CUTTER
     // let baseTransportclone = Object.assign({}, this.baseTransport);
@@ -121,7 +103,6 @@ export default class TransportPoolService extends Service {
       Object.assign(Object.assign({}, this.baseTransport), {
         id: 501,
         scale: 1.2,
-// speed: 600,
         animeframes: {
           rest: {key: 'm5_1-rest', prefix: 'ships/sailboat', start: 1, end: 1}
         },
@@ -439,8 +420,6 @@ export default class TransportPoolService extends Service {
 
     animeframes: {},
     audio: [{ die: '' }],
-
-    // level: 1
 
   }
 }
