@@ -7,14 +7,10 @@ export default class StorageService extends Service {
   simpleCrypto = new SimpleCrypto(this.secretKey);
 
   encrypt(data) {
-    const cipherObject = this.simpleCrypto.encrypt(data);
-    // console.log('cipherObject', cipherObject);
-    return cipherObject;
+    return this.simpleCrypto.encrypt(data);
   }
 
   decrypt(data) {
-    const decipherObject = this.simpleCrypto.decrypt(data);
-    // console.log('decipherObject', decipherObject);
-    return decipherObject;
+    return this.simpleCrypto.decrypt(data);
   }
 }
