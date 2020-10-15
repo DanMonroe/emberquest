@@ -19,6 +19,10 @@
                 {{/each}}
               </select>
             </div>
+            <label for="testSpawnerX">X</label>
+            <Input type=number @id="testSpawnerX" @value={{this.testSpawnerX}} />
+            <label for="testSpawnerY">Y</label>
+            <Input type=number @id="testSpawnerY" @value={{this.testSpawnerY}} />
             <div class="agentSelector">
               <select {{on "change" this.setTestAgent}}>
                 {{#each this.testAgents as |testAgent|}}
@@ -26,10 +30,6 @@
                 {{/each}}
               </select>
             </div>
-            <label for="testSpawnerX">X</label>
-            <Input type=number @id="testSpawnerX" @value={{this.testSpawnerX}} />
-            <label for="testSpawnerY">Y</label>
-            <Input type=number @id="testSpawnerY" @value={{this.testSpawnerY}} />
             <button class="btn btn-blue" {{on "click" (fn this.spawnTestAgent)}}>Spawn</button>
           </div>
         {{/if}}
