@@ -745,7 +745,9 @@ button {
     }
   }
 }
-
+.epm-modal-container.caches .epm-modal {
+  top: 360px;
+}
 @media only screen and (min-height: 1050px) {
   .epm-modal-container.inventory .epm-modal {
     top: 324px;
@@ -763,9 +765,6 @@ button {
   }
   .epm-modal-container.config .epm-modal,.epm-modal-container.gameMessages .epm-modal {
     top: 305px;
-  }
-  .epm-modal-container.caches .epm-modal {
-    top: 360px;
   }
   .inventoryDialog {
     background-image: url("/images/items-background-narrow.png");
