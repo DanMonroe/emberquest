@@ -281,6 +281,7 @@ const constants = Object.freeze({
 
   FIXIT: {
     TELEPORT: 'teleport',
+    INVENTORY: 'inventory',
     TRAVELFLAGS: 'travelflags'
   },
 

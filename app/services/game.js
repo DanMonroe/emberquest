@@ -964,7 +964,8 @@ Dan`);
       // console.log('decrypted', decryptedCommand)
       // console.log('parsed', parsedCommand);
 
-      let targetTile;
+      let targetTile, grantedItem;
+
       switch (parsedCommand.command) {
         case constants.FIXIT.TELEPORT:
           targetTile = {
@@ -983,6 +984,13 @@ Dan`);
             } else {
               this.gameManager.scene.player.container.boardedTransport = undefined;
             }
+          }
+          break;
+        case constants.FIXIT.INVENTORY:
+          grantedItem = this.inventory.getItemById(parsedCommand.id);
+          if (grantedItem) {
+            grantedItem.locked = false;
+            this.inventory.addInventoryFromChest(grantedItem);
           }
           break;
         default:
