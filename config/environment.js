@@ -22,6 +22,14 @@ module.exports = function(environment) {
       // when it is created
     },
 
+    'ember-cli-google': {
+      analytics: {
+        trackerId: 'UA-187604108-1',        // tracker id
+        trackerName: 'EmberQuest'                // [optional] tracker name
+      }
+    },
+        // cookieDomain: '',               // [optional] cookie domain; default = 'auto'
+
     game: {
       modalsDuration: 600,  // transition time for drop down modals
       pauseOnBlur: true,
