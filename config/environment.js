@@ -22,9 +22,26 @@ module.exports = function(environment) {
       // when it is created
     },
 
-    googleAnalytics: {
-      trackingId: 'UA-187604108-1',
-    },
+    // googleAnalytics: {
+    //   trackingId: 'UA-187604108-1',
+    // },
+    metricsAdapters: [
+      {
+        name: 'GoogleAnalytics',
+        environments: ['development', 'production'],
+        config: {
+          id: 'UA-187604108-1',
+          // Use `analytics_debug.js` in development
+          debug: environment === 'development',
+          // Use verbose tracing of GA events
+          trace: environment === 'development',
+          // Ensure development env hits aren't sent to GA
+          sendHitTask: environment !== 'development',
+          // Specify Google Analytics plugins
+          // require: ['ecommerce']
+        }
+      }
+    ],
 
     // cookieDomain: '',               // [optional] cookie domain; default = 'auto'
 
