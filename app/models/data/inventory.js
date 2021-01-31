@@ -1674,6 +1674,34 @@ export class InventoryItems {
     );
 
 
+    items.push(
+      new InventoryItem({
+        id: 2400,
+        owned: false,
+        display: false,
+        requiredLevel: 1,
+        price: 1,
+        type: constants.INVENTORY.TYPE.WEAPON,
+        bodypart: constants.INVENTORY.BODYPART.RANGED,
+        projectileImg: 'ball',
+        projectileScale: 0.4,
+
+        name: 'The Jester',
+        img: '/images/items/weapons/enchanted_stick.png',
+        cssClazz: 'ranged d',
+        description: 'A nondescript stick with a slight glow.',
+        stats: [
+          new Stat({type: constants.INVENTORY.STATS.RANGEDDAMAGE, value: 50}),
+          new Stat({type: constants.INVENTORY.STATS.POWER, value: 15}),
+          new Stat({type: constants.INVENTORY.STATS.ATTACKSPEED, value: 0.75})
+        ],
+        // velocity: 225,
+        animeframes: [
+          { type: 'range', key: 'flamerange', config: {prefix: 'missiles/fireball', start: 1, end: 2, rate: 8, repeat: -1} }
+        ],
+        audioRanged: {key: 'fireball'}
+      })
+    );
 
 
 
