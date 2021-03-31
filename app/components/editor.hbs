@@ -1,19 +1,109 @@
 <div class="editor">
-  <div class="editortitle">
-    <h1>Editors</h1>
+  <div class="saveeditor">
+    <h1>Fix Player</h1>
+    <div class="fixCommand">
+      <div class="div1">
+        Map:
+      </div>
+      <div class="div2">
+        <select id="map" {{on "change" this.setTeleportMap}}>
+          {{#each this.game.map.mapSelectionObjects as |testMap|}}
+            <option value="{{testMap.map}}">{{testMap.name}}</option>
+          {{/each}}
+        </select>
+      {{#if this.selectedTeleportMap}}
+        <span class="margin10">
+          <label for="map_x"> X: </label>
+          <Input @id="map_x" size="5" @value={{this.selectedTeleportMapX}} />
+        </span>
+        <span class="margin10">
+          <label for="map_y"> Y: </label>
+          <Input @id="map_y" size="5" @value={{this.selectedTeleportMapY}} />
+        </span>
+        <span class="margin10">
+          <label for="transport"> Transport: </label>
+          <Input @id="transport" size="10" @value={{this.selectedTransport}} />
+        </span>
+        <span class="margin10">
+          <label for="flag"> Flag: </label>
+          <select id="flag" {{on "change" this.setTeleportMapFlag}}>
+            {{#each this.teleportFlagObjects as |flags|}}
+              <option value="{{flags.value}}">{{flags.name}}</option>
+            {{/each}}
+          </select>
+        </span>
+      {{/if}}
+      </div>
+      <div class="div1">Inventory:</div>
+      <div class="div2">
+        <Input @id="inventory" size="100" @value={{this.grantedInventory}} />
+      </div>
+      <div class="div1">Level:</div>
+      <div class="div2">
+        <Input @id="level" type="number" size="10" @value={{this.grantedLevel}} />
+      </div>
+      <div class="div1">Gold:</div>
+      <div class="div2">
+        <Input @id="gold" type="number" size="10" @value={{this.grantedGold}} />
+      </div>
+      <div class="div1">Caches:</div>
+      <div class="div2">
+        <select id="cachesSelected" multiple {{on "change" this.setGrantedCaches}}>
+          <option value="">None</option>
+          {{#each this.cacheList as |cache|}}
+            <option value="{{cache.gccode}}">{{cache.gccode}} - {{cache.name}}</option>
+          {{/each}}
+        </select>
+
+      </div>
+    </div>
+
+    <h3>Fix Command Obj</h3>
+    <p>
+      <Textarea rows=7 cols=90 @id="fixcommand" @value={{{this.fixCommand}}} />
+    </p>
+    <p>
+      <button class="btn style btn-primary" {{on "click" this.generateFixEncryption}}>Generate Fix</button>
+    </p>
+
+    <label for="encrypted">Encrypted</label>
+    <p>
+      <Textarea @id="encrypted" rows=7 cols=90 @value={{this.encrypted}} />
+    </p>
+    <label for="decrypted">Decrypted</label>
+    <p>
+      <Textarea @id="decrypted" rows=7 cols=90 @value={{this.decrypted}} />
+    </p>
+    <p class="btn-wrapper">
+      <button class="btn style btn-primary" {{on "click" this.encrypt}}>Encrypt</button>
+      <button class="btn style btn-primary" {{on "click" this.decrypt}}>Decrypt</button>
+    </p>
+
+    <p>
+    <pre>
+'[
+  { "command": "teleport", "map": "m13", "x": 1, "y": 2, "transportId": 0, "tF": 1 (sea) / 2 (land) },
+  { "command": "inventory", "ids": [2003, 2001] },
+  { "command": "level", "level": 8 },
+  { "command": "gold", "gold": 1000 },
+  { "command": "caches", "caches": ["GC8V6VN", "GC8QAYM"] }
+]'
+  </pre>
+    </p>
+
   </div>
 
   <div class="mapeditor">
     <div class="maptitle">
       <h3>Map</h3>
       <p>
-        <div>Map Display Name</div>
-        <Input @id="mapdisplayname" size="50" @value={{this.mapDisplayName}} />
+      <div>Map Display Name</div>
+      <Input @id="mapdisplayname" size="50" @value={{this.mapDisplayName}} />
       </p>
       <p>
-        <div>Map Number</div>
-        <Input @id="mapnumber"  @value={{this.mapNumber}} />
-        <Input @id="mapimage"  @value={{this.mapImageName}} />
+      <div>Map Number</div>
+      <Input @id="mapnumber"  @value={{this.mapNumber}} />
+      <Input @id="mapimage"  @value={{this.mapImageName}} />
       </p>
     </div>
     <div class="mapcontent">
@@ -48,37 +138,6 @@
       </p>
     </div>
   </div>
-
-
-  <div class="saveeditor">
-    <h3>Fix Command Obj</h3>
-    <button class="btn style btn-primary" {{on "click" this.generateFixEncryption}}>Generate Fix</button>
-    <p>
-      <Textarea rows=5 cols=90 @id="fixcommand" @value={{{this.fixCommand}}} />
-    </p>
-    <p>
-      <div>'{ "command": "teleport", "map": "m13", "x": 1, "y": 2, "transportId": 0, "tF": 1 (sea) / 2 (land) }'</div>
-      <div>'{ "command": "inventory", "id": 2003 }'</div>
-    </p>
-    <p>
-      <Textarea rows=10 cols=30 @id="fixcommandencrypted" />
-    </p>
-
-    <h3>Coords Encryption</h3>
-    <label for="encryptedCoords">Encrypted</label>
-    <p>
-      <Textarea @id="encryptedCoords" rows=2 cols=50 @value={{this.encryptedCoords}} />
-    </p>
-    <label for="decryptedCoords">Decrypted</label>
-    <p>
-      <Textarea @id="decryptedCoords" rows=2 cols=50 @value={{this.decryptedCoords}} />
-    </p>
-    <p class="btn-wrapper">
-      <button class="btn style btn-primary" {{on "click" this.encryptcoords}}>Encrypt</button>
-      <button class="btn style btn-primary" {{on "click" this.decryptcoords}}>Decrypt</button>
-    </p>
-  </div>
-
 
   <div class="footer">
     <div></div>

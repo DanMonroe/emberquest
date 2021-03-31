@@ -110,6 +110,7 @@ export default class MapService extends Service {
   }
 
   mapSelectionObjects = [
+    { map: '', name: 'None' },
     { map: 'final', name: 'Final' },
     { map: 'cave1', name: 'Cave' },
     { map: 'castle', name: 'Castle' },

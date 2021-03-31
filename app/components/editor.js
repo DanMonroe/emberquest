@@ -3,6 +3,7 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { constants } from 'emberquest/services/constants';
 import { inject as service } from '@ember/service';
+import {Caches} from '../models/data/caches';
 
 export default class EditorComponent extends Component {
 
@@ -12,6 +13,10 @@ export default class EditorComponent extends Component {
     SOUTH: 2,
     WEST: 3
   };
+  teleportFlagObjects = [
+    { value: 1, name: 'Sea' },
+    { value: 2, name: 'Land' }
+  ];
 
   @service game;
   @service storage;
@@ -28,12 +33,69 @@ export default class EditorComponent extends Component {
   @tracked hexRowIdsArray;
   @tracked finalMap;
 
-  @tracked encryptedCoords;
-  @tracked decryptedCoords;
+  @tracked encrypted;
+  @tracked decrypted;
 
   @tracked currentGameData;
 
-  @tracked fixCommand = '{ "command": "teleport", "map": "m13", "x": 1, "y": 2, "transportId": 0, "tF": 2 }';
+  @tracked selectedTeleportMap = '';
+  @tracked selectedTeleportMapFlag = 1;
+  @tracked selectedTransport = 0;
+  @tracked selectedTeleportMapX = 1;
+  @tracked selectedTeleportMapY = 1;
+  @tracked grantedInventory = '';
+  @tracked grantedLevel = '';
+  @tracked grantedGold = '';
+  @tracked grantedCaches = '';
+
+  @tracked caches = undefined;
+
+// @tracked fixCommand = '[ { "command": "teleport", "map": "m13", "x": 1, "y": 2, "transportId": 0, "tF": 2 } ]';
+
+  get fixCommand() {
+
+    let commands = [];
+    if (this.selectedTeleportMap) {
+      commands.push(`{ "command": "teleport", "map": "${this.selectedTeleportMap}", "x": ${this.selectedTeleportMapX}, "y": ${this.selectedTeleportMapY}, "transportId": ${this.selectedTransport}, "tF": ${this.selectedTeleportMapFlag} }`);
+    }
+
+    if (this.grantedLevel) {
+      commands.push(`{ "command": "level", "level": ${this.grantedLevel} }`);
+    }
+
+    if (this.grantedGold) {
+      commands.push(`{ "command": "gold", "gold": ${this.grantedGold} }`);
+    }
+    if (this.grantedInventory) {
+      commands.push(`{ "command": "inventory", "ids": [${this.grantedInventory.replace(/\\s+/g, '')}] }`);
+    }
+    if (this.grantedCaches) {
+      let cachesToGive = [];
+      const caches = this.grantedCaches.split(',');
+      caches.forEach(cache => {
+        cachesToGive.push(`"${cache.trim()}"`);
+      })
+      commands.push(`{ "command": "caches", "caches": [ ${cachesToGive.join(',')} ] }`);
+    }
+
+    let returnCommand = '';
+    commands.forEach(command => {
+      if (returnCommand) {
+        returnCommand += `,
+`;
+      }
+      returnCommand += `  ${command}`;
+    });
+
+    let finalCommand = `[
+${returnCommand}
+]`;
+
+    this.decrypted = finalCommand;
+    this.encrypted = this.storage.encrypt(this.decrypted);
+
+    return finalCommand
+  }
 
   get mapImageName() {
     if (!this.mapNumber) {
@@ -58,24 +120,47 @@ export default class EditorComponent extends Component {
     return this.getPortalToMap(this.DIRECTIONS.WEST);
   }
 
-  @action
-  encryptcoords() {
-    const encrypted = this.storage.encrypt(this.decryptedCoords);
-    this.encryptedCoords = encrypted;
+  get cacheList() {
+    return new Caches().data
   }
 
   @action
-  decryptcoords() {
-    const decrypted = this.storage.decrypt(this.encryptedCoords);
-    this.decryptedCoords = decrypted;
+  setTeleportMap(evt) {
+    this.selectedTeleportMap = evt.target.value;
+  }
+
+  @action
+  setTeleportMapFlag(evt) {
+    this.selectedTeleportMapFlag = evt.target.value;
+  }
+
+  @action
+  setGrantedCaches(evt) {
+    let pickedCaches = [...evt.target.selectedOptions];
+    let selectedCaches = [];
+
+    pickedCaches.forEach(selectedCache => {
+      selectedCaches.push(selectedCache.value)
+    })
+    this.grantedCaches = selectedCaches.join(',');
+  }
+
+
+  @action
+  encrypt() {
+    this.encrypted = this.storage.encrypt(this.decrypted);
+  }
+
+  @action
+  decrypt() {
+    this.decrypted = this.storage.decrypt(this.encrypted);
   }
 
   @action
   generateFixEncryption() {
     const encryptedFix = this.storage.encrypt(this.fixCommand.trim());
 
-    // document.getElementById('fixcommandencrypted').value = this.fixCommand;
-    document.getElementById('fixcommandencrypted').value = encryptedFix;
+    document.getElementById('encrypted').value = encryptedFix;
   }
 
 

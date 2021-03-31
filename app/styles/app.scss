@@ -239,7 +239,7 @@ body {
   height: 100vh;
   margin: 0;
   padding: 0;
-  background: #22454f url(/images/backgrounds/portal-background.png);
+  //background: #22454f url(/images/backgrounds/portal-background.png);
   font-family: "Open Sans Condensed", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
@@ -325,6 +325,10 @@ a {
   }
 }
 
+.play, .game, .landing {
+  background: #22454f url(/images/backgrounds/portal-background.png);
+}
+
 .landing {
   color: #fff;
   p.intro {
@@ -334,7 +338,7 @@ a {
     text-align: center;
   }
   img.logo {
-    margin: 30px auto;
+    margin: 0 auto;
     display: block;
     width: 75vw;
   }
@@ -3359,41 +3363,65 @@ button {
   }
 }
 
-.editor {
-  margin: 20px;
-  color: #ff9f00;
+.margin10 {
+  margin: 10px;
+}
 
+.editor {
+  padding: 20px;
+  color: #ff9f00;
+  background: #22454f;
   //grid-gap: 10px;
   display: grid;
-  grid-template-columns: 50% 50%;
-  grid-template-rows: 60px auto 100px;
+  grid-template-columns: 100%;
+  grid-template-rows: auto 100px;
   grid-template-areas:
-    "editortitle  editortitle"
-    "mapeditor saveeditor"
-    "footer  footer";
+    "saveeditor"
+    "mapeditor"
+    "footer";
   min-height: 100vh;
   p {
     margin: 10px 0;
   }
+  p.sub {
+    margin: 10px 20px;
+  }
+  #cachesSelected {
+    width: 400px;
+    height: 150px;
+    option {
+      height: 20px;
+    }
+  }
 }
+
+.fixCommand {
+  margin-top: 25px;
+  display: grid;
+  grid-template-columns: .1fr 1fr;
+  grid-template-rows: repeat(4, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+}
+.fixCommand .div1 {
+  justify-self: end;
+  //grid-area: 1 / 1 / 2 / 3;
+}
+//.fixCommand .div2 { grid-area: 1 / 1 / 2 / 3; }
 
 .editortitle {
   grid-area: editortitle;
-  //background-color: green;
 }
 .footer {
   grid-area: footer;
-  //background-color: purple;
 }
 .mapeditor {
   grid-area: mapeditor;
-  //background-color: lightblue;
 }
 
 .saveeditor {
   grid-area: saveeditor;
   margin-left: 40px;
-  //background-color: yellow;
 }
 
 .padBottom10 {

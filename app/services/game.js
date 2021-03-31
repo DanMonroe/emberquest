@@ -960,25 +960,28 @@ Dan`);
     }
     try {
       const decryptedCommand = this.storage.decrypt(command.trim());
-      const parsedCommand = JSON.parse(decryptedCommand);
+      const parsedCommands = JSON.parse(decryptedCommand);
       // console.log('decrypted', decryptedCommand)
-      // console.log('parsed', parsedCommand);
+      // console.log('parsed', parsedCommands);
 
       let targetTile, grantedItem;
 
-      switch (parsedCommand.command) {
+      parsedCommands.forEach(commandObj => {
+
+
+      switch (commandObj.command) {
         case constants.FIXIT.TELEPORT:
           targetTile = {
-            map: parsedCommand.map,
-            x: parsedCommand.x,
-            y: parsedCommand.y
+            map: commandObj.map,
+            x: commandObj.x,
+            y: commandObj.y
           }
           this.teleport(this.gameManager.scene.player.container, this.gameManager.scene, targetTile);
-          if (parsedCommand.tF !== undefined) {
-            this.gameManager.scene.player.container.data.get('attrs').tF = parsedCommand.tF
+          if (commandObj.tF !== undefined) {
+            this.gameManager.scene.player.container.data.get('attrs').tF = commandObj.tF
           }
-          if (parsedCommand.transportId !== undefined) {
-            const transport = this.gameManager.scene.findTransportById(parsedCommand.transportId)
+          if (commandObj.transportId !== undefined) {
+            const transport = this.gameManager.scene.findTransportById(commandObj.transportId)
             if (transport) {
               this.gameManager.scene.player.container.boardedTransport = transport;
             } else {
@@ -987,15 +990,36 @@ Dan`);
           }
           break;
         case constants.FIXIT.INVENTORY:
-          grantedItem = this.inventory.getItemById(parsedCommand.id);
-          if (grantedItem) {
-            grantedItem.locked = false;
-            this.inventory.addInventoryFromChest(grantedItem);
-          }
+          commandObj.ids.forEach(inventoryToGrant => {
+            grantedItem = this.inventory.getItemById(inventoryToGrant);
+            if (grantedItem) {
+              grantedItem.locked = false;
+              this.inventory.addInventoryFromChest(grantedItem);
+            }
+          });
+
           break;
+        case constants.FIXIT.LEVEL:
+          this.gameManager.player.experience = this.gameManager.getExperienceFromLevel(commandObj.level);
+          break;
+        case constants.FIXIT.GOLD:
+          this.gameManager.player.gold = commandObj.gold;
+          break;
+        case constants.FIXIT.CACHES:
+            commandObj.caches.forEach(cacheToGrant => {
+            const geocache = this.cache.findCache(cacheToGrant);
+            if (geocache) {
+              geocache.found = true;
+              this.saveCacheFound(geocache);
+            }
+          });
+          break;
+
         default:
           console.error('No command found');
-      }
+        }
+      });
+
 
     } catch(error) {
       console.error(error);
