@@ -50,7 +50,7 @@ const constants = Object.freeze({
     CHEST: {key: 'pickup'}
   },
 
-  CASTLE_TELEPORT: "31ff39093a95406890707c156be17d3a4c82a0c0666dc891c375173091a1d834nmoaH5MJcyyufsiBzfWiOSdAcKt7uunrycIrAV/x6e+cLtF2OnrcLbpWyeX7WPkFreVcpXzvJNQUoU/GL/vhCHrYw75oGPc//goIAJupYPa0LDo5t/Q92GhN0JeEaAJi",
+  CASTLE_TELEPORT: "c5080b852d8ad7e65a55089fbfb2a9df3b8b6126d03d0293c5407a9c31a25feeeReAAWoXSfWNeCWoPRNrBY4NTfmnmCKdTsR+crU2UU/xFckqbyeVB4vspHErc7NalsxIfNO8VjiODlVn5ul0R0citZKI1Mrnm6YfV4Curds9an1BHXi66UbUEKYVksdk",
 
   // Base agent properties are derived from inventory items from the listed inventory property
   INVENTORY: {
