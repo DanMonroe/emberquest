@@ -1,0 +1,13 @@
+
+Hi there,
+Sorry you got stuck!  
+Please go to https://emberquest.danmonroe.dev/play?selfhelp=true
+
+When the game loads, open the settings drop down dialog (the gearbox). click the "Self Help" tab on the left side.  Copy/Paste the following characters into the white box, then click the "Fix It" button.
+
+3f0ae886bd279e9a33f384b7cba3cf5b6e71760d36b338c22fe3b37a65b51482sW0FiY41EAW4ehwxlL5TRkc1oIUEqnk4iiMKAE46bBKBy2JP+GutZRuFfy+T5AgueIFXdVkM3CxgD5EHIcuAjg==
+
+That should move you to a place where you can continue the game.
+
+Thank you!
+Dan

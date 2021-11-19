@@ -1,0 +1,40 @@
+{
+  "resources": [
+    "/audio/music/eq_music.ogg",
+    "/audio/music/eq_music.m4a",
+    "/audio/music/eq_music.mp3",
+    "/audio/music/eq_music.ac3"
+  ],
+  "spritemap": {
+    "lavamud": {
+      "start": 0,
+      "end": 5.642562358276644,
+      "loop": false
+    },
+    "birds_chirping": {
+      "start": 7,
+      "end": 28.758548752834468,
+      "loop": false
+    },
+    "horror": {
+      "start": 30,
+      "end": 63.50639455782313,
+      "loop": false
+    },
+    "kingdom_of_hope": {
+      "start": 65,
+      "end": 112.55156462585035,
+      "loop": false
+    },
+    "moleman": {
+      "start": 114,
+      "end": 226.08997732426303,
+      "loop": false
+    },
+    "skullisland": {
+      "start": 228,
+      "end": 295.0751927437642,
+      "loop": false
+    }
+  }
+}

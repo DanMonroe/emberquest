@@ -1,0 +1,49 @@
+EmberQuest Ideas
+
+At sea bays, have a ruined castle on the map as the base, create a "new" castle image to use as a texture for an agent.  
+Then the agent can be stationary and fire upon the player ship.  When the player destroyes the tower, the map will show
+a ruined tower.
+
+For a "cloud" level..  Add an "Eagle" as a transport to fly 
+
+TODO:
+Add GC code, parking coords to chest dialog.
+
+
+Main Quest:
+
+EmberQuest 
+Final Chest with the last cache
+
+Across a river of lava deep under the volcano.   
+The only way to retrieve the chest is by walking over the lava.
+To survive the lava walk, you must have 100% fire resistance.  
+A set of Dragon armor will provide the needed resistance but you must have all the pieces.
+
+Dragon Boots        (boots_wings)
+Dragon Helmet       (red helmet)
+Dragon Plate        (red breastplate)
+
+Body                (dragon_body)
+Gloves              (gloves1)
+Better Helmet       (head1) 
+Amulet?             (neck2)
+Ring                (ring6)
+Shield              (shield2)
+Sword               (runesword)
+
+Missing: Arms:
+
+
+The chest might be in a locked room behind a barred door.
+At the end, the chest will be protected by a large dragon.  
+You must defeat the dragon to open the chest to get the key that opens the door.
+
+
+
+
+Sub Quests to gather Dragon armor
+
+
+
+

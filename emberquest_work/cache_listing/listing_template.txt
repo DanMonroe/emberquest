@@ -1,0 +1,10 @@
+<p><a href="https://emberquest.danmonroe.dev/" target="_new">
+<img alt src="https://s3.amazonaws.com/gs-geo-images/ec9d9c8a-43af-4c27-911a-748a2a2b034c.png" style="border-style:solid;border-width:0px;display:block;margin:0px;width:670px;" />
+<img title="Below the surface of the Island of Death lies a lava filled cavern. A chest awaits those who are brave enough to explore. You may need a ride if you are not prepared for the heat." 
+src="https://img.geocaching.com/cache/large/815003fc-c6b6-4a0e-8cc3-a02c0b704235.png?rnd=0.9110987" 
+style="border-style:solid;border-width:0px;display:block;margin:0px;width:670px;" />
+<img alt src="https://s3.amazonaws.com/gs-geo-images/5c60a0b7-9039-4e06-ae8e-fb4af4c6f85c.png" style="border-style:solid;border-width:0px;display:block;margin:0px;width:670px;" /></a></p>
+<h5>Alternative Solution</h5>
+<p>If you choose not to play EmberQuest to solve this puzzle, you may find the coordinates with this:</p>
+<p>qbyrlouvhzgpimtzihstgobcnjkorljcvnqnkvdkzksdzgweiijcuinqc</p>
+
