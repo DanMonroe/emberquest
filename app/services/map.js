@@ -339,7 +339,7 @@ export default class MapService extends Service {
   }
 
   getTileAttribute(scene, tileXY, attribute) {
-    if (!scene.data || !tileXY) {
+    if (!scene || !scene.data || !tileXY) {
       return null;
     }
     let tileAttrs = scene.data.get('tileAttributes');

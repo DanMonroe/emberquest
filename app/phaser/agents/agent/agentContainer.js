@@ -44,6 +44,7 @@ export default class AgentContainer extends BasePhaserAgentContainer {
       }
 
       const allattrs = this.ember.map.getTileAttribute(pathFinder.scene, targetTile);
+      if (!allattrs) { return false; }
       let canMove = this.ember.playerHasAbilityFlag(this, this.ember.constants.FLAG_TYPE_TRAVEL, allattrs.tF);
 
       if (!canMove) {
