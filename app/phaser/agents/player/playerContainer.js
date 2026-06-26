@@ -85,7 +85,7 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
       if (this.agent.power <= 1) {
         if (!this.ember.gameManager.noMovePowerWarned) {
           this.ember.gameManager.messages.addMessage('nomovepower', this.ember.gameManager.intl.t('messages.nomovepower'));
-          pathFinder.scene.game.ember.showInfoDialog(this.ember.gameManager.intl.t('messages.nomovepower'));
+          (pathFinder?.scene ?? this.scene).game.ember.showInfoDialog(this.ember.gameManager.intl.t('messages.nomovepower'));
           this.ember.gameManager.noMovePowerWarned = true;
           this.ember.saveSettingsData();
         }
@@ -98,8 +98,9 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
         // config.debug.override.speed
         this.moveToObject.setSpeed(this.config.debug?.override?.speed ? this.config.debug.override.speed : this.boardedTransport.config.speed);
       }
-      const allattrs = this.ember.map.getTileAttribute(pathFinder.scene, targetTile);
-      let canMove = this.ember.playerHasAbilityFlag(pathFinder.scene.player.container, this.ember.constants.FLAG_TYPE_TRAVEL, allattrs.tF);
+      const allattrs = this.ember.map.getTileAttribute(pathFinder?.scene ?? this.scene, targetTile);
+      if (!allattrs) { return false; }
+      let canMove = this.ember.playerHasAbilityFlag(this, this.ember.constants.FLAG_TYPE_TRAVEL, allattrs.tF);
 
       // canMove will also be false if trying to move from sea to land or air to land
       if (!canMove) {
