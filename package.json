@@ -64,7 +64,7 @@
     "eslint-plugin-ember": "^8.6.0",
     "eslint-plugin-node": "^11.1.0",
     "loader.js": "^4.7.0",
-    "phaser": "^3.22.0",
+    "phaser": "3.23.0",
     "phaser3-rex-plugins": "1.1.19",
     "prember": "^1.0.4",
     "prember-middleware": "^0.1.0",
