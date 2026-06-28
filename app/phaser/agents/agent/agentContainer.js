@@ -234,6 +234,9 @@ export default class AgentContainer extends BasePhaserAgentContainer {
     // console.log('agent moveToComplete', agentContainer.agent.playerConfig.texture, agentContainer.agent);
     agentContainer.describeAgentState();
 
+    // update visibility immediately on move, before any timeout delay
+    agentContainer.setVisibility();
+
     await agentContainer.timeoutTask.perform(agentContainer);
 
     // set visibility of agent after it moves.
@@ -245,7 +248,7 @@ export default class AgentContainer extends BasePhaserAgentContainer {
 // console.log('      do transitionToMelee')
           agentContainer.transitionToMelee(agentContainer);
       } else {
-        const isInLOS = agentContainer.ember.playerContainer.fov.isInLOS(agentContainer.rexChess.tileXYZ);
+        const isInLOS = agentContainer.ember.playerContainer.fov.isInLOS(agentContainer.rexChess.tileXYZ, agentContainer.ember.playerContainer.visiblePoints);
 
         agentContainer.setVisibilityIfInLineOfSight(agentContainer, isInLOS);
 if (true) {  // TODO remove
