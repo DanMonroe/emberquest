@@ -79,7 +79,44 @@
       <button class="btn style btn-primary" {{on "click" this.decrypt}}>Decrypt</button>
     </p>
 
+    <div class="transports">
+        <h3>Transports</h3>
+        <div class="transportlist">
+          <table class="transport-table">
+            <thead>
+              <tr>
+                <th>Icon</th>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Speed</th>
+                <th>tF (flag)</th>
+                <th>Inventory IDs</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each this.transportList as |t|}}
+                <tr>
+                  <td>
+                    {{#if t.image}}
+                      <img src={{t.image}} height="80" alt={{t.prefix}} />
+                    {{else}}
+                      —
+                    {{/if}}
+                  </td>
+                  <td>{{t.id}}</td>
+                  <td>{{t.prefix}}</td>
+                  <td>{{t.speed}}</td>
+                  <td>{{t.tF}}</td>
+                  <td>{{t.inventory}}</td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+    </div>
+
     <p>
+      <h3>Example command</h3>
     <pre>
 '[
   { "command": "teleport", "map": "m13", "x": 1, "y": 2, "transportId": 0, "tF": 1 (sea) / 2 (land) },
@@ -93,6 +130,8 @@
 
   </div>
 
+
+  <hr />
   <div class="mapeditor">
     <div class="maptitle">
       <h3>Map</h3>

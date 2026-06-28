@@ -104,6 +104,29 @@ export class GameboardScene extends Phaser.Scene {
     this.ember.gameManager.loadingNewScene = false;
     this.ember.gameManager.pauseGame(false);
     // this.musicAudio.play();
+
+    if (this.ember.thisIsDan) {
+      console.log('%c ⌨️  Dev Controls', 'color: orange; font-size: 15px; font-weight: bold; margin: 10px 0 4px 0;');
+      console.table([
+        { input: 'Option + Click',          action: 'Show tile info (attributes, agent info, map coords)' },
+        { input: 'Option + Shift + Click',  action: 'Full heal player (health + power)' },
+        { input: 'Option + Cmd + Click',    action: 'Teleport player to clicked tile' },
+        { input: 'Cmd + Shift + Click',     action: 'Generate encrypted teleport fixIt command for tile' },
+        { input: 'Q / W / E / A / S / D',  action: 'Move player in hex directions' },
+      ]);
+      console.log('%c 🔗  Query Params', 'color: orange; font-size: 15px; font-weight: bold; margin: 10px 0 4px 0;');
+      console.table([
+        { param: 'map=<key>',           description: 'Start on a specific map (e.g. m7, castle)' },
+        { param: 'x=<n>&y=<n>',        description: 'Start player at specific tile coordinates' },
+        { param: 'level=<n>',          description: 'Override player starting level' },
+        { param: 'gold=<n>',           description: 'Override player starting gold' },
+        { param: 'speed=<n>',          description: 'Override player movement speed' },
+        { param: 'debug=true',         description: 'Enable Phaser debug rendering' },
+        { param: 'selfhelp=true',      description: 'Show Self Help tab in config dialog' },
+        { param: 'resetcache=<gccode>', description: 'Remove a specific geocache from found state' },
+        { param: 'dan=true',           description: 'Enable dev controls and this help output' },
+      ]);
+    }
   }
 
   boardExperiments() {
@@ -184,6 +207,8 @@ export class GameboardScene extends Phaser.Scene {
     const allAttrs = this.ember.map.getTileAttribute(this, tileXY);
     console.log(`%c Map: ${this.mapname.toUpperCase()} - Tile Info:`, 'color: yellow; font-size: 16px; margin: 15px 0 0 0;')
 
+    console.log(`%c ${this.mapDisplayName} - x: ${tileXY.x}, y: ${tileXY.y}`, 'color: cyan; font-size: 13px;');
+
     console.table([
       {
         tile: `  'x': ${allAttrs.x}, 'y': ${allAttrs.y}  `,
@@ -197,9 +222,10 @@ export class GameboardScene extends Phaser.Scene {
     ]);
     // console.log(allAttrs);
     console.log('');
-    console.log(`%c${this.ember.describePlayerFlags(this.player.container)}`, 'color: purple; font-size: 16px; margin: 15px 0 0 0;')
+    console.log(`%c${this.ember.describePlayerFlags(this.player.container)}`, 'color: #04ff00; font-size: 16px; margin: 15px 0 0 0;')
     console.log('');
 
+    // TODO:  Add a example fixCommand here:
   }
 
   createGameManager() {

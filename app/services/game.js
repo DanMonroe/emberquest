@@ -29,6 +29,7 @@ export default class GameService extends Service {
   @service messages;
   @service('spawner') spawnerService;
   @service agentPool;
+  @service transportPool;
 
   // @tracked cameraMainZoom = 1;
   @tracked cameraMainZoom = 1.4;
@@ -408,6 +409,35 @@ export default class GameService extends Service {
     scene.board.addChess(transport.container, transportConfig.objectConfig.x, transportConfig.objectConfig.y, this.constants.TILEZ_TRANSPORTS);
     transport.container.setDepth(scene.ember.constants.TILEZ_TRANSPORTS)
     return transport.container;
+  }
+
+  spawnRescueTransport(scene, requestedTransportId) {
+    // Find a rescue copy (id 10000+original or 20000+original) that isn't already in the scene
+    const rescueIds = [10000 + requestedTransportId, 20000 + requestedTransportId];
+    const pool = this.transportPool.getTransportPool();
+
+    for (const rescueId of rescueIds) {
+      if (scene.findTransportById(rescueId)) {
+        continue; // this rescue copy is already in use
+      }
+      const rescueConfig = [...pool.values()].find(t => t.id === rescueId);
+      if (!rescueConfig) {
+        continue;
+      }
+      const playerTile = scene.player.container.rexChess.tileXYZ;
+      const transportConfig = {
+        objectConfig: Object.assign({}, rescueConfig, { x: playerTile.x, y: playerTile.y })
+      };
+      const transportContainer = this.createTransport(scene, transportConfig);
+      transportContainer.setAlpha(0);
+      scene.transports.add(transportContainer);
+      transportContainer.setVisibility();
+      console.log(`Spawned rescue transport id ${rescueId} for requested id ${requestedTransportId}`);
+      return transportContainer;
+    }
+
+    console.error(`No rescue transport available for id ${requestedTransportId}`);
+    return null;
   }
 
   processPlayerMove(playerContainer, moveTo, fieldOfViewTileXYArray) {
@@ -981,9 +1011,18 @@ Dan`);
             this.gameManager.scene.player.container.data.get('attrs').tF = commandObj.tF
           }
           if (commandObj.transportId !== undefined) {
-            const transport = this.gameManager.scene.findTransportById(commandObj.transportId)
+            let transport = this.gameManager.scene.findTransportById(commandObj.transportId);
+            if (!transport) {
+              // Original not found in scene — spawn a rescue copy from the pool
+              transport = this.spawnRescueTransport(this.gameManager.scene, commandObj.transportId);
+            }
             if (transport) {
               this.gameManager.scene.player.container.boardedTransport = transport;
+              const transportTF = transport.config.flagAttributes?.tF;
+              if (transportTF !== undefined) {
+                this.turnOffPlayerTravelAbilityFlag(this.gameManager.scene.player.container, this.constants.FLAGS.TRAVEL.LAND);
+                this.turnOnPlayerTravelAbilityFlag(this.gameManager.scene.player.container, transportTF);
+              }
             } else {
               this.gameManager.scene.player.container.boardedTransport = undefined;
             }
