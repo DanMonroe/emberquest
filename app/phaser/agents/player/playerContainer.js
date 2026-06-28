@@ -419,6 +419,11 @@ export default class PlayerContainer extends BasePhaserAgentContainer {
     let fieldOfViewTileXYArray = playerContainer.fov.findFOV(playerContainer.visiblePoints);
     moveTo.scene.game.ember.map.findAgentFieldOfView(playerContainer, fieldOfViewTileXYArray);
     moveTo.scene.game.ember.processPlayerMove(playerContainer, moveTo, fieldOfViewTileXYArray);
+    const transport = playerContainer.boardedTransport;
+    const transportInfo = transport
+      ? ` | transport id: ${transport.config.id} tF: ${transport.config.flagAttributes?.tF} sF: ${transport.config.flagAttributes?.sF}`
+      : '';
+    console.log(`%c${moveTo.scene.game.ember.describePlayerFlags(playerContainer)}${transportInfo}`, 'color: #04ff00; font-size: 13px;');
   }
 
 }

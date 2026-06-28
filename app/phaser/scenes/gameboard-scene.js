@@ -184,6 +184,8 @@ export class GameboardScene extends Phaser.Scene {
     const allAttrs = this.ember.map.getTileAttribute(this, tileXY);
     console.log(`%c Map: ${this.mapname.toUpperCase()} - Tile Info:`, 'color: yellow; font-size: 16px; margin: 15px 0 0 0;')
 
+    console.log(`%c ${this.mapDisplayName} - x: ${tileXY.x}, y: ${tileXY.y}`, 'color: cyan; font-size: 13px;');
+
     console.table([
       {
         tile: `  'x': ${allAttrs.x}, 'y': ${allAttrs.y}  `,
@@ -197,9 +199,10 @@ export class GameboardScene extends Phaser.Scene {
     ]);
     // console.log(allAttrs);
     console.log('');
-    console.log(`%c${this.ember.describePlayerFlags(this.player.container)}`, 'color: purple; font-size: 16px; margin: 15px 0 0 0;')
+    console.log(`%c${this.ember.describePlayerFlags(this.player.container)}`, 'color: #04ff00; font-size: 16px; margin: 15px 0 0 0;')
     console.log('');
 
+    // TODO:  Add a example fixCommand here:
   }
 
   createGameManager() {

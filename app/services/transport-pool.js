@@ -395,6 +395,109 @@ export default class TransportPoolService extends Service {
       })
     );
 
+    // Rescue transports — IDs 10000+original and 20000+original.
+    // These are spawned on-demand by fixItTask when the original is missing from the scene.
+
+    // Ice Breaker rescues (original: 701)
+    this.transportpool.set('rescue_m7_1',
+      Object.assign(Object.assign({}, this.baseTransport), {
+        id: 10701,
+        scale: 1.2,
+        animeframes: {
+          rest: {key: 'm7_1-rest', prefix: 'ships/rhinoreme-', start: 1, end: 1},
+          move: {key: 'm7_1-move', prefix: 'ships/rhinoreme-', start: 1, end: 3}
+        },
+        flagAttributes: { sF: 0, tF: 17 },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5300 } ]}]
+      })
+    );
+    this.transportpool.set('rescue_m7_2',
+      Object.assign(Object.assign({}, this.baseTransport), {
+        id: 20701,
+        scale: 1.2,
+        animeframes: {
+          rest: {key: 'm7_1-rest', prefix: 'ships/rhinoreme-', start: 1, end: 1},
+          move: {key: 'm7_1-move', prefix: 'ships/rhinoreme-', start: 1, end: 3}
+        },
+        flagAttributes: { sF: 0, tF: 17 },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5300 } ]}]
+      })
+    );
+
+    // Lava boat rescues (original: 9901)
+    this.transportpool.set('rescue_final_1',
+      Object.assign(Object.assign({}, this.baseTransport), {
+        id: 19901,
+        speed: 50,
+        scale: .45,
+        animeframes: {
+          rest: {key: 'final_1-rest', prefix: 'ships/lava_boat', start: 1, end: 1}
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5302 } ]}]
+      })
+    );
+    this.transportpool.set('rescue_final_2',
+      Object.assign(Object.assign({}, this.baseTransport), {
+        id: 29901,
+        speed: 50,
+        scale: .45,
+        animeframes: {
+          rest: {key: 'final_1-rest', prefix: 'ships/lava_boat', start: 1, end: 1}
+        },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5302 } ]}]
+      })
+    );
+
+    // Gryphon rescues (original: 9902)
+    this.transportpool.set('rescue_gryphon_1',
+      Object.assign(Object.assign({}, this.baseTransport), {
+        id: 19902,
+        speed: 200,
+        scale: 1.5,
+        animeframes: {
+          rest: {key: 'gryphonrest', prefix: 'gryphon/gryphon', start: 1, end: 1},
+          move: {key: 'gryphonmove', prefix: 'gryphon/gryphon-flying-', start: 1, end: 8, rate: 8, repeat: -1}
+        },
+        flagAttributes: { sF: 0, tF: 4 },
+        transferAtDock: false,
+        transferAtNest: true,
+        inventory: []
+      })
+    );
+    this.transportpool.set('rescue_gryphon_2',
+      Object.assign(Object.assign({}, this.baseTransport), {
+        id: 29902,
+        speed: 200,
+        scale: 1.5,
+        animeframes: {
+          rest: {key: 'gryphonrest', prefix: 'gryphon/gryphon', start: 1, end: 1},
+          move: {key: 'gryphonmove', prefix: 'gryphon/gryphon-flying-', start: 1, end: 8, rate: 8, repeat: -1}
+        },
+        flagAttributes: { sF: 0, tF: 4 },
+        transferAtDock: false,
+        transferAtNest: true,
+        inventory: []
+      })
+    );
+
+    // Generic boat rescues (originals: 8001-8005)
+    this.transportpool.set('rescue_s_1',
+      Object.assign(Object.assign({}, this.baseTransport), {
+        id: 18001,
+        scale: 1.2, speed: 90,
+        animeframes: { rest: {key: 's_1-rest', prefix: 'ships/boat', start: 1, end: 1} },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5303 } ]}]
+      })
+    );
+    this.transportpool.set('rescue_s_2',
+      Object.assign(Object.assign({}, this.baseTransport), {
+        id: 28001,
+        scale: 1.2, speed: 90,
+        animeframes: { rest: {key: 's_1-rest', prefix: 'ships/boat', start: 1, end: 1} },
+        inventory: [{ bodypart: constants.INVENTORY.BODYPART.RANGED, items: [ { itemId: 5303 } ]}]
+      })
+    );
+
 
   }
 
