@@ -113,6 +113,8 @@ module.exports = function(environment) {
     ENV.game.pauseOnBlur = false;
     // ENV.game.playerConfig.speed = 300;
 
+    ENV.game.showAgentSelector = true;
+
   }
 
   if (environment === 'test') {
