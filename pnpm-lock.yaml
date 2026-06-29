@@ -12,8 +12,8 @@ importers:
         specifier: ^2.3.2
         version: 2.3.2
       emberquest-map-data:
-        specifier: github:DanMonroe/emberquest-map-data
-        version: git+https://github.com/DanMonroe/emberquest-map-data.git#2ae7f945878d1411c226eeaec87059aed78927d5
+        specifier: ^0.3.9
+        version: 0.3.9
       focus-trap:
         specifier: ^5.1.0
         version: 5.1.0
@@ -3143,9 +3143,8 @@ packages:
     resolution: {integrity: sha512-oiUNIBPCyJtzkcRUAi3qCRwU+yq5r9gzlPLKRG1pQ2WA209lphmZQRR+TyaeNwOijs9bjttzFV6YOyaTO40B/A==}
     engines: {node: 8.* || >= 10.*}
 
-  emberquest-map-data@git+https://github.com/DanMonroe/emberquest-map-data.git#2ae7f945878d1411c226eeaec87059aed78927d5:
-    resolution: {commit: 2ae7f945878d1411c226eeaec87059aed78927d5, repo: https://github.com/DanMonroe/emberquest-map-data.git, type: git}
-    version: 0.3.9
+  emberquest-map-data@0.3.9:
+    resolution: {integrity: sha512-wcIGbBStQmnAkfYduNeMA4wWw1W3f4mBWabC4faOR1Ufyen/SBgMgmjXy9+9xQUWQlwxHNesACNt85Eaew8JsQ==}
 
   emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
@@ -11290,7 +11289,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  emberquest-map-data@git+https://github.com/DanMonroe/emberquest-map-data.git#2ae7f945878d1411c226eeaec87059aed78927d5: {}
+  emberquest-map-data@0.3.9: {}
 
   emoji-regex@8.0.0: {}
 
