@@ -1,5 +1,5 @@
 [build]
-  command = "pnpm run build"
+  command = "echo '//github.com/:_authToken=${GITHUB_TOKEN}' >> ~/.npmrc && pnpm run build"
   publish = "dist"
 
 [build.environment]
