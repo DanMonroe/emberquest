@@ -66,9 +66,7 @@
     "loader.js": "^4.7.0",
     "phaser": "3.23.0",
     "phaser3-rex-plugins": "1.1.19",
-    "prember": "^1.0.4",
-    "prember-middleware": "^0.1.0",
-    "qunit-dom": "^1.2.0",
+"qunit-dom": "^1.2.0",
     "sass": "^1.25.0"
   },
   "engines": {
