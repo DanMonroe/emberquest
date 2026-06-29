@@ -3424,6 +3424,32 @@ button {
   margin-left: 40px;
 }
 
+.transport-table {
+  border-collapse: collapse;
+  font-size: 13px;
+  margin-top: 8px;
+
+  th, td {
+    border: 1px solid #555;
+    padding: 4px 8px;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  th {
+    background: #333;
+    color: #fff;
+  }
+
+  tr:nth-child(even) td {
+    background: #1a1a1a;
+  }
+
+  img {
+    display: block;
+  }
+}
+
 .padBottom10 {
   padding-bottom: 10px;
 }

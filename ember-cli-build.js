@@ -8,12 +8,6 @@ module.exports = function(defaults) {
       plugins: [ require.resolve('ember-auto-import/babel-plugin') ]
     },
 
-    prember: {
-      urls: [
-        '/'
-      ]
-    },
-
     fingerprint: {
       include: [
         'images/help',
@@ -39,6 +33,7 @@ module.exports = function(defaults) {
     }
 
   });
+
 
   app.import('vendor/bootstrap/css/bootstrap.css', {
     destDir: 'assets'

@@ -20,8 +20,76 @@ export default class EditorComponent extends Component {
 
   @service game;
   @service storage;
+  @service transportPool;
 
   constants = constants;
+
+  // Maps pool prefix → standalone image path for the editor transport list
+  transportImageMap = {
+    'ships/cutter':    '/images/transports/cutter.png',
+    'ships/frigate':   '/images/transports/carrack.png',
+    'ships/caravel':   '/images/transports/caravel.png',
+    'ships/galleon':   '/images/transports/gunboat.png',
+    'ships/sailboat':  '/images/transports/sailboat.png',
+    'ships/corvette':  '/images/transports/sailboat.png',
+    'ships/galley':    '/images/transports/longboat.png',
+    'ships/gunboat':   '/images/transports/gunboat.png',
+    'ships/boat':      '/images/transports/boat.png',
+    'ships/swampboat': '/images/transports/boat.png',
+    'ships/barque':    '/images/transports/barque.png',
+    'ships/rhinoreme-': '/images/transports/rhinoreme.png',
+    'ships/lava_boat': '/images/transports/boat.png',
+    'gryphon/gryphon': '/images/transports/gryphon.png',
+  };
+
+  constructor(owner, args) {
+    super(owner, args);
+    // pre-warm the pool outside of a render cycle to avoid mutation-after-consumption
+    this.transportPool.getTransportPool();
+  }
+
+  inventoryNames = {
+    5300: 'Ship Cannon, dmg 5',
+    5301: 'Ship Cannon, dmg 10',
+    5302: 'Ship Cannon, dmg 20',
+    5303: 'Ship Cannon, dmg 3',
+  };
+
+  tFLabels = [
+    { value: 1,  label: 'Sea' },
+    { value: 2,  label: 'Land' },
+    { value: 4,  label: 'Air' },
+    { value: 8,  label: 'Impassable' },
+    { value: 16, label: 'Ice' },
+  ];
+
+  decodeTF(tF) {
+    if (tF === '—' || tF === undefined || tF === null) { return '—'; }
+    const parts = this.tFLabels.filter(f => tF & f.value).map(f => f.label);
+    return parts.length ? `${tF} (${parts.join(', ')})` : String(tF);
+  }
+
+  get transportList() {
+    const pool = this.transportPool.transportpool;
+    if (!pool) {
+      return [];
+    }
+    return [...pool.values()]
+      .filter(t => t.id < 10000)
+      .sort((a, b) => a.id - b.id)
+      .map(t => {
+        const prefix = t.animeframes?.rest?.prefix || '';
+        const image = this.transportImageMap[prefix] || null;
+        const inventory = (t.inventory || [])
+          .flatMap(slot => (slot.items || []).map(i => {
+            const name = this.inventoryNames[i.itemId];
+            return name ? `${i.itemId} (${name})` : String(i.itemId);
+          }))
+          .join(', ') || '—';
+        const tF = t.flagAttributes?.tF ?? t.tF ?? '—';
+        return { id: t.id, prefix, image, inventory, speed: t.speed, tF: this.decodeTF(tF) };
+      });
+  }
 
   @tracked mapText;
   @tracked mapNumber;

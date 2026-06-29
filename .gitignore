@@ -29,3 +29,7 @@
 /.idea
 
 .DS_Store
+
+# mise-managed toolchains
+/tools/
+/bin/
