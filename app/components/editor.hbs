@@ -131,54 +131,34 @@
   </div>
 
 
-  <hr />
-  <div class="mapeditor">
-    <div class="maptitle">
-      <h3>Map</h3>
-      <p>
-      <div>Map Display Name</div>
-      <Input @id="mapdisplayname" size="50" @value={{this.mapDisplayName}} />
-      </p>
-      <p>
-      <div>Map Number</div>
-      <Input @id="mapnumber"  @value={{this.mapNumber}} />
-      <Input @id="mapimage"  @value={{this.mapImageName}} />
-      </p>
-    </div>
-    <div class="mapcontent">
-      <div class="mapnorth">
-        Map North<br/>
-        <Input @id="mapnorth" size="10" @value={{this.mapNorth}} />
-      </div>
-      <div class="mapwest">
-        Map West<br/>
-        <Input @id="mapwest"  size="10" @value={{this.mapWest}} />
-      </div>
-      <div class="thismap">
-        <label for="maparraytextarea">Wesnoth Input:</label>
-        <Textarea @id="maparraytextarea" rows=20 cols=50 @value={{this.mapText}} />
-      </div>
-      <div class="mapeast">
-        Map East<br/>
-        <Input @id="mapeast"  size="10" @value={{this.mapEast}} />
-      </div>
-      <div class="mapsouth">
-        Map South<br/>
-        <Input @id="mapsouth" size="10"  @value={{this.mapSouth}} />
-      </div>
-    </div>
-    <div class="mapfooter">
-      <p class="btn-wrapper">
-        <button class="btn style btn-primary" {{on "click" this.generateHexes}}>Generate Hex Models</button>
-      </p>
-      <label for="outputtextarea">EmberQuest Output:</label>
-      <p>
-        <Textarea @id="outputtextarea" rows=20 cols=75 @value={{this.finalMap}} />
-      </p>
-    </div>
+  <div class="cachecoords">
+    <h3>Cache Coordinates</h3>
+    <table class="caches-table">
+      <thead>
+        <tr>
+          <th>GC Code</th>
+          <th>Name</th>
+          <th>Coords</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each this.cacheCoordsList as |cache|}}
+          <tr>
+            <td>
+              <a href="https://www.geocaching.com/geocache/{{cache.gccode}}" target="_blank" rel="noopener noreferrer">{{cache.gccode}}</a>
+            </td>
+            <td>{{cache.name}}</td>
+            <td>
+              {{#if cache.mapUrl}}
+                <a href={{cache.mapUrl}} target="_blank" rel="noopener noreferrer">{{cache.coords}}</a>
+              {{else}}
+                {{cache.coords}}
+              {{/if}}
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
   </div>
 
-  <div class="footer">
-    <div></div>
-  </div>
 </div>

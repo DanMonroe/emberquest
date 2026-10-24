@@ -81,5 +81,8 @@
     "localforage": "^1.7.3",
     "simple-crypto-js": "2.2.0"
   },
-  "packageManager": "pnpm@10.34.4"
+  "packageManager": "pnpm@10.34.4",
+  "volta": {
+    "node": "20.20.2"
+  }
 }

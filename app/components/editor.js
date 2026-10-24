@@ -192,6 +192,30 @@ ${returnCommand}
     return new Caches().data
   }
 
+  get cacheCoordsList() {
+    return this.cacheList.map(cache => {
+      const coords = this.storage.decrypt(cache.coords);
+      return {
+        gccode: cache.gccode,
+        name: cache.name,
+        coords,
+        mapUrl: this.googleMapsUrl(coords)
+      };
+    });
+  }
+
+  // "N 40 9.572 W 83 10.864" (degrees + decimal minutes) -> Google Maps pin
+  googleMapsUrl(coords) {
+    const match = /([NS])\s*(\d+)\s+([\d.]+)\s+([EW])\s*(\d+)\s+([\d.]+)/.exec(coords || '');
+    if (!match) {
+      return null;
+    }
+    const [, ns, latDeg, latMin, ew, lngDeg, lngMin] = match;
+    const lat = (+latDeg + latMin / 60) * (ns === 'S' ? -1 : 1);
+    const lng = (+lngDeg + lngMin / 60) * (ew === 'W' ? -1 : 1);
+    return `https://www.google.com/maps/place/${lat.toFixed(7)},${lng.toFixed(7)}/data=!3m1!1e3`;
+  }
+
   @action
   setTeleportMap(evt) {
     this.selectedTeleportMap = evt.target.value;

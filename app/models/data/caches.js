@@ -27,7 +27,7 @@ export class Caches {
         difficulty: 1.5,
         terrain: 1.5,
         foundInstructions: 'Congrats.. now do this',
-        coords: '9d902e449f00586b32ea9153bab4ec6e94a1932e4364f364c999522fb3731233IpP0rLCqjm1xHCG4ECBV+NAcvsmk+kSQRG5AUHhrb/M=',
+        coords: '4f30ff1b67a70ca46535e6402e08a466929bb6b7ceb9bc07a2ff7ceb4587938cviGWTcdYQXlrjRYLmC8uxSxyOt+yVuw2o7IjwqiXGBw=',
         puzzleHint: ''
       })
     );
